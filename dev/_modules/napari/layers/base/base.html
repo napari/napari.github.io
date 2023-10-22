@@ -288,6 +288,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">Tuple</span><span class="p">,</span>
     <span class="n">Type</span><span class="p">,</span>
     <span class="n">Union</span><span class="p">,</span>
+    <span class="n">cast</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">magicgui</span> <span class="k">as</span> <span class="nn">mgui</span>
@@ -341,6 +342,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="kn">import</span> <span class="nn">numpy.typing</span> <span class="k">as</span> <span class="nn">npt</span>
 
     <span class="kn">from</span> <span class="nn">napari.components.dims</span> <span class="kn">import</span> <span class="n">Dims</span>
+    <span class="kn">from</span> <span class="nn">napari.components.overlays.base</span> <span class="kn">import</span> <span class="n">Overlay</span>
 
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;napari.layers.base.base&quot;</span><span class="p">)</span>
@@ -629,7 +631,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">ndim</span>
         <span class="k">if</span> <span class="n">translate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">translate</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ndim</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span> <span class="o">=</span> <span class="n">TransformChain</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">:</span> <span class="n">TransformChain</span><span class="p">[</span><span class="n">Affine</span><span class="p">]</span> <span class="o">=</span> <span class="n">TransformChain</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="n">Affine</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;tile2data&#39;</span><span class="p">),</span>
                 <span class="n">CompositeAffine</span><span class="p">(</span>
@@ -662,7 +664,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">TransformBoxOverlay</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span> <span class="o">=</span> <span class="n">EventedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">:</span> <span class="n">EventedDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Overlay</span><span class="p">]</span> <span class="o">=</span> <span class="n">EventedDict</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">EmitterGroup</span><span class="p">(</span>
             <span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
@@ -723,7 +725,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">cls</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> layer </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> at </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">_mode_setter_helper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Mode</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Mode</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_mode_setter_helper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode_in</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Mode</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">StringEnum</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Helper to manage callbacks in multiple layers</span>
 
@@ -744,10 +746,15 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            New mode for the current layer.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="p">(</span><span class="n">mode_in</span><span class="p">)</span>
+        <span class="c1"># Sub-classes can have their own Mode enum, so need to get members</span>
+        <span class="c1"># from the specific mode class set on this layer.</span>
+        <span class="n">PAN_ZOOM</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="n">TRANSFORM</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">TRANSFORM</span>  <span class="c1"># type: ignore[attr-defined]</span>
         <span class="k">assert</span> <span class="n">mode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">editable</span><span class="p">:</span>
-            <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="n">PAN_ZOOM</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">mode</span>
 
@@ -773,16 +780,14 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">callback_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mode_dict</span><span class="p">[</span><span class="n">mode</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_modes</span><span class="p">[</span><span class="n">mode</span><span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="o">=</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;transform_box&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">TRANSFORM</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="o">=</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">PAN_ZOOM</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;transform_box&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">TRANSFORM</span>
 
-        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">TRANSFORM</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                 <span class="s1">&#39;hold &lt;space&gt; to pan/zoom, hold &lt;shift&gt; to preserve aspect ratio and rotate in 45° increments&#39;</span>
             <span class="p">)</span>
-        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">PAN_ZOOM</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
         <span class="k">return</span> <span class="n">mode</span>
@@ -1424,7 +1429,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_slice_dims</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span><span class="p">,</span>
         <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Slice data with values from a global dims model.</span>
@@ -1452,9 +1457,9 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_make_slice_input</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_SliceInput</span><span class="p">:</span>
-        <span class="n">world_ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="k">if</span> <span class="n">dims</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">dims</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="n">world_ndim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="k">if</span> <span class="n">dims</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">dims</span><span class="o">.</span><span class="n">ndim</span>
         <span class="k">if</span> <span class="n">dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># if no dims is given, &quot;world&quot; has same dimensionality of self</span>
             <span class="c1"># this happens for example if a layer is not in a viewer</span>
@@ -1462,15 +1467,14 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">world_slice</span> <span class="o">=</span> <span class="n">_ThickNDSlice</span><span class="o">.</span><span class="n">make_full</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">world_slice</span> <span class="o">=</span> <span class="n">_ThickNDSlice</span><span class="o">.</span><span class="n">from_dims</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
-
-        <span class="n">order</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">world_ndim</span><span class="p">))</span>
+        <span class="n">order_array</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">world_ndim</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">dims</span><span class="o">.</span><span class="n">order</span> <span class="ow">is</span> <span class="kc">None</span>
-            <span class="k">else</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">dims</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
+            <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dims</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="n">order</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_world_to_layer_dims</span><span class="p">(</span>
-                <span class="n">world_dims</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+                <span class="n">world_dims</span><span class="o">=</span><span class="n">order_array</span><span class="p">,</span>
                 <span class="n">ndim_world</span><span class="o">=</span><span class="n">world_ndim</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="p">)</span>
@@ -1577,8 +1581,8 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_get_value_3d</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">start_point</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">end_point</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">start_point</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+        <span class="n">end_point</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span>
         <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span>
@@ -1705,7 +1709,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">else</span><span class="p">:</span>
             <span class="n">coords</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">position</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">simplified</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span></div>
+        <span class="n">simplified</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Affine</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">simplified</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">simplified</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Layer.data_to_world"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.data_to_world">[docs]</a>    <span class="k">def</span> <span class="nf">data_to_world</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert from data coordinates to world coordinates.</span>
@@ -1761,7 +1766,8 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        affine * (rotate * shear * scale + translate)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">simplified</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">simplified</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">Affine</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_world_to_data_ray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a vector defining an orientation from world coordinates to data coordinates.</span>
@@ -1934,7 +1940,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">view_direction</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
         <span class="n">world</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the start and end point for the ray extending</span>
 <span class="sd">        from a point through the data bounding box.</span>
 
@@ -1997,7 +2003,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
         <span class="n">bounding_box</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
         <span class="n">world</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the start and end point for the ray extending</span>
 <span class="sd">        from a point through the data bounding box.</span>
 

@@ -275,8 +275,14 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">app_model.types</span> <span class="kn">import</span> <span class="n">KeyBinding</span>
-<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">PrivateAttr</span><span class="p">,</span> <span class="n">main</span><span class="p">,</span> <span class="n">utils</span>
 
+<span class="kn">from</span> <span class="nn">napari._pydantic_compat</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BaseModel</span><span class="p">,</span>
+    <span class="n">ModelMetaclass</span><span class="p">,</span>
+    <span class="n">PrivateAttr</span><span class="p">,</span>
+    <span class="n">main</span><span class="p">,</span>
+    <span class="n">utils</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.event</span> <span class="kn">import</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">pick_equality_operator</span>
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
@@ -336,7 +342,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">main</span><span class="o">.</span><span class="n">ClassAttribute</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">ClassAttribute</span>
 
 
-<span class="k">class</span> <span class="nc">EventedMetaclass</span><span class="p">(</span><span class="n">main</span><span class="o">.</span><span class="n">ModelMetaclass</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">EventedMetaclass</span><span class="p">(</span><span class="n">ModelMetaclass</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;pydantic ModelMetaclass that preps &quot;equality checking&quot; operations.</span>
 
 <span class="sd">    A metaclass is the thing that &quot;constructs&quot; a class, and ``ModelMetaclass``</span>

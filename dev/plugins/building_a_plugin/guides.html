@@ -877,13 +877,16 @@ other plugins or workflows: try to only modify layers added by your plugin, or
 specifically requested by the user.</p>
 </div>
 <p>The widget specification requires that the plugin provide napari with a
-<em>callable</em> object that, when called, returns an <em>instance</em> of a widget
-(where a “widget” is an instance of <code class="docutils literal notranslate"><span class="pre">QtWidgets.QWidget</span></code> or <code class="docutils literal notranslate"><span class="pre">magicgui.widgets.Widget</span></code>).</p>
+<em>callable</em> object that, when called, returns an <em>instance</em> of a widget.
+Here “widget” means a subclass of <code class="docutils literal notranslate"><span class="pre">QtWidgets.QWidget</span></code> or <code class="docutils literal notranslate"><span class="pre">magicgui.widgets.Widget</span></code>,
+or a <code class="docutils literal notranslate"><span class="pre">FunctionGui</span></code>. Additionally, the plugin can provide an arbitrary function if using
+‘autogenerate’, which requests that napari autogenerate a widget using
+<code class="docutils literal notranslate"><span class="pre">magicgui.magicgui</span></code> (see item 3 below).</p>
 <p>There are a few commonly used patterns that fulfill this <code class="docutils literal notranslate"><span class="pre">Callable[...,</span> <span class="pre">Widget]</span></code>
 specification:</p>
 <ol class="arabic">
-<li><p>Provide a <code class="docutils literal notranslate"><span class="pre">class</span></code> object directly, such as a <code class="docutils literal notranslate"><span class="pre">QtWidgets.QWidget</span></code> or
-<code class="docutils literal notranslate"><span class="pre">magicgui.widgets.Widget</span></code> subclass:</p>
+<li><p>Provide a <code class="docutils literal notranslate"><span class="pre">class</span></code> object that is a subclass of <code class="docutils literal notranslate"><span class="pre">QtWidgets.QWidget</span></code> or
+<code class="docutils literal notranslate"><span class="pre">magicgui.widgets.Widget</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QWidget</span>
 
 <span class="k">class</span> <span class="nc">MyPluginWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
@@ -893,7 +896,7 @@ specification:</p>
 </pre></div>
 </div>
 </li>
-<li><p>Provide a wrapper function, or <code class="docutils literal notranslate"><span class="pre">magicgui.magic_factory</span></code> object:</p>
+<li><p>Provide a <code class="docutils literal notranslate"><span class="pre">magicgui.magic_factory</span></code> object:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">magicgui</span> <span class="kn">import</span> <span class="n">magic_factory</span>
 
 <span class="nd">@magic_factory</span>

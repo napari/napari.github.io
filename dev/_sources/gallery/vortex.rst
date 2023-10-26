@@ -173,7 +173,7 @@ current scikit-image output.
         import os
       File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/_collections_abc.py", line 1128, in append
         self.insert(len(self), value)
-      File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/napari/components/layerlist.py", line 174, in insert
+      File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/napari/components/layerlist.py", line 194, in insert
         super().insert(index, new_layer)
       File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/napari/utils/events/containers/_selectable_list.py", line 71, in insert
         self.selection.active = value
@@ -187,7 +187,7 @@ current scikit-image output.
         cb(event)
       File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/napari/_qt/layer_controls/qt_layer_controls_container.py", line 130, in _display
         controls = self.widgets[layer]
-    KeyError: <Vectors layer 'optical flow' at 0x7f1bcc0bacb0>
+    KeyError: <Vectors layer 'optical flow' at 0x7f6f55be4be0>
 
 
 

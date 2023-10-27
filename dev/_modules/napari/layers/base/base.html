@@ -2148,6 +2148,10 @@ function checkPageExistsAndRedirect(event) {
                 <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span> <span class="o">=</span> <span class="n">corners</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># set the data_level so that it is the lowest resolution in 3d view</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_data_level</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level_shapes</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
             <span class="c1"># The stored corner_pixels attribute must contain valid indices.</span>
             <span class="n">corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
             <span class="c1"># Some empty layers (e.g. Points) may have a data extent that only</span>

@@ -1877,10 +1877,12 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_update_draw</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">corner_pixels_displayed</span><span class="p">,</span> <span class="n">shape_threshold</span>
     <span class="p">):</span>
+        <span class="n">prev_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_update_draw</span><span class="p">(</span>
             <span class="n">scale_factor</span><span class="p">,</span> <span class="n">corner_pixels_displayed</span><span class="p">,</span> <span class="n">shape_threshold</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># update highlight only if scale has changed, otherwise causes a cycle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="p">(</span><span class="n">prev_scale</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Index of the point at a given 2D position in data coordinates.</span>

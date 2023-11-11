@@ -449,11 +449,15 @@ The right side of the status bar contains some helpful tips depending on which l
 
 ## Right-click menu
  A context-sensitive menu is available when you right-click on any of the layers. The type of layer determines which options are available. Note that if you have multiple layers selected, the menu actions will affect all of the selected layers. The options that are not available for a layer are greyed out. The following options are available depending on which layer type you have selected:
+* **Toggle visibility** - invert the visbility state (hides or show) of selected layers: hidden layers will be shown, visibile layers will be hidden.
+* **Show All Selected Layers** - Set all selected layers to visible.
+* **Hide All Selected Layers** - Set all selected layers to hidden.
+* **Show All Unselected Layers** - Set all *unselected* layers to visible.
+* **Hide All Unselected Layers** - Set all *unselected* layers to hidden.
 * **Duplicate Layer** - creates a second copy of the selected layer. Can be used on **Points**, **Shapes**, **Labels**, and **Image** layers. This is useful for testing your analysis on a copy instead of on the original image.
-* **Convert to Labels** - converts an **Image** layer to a **Labels** layer. This is useful for converting a binary image segmentation map to a labels layer with each segmented object denoted by its own integer. Can also be used on a **Shapes** layer.
-* **Convert to Image** - converts a **Labels** layer into an **Image** layer.
-* **Toggle visibility** - hides or shows the selected layer.
-* **Convert datatype** - converts a **Labels** layer into int8, int16, int32, int64, uint8, uint16, uint32, or uint64 data types. The initial data type is the data type of the data itself.
+* **Convert to Labels** - converts an **Image** layer to a **Labels** layer. This is useful for converting a binary image segmentation map to a labels layer with each segmented object denoted by its own integer. Can also be used on a **Shapes** layer.  
+* **Convert to Image** - converts a **Labels** layer into an **Image** layer. 
+* **Convert datatype** - converts an **Image** or **Labels** layer into int8, int16, int32, int64, uint8, uint16, uint32, or uint64 data types. The initial data type is the data type of the data itself.
 * **Make Projection** - can be used only on a layer with more than 2 dimensions, also known as a *stack*.  It creates a new layer that is a projection of the layer stack with the characteristic the user selects, reducing the number of dimensions by 1. More information about the types of projections is available [here](https://medium.com/@damiandn/an-intoduction-to-biological-image-processing-in-imagej-part-3-stacks-and-stack-projections-942aa789420f). The following projections are available:
     * **Max** - maximum intensity projection. At each pixel position, we go  through the stacks, find the pixel with the maximum intensity, and that becomes the intensity of that pixel value in the projected image.
    * **Min** - minimum intensity projection. Similar to the maximum intensity projection, except that the minimum pixel value is used for the projected image instead of the maximum pixel value.

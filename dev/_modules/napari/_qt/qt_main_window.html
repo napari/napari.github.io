@@ -283,8 +283,8 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">TYPE_CHECKING</span><span class="p">,</span>
     <span class="n">Any</span><span class="p">,</span>
     <span class="n">ClassVar</span><span class="p">,</span>
-    <span class="n">Dict</span><span class="p">,</span>
     <span class="n">List</span><span class="p">,</span>
+    <span class="n">MutableMapping</span><span class="p">,</span>
     <span class="n">Optional</span><span class="p">,</span>
     <span class="n">Sequence</span><span class="p">,</span>
     <span class="n">Tuple</span><span class="p">,</span>
@@ -326,7 +326,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari._qt.dialogs.preferences_dialog</span> <span class="kn">import</span> <span class="n">PreferencesDialog</span>
 <span class="kn">from</span> <span class="nn">napari._qt.dialogs.qt_activity_dialog</span> <span class="kn">import</span> <span class="n">QtActivityDialog</span>
 <span class="kn">from</span> <span class="nn">napari._qt.dialogs.qt_notification</span> <span class="kn">import</span> <span class="n">NapariQtNotification</span>
-<span class="kn">from</span> <span class="nn">napari._qt.qt_event_loop</span> <span class="kn">import</span> <span class="n">NAPARI_ICON_PATH</span><span class="p">,</span> <span class="n">get_app</span><span class="p">,</span> <span class="n">quit_app</span>
+<span class="kn">from</span> <span class="nn">napari._qt.qt_event_loop</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">NAPARI_ICON_PATH</span><span class="p">,</span>
+    <span class="n">get_app</span><span class="p">,</span>
+    <span class="n">quit_app</span> <span class="k">as</span> <span class="n">quit_app_</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari._qt.qt_resources</span> <span class="kn">import</span> <span class="n">get_stylesheet</span>
 <span class="kn">from</span> <span class="nn">napari._qt.qt_viewer</span> <span class="kn">import</span> <span class="n">QtViewer</span>
 <span class="kn">from</span> <span class="nn">napari._qt.utils</span> <span class="kn">import</span> <span class="n">QImg2array</span><span class="p">,</span> <span class="n">qbytearray_to_str</span><span class="p">,</span> <span class="n">str_to_qbytearray</span>
@@ -375,7 +379,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="c1"># *no* active windows, so we want to track the most recently active windows</span>
     <span class="n">_instances</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="s1">&#39;_QtMainWindow&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="c1"># `window` is passed through on construction so it&#39;s available to a window</span>
+    <span class="c1"># `window` is passed through on construction, so it&#39;s available to a window</span>
     <span class="c1"># provider for dependency injection</span>
     <span class="c1"># See https://github.com/napari/napari/pull/4826</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -434,7 +438,7 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="n">_QtMainWindow</span><span class="o">.</span><span class="n">_instances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-        <span class="c1"># since we initialize canvas before window,</span>
+        <span class="c1"># since we initialize canvas before the window,</span>
         <span class="c1"># we need to manually connect them again.</span>
         <span class="n">handle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">windowHandle</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">handle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -486,7 +490,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">)</span>
             <span class="n">QToolTip</span><span class="o">.</span><span class="n">showText</span><span class="p">(</span><span class="n">pnt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">Close</span><span class="p">:</span>
-            <span class="c1"># when we close the MainWindow, remove it from the instances list</span>
+            <span class="c1"># when we close the MainWindow, remove it from the instance list</span>
             <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
                 <span class="n">_QtMainWindow</span><span class="o">.</span><span class="n">_instances</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">WindowActivate</span><span class="p">,</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ZOrderChange</span><span class="p">}:</span>
@@ -516,7 +520,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setWindowFlags</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">windowFlags</span><span class="p">()</span>
-                <span class="o">^</span> <span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">FramelessWindowHint</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">WindowStaysOnTopHint</span><span class="p">)</span>
+                <span class="o">^</span> <span class="p">(</span>
+                    <span class="n">Qt</span><span class="o">.</span><span class="n">WindowType</span><span class="o">.</span><span class="n">FramelessWindowHint</span>
+                    <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">WindowType</span><span class="o">.</span><span class="n">WindowStaysOnTopHint</span>
+                <span class="p">)</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_normal_geometry</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">showNormal</span><span class="p">()</span>
@@ -536,8 +543,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setWindowFlags</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">windowFlags</span><span class="p">()</span>
-                <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">FramelessWindowHint</span>
-                <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">WindowStaysOnTopHint</span>
+                <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">WindowType</span><span class="o">.</span><span class="n">FramelessWindowHint</span>
+                <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">WindowType</span><span class="o">.</span><span class="n">WindowStaysOnTopHint</span>
             <span class="p">)</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">showNormal</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_normal_geometry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalGeometry</span><span class="p">()</span>
@@ -559,7 +566,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">QApplication</span><span class="o">.</span><span class="n">activePopupWidget</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_menubar_visibility</span>
         <span class="p">):</span>
-            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">MouseMove</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">MouseMove</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">isHidden</span><span class="p">():</span>
                     <span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
                     <span class="c1"># set mouse-sensitive zone to trigger showing the menubar</span>
@@ -573,7 +580,7 @@ function checkPageExistsAndRedirect(event) {
                     <span class="p">)</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="n">rect</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">globalPos</span><span class="p">()):</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
-            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Leave</span> <span class="ow">and</span> <span class="n">source</span> <span class="ow">is</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">Leave</span> <span class="ow">and</span> <span class="n">source</span> <span class="ow">is</span> <span class="bp">self</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">QMainWindow</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
 
@@ -763,7 +770,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Override to handle original size before maximizing.&quot;&quot;&quot;</span>
-        <span class="c1"># the first resize event will have nonsense positions that we dont</span>
+        <span class="c1"># the first resize event will have nonsense positions that we don&#39;t</span>
         <span class="c1"># want to store (and potentially restore)</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">oldSize</span><span class="p">()</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_old_size</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">oldSize</span><span class="p">()</span>
@@ -811,7 +818,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quit_app</span><span class="p">:</span>
-            <span class="n">quit_app</span><span class="p">()</span>
+            <span class="n">quit_app_</span><span class="p">()</span>
 
         <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
 
@@ -870,7 +877,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">qapp</span> <span class="o">=</span> <span class="n">get_app</span><span class="p">()</span>
 
         <span class="c1"># Dictionary holding dock widgets</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_dock_widgets</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dock_widgets</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span>
             <span class="nb">str</span><span class="p">,</span> <span class="n">QtViewerDockWidget</span>
         <span class="p">]</span> <span class="o">=</span> <span class="n">WeakValueDictionary</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_unnamed_dockwidget_count</span> <span class="o">=</span> <span class="mi">1</span>
@@ -1013,7 +1020,10 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">qt_viewer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s1">&#39;Public access to Window.qt_viewer is deprecated and will be removed in</span><span class="se">\n</span><span class="s1">v0.6.0. It is considered an &quot;implementation detail&quot; of the napari</span><span class="se">\n</span><span class="s1">application, not part of the napari viewer model. If your use case</span><span class="se">\n</span><span class="s1">requires access to qt_viewer, please open an issue to discuss.&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Public access to Window.qt_viewer is deprecated and will be removed in</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;v0.6.0. It is considered an &quot;implementation detail&quot; of the napari</span><span class="se">\n</span><span class="s1">application, &#39;</span>
+                <span class="s1">&#39;not part of the napari viewer model. If your use case</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;requires access to qt_viewer, please open an issue to discuss.&#39;</span><span class="p">,</span>
                 <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
@@ -1140,6 +1150,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            Name of a widget provided by `plugin_name`. If `None`, and the</span>
 <span class="sd">            specified plugin provides only a single widget, that widget will be</span>
 <span class="sd">            returned, otherwise a ValueError will be raised, by default None</span>
+<span class="sd">        tabify : bool</span>
+<span class="sd">            Flag to tabify dock widget or not.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1149,14 +1161,14 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">napari.plugins</span> <span class="kn">import</span> <span class="n">_npe2</span>
 
-        <span class="n">Widget</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">widget_class</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">dock_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="n">result</span> <span class="o">:=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">get_widget_contribution</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">,</span> <span class="n">widget_name</span><span class="p">):</span>
-            <span class="n">Widget</span><span class="p">,</span> <span class="n">widget_name</span> <span class="o">=</span> <span class="n">result</span>
+            <span class="n">widget_class</span><span class="p">,</span> <span class="n">widget_name</span> <span class="o">=</span> <span class="n">result</span>
 
-        <span class="k">if</span> <span class="n">Widget</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">Widget</span><span class="p">,</span> <span class="n">dock_kwargs</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">get_widget</span><span class="p">(</span>
+        <span class="k">if</span> <span class="n">widget_class</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">widget_class</span><span class="p">,</span> <span class="n">dock_kwargs</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">get_widget</span><span class="p">(</span>
                 <span class="n">plugin_name</span><span class="p">,</span> <span class="n">widget_name</span>
             <span class="p">)</span>
 
@@ -1174,7 +1186,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">return</span> <span class="n">dock_widget</span><span class="p">,</span> <span class="n">wdg</span>
 
         <span class="n">wdg</span> <span class="o">=</span> <span class="n">_instantiate_dock_widget</span><span class="p">(</span>
-            <span class="n">Widget</span><span class="p">,</span> <span class="n">cast</span><span class="p">(</span><span class="s1">&#39;Viewer&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
+            <span class="n">widget_class</span><span class="p">,</span> <span class="n">cast</span><span class="p">(</span><span class="s1">&#39;Viewer&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
         <span class="p">)</span>
 
         <span class="c1"># Add dock widget</span>
@@ -1234,7 +1246,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            Side of the main window to which the new dock widget will be added.</span>
 <span class="sd">            Must be in {&#39;left&#39;, &#39;right&#39;, &#39;top&#39;, &#39;bottom&#39;}</span>
 <span class="sd">        allowed_areas : list[str], optional</span>
-<span class="sd">            Areas, relative to main window, that the widget is allowed dock.</span>
+<span class="sd">            Areas, relative to the main window, that the widget is allowed dock.</span>
 <span class="sd">            Each item in list must be in {&#39;left&#39;, &#39;right&#39;, &#39;top&#39;, &#39;bottom&#39;}</span>
 <span class="sd">            By default, all areas are allowed.</span>
 <span class="sd">        shortcut : str, optional</span>
@@ -1248,9 +1260,9 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">                The shortcut parameter is deprecated since version 0.4.8, please use</span>
 <span class="sd">                the action and shortcut manager APIs. The new action manager and</span>
-<span class="sd">                shortcut API allow user configuration and localisation.</span>
+<span class="sd">                shortcut API allow user configuration and localization.</span>
 <span class="sd">        tabify : bool</span>
-<span class="sd">            Flag to tabify dockwidget or not.</span>
+<span class="sd">            Flag to tabify dock widget or not.</span>
 <span class="sd">        menu : QMenu, optional</span>
 <span class="sd">            Menu bar to add toggle action to. If `None` nothing added to menu.</span>
 
@@ -1390,6 +1402,9 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        ----------</span>
 <span class="sd">        widget : QWidget | str</span>
 <span class="sd">            If widget == &#39;all&#39;, all docked widgets will be removed.</span>
+<span class="sd">        menu : QMenu, optional</span>
+<span class="sd">            Menu bar to remove toggle action from. If `None` nothing removed</span>
+<span class="sd">            from menu.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">dw</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dock_widgets</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
@@ -1703,7 +1718,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            Size (resolution height x width) of the screenshot. By default, the currently displayed size.</span>
 <span class="sd">            Only used if `canvas_only` is True.</span>
 <span class="sd">        scale : float</span>
-<span class="sd">            Scale factor used to increase resolution of canvas for the screenshot. By default, the currently displayed resolution.</span>
+<span class="sd">            Scale factor used to increase resolution of canvas for the screenshot.</span>
+<span class="sd">            By default, the currently displayed resolution.</span>
 <span class="sd">            Only used if `canvas_only` is True.</span>
 <span class="sd">        canvas_only : bool</span>
 <span class="sd">            If True, screenshot shows only the image display canvas, and</span>
@@ -1763,14 +1779,15 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            Size (resolution) of the screenshot. By default, the currently displayed size.</span>
 <span class="sd">            Only used if `canvas_only` is True.</span>
 <span class="sd">        scale : float</span>
-<span class="sd">            Scale factor used to increase resolution of canvas for the screenshot. By default, the currently displayed resolution.</span>
+<span class="sd">            Scale factor used to increase resolution of canvas for the screenshot.</span>
+<span class="sd">            By default, the currently displayed resolution.</span>
 <span class="sd">            Only used if `canvas_only` is True.</span>
 <span class="sd">        flash : bool</span>
 <span class="sd">            Flag to indicate whether flash animation should be shown after</span>
 <span class="sd">            the screenshot was captured.</span>
 <span class="sd">        canvas_only : bool</span>
 <span class="sd">            If True, screenshot shows only the image display canvas, and</span>
-<span class="sd">            if False include the napari viewer frame in the screenshot,</span>
+<span class="sd">            if False includes the napari viewer frame in the screenshot,</span>
 <span class="sd">            By default, True.</span>
 
 <span class="sd">        Returns</span>

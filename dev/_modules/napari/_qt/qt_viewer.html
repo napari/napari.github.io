@@ -812,7 +812,14 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_console</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+                <span class="c1"># QtConsole imports debugpy that overwrites default breakpoint.</span>
+                <span class="c1"># It makes problems with debugging if you do not know this.</span>
+                <span class="c1"># So we do not want to overwrite it if it is already set.</span>
+                <span class="n">breakpoint_handler</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">breakpointhook</span>
                 <span class="kn">from</span> <span class="nn">napari_console</span> <span class="kn">import</span> <span class="n">QtConsole</span>
+
+                <span class="n">sys</span><span class="o">.</span><span class="n">breakpointhook</span> <span class="o">=</span> <span class="n">breakpoint_handler</span>
 
                 <span class="kn">import</span> <span class="nn">napari</span>
 

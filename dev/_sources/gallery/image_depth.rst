@@ -61,6 +61,11 @@ Image depth
         napari.run()
 
 
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** (0 minutes 16.843 seconds)
+
+
 .. _sphx_glr_download_gallery_image_depth.py:
 
 .. only:: html

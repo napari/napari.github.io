@@ -333,6 +333,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari._vispy</span> <span class="kn">import</span> <span class="n">VispyCanvas</span><span class="p">,</span> <span class="n">create_vispy_layer</span>  <span class="c1"># isort:skip</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">napari_console</span> <span class="kn">import</span> <span class="n">QtConsole</span>
     <span class="kn">from</span> <span class="nn">npe2.manifest.contributions</span> <span class="kn">import</span> <span class="n">WriterContribution</span>
 
     <span class="kn">from</span> <span class="nn">napari._qt.layer_controls</span> <span class="kn">import</span> <span class="n">QtLayerControlsContainer</span>
@@ -806,60 +807,75 @@ function checkPageExistsAndRedirect(event) {
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;List: items to push to console when instantiated.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_console_backlog</span>
 
+    <span class="k">def</span> <span class="nf">_get_console</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">QtConsole</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function for setup console.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        _____</span>
+<span class="sd">        extracted to separated function for simplify testing</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+            <span class="c1"># QtConsole imports debugpy that overwrites default breakpoint.</span>
+            <span class="c1"># It makes problems with debugging if you do not know this.</span>
+            <span class="c1"># So we do not want to overwrite it if it is already set.</span>
+            <span class="n">breakpoint_handler</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">breakpointhook</span>
+            <span class="kn">from</span> <span class="nn">napari_console</span> <span class="kn">import</span> <span class="n">QtConsole</span>
+
+            <span class="n">sys</span><span class="o">.</span><span class="n">breakpointhook</span> <span class="o">=</span> <span class="n">breakpoint_handler</span>
+
+            <span class="kn">import</span> <span class="nn">napari</span>
+
+            <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+                <span class="n">console</span> <span class="o">=</span> <span class="n">QtConsole</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
+                <span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
+                    <span class="p">{</span><span class="s1">&#39;napari&#39;</span><span class="p">:</span> <span class="n">napari</span><span class="p">,</span> <span class="s1">&#39;action_manager&#39;</span><span class="p">:</span> <span class="n">action_manager</span><span class="p">}</span>
+                <span class="p">)</span>
+                <span class="k">with</span> <span class="n">CallerFrame</span><span class="p">(</span><span class="n">_in_napari</span><span class="p">)</span> <span class="k">as</span> <span class="n">c</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;__name__&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+                        <span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">({</span><span class="s2">&quot;np&quot;</span><span class="p">:</span> <span class="n">np</span><span class="p">})</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">console_backlog</span><span class="p">:</span>
+                    <span class="c1"># recover weak refs</span>
+                    <span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
+                        <span class="p">{</span>
+                            <span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unwrap_if_weakref</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">i</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unwrap_if_weakref</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                        <span class="p">}</span>
+                    <span class="p">)</span>
+                <span class="k">return</span> <span class="n">console</span>
+        <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s1">&#39;napari-console not found. It can be installed with&#39;</span>
+                    <span class="s1">&#39; &quot;pip install napari_console&quot;&#39;</span>
+                <span class="p">),</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s1">&#39;error importing napari-console. See console for full error.&#39;</span>
+                <span class="p">),</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">console</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;QtConsole: iPython console terminal integrated into the napari GUI.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_console</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-                <span class="c1"># QtConsole imports debugpy that overwrites default breakpoint.</span>
-                <span class="c1"># It makes problems with debugging if you do not know this.</span>
-                <span class="c1"># So we do not want to overwrite it if it is already set.</span>
-                <span class="n">breakpoint_handler</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">breakpointhook</span>
-                <span class="kn">from</span> <span class="nn">napari_console</span> <span class="kn">import</span> <span class="n">QtConsole</span>
-
-                <span class="n">sys</span><span class="o">.</span><span class="n">breakpointhook</span> <span class="o">=</span> <span class="n">breakpoint_handler</span>
-
-                <span class="kn">import</span> <span class="nn">napari</span>
-
-                <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-                    <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">console</span> <span class="o">=</span> <span class="n">QtConsole</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
-                        <span class="p">{</span><span class="s1">&#39;napari&#39;</span><span class="p">:</span> <span class="n">napari</span><span class="p">,</span> <span class="s1">&#39;action_manager&#39;</span><span class="p">:</span> <span class="n">action_manager</span><span class="p">}</span>
-                    <span class="p">)</span>
-                    <span class="k">with</span> <span class="n">CallerFrame</span><span class="p">(</span><span class="n">_in_napari</span><span class="p">)</span> <span class="k">as</span> <span class="n">c</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;__name__&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">({</span><span class="s2">&quot;np&quot;</span><span class="p">:</span> <span class="n">np</span><span class="p">})</span>
-                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">console_backlog</span><span class="p">:</span>
-                        <span class="c1"># recover weak refs</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
-                            <span class="p">{</span>
-                                <span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unwrap_if_weakref</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-                                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">i</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-                                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unwrap_if_weakref</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-                            <span class="p">}</span>
-                        <span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_console_backlog</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;napari-console not found. It can be installed with&#39;</span>
-                        <span class="s1">&#39; &quot;pip install napari_console&quot;&#39;</span>
-                    <span class="p">),</span>
-                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_console</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-                <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;error importing napari-console. See console for full error.&#39;</span>
-                    <span class="p">),</span>
-                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_console</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">console</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_console</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_console_backlog</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_console</span>
 
     <span class="nd">@console</span><span class="o">.</span><span class="n">setter</span>

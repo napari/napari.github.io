@@ -447,7 +447,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
 
-        <span class="n">precast</span> <span class="o">=</span> <span class="n">cast_labels_to_minimum_type_auto</span><span class="p">(</span>
+        <span class="n">precast</span> <span class="o">=</span> <span class="n">_cast_labels_to_minimum_dtype_auto</span><span class="p">(</span>
             <span class="n">values</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">background_value</span>
         <span class="p">)</span>
 
@@ -465,7 +465,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        ----------</span>
 <span class="sd">        values : np.ndarray</span>
 <span class="sd">            Values to be mapped. They must have already been downcast using</span>
-<span class="sd">            `cast_labels_to_minimum_type_auto`.</span>
+<span class="sd">            `_cast_labels_to_minimum_dtype_auto`.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -478,7 +478,7 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="c1"># If using selected, disable all others</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_selection</span><span class="p">:</span>
-            <span class="n">cast_selection</span> <span class="o">=</span> <span class="n">cast_labels_to_minimum_type_auto</span><span class="p">(</span>
+            <span class="n">cast_selection</span> <span class="o">=</span> <span class="n">_cast_labels_to_minimum_dtype_auto</span><span class="p">(</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">]),</span>
                 <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">background_value</span><span class="p">,</span>
@@ -545,7 +545,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># if someone is using DirectLabelColormap directly, not through Label layer</span>
 
 
-<span class="k">def</span> <span class="nf">cast_labels_to_minimum_type_auto</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">_cast_labels_to_minimum_dtype_auto</span><span class="p">(</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">num_colors</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">background_value</span><span class="p">:</span> <span class="nb">int</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform modulo operation based on number of colors</span>

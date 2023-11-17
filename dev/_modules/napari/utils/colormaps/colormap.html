@@ -428,24 +428,62 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="n">seed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
     <span class="n">use_selection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">selection</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">selection</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">interpolation</span><span class="p">:</span> <span class="n">ColormapInterpolationMode</span> <span class="o">=</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">ZERO</span>
     <span class="n">background_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<div class="viewcode-block" id="LabelColormap.map"><a class="viewcode-back" href="../../../../api/napari.utils.LabelColormap.html#napari.utils.LabelColormap.map">[docs]</a>    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map values to colors.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        values : np.ndarray or float</span>
+<span class="sd">            Values to be mapped.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray of same shape as values, but with last dimension of size 4</span>
+<span class="sd">            Mapped colors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
 
-        <span class="n">mapped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span>
-            <span class="n">cast_labels_to_minimum_type_auto</span><span class="p">(</span>
-                <span class="n">values</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">background_value</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
-        <span class="p">]</span>
+        <span class="n">precast</span> <span class="o">=</span> <span class="n">cast_labels_to_minimum_type_auto</span><span class="p">(</span>
+            <span class="n">values</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">background_value</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_precast</span><span class="p">(</span><span class="n">precast</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_map_precast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map *precast* values to colors.</span>
+
+<span class="sd">        When mapping values, we first convert them to a smaller dtype for</span>
+<span class="sd">        performance reasons. This conversion changes the label values,</span>
+<span class="sd">        even for small labels. This method is used to map values that have</span>
+<span class="sd">        already been converted to the smaller dtype.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        values : np.ndarray</span>
+<span class="sd">            Values to be mapped. They must have already been downcast using</span>
+<span class="sd">            `cast_labels_to_minimum_type_auto`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray of shape (N, M, 4)</span>
+<span class="sd">            Mapped colors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mapped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)]</span>
 
         <span class="n">mapped</span><span class="p">[</span><span class="n">values</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">background_value</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="c1"># If using selected, disable all others</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_selection</span><span class="p">:</span>
-            <span class="n">mapped</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">cast_selection</span> <span class="o">=</span> <span class="n">cast_labels_to_minimum_type_auto</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">]),</span>
+                <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">background_value</span><span class="p">,</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">mapped</span><span class="p">[</span><span class="n">values</span> <span class="o">!=</span> <span class="n">cast_selection</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="k">return</span> <span class="n">mapped</span>
 

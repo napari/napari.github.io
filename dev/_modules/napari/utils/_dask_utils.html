@@ -272,7 +272,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">collections.abc</span>
 <span class="kn">import</span> <span class="nn">contextlib</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">ContextManager</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">ContextManager</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">dask</span>
 <span class="kn">import</span> <span class="nn">dask.array</span> <span class="k">as</span> <span class="nn">da</span>
@@ -346,7 +346,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">return</span> <span class="n">_DASK_CACHE</span></div>
 
 
-<span class="k">def</span> <span class="nf">_is_dask_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_is_dask_data</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True if data is a dask array or a list/tuple of dask arrays.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">da</span><span class="o">.</span><span class="n">Array</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
         <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Sequence</span><span class="p">)</span>
@@ -354,7 +354,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">configure_dask</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DaskIndexer</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">configure_dask</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DaskIndexer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Spin up cache and return context manager that optimizes Dask indexing.</span>
 
 <span class="sd">    This function determines whether data is a dask array or list of dask</span>
@@ -407,7 +407,9 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">_cache</span> <span class="o">=</span> <span class="n">resize_dask_cache</span><span class="p">()</span> <span class="k">if</span> <span class="n">cache</span> <span class="k">else</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">nullcontext</span><span class="p">()</span>
 
     <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-    <span class="k">def</span> <span class="nf">dask_optimized_slicing</span><span class="p">(</span><span class="n">memfrac</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">dask_optimized_slicing</span><span class="p">(</span>
+        <span class="n">memfrac</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
         <span class="n">opts</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;optimization.fuse.active&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
         <span class="k">with</span> <span class="n">dask</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="k">as</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">_cache</span> <span class="k">as</span> <span class="n">c</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">c</span>

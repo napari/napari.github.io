@@ -280,23 +280,29 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">TYPE_CHECKING</span><span class="p">,</span>
     <span class="n">Any</span><span class="p">,</span>
     <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">Iterator</span><span class="p">,</span>
     <span class="n">List</span><span class="p">,</span>
-    <span class="n">Mapping</span><span class="p">,</span>
     <span class="n">Optional</span><span class="p">,</span>
     <span class="n">Sequence</span><span class="p">,</span>
     <span class="n">Set</span><span class="p">,</span>
     <span class="n">Tuple</span><span class="p">,</span>
+    <span class="n">Type</span><span class="p">,</span>
     <span class="n">Union</span><span class="p">,</span>
+    <span class="n">cast</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># This cannot be condition to TYPE_CHEKCKING or the stubgen fails</span>
+<span class="c1"># with underfined Context.</span>
+<span class="kn">from</span> <span class="nn">app_model.expressions</span> <span class="kn">import</span> <span class="n">Context</span>
 
 <span class="kn">from</span> <span class="nn">napari</span> <span class="kn">import</span> <span class="n">layers</span>
 <span class="kn">from</span> <span class="nn">napari._pydantic_compat</span> <span class="kn">import</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">PrivateAttr</span><span class="p">,</span> <span class="n">validator</span>
 <span class="kn">from</span> <span class="nn">napari.components._layer_slicer</span> <span class="kn">import</span> <span class="n">_LayerSlicer</span>
 <span class="kn">from</span> <span class="nn">napari.components._viewer_mouse_bindings</span> <span class="kn">import</span> <span class="n">dims_scroll</span>
 <span class="kn">from</span> <span class="nn">napari.components.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
-<span class="kn">from</span> <span class="nn">napari.components.cursor</span> <span class="kn">import</span> <span class="n">Cursor</span>
+<span class="kn">from</span> <span class="nn">napari.components.cursor</span> <span class="kn">import</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">CursorStyle</span>
 <span class="kn">from</span> <span class="nn">napari.components.dims</span> <span class="kn">import</span> <span class="n">Dims</span>
 <span class="kn">from</span> <span class="nn">napari.components.grid</span> <span class="kn">import</span> <span class="n">GridCanvas</span>
 <span class="kn">from</span> <span class="nn">napari.components.layerlist</span> <span class="kn">import</span> <span class="n">LayerList</span>
@@ -335,6 +341,14 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.layers.vectors._vectors_key_bindings</span> <span class="kn">import</span> <span class="n">vectors_fun_to_mode</span>
 <span class="kn">from</span> <span class="nn">napari.plugins.utils</span> <span class="kn">import</span> <span class="n">get_potential_readers</span><span class="p">,</span> <span class="n">get_preferred_reader</span>
 <span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
+<span class="kn">from</span> <span class="nn">napari.types</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">FullLayerData</span><span class="p">,</span>
+    <span class="n">LayerData</span><span class="p">,</span>
+    <span class="n">LayerTypeName</span><span class="p">,</span>
+    <span class="n">PathLike</span><span class="p">,</span>
+    <span class="n">PathOrPaths</span><span class="p">,</span>
+    <span class="n">SampleData</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.utils._register</span> <span class="kn">import</span> <span class="n">create_func</span> <span class="k">as</span> <span class="n">create_add_method</span>
 <span class="kn">from</span> <span class="nn">napari.utils.action_manager</span> <span class="kn">import</span> <span class="n">action_manager</span>
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="n">ensure_colormap</span>
@@ -353,6 +367,10 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.utils.theme</span> <span class="kn">import</span> <span class="n">available_themes</span><span class="p">,</span> <span class="n">is_theme_available</span>
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">npe2.types</span> <span class="kn">import</span> <span class="n">SampleDataCreator</span>
+
+
 <span class="n">DEFAULT_THEME</span> <span class="o">=</span> <span class="s1">&#39;dark&#39;</span>
 <span class="n">EXCLUDE_DICT</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;keymap&#39;</span><span class="p">,</span>
@@ -365,11 +383,6 @@ function checkPageExistsAndRedirect(event) {
 <span class="p">}</span>
 <span class="n">EXCLUDE_JSON</span> <span class="o">=</span> <span class="n">EXCLUDE_DICT</span><span class="o">.</span><span class="n">union</span><span class="p">({</span><span class="s1">&#39;layers&#39;</span><span class="p">,</span> <span class="s1">&#39;active_layer&#39;</span><span class="p">})</span>
 
-<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">napari.types</span> <span class="kn">import</span> <span class="n">FullLayerData</span><span class="p">,</span> <span class="n">LayerData</span>
-
-<span class="n">PathLike</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span>
-<span class="n">PathOrPaths</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">PathLike</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]]</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ViewerModel&#39;</span><span class="p">,</span> <span class="s1">&#39;valid_add_kwargs&#39;</span><span class="p">]</span>
 
@@ -459,7 +472,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="p">)</span>
     <span class="c1"># 2-tuple indicating height and width</span>
     <span class="n">_canvas_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
-    <span class="n">_ctx</span><span class="p">:</span> <span class="n">Mapping</span>
+    <span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span>
     <span class="c1"># To check if mouse is over canvas to avoid race conditions between</span>
     <span class="c1"># different events systems</span>
     <span class="n">mouse_over_canvas</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -640,7 +653,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">_extent_world_augmented</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
 
-<div class="viewcode-block" id="ViewerModel.reset_view"><a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.reset_view">[docs]</a>    <span class="k">def</span> <span class="nf">reset_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ViewerModel.reset_view"><a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.reset_view">[docs]</a>    <span class="k">def</span> <span class="nf">reset_view</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset the camera view.&quot;&quot;&quot;</span>
 
         <span class="n">extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sliced_extent_world_augmented</span>
@@ -650,8 +663,17 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scene_size</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid_size</span><span class="p">):</span>
             <span class="n">grid_size</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">scene_size</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid_size</span><span class="p">))</span> <span class="o">+</span> <span class="n">grid_size</span>
         <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">scene_size</span><span class="p">,</span> <span class="n">grid_size</span><span class="p">)</span>
-        <span class="n">center</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">corner</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="mi">2</span><span class="p">))[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="p">:]</span>
-        <span class="n">center</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">center</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
+        <span class="n">center_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">corner</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="mi">2</span><span class="p">))[</span>
+            <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="p">:</span>
+        <span class="p">]</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
+            <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
+            <span class="nb">tuple</span><span class="p">(</span>
+                <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">center_array</span><span class="p">))</span>
+                <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">center_array</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">center</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">center</span>
         <span class="c1"># zoom is definied as the number of canvas pixels per world pixel</span>
         <span class="c1"># The default value used below will zoom such that the whole field</span>
@@ -709,14 +731,14 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">position</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">order</span><span class="p">[:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">]:</span>
             <span class="n">position</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">point</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_on_active_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update viewer state for a new active layer.&quot;&quot;&quot;</span>
         <span class="n">active_layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
         <span class="k">if</span> <span class="n">active_layer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="s1">&#39;standard&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">CursorStyle</span><span class="o">.</span><span class="n">STANDARD</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">help</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">cursor</span>
@@ -798,8 +820,8 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">help</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">_get_tooltip_text</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">,</span>
-                    <span class="n">view_direction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">_view_direction</span><span class="p">,</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">),</span>
+                    <span class="n">view_direction</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">_view_direction</span><span class="p">),</span>
                     <span class="n">dims_displayed</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">),</span>
                     <span class="n">world</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
@@ -889,7 +911,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update layer help text base on layer mode.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">layer_to_func_and_mode</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">layer_to_func_and_mode</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">Layer</span><span class="p">],</span> <span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">Points</span><span class="p">:</span> <span class="n">points_fun_to_mode</span><span class="p">,</span>
             <span class="n">Labels</span><span class="p">:</span> <span class="n">labels_fun_to_mode</span><span class="p">,</span>
             <span class="n">Shapes</span><span class="p">:</span> <span class="n">shapes_fun_to_mode</span><span class="p">,</span>
@@ -1267,6 +1289,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="kn">from</span> <span class="nn">napari.plugins</span> <span class="kn">import</span> <span class="n">_npe2</span><span class="p">,</span> <span class="n">plugin_manager</span>
 
         <span class="n">plugin_spec_reader</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">SampleDataCreator</span><span class="p">,</span> <span class="n">SampleData</span><span class="p">]</span>
         <span class="c1"># try with npe2</span>
         <span class="n">data</span><span class="p">,</span> <span class="n">available</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">get_sample_data</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="n">sample</span><span class="p">)</span>
 
@@ -1277,7 +1300,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                 <span class="n">available</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">plugin_manager</span><span class="o">.</span><span class="n">available_samples</span><span class="p">())</span>
         <span class="c1"># npe2 uri sample data, extract the path so we can use viewer.open</span>
-        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">):</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;__self__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">):</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;reader_plugin&#39;</span><span class="p">)</span>
                 <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="o">.</span><span class="n">reader_plugin</span> <span class="o">!=</span> <span class="n">reader_plugin</span>
@@ -1354,9 +1377,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">path</span><span class="p">:</span> <span class="n">PathOrPaths</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">stack</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">stack</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span><span class="p">,</span>
-        <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">LayerTypeName</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Open a path or list of paths with plugins, and add layers to viewer.</span>
@@ -1407,18 +1430,19 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">)</span>
             <span class="n">plugin</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span>
 
-        <span class="n">paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">paths_</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
             <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">path</span><span class="p">)]</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span>
             <span class="k">else</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="p">]</span>
         <span class="p">)</span>
 
+        <span class="n">paths</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PathOrPaths</span><span class="p">]</span> <span class="o">=</span> <span class="n">paths_</span>
         <span class="c1"># If stack is a bool and True, add an additional layer of nesting.</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">and</span> <span class="n">stack</span><span class="p">:</span>
-            <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">paths</span><span class="p">]</span>
-
+            <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">paths_</span><span class="p">]</span>
         <span class="c1"># If stack is a list and True, extend the paths with the inner lists.</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="n">stack</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">paths_</span><span class="p">]</span>
             <span class="n">paths</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
 
         <span class="n">added</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># for layers that get added</span>
@@ -1457,8 +1481,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
         <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">stack</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">LayerTypeName</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Open paths if plugin choice is unambiguous, raising any errors.</span>
 
@@ -1581,12 +1605,12 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_add_layers_with_plugins</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PathLike</span><span class="p">],</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">LayerTypeName</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Load a path or a list of paths into the viewer using plugins.</span>
 
@@ -1640,9 +1664,11 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">paths</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="n">stack</span>
             <span class="p">)</span>
 
+        <span class="k">if</span> <span class="n">layer_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
         <span class="c1"># glean layer names from filename. These will be used as *fallback*</span>
         <span class="c1"># names, if the plugin does not return a name kwarg in their meta dict.</span>
-        <span class="n">filenames</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">filenames</span><span class="p">:</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_data</span><span class="p">):</span>
             <span class="n">filenames</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
@@ -1717,12 +1743,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        &gt;&gt;&gt; viewer._add_layer_from_data(*data)</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">layer_type</span> <span class="o">=</span> <span class="p">(</span><span class="n">layer_type</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-
-        <span class="c1"># assumes that big integer type arrays are likely labels.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">layer_type</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">layer_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">layer_type</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="c1"># assumes that big integer type arrays are likely labels.</span>
             <span class="n">layer_type</span> <span class="o">=</span> <span class="n">guess_labels</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">layer_type</span> <span class="o">=</span> <span class="n">layer_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">layer_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -1807,7 +1832,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="k">def</span> <span class="nf">_unify_data_and_user_kwargs</span><span class="p">(</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">LayerData</span><span class="p">,</span>
     <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">LayerTypeName</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">fallback_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FullLayerData</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Merge data returned from plugins with options specified by user.</span>

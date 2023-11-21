@@ -275,7 +275,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">import</span> <span class="nn">types</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">nullcontext</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">cast</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
@@ -287,6 +287,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">ImageProjectionMode</span><span class="p">,</span>
     <span class="n">ImageRendering</span><span class="p">,</span>
     <span class="n">Interpolation</span><span class="p">,</span>
+    <span class="n">InterpolationStr</span><span class="p">,</span>
     <span class="n">VolumeDepiction</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.image._image_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
@@ -491,6 +492,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_colormaps</span> <span class="o">=</span> <span class="n">AVAILABLE_COLORMAPS</span>
+    <span class="n">_interpolation2d</span><span class="p">:</span> <span class="n">Interpolation</span>
+    <span class="n">_interpolation3d</span><span class="p">:</span> <span class="n">Interpolation</span>
 
     <span class="nd">@rename_argument</span><span class="p">(</span>
         <span class="n">from_name</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
@@ -676,7 +679,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">_data_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_data_view</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Viewable image for the current slice. (compatibility)&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">view</span>
 
@@ -705,7 +708,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">dtype</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">data_raw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">data_raw</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">LayerDataProtocol</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">LayerDataProtocol</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Data, exactly as provided by the user.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_raw</span>
 
@@ -725,7 +730,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reset_editable</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_get_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine number of dimensions of the layer.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level_shapes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
@@ -762,12 +767,12 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">extent</span> <span class="o">+</span> <span class="p">[[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">+</span><span class="mf">0.5</span><span class="p">]]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">data_level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">data_level</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;int: Current level of multiscale, or 0 if image.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_level</span>
 
     <span class="nd">@data_level</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">data_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">data_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_level</span> <span class="o">==</span> <span class="n">level</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data_level</span> <span class="o">=</span> <span class="n">level</span>
@@ -870,11 +875,11 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">interpolation2d</span> <span class="o">=</span> <span class="n">interpolation</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">interpolation2d</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">interpolation2d</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InterpolationStr</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">InterpolationStr</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span><span class="p">))</span>
 
     <span class="nd">@interpolation2d</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">interpolation2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">interpolation2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">InterpolationStr</span><span class="p">,</span> <span class="n">Interpolation</span><span class="p">]):</span>
         <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;bilinear&#39;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
@@ -893,11 +898,11 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interpolation</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">interpolation3d</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">interpolation3d</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InterpolationStr</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">InterpolationStr</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span><span class="p">))</span>
 
     <span class="nd">@interpolation3d</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">interpolation3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">interpolation3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">InterpolationStr</span><span class="p">,</span> <span class="n">Interpolation</span><span class="p">]):</span>
         <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;custom&#39;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
                 <span class="s1">&#39;custom interpolation is not implemented yet for 3D rendering&#39;</span>

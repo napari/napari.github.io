@@ -278,6 +278,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+<span class="kn">from</span> <span class="nn">napari.components.dims</span> <span class="kn">import</span> <span class="n">RangeTuple</span>
 <span class="kn">from</span> <span class="nn">napari.layers</span> <span class="kn">import</span> <span class="n">Layer</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="n">Extent</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.containers</span> <span class="kn">import</span> <span class="n">SelectableEventedList</span>
@@ -622,10 +623,12 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_extent</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">_ranges</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_ranges</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">RangeTuple</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get ranges for Dims.range in world coordinates.&quot;&quot;&quot;</span>
         <span class="n">ext</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span>
-        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">ext</span><span class="o">.</span><span class="n">world</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ext</span><span class="o">.</span><span class="n">world</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ext</span><span class="o">.</span><span class="n">step</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">RangeTuple</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ext</span><span class="o">.</span><span class="n">world</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ext</span><span class="o">.</span><span class="n">world</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ext</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+        <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>

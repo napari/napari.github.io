@@ -280,7 +280,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="kn">from</span> <span class="nn">napari.layers</span> <span class="kn">import</span> <span class="n">Layer</span>
 <span class="kn">from</span> <span class="nn">napari.plugins</span> <span class="kn">import</span> <span class="n">_npe2</span><span class="p">,</span> <span class="n">plugin_manager</span>
-<span class="kn">from</span> <span class="nn">napari.types</span> <span class="kn">import</span> <span class="n">LayerData</span>
+<span class="kn">from</span> <span class="nn">napari.types</span> <span class="kn">import</span> <span class="n">LayerData</span><span class="p">,</span> <span class="n">PathLike</span>
 <span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">abspath_or_url</span>
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
@@ -290,7 +290,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">read_data_with_plugins</span><span class="p">(</span>
-    <span class="n">paths</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">paths</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PathLike</span><span class="p">],</span>
     <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">HookImplementation</span><span class="p">]]:</span>

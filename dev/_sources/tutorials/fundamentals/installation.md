@@ -171,9 +171,9 @@ the current release {{ napari_version }}, using command: `napari --version` .
 ![macOS desktop with a napari viewer window without any image opened in the foreground, and a terminal in the background with the appropriate conda environment activated (if applicable) and the command to open napari entered.](../assets/tutorials/launch_cli_empty.png)
 
 ````{note}
-On some platforms, particularly macOS and Windows, there may be a ~30 second 
+On some platforms, particularly macOS and Windows, there may be a ~30 second
 delay before the viewer appears on first launch. This is expected and subsequent
-launches should be quick. However, anti-malware and other security software 
+launches should be quick. However, anti-malware and other security software
 measures may further delay launches—even after the first launch.
 ````
 
@@ -270,10 +270,8 @@ started](./getting_started) tutorial
 - if you are interested in
 contributing to napari please check our [contributing
 guidelines](../../developers/contributing.md)
-- if you are running into issues or bugs, please open a new issue on our [issue
+- if you are running into issues or bugs, please open a [new issue](https://github.com/napari/napari/issues/new/choose) on our [issue
 tracker](https://github.com/napari/napari/issues)
-    - include the output of `napari --info`
-    (or go to `Help>Info` in the viewer and copy paste the information)
 - if you want help using napari, we are a community partner on the [imagesc
 forum](https://forum.image.sc/tags/napari) and all usage support requests should
 be posted on the forum with the tag `napari`. We look forward to interacting

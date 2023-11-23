@@ -17,7 +17,9 @@
 
 .. _sphx_glr_gallery_vortex.py:
 
-Visualizing optical flow in napari.
+
+Visualizing optical flow in napari
+==================================
 
 Adapted from the scikit-image gallery [1]_.
 
@@ -28,7 +30,7 @@ image, visible by moving the slider.
 
 .. [1] https://scikit-image.org/docs/stable/auto_examples/registration/plot_opticalflow.html
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-18
+.. GENERATED FROM PYTHON SOURCE LINES 14-20
 
 .. code-block:: default
 
@@ -45,11 +47,11 @@ image, visible by moving the slider.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-20
+.. GENERATED FROM PYTHON SOURCE LINES 21-22
 
 First, we load the vortex image as a 3D array. (time, row, column)
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-23
+.. GENERATED FROM PYTHON SOURCE LINES 22-25
 
 .. code-block:: default
 
@@ -63,13 +65,13 @@ First, we load the vortex image as a 3D array. (time, row, column)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-27
+.. GENERATED FROM PYTHON SOURCE LINES 26-29
 
 We compute the optical flow using scikit-image. (Note: as of
 scikit-image 0.21, there seems to be a transposition of the image in
 the output, which we account for later.)
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-30
+.. GENERATED FROM PYTHON SOURCE LINES 29-32
 
 .. code-block:: default
 
@@ -83,11 +85,11 @@ the output, which we account for later.)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-32
+.. GENERATED FROM PYTHON SOURCE LINES 33-34
 
 Compute the flow magnitude, for visualization.
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-35
+.. GENERATED FROM PYTHON SOURCE LINES 34-37
 
 .. code-block:: default
 
@@ -101,38 +103,13 @@ Compute the flow magnitude, for visualization.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-38
+.. GENERATED FROM PYTHON SOURCE LINES 38-41
 
-Create a viewer, add the vortex frames, and overlay the flow
-magnitude.
-
-.. GENERATED FROM PYTHON SOURCE LINES 38-42
-
-.. code-block:: default
-
-
-    viewer, vortex_layer = napari.imshow(vortex_im)
-    mag_layer = viewer.add_image(magnitude, colormap='magma', opacity=0.3)
-
-
-
-
-.. image-sg:: /gallery/images/sphx_glr_vortex_001.png
-   :alt: vortex
-   :srcset: /gallery/images/sphx_glr_vortex_001.png
-   :class: sphx-glr-single-img
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 43-46
-
-Finally, we subsample the vector field to display it — it's too
+We subsample the vector field to display it — it's too
 messy otherwise! And we transpose the rows/columns axes to match the
 current scikit-image output.
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-70
+.. GENERATED FROM PYTHON SOURCE LINES 41-54
 
 .. code-block:: default
 
@@ -149,6 +126,25 @@ current scikit-image output.
             (1, 0, 2),
             )
 
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 55-57
+
+Finally, we create a viewer, and add the vortex frames, the flow
+magnitude, and the vector field.
+
+.. GENERATED FROM PYTHON SOURCE LINES 57-71
+
+.. code-block:: default
+
+
+    viewer, vortex_layer = napari.imshow(vortex_im)
+    mag_layer = viewer.add_image(magnitude, colormap='magma', opacity=0.3)
     flow_layer = viewer.add_vectors(
             vectors_field,
             name='optical flow',
@@ -162,32 +158,12 @@ current scikit-image output.
         napari.run()
 
 
-.. rst-class:: sphx-glr-script-out
 
-.. code-block:: pytb
+.. image-sg:: /gallery/images/sphx_glr_vortex_001.png
+   :alt: vortex
+   :srcset: /gallery/images/sphx_glr_vortex_001.png
+   :class: sphx-glr-single-img
 
-    Traceback (most recent call last):
-      File "/home/runner/work/docs/docs/docs/examples/vortex.py", line 59, in <module>
-        flow_layer = viewer.add_vectors(
-      File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/napari/components/viewer_model.py", line 5, in add_vectors
-        import os
-      File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/_collections_abc.py", line 1128, in append
-        self.insert(len(self), value)
-      File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/napari/components/layerlist.py", line 195, in insert
-        super().insert(index, new_layer)
-      File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/napari/utils/events/containers/_selectable_list.py", line 71, in insert
-        self.selection.active = value
-      File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/napari/utils/events/containers/_selection.py", line 108, in active
-        self.events.active(value=value)
-      File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/napari/utils/events/event.py", line 771, in __call__
-        self._invoke_callback(cb, event if pass_event else None)
-      File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/napari/utils/events/event.py", line 809, in _invoke_callback
-        _handle_exception(
-      File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/napari/utils/events/event.py", line 796, in _invoke_callback
-        cb(event)
-      File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/napari/_qt/layer_controls/qt_layer_controls_container.py", line 130, in _display
-        controls = self.widgets[layer]
-    KeyError: <Vectors layer 'optical flow' at 0x7f315cf70340>
 
 
 

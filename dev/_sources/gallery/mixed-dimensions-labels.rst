@@ -46,7 +46,7 @@ on every slice.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -77,16 +77,13 @@ on every slice.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: mixed-dimensions-labels.ipynb <mixed-dimensions-labels.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: mixed-dimensions-labels.py <mixed-dimensions-labels.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: mixed-dimensions-labels.ipynb <mixed-dimensions-labels.ipynb>`
 
 
 .. only:: html

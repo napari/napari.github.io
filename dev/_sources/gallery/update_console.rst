@@ -39,7 +39,7 @@ add_image APIs.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -120,16 +120,13 @@ add_image APIs.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: update_console.ipynb <update_console.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: update_console.py <update_console.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: update_console.ipynb <update_console.ipynb>`
 
 
 .. only:: html

@@ -38,7 +38,7 @@ Display concentric spheres in 3D.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -70,16 +70,13 @@ Display concentric spheres in 3D.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: concentric-spheres.ipynb <concentric-spheres.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: concentric-spheres.py <concentric-spheres.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: concentric-spheres.ipynb <concentric-spheres.ipynb>`
 
 
 .. only:: html

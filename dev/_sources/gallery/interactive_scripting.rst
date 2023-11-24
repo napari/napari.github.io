@@ -36,7 +36,7 @@ Interactive scripting
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import time
@@ -73,16 +73,13 @@ Interactive scripting
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: interactive_scripting.ipynb <interactive_scripting.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: interactive_scripting.py <interactive_scripting.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: interactive_scripting.ipynb <interactive_scripting.ipynb>`
 
 
 .. only:: html

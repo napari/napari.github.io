@@ -36,7 +36,7 @@ Points over time
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import dask.array as da
     import numpy as np
@@ -84,16 +84,13 @@ Points over time
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: points-over-time.ipynb <points-over-time.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: points-over-time.py <points-over-time.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: points-over-time.ipynb <points-over-time.ipynb>`
 
 
 .. only:: html

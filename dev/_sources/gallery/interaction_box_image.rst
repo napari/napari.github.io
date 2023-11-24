@@ -40,7 +40,7 @@ This allows the user to manipulate the image via the interaction box
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from skimage import data
@@ -60,16 +60,13 @@ This allows the user to manipulate the image via the interaction box
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: interaction_box_image.ipynb <interaction_box_image.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: interaction_box_image.py <interaction_box_image.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: interaction_box_image.ipynb <interaction_box_image.ipynb>`
 
 
 .. only:: html

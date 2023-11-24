@@ -38,7 +38,7 @@ Display a 3D image layer using the :meth:`add_image` API.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from skimage import data
@@ -62,16 +62,13 @@ Display a 3D image layer using the :meth:`add_image` API.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: add_3D_image.ipynb <add_3D_image.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: add_3D_image.py <add_3D_image.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: add_3D_image.ipynb <add_3D_image.ipynb>`
 
 
 .. only:: html

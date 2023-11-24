@@ -42,7 +42,7 @@ linked layers, all of the other layers follow.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import numpy as np
 
@@ -72,16 +72,13 @@ linked layers, all of the other layers follow.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: linked_layers.ipynb <linked_layers.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: linked_layers.py <linked_layers.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: linked_layers.ipynb <linked_layers.ipynb>`
 
 
 .. only:: html

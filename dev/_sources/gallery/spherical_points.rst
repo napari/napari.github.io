@@ -36,7 +36,7 @@ Spherical points
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import numpy as np
 
@@ -73,16 +73,13 @@ Spherical points
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: spherical_points.ipynb <spherical_points.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: spherical_points.py <spherical_points.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: spherical_points.ipynb <spherical_points.ipynb>`
 
 
 .. only:: html

@@ -39,7 +39,7 @@ multiple face colors mapped from features for the points and text.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -95,16 +95,13 @@ multiple face colors mapped from features for the points and text.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: add_points_with_multicolor_text.ipynb <add_points_with_multicolor_text.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: add_points_with_multicolor_text.py <add_points_with_multicolor_text.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: add_points_with_multicolor_text.ipynb <add_points_with_multicolor_text.ipynb>`
 
 
 .. only:: html

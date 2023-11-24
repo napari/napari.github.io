@@ -51,7 +51,7 @@ appearing on each slice.
 
 |
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -87,16 +87,13 @@ appearing on each slice.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: 3D_paths.ipynb <3D_paths.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 3D_paths.py <3D_paths.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: 3D_paths.ipynb <3D_paths.ipynb>`
 
 
 .. only:: html

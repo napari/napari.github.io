@@ -39,7 +39,7 @@ Display a labels layer above of an image layer using the ``add_labels`` and
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from skimage import data
@@ -78,16 +78,13 @@ Display a labels layer above of an image layer using the ``add_labels`` and
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: add_labels.ipynb <add_labels.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: add_labels.py <add_labels.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: add_labels.ipynb <add_labels.ipynb>`
 
 
 .. only:: html

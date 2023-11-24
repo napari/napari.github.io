@@ -38,7 +38,7 @@ Display one image using the :func:`view_image` API.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from skimage import data
@@ -58,16 +58,13 @@ Display one image using the :func:`view_image` API.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: add_image.ipynb <add_image.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: add_image.py <add_image.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: add_image.ipynb <add_image.ipynb>`
 
 
 .. only:: html

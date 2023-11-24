@@ -1211,7 +1211,7 @@ and computations of a source dask array and display the results in napari.
 When the computation takes one or more parameters, one can tie a UI to
 them using magicgui.</p>
 <p class="tags"><span>Tags: </span><a class="reference external" href="../_tags/visualization-advanced.html">visualization-advanced</a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dask.array</span> <span class="k">as</span> <span class="nn">da</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dask.array</span> <span class="k">as</span> <span class="nn">da</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">dask.array.lib.stride_tricks</span> <span class="kn">import</span> <span class="n">sliding_window_view</span>
 <span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
@@ -1220,7 +1220,7 @@ them using magicgui.</p>
 </pre></div>
 </div>
 <p>Part 1: using code to view a specific value.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">blobs</span></a> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">binary_blobs</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">n_dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">blobs</span></a> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">binary_blobs</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">n_dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">blobs_dask</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">blobs</span></a><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">))</span>
 
 <span class="c1"># original shape [60, 1, 1, 5, 64, 64],</span>
@@ -1237,7 +1237,7 @@ them using magicgui.</p>
 </pre></div>
 </div>
 <img src="../_images/sphx_glr_dynamic-projections-dask_001.png" srcset="../_images/sphx_glr_dynamic-projections-dask_001.png" alt="dynamic projections dask" class = "sphx-glr-single-img"/><p>Part 2: using magicgui to vary the slice thickness.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">magicgui</span> <span class="kn">import</span> <a href="https://pyapp-kit.github.io/magicgui/api/magicgui/#magicgui.magicgui" title="magicgui.magicgui" class="sphx-glr-backref-module-magicgui sphx-glr-backref-type-py-function"><span class="n">magicgui</span></a>  <span class="c1"># noqa: E402</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">magicgui</span> <span class="kn">import</span> <a href="https://pyapp-kit.github.io/magicgui/api/magicgui/#magicgui.magicgui" title="magicgui.magicgui" class="sphx-glr-backref-module-magicgui sphx-glr-backref-type-py-function"><span class="n">magicgui</span></a>  <span class="c1"># noqa: E402</span>
 
 
 <span class="k">def</span> <span class="nf">sliding_window_mean</span><span class="p">(</span>
@@ -1271,11 +1271,11 @@ them using magicgui.</p>
 </pre></div>
 </div>
 <img src="../_images/sphx_glr_dynamic-projections-dask_002.png" srcset="../_images/sphx_glr_dynamic-projections-dask_002.png" alt="dynamic projections dask" class = "sphx-glr-single-img"/><div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-dynamic-projections-dask-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/a15165e51a9c56fbdc4a58c266eafe4b/dynamic-projections-dask.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">dynamic-projections-dask.py</span></code></a></p>
-</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/2f78075e7c91b1b843f61c960c49cac7/dynamic-projections-dask.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">dynamic-projections-dask.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/a15165e51a9c56fbdc4a58c266eafe4b/dynamic-projections-dask.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">dynamic-projections-dask.py</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>

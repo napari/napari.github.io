@@ -39,7 +39,7 @@ add_image APIs, then add points in 3D
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from scipy import ndimage as ndi
@@ -70,16 +70,13 @@ add_image APIs, then add points in 3D
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: add-points-3d.ipynb <add-points-3d.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: add-points-3d.py <add-points-3d.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: add-points-3d.ipynb <add-points-3d.ipynb>`
 
 
 .. only:: html

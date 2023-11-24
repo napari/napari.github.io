@@ -39,7 +39,7 @@ Display a points layer on top of an image layer using the ``add_points`` and
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -96,16 +96,13 @@ Display a points layer on top of an image layer using the ``add_points`` and
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: add_points_with_text.ipynb <add_points_with_text.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: add_points_with_text.py <add_points_with_text.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: add_points_with_text.ipynb <add_points_with_text.ipynb>`
 
 
 .. only:: html

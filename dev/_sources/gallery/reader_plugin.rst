@@ -33,7 +33,7 @@ Barebones reader plugin example, using ``imageio.imread```
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     from imageio import formats, imread
     from napari_plugin_engine import napari_hook_implementation
@@ -65,16 +65,13 @@ Barebones reader plugin example, using ``imageio.imread```
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: reader_plugin.ipynb <reader_plugin.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: reader_plugin.py <reader_plugin.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: reader_plugin.ipynb <reader_plugin.ipynb>`
 
 
 .. only:: html

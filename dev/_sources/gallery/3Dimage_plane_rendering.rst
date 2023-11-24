@@ -39,7 +39,7 @@ with a simple widget for modifying plane parameters.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import numpy as np
     from skimage import data
@@ -96,16 +96,13 @@ with a simple widget for modifying plane parameters.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: 3Dimage_plane_rendering.ipynb <3Dimage_plane_rendering.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 3Dimage_plane_rendering.py <3Dimage_plane_rendering.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: 3Dimage_plane_rendering.ipynb <3Dimage_plane_rendering.ipynb>`
 
 
 .. only:: html

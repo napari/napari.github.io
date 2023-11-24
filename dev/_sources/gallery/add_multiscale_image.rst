@@ -48,7 +48,7 @@ Displays a multiscale image
 
 |
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -77,16 +77,13 @@ Displays a multiscale image
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: add_multiscale_image.ipynb <add_multiscale_image.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: add_multiscale_image.py <add_multiscale_image.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: add_multiscale_image.ipynb <add_multiscale_image.ipynb>`
 
 
 .. only:: html

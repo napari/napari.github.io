@@ -38,7 +38,7 @@ Example showing how to access the current viewer from a function widget.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import napari
@@ -65,16 +65,13 @@ Example showing how to access the current viewer from a function widget.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: magic_viewer.ipynb <magic_viewer.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: magic_viewer.py <magic_viewer.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: magic_viewer.ipynb <magic_viewer.ipynb>`
 
 
 .. only:: html

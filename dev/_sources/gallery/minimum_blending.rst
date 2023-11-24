@@ -45,7 +45,7 @@ ChrisLUTs: https://github.com/cleterrier/ChrisLUTs .
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from skimage import data
@@ -76,16 +76,13 @@ ChrisLUTs: https://github.com/cleterrier/ChrisLUTs .
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: minimum_blending.ipynb <minimum_blending.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: minimum_blending.py <minimum_blending.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: minimum_blending.ipynb <minimum_blending.ipynb>`
 
 
 .. only:: html

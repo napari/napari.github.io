@@ -38,7 +38,7 @@ Display one 4-D image layer using the ``add_image`` API
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from skimage import data
@@ -99,16 +99,13 @@ Display one 4-D image layer using the ``add_image`` API
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: custom_key_bindings.ipynb <custom_key_bindings.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: custom_key_bindings.py <custom_key_bindings.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: custom_key_bindings.ipynb <custom_key_bindings.ipynb>`
 
 
 .. only:: html

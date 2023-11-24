@@ -1273,7 +1273,7 @@ this demo. If the textures do overlap, you may instead be able to combine the
 textures as images. This relies on textures having the same texture
 coordinates, and may require resizing the textures to match each other.</p>
 <p class="tags"><span>Tags: </span><a class="reference external" href="../_tags/visualization-nD.html">visualization-nD</a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">pooch</span>
@@ -1285,7 +1285,7 @@ coordinates, and may require resizing the textures to match each other.</p>
 </section>
 <section id="download-the-model">
 <h2>Download the model<a class="headerlink" href="#download-the-model" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">download</span> <span class="o">=</span> <span class="n">pooch</span><span class="o">.</span><span class="n">DOIDownloader</span><span class="p">(</span><span class="n">progressbar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">download</span> <span class="o">=</span> <span class="n">pooch</span><span class="o">.</span><span class="n">DOIDownloader</span><span class="p">(</span><span class="n">progressbar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">doi</span></a> <span class="o">=</span> <span class="s2">&quot;10.6084/m9.figshare.22348645.v1&quot;</span>
 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmp_dir</span></a> <span class="o">=</span> <span class="n">pooch</span><span class="o">.</span><span class="n">os_cache</span><span class="p">(</span><span class="s2">&quot;napari-surface-texture-example&quot;</span><span class="p">)</span>
 <a href="https://docs.python.org/3/library/os.html#os.makedirs" title="os.makedirs" class="sphx-glr-backref-module-os sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">makedirs</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmp_dir</span></a><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1312,76 +1312,79 @@ coordinates, and may require resizing the textures to match each other.</p>
 downloading PocilloporaDamicornisSkin.obj
 
   0%|                                              | 0.00/93.8M [00:00&lt;?, ?B/s]
-  0%|                                      | 18.4k/93.8M [00:00&lt;10:13, 153kB/s]
-  0%|                                      | 52.2k/93.8M [00:00&lt;06:53, 227kB/s]
-  0%|                                       | 122k/93.8M [00:00&lt;04:03, 385kB/s]
-  0%|                                       | 261k/93.8M [00:00&lt;02:16, 684kB/s]
-  1%|▏                                     | 540k/93.8M [00:00&lt;01:13, 1.26MB/s]
-  1%|▍                                    | 1.10M/93.8M [00:00&lt;00:38, 2.39MB/s]
-  2%|▊                                    | 2.21M/93.8M [00:00&lt;00:19, 4.60MB/s]
-  5%|█▊                                   | 4.46M/93.8M [00:00&lt;00:09, 9.01MB/s]
-  7%|██▌                                  | 6.36M/93.8M [00:01&lt;00:07, 11.1MB/s]
-  9%|███▎                                 | 8.50M/93.8M [00:01&lt;00:06, 13.1MB/s]
- 11%|████▏                                | 10.5M/93.8M [00:01&lt;00:05, 14.2MB/s]
- 13%|████▉                                | 12.6M/93.8M [00:01&lt;00:05, 15.0MB/s]
- 16%|█████▊                               | 14.6M/93.8M [00:01&lt;00:05, 15.5MB/s]
- 18%|██████▌                              | 16.7M/93.8M [00:01&lt;00:04, 16.0MB/s]
- 20%|███████▍                             | 18.8M/93.8M [00:01&lt;00:04, 16.3MB/s]
- 22%|████████▏                            | 20.9M/93.8M [00:01&lt;00:04, 16.6MB/s]
- 24%|█████████                            | 22.9M/93.8M [00:02&lt;00:04, 16.6MB/s]
- 27%|█████████▊                           | 25.0M/93.8M [00:02&lt;00:04, 16.8MB/s]
- 29%|██████████▋                          | 27.1M/93.8M [00:02&lt;00:03, 16.9MB/s]
- 31%|███████████▌                         | 29.2M/93.8M [00:02&lt;00:03, 17.0MB/s]
- 33%|████████████▎                        | 31.3M/93.8M [00:02&lt;00:03, 17.1MB/s]
- 36%|█████████████▏                       | 33.4M/93.8M [00:02&lt;00:03, 17.1MB/s]
- 38%|██████████████                       | 35.5M/93.8M [00:02&lt;00:03, 17.1MB/s]
- 40%|██████████████▊                      | 37.6M/93.8M [00:02&lt;00:03, 17.1MB/s]
- 43%|████████████████                     | 40.7M/93.8M [00:03&lt;00:02, 19.6MB/s]
- 46%|█████████████████                    | 43.3M/93.8M [00:03&lt;00:02, 20.3MB/s]
- 49%|█████████████████▉                   | 45.6M/93.8M [00:03&lt;00:02, 19.8MB/s]
- 51%|██████████████████▉                  | 48.1M/93.8M [00:03&lt;00:02, 20.0MB/s]
- 55%|████████████████████▏                | 51.2M/93.8M [00:03&lt;00:01, 21.7MB/s]
- 57%|█████████████████████▎               | 53.9M/93.8M [00:03&lt;00:01, 23.0MB/s]
- 60%|██████████████████████▏              | 56.4M/93.8M [00:03&lt;00:01, 22.1MB/s]
- 63%|███████████████████████▎             | 59.2M/93.8M [00:03&lt;00:01, 22.4MB/s]
- 66%|████████████████████████▍            | 62.0M/93.8M [00:03&lt;00:01, 22.6MB/s]
- 69%|█████████████████████████▌           | 64.8M/93.8M [00:04&lt;00:01, 22.8MB/s]
- 72%|██████████████████████████▋          | 67.7M/93.8M [00:04&lt;00:01, 23.2MB/s]
- 75%|███████████████████████████▊         | 70.6M/93.8M [00:04&lt;00:00, 23.4MB/s]
- 79%|█████████████████████████████        | 73.7M/93.8M [00:04&lt;00:00, 23.9MB/s]
- 82%|██████████████████████████████▏      | 76.7M/93.8M [00:04&lt;00:00, 24.1MB/s]
- 85%|███████████████████████████████▍     | 79.7M/93.8M [00:04&lt;00:00, 24.3MB/s]
- 88%|████████████████████████████████▋    | 82.7M/93.8M [00:04&lt;00:00, 24.6MB/s]
- 91%|█████████████████████████████████▊   | 85.7M/93.8M [00:04&lt;00:00, 24.6MB/s]
- 94%|██████████████████████████████████▉  | 88.6M/93.8M [00:05&lt;00:00, 24.4MB/s]
- 98%|████████████████████████████████████▏| 91.6M/93.8M [00:05&lt;00:00, 24.5MB/s]
+  0%|                                      | 19.5k/93.8M [00:00&lt;09:46, 160kB/s]
+  0%|                                      | 52.2k/93.8M [00:00&lt;07:00, 223kB/s]
+  0%|                                       | 122k/93.8M [00:00&lt;04:07, 378kB/s]
+  0%|                                       | 261k/93.8M [00:00&lt;02:15, 690kB/s]
+  1%|▏                                     | 557k/93.8M [00:00&lt;01:10, 1.32MB/s]
+  1%|▍                                    | 1.15M/93.8M [00:00&lt;00:36, 2.52MB/s]
+  3%|▉                                    | 2.34M/93.8M [00:00&lt;00:18, 4.88MB/s]
+  5%|█▊                                   | 4.72M/93.8M [00:00&lt;00:09, 9.50MB/s]
+  7%|██▌                                  | 6.62M/93.8M [00:01&lt;00:07, 11.4MB/s]
+ 10%|███▌                                 | 8.95M/93.8M [00:01&lt;00:06, 13.7MB/s]
+ 12%|████▍                                | 11.1M/93.8M [00:01&lt;00:05, 15.0MB/s]
+ 14%|█████▎                               | 13.4M/93.8M [00:01&lt;00:05, 16.0MB/s]
+ 17%|██████▏                              | 15.7M/93.8M [00:01&lt;00:04, 16.8MB/s]
+ 19%|███████                              | 18.0M/93.8M [00:01&lt;00:04, 17.3MB/s]
+ 22%|███████▉                             | 20.2M/93.8M [00:01&lt;00:04, 17.7MB/s]
+ 24%|████████▉                            | 22.5M/93.8M [00:01&lt;00:03, 17.9MB/s]
+ 26%|█████████▊                           | 24.8M/93.8M [00:02&lt;00:03, 18.1MB/s]
+ 29%|██████████▋                          | 27.1M/93.8M [00:02&lt;00:03, 18.3MB/s]
+ 31%|███████████▌                         | 29.4M/93.8M [00:02&lt;00:03, 18.4MB/s]
+ 34%|████████████▍                        | 31.7M/93.8M [00:02&lt;00:03, 18.4MB/s]
+ 36%|█████████████▍                       | 33.9M/93.8M [00:02&lt;00:03, 18.5MB/s]
+ 39%|██████████████▎                      | 36.2M/93.8M [00:02&lt;00:03, 18.4MB/s]
+ 41%|███████████████▏                     | 38.5M/93.8M [00:02&lt;00:02, 18.5MB/s]
+ 43%|████████████████                     | 40.8M/93.8M [00:02&lt;00:02, 18.5MB/s]
+ 46%|█████████████████                    | 43.1M/93.8M [00:03&lt;00:02, 18.6MB/s]
+ 48%|█████████████████▉                   | 45.4M/93.8M [00:03&lt;00:02, 18.6MB/s]
+ 51%|██████████████████▊                  | 47.7M/93.8M [00:03&lt;00:02, 18.6MB/s]
+ 53%|███████████████████▋                 | 50.0M/93.8M [00:03&lt;00:02, 18.7MB/s]
+ 56%|████████████████████▋                | 52.3M/93.8M [00:03&lt;00:02, 18.7MB/s]
+ 58%|█████████████████████▌               | 54.6M/93.8M [00:03&lt;00:02, 18.7MB/s]
+ 61%|██████████████████████▍              | 57.0M/93.8M [00:03&lt;00:01, 18.8MB/s]
+ 63%|███████████████████████▎             | 59.2M/93.8M [00:03&lt;00:01, 18.7MB/s]
+ 66%|████████████████████████▎            | 61.6M/93.8M [00:04&lt;00:01, 18.9MB/s]
+ 68%|█████████████████████████▏           | 63.9M/93.8M [00:04&lt;00:01, 18.9MB/s]
+ 71%|██████████████████████████▏          | 66.3M/93.8M [00:04&lt;00:01, 19.0MB/s]
+ 73%|███████████████████████████          | 68.6M/93.8M [00:04&lt;00:01, 18.9MB/s]
+ 76%|████████████████████████████         | 71.0M/93.8M [00:04&lt;00:01, 19.0MB/s]
+ 78%|████████████████████████████▉        | 73.3M/93.8M [00:04&lt;00:01, 19.0MB/s]
+ 81%|█████████████████████████████▊       | 75.7M/93.8M [00:04&lt;00:00, 19.1MB/s]
+ 83%|██████████████████████████████▊      | 78.0M/93.8M [00:04&lt;00:00, 19.1MB/s]
+ 86%|███████████████████████████████▋     | 80.4M/93.8M [00:05&lt;00:00, 19.1MB/s]
+ 88%|████████████████████████████████▌    | 82.5M/93.8M [00:05&lt;00:00, 18.4MB/s]
+ 91%|█████████████████████████████████▌   | 85.1M/93.8M [00:05&lt;00:00, 19.3MB/s]
+ 93%|██████████████████████████████████▍  | 87.3M/93.8M [00:05&lt;00:00, 18.9MB/s]
+ 96%|███████████████████████████████████▍ | 89.8M/93.8M [00:05&lt;00:00, 19.2MB/s]
+ 98%|████████████████████████████████████▎| 92.1M/93.8M [00:05&lt;00:00, 19.1MB/s]
   0%|                                              | 0.00/93.8M [00:00&lt;?, ?B/s]
-100%|██████████████████████████████████████| 93.8M/93.8M [00:00&lt;00:00, 288GB/s]
+100%|██████████████████████████████████████| 93.8M/93.8M [00:00&lt;00:00, 469GB/s]
 downloading PocilloporaDamicornisSkin_Texture_0.jpg
 
   0%|                                              | 0.00/17.3M [00:00&lt;?, ?B/s]
-  0%|                                      | 20.5k/17.3M [00:00&lt;01:36, 178kB/s]
-  0%|                                      | 56.3k/17.3M [00:00&lt;01:11, 241kB/s]
-  1%|▎                                      | 126k/17.3M [00:00&lt;00:43, 392kB/s]
-  2%|▌                                      | 265k/17.3M [00:00&lt;00:24, 698kB/s]
-  3%|█▏                                    | 561k/17.3M [00:00&lt;00:12, 1.33MB/s]
-  7%|██▍                                  | 1.15M/17.3M [00:00&lt;00:06, 2.53MB/s]
- 14%|█████                                | 2.34M/17.3M [00:00&lt;00:03, 4.90MB/s]
- 27%|██████████                           | 4.72M/17.3M [00:00&lt;00:01, 9.56MB/s]
- 39%|██████████████▎                      | 6.68M/17.3M [00:01&lt;00:00, 11.6MB/s]
- 52%|███████████████████▎                 | 9.01M/17.3M [00:01&lt;00:00, 13.9MB/s]
- 64%|███████████████████████▊             | 11.1M/17.3M [00:01&lt;00:00, 15.0MB/s]
- 77%|████████████████████████████▋        | 13.4M/17.3M [00:01&lt;00:00, 16.1MB/s]
- 90%|█████████████████████████████████▎   | 15.6M/17.3M [00:01&lt;00:00, 16.6MB/s]
+  0%|                                      | 17.4k/17.3M [00:00&lt;02:00, 143kB/s]
+  0%|                                      | 52.2k/17.3M [00:00&lt;01:16, 227kB/s]
+  1%|▎                                      | 121k/17.3M [00:00&lt;00:45, 380kB/s]
+  2%|▌                                      | 261k/17.3M [00:00&lt;00:24, 683kB/s]
+  3%|█▏                                    | 540k/17.3M [00:00&lt;00:13, 1.26MB/s]
+  6%|██▍                                  | 1.11M/17.3M [00:00&lt;00:06, 2.43MB/s]
+ 12%|████▌                                | 2.14M/17.3M [00:00&lt;00:03, 4.37MB/s]
+ 22%|███████▉                             | 3.73M/17.3M [00:00&lt;00:01, 7.11MB/s]
+ 35%|████████████▊                        | 5.97M/17.3M [00:01&lt;00:01, 10.6MB/s]
+ 45%|████████████████▋                    | 7.82M/17.3M [00:01&lt;00:00, 12.0MB/s]
+ 57%|█████████████████████▏               | 9.92M/17.3M [00:01&lt;00:00, 13.6MB/s]
+ 69%|█████████████████████████▍           | 11.9M/17.3M [00:01&lt;00:00, 14.3MB/s]
+ 87%|████████████████████████████████     | 15.0M/17.3M [00:01&lt;00:00, 17.7MB/s]
   0%|                                              | 0.00/17.3M [00:00&lt;?, ?B/s]
-100%|█████████████████████████████████████| 17.3M/17.3M [00:00&lt;00:00, 63.1GB/s]
+100%|█████████████████████████████████████| 17.3M/17.3M [00:00&lt;00:00, 62.9GB/s]
 downloading PocilloporaDamicornisSkin_GeneratedMat2.png
 
   0%|                                               | 0.00/120k [00:00&lt;?, ?B/s]
- 15%|█████▉                                 | 18.4k/120k [00:00&lt;00:00, 150kB/s]
- 43%|████████████████▉                      | 52.2k/120k [00:00&lt;00:00, 225kB/s]
+ 16%|██████▎                                | 19.5k/120k [00:00&lt;00:00, 160kB/s]
+ 43%|████████████████▉                      | 52.2k/120k [00:00&lt;00:00, 223kB/s]
   0%|                                               | 0.00/120k [00:00&lt;?, ?B/s]
-100%|████████████████████████████████████████| 120k/120k [00:00&lt;00:00, 701MB/s]
+100%|████████████████████████████████████████| 120k/120k [00:00&lt;00:00, 704MB/s]
 </pre></div>
 </div>
 </section>
@@ -1391,7 +1394,7 @@ downloading PocilloporaDamicornisSkin_GeneratedMat2.png
 support reading material properties (.mtl files) nor separate texture and
 vertex indices (i.e. repeated vertices). Normal vectors read from the file
 are also ignored and re-calculated from the faces.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">vertices</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">faces</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_normals</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">texcoords</span></a> <span class="o">=</span> <span class="n">read_mesh</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmp_dir</span></a> <span class="o">/</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_files</span></a><span class="p">[</span><span class="s2">&quot;mesh&quot;</span><span class="p">])</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">vertices</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">faces</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_normals</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">texcoords</span></a> <span class="o">=</span> <span class="n">read_mesh</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmp_dir</span></a> <span class="o">/</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_files</span></a><span class="p">[</span><span class="s2">&quot;mesh&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </section>
@@ -1400,12 +1403,12 @@ are also ignored and re-calculated from the faces.</p>
 <p>This model comes with two textures: <cite>Texture_0</cite> is generated from
 photogrammetry of the actual object, and <cite>GeneratedMat2</cite> is a generated
 material to fill in  parts of the model lacking photographic texture.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">photo_texture</span></a> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmp_dir</span></a> <span class="o">/</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_files</span></a><span class="p">[</span><span class="s2">&quot;Texture_0&quot;</span><span class="p">])</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">photo_texture</span></a> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmp_dir</span></a> <span class="o">/</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_files</span></a><span class="p">[</span><span class="s2">&quot;Texture_0&quot;</span><span class="p">])</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">generated_texture</span></a> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmp_dir</span></a> <span class="o">/</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_files</span></a><span class="p">[</span><span class="s2">&quot;GeneratedMat2&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>This is what the texture images look like in 2D:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axs</span></a> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axs</span></a> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axs</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Texture_0 </span><span class="si">{</span><a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">photo_texture</span><span class="o">.</span><span class="n">shape</span></a><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axs</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">photo_texture</span></a><span class="p">)</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axs</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">photo_texture</span><span class="o">.</span><span class="n">shape</span></a><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">labels</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
@@ -1423,7 +1426,7 @@ material to fill in  parts of the model lacking photographic texture.</p>
 <p>Next create two separate layers with the same mesh - once with each texture.
 In this example the texture coordinates happen to be the same for each
 texture, but this is not a strict requirement.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/napari.layers.Surface.html#napari.layers.Surface" title="napari.layers.Surface" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">photo_texture_layer</span></a> <span class="o">=</span> <a href="../api/napari.layers.Surface.html#napari.layers.Surface" title="napari.layers.Surface" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Surface</span></a><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../api/napari.layers.Surface.html#napari.layers.Surface" title="napari.layers.Surface" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">photo_texture_layer</span></a> <span class="o">=</span> <a href="../api/napari.layers.Surface.html#napari.layers.Surface" title="napari.layers.Surface" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Surface</span></a><span class="p">(</span>
     <span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">vertices</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">faces</span></a><span class="p">),</span>
     <span class="n">texture</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">photo_texture</span></a><span class="p">,</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">texcoords</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">texcoords</span></a><span class="p">,</span>
@@ -1442,7 +1445,7 @@ texture, but this is not a strict requirement.</p>
 <h2>Add the layers to a viewer<a class="headerlink" href="#add-the-layers-to-a-viewer" title="Permalink to this headline">¶</a></h2>
 <p>Finally, create the viewer and add the Surface layers.
 sphinx_gallery_thumbnail_number = 2</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
 <a href="../api/napari.Viewer.html#napari.Viewer.add_layer" title="napari.Viewer.add_layer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_layer</span></a><span class="p">(</span><a href="../api/napari.layers.Surface.html#napari.layers.Surface" title="napari.layers.Surface" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">photo_texture_layer</span></a><span class="p">)</span>
 <a href="../api/napari.Viewer.html#napari.Viewer.add_layer" title="napari.Viewer.add_layer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_layer</span></a><span class="p">(</span><a href="../api/napari.layers.Surface.html#napari.layers.Surface" title="napari.layers.Surface" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">generated_texture_layer</span></a><span class="p">)</span>
@@ -1454,13 +1457,13 @@ sphinx_gallery_thumbnail_number = 2</p>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_surface_multi_texture_002.png" srcset="../_images/sphx_glr_surface_multi_texture_002.png" alt="surface multi texture" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 43.282 seconds)</p>
+<img src="../_images/sphx_glr_surface_multi_texture_002.png" srcset="../_images/sphx_glr_surface_multi_texture_002.png" alt="surface multi texture" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 39.525 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-surface-multi-texture-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/802ea58787c1d584d201e38104158907/surface_multi_texture.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">surface_multi_texture.py</span></code></a></p>
-</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/5cad0060d7849fbe4473ff3a108a0774/surface_multi_texture.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">surface_multi_texture.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/802ea58787c1d584d201e38104158907/surface_multi_texture.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">surface_multi_texture.py</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>

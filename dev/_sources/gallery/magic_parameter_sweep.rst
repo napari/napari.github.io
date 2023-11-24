@@ -42,7 +42,7 @@ It demonstrates:
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import typing
 
@@ -93,16 +93,13 @@ It demonstrates:
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: magic_parameter_sweep.ipynb <magic_parameter_sweep.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: magic_parameter_sweep.py <magic_parameter_sweep.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: magic_parameter_sweep.ipynb <magic_parameter_sweep.ipynb>`
 
 
 .. only:: html

@@ -38,7 +38,7 @@ View 3D labels.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
 
@@ -84,16 +84,13 @@ View 3D labels.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: labels3d.ipynb <labels3d.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: labels3d.py <labels3d.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: labels3d.ipynb <labels3d.ipynb>`
 
 
 .. only:: html

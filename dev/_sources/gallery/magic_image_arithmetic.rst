@@ -38,7 +38,7 @@ Basic example of using magicgui to create an Image Arithmetic GUI in napari.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import enum
@@ -97,16 +97,13 @@ Basic example of using magicgui to create an Image Arithmetic GUI in napari.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: magic_image_arithmetic.ipynb <magic_image_arithmetic.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: magic_image_arithmetic.py <magic_image_arithmetic.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: magic_image_arithmetic.ipynb <magic_image_arithmetic.ipynb>`
 
 
 .. only:: html

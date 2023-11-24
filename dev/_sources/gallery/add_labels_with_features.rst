@@ -38,7 +38,7 @@ Display a labels layer with various features
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
 
@@ -103,16 +103,13 @@ Display a labels layer with various features
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: add_labels_with_features.ipynb <add_labels_with_features.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: add_labels_with_features.py <add_labels_with_features.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: add_labels_with_features.ipynb <add_labels_with_features.ipynb>`
 
 
 .. only:: html

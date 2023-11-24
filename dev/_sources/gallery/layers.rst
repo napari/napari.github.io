@@ -39,7 +39,7 @@ using the layers swap method and remove one
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -67,16 +67,13 @@ using the layers swap method and remove one
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: layers.ipynb <layers.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: layers.py <layers.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: layers.ipynb <layers.ipynb>`
 
 
 .. only:: html

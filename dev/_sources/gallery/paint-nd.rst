@@ -40,7 +40,7 @@ This is useful e.g. when proofreading segmentations within a time series.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -74,16 +74,13 @@ This is useful e.g. when proofreading segmentations within a time series.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: paint-nd.ipynb <paint-nd.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: paint-nd.py <paint-nd.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: paint-nd.ipynb <paint-nd.ipynb>`
 
 
 .. only:: html

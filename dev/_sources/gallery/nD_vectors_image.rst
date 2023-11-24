@@ -51,7 +51,7 @@ which are vector projections centered on a pixel of the MxNxP grid
 
 |
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -87,16 +87,13 @@ which are vector projections centered on a pixel of the MxNxP grid
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: nD_vectors_image.ipynb <nD_vectors_image.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: nD_vectors_image.py <nD_vectors_image.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: nD_vectors_image.ipynb <nD_vectors_image.ipynb>`
 
 
 .. only:: html

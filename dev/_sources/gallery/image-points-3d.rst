@@ -38,7 +38,7 @@ Display points overlaid on a 3D image
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     from skimage import data, feature, filters
 
@@ -64,16 +64,13 @@ Display points overlaid on a 3D image
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: image-points-3d.ipynb <image-points-3d.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: image-points-3d.py <image-points-3d.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: image-points-3d.ipynb <image-points-3d.ipynb>`
 
 
 .. only:: html

@@ -51,7 +51,7 @@ Display one points layer ontop of one image layer using the ``add_points`` and
 
 |
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -78,16 +78,13 @@ Display one points layer ontop of one image layer using the ``add_points`` and
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: annotate-2d.ipynb <annotate-2d.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: annotate-2d.py <annotate-2d.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: annotate-2d.ipynb <annotate-2d.ipynb>`
 
 
 .. only:: html

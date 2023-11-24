@@ -42,7 +42,7 @@ Each vector position is defined by an (x, y, x-proj, y-proj) element where
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -82,16 +82,13 @@ Each vector position is defined by an (x, y, x-proj, y-proj) element where
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: add_vectors.ipynb <add_vectors.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: add_vectors.py <add_vectors.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: add_vectors.ipynb <add_vectors.ipynb>`
 
 
 .. only:: html

@@ -39,7 +39,7 @@ from main napari window.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from magicgui import magicgui
@@ -124,16 +124,13 @@ from main napari window.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: inherit_viewer_style.ipynb <inherit_viewer_style.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: inherit_viewer_style.py <inherit_viewer_style.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: inherit_viewer_style.ipynb <inherit_viewer_style.ipynb>`
 
 
 .. only:: html

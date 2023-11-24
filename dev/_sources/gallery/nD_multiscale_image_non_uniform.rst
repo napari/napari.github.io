@@ -48,7 +48,7 @@ Displays an nD multiscale image
 
 |
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -81,16 +81,13 @@ Displays an nD multiscale image
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: nD_multiscale_image_non_uniform.ipynb <nD_multiscale_image_non_uniform.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: nD_multiscale_image_non_uniform.py <nD_multiscale_image_non_uniform.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: nD_multiscale_image_non_uniform.ipynb <nD_multiscale_image_non_uniform.ipynb>`
 
 
 .. only:: html

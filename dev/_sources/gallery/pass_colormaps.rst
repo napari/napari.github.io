@@ -38,7 +38,7 @@ Add named or unnamed vispy colormaps to existing layers.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -71,16 +71,13 @@ Add named or unnamed vispy colormaps to existing layers.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: pass_colormaps.ipynb <pass_colormaps.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: pass_colormaps.py <pass_colormaps.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: pass_colormaps.ipynb <pass_colormaps.ipynb>`
 
 
 .. only:: html

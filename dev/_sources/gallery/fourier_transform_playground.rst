@@ -40,7 +40,7 @@ by the changes. Threading is used to smoothly animate the waves.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
 
@@ -191,16 +191,13 @@ by the changes. Threading is used to smoothly animate the waves.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: fourier_transform_playground.ipynb <fourier_transform_playground.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: fourier_transform_playground.py <fourier_transform_playground.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: fourier_transform_playground.ipynb <fourier_transform_playground.ipynb>`
 
 
 .. only:: html

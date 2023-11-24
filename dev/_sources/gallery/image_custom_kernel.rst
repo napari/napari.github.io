@@ -45,7 +45,7 @@ and then using the weights in the kernel to add up the final fragment value.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -121,16 +121,13 @@ and then using the weights in the kernel to add up the final fragment value.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: image_custom_kernel.ipynb <image_custom_kernel.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: image_custom_kernel.py <image_custom_kernel.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: image_custom_kernel.ipynb <image_custom_kernel.ipynb>`
 
 
 .. only:: html

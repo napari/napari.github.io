@@ -50,7 +50,7 @@ Display a 3D mesh with normals and wireframe
 
 |
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from vispy.io import load_data_file, read_mesh
@@ -81,16 +81,13 @@ Display a 3D mesh with normals and wireframe
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: surface_normals_wireframe.ipynb <surface_normals_wireframe.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: surface_normals_wireframe.py <surface_normals_wireframe.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: surface_normals_wireframe.ipynb <surface_normals_wireframe.ipynb>`
 
 
 .. only:: html

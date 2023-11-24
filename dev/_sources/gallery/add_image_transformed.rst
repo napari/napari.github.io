@@ -38,7 +38,7 @@ Display one image and transform it using the :func:`view_image` API.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from skimage import data
@@ -58,16 +58,13 @@ Display one image and transform it using the :func:`view_image` API.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: add_image_transformed.ipynb <add_image_transformed.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: add_image_transformed.py <add_image_transformed.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: add_image_transformed.ipynb <add_image_transformed.ipynb>`
 
 
 .. only:: html

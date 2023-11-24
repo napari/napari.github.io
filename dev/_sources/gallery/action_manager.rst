@@ -42,9 +42,9 @@ Action manager
     application, not part of the napari viewer model. If your use case
     requires access to qt_viewer, please open an issue to discuss.
       layer_buttons = viewer.window.qt_viewer.layerButtons
-    calling <function bind_button at 0x7f2bd8b25e10>
-    calling <function register_action at 0x7f2bd8b26290>
-    calling <function bind_shortcut at 0x7f2bd8b25a20>
+    calling <function bind_button at 0x7f7098556200>
+    calling <function register_action at 0x7f7098554700>
+    calling <function bind_shortcut at 0x7f7098556170>
 
 
 
@@ -53,7 +53,7 @@ Action manager
 
 |
 
-.. code-block:: default
+.. code-block:: Python
 
     from random import shuffle
 
@@ -173,16 +173,13 @@ Action manager
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: action_manager.ipynb <action_manager.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: action_manager.py <action_manager.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: action_manager.ipynb <action_manager.ipynb>`
 
 
 .. only:: html

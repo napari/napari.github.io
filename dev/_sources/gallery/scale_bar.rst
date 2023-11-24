@@ -38,7 +38,7 @@ Display a 3D volume and the scale bar
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     from skimage import data
 
@@ -67,16 +67,13 @@ Display a 3D volume and the scale bar
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: scale_bar.ipynb <scale_bar.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: scale_bar.py <scale_bar.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: scale_bar.ipynb <scale_bar.ipynb>`
 
 
 .. only:: html

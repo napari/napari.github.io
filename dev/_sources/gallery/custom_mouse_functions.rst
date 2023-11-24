@@ -38,7 +38,7 @@ Display one 4-D image layer using the ``add_image`` API
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -122,16 +122,13 @@ Display one 4-D image layer using the ``add_image`` API
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: custom_mouse_functions.ipynb <custom_mouse_functions.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: custom_mouse_functions.py <custom_mouse_functions.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: custom_mouse_functions.ipynb <custom_mouse_functions.ipynb>`
 
 
 .. only:: html

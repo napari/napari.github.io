@@ -38,7 +38,7 @@ Display a 3D surface
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -65,16 +65,13 @@ Display a 3D surface
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: nD_surface.ipynb <nD_surface.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: nD_surface.py <nD_surface.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: nD_surface.ipynb <nD_surface.ipynb>`
 
 
 .. only:: html

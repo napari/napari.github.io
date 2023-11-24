@@ -32,7 +32,7 @@ image, visible by moving the slider.
 
 .. GENERATED FROM PYTHON SOURCE LINES 14-20
 
-.. code-block:: default
+.. code-block:: Python
 
     import numpy as np
     from skimage.data import vortex
@@ -53,7 +53,7 @@ First, we load the vortex image as a 3D array. (time, row, column)
 
 .. GENERATED FROM PYTHON SOURCE LINES 22-25
 
-.. code-block:: default
+.. code-block:: Python
 
 
     vortex_im = np.asarray(vortex())
@@ -73,7 +73,7 @@ the output, which we account for later.)
 
 .. GENERATED FROM PYTHON SOURCE LINES 29-32
 
-.. code-block:: default
+.. code-block:: Python
 
 
     u, v = optical_flow_ilk(vortex_im[0], vortex_im[1], radius=15)
@@ -91,7 +91,7 @@ Compute the flow magnitude, for visualization.
 
 .. GENERATED FROM PYTHON SOURCE LINES 34-37
 
-.. code-block:: default
+.. code-block:: Python
 
 
     magnitude = np.sqrt(u ** 2 + v ** 2)
@@ -111,7 +111,7 @@ current scikit-image output.
 
 .. GENERATED FROM PYTHON SOURCE LINES 41-54
 
-.. code-block:: default
+.. code-block:: Python
 
 
     nvec = 21
@@ -140,7 +140,7 @@ magnitude, and the vector field.
 
 .. GENERATED FROM PYTHON SOURCE LINES 57-71
 
-.. code-block:: default
+.. code-block:: Python
 
 
     viewer, vortex_layer = napari.imshow(vortex_im)
@@ -175,16 +175,13 @@ magnitude, and the vector field.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: vortex.ipynb <vortex.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: vortex.py <vortex.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: vortex.ipynb <vortex.ipynb>`
 
 
 .. only:: html

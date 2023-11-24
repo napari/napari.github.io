@@ -50,7 +50,7 @@ Create multiple viewers from the same script
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from skimage import data
@@ -76,16 +76,13 @@ Create multiple viewers from the same script
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: multiple_viewers.ipynb <multiple_viewers.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: multiple_viewers.py <multiple_viewers.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: multiple_viewers.ipynb <multiple_viewers.ipynb>`
 
 
 .. only:: html

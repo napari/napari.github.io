@@ -41,7 +41,7 @@ apprearing on each slice.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -97,16 +97,13 @@ apprearing on each slice.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: nD_vectors.ipynb <nD_vectors.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: nD_vectors.py <nD_vectors.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: nD_vectors.ipynb <nD_vectors.ipynb>`
 
 
 .. only:: html

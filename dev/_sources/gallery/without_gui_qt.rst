@@ -53,7 +53,7 @@ the "gui_qt()" context manager.
 
 |
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from collections import Counter
@@ -92,16 +92,13 @@ the "gui_qt()" context manager.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: without_gui_qt.ipynb <without_gui_qt.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: without_gui_qt.py <without_gui_qt.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: without_gui_qt.ipynb <without_gui_qt.ipynb>`
 
 
 .. only:: html

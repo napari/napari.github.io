@@ -36,7 +36,7 @@ Tracks 2D
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -105,16 +105,13 @@ Tracks 2D
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: tracks_2d.ipynb <tracks_2d.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: tracks_2d.py <tracks_2d.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: tracks_2d.ipynb <tracks_2d.ipynb>`
 
 
 .. only:: html

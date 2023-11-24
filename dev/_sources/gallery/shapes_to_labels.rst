@@ -40,7 +40,7 @@ your shapes.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -143,16 +143,13 @@ your shapes.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: shapes_to_labels.ipynb <shapes_to_labels.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: shapes_to_labels.py <shapes_to_labels.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: shapes_to_labels.ipynb <shapes_to_labels.ipynb>`
 
 
 .. only:: html

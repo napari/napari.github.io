@@ -17,6 +17,12 @@ napari.utils.LabelColormap
    
    
    
+      ~LabelColormap.background_as_minimum_dtype
+   
+   
+      ~LabelColormap.background_as_type
+   
+   
       ~LabelColormap.construct
    
    
@@ -54,6 +60,12 @@ napari.utils.LabelColormap
    
    
       ~LabelColormap.schema_json
+   
+   
+      ~LabelColormap.selection_as_minimum_dtype
+   
+   
+      ~LabelColormap.selection_as_type
    
    
       ~LabelColormap.shuffle

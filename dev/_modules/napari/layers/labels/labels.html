@@ -323,7 +323,9 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">label_colormap</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps.colormap</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">_cast_labels_to_minimum_dtype_auto</span><span class="p">,</span>
+    <span class="n">LabelColormap</span><span class="p">,</span>
+    <span class="n">_cast_labels_data_to_texture_dtype</span><span class="p">,</span>
+    <span class="n">_convert_small_ints_to_unsigned</span><span class="p">,</span>
     <span class="n">minimum_dtype_for_labels</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">Event</span>
@@ -789,6 +791,10 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@_ImageBase</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colormap</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_set_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span><span class="p">,</span> <span class="n">LabelColormap</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_direct_colormap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -798,6 +804,8 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@num_colors</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">num_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_colors</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">num_colors</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">num_colors</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;num_colors must be between 1 and 65535&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_colors</span> <span class="o">=</span> <span class="n">num_colors</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="n">label_colormap</span><span class="p">(</span>
             <span class="n">num_colors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span>
@@ -1347,8 +1355,8 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span><span class="p">:</span>
-            <span class="n">mapped_labels</span> <span class="o">=</span> <span class="n">_cast_labels_to_minimum_dtype_auto</span><span class="p">(</span>
-                <span class="n">labels_to_map</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_colors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span>
+            <span class="n">mapped_labels</span> <span class="o">=</span> <span class="n">_cast_labels_data_to_texture_dtype</span><span class="p">(</span>
+                <span class="n">labels_to_map</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>  <span class="c1"># direct</span>
             <span class="n">mapped_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_vispy_texture_dtype</span><span class="p">(</span><span class="n">labels_to_map</span><span class="p">)</span>
@@ -1361,7 +1369,6 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_labels</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span>
-
         <span class="k">return</span> <span class="n">mapped_labels</span>
 
     <span class="k">def</span> <span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1376,7 +1383,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="c1"># Is there a nicer way to prevent this from getting called?</span>
             <span class="k">return</span>
 
-        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">thumbnail</span><span class="o">.</span><span class="n">view</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">thumbnail</span><span class="o">.</span><span class="n">raw</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="c1"># we are only using the current slice so `image` will never be</span>
             <span class="c1"># bigger than 3. If we are in this clause, it is exactly 3, so we</span>
@@ -1392,15 +1399,16 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
         <span class="n">zoom_factor</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">new_shape</span> <span class="o">/</span> <span class="n">imshape</span><span class="p">)</span>
 
-        <span class="n">downsampled</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">zoom_factor</span><span class="p">,</span> <span class="n">prefilter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">downsampled</span> <span class="o">=</span> <span class="n">_convert_small_ints_to_unsigned</span><span class="p">(</span>
+            <span class="n">ndi</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">zoom_factor</span><span class="p">,</span> <span class="n">prefilter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span><span class="p">:</span>
-            <span class="n">color_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">_map_precast</span><span class="p">(</span><span class="n">downsampled</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+            <span class="n">color_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">downsampled</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>  <span class="c1"># direct</span>
-            <span class="n">color_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_direct_colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">downsampled</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
-        <span class="n">colormapped</span> <span class="o">=</span> <span class="n">color_array</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">downsampled</span><span class="o">.</span><span class="n">shape</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4</span><span class="p">,))</span>
-        <span class="n">colormapped</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span>
+            <span class="n">color_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_direct_colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">downsampled</span><span class="p">)</span>
+        <span class="n">color_array</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">thumbnail</span> <span class="o">=</span> <span class="n">colormapped</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">thumbnail</span> <span class="o">=</span> <span class="n">color_array</span>
 
     <span class="k">def</span> <span class="nf">new_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">seed_rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">32</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
@@ -1412,9 +1420,13 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">elif</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">show_selected_label</span> <span class="ow">and</span> <span class="n">label</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span>
         <span class="p">):</span>
-            <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="n">label</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">raw_dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">_convert_small_ints_to_unsigned</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">label</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">raw_dtype</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">val</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">col</span></div>
 
     <span class="k">def</span> <span class="nf">_get_value_ray</span><span class="p">(</span>

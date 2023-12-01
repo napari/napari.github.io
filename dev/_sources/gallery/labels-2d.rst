@@ -40,7 +40,7 @@ Display a labels layer above of an image layer using the ``add_labels`` and
 
  .. code-block:: none
 
-    The color of label 5 is [0.28053862 0.22821146 0.6264092  1.        ]
+    The color of label 5 is [0.2784314  0.22745098 0.62352943 1.        ]
 
 
 

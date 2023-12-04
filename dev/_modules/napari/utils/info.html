@@ -279,7 +279,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="n">OS_RELEASE_PATH</span> <span class="o">=</span> <span class="s2">&quot;/etc/os-release&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">_linux_sys_name</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">_linux_sys_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Try to discover linux system name base on /etc/os-release file or lsb_release command output</span>
 <span class="sd">    https://www.freedesktop.org/software/systemd/man/os-release.html</span>
@@ -302,7 +302,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">return</span> <span class="n">_linux_sys_name_lsb_release</span><span class="p">()</span>
 
 
-<span class="k">def</span> <span class="nf">_linux_sys_name_lsb_release</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">_linux_sys_name_lsb_release</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Try to discover linux system name base on lsb_release command output</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -322,7 +322,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">_sys_name</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">_sys_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Discover MacOS or Linux Human readable information. For Linux provide information about distribution.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -340,7 +340,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="sys_info"><a class="viewcode-back" href="../../../api/napari.utils.html#napari.sys_info">[docs]</a><span class="k">def</span> <span class="nf">sys_info</span><span class="p">(</span><span class="n">as_html</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="sys_info"><a class="viewcode-back" href="../../../api/napari.utils.html#napari.sys_info">[docs]</a><span class="k">def</span> <span class="nf">sys_info</span><span class="p">(</span><span class="n">as_html</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Gathers relevant module versions for troubleshooting purposes.</span>
 
 <span class="sd">    Parameters</span>

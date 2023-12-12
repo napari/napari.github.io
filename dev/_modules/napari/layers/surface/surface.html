@@ -268,7 +268,8 @@ function checkPageExistsAndRedirect(event) {
             <div>
               
   <h1>Source code for napari.layers.surface.surface</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -974,7 +975,34 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">vertex_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertex_values</span><span class="p">[</span><span class="n">triangle_vertex_indices</span><span class="p">]</span>
         <span class="n">intersection_value</span> <span class="o">=</span> <span class="p">(</span><span class="n">barycentric_coordinates</span> <span class="o">*</span> <span class="n">vertex_values</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">intersection_value</span><span class="p">,</span> <span class="n">intersection_index</span></div>
+        <span class="k">return</span> <span class="n">intersection_value</span><span class="p">,</span> <span class="n">intersection_index</span>
+
+    <span class="k">def</span> <span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a copy of this layer.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        layer : napari.layers.Layer</span>
+<span class="sd">            Copy of this layer.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This method is defined for purpose of asv memory benchmarks.</span>
+<span class="sd">        The copy of data is intentional for properly estimating memory</span>
+<span class="sd">        usage for layer.</span>
+
+<span class="sd">        If you want a to copy a layer without coping the data please use</span>
+<span class="sd">        `layer.create(*layer.as_layer_data_tuple())`</span>
+
+<span class="sd">        If you change this method, validate if memory benchmarks are still</span>
+<span class="sd">        working properly.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">meta</span><span class="p">,</span> <span class="n">layer_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_layer_data_tuple</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
+            <span class="n">meta</span><span class="o">=</span><span class="n">meta</span><span class="p">,</span>
+            <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span><span class="p">,</span>
+        <span class="p">)</span></div>
 </pre></div>
 
             </div>

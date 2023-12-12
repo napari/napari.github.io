@@ -270,6 +270,7 @@ function checkPageExistsAndRedirect(event) {
   <h1>Source code for napari.layers.base.base</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
@@ -2327,6 +2328,29 @@ function checkPageExistsAndRedirect(event) {
         <span class="kn">from</span> <span class="nn">napari.plugins.io</span> <span class="kn">import</span> <span class="n">save_layers</span>
 
         <span class="k">return</span> <span class="n">save_layers</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="p">],</span> <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a copy of this layer.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        layer : napari.layers.Layer</span>
+<span class="sd">            Copy of this layer.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This method is defined for purpose of asv memory benchmarks.</span>
+<span class="sd">        The copy of data is intentional for properly estimating memory</span>
+<span class="sd">        usage for layer.</span>
+
+<span class="sd">        If you want a to copy a layer without coping the data please use</span>
+<span class="sd">        `layer.create(*layer.as_layer_data_tuple())`</span>
+
+<span class="sd">        If you change this method, validate if memory benchmarks are still</span>
+<span class="sd">        working properly.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">meta</span><span class="p">,</span> <span class="n">layer_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_layer_data_tuple</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">meta</span><span class="o">=</span><span class="n">meta</span><span class="p">,</span> <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Layer.create"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.create">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>

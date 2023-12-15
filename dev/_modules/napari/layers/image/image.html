@@ -302,7 +302,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.layers.utils.plane</span> <span class="kn">import</span> <span class="n">SlicingPlane</span>
 <span class="kn">from</span> <span class="nn">napari.utils._dask_utils</span> <span class="kn">import</span> <span class="n">DaskIndexer</span>
 <span class="kn">from</span> <span class="nn">napari.utils._dtype</span> <span class="kn">import</span> <span class="n">get_dtype_limits</span><span class="p">,</span> <span class="n">normalize_dtype</span>
-<span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="n">AVAILABLE_COLORMAPS</span>
+<span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="n">AVAILABLE_COLORMAPS</span><span class="p">,</span> <span class="n">ensure_colormap</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.event_utils</span> <span class="kn">import</span> <span class="n">connect_no_arg</span>
@@ -662,7 +662,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># _set_colormap method. This is important for Labels layers, because</span>
         <span class="c1"># we don&#39;t want to use get_color before set_view_slice has been</span>
         <span class="c1"># triggered (self.refresh(), below).</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_set_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span> <span class="o">=</span> <span class="n">ensure_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="o">.</span><span class="n">NEAREST</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="o">.</span><span class="n">NEAREST</span>

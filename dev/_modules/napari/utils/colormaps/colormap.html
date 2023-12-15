@@ -270,7 +270,18 @@ function checkPageExistsAndRedirect(event) {
   <h1>Source code for napari.utils.colormaps.colormap</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cached_property</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">cast</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">TYPE_CHECKING</span><span class="p">,</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">DefaultDict</span><span class="p">,</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Tuple</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span>
+    <span class="n">cast</span><span class="p">,</span>
+    <span class="n">overload</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -281,6 +292,13 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">EventedModel</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">numba</span> <span class="kn">import</span> <span class="n">typed</span>
+
+<span class="n">MAPPING_OF_UNKNOWN_VALUE</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c1"># For direct mode we map all unknown values to single value</span>
+<span class="c1"># for simplicity of implementation we select 0</span>
 
 
 <span class="k">class</span> <span class="nc">ColormapInterpolationMode</span><span class="p">(</span><span class="n">StrEnum</span><span class="p">):</span>
@@ -306,7 +324,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        Data used in the colormap.</span>
 <span class="sd">    name : str</span>
 <span class="sd">        Name of the colormap.</span>
-<span class="sd">    display_name : str</span>
+<span class="sd">    _display_name : str</span>
 <span class="sd">        Display name of the colormap.</span>
 <span class="sd">    controls : array, shape (N,) or (N+1,)</span>
 <span class="sd">        Control points of the colormap.</span>
@@ -347,7 +365,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Control points must start with 0.0 and end with 1.0. Got </span><span class="si">{start_control_point}</span><span class="s1"> and </span><span class="si">{end_control_point}</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Control points must start with 0.0 and end with 1.0. &#39;</span>
+                    <span class="s1">&#39;Got </span><span class="si">{start_control_point}</span><span class="s1"> and </span><span class="si">{end_control_point}</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">start_control_point</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                     <span class="n">end_control_point</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
@@ -416,76 +435,61 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">make_colorbar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="LabelColormap"><a class="viewcode-back" href="../../../../api/napari.utils.LabelColormap.html#napari.utils.LabelColormap">[docs]</a><span class="k">class</span> <span class="nc">LabelColormap</span><span class="p">(</span><span class="n">Colormap</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Colormap that shuffles values before mapping to colors.</span>
-
-<span class="sd">    Attributes</span>
-<span class="sd">    ----------</span>
-<span class="sd">    seed : float</span>
-<span class="sd">    use_selection : bool</span>
-<span class="sd">    selection : int</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">seed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="k">class</span> <span class="nc">LabelColormapBase</span><span class="p">(</span><span class="n">Colormap</span><span class="p">):</span>
     <span class="n">use_selection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">selection</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">interpolation</span><span class="p">:</span> <span class="n">ColormapInterpolationMode</span> <span class="o">=</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">ZERO</span>
     <span class="n">background_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">interpolation</span><span class="p">:</span> <span class="n">ColormapInterpolationMode</span> <span class="o">=</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">ZERO</span>
+    <span class="n">_cache_mapping</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">{}</span>
+    <span class="p">)</span>
+    <span class="n">_cache_other</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{})</span>
 
-    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">Colormap</span><span class="o">.</span><span class="n">Config</span><span class="p">):</span>
         <span class="c1"># this config is to avoid deepcopy of cached_property</span>
         <span class="c1"># see https://github.com/pydantic/pydantic/issues/2763</span>
-        <span class="c1"># it is required until drop pydantic 1 or pythin 3.11 and older</span>
+        <span class="c1"># it is required until we drop Pydantic 1 or Python 3.11 and older</span>
         <span class="c1"># need to validate after drop pydantic 1</span>
         <span class="n">keep_untouched</span> <span class="o">=</span> <span class="p">(</span><span class="n">cached_property</span><span class="p">,)</span>
 
-    <span class="nd">@cached_property</span>
-    <span class="k">def</span> <span class="nf">_uint8_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">apply_selection</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_cmap_without_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;LabelColormapBase&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_selection</span><span class="p">:</span>
+            <span class="n">cmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+            <span class="n">cmap</span><span class="o">.</span><span class="n">use_selection</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="n">cmap</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="nd">@cached_property</span>
-    <span class="k">def</span> <span class="nf">_uint16_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">65536</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">apply_selection</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_get_mapping_from_cache</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data_dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;For given dtype, return precomputed array mapping values to colors.</span>
 
-<div class="viewcode-block" id="LabelColormap.selection_as_type"><a class="viewcode-back" href="../../../../api/napari.utils.LabelColormap.html#napari.utils.LabelColormap.selection_as_type">[docs]</a>    <span class="k">def</span> <span class="nf">selection_as_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the selection value to a specified data type.</span>
-
-<span class="sd">        This maps negative background values in int8 and int16 to their</span>
-<span class="sd">        corresponding view in uint8 and uint16.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        dtype : np.dtype</span>
-<span class="sd">            The desired data type to convert the selection value to.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        int</span>
-<span class="sd">            The selection value converted to the specified data type.</span>
+<span class="sd">        Returns None if the dtype itemsize is greater than 2.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+        <span class="n">target_dtype</span> <span class="o">=</span> <span class="n">_texture_dtype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_unique_colors</span><span class="p">,</span> <span class="n">data_dtype</span><span class="p">)</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_dtype</span><span class="p">,</span> <span class="n">target_dtype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_mapping</span> <span class="ow">and</span> <span class="n">data_dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">target_dtype</span><span class="p">)</span><span class="o">.</span><span class="n">max</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">target_dtype</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">data_dtype</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cache_mapping</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_without_cache</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_mapping</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
-<div class="viewcode-block" id="LabelColormap.background_as_type"><a class="viewcode-back" href="../../../../api/napari.utils.LabelColormap.html#napari.utils.LabelColormap.background_as_type">[docs]</a>    <span class="k">def</span> <span class="nf">background_as_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the background value to a specified data type.</span>
+    <span class="k">def</span> <span class="nf">_clear_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Mechanism to clean cached properties&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_mapping</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_other</span> <span class="o">=</span> <span class="p">{}</span>
 
-<span class="sd">        This maps negative background values in int8 and int16 to their</span>
-<span class="sd">        corresponding view in uint8 and uint16.</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_num_unique_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of unique colors, not counting transparent black.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        dtype : np.dtype</span>
-<span class="sd">            The desired data type to convert the background value to.</span>
+    <span class="k">def</span> <span class="nf">_map_without_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Function that maps values to colors without selection or cache&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        int</span>
-<span class="sd">            The background value converted to the specified data type.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">background_value</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
-
-<div class="viewcode-block" id="LabelColormap.selection_as_minimum_dtype"><a class="viewcode-back" href="../../../../api/napari.utils.LabelColormap.html#napari.utils.LabelColormap.selection_as_minimum_dtype">[docs]</a>    <span class="k">def</span> <span class="nf">selection_as_minimum_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_selection_as_minimum_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Treat selection as given dtype and calculate value with min dtype.</span>
 
 <span class="sd">        Parameters</span>
@@ -498,11 +502,29 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        int</span>
 <span class="sd">            The selection converted.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">_cast_labels_data_to_texture_dtype</span><span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">),</span> <span class="bp">self</span>
-        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-<div class="viewcode-block" id="LabelColormap.background_as_minimum_dtype"><a class="viewcode-back" href="../../../../api/napari.utils.LabelColormap.html#napari.utils.LabelColormap.background_as_minimum_dtype">[docs]</a>    <span class="k">def</span> <span class="nf">background_as_minimum_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+
+<div class="viewcode-block" id="LabelColormap"><a class="viewcode-back" href="../../../../api/napari.utils.LabelColormap.html#napari.utils.LabelColormap">[docs]</a><span class="k">class</span> <span class="nc">LabelColormap</span><span class="p">(</span><span class="n">LabelColormapBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Colormap that shuffles values before mapping to colors.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    seed : float</span>
+<span class="sd">    use_selection : bool</span>
+<span class="sd">    selection : int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">seed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+    <span class="k">def</span> <span class="nf">_selection_as_minimum_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">_cast_labels_data_to_texture_dtype_auto</span><span class="p">(</span>
+                <span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">),</span> <span class="bp">self</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_background_as_minimum_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Treat background as given dtype and calculate value with min dtype.</span>
 
 <span class="sd">        Parameters</span>
@@ -515,19 +537,30 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        int</span>
 <span class="sd">            The background converted.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">_cast_labels_data_to_texture_dtype</span><span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">background_value</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">),</span> <span class="bp">self</span>
-        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">_cast_labels_data_to_texture_dtype_auto</span><span class="p">(</span>
+                <span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">background_value</span><span class="p">),</span> <span class="bp">self</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
-<div class="viewcode-block" id="LabelColormap.map"><a class="viewcode-back" href="../../../../api/napari.utils.LabelColormap.html#napari.utils.LabelColormap.map">[docs]</a>    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">apply_selection</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_map_without_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">texture_dtype_values</span> <span class="o">=</span> <span class="n">_zero_preserving_modulo_numpy</span><span class="p">(</span>
+            <span class="n">values</span><span class="p">,</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">background_value</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">mapped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="n">texture_dtype_values</span><span class="p">]</span>
+        <span class="n">mapped</span><span class="p">[</span><span class="n">texture_dtype_values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">mapped</span>
+
+<div class="viewcode-block" id="LabelColormap.map"><a class="viewcode-back" href="../../../../api/napari.utils.LabelColormap.html#napari.utils.LabelColormap.map">[docs]</a>    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Map values to colors.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        values : np.ndarray or float</span>
 <span class="sd">            Values to be mapped.</span>
-<span class="sd">        apply_selection : bool</span>
-<span class="sd">            Whether to apply selection if self.use_selection is True.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -538,29 +571,13 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;f&#39;</span><span class="p">:</span>
             <span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span> <span class="ow">and</span> <span class="s2">&quot;_uint8_colors&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
-            <span class="c1"># __dict__ checks whether _uint8_colors is cached — if not, it</span>
-            <span class="c1"># falls back on else to map all the colors, avoiding an infinite</span>
-            <span class="c1"># recursion.</span>
-            <span class="n">mapped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_uint8_colors</span><span class="p">[</span><span class="n">values</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="n">values</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">uint16</span> <span class="ow">and</span> <span class="s2">&quot;_uint16_colors&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
-            <span class="c1"># same as above uint8 clause.</span>
-            <span class="n">mapped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_uint16_colors</span><span class="p">[</span><span class="n">values</span><span class="p">]</span>
+        <span class="n">mapper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_mapping_from_cache</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mapper</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mapped</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">[</span><span class="n">values</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">background</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">background_as_type</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-            <span class="c1"># cast background to values dtype to support int8 and int16</span>
-            <span class="c1"># negative backgrounds</span>
-            <span class="n">texture_dtype_values</span> <span class="o">=</span> <span class="n">_zero_preserving_modulo_numpy</span><span class="p">(</span>
-                <span class="n">values</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">background</span>
-            <span class="p">)</span>
-            <span class="n">mapped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="n">texture_dtype_values</span><span class="p">]</span>
-            <span class="n">mapped</span><span class="p">[</span><span class="n">texture_dtype_values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_selection</span> <span class="ow">and</span> <span class="n">apply_selection</span><span class="p">:</span>
-            <span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection_as_type</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-            <span class="c1"># cast selection to values dtype to support int8 and int16</span>
-            <span class="c1"># negative backgrounds</span>
-            <span class="n">mapped</span><span class="p">[(</span><span class="n">values</span> <span class="o">!=</span> <span class="n">selection</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">mapped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_without_cache</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_selection</span><span class="p">:</span>
+            <span class="n">mapped</span><span class="p">[(</span><span class="n">values</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="k">return</span> <span class="n">mapped</span></div>
 
@@ -576,65 +593,253 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">colors</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span></div></div>
 
 
-<span class="k">class</span> <span class="nc">DirectLabelColormap</span><span class="p">(</span><span class="n">Colormap</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">DirectLabelColormap</span><span class="p">(</span><span class="n">LabelColormapBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Colormap using a direct mapping from labels to color using a dict.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
-<span class="sd">    color_dict : defaultdict</span>
+<span class="sd">    color_dict: dict from int to (3,) or (4,) array</span>
 <span class="sd">        The dictionary mapping labels to colors.</span>
 <span class="sd">    use_selection : bool</span>
 <span class="sd">        Whether to color using the selected label.</span>
-<span class="sd">    selection : float</span>
+<span class="sd">    selection : int</span>
 <span class="sd">        The selected label.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">color_dict</span><span class="p">:</span> <span class="n">defaultdict</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+    <span class="n">color_dict</span><span class="p">:</span> <span class="n">DefaultDict</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
     <span class="p">)</span>
     <span class="n">use_selection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">selection</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">selection</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
-        <span class="c1"># Convert to float32 to match the current GL shader implementation</span>
-        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-        <span class="n">mapped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="p">:</span>
-                <span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="p">[</span><span class="n">value</span><span class="p">]</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-                    <span class="n">color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-                <span class="n">mapped</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">mapped</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_color</span>
-        <span class="c1"># If using selected, disable all others</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;colors&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;colors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_selection_as_minimum_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">_cast_labels_data_to_texture_dtype_direct</span><span class="p">(</span>
+                <span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">),</span> <span class="bp">self</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map values to colors.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        values : np.ndarray or int</span>
+<span class="sd">            Values to be mapped.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray of same shape as values, but with last dimension of size 4</span>
+<span class="sd">            Mapped colors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">}:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;DirectLabelColormap can only be used with int&quot;</span><span class="p">)</span>
+        <span class="n">mapper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_mapping_from_cache</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mapper</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mapped</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">[</span><span class="n">values</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">values_cast</span> <span class="o">=</span> <span class="n">_labels_raw_to_texture_direct</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="n">mapped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_precast</span><span class="p">(</span><span class="n">values_cast</span><span class="p">,</span> <span class="n">apply_selection</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_selection</span><span class="p">:</span>
-            <span class="n">mapped</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">mapped</span><span class="p">[(</span><span class="n">values</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="n">mapped</span>
 
+    <span class="k">def</span> <span class="nf">_map_without_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cmap_without_selection</span><span class="p">()</span>
+        <span class="n">cast</span> <span class="o">=</span> <span class="n">_labels_raw_to_texture_direct</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">cmap</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_precast</span><span class="p">(</span><span class="n">cast</span><span class="p">,</span> <span class="n">apply_selection</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_map_precast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">apply_selection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map values to colors.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        values : np.ndarray</span>
+<span class="sd">            Values to be mapped. It need to be already cast using</span>
+<span class="sd">            cast_labels_to_minimum_type_auto</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray of shape (N, M, 4)</span>
+<span class="sd">            Mapped colors.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        it is implemented for thumbnail labels,</span>
+<span class="sd">        where we already have cast values</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mapped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_values_mapping_to_minimum_values_set</span><span class="p">(</span><span class="n">apply_selection</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+            <span class="n">mapped</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">value</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">mapped</span>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">_num_unique_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Count the number of unique colors in the colormap.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">({</span><span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()})</span>
+
+    <span class="k">def</span> <span class="nf">_clear_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_clear_cache</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s2">&quot;_num_unique_colors&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s2">&quot;_num_unique_colors&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">&quot;_label_mapping_and_color_dict&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s2">&quot;_label_mapping_and_color_dict&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">&quot;_array_map&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s2">&quot;_array_map&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_values_mapping_to_minimum_values_set</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">apply_selection</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create mapping from original values to minimum values set.</span>
+<span class="sd">        To use minimum possible dtype for labels.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Dict[Optional[int], int]</span>
+<span class="sd">            Mapping from original values to minimum values set.</span>
+<span class="sd">        Dict[int, np.ndarray]</span>
+<span class="sd">            Mapping from new values to colors.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_selection</span> <span class="ow">and</span> <span class="n">apply_selection</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span>
+                <span class="mi">0</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+                <span class="mi">1</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">default_color</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_mapping_and_color_dict</span>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">_label_mapping_and_color_dict</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
+        <span class="n">color_to_labels</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">labels_to_new_labels</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="kc">None</span><span class="p">:</span> <span class="n">MAPPING_OF_UNKNOWN_VALUE</span>
+        <span class="p">}</span>
+        <span class="n">new_color_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">MAPPING_OF_UNKNOWN_VALUE</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_color</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">color_tup</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">color_tup</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">color_to_labels</span><span class="p">:</span>
+                <span class="n">color_to_labels</span><span class="p">[</span><span class="n">color_tup</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">label</span><span class="p">]</span>
+                <span class="n">labels_to_new_labels</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_color_dict</span><span class="p">)</span>
+                <span class="n">new_color_dict</span><span class="p">[</span><span class="n">labels_to_new_labels</span><span class="p">[</span><span class="n">label</span><span class="p">]]</span> <span class="o">=</span> <span class="n">color</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">color_to_labels</span><span class="p">[</span><span class="n">color_tup</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+                <span class="n">labels_to_new_labels</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels_to_new_labels</span><span class="p">[</span>
+                    <span class="n">color_to_labels</span><span class="p">[</span><span class="n">color_tup</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">labels_to_new_labels</span><span class="p">,</span> <span class="n">new_color_dict</span>
+
+    <span class="k">def</span> <span class="nf">_get_typed_dict_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;typed.Dict&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create mapping from label values to texture values of smaller dtype.</span>
+
+<span class="sd">        In https://github.com/napari/napari/issues/6397, we noticed that using</span>
+<span class="sd">        float32 textures was much slower than uint8 or uint16 textures. When</span>
+<span class="sd">        labels data is (u)int(8,16), we simply use the labels data directly.</span>
+<span class="sd">        But when it is higher-precision, we need to compress the labels into</span>
+<span class="sd">        the smallest dtype that can still achieve the goal of the</span>
+<span class="sd">        visualisation. This corresponds to the smallest dtype that can map to</span>
+<span class="sd">        the number of unique colors in the colormap. Even if we have a</span>
+<span class="sd">        million labels, if they map to one of two colors, we can map them to</span>
+<span class="sd">        a uint8 array with values 1 and 2; then, the texture can map those</span>
+<span class="sd">        two values to each of the two possible colors.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Dict[Optional[int], int]</span>
+<span class="sd">            Mapping from original values to minimal texture value set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># we cache the result to avoid recomputing it on each slice;</span>
+        <span class="c1"># check first if it&#39;s already in the cache.</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="n">data_dtype</span><span class="si">}</span><span class="s2">_typed_dict&quot;</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_other</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_other</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+        <span class="kn">from</span> <span class="nn">numba</span> <span class="kn">import</span> <span class="n">typed</span><span class="p">,</span> <span class="n">types</span>
+
+        <span class="c1"># num_unique_colors + 2 because we need to map None and background</span>
+        <span class="n">target_type</span> <span class="o">=</span> <span class="n">minimum_dtype_for_labels</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_unique_colors</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">dkt</span> <span class="o">=</span> <span class="n">typed</span><span class="o">.</span><span class="n">Dict</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span>
+            <span class="n">key_type</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="n">data_dtype</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
+            <span class="n">value_type</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="n">target_type</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_mapping_and_color_dict</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">dkt</span><span class="p">[</span><span class="n">data_dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="n">target_type</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_other</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">dkt</span>
+
+        <span class="k">return</span> <span class="n">dkt</span>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">_array_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an array to map labels to texture values of smaller dtype.&quot;&quot;&quot;</span>
+        <span class="n">max_value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">max_value</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>  <span class="c1"># pragma: no cover</span>
+                <span class="s2">&quot;Cannot use numpy implementation for large values of labels &quot;</span>
+                <span class="s2">&quot;direct colormap. Please install numba.&quot;</span>
+            <span class="p">)</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">minimum_dtype_for_labels</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_unique_colors</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">label_mapping</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_values_mapping_to_minimum_values_set</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># We need 2 + the max value: one because we will be indexing with the</span>
+        <span class="c1"># max value, and an extra one so that higher values get clipped to</span>
+        <span class="c1"># that index and map to the default value, rather than to the max</span>
+        <span class="c1"># value in the map.</span>
+        <span class="n">mapper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">max_value</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="n">MAPPING_OF_UNKNOWN_VALUE</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">label_mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">mapper</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="k">return</span> <span class="n">mapper</span>
+
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">default_color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_selection</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">default_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
         <span class="c1"># we provided here default color for backward compatibility</span>
         <span class="c1"># if someone is using DirectLabelColormap directly, not through Label layer</span>
 
 
-<span class="k">def</span> <span class="nf">_convert_small_ints_to_unsigned</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_convert_small_ints_to_unsigned</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert (u)int8 to uint8 and (u)int16 to uint16.</span>
 
 <span class="sd">    Otherwise, return the original array.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    data : np.ndarray</span>
+<span class="sd">    data : np.ndarray | np.integer</span>
 <span class="sd">        Data to be converted.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    np.ndarray</span>
+<span class="sd">    np.ndarray | np.integer</span>
 <span class="sd">        Converted data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -646,10 +851,26 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">return</span> <span class="n">data</span>
 
 
-<span class="k">def</span> <span class="nf">_cast_labels_data_to_texture_dtype</span><span class="p">(</span>
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">_cast_labels_data_to_texture_dtype_auto</span><span class="p">(</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">colormap</span><span class="p">:</span> <span class="n">LabelColormap</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="o">...</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">_cast_labels_data_to_texture_dtype_auto</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="p">:</span> <span class="n">LabelColormap</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">:</span>
+    <span class="o">...</span>
+
+
+<span class="k">def</span> <span class="nf">_cast_labels_data_to_texture_dtype_auto</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">],</span>
+    <span class="n">colormap</span><span class="p">:</span> <span class="n">LabelColormap</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert labels data to the data type used in the texture.</span>
 
 <span class="sd">    In https://github.com/napari/napari/issues/6397, we noticed that using</span>
@@ -674,12 +895,14 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    np.ndarray</span>
+<span class="sd">    np.ndarray | np.integer</span>
 <span class="sd">        Converted labels data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">original_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_convert_small_ints_to_unsigned</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
+    <span class="n">data_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">num_colors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">colormap</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 
     <span class="n">dtype</span> <span class="o">=</span> <span class="n">minimum_dtype_for_labels</span><span class="p">(</span><span class="n">num_colors</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
@@ -689,14 +912,14 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">colormap</span><span class="o">.</span><span class="n">selection</span><span class="p">]),</span> <span class="n">num_colors</span><span class="p">,</span> <span class="n">dtype</span>
         <span class="p">)</span>
         <span class="n">converted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
-            <span class="n">data</span> <span class="o">==</span> <span class="n">colormap</span><span class="o">.</span><span class="n">selection</span><span class="p">,</span> <span class="n">selection_in_texture</span><span class="p">,</span> <span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">data_arr</span> <span class="o">==</span> <span class="n">colormap</span><span class="o">.</span><span class="n">selection</span><span class="p">,</span> <span class="n">selection_in_texture</span><span class="p">,</span> <span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">converted</span> <span class="o">=</span> <span class="n">_zero_preserving_modulo</span><span class="p">(</span>
-            <span class="n">data</span><span class="p">,</span> <span class="n">num_colors</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span>
+            <span class="n">data_arr</span><span class="p">,</span> <span class="n">num_colors</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span>
         <span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">converted</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">converted</span><span class="p">,</span> <span class="n">original_shape</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_zero_preserving_modulo_numpy</span><span class="p">(</span>
@@ -730,91 +953,213 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">return</span> <span class="n">res</span>
 
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">numba</span>
-<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
-    <span class="n">_zero_preserving_modulo</span> <span class="o">=</span> <span class="n">_zero_preserving_modulo_numpy</span>
-<span class="k">else</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_zero_preserving_modulo_loop</span><span class="p">(</span>
+    <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">to_zero</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;``(values - 1) % n + 1``, but with one specific value mapped to 0.</span>
 
-    <span class="k">def</span> <span class="nf">_zero_preserving_modulo</span><span class="p">(</span>
-        <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
-        <span class="n">to_zero</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;``(values - 1) % n + 1``, but with one specific value mapped to 0.</span>
+<span class="sd">    This ensures (1) an output value in [0, n] (inclusive), and (2) that</span>
+<span class="sd">    no nonzero values in the input are zero in the output, other than the</span>
+<span class="sd">    ``to_zero`` value.</span>
 
-<span class="sd">        This ensures (1) an output value in [0, n] (inclusive), and (2) that</span>
-<span class="sd">        no nonzero values in the input are zero in the output, other than the</span>
-<span class="sd">        ``to_zero`` value.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    values : np.ndarray</span>
+<span class="sd">        The dividend of the modulo operator.</span>
+<span class="sd">    n : int</span>
+<span class="sd">        The divisor.</span>
+<span class="sd">    dtype : np.dtype</span>
+<span class="sd">        The desired dtype for the output array.</span>
+<span class="sd">    to_zero : int, optional</span>
+<span class="sd">        A specific value to map to 0. (By default, 0 itself.)</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        values : np.ndarray</span>
-<span class="sd">            The dividend of the modulo operator.</span>
-<span class="sd">        n : int</span>
-<span class="sd">            The divisor.</span>
-<span class="sd">        dtype : np.dtype</span>
-<span class="sd">            The desired dtype for the output array.</span>
-<span class="sd">        to_zero : int, optional</span>
-<span class="sd">            A specific value to map to 0. (By default, 0 itself.)</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        The result: 0 for the ``to_zero`` value, ``values % n + 1``</span>
+<span class="sd">        everywhere else.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="c1"># need to preallocate numpy array for asv memory benchmarks</span>
+    <span class="k">return</span> <span class="n">_zero_preserving_modulo_inner_loop</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">to_zero</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
 
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        np.ndarray</span>
-<span class="sd">            The result: 0 for the ``to_zero`` value, ``values % n + 1``</span>
-<span class="sd">            everywhere else.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-        <span class="n">_zero_preserving_modulo_impl</span><span class="p">(</span>
-            <span class="n">values</span><span class="p">,</span>
-            <span class="n">n</span><span class="p">,</span>
-            <span class="n">result</span><span class="p">,</span>
-            <span class="n">to_zero</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="n">result</span>
 
-    <span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">_zero_preserving_modulo_impl</span><span class="p">(</span>
-        <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="n">out</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">to_zero</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;``(values - 1) % n + 1``, but with one specific value mapped to 0.</span>
+<span class="k">def</span> <span class="nf">_zero_preserving_modulo_inner_loop</span><span class="p">(</span>
+    <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">to_zero</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">out</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;``(values - 1) % n + 1``, but with one specific value mapped to 0.</span>
 
-<span class="sd">        This ensures (1) an output value in [0, n] (inclusive), and (2) that</span>
-<span class="sd">        no nonzero values in the input are zero in the output, other than the</span>
-<span class="sd">        ``to_zero`` value.</span>
+<span class="sd">    This ensures (1) an output value in [0, n] (inclusive), and (2) that</span>
+<span class="sd">    no nonzero values in the input are zero in the output, other than the</span>
+<span class="sd">    ``to_zero`` value.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        values : np.ndarray</span>
-<span class="sd">            The dividend of the modulo operator.</span>
-<span class="sd">        n : int</span>
-<span class="sd">            The divisor.</span>
-<span class="sd">        out : np.ndarray</span>
-<span class="sd">            output array</span>
-<span class="sd">        to_zero : int, optional</span>
-<span class="sd">            A specific value to map to 0. (By default, 0 itself.)</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    values : np.ndarray</span>
+<span class="sd">        The dividend of the modulo operator.</span>
+<span class="sd">    n : int</span>
+<span class="sd">        The divisor.</span>
+<span class="sd">    to_zero : int</span>
+<span class="sd">        A specific value to map to 0. (Usually, 0 itself.)</span>
+<span class="sd">    out : np.ndarray</span>
+<span class="sd">        Preallocated output array</span>
 
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        np.ndarray</span>
-<span class="sd">            The out: 0 for the ``to_zero`` value, ``values % n + 1``</span>
-<span class="sd">            everywhere else.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">numba</span><span class="o">.</span><span class="n">prange</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">to_zero</span><span class="p">:</span>
-                <span class="n">out</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">out</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        The result: 0 for the ``to_zero`` value, ``values % n + 1``</span>
+<span class="sd">        everywhere else.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">to_zero</span><span class="p">:</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
 
-        <span class="k">return</span> <span class="n">out</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">_cast_labels_data_to_texture_dtype_direct</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">direct_colormap</span><span class="p">:</span> <span class="n">DirectLabelColormap</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="o">...</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">_cast_labels_data_to_texture_dtype_direct</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">,</span> <span class="n">direct_colormap</span><span class="p">:</span> <span class="n">DirectLabelColormap</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">:</span>
+    <span class="o">...</span>
+
+
+<span class="k">def</span> <span class="nf">_cast_labels_data_to_texture_dtype_direct</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">],</span> <span class="n">direct_colormap</span><span class="p">:</span> <span class="n">DirectLabelColormap</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert labels data to the data type used in the texture.</span>
+
+<span class="sd">    In https://github.com/napari/napari/issues/6397, we noticed that using</span>
+<span class="sd">    float32 textures was much slower than uint8 or uint16 textures. Here we</span>
+<span class="sd">    convert the labels data to uint8 or uint16, based on the following rules:</span>
+
+<span class="sd">    - uint8 and uint16 labels data are unchanged. (No copy of the arrays.)</span>
+<span class="sd">    - int8 and int16 data are converted with a *view* to uint8 and uint16.</span>
+<span class="sd">      (This again does not involve a copy so is fast, and lossless.)</span>
+<span class="sd">    - higher precision integer data (u)int{32,64} are mapped to an intermediate</span>
+<span class="sd">      space of sequential values based on the colors they map to. As an</span>
+<span class="sd">      example, if the values are [1, 2**25, and 2**50], and the direct</span>
+<span class="sd">      colormap maps them to [&#39;red&#39;, &#39;green&#39;, &#39;red&#39;], then the intermediate map</span>
+<span class="sd">      is {1: 1, 2**25: 2, 2**50: 1}. The labels can then be converted to a</span>
+<span class="sd">      uint8 texture and a smaller direct colormap with only two values.</span>
+
+<span class="sd">    This function calls `_labels_raw_to_texture_direct`, but makes sure that</span>
+<span class="sd">    signed ints are first viewed as their unsigned counterparts.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : np.ndarray | np.integer</span>
+<span class="sd">        Labels data to be converted.</span>
+<span class="sd">    direct_colormap : LabelColormap</span>
+<span class="sd">        Colormap used to display the labels data.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray | np.integer</span>
+<span class="sd">        Converted labels data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">_convert_small_ints_to_unsigned</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">data</span>
+
+    <span class="n">original_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">array_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+        <span class="n">_labels_raw_to_texture_direct</span><span class="p">(</span><span class="n">array_data</span><span class="p">,</span> <span class="n">direct_colormap</span><span class="p">),</span>
+        <span class="n">original_shape</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_labels_raw_to_texture_direct_numpy</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">direct_colormap</span><span class="p">:</span> <span class="n">DirectLabelColormap</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert labels data to the data type used in the texture.</span>
+
+<span class="sd">    This implementation uses numpy vectorized operations.</span>
+
+<span class="sd">    See `_cast_labels_data_to_texture_dtype_direct` for more details.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mapper</span> <span class="o">=</span> <span class="n">direct_colormap</span><span class="o">.</span><span class="n">_array_map</span>
+
+    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">mapper</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mapper</span><span class="p">[</span><span class="n">data</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_labels_raw_to_texture_direct_loop</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">direct_colormap</span><span class="p">:</span> <span class="n">DirectLabelColormap</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cast direct labels to the minimum type.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : np.ndarray</span>
+<span class="sd">        The input data array.</span>
+<span class="sd">    direct_colormap : DirectLabelColormap</span>
+<span class="sd">        The direct colormap.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        The cast data array.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">direct_colormap</span><span class="o">.</span><span class="n">use_selection</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">data</span> <span class="o">==</span> <span class="n">direct_colormap</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+    <span class="n">dkt</span> <span class="o">=</span> <span class="n">direct_colormap</span><span class="o">.</span><span class="n">_get_typed_dict_mapping</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">target_dtype</span> <span class="o">=</span> <span class="n">minimum_dtype_for_labels</span><span class="p">(</span>
+        <span class="n">direct_colormap</span><span class="o">.</span><span class="n">_num_unique_colors</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="p">)</span>
+    <span class="n">result_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">MAPPING_OF_UNKNOWN_VALUE</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">target_dtype</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">_labels_raw_to_texture_direct_inner_loop</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dkt</span><span class="p">,</span> <span class="n">result_array</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_labels_raw_to_texture_direct_inner_loop</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">dkt</span><span class="p">:</span> <span class="s1">&#39;typed.Dict&#39;</span><span class="p">,</span> <span class="n">out</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Relabel data using typed dict with mapping unknown labels to default value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The numba typed dict does not provide official Api for</span>
+    <span class="c1"># determine key and value types</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">dkt</span><span class="p">:</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dkt</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span> <span class="nf">_texture_dtype</span><span class="p">(</span><span class="n">num_colors</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute VisPy texture dtype given number of colors and raw data dtype.</span>
+
+<span class="sd">    - for data of type int8 and uint8 we can use uint8 directly, with no copy.</span>
+<span class="sd">    - for int16 and uint16 we can use uint16 with no copy.</span>
+<span class="sd">    - for any other dtype, we fall back on `minimum_dtype_for_labels`, which</span>
+<span class="sd">      will require on-CPU mapping between the raw data and the texture dtype.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">minimum_dtype_for_labels</span><span class="p">(</span><span class="n">num_colors</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">minimum_dtype_for_labels</span><span class="p">(</span><span class="n">num_colors</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the minimum dtype that can hold the number of colors.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the minimum texture dtype that can hold given number of colors.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -831,6 +1176,26 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">if</span> <span class="n">num_colors</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">numba</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="n">_zero_preserving_modulo</span> <span class="o">=</span> <span class="n">_zero_preserving_modulo_numpy</span>
+    <span class="n">_labels_raw_to_texture_direct</span> <span class="o">=</span> <span class="n">_labels_raw_to_texture_direct_numpy</span>
+    <span class="n">prange</span> <span class="o">=</span> <span class="nb">range</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">_zero_preserving_modulo_inner_loop</span> <span class="o">=</span> <span class="n">numba</span><span class="o">.</span><span class="n">njit</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span>
+        <span class="n">_zero_preserving_modulo_inner_loop</span>
+    <span class="p">)</span>
+    <span class="n">_zero_preserving_modulo</span> <span class="o">=</span> <span class="n">_zero_preserving_modulo_loop</span>
+    <span class="n">_labels_raw_to_texture_direct</span> <span class="o">=</span> <span class="n">_labels_raw_to_texture_direct_loop</span>
+    <span class="n">_labels_raw_to_texture_direct_inner_loop</span> <span class="o">=</span> <span class="n">numba</span><span class="o">.</span><span class="n">njit</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span>
+        <span class="n">_labels_raw_to_texture_direct_inner_loop</span>
+    <span class="p">)</span>
+    <span class="n">prange</span> <span class="o">=</span> <span class="n">numba</span><span class="o">.</span><span class="n">prange</span>  <span class="c1"># type: ignore [misc]</span>
+
+    <span class="k">del</span> <span class="n">numba</span>
 </pre></div>
 
             </div>

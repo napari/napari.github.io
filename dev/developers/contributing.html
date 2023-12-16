@@ -673,13 +673,6 @@ function checkPageExistsAndRedirect(event) {
   <a class="reference internal nav-link" href="#adding-icons">
    Adding icons
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#creating-and-testing-themes">
-     Creating and testing themes
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#translations">
@@ -917,37 +910,6 @@ example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<section id="creating-and-testing-themes">
-<h3>Creating and testing themes<a class="headerlink" href="#creating-and-testing-themes" title="Permalink to this headline">¶</a></h3>
-<p>A theme is a set of colors used throughout napari.  See, for example, the
-builtin themes in <code class="docutils literal notranslate"><span class="pre">napari/utils/theme.py</span></code>.  To make a new theme, create a new
-<code class="docutils literal notranslate"><span class="pre">dict</span></code> with the same keys as one of the existing themes, and
-replace the values with your new colors.  For example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils.theme</span> <span class="kn">import</span> <span class="n">get_theme</span><span class="p">,</span> <span class="n">register_theme</span>
-
-
-<span class="n">blue_theme</span> <span class="o">=</span> <span class="n">get_theme</span><span class="p">(</span><span class="s1">&#39;dark&#39;</span><span class="p">)</span>
-<span class="n">blue_theme</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-    <span class="n">background</span><span class="o">=</span><span class="s1">&#39;rgb(28, 31, 48)&#39;</span><span class="p">,</span>
-    <span class="n">foreground</span><span class="o">=</span><span class="s1">&#39;rgb(45, 52, 71)&#39;</span><span class="p">,</span>
-    <span class="n">primary</span><span class="o">=</span><span class="s1">&#39;rgb(80, 88, 108)&#39;</span><span class="p">,</span>
-    <span class="n">current</span><span class="o">=</span><span class="s1">&#39;rgb(184, 112, 0)&#39;</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">register_theme</span><span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">blue_theme</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>To test out the theme, use the
-<code class="docutils literal notranslate"><span class="pre">qt_theme_sample.py</span></code> file from the command line as follows:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>napari._qt.widgets.qt_theme_sample
-</pre></div>
-</div>
-<p><em>note</em>: you may specify a theme with one additional argument on the command line:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>napari._qt.widgets.qt_theme_sample<span class="w"> </span>dark
-</pre></div>
-</div>
-<p>(providing no arguments will show all themes in <code class="docutils literal notranslate"><span class="pre">theme.py</span></code>)</p>
-</section>
 </section>
 <section id="translations">
 <h2>Translations<a class="headerlink" href="#translations" title="Permalink to this headline">¶</a></h2>

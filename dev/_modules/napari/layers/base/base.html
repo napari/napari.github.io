@@ -603,6 +603,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_experimental_clipping_planes</span> <span class="o">=</span> <span class="n">ClippingPlaneList</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="p">(</span><span class="s1">&#39;pan_zoom&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_projection_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_projectionclass</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">projection_mode</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_blocked</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span> <span class="o">=</span> <span class="n">ndim</span>
 
@@ -1672,8 +1673,21 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            Bool that forces a redraw to occur when `True`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+    <span class="nd">@contextmanager</span>
+    <span class="k">def</span> <span class="nf">_block_refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prevent refresh calls from updating view.&quot;&quot;&quot;</span>
+        <span class="n">previous</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_blocked</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_blocked</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">yield</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_blocked</span> <span class="o">=</span> <span class="n">previous</span>
+
 <div class="viewcode-block" id="Layer.refresh"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Refresh all layer data based on current view slice.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_blocked</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Layer.refresh blocked: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="k">return</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Layer.refresh: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="c1"># If async is enabled then emit an event that the viewer should handle.</span>
         <span class="k">if</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">async_</span><span class="p">:</span>

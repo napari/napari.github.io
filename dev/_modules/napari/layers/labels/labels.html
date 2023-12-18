@@ -328,6 +328,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">_cast_labels_data_to_texture_dtype_direct</span><span class="p">,</span>
     <span class="n">_texture_dtype</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">napari.utils.colormaps.colormap_utils</span> <span class="kn">import</span> <span class="n">shuffle_and_extend_colormap</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
 <span class="kn">from</span> <span class="nn">napari.utils.geometry</span> <span class="kn">import</span> <span class="n">clamp_point_to_bounding_box</span>
@@ -581,6 +582,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span> <span class="o">=</span> <span class="n">label_colormap</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">num_colors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_original_random_colormap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_direct_colormap</span> <span class="o">=</span> <span class="n">direct_colormap</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">=</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_show_selected_label</span> <span class="o">=</span> <span class="kc">False</span>
@@ -781,7 +783,9 @@ function checkPageExistsAndRedirect(event) {
                 <span class="bp">self</span><span class="o">.</span><span class="n">num_colors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_seed_rng</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span> <span class="o">=</span> <span class="n">shuffle_and_extend_colormap</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_original_random_colormap</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed_rng</span>
+            <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># invalidate the cached color mapping</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">colormap</span><span class="p">()</span>  <span class="c1"># Will update the LabelVispyColormap shader</span>
@@ -802,6 +806,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_set_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colormap</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colormap</span><span class="p">,</span> <span class="n">LabelColormap</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span> <span class="o">=</span> <span class="n">colormap</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_original_random_colormap</span> <span class="o">=</span> <span class="n">colormap</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span>
             <span class="n">color_mode</span> <span class="o">=</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span>
         <span class="k">else</span><span class="p">:</span>

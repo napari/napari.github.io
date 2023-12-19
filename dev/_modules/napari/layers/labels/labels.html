@@ -836,12 +836,10 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@num_colors</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">num_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_colors</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">num_colors</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">num_colors</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;num_colors must be between 1 and 65535&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_num_colors</span> <span class="o">=</span> <span class="n">num_colors</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="n">label_colormap</span><span class="p">(</span>
             <span class="n">num_colors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_colors</span> <span class="o">=</span> <span class="n">num_colors</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># invalidate the cached color mapping</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>

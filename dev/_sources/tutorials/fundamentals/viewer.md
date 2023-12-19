@@ -82,6 +82,8 @@ Now we will continue exploring the rest of the viewer.
 
 +++
 
+(viewer-layout)=
+
 ## Layout of the viewer
 
 The viewer is organized into a few key areas which are explained in the next sections:

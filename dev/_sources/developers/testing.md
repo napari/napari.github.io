@@ -26,6 +26,8 @@ Unit tests are at the base of the pyramid because they are the easiest to write 
 the quickest to run. The time and effort to implement and maintain tests increases
 from unit tests to integration and functional tests.
 
+(test-organization)=
+
 ## Test organization
 
 All of `napari` tests are located in folders named `_tests`. We keep our unit

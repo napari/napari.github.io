@@ -1,3 +1,5 @@
+(app-model)=
+
 # napari's application model
 
 ```{important}
@@ -260,7 +262,7 @@ Some Points
 
 The fact that `injected_func` may now be called without parameters allows it to
 be used easily as a command in a menu, or bound to a keybinding.  It is up to
-`napari` to determine what providers it will make available, and what type hints
+napari to determine what providers it will make available, and what type hints
 plugins/users may use to request dependencies.
 
 ## Motivation & Future Vision

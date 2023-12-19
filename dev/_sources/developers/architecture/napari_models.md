@@ -1,14 +1,16 @@
-# Napari models and events
+(napari-model-event)=
+
+# napari models and events
 
 This document explains the links between the three main components of napari:
-python models, Qt classes and vispy classes, with code examples. This knowledge
+Python models, Qt classes and vispy classes, with code examples. This knowledge
 is not necessary to use napari and is more aimed at developers interested in
 understanding the inner workings of napari. This document assumes you're
 familiar with basic usage of napari.
 
 The three main components:
 
-* python models describing components in the napari application - these are able
+* Python models describing components in the napari application - these are able
   to operate without the GUI interface and do not have any dependencies on user
   interface classes
     * this code lives in `napari/components` (utility objects) and
@@ -19,19 +21,19 @@ The three main components:
 * vispy classes that handle rendering
     * the code for this is private and lives in `napari/_vispy`
 
-The separation of the python models from viewer GUI code allows:
+The separation of the Python models from viewer GUI code allows:
 
 * analysis plugins to be developed without worrying about the GUI
   aspect
 * napari to have the option to move away from the rendering backend currently
   used
 * tests to be easily run headlessly
-* the python models to be run headlessly (see
+* the Python models to be run headlessly (see
   [Running napari headlessly](../howtos/headless) for more)
 
 ## Python models and events
 
-Commonly, python models in napari are classes that store information about their
+Commonly, Python models in napari are classes that store information about their
 state as an attribute and are the "source of ground truth". When these
 attributes are changed an "event" needs to be emitted such that relevant
 observers of the model (such as other classes) can take the appropriate
@@ -174,7 +176,7 @@ the Python model, which gets updated directly when a field is changed via the
 GUI.
 
 For example, below is a code snippet showing the `QtDims` class instantiating
-with a reference to the python class `Dims` and registering the callback
+with a reference to the Python class `Dims` and registering the callback
 `_update_display`:
 
 ```python

@@ -1,27 +1,29 @@
 (getting_started)=
-# How to launch napari
+# How to launch `napari`
 
-This tutorial assumes you have already installed napari.
+This tutorial assumes you have already installed `napari`.
 For help with installation see our [installation tutorial](./installation).
 
-This tutorial will teach you all the different ways to launch napari.
-At the end of the tutorial you should be able to launch napari and see the viewer your favorite way.
+This tutorial will teach you all the different ways to launch `napari`.
+At the end of the tutorial you should be able to launch `napari` and see the viewer your favorite way.
 
-## Launching napari
+## Launching `napari`
 
-There are four ways to launch the **napari** viewer:
+There are four ways to launch the `napari` viewer:
 
-- command line
-- python script
-- IPython console
-- jupyter notebook
+- [command line](launch-command)
+- [python script](launch-script)
+- [IPython console](launch-ipython)
+- [jupyter notebook](launch-jupyter)
 
-All four of these methods will launch the same napari viewer
+All four of these methods will launch the same `napari` viewer
 but depending on your use-case different ones may be preferable.
+
+(launch-command)=
 
 ### Command line usage
 
-To launch napari from the command line simply run
+To launch `napari` from the command line simply run
 
 ```sh
 napari
@@ -47,14 +49,20 @@ If the image is `RGB` or `RGBA` use the `-r` or `--rgb` flag.
 
 ![image: napari viewer displaying an image layer](../assets/tutorials/launch_cli_image.png)
 
-Launching napari directly from the command line is the simplest and fastest way to open the viewer,
+Launching `napari` directly from the command line is the simplest and fastest way to open the viewer,
 but it doesn't allow you to preprocess your images before opening them.
 It is also currently not possible to save images or other layer types directly from the viewer,
 but we'll be adding support for this functionality soon as discussed in [#379](https://github.com/napari/napari/issues/379).
 
+If you wish to interact with your open viewer programmatically you can open an IPython
+console via **Window** > **console** or clicking the 'Show/Hide IPython console' button
+within the [viewer buttons](viewer-layout).
+
+(launch-script)=
+
 ### Python script usage
 
-To launch napari from a python script, inside your script you can import `napari`,
+To launch `napari` from a python script, inside your script you can import `napari`,
 then create a {class}`Viewer<napari.Viewer>` and {class}`Image<napari.layers.Image>`
 layer by adding some image data, using {func}`imshow<napari.imshow>`.
 The {class}`Viewer<napari.Viewer>` is representative of the napari viewer GUI
@@ -105,12 +113,18 @@ downloaded as `.py` (and `.ipynb` files) and run as above.
 
 ![image: napari launched from a python script](../assets/tutorials/launch_script.png)
 
-An advantage of launching napari from a python script
+An advantage of launching `napari` from a python script
 is that you can preprocess your images and add multiple layers before displaying the viewer.
+
+As above, if you wish to interact with your open viewer programmatically you can open
+an IPython console via **Window** > **console** or clicking the 'Show/Hide IPython
+console' button within the [viewer buttons](viewer-layout).
+
+(launch-ipython)=
 
 ### IPython console usage
 
-To launch napari from an IPython console import `napari` and create a
+To launch `napari` from an IPython console import `napari` and create a
 {class}`Viewer<napari.Viewer>` and {class}`Image<napari.layers.Image>` object.
 
 ```python
@@ -123,7 +137,7 @@ import napari
 viewer, image_layer = napari.imshow(cells3d())
 ```
 
-Napari will automatically use the interactive [`%gui qt` event
+`napari` will automatically use the interactive [`%gui qt` event
 loop](https://ipython.readthedocs.io/en/stable/config/eventloops.html#integrating-with-gui-event-loops)
 from IPython
 
@@ -134,9 +148,11 @@ is that the you can continue to programmatically interact with the viewer from t
 including bidirectional communication, where code run in the console will update the current viewer
 and where data changed in the GUI will be accessible in the console.
 
+(launch-jupyter)=
+
 ### Jupyter notebook usage
 
-You can also launch napari from a Jupyter notebook. The
+You can also launch `napari` from a Jupyter notebook. The
 [examples gallery](../../gallery), as mentioned above, can also be downloaded as
 `.ipynb` which can be run from a Jupyter notebook.
 
@@ -145,7 +161,7 @@ Below, we launch the [notebook example](https://github.com/napari/napari/tree/ma
 ![image: napari launched from a Jupyter notebook](../assets/tutorials/launch_jupyter.png)
 
 Similar to launching from the IPython console,
-an advantage of launching napari from a Jupyter notebook
+an advantage of launching `napari` from a Jupyter notebook
 is that you can continue to programmatically interact with the viewer from Jupyter notebook,
 including bidirectional communication, where code run in the notebook will update the current viewer
 and where data changed in the GUI will be accessible in the notebook.
@@ -154,7 +170,7 @@ and where data changed in the GUI will be accessible in the notebook.
 
 To learn more about:
 
-* how to use the napari viewer graphical user interface (GUI),
+* how to use the `napari` viewer graphical user interface (GUI),
   checkout the [viewer tutorial](./viewer)
-* how to use the napari viewer with different types of napari layers, see
+* how to use the `napari` viewer with different types of `napari` layers, see
   [layers at a glance](../../guides/layers)

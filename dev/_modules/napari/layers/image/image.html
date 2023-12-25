@@ -274,6 +274,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="kn">import</span> <span class="nn">types</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">nullcontext</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">cast</span>
 
@@ -319,8 +320,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="c1"># It is important to contain at least one abstractmethod to properly exclude this class</span>
 <span class="c1"># in creating NAMES set inside of napari.layers.__init__</span>
 <span class="c1"># Mixin must come before Layer</span>
-<span class="k">class</span> <span class="nc">_ImageBase</span><span class="p">(</span><span class="n">IntensityVisualizationMixin</span><span class="p">,</span> <span class="n">Layer</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Image layer.</span>
+<span class="k">class</span> <span class="nc">_ImageBase</span><span class="p">(</span><span class="n">Layer</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for volumetric layers.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -331,70 +332,30 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        a multiscale image. Please note multiscale rendering is only</span>
 <span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
 <span class="sd">        displayed.</span>
-<span class="sd">    rgb : bool</span>
-<span class="sd">        Whether the image is rgb RGB or RGBA. If not specified by user and</span>
-<span class="sd">        the last dimension of the data has length 3 or 4 it will be set as</span>
-<span class="sd">        `True`. If `False` the image is interpreted as a luminance image.</span>
-<span class="sd">    colormap : str, napari.utils.Colormap, tuple, dict</span>
-<span class="sd">        Colormap to use for luminance images. If a string must be the name</span>
-<span class="sd">        of a supported colormap from vispy or matplotlib. If a tuple the</span>
-<span class="sd">        first value must be a string to assign as a name to a colormap and</span>
-<span class="sd">        the second item must be a Colormap. If a dict the key must be a</span>
-<span class="sd">        string to assign as a name to a colormap and the value must be a</span>
-<span class="sd">        Colormap.</span>
-<span class="sd">    contrast_limits : list (2,)</span>
-<span class="sd">        Color limits to be used for determining the colormap bounds for</span>
-<span class="sd">        luminance images. If not passed is calculated as the min and max of</span>
-<span class="sd">        the image.</span>
-<span class="sd">    gamma : float</span>
-<span class="sd">        Gamma correction for determining colormap linearity. Defaults to 1.</span>
-<span class="sd">    interpolation : str</span>
-<span class="sd">        Interpolation mode used by vispy. Must be one of our supported modes.</span>
-<span class="sd">        &#39;custom&#39; is a special mode for 2D interpolation in which a regular grid</span>
-<span class="sd">        of samples are taken from the texture around a position using &#39;linear&#39;</span>
-<span class="sd">        interpolation before being multiplied with a custom interpolation kernel</span>
-<span class="sd">        (provided with &#39;custom_interpolation_kernel_2d&#39;).</span>
-<span class="sd">    rendering : str</span>
-<span class="sd">        Rendering mode used by vispy. Must be one of our supported</span>
-<span class="sd">        modes.</span>
-<span class="sd">    depiction : str</span>
-<span class="sd">        3D Depiction mode. Must be one of {&#39;volume&#39;, &#39;plane&#39;}.</span>
-<span class="sd">        The default value is &#39;volume&#39;.</span>
-<span class="sd">    iso_threshold : float</span>
-<span class="sd">        Threshold for isosurface.</span>
-<span class="sd">    attenuation : float</span>
-<span class="sd">        Attenuation rate for attenuated maximum intensity projection.</span>
-<span class="sd">    name : str</span>
-<span class="sd">        Name of the layer.</span>
-<span class="sd">    metadata : dict</span>
-<span class="sd">        Layer metadata.</span>
-<span class="sd">    scale : tuple of float</span>
-<span class="sd">        Scale factors for the layer.</span>
-<span class="sd">    translate : tuple of float</span>
-<span class="sd">        Translation values for the layer.</span>
-<span class="sd">    rotate : float, 3-tuple of float, or n-D array.</span>
-<span class="sd">        If a float convert into a 2D rotation matrix using that value as an</span>
-<span class="sd">        angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,</span>
-<span class="sd">        pitch, roll convention. Otherwise assume an nD rotation. Angles are</span>
-<span class="sd">        assumed to be in degrees. They can be converted from radians with</span>
-<span class="sd">        np.degrees if needed.</span>
-<span class="sd">    shear : 1-D array or n-D array</span>
-<span class="sd">        Either a vector of upper triangular values, or an nD shear matrix with</span>
-<span class="sd">        ones along the main diagonal.</span>
 <span class="sd">    affine : n-D array or napari.utils.transforms.Affine</span>
 <span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
 <span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
 <span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
 <span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
 <span class="sd">        provided scale, rotate, and shear values.</span>
-<span class="sd">    opacity : float</span>
-<span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
 <span class="sd">    blending : str</span>
 <span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
 <span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
 <span class="sd">        {&#39;opaque&#39;, &#39;translucent&#39;, and &#39;additive&#39;}.</span>
-<span class="sd">    visible : bool</span>
-<span class="sd">        Whether the layer visual is currently being displayed.</span>
+<span class="sd">    cache : bool</span>
+<span class="sd">        Whether slices of out-of-core datasets should be cached upon retrieval.</span>
+<span class="sd">        Currently, this only applies to dask arrays.</span>
+<span class="sd">    custom_interpolation_kernel_2d : np.ndarray</span>
+<span class="sd">        Convolution kernel used with the &#39;custom&#39; interpolation mode in 2D rendering.</span>
+<span class="sd">    depiction : str</span>
+<span class="sd">        3D Depiction mode. Must be one of {&#39;volume&#39;, &#39;plane&#39;}.</span>
+<span class="sd">        The default value is &#39;volume&#39;.</span>
+<span class="sd">    experimental_clipping_planes : list of dicts, list of ClippingPlane, or ClippingPlaneList</span>
+<span class="sd">        Each dict defines a clipping plane in 3D in data coordinates.</span>
+<span class="sd">        Valid dictionary keys are {&#39;position&#39;, &#39;normal&#39;, and &#39;enabled&#39;}.</span>
+<span class="sd">        Values on the negative side of the normal are discarded if the plane is enabled.</span>
+<span class="sd">    metadata : dict</span>
+<span class="sd">        Layer metadata.</span>
 <span class="sd">    multiscale : bool</span>
 <span class="sd">        Whether the data is a multiscale image or not. Multiscale data is</span>
 <span class="sd">        represented by a list of array like image data. If not specified by</span>
@@ -403,19 +364,38 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        should be the largest. Please note multiscale rendering is only</span>
 <span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
 <span class="sd">        displayed.</span>
-<span class="sd">    cache : bool</span>
-<span class="sd">        Whether slices of out-of-core datasets should be cached upon retrieval.</span>
-<span class="sd">        Currently, this only applies to dask arrays.</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Name of the layer.</span>
+<span class="sd">    ndim : int</span>
+<span class="sd">        Number of dimensions in the data.</span>
+<span class="sd">    opacity : float</span>
+<span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
 <span class="sd">    plane : dict or SlicingPlane</span>
 <span class="sd">        Properties defining plane rendering in 3D. Properties are defined in</span>
 <span class="sd">        data coordinates. Valid dictionary keys are</span>
 <span class="sd">        {&#39;position&#39;, &#39;normal&#39;, &#39;thickness&#39;, and &#39;enabled&#39;}.</span>
-<span class="sd">    experimental_clipping_planes : list of dicts, list of ClippingPlane, or ClippingPlaneList</span>
-<span class="sd">        Each dict defines a clipping plane in 3D in data coordinates.</span>
-<span class="sd">        Valid dictionary keys are {&#39;position&#39;, &#39;normal&#39;, and &#39;enabled&#39;}.</span>
-<span class="sd">        Values on the negative side of the normal are discarded if the plane is enabled.</span>
-<span class="sd">    custom_interpolation_kernel_2d : np.ndarray</span>
-<span class="sd">        Convolution kernel used with the &#39;custom&#39; interpolation mode in 2D rendering.</span>
+<span class="sd">    projection_mode : str</span>
+<span class="sd">        How data outside the viewed dimensions but inside the thick Dims slice will</span>
+<span class="sd">        be projected onto the viewed dimensions. Must fit to cls._projectionclass</span>
+<span class="sd">    rendering : str</span>
+<span class="sd">        Rendering mode used by vispy. Must be one of our supported</span>
+<span class="sd">        modes.</span>
+<span class="sd">    rotate : float, 3-tuple of float, or n-D array.</span>
+<span class="sd">        If a float convert into a 2D rotation matrix using that value as an</span>
+<span class="sd">        angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,</span>
+<span class="sd">        pitch, roll convention. Otherwise assume an nD rotation. Angles are</span>
+<span class="sd">        assumed to be in degrees. They can be converted from radians with</span>
+<span class="sd">        np.degrees if needed.</span>
+<span class="sd">    scale : tuple of float</span>
+<span class="sd">        Scale factors for the layer.</span>
+<span class="sd">    shear : 1-D array or n-D array</span>
+<span class="sd">        Either a vector of upper triangular values, or an nD shear matrix with</span>
+<span class="sd">        ones along the main diagonal.</span>
+<span class="sd">    translate : tuple of float</span>
+<span class="sd">        Translation values for the layer.</span>
+<span class="sd">    visible : bool</span>
+<span class="sd">        Whether the layer visual is currently being displayed.</span>
+
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -428,11 +408,6 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        displayed.</span>
 <span class="sd">    metadata : dict</span>
 <span class="sd">        Image metadata.</span>
-<span class="sd">    rgb : bool</span>
-<span class="sd">        Whether the image is rgb RGB or RGBA if rgb. If not</span>
-<span class="sd">        specified by user and the last dimension of the data has length 3 or 4</span>
-<span class="sd">        it will be set as `True`. If `False` the image is interpreted as a</span>
-<span class="sd">        luminance image.</span>
 <span class="sd">    multiscale : bool</span>
 <span class="sd">        Whether the data is a multiscale image or not. Multiscale data is</span>
 <span class="sd">        represented by a list of array like image data. The first image in the</span>
@@ -444,35 +419,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        allows for normal interactivity with the canvas.</span>
 
 <span class="sd">        In TRANSFORM mode the image can be transformed interactively.</span>
-<span class="sd">    colormap : 2-tuple of str, napari.utils.Colormap</span>
-<span class="sd">        The first is the name of the current colormap, and the second value is</span>
-<span class="sd">        the colormap. Colormaps are used for luminance images, if the image is</span>
-<span class="sd">        rgb the colormap is ignored.</span>
-<span class="sd">    colormaps : tuple of str</span>
-<span class="sd">        Names of the available colormaps.</span>
-<span class="sd">    contrast_limits : list (2,) of float</span>
-<span class="sd">        Color limits to be used for determining the colormap bounds for</span>
-<span class="sd">        luminance images. If the image is rgb the contrast_limits is ignored.</span>
-<span class="sd">    contrast_limits_range : list (2,) of float</span>
-<span class="sd">        Range for the color limits for luminance images. If the image is</span>
-<span class="sd">        rgb the contrast_limits_range is ignored.</span>
-<span class="sd">    gamma : float</span>
-<span class="sd">        Gamma correction for determining colormap linearity.</span>
-<span class="sd">    interpolation : str</span>
-<span class="sd">        Interpolation mode used by vispy. Must be one of our supported modes.</span>
-<span class="sd">        &#39;custom&#39; is a special mode for 2D interpolation in which a regular grid</span>
-<span class="sd">        of samples are taken from the texture around a position using &#39;linear&#39;</span>
-<span class="sd">        interpolation before being multiplied with a custom interpolation kernel</span>
-<span class="sd">        (provided with &#39;custom_interpolation_kernel_2d&#39;).</span>
 <span class="sd">    rendering : str</span>
 <span class="sd">        Rendering mode used by vispy. Must be one of our supported</span>
 <span class="sd">        modes.</span>
 <span class="sd">    depiction : str</span>
 <span class="sd">        3D Depiction mode used by vispy. Must be one of our supported modes.</span>
-<span class="sd">    iso_threshold : float</span>
-<span class="sd">        Threshold for isosurface.</span>
-<span class="sd">    attenuation : float</span>
-<span class="sd">        Attenuation rate for attenuated maximum intensity projection.</span>
 <span class="sd">    plane : SlicingPlane or dict</span>
 <span class="sd">        Properties defining plane rendering in 3D. Valid dictionary keys are</span>
 <span class="sd">        {&#39;position&#39;, &#39;normal&#39;, &#39;thickness&#39;}.</span>
@@ -487,50 +438,35 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        Image data for the currently viewed slice. Must be 2D image data, but</span>
 <span class="sd">        can be multidimensional for RGB or RGBA images if multidimensional is</span>
 <span class="sd">        `True`.</span>
-<span class="sd">    _colorbar : array</span>
-<span class="sd">        Colorbar for current colormap.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_colormaps</span> <span class="o">=</span> <span class="n">AVAILABLE_COLORMAPS</span>
     <span class="n">_interpolation2d</span><span class="p">:</span> <span class="n">Interpolation</span>
     <span class="n">_interpolation3d</span><span class="p">:</span> <span class="n">Interpolation</span>
 
-    <span class="nd">@rename_argument</span><span class="p">(</span>
-        <span class="n">from_name</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
-        <span class="n">to_name</span><span class="o">=</span><span class="s2">&quot;interpolation2d&quot;</span><span class="p">,</span>
-        <span class="n">version</span><span class="o">=</span><span class="s2">&quot;0.6.0&quot;</span><span class="p">,</span>
-        <span class="n">since_version</span><span class="o">=</span><span class="s2">&quot;0.4.17&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">data</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">rgb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
-        <span class="n">contrast_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">gamma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-        <span class="n">interpolation2d</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span>
-        <span class="n">interpolation3d</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span>
-        <span class="n">rendering</span><span class="o">=</span><span class="s1">&#39;mip&#39;</span><span class="p">,</span>
-        <span class="n">iso_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">attenuation</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
-        <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
         <span class="n">blending</span><span class="o">=</span><span class="s1">&#39;translucent&#39;</span><span class="p">,</span>
-        <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">multiscale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">depiction</span><span class="o">=</span><span class="s1">&#39;volume&#39;</span><span class="p">,</span>
-        <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">custom_interpolation_kernel_2d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">depiction</span><span class="o">=</span><span class="s1">&#39;volume&#39;</span><span class="p">,</span>
+        <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">multiscale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ndim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+        <span class="n">rendering</span><span class="o">=</span><span class="s1">&#39;mip&#39;</span><span class="p">,</span>
+        <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">magic_name</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -550,22 +486,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">elif</span> <span class="n">multiscale</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">MultiScaleData</span><span class="p">):</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">MultiScaleData</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
-        <span class="c1"># Determine if rgb</span>
-        <span class="n">rgb_guess</span> <span class="o">=</span> <span class="n">guess_rgb</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">rgb</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">rgb_guess</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;&#39;rgb&#39; was set to True but data does not have suitable dimensions.&quot;</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">rgb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">rgb</span> <span class="o">=</span> <span class="n">rgb_guess</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span> <span class="o">=</span> <span class="n">rgb</span>
-
         <span class="c1"># Determine dimensionality of the data</span>
-        <span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">rgb</span><span class="p">:</span>
-            <span class="n">ndim</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">ndim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">data</span><span class="p">,</span>
@@ -587,6 +510,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">attenuation</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">custom_interpolation_kernel_2d</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">depiction</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">interpolation</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s2">&quot;&#39;layer.events.interpolation&#39; is deprecated please use `interpolation2d` and `interpolation3d`&quot;</span><span class="p">,</span>
@@ -596,12 +522,9 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">),</span>
             <span class="n">interpolation2d</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">interpolation3d</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">rendering</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">plane</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">depiction</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">iso_threshold</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">attenuation</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">custom_interpolation_kernel_2d</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">plane</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">rendering</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_array_like</span> <span class="o">=</span> <span class="kc">True</span>
@@ -630,44 +553,18 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span> <span class="o">=</span> <span class="n">_ImageSliceResponse</span><span class="o">.</span><span class="n">make_empty</span><span class="p">(</span>
-            <span class="n">slice_input</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rgb</span>
+            <span class="n">slice_input</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="p">,</span>
+            <span class="n">rgb</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="c1"># Set contrast limits, colormaps and plane parameters</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_gamma</span> <span class="o">=</span> <span class="n">gamma</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_attenuation</span> <span class="o">=</span> <span class="n">attenuation</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_plane</span> <span class="o">=</span> <span class="n">SlicingPlane</span><span class="p">(</span><span class="n">thickness</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">draggable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plane</span> <span class="o">=</span> <span class="n">SlicingPlane</span><span class="p">(</span><span class="n">thickness</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="c1"># Whether to calculate clims on the next set_view_slice</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_should_calc_clims</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="n">contrast_limits</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-                <span class="n">dtype</span> <span class="o">=</span> <span class="n">normalize_dtype</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
-                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span> <span class="o">=</span> <span class="n">get_dtype_limits</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_should_calc_clims</span> <span class="o">=</span> <span class="n">dtype</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_data_range</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span> <span class="o">=</span> <span class="n">contrast_limits</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span>
-        <span class="k">if</span> <span class="n">iso_threshold</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cmin</span><span class="p">,</span> <span class="n">cmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_iso_threshold</span> <span class="o">=</span> <span class="n">cmin</span> <span class="o">+</span> <span class="p">(</span><span class="n">cmax</span> <span class="o">-</span> <span class="n">cmin</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_iso_threshold</span> <span class="o">=</span> <span class="n">iso_threshold</span>
         <span class="c1"># using self.colormap = colormap uses the setter in *derived* classes,</span>
         <span class="c1"># where the intention here is to use the base setter, so we use the</span>
         <span class="c1"># _set_colormap method. This is important for Labels layers, because</span>
         <span class="c1"># we don&#39;t want to use get_color before set_view_slice has been</span>
         <span class="c1"># triggered (self.refresh(), below).</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span> <span class="o">=</span> <span class="n">ensure_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="o">.</span><span class="n">NEAREST</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="o">.</span><span class="n">NEAREST</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interpolation2d</span> <span class="o">=</span> <span class="n">interpolation2d</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interpolation3d</span> <span class="o">=</span> <span class="n">interpolation3d</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rendering</span> <span class="o">=</span> <span class="n">rendering</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">depiction</span> <span class="o">=</span> <span class="n">depiction</span>
         <span class="k">if</span> <span class="n">plane</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -675,6 +572,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">connect_no_arg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plane</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="s1">&#39;plane&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">custom_interpolation_kernel_2d</span> <span class="o">=</span> <span class="n">custom_interpolation_kernel_2d</span>
 
+    <span class="k">def</span> <span class="nf">_post_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Trigger generation of view slice and thumbnail</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
@@ -682,26 +580,6 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_data_view</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Viewable image for the current slice. (compatibility)&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">view</span>
-
-    <span class="k">def</span> <span class="nf">_calc_data_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Calculate the range of the data values in the currently viewed slice</span>
-<span class="sd">        or full data array</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span>
-            <span class="n">input_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
-        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;slice&#39;</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">view</span>  <span class="c1"># ugh</span>
-            <span class="n">input_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="n">data</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;mode must be either &#39;data&#39; or &#39;slice&#39;, got </span><span class="si">{mode!r}</span><span class="s2">&quot;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-        <span class="k">return</span> <span class="n">calc_data_range</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -713,22 +591,6 @@ function checkPageExistsAndRedirect(event) {
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">LayerDataProtocol</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">LayerDataProtocol</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Data, exactly as provided by the user.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_raw</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LayerDataProtocol</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Data, possibly in multiscale wrapper. Obeys LayerDataProtocol.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
-
-    <span class="nd">@data</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">LayerDataProtocol</span><span class="p">,</span> <span class="n">MultiScaleData</span><span class="p">]):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_data_raw</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="c1"># note, we don&#39;t support changing multiscale in an Image instance</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">MultiScaleData</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="n">data</span>  <span class="c1"># type: ignore</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keep_auto_contrast</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_editable</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_get_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine number of dimensions of the layer.&quot;&quot;&quot;</span>
@@ -778,145 +640,23 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_data_level</span> <span class="o">=</span> <span class="n">level</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">level_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;array: Shapes of each level of the multiscale or just of image.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_get_level_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">MultiScaleData</span><span class="p">):</span>
             <span class="n">shapes</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shapes</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">shapes</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">]</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">:</span>
-            <span class="n">shapes</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shapes</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shapes</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">shapes</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">level_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;array: Shapes of each level of the multiscale or just of image.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_level_shapes</span><span class="p">())</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">downsample_factors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;list: Downsample factors for each level of the multiscale.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level_shapes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">level_shapes</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">iso_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;float: threshold for isosurface.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iso_threshold</span>
-
-    <span class="nd">@iso_threshold</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">iso_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_iso_threshold</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">iso_threshold</span><span class="p">()</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">attenuation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;float: attenuation rate for attenuated_mip rendering.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attenuation</span>
-
-    <span class="nd">@attenuation</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">attenuation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_attenuation</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">attenuation</span><span class="p">()</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">interpolation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return current interpolation mode.</span>
-
-<span class="sd">        Selects a preset interpolation mode in vispy that determines how volume</span>
-<span class="sd">        is displayed.  Makes use of the two Texture2D interpolation methods and</span>
-<span class="sd">        the available interpolation methods defined in</span>
-<span class="sd">        vispy/gloo/glsl/misc/spatial_filters.frag</span>
-
-<span class="sd">        Options include:</span>
-<span class="sd">        &#39;bessel&#39;, &#39;cubic&#39;, &#39;linear&#39;, &#39;blackman&#39;, &#39;catrom&#39;, &#39;gaussian&#39;,</span>
-<span class="sd">        &#39;hamming&#39;, &#39;hanning&#39;, &#39;hermite&#39;, &#39;kaiser&#39;, &#39;lanczos&#39;, &#39;mitchell&#39;,</span>
-<span class="sd">        &#39;nearest&#39;, &#39;spline16&#39;, &#39;spline36&#39;</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        str</span>
-<span class="sd">            The current interpolation mode</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">&quot;Interpolation attribute is deprecated since 0.4.17. Please use interpolation2d or interpolation3d&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
-            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span>
-            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span>
-        <span class="p">)</span>
-
-    <span class="nd">@interpolation</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">interpolation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interpolation</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set current interpolation mode.&quot;&quot;&quot;</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">&quot;Interpolation setting is deprecated since 0.4.17. Please use interpolation2d or interpolation3d&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
-            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">interpolation3d</span> <span class="o">=</span> <span class="n">interpolation</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">interpolation</span> <span class="o">==</span> <span class="s1">&#39;bilinear&#39;</span><span class="p">:</span>
-                <span class="n">interpolation</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;&#39;bilinear&#39; is invalid for interpolation2d (introduced in napari 0.4.17). &quot;</span>
-                        <span class="s2">&quot;Please use &#39;linear&#39; instead, and please set directly the &#39;interpolation2d&#39; attribute&#39;.&quot;</span><span class="p">,</span>
-                    <span class="p">),</span>
-                    <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
-                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">interpolation2d</span> <span class="o">=</span> <span class="n">interpolation</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">interpolation2d</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InterpolationStr</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">InterpolationStr</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span><span class="p">))</span>
-
-    <span class="nd">@interpolation2d</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">interpolation2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">InterpolationStr</span><span class="p">,</span> <span class="n">Interpolation</span><span class="p">]):</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;bilinear&#39;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;&#39;bilinear&#39; interpolation is not valid for interpolation2d. Did you mean &#39;linear&#39; instead ?&quot;</span><span class="p">,</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;bicubic&#39;</span><span class="p">:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;cubic&#39;</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;&#39;bicubic&#39; is deprecated. Please use &#39;cubic&#39; instead&quot;</span><span class="p">),</span>
-                <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
-                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interpolation2d</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interpolation</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">interpolation3d</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InterpolationStr</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">InterpolationStr</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span><span class="p">))</span>
-
-    <span class="nd">@interpolation3d</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">interpolation3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">InterpolationStr</span><span class="p">,</span> <span class="n">Interpolation</span><span class="p">]):</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;custom&#39;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s1">&#39;custom interpolation is not implemented yet for 3D rendering&#39;</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;bicubic&#39;</span><span class="p">:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;cubic&#39;</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;&#39;bicubic&#39; is deprecated. Please use &#39;cubic&#39; instead&quot;</span><span class="p">),</span>
-                <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
-                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interpolation3d</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interpolation</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">depiction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1053,7 +793,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">projection_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">projection_mode</span><span class="p">,</span>
             <span class="n">multiscale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span><span class="p">,</span>
             <span class="n">corner_pixels</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span><span class="p">,</span>
-            <span class="n">rgb</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">,</span>
+            <span class="n">rgb</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
             <span class="n">data_level</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data_level</span><span class="p">,</span>
             <span class="n">thumbnail_level</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_level</span><span class="p">,</span>
             <span class="n">level_shapes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">level_shapes</span><span class="p">,</span>
@@ -1067,69 +807,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">slice_input</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">tile_to_data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span> <span class="o">=</span> <span class="n">response</span>
-
-        <span class="c1"># Maybe reset the contrast limits based on the new slice.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_calc_clims</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits_range</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_should_calc_clims</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keep_auto_contrast</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update thumbnail with current image data and colormap.&quot;&quot;&quot;</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">thumbnail</span><span class="o">.</span><span class="n">view</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-        <span class="c1"># float16 not supported by ndi.zoom</span>
-        <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">)]:</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-
-        <span class="n">raw_zoom_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-        <span class="n">new_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
-            <span class="n">raw_zoom_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]),</span>
-            <span class="mi">1</span><span class="p">,</span>  <span class="c1"># smallest side should be 1 pixel wide</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span>
-        <span class="p">)</span>
-        <span class="n">zoom_factor</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">new_shape</span> <span class="o">/</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">:</span>
-            <span class="n">downsampled</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span>
-                <span class="n">image</span><span class="p">,</span> <span class="n">zoom_factor</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="n">prefilter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">0</span>
-            <span class="p">)</span>
-            <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>  <span class="c1"># image is RGBA</span>
-                <span class="n">colormapped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">downsampled</span><span class="p">)</span>
-                <span class="n">colormapped</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">downsampled</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span>
-                <span class="k">if</span> <span class="n">downsampled</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">:</span>
-                    <span class="n">colormapped</span> <span class="o">=</span> <span class="n">colormapped</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>  <span class="c1"># image is RGB</span>
-                <span class="k">if</span> <span class="n">downsampled</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">:</span>
-                    <span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span>
-                        <span class="n">downsampled</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span>
-                        <span class="nb">int</span><span class="p">(</span><span class="mi">255</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span><span class="p">),</span>
-                        <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span>
-                    <span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">downsampled</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span><span class="p">)</span>
-                <span class="n">colormapped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">downsampled</span><span class="p">,</span> <span class="n">alpha</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">downsampled</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span>
-                <span class="n">image</span><span class="p">,</span> <span class="n">zoom_factor</span><span class="p">,</span> <span class="n">prefilter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">0</span>
-            <span class="p">)</span>
-            <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span>
-            <span class="n">downsampled</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">downsampled</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span>
-            <span class="n">color_range</span> <span class="o">=</span> <span class="n">high</span> <span class="o">-</span> <span class="n">low</span>
-            <span class="k">if</span> <span class="n">color_range</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">downsampled</span> <span class="o">=</span> <span class="p">(</span><span class="n">downsampled</span> <span class="o">-</span> <span class="n">low</span><span class="p">)</span> <span class="o">/</span> <span class="n">color_range</span>
-            <span class="n">downsampled</span> <span class="o">=</span> <span class="n">downsampled</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span>
-            <span class="n">color_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">downsampled</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
-            <span class="n">colormapped</span> <span class="o">=</span> <span class="n">color_array</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">*</span><span class="n">downsampled</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="n">colormapped</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">thumbnail</span> <span class="o">=</span> <span class="n">colormapped</span>
 
     <span class="k">def</span> <span class="nf">_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Value of the data at a position in data coordinates.</span>
@@ -1154,7 +831,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">coord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
         <span class="n">raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">raw</span>
-        <span class="n">shape</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span> <span class="k">else</span> <span class="n">raw</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="k">else</span> <span class="n">raw</span><span class="o">.</span><span class="n">shape</span>
+        <span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">coord</span><span class="p">):</span>
             <span class="c1"># handle 3D views of 2D data by omitting extra coordinate</span>
@@ -1201,8 +880,290 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_level_data_augmented</span><span class="p">[:,</span> <span class="n">dims_displayed</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
 
 
-<div class="viewcode-block" id="Image"><a class="viewcode-back" href="../../../../api/napari.layers.Image.html#napari.layers.Image">[docs]</a><span class="k">class</span> <span class="nc">Image</span><span class="p">(</span><span class="n">_ImageBase</span><span class="p">):</span>
+<div class="viewcode-block" id="Image"><a class="viewcode-back" href="../../../../api/napari.layers.Image.html#napari.layers.Image">[docs]</a><span class="k">class</span> <span class="nc">Image</span><span class="p">(</span><span class="n">IntensityVisualizationMixin</span><span class="p">,</span> <span class="n">_ImageBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Image layer.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : array or list of array</span>
+<span class="sd">        Image data. Can be N &gt;= 2 dimensional. If the last dimension has length</span>
+<span class="sd">        3 or 4 can be interpreted as RGB or RGBA if rgb is `True`. If a</span>
+<span class="sd">        list and arrays are decreasing in shape then the data is treated as</span>
+<span class="sd">        a multiscale image. Please note multiscale rendering is only</span>
+<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
+<span class="sd">        displayed.</span>
+<span class="sd">    affine : n-D array or napari.utils.transforms.Affine</span>
+<span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
+<span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
+<span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
+<span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
+<span class="sd">        provided scale, rotate, and shear values.</span>
+<span class="sd">    attenuation : float</span>
+<span class="sd">        Attenuation rate for attenuated maximum intensity projection.</span>
+<span class="sd">    blending : str</span>
+<span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
+<span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
+<span class="sd">        {&#39;opaque&#39;, &#39;translucent&#39;, and &#39;additive&#39;}.</span>
+<span class="sd">    cache : bool</span>
+<span class="sd">        Whether slices of out-of-core datasets should be cached upon retrieval.</span>
+<span class="sd">        Currently, this only applies to dask arrays.</span>
+<span class="sd">    colormap : str, napari.utils.Colormap, tuple, dict</span>
+<span class="sd">        Colormap to use for luminance images. If a string must be the name</span>
+<span class="sd">        of a supported colormap from vispy or matplotlib. If a tuple the</span>
+<span class="sd">        first value must be a string to assign as a name to a colormap and</span>
+<span class="sd">        the second item must be a Colormap. If a dict the key must be a</span>
+<span class="sd">        string to assign as a name to a colormap and the value must be a</span>
+<span class="sd">        Colormap.</span>
+<span class="sd">    contrast_limits : list (2,)</span>
+<span class="sd">        Color limits to be used for determining the colormap bounds for</span>
+<span class="sd">        luminance images. If not passed is calculated as the min and max of</span>
+<span class="sd">        the image.</span>
+<span class="sd">    custom_interpolation_kernel_2d : np.ndarray</span>
+<span class="sd">        Convolution kernel used with the &#39;custom&#39; interpolation mode in 2D rendering.</span>
+<span class="sd">    depiction : str</span>
+<span class="sd">        3D Depiction mode. Must be one of {&#39;volume&#39;, &#39;plane&#39;}.</span>
+<span class="sd">        The default value is &#39;volume&#39;.</span>
+<span class="sd">    experimental_clipping_planes : list of dicts, list of ClippingPlane, or ClippingPlaneList</span>
+<span class="sd">        Each dict defines a clipping plane in 3D in data coordinates.</span>
+<span class="sd">        Valid dictionary keys are {&#39;position&#39;, &#39;normal&#39;, and &#39;enabled&#39;}.</span>
+<span class="sd">        Values on the negative side of the normal are discarded if the plane is enabled.</span>
+<span class="sd">    gamma : float</span>
+<span class="sd">        Gamma correction for determining colormap linearity. Defaults to 1.</span>
+<span class="sd">    interpolation2d : str</span>
+<span class="sd">        Interpolation mode used by vispy for rendering 2d data.</span>
+<span class="sd">        Must be one of our supported modes.</span>
+<span class="sd">        (for list of supported modes see Interpolation enum)</span>
+<span class="sd">        &#39;custom&#39; is a special mode for 2D interpolation in which a regular grid</span>
+<span class="sd">        of samples are taken from the texture around a position using &#39;linear&#39;</span>
+<span class="sd">        interpolation before being multiplied with a custom interpolation kernel</span>
+<span class="sd">        (provided with &#39;custom_interpolation_kernel_2d&#39;).</span>
+<span class="sd">    interpolation3d : str</span>
+<span class="sd">        Same as &#39;interpolation2d&#39; but for 3D rendering.</span>
+<span class="sd">    iso_threshold : float</span>
+<span class="sd">        Threshold for isosurface.</span>
+<span class="sd">    metadata : dict</span>
+<span class="sd">        Layer metadata.</span>
+<span class="sd">    multiscale : bool</span>
+<span class="sd">        Whether the data is a multiscale image or not. Multiscale data is</span>
+<span class="sd">        represented by a list of array like image data. If not specified by</span>
+<span class="sd">        the user and if the data is a list of arrays that decrease in shape</span>
+<span class="sd">        then it will be taken to be multiscale. The first image in the list</span>
+<span class="sd">        should be the largest. Please note multiscale rendering is only</span>
+<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
+<span class="sd">        displayed.</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Name of the layer.</span>
+<span class="sd">    opacity : float</span>
+<span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
+<span class="sd">    plane : dict or SlicingPlane</span>
+<span class="sd">        Properties defining plane rendering in 3D. Properties are defined in</span>
+<span class="sd">        data coordinates. Valid dictionary keys are</span>
+<span class="sd">        {&#39;position&#39;, &#39;normal&#39;, &#39;thickness&#39;, and &#39;enabled&#39;}.</span>
+<span class="sd">    projection_mode : str</span>
+<span class="sd">        How data outside the viewed dimensions but inside the thick Dims slice will</span>
+<span class="sd">        be projected onto the viewed dimensions. Must fit to ImageProjectionMode</span>
+<span class="sd">    rendering : str</span>
+<span class="sd">        Rendering mode used by vispy. Must be one of our supported</span>
+<span class="sd">        modes.</span>
+<span class="sd">    rgb : bool</span>
+<span class="sd">        Whether the image is rgb RGB or RGBA. If not specified by user and</span>
+<span class="sd">        the last dimension of the data has length 3 or 4 it will be set as</span>
+<span class="sd">        `True`. If `False` the image is interpreted as a luminance image.</span>
+<span class="sd">    rotate : float, 3-tuple of float, or n-D array.</span>
+<span class="sd">        If a float convert into a 2D rotation matrix using that value as an</span>
+<span class="sd">        angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,</span>
+<span class="sd">        pitch, roll convention. Otherwise assume an nD rotation. Angles are</span>
+<span class="sd">        assumed to be in degrees. They can be converted from radians with</span>
+<span class="sd">        np.degrees if needed.</span>
+<span class="sd">    scale : tuple of float</span>
+<span class="sd">        Scale factors for the layer.</span>
+<span class="sd">    shear : 1-D array or n-D array</span>
+<span class="sd">        Either a vector of upper triangular values, or an nD shear matrix with</span>
+<span class="sd">        ones along the main diagonal.</span>
+<span class="sd">    translate : tuple of float</span>
+<span class="sd">        Translation values for the layer.</span>
+<span class="sd">    visible : bool</span>
+<span class="sd">        Whether the layer visual is currently being displayed.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : array or list of array</span>
+<span class="sd">        Image data. Can be N dimensional. If the last dimension has length</span>
+<span class="sd">        3 or 4 can be interpreted as RGB or RGBA if rgb is `True`. If a list</span>
+<span class="sd">        and arrays are decreasing in shape then the data is treated as a</span>
+<span class="sd">        multiscale image. Please note multiscale rendering is only</span>
+<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
+<span class="sd">        displayed.</span>
+<span class="sd">    metadata : dict</span>
+<span class="sd">        Image metadata.</span>
+<span class="sd">    rgb : bool</span>
+<span class="sd">        Whether the image is rgb RGB or RGBA if rgb. If not</span>
+<span class="sd">        specified by user and the last dimension of the data has length 3 or 4</span>
+<span class="sd">        it will be set as `True`. If `False` the image is interpreted as a</span>
+<span class="sd">        luminance image.</span>
+<span class="sd">    multiscale : bool</span>
+<span class="sd">        Whether the data is a multiscale image or not. Multiscale data is</span>
+<span class="sd">        represented by a list of array like image data. The first image in the</span>
+<span class="sd">        list should be the largest. Please note multiscale rendering is only</span>
+<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
+<span class="sd">        displayed.</span>
+<span class="sd">    mode : str</span>
+<span class="sd">        Interactive mode. The normal, default mode is PAN_ZOOM, which</span>
+<span class="sd">        allows for normal interactivity with the canvas.</span>
+
+<span class="sd">        In TRANSFORM mode the image can be transformed interactively.</span>
+<span class="sd">    colormap : 2-tuple of str, napari.utils.Colormap</span>
+<span class="sd">        The first is the name of the current colormap, and the second value is</span>
+<span class="sd">        the colormap. Colormaps are used for luminance images, if the image is</span>
+<span class="sd">        rgb the colormap is ignored.</span>
+<span class="sd">    colormaps : tuple of str</span>
+<span class="sd">        Names of the available colormaps.</span>
+<span class="sd">    contrast_limits : list (2,) of float</span>
+<span class="sd">        Color limits to be used for determining the colormap bounds for</span>
+<span class="sd">        luminance images. If the image is rgb the contrast_limits is ignored.</span>
+<span class="sd">    contrast_limits_range : list (2,) of float</span>
+<span class="sd">        Range for the color limits for luminance images. If the image is</span>
+<span class="sd">        rgb the contrast_limits_range is ignored.</span>
+<span class="sd">    gamma : float</span>
+<span class="sd">        Gamma correction for determining colormap linearity.</span>
+<span class="sd">    interpolation2d : str</span>
+<span class="sd">        Interpolation mode used by vispy. Must be one of our supported modes.</span>
+<span class="sd">        &#39;custom&#39; is a special mode for 2D interpolation in which a regular grid</span>
+<span class="sd">        of samples are taken from the texture around a position using &#39;linear&#39;</span>
+<span class="sd">        interpolation before being multiplied with a custom interpolation kernel</span>
+<span class="sd">        (provided with &#39;custom_interpolation_kernel_2d&#39;).</span>
+<span class="sd">    interpolation3d : str</span>
+<span class="sd">        Same as &#39;interpolation2d&#39; but for 3D rendering.</span>
+<span class="sd">    rendering : str</span>
+<span class="sd">        Rendering mode used by vispy. Must be one of our supported</span>
+<span class="sd">        modes.</span>
+<span class="sd">    depiction : str</span>
+<span class="sd">        3D Depiction mode used by vispy. Must be one of our supported modes.</span>
+<span class="sd">    iso_threshold : float</span>
+<span class="sd">        Threshold for isosurface.</span>
+<span class="sd">    attenuation : float</span>
+<span class="sd">        Attenuation rate for attenuated maximum intensity projection.</span>
+<span class="sd">    plane : SlicingPlane or dict</span>
+<span class="sd">        Properties defining plane rendering in 3D. Valid dictionary keys are</span>
+<span class="sd">        {&#39;position&#39;, &#39;normal&#39;, &#39;thickness&#39;}.</span>
+<span class="sd">    experimental_clipping_planes : ClippingPlaneList</span>
+<span class="sd">        Clipping planes defined in data coordinates, used to clip the volume.</span>
+<span class="sd">    custom_interpolation_kernel_2d : np.ndarray</span>
+<span class="sd">        Convolution kernel used with the &#39;custom&#39; interpolation mode in 2D rendering.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    _data_view : array (N, M), (N, M, 3), or (N, M, 4)</span>
+<span class="sd">        Image data for the currently viewed slice. Must be 2D image data, but</span>
+<span class="sd">        can be multidimensional for RGB or RGBA images if multidimensional is</span>
+<span class="sd">        `True`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">_projectionclass</span> <span class="o">=</span> <span class="n">ImageProjectionMode</span>
+
+    <span class="nd">@rename_argument</span><span class="p">(</span>
+        <span class="n">from_name</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
+        <span class="n">to_name</span><span class="o">=</span><span class="s2">&quot;interpolation2d&quot;</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="s2">&quot;0.6.0&quot;</span><span class="p">,</span>
+        <span class="n">since_version</span><span class="o">=</span><span class="s2">&quot;0.4.17&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">attenuation</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+        <span class="n">blending</span><span class="o">=</span><span class="s1">&#39;translucent&#39;</span><span class="p">,</span>
+        <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
+        <span class="n">contrast_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">custom_interpolation_kernel_2d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">depiction</span><span class="o">=</span><span class="s1">&#39;volume&#39;</span><span class="p">,</span>
+        <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">gamma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">interpolation2d</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span>
+        <span class="n">interpolation3d</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span>
+        <span class="n">iso_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">multiscale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+        <span class="n">rendering</span><span class="o">=</span><span class="s1">&#39;mip&#39;</span><span class="p">,</span>
+        <span class="n">rgb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Determine if rgb</span>
+        <span class="n">data_shape</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;shape&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">rgb_guess</span> <span class="o">=</span> <span class="n">guess_rgb</span><span class="p">(</span><span class="n">data_shape</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">rgb</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">rgb_guess</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">&quot;&#39;rgb&#39; was set to True but data does not have suitable dimensions.&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">rgb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rgb</span> <span class="o">=</span> <span class="n">rgb_guess</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span> <span class="o">=</span> <span class="n">rgb</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">data</span><span class="p">,</span>
+            <span class="n">affine</span><span class="o">=</span><span class="n">affine</span><span class="p">,</span>
+            <span class="n">blending</span><span class="o">=</span><span class="n">blending</span><span class="p">,</span>
+            <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
+            <span class="n">custom_interpolation_kernel_2d</span><span class="o">=</span><span class="n">custom_interpolation_kernel_2d</span><span class="p">,</span>
+            <span class="n">depiction</span><span class="o">=</span><span class="n">depiction</span><span class="p">,</span>
+            <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="n">experimental_clipping_planes</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
+            <span class="n">multiscale</span><span class="o">=</span><span class="n">multiscale</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">ndim</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data_shape</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">rgb</span> <span class="k">else</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_shape</span><span class="p">),</span>
+            <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
+            <span class="n">plane</span><span class="o">=</span><span class="n">plane</span><span class="p">,</span>
+            <span class="n">projection_mode</span><span class="o">=</span><span class="n">projection_mode</span><span class="p">,</span>
+            <span class="n">rendering</span><span class="o">=</span><span class="n">rendering</span><span class="p">,</span>
+            <span class="n">rotate</span><span class="o">=</span><span class="n">rotate</span><span class="p">,</span>
+            <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+            <span class="n">shear</span><span class="o">=</span><span class="n">shear</span><span class="p">,</span>
+            <span class="n">translate</span><span class="o">=</span><span class="n">translate</span><span class="p">,</span>
+            <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span> <span class="o">=</span> <span class="n">rgb</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span> <span class="o">=</span> <span class="n">ensure_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="o">.</span><span class="n">NEAREST</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="o">.</span><span class="n">NEAREST</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interpolation2d</span> <span class="o">=</span> <span class="n">interpolation2d</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interpolation3d</span> <span class="o">=</span> <span class="n">interpolation3d</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attenuation</span> <span class="o">=</span> <span class="n">attenuation</span>
+
+        <span class="c1"># Set contrast limits, colormaps and plane parameters</span>
+        <span class="k">if</span> <span class="n">contrast_limits</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="n">dtype</span> <span class="o">=</span> <span class="n">normalize_dtype</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span> <span class="o">=</span> <span class="n">get_dtype_limits</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_should_calc_clims</span> <span class="o">=</span> <span class="n">dtype</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_data_range</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span> <span class="o">=</span> <span class="n">contrast_limits</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span>
+
+        <span class="k">if</span> <span class="n">iso_threshold</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cmin</span><span class="p">,</span> <span class="n">cmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_iso_threshold</span> <span class="o">=</span> <span class="n">cmin</span> <span class="o">+</span> <span class="p">(</span><span class="n">cmax</span> <span class="o">-</span> <span class="n">cmin</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_iso_threshold</span> <span class="o">=</span> <span class="n">iso_threshold</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">rendering</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1268,10 +1229,238 @@ function checkPageExistsAndRedirect(event) {
                 <span class="s1">&#39;custom_interpolation_kernel_2d&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">custom_interpolation_kernel_2d</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">state</span></div>
+        <span class="k">return</span> <span class="n">state</span>
 
+    <span class="k">def</span> <span class="nf">_update_slice_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">_ImageSliceResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_update_slice_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 
-<span class="n">Image</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">_ImageBase</span><span class="o">.</span><span class="vm">__doc__</span>
+        <span class="c1"># Maybe reset the contrast limits based on the new slice.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_calc_clims</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits_range</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_should_calc_clims</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keep_auto_contrast</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">attenuation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;float: attenuation rate for attenuated_mip rendering.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attenuation</span>
+
+    <span class="nd">@attenuation</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">attenuation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attenuation</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">attenuation</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LayerDataProtocol</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Data, possibly in multiscale wrapper. Obeys LayerDataProtocol.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
+
+    <span class="nd">@data</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">LayerDataProtocol</span><span class="p">,</span> <span class="n">MultiScaleData</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_raw</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="c1"># note, we don&#39;t support changing multiscale in an Image instance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">MultiScaleData</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="n">data</span>  <span class="c1"># type: ignore</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keep_auto_contrast</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_editable</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">interpolation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return current interpolation mode.</span>
+
+<span class="sd">        Selects a preset interpolation mode in vispy that determines how volume</span>
+<span class="sd">        is displayed.  Makes use of the two Texture2D interpolation methods and</span>
+<span class="sd">        the available interpolation methods defined in</span>
+<span class="sd">        vispy/gloo/glsl/misc/spatial_filters.frag</span>
+
+<span class="sd">        Options include:</span>
+<span class="sd">        &#39;bessel&#39;, &#39;cubic&#39;, &#39;linear&#39;, &#39;blackman&#39;, &#39;catrom&#39;, &#39;gaussian&#39;,</span>
+<span class="sd">        &#39;hamming&#39;, &#39;hanning&#39;, &#39;hermite&#39;, &#39;kaiser&#39;, &#39;lanczos&#39;, &#39;mitchell&#39;,</span>
+<span class="sd">        &#39;nearest&#39;, &#39;spline16&#39;, &#39;spline36&#39;</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            The current interpolation mode</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s2">&quot;Interpolation attribute is deprecated since 0.4.17. Please use interpolation2d or interpolation3d&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span>
+        <span class="p">)</span>
+
+    <span class="nd">@interpolation</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">interpolation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interpolation</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set current interpolation mode.&quot;&quot;&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s2">&quot;Interpolation setting is deprecated since 0.4.17. Please use interpolation2d or interpolation3d&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interpolation3d</span> <span class="o">=</span> <span class="n">interpolation</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">interpolation</span> <span class="o">==</span> <span class="s1">&#39;bilinear&#39;</span><span class="p">:</span>
+                <span class="n">interpolation</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                        <span class="s2">&quot;&#39;bilinear&#39; is invalid for interpolation2d (introduced in napari 0.4.17). &quot;</span>
+                        <span class="s2">&quot;Please use &#39;linear&#39; instead, and please set directly the &#39;interpolation2d&#39; attribute&#39;.&quot;</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interpolation2d</span> <span class="o">=</span> <span class="n">interpolation</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">interpolation2d</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InterpolationStr</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">InterpolationStr</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span><span class="p">))</span>
+
+    <span class="nd">@interpolation2d</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">interpolation2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">InterpolationStr</span><span class="p">,</span> <span class="n">Interpolation</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;bilinear&#39;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">&quot;&#39;bilinear&#39; interpolation is not valid for interpolation2d. Did you mean &#39;linear&#39; instead ?&quot;</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;bicubic&#39;</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;cubic&#39;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;&#39;bicubic&#39; is deprecated. Please use &#39;cubic&#39; instead&quot;</span><span class="p">),</span>
+                <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interpolation2d</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interpolation</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">interpolation3d</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InterpolationStr</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">InterpolationStr</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span><span class="p">))</span>
+
+    <span class="nd">@interpolation3d</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">interpolation3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">InterpolationStr</span><span class="p">,</span> <span class="n">Interpolation</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;custom&#39;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="s1">&#39;custom interpolation is not implemented yet for 3D rendering&#39;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;bicubic&#39;</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;cubic&#39;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;&#39;bicubic&#39; is deprecated. Please use &#39;cubic&#39; instead&quot;</span><span class="p">),</span>
+                <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interpolation3d</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interpolation</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">iso_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;float: threshold for isosurface.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iso_threshold</span>
+
+    <span class="nd">@iso_threshold</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">iso_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_iso_threshold</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">iso_threshold</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_get_level_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">shapes</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_level_shapes</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">:</span>
+            <span class="n">shapes</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shapes</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">shapes</span>
+
+    <span class="k">def</span> <span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update thumbnail with current image data and colormap.&quot;&quot;&quot;</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">thumbnail</span><span class="o">.</span><span class="n">view</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># float16 not supported by ndi.zoom</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">)]:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+        <span class="n">raw_zoom_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="n">new_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+            <span class="n">raw_zoom_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]),</span>
+            <span class="mi">1</span><span class="p">,</span>  <span class="c1"># smallest side should be 1 pixel wide</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">zoom_factor</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">new_shape</span> <span class="o">/</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">:</span>
+            <span class="n">downsampled</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span>
+                <span class="n">image</span><span class="p">,</span> <span class="n">zoom_factor</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="n">prefilter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">0</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>  <span class="c1"># image is RGBA</span>
+                <span class="n">colormapped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">downsampled</span><span class="p">)</span>
+                <span class="n">colormapped</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">downsampled</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span>
+                <span class="k">if</span> <span class="n">downsampled</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">:</span>
+                    <span class="n">colormapped</span> <span class="o">=</span> <span class="n">colormapped</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># image is RGB</span>
+                <span class="k">if</span> <span class="n">downsampled</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">:</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span>
+                        <span class="n">downsampled</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span>
+                        <span class="nb">int</span><span class="p">(</span><span class="mi">255</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span><span class="p">),</span>
+                        <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">downsampled</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span><span class="p">)</span>
+                <span class="n">colormapped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">downsampled</span><span class="p">,</span> <span class="n">alpha</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">downsampled</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span>
+                <span class="n">image</span><span class="p">,</span> <span class="n">zoom_factor</span><span class="p">,</span> <span class="n">prefilter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">0</span>
+            <span class="p">)</span>
+            <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span>
+            <span class="n">downsampled</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">downsampled</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span>
+            <span class="n">color_range</span> <span class="o">=</span> <span class="n">high</span> <span class="o">-</span> <span class="n">low</span>
+            <span class="k">if</span> <span class="n">color_range</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">downsampled</span> <span class="o">=</span> <span class="p">(</span><span class="n">downsampled</span> <span class="o">-</span> <span class="n">low</span><span class="p">)</span> <span class="o">/</span> <span class="n">color_range</span>
+            <span class="n">downsampled</span> <span class="o">=</span> <span class="n">downsampled</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span>
+            <span class="n">color_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">downsampled</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+            <span class="n">colormapped</span> <span class="o">=</span> <span class="n">color_array</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">*</span><span class="n">downsampled</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+            <span class="n">colormapped</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">thumbnail</span> <span class="o">=</span> <span class="n">colormapped</span>
+
+    <span class="k">def</span> <span class="nf">_calc_data_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the range of the data values in the currently viewed slice</span>
+<span class="sd">        or full data array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span>
+            <span class="n">input_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;slice&#39;</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">view</span>  <span class="c1"># ugh</span>
+            <span class="n">input_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="n">data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">&quot;mode must be either &#39;data&#39; or &#39;slice&#39;, got </span><span class="si">{mode!r}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">calc_data_range</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">)</span></div>
 </pre></div>
 
             </div>

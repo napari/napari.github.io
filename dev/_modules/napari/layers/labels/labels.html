@@ -288,6 +288,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
 <span class="kn">from</span> <span class="nn">skimage.draw</span> <span class="kn">import</span> <span class="n">polygon2mask</span>
 
+<span class="kn">from</span> <span class="nn">napari.layers._data_protocols</span> <span class="kn">import</span> <span class="n">LayerDataProtocol</span>
+<span class="kn">from</span> <span class="nn">napari.layers._multiscale_data</span> <span class="kn">import</span> <span class="n">MultiScaleData</span>
 <span class="kn">from</span> <span class="nn">napari.layers.base</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">no_op</span>
 <span class="kn">from</span> <span class="nn">napari.layers.base._base_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">highlight_box_handles</span><span class="p">,</span>
@@ -352,59 +354,34 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        Labels data as an array or multiscale. Must be integer type or bools.</span>
 <span class="sd">        Please note multiscale rendering is only supported in 2D. In 3D, only</span>
 <span class="sd">        the lowest resolution scale is displayed.</span>
-<span class="sd">    num_colors : int</span>
-<span class="sd">        Number of unique colors to use in colormap.</span>
-<span class="sd">    features : dict[str, array-like] or DataFrame</span>
-<span class="sd">        Features table where each row corresponds to a label and each column</span>
-<span class="sd">        is a feature. The first row corresponds to the background label.</span>
-<span class="sd">    properties : dict {str: array (N,)} or DataFrame</span>
-<span class="sd">        Properties for each label. Each property should be an array of length</span>
-<span class="sd">        N, where N is the number of labels, and the first property corresponds</span>
-<span class="sd">        to background.</span>
-<span class="sd">    color : dict of int to str or array</span>
-<span class="sd">        Custom label to color mapping. Values must be valid color names or RGBA</span>
-<span class="sd">        arrays.</span>
-<span class="sd">    seed : float</span>
-<span class="sd">        Seed for colormap random generator.</span>
-<span class="sd">    name : str</span>
-<span class="sd">        Name of the layer.</span>
-<span class="sd">    metadata : dict</span>
-<span class="sd">        Layer metadata.</span>
-<span class="sd">    scale : tuple of float</span>
-<span class="sd">        Scale factors for the layer.</span>
-<span class="sd">    translate : tuple of float</span>
-<span class="sd">        Translation values for the layer.</span>
-<span class="sd">    rotate : float, 3-tuple of float, or n-D array.</span>
-<span class="sd">        If a float convert into a 2D rotation matrix using that value as an</span>
-<span class="sd">        angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,</span>
-<span class="sd">        pitch, roll convention. Otherwise assume an nD rotation. Angles are</span>
-<span class="sd">        assumed to be in degrees. They can be converted from radians with</span>
-<span class="sd">        np.degrees if needed.</span>
-<span class="sd">    shear : 1-D array or n-D array</span>
-<span class="sd">        Either a vector of upper triangular values, or an nD shear matrix with</span>
-<span class="sd">        ones along the main diagonal.</span>
 <span class="sd">    affine : n-D array or napari.utils.transforms.Affine</span>
 <span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
 <span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
 <span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
 <span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
 <span class="sd">        provided scale, rotate, and shear values.</span>
-<span class="sd">    opacity : float</span>
-<span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
 <span class="sd">    blending : str</span>
 <span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
 <span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
 <span class="sd">        {&#39;opaque&#39;, &#39;translucent&#39;, and &#39;additive&#39;}.</span>
-<span class="sd">    rendering : str</span>
-<span class="sd">        3D Rendering mode used by vispy. Must be one {&#39;translucent&#39;, &#39;iso_categorical&#39;}.</span>
-<span class="sd">        &#39;translucent&#39; renders without lighting. &#39;iso_categorical&#39; uses isosurface</span>
-<span class="sd">        rendering to calculate lighting effects on labeled surfaces.</span>
-<span class="sd">        The default value is &#39;iso_categorical&#39;.</span>
+<span class="sd">    cache : bool</span>
+<span class="sd">        Whether slices of out-of-core datasets should be cached upon retrieval.</span>
+<span class="sd">        Currently, this only applies to dask arrays.</span>
+<span class="sd">    color : dict of int or None to str or array</span>
+<span class="sd">        Custom label to color mapping. Values must be valid color names or RGBA</span>
+<span class="sd">        arrays. None is used when no color is specified for a label.</span>
 <span class="sd">    depiction : str</span>
 <span class="sd">        3D Depiction mode. Must be one of {&#39;volume&#39;, &#39;plane&#39;}.</span>
 <span class="sd">        The default value is &#39;volume&#39;.</span>
-<span class="sd">    visible : bool</span>
-<span class="sd">        Whether the layer visual is currently being displayed.</span>
+<span class="sd">    experimental_clipping_planes : list of dicts, list of ClippingPlane, or ClippingPlaneList</span>
+<span class="sd">        Each dict defines a clipping plane in 3D in data coordinates.</span>
+<span class="sd">        Valid dictionary keys are {&#39;position&#39;, &#39;normal&#39;, and &#39;enabled&#39;}.</span>
+<span class="sd">        Values on the negative side of the normal are discarded if the plane is enabled.</span>
+<span class="sd">    features : dict[str, array-like] or DataFrame</span>
+<span class="sd">        Features table where each row corresponds to a label and each column</span>
+<span class="sd">        is a feature. The first row corresponds to the background label.</span>
+<span class="sd">    metadata : dict</span>
+<span class="sd">        Layer metadata.</span>
 <span class="sd">    multiscale : bool</span>
 <span class="sd">        Whether the data is a multiscale image or not. Multiscale data is</span>
 <span class="sd">        represented by a list of array like image data. If not specified by</span>
@@ -413,17 +390,45 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        should be the largest. Please note multiscale rendering is only</span>
 <span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
 <span class="sd">        displayed.</span>
-<span class="sd">    cache : bool</span>
-<span class="sd">        Whether slices of out-of-core datasets should be cached upon retrieval.</span>
-<span class="sd">        Currently, this only applies to dask arrays.</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Name of the layer.</span>
+<span class="sd">    num_colors : int</span>
+<span class="sd">        Number of unique colors to use in colormap.</span>
+<span class="sd">    opacity : float</span>
+<span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
 <span class="sd">    plane : dict or SlicingPlane</span>
 <span class="sd">        Properties defining plane rendering in 3D. Properties are defined in</span>
 <span class="sd">        data coordinates. Valid dictionary keys are</span>
 <span class="sd">        {&#39;position&#39;, &#39;normal&#39;, &#39;thickness&#39;, and &#39;enabled&#39;}.</span>
-<span class="sd">    experimental_clipping_planes : list of dicts, list of ClippingPlane, or ClippingPlaneList</span>
-<span class="sd">        Each dict defines a clipping plane in 3D in data coordinates.</span>
-<span class="sd">        Valid dictionary keys are {&#39;position&#39;, &#39;normal&#39;, and &#39;enabled&#39;}.</span>
-<span class="sd">        Values on the negative side of the normal are discarded if the plane is enabled.</span>
+<span class="sd">    properties : dict {str: array (N,)} or DataFrame</span>
+<span class="sd">        Properties for each label. Each property should be an array of length</span>
+<span class="sd">        N, where N is the number of labels, and the first property corresponds</span>
+<span class="sd">        to background.</span>
+<span class="sd">    projection_mode : str</span>
+<span class="sd">        How data outside the viewed dimensions but inside the thick Dims slice will</span>
+<span class="sd">        be projected onto the viewed dimensions</span>
+<span class="sd">    rendering : str</span>
+<span class="sd">        3D Rendering mode used by vispy. Must be one {&#39;translucent&#39;, &#39;iso_categorical&#39;}.</span>
+<span class="sd">        &#39;translucent&#39; renders without lighting. &#39;iso_categorical&#39; uses isosurface</span>
+<span class="sd">        rendering to calculate lighting effects on labeled surfaces.</span>
+<span class="sd">        The default value is &#39;iso_categorical&#39;.</span>
+<span class="sd">    rotate : float, 3-tuple of float, or n-D array.</span>
+<span class="sd">        If a float convert into a 2D rotation matrix using that value as an</span>
+<span class="sd">        angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,</span>
+<span class="sd">        pitch, roll convention. Otherwise assume an nD rotation. Angles are</span>
+<span class="sd">        assumed to be in degrees. They can be converted from radians with</span>
+<span class="sd">        np.degrees if needed.</span>
+<span class="sd">    scale : tuple of float</span>
+<span class="sd">        Scale factors for the layer.</span>
+<span class="sd">    seed_rng : int</span>
+<span class="sd">        Seed for colormap shuffle random generator.</span>
+<span class="sd">    shear : 1-D array or n-D array</span>
+<span class="sd">        Either a vector of upper triangular values, or an nD shear matrix with</span>
+<span class="sd">        ones along the main diagonal.</span>
+<span class="sd">    translate : tuple of float</span>
+<span class="sd">        Translation values for the layer.</span>
+<span class="sd">    visible : bool</span>
+<span class="sd">        Whether the layer visual is currently being displayed.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -549,28 +554,28 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">data</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">num_colors</span><span class="o">=</span><span class="mi">49</span><span class="p">,</span>
-        <span class="n">features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">seed_rng</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
         <span class="n">blending</span><span class="o">=</span><span class="s1">&#39;translucent&#39;</span><span class="p">,</span>
-        <span class="n">rendering</span><span class="o">=</span><span class="s1">&#39;iso_categorical&#39;</span><span class="p">,</span>
-        <span class="n">depiction</span><span class="o">=</span><span class="s1">&#39;volume&#39;</span><span class="p">,</span>
-        <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">multiscale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">depiction</span><span class="o">=</span><span class="s1">&#39;volume&#39;</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">multiscale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">num_colors</span><span class="o">=</span><span class="mi">49</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+        <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+        <span class="n">rendering</span><span class="o">=</span><span class="s1">&#39;iso_categorical&#39;</span><span class="p">,</span>
+        <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">seed_rng</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">magic_name</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -594,14 +599,8 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">data</span><span class="p">,</span>
-            <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">colormap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span><span class="p">,</span>
-            <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">23</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">],</span>
-            <span class="n">interpolation2d</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span>
-            <span class="n">interpolation3d</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span>
             <span class="n">rendering</span><span class="o">=</span><span class="n">rendering</span><span class="p">,</span>
             <span class="n">depiction</span><span class="o">=</span><span class="n">depiction</span><span class="p">,</span>
-            <span class="n">iso_threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
             <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
             <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
             <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
@@ -620,19 +619,20 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-            <span class="n">preserve_labels</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">show_selected_label</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">properties</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">n_edit_dimensions</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">contiguous</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">brush_size</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">selected_label</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">color_mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">brush_shape</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">brush_size</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">color_mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">colormap</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">contiguous</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">contour</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">features</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">paint</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">labels_update</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">n_edit_dimensions</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">paint</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">preserve_labels</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">properties</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">selected_label</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">show_selected_label</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="kn">from</span> <span class="nn">napari.components.overlays.labels_polygon</span> <span class="kn">import</span> <span class="p">(</span>
@@ -661,8 +661,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_preserve_labels</span> <span class="o">=</span> <span class="kc">False</span>
 
+    <span class="k">def</span> <span class="nf">_post_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">()</span>
-
         <span class="c1"># Trigger generation of view slice and thumbnail</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reset_editable</span><span class="p">()</span>
@@ -847,14 +847,15 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">selected_label</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LayerDataProtocol</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;array: Image data.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
 
     <span class="nd">@data</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">LayerDataProtocol</span><span class="p">,</span> <span class="n">MultiScaleData</span><span class="p">]):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_int_labels</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reset_editable</span><span class="p">()</span>
@@ -1142,16 +1143,6 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">preserve_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preserve_labels</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_preserve_labels</span> <span class="o">=</span> <span class="n">preserve_labels</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">preserve_labels</span><span class="p">(</span><span class="n">preserve_labels</span><span class="o">=</span><span class="n">preserve_labels</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span>
-
-    <span class="nd">@contrast_limits</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="c1"># Setting contrast_limits of labels layers leads to wrong visualization</span>
-        <span class="c1"># of the layer, so we ignore the value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_reset_editable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">editable</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span>
@@ -1843,7 +1834,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_get_shape_and_dims_to_paint</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="nb">list</span><span class="p">]:</span>
         <span class="n">dims_to_paint</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_dims_to_paint</span><span class="p">())</span>
-        <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
             <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">]</span>

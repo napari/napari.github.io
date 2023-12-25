@@ -77,12 +77,6 @@ napari.layers.Labels
       ~Labels.refresh
    
    
-      ~Labels.reset_contrast_limits
-   
-   
-      ~Labels.reset_contrast_limits_range
-   
-   
       ~Labels.save
    
    
@@ -107,7 +101,6 @@ napari.layers.Labels
    .. autosummary::
    
       ~Labels.affine
-      ~Labels.attenuation
       ~Labels.blending
       ~Labels.bounding_box
       ~Labels.brush_size
@@ -116,11 +109,8 @@ napari.layers.Labels
       ~Labels.color
       ~Labels.color_mode
       ~Labels.colormap
-      ~Labels.colormaps
       ~Labels.contiguous
       ~Labels.contour
-      ~Labels.contrast_limits
-      ~Labels.contrast_limits_range
       ~Labels.cursor
       ~Labels.cursor_size
       ~Labels.custom_interpolation_kernel_2d
@@ -134,13 +124,8 @@ napari.layers.Labels
       ~Labels.experimental_clipping_planes
       ~Labels.extent
       ~Labels.features
-      ~Labels.gamma
       ~Labels.help
       ~Labels.interactive
-      ~Labels.interpolation
-      ~Labels.interpolation2d
-      ~Labels.interpolation3d
-      ~Labels.iso_threshold
       ~Labels.level_shapes
       ~Labels.loaded
       ~Labels.metadata

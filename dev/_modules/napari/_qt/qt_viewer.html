@@ -291,7 +291,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">weakref</span> <span class="kn">import</span> <span class="n">WeakSet</span><span class="p">,</span> <span class="n">ref</span>
 
-<span class="kn">from</span> <span class="nn">qtpy.QtCore</span> <span class="kn">import</span> <span class="n">QCoreApplication</span><span class="p">,</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">Qt</span>
+<span class="kn">from</span> <span class="nn">qtpy.QtCore</span> <span class="kn">import</span> <span class="n">QCoreApplication</span><span class="p">,</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QUrl</span>
 <span class="kn">from</span> <span class="nn">qtpy.QtGui</span> <span class="kn">import</span> <span class="n">QGuiApplication</span>
 <span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QSplitter</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QWidget</span>
 <span class="kn">from</span> <span class="nn">superqt</span> <span class="kn">import</span> <span class="n">ensure_main_thread</span>
@@ -327,6 +327,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.utils.key_bindings</span> <span class="kn">import</span> <span class="n">KeymapHandler</span>
 <span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">in_ipython</span><span class="p">,</span> <span class="n">in_jupyter</span>
 <span class="kn">from</span> <span class="nn">napari.utils.naming</span> <span class="kn">import</span> <span class="n">CallerFrame</span>
+<span class="kn">from</span> <span class="nn">napari.utils.notifications</span> <span class="kn">import</span> <span class="n">show_info</span>
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">napari_builtins.io</span> <span class="kn">import</span> <span class="n">imsave_extensions</span>
 
@@ -1298,6 +1299,43 @@ function checkPageExistsAndRedirect(event) {
             <span class="s1">&#39;Hold &lt;Alt&gt; key to open plugin selection. Hold &lt;Shift&gt; to open files as stack.&#39;</span>
         <span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_image_from_clipboard</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Insert image from clipboard as a new layer if clipboard contains an image or link.&quot;&quot;&quot;</span>
+        <span class="n">cb</span> <span class="o">=</span> <span class="n">QGuiApplication</span><span class="o">.</span><span class="n">clipboard</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">cb</span><span class="o">.</span><span class="n">mimeData</span><span class="p">()</span><span class="o">.</span><span class="n">hasImage</span><span class="p">():</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">image</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">isNull</span><span class="p">():</span>
+                <span class="k">return</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">QImg2array</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">cb</span><span class="o">.</span><span class="n">mimeData</span><span class="p">()</span><span class="o">.</span><span class="n">hasUrls</span><span class="p">():</span>
+            <span class="n">show_info</span><span class="p">(</span><span class="s2">&quot;No image in clipboard, trying to open link instead.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_open_from_list_of_urls_data</span><span class="p">(</span>
+                <span class="n">cb</span><span class="o">.</span><span class="n">mimeData</span><span class="p">()</span><span class="o">.</span><span class="n">urls</span><span class="p">(),</span> <span class="n">stack</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">cb</span><span class="o">.</span><span class="n">mimeData</span><span class="p">()</span><span class="o">.</span><span class="n">hasText</span><span class="p">():</span>
+            <span class="n">show_info</span><span class="p">(</span>
+                <span class="s2">&quot;No image in clipboard, trying to parse text in clipboard as a link.&quot;</span>
+            <span class="p">)</span>
+            <span class="n">url_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">cb</span><span class="o">.</span><span class="n">mimeData</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
+                <span class="n">url</span> <span class="o">=</span> <span class="n">QUrl</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">():</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                    <span class="n">url</span><span class="o">.</span><span class="n">setScheme</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">isLocalFile</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">Path</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">toLocalFile</span><span class="p">())</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                    <span class="k">break</span>
+                <span class="n">url_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_open_from_list_of_urls_data</span><span class="p">(</span>
+                    <span class="n">url_list</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">)</span>
+                <span class="k">return</span>
+        <span class="n">show_info</span><span class="p">(</span><span class="s2">&quot;No image or link in clipboard.&quot;</span><span class="p">)</span>
+
 <div class="viewcode-block" id="QtViewer.dropEvent"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.dropEvent">[docs]</a>    <span class="k">def</span> <span class="nf">dropEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add local files and web URLS with drag and drop.</span>
 
@@ -1320,8 +1358,17 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">QGuiApplication</span><span class="o">.</span><span class="n">keyboardModifiers</span><span class="p">()</span>
             <span class="o">&amp;</span> <span class="n">Qt</span><span class="o">.</span><span class="n">KeyboardModifier</span><span class="o">.</span><span class="n">AltModifier</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_open_from_list_of_urls_data</span><span class="p">(</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">mimeData</span><span class="p">()</span><span class="o">.</span><span class="n">urls</span><span class="p">(),</span>
+            <span class="n">stack</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">shift_down</span><span class="p">),</span>
+            <span class="n">choose_plugin</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">alt_down</span><span class="p">),</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_open_from_list_of_urls_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">urls_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">QUrl</span><span class="p">],</span> <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="p">):</span>
         <span class="n">filenames</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">mimeData</span><span class="p">()</span><span class="o">.</span><span class="n">urls</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls_list</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">isLocalFile</span><span class="p">():</span>
                 <span class="c1"># directories get a trailing &quot;/&quot;, Path conversion removes it</span>
                 <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">toLocalFile</span><span class="p">())))</span>
@@ -1330,9 +1377,9 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_open</span><span class="p">(</span>
             <span class="n">filenames</span><span class="p">,</span>
-            <span class="n">stack</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">shift_down</span><span class="p">),</span>
-            <span class="n">choose_plugin</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">alt_down</span><span class="p">),</span>
-        <span class="p">)</span></div>
+            <span class="n">stack</span><span class="o">=</span><span class="n">stack</span><span class="p">,</span>
+            <span class="n">choose_plugin</span><span class="o">=</span><span class="n">choose_plugin</span><span class="p">,</span>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="QtViewer.closeEvent"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.closeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Cleanup and close.</span>

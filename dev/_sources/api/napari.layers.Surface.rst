@@ -92,6 +92,8 @@ napari.layers.Surface
       ~Surface.experimental_clipping_planes
       ~Surface.extent
       ~Surface.faces
+      ~Surface.feature_defaults
+      ~Surface.features
       ~Surface.gamma
       ~Surface.help
       ~Surface.interactive

@@ -95,6 +95,7 @@ napari.layers.Tracks
       ~Tracks.head_length
       ~Tracks.help
       ~Tracks.interactive
+      ~Tracks.keymap
       ~Tracks.loaded
       ~Tracks.metadata
       ~Tracks.mode

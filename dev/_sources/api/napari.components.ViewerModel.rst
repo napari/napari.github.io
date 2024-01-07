@@ -113,6 +113,7 @@ napari.components.ViewerModel
       ~ViewerModel.class_keymap
       ~ViewerModel.events
       ~ViewerModel.experimental
+      ~ViewerModel.keymap
       ~ViewerModel.scale_bar
       ~ViewerModel.text_overlay
       

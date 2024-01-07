@@ -126,6 +126,7 @@ napari.layers.Labels
       ~Labels.features
       ~Labels.help
       ~Labels.interactive
+      ~Labels.keymap
       ~Labels.level_shapes
       ~Labels.loaded
       ~Labels.metadata

@@ -128,6 +128,7 @@ napari.Viewer
       ~Viewer.class_keymap
       ~Viewer.events
       ~Viewer.experimental
+      ~Viewer.keymap
       ~Viewer.scale_bar
       ~Viewer.text_overlay
       ~Viewer.window

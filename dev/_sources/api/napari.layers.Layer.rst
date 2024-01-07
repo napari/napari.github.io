@@ -82,6 +82,7 @@ napari.layers.Layer
       ~Layer.extent
       ~Layer.help
       ~Layer.interactive
+      ~Layer.keymap
       ~Layer.loaded
       ~Layer.metadata
       ~Layer.mode

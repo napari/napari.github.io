@@ -26,7 +26,7 @@ Display a labels layer above of an image layer using the ``add_labels`` and
 
 .. tags:: layers, visualization-basic
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-39
+.. GENERATED FROM PYTHON SOURCE LINES 10-38
 
 
 
@@ -40,7 +40,6 @@ Display a labels layer above of an image layer using the ``add_labels`` and
 
 
 .. code-block:: Python
-
 
     from skimage import data
     from skimage.filters import threshold_otsu
@@ -60,7 +59,7 @@ Display a labels layer above of an image layer using the ``add_labels`` and
     cleared = remove_small_objects(clear_border(bw), 20)
 
     # label image regions
-    label_image = label(cleared)
+    label_image = label(cleared).astype("uint8")
 
     # initialise viewer with coins image
     viewer = napari.view_image(image, name='coins', rgb=False)

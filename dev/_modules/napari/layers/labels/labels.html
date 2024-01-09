@@ -1262,9 +1262,22 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
 
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span><span class="p">,</span> <span class="n">LabelColormap</span><span class="p">):</span>
+            <span class="n">mapped_background</span> <span class="o">=</span> <span class="n">_cast_labels_data_to_texture_dtype_auto</span><span class="p">(</span>
+                <span class="n">labels</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># direct</span>
+            <span class="n">mapped_background</span> <span class="o">=</span> <span class="n">_cast_labels_data_to_texture_dtype_direct</span><span class="p">(</span>
+                <span class="n">labels</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_direct_colormap</span><span class="p">,</span>
+            <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span>
-            <span class="n">labels</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_cache_dtype</span><span class="p">(</span><span class="n">labels</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span>
+            <span class="n">shape</span><span class="o">=</span><span class="n">labels</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+            <span class="n">fill_value</span><span class="o">=</span><span class="n">mapped_background</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_cache_dtype</span><span class="p">(</span><span class="n">labels</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_raw_to_displayed</span><span class="p">(</span>

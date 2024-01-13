@@ -795,14 +795,20 @@ from unit tests to integration and functional tests.</p>
 <span id="id1"></span><h2>Test organization<a class="headerlink" href="#test-organization" title="Permalink to this headline">¶</a></h2>
 <p>All of <code class="docutils literal notranslate"><span class="pre">napari</span></code> tests are located in folders named <code class="docutils literal notranslate"><span class="pre">_tests</span></code>. We keep our unit
 tests located in the individual folders with the modules or functions they are
-testing (e.g. the tests for the <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer are located in a <code class="docutils literal notranslate"><span class="pre">_tests</span></code> folder
-alongside the <code class="docutils literal notranslate"><span class="pre">image.py</span></code> file). Our integration and functional tests are located in
+testing (e.g. the tests for the <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer are located in
+<code class="docutils literal notranslate"><span class="pre">/napari/layers/image/_tests</span></code> alongside the <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer code). Our integration and
+functional tests are located in
 the <code class="docutils literal notranslate"><span class="pre">napari/_tests</span></code> folder at the top of the repository.</p>
 <p>We also strive to unit test as much of our model file and utils code independently of
 our GUI code. These tests are located in the <code class="docutils literal notranslate"><span class="pre">napari/layers</span></code>, <code class="docutils literal notranslate"><span class="pre">napari/components</span></code>,
 and <code class="docutils literal notranslate"><span class="pre">napari/utils</span></code> folders. Our GUI code is tests in the <code class="docutils literal notranslate"><span class="pre">napari/_tests</span></code>,
-<code class="docutils literal notranslate"><span class="pre">napari/_qt</span></code>, <code class="docutils literal notranslate"><span class="pre">napari/_vispy</span></code> folders. The <code class="docutils literal notranslate"><span class="pre">napari/plugins</span></code> folder contains a mix
-of tests.</p>
+<code class="docutils literal notranslate"><span class="pre">napari/_qt</span></code>, <code class="docutils literal notranslate"><span class="pre">napari/_vispy</span></code> folders. The tests in these three folders are ignored
+when we run them in the subset of our
+<a class="reference external" href="https://en.wikipedia.org/wiki/Continuous_integration">continuous integration</a>
+workflows that run in a headless environment (without a Qt backend).
+When we are testing “non-GUI” code in a way that requires a GUI backend, they are
+placed here. The <code class="docutils literal notranslate"><span class="pre">napari/plugins</span></code> folder contains a mix of tests.</p>
+<p>Pytest fixtures that are available globally to aid testing live in <code class="docutils literal notranslate"><span class="pre">napari/conftest.py</span></code>.</p>
 </section>
 <section id="running-tests">
 <h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>

@@ -9,15 +9,6 @@ just getting started, check out our [tutorials](../tutorials/index.md) or
 
 ## Advanced usage
 
-magicgui is a python package that assists in building small, composable
-graphical user interfaces (widgets). To learn about using `magicgui` in napari,
-see the {ref}`magicgui` guide.
-
-If you'd like to start customizing the behavior of napari, it pays to
-familiarize yourself with the concept of an Event Loop. For an introduction to
-event loops and connecting your own functions to events in napari, see the
-{ref}`intro-to-event-loop`.
-
 If you use napari to view and interact with the results of long-running
 computations, and would like to avoid having the viewer become unresponsive
 while you wait for a computation to finish, you may benefit from reading about

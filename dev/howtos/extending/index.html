@@ -5,39 +5,39 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-    <link type="image/svg+xml" href="../_static/favicon/logo-silhouette-dark-light.svg" rel="icon">
-    <link sizes="any" href="../_static/favicon/logo-silhouette-192.png" rel="icon" type="image/png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/logo-noborder-180.png" type="image/png">
-    <title>Hooking up your own events &#8212; napari</title>
-  <link rel="stylesheet" href="../_static/fa/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-brands-400.woff2">
-  <link href="../_static/styles/theme.css" rel="stylesheet">
+    <link type="image/svg+xml" href="../../_static/favicon/logo-silhouette-dark-light.svg" rel="icon">
+    <link sizes="any" href="../../_static/favicon/logo-silhouette-192.png" rel="icon" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/logo-noborder-180.png" type="image/png">
+    <title>Extending napari &#8212; napari</title>
+  <link rel="stylesheet" href="../../_static/fa/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/webfonts/fa-brands-400.woff2">
+  <link href="../../_static/styles/theme.css" rel="stylesheet">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/design-tabs.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="napari + ImageJ how-to guide" href="napari_imageJ.html" />
-    <link rel="prev" title="Using the vectors layer" href="layers/vectors.html" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/napari-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Creating widgets" href="magicgui.html" />
+    <link rel="prev" title="Using the vectors layer" href="../layers/vectors.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -55,7 +55,7 @@
   <div id="navbar-start">
     
     <!-- A small template snippet for theme testing -->
-<a class="navbar-brand" href="../index.html">
+<a class="navbar-brand" href="../../index.html">
   napari
 </a>
     
@@ -76,31 +76,31 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 current active nav-item">
- <a class="reference internal nav-link" href="../usage.html">
+ <a class="reference internal nav-link" href="../../usage.html">
   Usage
  </a>
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../plugins/index.html">
+ <a class="reference internal nav-link" href="../../plugins/index.html">
   Plugins
  </a>
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../community/index.html">
+ <a class="reference internal nav-link" href="../../community/index.html">
   Community
  </a>
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../developers/index.html">
+ <a class="reference internal nav-link" href="../../developers/index.html">
   Contributing
  </a>
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../api/index.html">
+ <a class="reference internal nav-link" href="../../api/index.html">
   API Reference
  </a>
 </li>
@@ -133,14 +133,14 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables howtos/connecting_events and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
+     variables howtos/extending/index and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
 // Check if corresponding page path exists in other version of docs
 // and, if so, go there instead of the homepage of the other docs version
 function checkPageExistsAndRedirect(event) {
-    const currentFilePath = "howtos/connecting_events.html",
+    const currentFilePath = "howtos/extending/index.html",
           tryUrl = event.target.getAttribute("href");
     let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
     $.ajax({
@@ -161,7 +161,7 @@ function checkPageExistsAndRedirect(event) {
 // Populate the version switcher from the JSON config file
 (function () {
     $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
-        const currentFilePath = "howtos/connecting_events.html";
+        const currentFilePath = "howtos/extending/index.html";
         // create links to the corresponding page in the other docs versions
         $.each(data, function(index, entry) {
             // if no custom name specified (e.g., "latest"), use version string
@@ -221,7 +221,7 @@ function checkPageExistsAndRedirect(event) {
           <div class="bd-sidebar">
             <div class="sidebar-start-items"><form
   class="search"
-  action="../search.html"
+  action="../../search.html"
   method="get"
 >
   <input
@@ -252,24 +252,24 @@ function checkPageExistsAndRedirect(event) {
  <li class="toctree-l1 has-children">
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
-   <img src="../_static/icons/sidebar-triangle.png"/>
+   <img src="../../_static/icons/sidebar-triangle.png"/>
   </label>
-  <a class="reference internal" href="../tutorials/start_index.html">
+  <a class="reference internal" href="../../tutorials/start_index.html">
    Getting started
   </a>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/fundamentals/quick_start.html">
+    <a class="reference internal" href="../../tutorials/fundamentals/quick_start.html">
      Quick start
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/fundamentals/installation.html">
+    <a class="reference internal" href="../../tutorials/fundamentals/installation.html">
      How to install napari
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/fundamentals/getting_started.html">
+    <a class="reference internal" href="../../tutorials/fundamentals/getting_started.html">
      How to launch
      <code class="docutils literal notranslate">
       <span class="pre">
@@ -279,12 +279,12 @@ function checkPageExistsAndRedirect(event) {
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/fundamentals/viewer.html">
+    <a class="reference internal" href="../../tutorials/fundamentals/viewer.html">
      Viewer tutorial
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../guides/layers.html">
+    <a class="reference internal" href="../../guides/layers.html">
      Layers at a glance
     </a>
    </li>
@@ -293,23 +293,23 @@ function checkPageExistsAndRedirect(event) {
  <li class="toctree-l1 has-children">
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
-   <img src="../_static/icons/sidebar-triangle.png"/>
+   <img src="../../_static/icons/sidebar-triangle.png"/>
   </label>
-  <a class="reference internal" href="../tutorials/index.html">
+  <a class="reference internal" href="../../tutorials/index.html">
    napari tutorials
   </a>
   <ul>
    <li class="toctree-l2 has-children">
     <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
     <label for="toctree-checkbox-3">
-     <img src="../_static/icons/sidebar-triangle.png"/>
+     <img src="../../_static/icons/sidebar-triangle.png"/>
     </label>
-    <a class="reference internal" href="../tutorials/annotation/index.html">
+    <a class="reference internal" href="../../tutorials/annotation/index.html">
      Annotation
     </a>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../tutorials/annotation/annotate_points.html">
+      <a class="reference internal" href="../../tutorials/annotation/annotate_points.html">
        Annotating videos with napari
       </a>
      </li>
@@ -318,14 +318,14 @@ function checkPageExistsAndRedirect(event) {
    <li class="toctree-l2 has-children">
     <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
     <label for="toctree-checkbox-4">
-     <img src="../_static/icons/sidebar-triangle.png"/>
+     <img src="../../_static/icons/sidebar-triangle.png"/>
     </label>
-    <a class="reference internal" href="../tutorials/processing/index.html">
+    <a class="reference internal" href="../../tutorials/processing/index.html">
      Processing
     </a>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../tutorials/processing/dask.html">
+      <a class="reference internal" href="../../tutorials/processing/dask.html">
        Using Dask and napari to process &amp; view large datasets
       </a>
      </li>
@@ -334,14 +334,14 @@ function checkPageExistsAndRedirect(event) {
    <li class="toctree-l2 has-children">
     <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
     <label for="toctree-checkbox-5">
-     <img src="../_static/icons/sidebar-triangle.png"/>
+     <img src="../../_static/icons/sidebar-triangle.png"/>
     </label>
-    <a class="reference internal" href="../tutorials/segmentation/index.html">
+    <a class="reference internal" href="../../tutorials/segmentation/index.html">
      Segmentation
     </a>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../tutorials/segmentation/annotate_segmentation.html">
+      <a class="reference internal" href="../../tutorials/segmentation/annotate_segmentation.html">
        Annotating segmentation with text and bounding boxes
       </a>
      </li>
@@ -350,14 +350,14 @@ function checkPageExistsAndRedirect(event) {
    <li class="toctree-l2 has-children">
     <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
     <label for="toctree-checkbox-6">
-     <img src="../_static/icons/sidebar-triangle.png"/>
+     <img src="../../_static/icons/sidebar-triangle.png"/>
     </label>
-    <a class="reference internal" href="../tutorials/tracking/index.html">
+    <a class="reference internal" href="../../tutorials/tracking/index.html">
      Tracking
     </a>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../tutorials/tracking/cell_tracking.html">
+      <a class="reference internal" href="../../tutorials/tracking/cell_tracking.html">
        Single cell tracking with napari
       </a>
      </li>
@@ -368,268 +368,217 @@ function checkPageExistsAndRedirect(event) {
  <li class="toctree-l1 current active has-children">
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
   <label for="toctree-checkbox-7">
-   <img src="../_static/icons/sidebar-triangle.png"/>
+   <img src="../../_static/icons/sidebar-triangle.png"/>
   </label>
-  <a class="reference internal" href="index.html">
+  <a class="reference internal" href="../index.html">
    How-to guides
   </a>
   <ul class="current">
    <li class="toctree-l2 has-children">
     <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
     <label for="toctree-checkbox-8">
-     <img src="../_static/icons/sidebar-triangle.png"/>
+     <img src="../../_static/icons/sidebar-triangle.png"/>
     </label>
-    <a class="reference internal" href="layers/index.html">
+    <a class="reference internal" href="../layers/index.html">
      Using layers
     </a>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="layers/image.html">
+      <a class="reference internal" href="../layers/image.html">
        Using the image layer
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="layers/labels.html">
+      <a class="reference internal" href="../layers/labels.html">
        Using the labels layer
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="layers/points.html">
+      <a class="reference internal" href="../layers/points.html">
        Using the points layer
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="layers/shapes.html">
+      <a class="reference internal" href="../layers/shapes.html">
        Using the shapes layer
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="layers/surface.html">
+      <a class="reference internal" href="../layers/surface.html">
        Using the surface layer
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="layers/tracks.html">
+      <a class="reference internal" href="../layers/tracks.html">
        Using the tracks layer
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="layers/vectors.html">
+      <a class="reference internal" href="../layers/vectors.html">
        Using the vectors layer
       </a>
      </li>
     </ul>
    </li>
-   <li class="toctree-l2 current active">
+   <li class="toctree-l2 current active has-children">
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <img src="../../_static/icons/sidebar-triangle.png"/>
+    </label>
     <a class="current reference internal" href="#">
-     Hooking up your own events
+     Extending napari
     </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="magicgui.html">
+       Creating widgets
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="connecting_events.html">
+       Hooking up your own events
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="napari_imageJ.html">
+    <a class="reference internal" href="../napari_imageJ.html">
      napari + ImageJ how-to guide
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="docker.html">
+    <a class="reference internal" href="../docker.html">
      Napari in Docker
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="perfmon.html">
+    <a class="reference internal" href="../perfmon.html">
      Performance monitoring
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="headless.html">
+    <a class="reference internal" href="../headless.html">
      Running napari headlessly
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-  <label for="toctree-checkbox-9">
-   <img src="../_static/icons/sidebar-triangle.png"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <img src="../../_static/icons/sidebar-triangle.png"/>
   </label>
-  <a class="reference internal" href="../guides/index.html">
+  <a class="reference internal" href="../../guides/index.html">
    In-depth explanations
   </a>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../guides/magicgui.html">
-     Using
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       magicgui
-      </span>
-     </code>
-     in napari
+    <a class="reference internal" href="../../guides/event_loop.html">
+     napari event loop
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../guides/event_loop.html">
-     An introduction to the event loop in napari
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../guides/threading.html">
+    <a class="reference internal" href="../../guides/threading.html">
      Multithreading in napari
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../guides/3D_interactivity.html">
+    <a class="reference internal" href="../../guides/3D_interactivity.html">
      3D interactivity
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../guides/rendering-explanation.html">
+    <a class="reference internal" href="../../guides/rendering-explanation.html">
      Rendering in napari
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../guides/rendering.html">
+    <a class="reference internal" href="../../guides/rendering.html">
      Asynchronous rendering
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../guides/performance.html">
+    <a class="reference internal" href="../../guides/performance.html">
      napari performance
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../guides/preferences.html">
+    <a class="reference internal" href="../../guides/preferences.html">
      Preferences
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../guides/contexts_expressions.html">
+    <a class="reference internal" href="../../guides/contexts_expressions.html">
      Contexts and Expressions in napari
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../guides/events_reference.html">
+    <a class="reference internal" href="../../guides/events_reference.html">
      Events reference
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../further-resources/glossary.html">
+  <a class="reference internal" href="../../further-resources/glossary.html">
    Glossary
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../further-resources/napari-workshops.html">
+  <a class="reference internal" href="../../further-resources/napari-workshops.html">
    napari workshops
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../further-resources/sample_data.html">
+  <a class="reference internal" href="../../further-resources/sample_data.html">
    Sample databases
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-  <label for="toctree-checkbox-10">
-   <img src="../_static/icons/sidebar-triangle.png"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <img src="../../_static/icons/sidebar-triangle.png"/>
   </label>
-  <a class="reference internal" href="../gallery.html">
+  <a class="reference internal" href="../../gallery.html">
    Gallery
   </a>
   <ul>
    <li class="toctree-l2 has-children">
-    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-    <label for="toctree-checkbox-11">
-     <img src="../_static/icons/sidebar-triangle.png"/>
+    <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+    <label for="toctree-checkbox-12">
+     <img src="../../_static/icons/sidebar-triangle.png"/>
     </label>
-    <a class="reference internal" href="../_tags/tagsindex.html">
+    <a class="reference internal" href="../../_tags/tagsindex.html">
      Tags
     </a>
     <ul>
      <li class="toctree-l3 has-children">
-      <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-      <label for="toctree-checkbox-12">
-       <img src="../_static/icons/sidebar-triangle.png"/>
+      <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+      <label for="toctree-checkbox-13">
+       <img src="../../_static/icons/sidebar-triangle.png"/>
       </label>
-      <a class="reference internal" href="../_tags/analysis.html">
+      <a class="reference internal" href="../../_tags/analysis.html">
        analysis (4)
       </a>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_labels_with_features.html">
+        <a class="reference internal" href="../../gallery/add_labels_with_features.html">
          Add labels with features
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/annotate_segmentation_with_text.html">
+        <a class="reference internal" href="../../gallery/annotate_segmentation_with_text.html">
          Annotate segmentation with text
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/paint-nd.html">
+        <a class="reference internal" href="../../gallery/paint-nd.html">
          Paint nD
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/annotate-2d.html">
+        <a class="reference internal" href="../../gallery/annotate-2d.html">
          Annotate 2D
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
-      <label for="toctree-checkbox-13">
-       <img src="../_static/icons/sidebar-triangle.png"/>
-      </label>
-      <a class="reference internal" href="../_tags/experimental.html">
-       experimental (9)
-      </a>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/viewer_fps_label.html">
-         Viewer FPS label
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/linked_layers.html">
-         Linked layers
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/spherical_points.html">
-         Spherical points
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/surface_normals_wireframe.html">
-         Surface normals wireframe
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/interactive_move_rectangle_3d.html">
-         Interactive move rectangle
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/new_theme.html">
-         New theme
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/action_manager.html">
-         Action manager
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/interaction_box_image.html">
-         Interaction box image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/scale_bar.html">
-         Scale bar
         </a>
        </li>
       </ul>
@@ -637,90 +586,55 @@ function checkPageExistsAndRedirect(event) {
      <li class="toctree-l3 has-children">
       <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
       <label for="toctree-checkbox-14">
-       <img src="../_static/icons/sidebar-triangle.png"/>
+       <img src="../../_static/icons/sidebar-triangle.png"/>
       </label>
-      <a class="reference internal" href="../_tags/gui.html">
-       gui (16)
+      <a class="reference internal" href="../../_tags/experimental.html">
+       experimental (9)
       </a>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/fourier_transform_playground.html">
-         Fourier transform playground
+        <a class="reference internal" href="../../gallery/viewer_fps_label.html">
+         Viewer FPS label
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/get_current_viewer.html">
-         Get current viewer
+        <a class="reference internal" href="../../gallery/linked_layers.html">
+         Linked layers
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/multiple_viewer_widget.html">
-         Multiple viewer widget
+        <a class="reference internal" href="../../gallery/spherical_points.html">
+         Spherical points
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/custom_key_bindings.html">
-         Custom key bindings
+        <a class="reference internal" href="../../gallery/surface_normals_wireframe.html">
+         Surface normals wireframe
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/inherit_viewer_style.html">
-         Method to get napari style in magicgui based windows
+        <a class="reference internal" href="../../gallery/interactive_move_rectangle_3d.html">
+         Interactive move rectangle
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/set_theme.html">
-         Set theme
+        <a class="reference internal" href="../../gallery/new_theme.html">
+         New theme
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/multiple_viewers.html">
-         Multiple viewers
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/image_custom_kernel.html">
-         Custom image interpolation kernels
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/magic_image_arithmetic.html">
-         magicgui Image Arithmetic
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/bbox_annotator.html">
-         bbox annotator
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/3Dimage_plane_rendering.html">
-         3D image plane rendering
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/action_manager.html">
+        <a class="reference internal" href="../../gallery/action_manager.html">
          Action manager
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/mouse_drag_callback.html">
-         Mouse drag callback
+        <a class="reference internal" href="../../gallery/interaction_box_image.html">
+         Interaction box image
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/custom_mouse_functions.html">
-         Custom mouse functions
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/magic_viewer.html">
-         magicgui viewer
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/magic_parameter_sweep.html">
-         magicgui parameter sweep
+        <a class="reference internal" href="../../gallery/scale_bar.html">
+         Scale bar
         </a>
        </li>
       </ul>
@@ -728,30 +642,90 @@ function checkPageExistsAndRedirect(event) {
      <li class="toctree-l3 has-children">
       <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
       <label for="toctree-checkbox-15">
-       <img src="../_static/icons/sidebar-triangle.png"/>
+       <img src="../../_static/icons/sidebar-triangle.png"/>
       </label>
-      <a class="reference internal" href="../_tags/historical.html">
-       historical (4)
+      <a class="reference internal" href="../../_tags/gui.html">
+       gui (16)
       </a>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/update_console.html">
-         Update console
+        <a class="reference internal" href="../../gallery/fourier_transform_playground.html">
+         Fourier transform playground
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/without_gui_qt.html">
-         napari without gui_qt
+        <a class="reference internal" href="../../gallery/get_current_viewer.html">
+         Get current viewer
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/shapes_to_labels.html">
-         Shapes to labels
+        <a class="reference internal" href="../../gallery/multiple_viewer_widget.html">
+         Multiple viewer widget
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/reader_plugin.html">
-         Reader plugin
+        <a class="reference internal" href="../../gallery/custom_key_bindings.html">
+         Custom key bindings
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/inherit_viewer_style.html">
+         Method to get napari style in magicgui based windows
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/set_theme.html">
+         Set theme
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/multiple_viewers.html">
+         Multiple viewers
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/image_custom_kernel.html">
+         Custom image interpolation kernels
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/magic_image_arithmetic.html">
+         magicgui Image Arithmetic
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/bbox_annotator.html">
+         bbox annotator
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/3Dimage_plane_rendering.html">
+         3D image plane rendering
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/action_manager.html">
+         Action manager
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/mouse_drag_callback.html">
+         Mouse drag callback
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/custom_mouse_functions.html">
+         Custom mouse functions
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/magic_viewer.html">
+         magicgui viewer
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/magic_parameter_sweep.html">
+         magicgui parameter sweep
         </a>
        </li>
       </ul>
@@ -759,35 +733,30 @@ function checkPageExistsAndRedirect(event) {
      <li class="toctree-l3 has-children">
       <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
       <label for="toctree-checkbox-16">
-       <img src="../_static/icons/sidebar-triangle.png"/>
+       <img src="../../_static/icons/sidebar-triangle.png"/>
       </label>
-      <a class="reference internal" href="../_tags/interactivity.html">
-       interactivity (5)
+      <a class="reference internal" href="../../_tags/historical.html">
+       historical (4)
       </a>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/fourier_transform_playground.html">
-         Fourier transform playground
+        <a class="reference internal" href="../../gallery/update_console.html">
+         Update console
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/cursor_position.html">
-         Cursor position
+        <a class="reference internal" href="../../gallery/without_gui_qt.html">
+         napari without gui_qt
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/inherit_viewer_style.html">
-         Method to get napari style in magicgui based windows
+        <a class="reference internal" href="../../gallery/shapes_to_labels.html">
+         Shapes to labels
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/cursor_ray.html">
-         Cursor ray
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/interactive_scripting.html">
-         Interactive scripting
+        <a class="reference internal" href="../../gallery/reader_plugin.html">
+         Reader plugin
         </a>
        </li>
       </ul>
@@ -795,40 +764,35 @@ function checkPageExistsAndRedirect(event) {
      <li class="toctree-l3 has-children">
       <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
       <label for="toctree-checkbox-17">
-       <img src="../_static/icons/sidebar-triangle.png"/>
+       <img src="../../_static/icons/sidebar-triangle.png"/>
       </label>
-      <a class="reference internal" href="../_tags/layers.html">
-       layers (6)
+      <a class="reference internal" href="../../_tags/interactivity.html">
+       interactivity (5)
       </a>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/vortex.html">
-         Visualizing optical flow in napari
+        <a class="reference internal" href="../../gallery/fourier_transform_playground.html">
+         Fourier transform playground
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_labels_with_features.html">
-         Add labels with features
+        <a class="reference internal" href="../../gallery/cursor_position.html">
+         Cursor position
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_3D_image.html">
-         Add 3D image
+        <a class="reference internal" href="../../gallery/inherit_viewer_style.html">
+         Method to get napari style in magicgui based windows
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/3Dimage_plane_rendering.html">
-         3D image plane rendering
+        <a class="reference internal" href="../../gallery/cursor_ray.html">
+         Cursor ray
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_labels.html">
-         Add labels
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/3D_paths.html">
-         3D Paths
+        <a class="reference internal" href="../../gallery/interactive_scripting.html">
+         Interactive scripting
         </a>
        </li>
       </ul>
@@ -836,79 +800,39 @@ function checkPageExistsAndRedirect(event) {
      <li class="toctree-l3 has-children">
       <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
       <label for="toctree-checkbox-18">
-       <img src="../_static/icons/sidebar-triangle.png"/>
+       <img src="../../_static/icons/sidebar-triangle.png"/>
       </label>
-      <a class="reference internal" href="../_tags/visualization-advanced.html">
-       visualization-advanced (14)
+      <a class="reference internal" href="../../_tags/layers.html">
+       layers (6)
       </a>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/tracks_3d.html">
-         Tracks 3D
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_vectors_color_by_angle.html">
-         Add vectors color by angle
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/vortex.html">
+        <a class="reference internal" href="../../gallery/vortex.html">
          Visualizing optical flow in napari
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/points-over-time.html">
-         Points over time
+        <a class="reference internal" href="../../gallery/add_labels_with_features.html">
+         Add labels with features
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/dynamic-projections-dask.html">
-         Dynamic projections dask
+        <a class="reference internal" href="../../gallery/add_3D_image.html">
+         Add 3D image
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/tracks_3d_with_graph.html">
-         Tracks 3D with graph
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_multiscale_image_non_uniform.html">
-         nD multiscale image non-uniform
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/show_points_based_on_feature.html">
-         Show points based on feature
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_multiscale_image.html">
-         nD multiscale image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/3Dimage_plane_rendering.html">
+        <a class="reference internal" href="../../gallery/3Dimage_plane_rendering.html">
          3D image plane rendering
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_multiscale_image.html">
-         Add multiscale image
+        <a class="reference internal" href="../../gallery/add_labels.html">
+         Add labels
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/to_screenshot.html">
-         To screenshot
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/affine_transforms.html">
-         Affine transforms
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/3D_paths.html">
+        <a class="reference internal" href="../../gallery/3D_paths.html">
          3D Paths
         </a>
        </li>
@@ -917,120 +841,80 @@ function checkPageExistsAndRedirect(event) {
      <li class="toctree-l3 has-children">
       <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
       <label for="toctree-checkbox-19">
-       <img src="../_static/icons/sidebar-triangle.png"/>
+       <img src="../../_static/icons/sidebar-triangle.png"/>
       </label>
-      <a class="reference internal" href="../_tags/visualization-basic.html">
-       visualization-basic (22)
+      <a class="reference internal" href="../../_tags/visualization-advanced.html">
+       visualization-advanced (14)
       </a>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/image_depth.html">
-         Image depth
+        <a class="reference internal" href="../../gallery/tracks_3d.html">
+         Tracks 3D
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/pass_colormaps.html">
-         Pass colormaps
+        <a class="reference internal" href="../../gallery/add_vectors_color_by_angle.html">
+         Add vectors color by angle
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_shapes_with_features.html">
-         Add shapes with features
+        <a class="reference internal" href="../../gallery/vortex.html">
+         Visualizing optical flow in napari
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_vectors.html">
-         Add vectors
+        <a class="reference internal" href="../../gallery/points-over-time.html">
+         Points over time
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_points_with_features.html">
-         Add points with features
+        <a class="reference internal" href="../../gallery/dynamic-projections-dask.html">
+         Dynamic projections dask
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/tracks_2d.html">
-         Tracks 2D
+        <a class="reference internal" href="../../gallery/tracks_3d_with_graph.html">
+         Tracks 3D with graph
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_points.html">
-         Add points
+        <a class="reference internal" href="../../gallery/nD_multiscale_image_non_uniform.html">
+         nD multiscale image non-uniform
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/point_cloud.html">
-         Point cloud
+        <a class="reference internal" href="../../gallery/show_points_based_on_feature.html">
+         Show points based on feature
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_surface_2D.html">
-         Add surface 2D
+        <a class="reference internal" href="../../gallery/nD_multiscale_image.html">
+         nD multiscale image
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_vectors_image.html">
-         Add vectors image
+        <a class="reference internal" href="../../gallery/3Dimage_plane_rendering.html">
+         3D image plane rendering
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_labels.html">
-         Add labels
+        <a class="reference internal" href="../../gallery/add_multiscale_image.html">
+         Add multiscale image
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/set_colormaps.html">
-         Set colormaps
+        <a class="reference internal" href="../../gallery/to_screenshot.html">
+         To screenshot
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/layers.html">
-         Layers
+        <a class="reference internal" href="../../gallery/affine_transforms.html">
+         Affine transforms
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_image.html">
-         Add image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_grayscale_image.html">
-         Add grayscale image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_points_with_multicolor_text.html">
-         Add points with multicolor text
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/minimum_blending.html">
-         Minimum blending
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_shapes_with_text.html">
-         Add shapes with text
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_points_with_text.html">
-         Add points with text
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/labels-2d.html">
-         Labels 2D
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_image_transformed.html">
-         Add image transformed
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_shapes.html">
-         Add shapes
+        <a class="reference internal" href="../../gallery/3D_paths.html">
+         3D Paths
         </a>
        </li>
       </ul>
@@ -1038,114 +922,235 @@ function checkPageExistsAndRedirect(event) {
      <li class="toctree-l3 has-children">
       <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
       <label for="toctree-checkbox-20">
-       <img src="../_static/icons/sidebar-triangle.png"/>
+       <img src="../../_static/icons/sidebar-triangle.png"/>
       </label>
-      <a class="reference internal" href="../_tags/visualization-nD.html">
+      <a class="reference internal" href="../../_tags/visualization-basic.html">
+       visualization-basic (22)
+      </a>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/image_depth.html">
+         Image depth
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/pass_colormaps.html">
+         Pass colormaps
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/add_shapes_with_features.html">
+         Add shapes with features
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/add_vectors.html">
+         Add vectors
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/add_points_with_features.html">
+         Add points with features
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/tracks_2d.html">
+         Tracks 2D
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/add_points.html">
+         Add points
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/point_cloud.html">
+         Point cloud
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/add_surface_2D.html">
+         Add surface 2D
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/add_vectors_image.html">
+         Add vectors image
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/add_labels.html">
+         Add labels
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/set_colormaps.html">
+         Set colormaps
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/layers.html">
+         Layers
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/add_image.html">
+         Add image
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/add_grayscale_image.html">
+         Add grayscale image
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/add_points_with_multicolor_text.html">
+         Add points with multicolor text
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/minimum_blending.html">
+         Minimum blending
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/add_shapes_with_text.html">
+         Add shapes with text
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/add_points_with_text.html">
+         Add points with text
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/labels-2d.html">
+         Labels 2D
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/add_image_transformed.html">
+         Add image transformed
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../gallery/add_shapes.html">
+         Add shapes
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/>
+      <label for="toctree-checkbox-21">
+       <img src="../../_static/icons/sidebar-triangle.png"/>
+      </label>
+      <a class="reference internal" href="../../_tags/visualization-nD.html">
        visualization-nD (21)
       </a>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_image.html">
+        <a class="reference internal" href="../../gallery/nD_image.html">
          nD image
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/surface_texture_and_colors.html">
+        <a class="reference internal" href="../../gallery/surface_texture_and_colors.html">
          Surface with texture and vertex_colors
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_labels.html">
+        <a class="reference internal" href="../../gallery/nD_labels.html">
          nD labels
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_points.html">
+        <a class="reference internal" href="../../gallery/nD_points.html">
          nD points
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/labels3d.html">
+        <a class="reference internal" href="../../gallery/labels3d.html">
          Labels 3D
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/surface_multi_texture.html">
+        <a class="reference internal" href="../../gallery/surface_multi_texture.html">
          Surface with multiple textures
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_vectors.html">
+        <a class="reference internal" href="../../gallery/nD_vectors.html">
          nD vectors
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/mixed-dimensions-labels.html">
+        <a class="reference internal" href="../../gallery/mixed-dimensions-labels.html">
          Mixed dimensions labels
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/image-points-3d.html">
+        <a class="reference internal" href="../../gallery/image-points-3d.html">
          Image points 3D
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_points_on_nD_shapes.html">
+        <a class="reference internal" href="../../gallery/add_points_on_nD_shapes.html">
          Add points on nD shapes
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_shapes_with_text.html">
+        <a class="reference internal" href="../../gallery/nD_shapes_with_text.html">
          nD shapes with text
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_surface.html">
+        <a class="reference internal" href="../../gallery/nD_surface.html">
          nD surface
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/image_custom_kernel.html">
+        <a class="reference internal" href="../../gallery/image_custom_kernel.html">
          Custom image interpolation kernels
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_3D_image.html">
+        <a class="reference internal" href="../../gallery/add_3D_image.html">
          Add 3D image
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/concentric-spheres.html">
+        <a class="reference internal" href="../../gallery/concentric-spheres.html">
          Concentric spheres
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_vectors_image.html">
+        <a class="reference internal" href="../../gallery/nD_vectors_image.html">
          nD vectors image
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/swap_dims.html">
+        <a class="reference internal" href="../../gallery/swap_dims.html">
          Swap dims
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_points_with_features.html">
+        <a class="reference internal" href="../../gallery/nD_points_with_features.html">
          nD points with features
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/dask_nD_image.html">
+        <a class="reference internal" href="../../gallery/dask_nD_image.html">
          Dask nD image
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add-points-3d.html">
+        <a class="reference internal" href="../../gallery/add-points-3d.html">
          Add points 3D
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_shapes.html">
+        <a class="reference internal" href="../../gallery/nD_shapes.html">
          nD shapes
         </a>
        </li>
@@ -1172,34 +1177,9 @@ function checkPageExistsAndRedirect(event) {
             
             <div class="toc-item">
               
-<div class="tocsection onthispage mt-5 pt-1 pb-3">
-    On this page
-</div>
 
 <nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#listening-for-keypress-events">
-   Listening for keypress events
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#listening-for-mouse-events">
-   Listening for mouse events
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#connection-functions-to-native-napari-events">
-   Connection functions to native napari events
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#long-running-blocking-functions">
-   Long-running, blocking functions
-  </a>
- </li>
-</ul>
-
+    
 </nav>
             </div>
             
@@ -1219,136 +1199,27 @@ function checkPageExistsAndRedirect(event) {
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="hooking-up-your-own-events">
-<span id="connecting-events"></span><h1>Hooking up your own events<a class="headerlink" href="#hooking-up-your-own-events" title="Permalink to this headline">¶</a></h1>
-<p>If you’re coming from a background of scripting or working with python in an
-interactive console, thinking in terms of the “event loop” can feel a bit
-strange at times. Often we write code in a very procedural way: “do this …
-then do that, etc…”. With napari and other GUI programs however, usually you
-hook up a bunch of conditions to callback functions (e.g. “If this event
-happens, then call this function”) and <em>then</em> start the loop and hope you hooked
-everything up correctly!  Indeed, much of the <code class="docutils literal notranslate"><span class="pre">napari</span></code> source code is
-dedicated to creating and handling events: search the codebase for
-<a class="reference external" href="https://github.com/napari/napari/search?q=%22.emit%28%22&amp;type=code"><code class="docutils literal notranslate"><span class="pre">.emit(</span></code></a>
-and
-<a class="reference external" href="https://github.com/napari/napari/search?q=%22.connect%28%22&amp;type=code"><code class="docutils literal notranslate"><span class="pre">.connect(</span></code></a>
-to find examples of creating and handling internal events, respectively.</p>
-<p>If you would like to set up a custom event listener then you need to hook into
-the napari event loop. We offer a couple of convenience decorators to easily
-connect functions to key and mouse events.</p>
-<section id="listening-for-keypress-events">
-<h2>Listening for keypress events<a class="headerlink" href="#listening-for-keypress-events" title="Permalink to this headline">¶</a></h2>
-<p>One option is to use keybindings, that will listen for keypresses and then call
-some callback whenever pressed, with the viewer instance passed as an argument
-to that function. As a basic example, to add a random image to the viewer every
-time the <code class="docutils literal notranslate"><span class="pre">i</span></code> key is pressed, and delete the last layer when the <code class="docutils literal notranslate"><span class="pre">k</span></code> key is
-pressed:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">napari</span>
-
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-
-<span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">add_layer</span><span class="p">(</span><span class="n">viewer</span><span class="p">):</span>
-    <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)))</span>
-
-<span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">delete_layer</span><span class="p">(</span><span class="n">viewer</span><span class="p">):</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-        <span class="k">pass</span>
-
-<span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>See also this <a class="reference external" href="https://github.com/napari/napari/blob/main/examples/custom_key_bindings.py">custom key bindings
-example</a>.</p>
-</section>
-<section id="listening-for-mouse-events">
-<h2>Listening for mouse events<a class="headerlink" href="#listening-for-mouse-events" title="Permalink to this headline">¶</a></h2>
-<p>You can also listen for and react to mouse events, like a click or drag event,
-as shown here where we update the image with random data every time it is
-clicked.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">napari</span>
-
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-<span class="n">layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)))</span>
-
-<span class="nd">@layer</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span>
-<span class="k">def</span> <span class="nf">update_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-    <span class="n">layer</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">))</span>
-
-<span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>As of this writing <code class="docutils literal notranslate"><span class="pre">MouseProvider</span></code>s have 4 list of callbacks that can be registered:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="extending-napari">
+<span id="id1"></span><h1>Extending napari<a class="headerlink" href="#extending-napari" title="Permalink to this headline">¶</a></h1>
+<p>There are a number of ways to extend your usage of the napari application:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">mouse_move_callbacks</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mouse_wheel_callbacks</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mouse_drag_callbacks</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mouse_double_click_callbacks</span></code></p></li>
+<li><p><a class="reference internal" href="magicgui.html#creating-widgets"><span class="std std-ref"><strong>Adding widgets</strong></span></a>: adding a widget (new GUI interaction element)
+to your napari application</p></li>
+<li><p><strong>Connecting callbacks</strong>: customize the behavior of napari by connecting an action
+(function) to an event via the <a class="reference internal" href="../../guides/event_loop.html#intro-to-event-loop"><span class="std std-ref">event loop</span></a>:</p>
+<ul>
+<li><p><a class="reference internal" href="connecting_events.html#connect-key-event"><span class="std std-ref"><strong>Key press</strong></span></a>: perform an action based on a keyboard shortcut</p></li>
+<li><p><a class="reference internal" href="connecting_events.html#connect-mouse-event"><span class="std std-ref"><strong>Mouse event</strong></span></a>: perform an action based on a mouse event</p></li>
+<li><p><a class="reference internal" href="connecting_events.html#connect-napari-event"><span class="std std-ref"><strong>Layer/viewer event</strong></span></a>: perform an action when a layer or
+napari viewer state changes</p></li>
 </ul>
-<p>Please look at the documentation of <code class="docutils literal notranslate"><span class="pre">MouseProvider</span></code> for a more in depth
-discussion of when each callback is triggered. In particular single click can be
-registered with <code class="docutils literal notranslate"><span class="pre">mouse_drag_callbacks</span></code>, and <code class="docutils literal notranslate"><span class="pre">mouse_double_click_callbacks</span></code> is
-triggered <em>in addition to</em> mouse <code class="docutils literal notranslate"><span class="pre">mouse_drag_callbacks</span></code>.</p>
-<p>See also the <a class="reference external" href="https://github.com/napari/napari/blob/main/examples/custom_mouse_functions.py">custom mouse
-functions</a>
-and <a class="reference external" href="https://github.com/napari/napari/blob/main/examples/mouse_drag_callback.py">mouse drag
-callback</a>
-examples.</p>
-</section>
-<section id="connection-functions-to-native-napari-events">
-<h2>Connection functions to native napari events<a class="headerlink" href="#connection-functions-to-native-napari-events" title="Permalink to this headline">¶</a></h2>
-<p>If you want something to happen following some event that happens <em>within</em>
-napari, the trick becomes knowing which native signals any given napari object
-provides for you to “connect” to.  Until we have centralized documentation for
-all of the events offered by napari objects, the best way to find these is to
-browse the source code.  Take for instance, the base
-<a class="reference internal" href="../api/napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></a> class: you’ll find in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method a
-<code class="docutils literal notranslate"><span class="pre">self.events</span></code> section that looks like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">EmitterGroup</span><span class="p">(</span>
-    <span class="o">...</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-    <span class="o">...</span>
-<span class="p">)</span>
-</pre></div>
+</li>
+</ul>
+<p>None of the above require you to create a <a class="reference internal" href="../../plugins/index.html#plugins-index"><span class="std std-ref">plugin</span></a> but you can
+turn your napari ‘extension’ into a plugin, which could be shared with the
+community.</p>
+<div class="toctree-wrapper compound">
 </div>
-<p>That tells you that all layers are capable of emitting events called <code class="docutils literal notranslate"><span class="pre">data</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">name</span></code> (among many others) that will (presumably) be emitted when that property
-changes. To provide your own response to that change, you can hook up a callback
-function that accepts the event object:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_layer_name</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> changed its data!&quot;</span><span class="p">)</span>
-
-<span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">print_layer_name</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="long-running-blocking-functions">
-<h2>Long-running, blocking functions<a class="headerlink" href="#long-running-blocking-functions" title="Permalink to this headline">¶</a></h2>
-<p>An important detail here is that the napari event loop is running in a <em>single
-thread</em>.  This works just fine if the handling of each event is very short, as
-is usually the case with moving sliders, and pressing buttons.  However, if one
-of the events in the queue takes a long time to process, then every other event
-must wait!</p>
-<p>Take this example in napari:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-<span class="c1"># everything is fine so far... but if we trigger a long computation</span>
-<span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-<span class="c1"># the entire interface freezes!</span>
-</pre></div>
-</div>
-<p>Here we have a long computation (<code class="docutils literal notranslate"><span class="pre">np.random.rand(512,</span> <span class="pre">1024,</span> <span class="pre">1024).mean(0)</span></code>) that
-“blocks” the main thread, meaning <em>no button press, key press, or any other
-event can be processed until it’s done</em>.  In this scenario, it’s best to put
-your long-running function into another thread or process.  <code class="docutils literal notranslate"><span class="pre">napari</span></code> provides a
-convenience for that, described in <a class="reference internal" href="../guides/threading.html#multithreading-in-napari"><span class="std std-ref">Multithreading in napari</span></a>.</p>
-</section>
 </section>
 
 
@@ -1357,7 +1228,7 @@ convenience for that, described in <a class="reference internal" href="../guides
             
             <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="layers/vectors.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../layers/vectors.html" title="previous page">
         <svg
             width="10"
             height="16"
@@ -1376,10 +1247,10 @@ convenience for that, described in <a class="reference internal" href="../guides
             <p class="prev-next-title">Using the vectors layer</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="napari_imageJ.html" title="next page">
+    <a class='right-next' id="next-link" href="magicgui.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">napari + ImageJ how-to guide</p>
+        <p class="prev-next-title">Creating widgets</p>
     </div>
 
     <svg
@@ -1403,7 +1274,7 @@ convenience for that, described in <a class="reference internal" href="../guides
 
     </div>
 
-    <script src="../_static/scripts/napari-sphinx-theme.js"></script><footer class="napari-footer">
+    <script src="../../_static/scripts/napari-sphinx-theme.js"></script><footer class="napari-footer">
   
     <div class="footer-item">
       <a href="/">

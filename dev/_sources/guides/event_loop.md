@@ -1,20 +1,47 @@
 (intro-to-event-loop)=
 
-# An introduction to the event loop in napari
+# napari event loop
 
-## Brief summary
+## Introduction
 
-It is not necessary to have a deep understanding of Qt or event loops to use
-napari. napari attempts to use "sane defaults" for most scenarios. Here are the
-most important details:
+Like most applications with a graphical user interface (GUI), napari operates
+within an **event loop** that waits for and responds to user interaction 'events'.
+Events could be a mouse click, slider movement or a keypress, and usually correspond
+to some specific action taken by the user (e.g. "user moved the gamma slider").
+These actions add events to the queue and the event loop handles them one at a time
+by executing functions that are connected to each event.
+
+If you're coming from a background of scripting or working with python in an
+interactive console, thinking in terms of the "event loop" can feel a bit
+strange at times. Often we write code in a very procedural way: "Step 1: do this,
+Step 2: do that, etc ...". With napari and other GUI programs however, usually you
+connect events to "callback" functions, which essentially specifies; "If this event
+happens, then call this function". Next you start the event loop and hope you
+connected everything correctly!  Indeed, much of the napari source code is
+dedicated to creating and handling events: search the codebase for
+[`.emit(`](https://github.com/napari/napari/search?q=%22.emit%28%22&type=code)
+and
+[`.connect(`](https://github.com/napari/napari/search?q=%22.connect%28%22&type=code)
+to find examples of creating and handling internal events, respectively.
+
+It is not necessary to have a deep understanding of event loops to use
+napari but a basic understanding can be useful if you would like to customize
+the behavior of napari.
+
+## Starting the event loop
 
 ### In IPython or Jupyter Notebook
 
-napari will detect if you are running an IPython or Jupyter shell, and will
-automatically use the [IPython GUI event
-loop](https://ipython.readthedocs.io/en/stable/config/eventloops.html#integrating-with-gui-event-loops).
-As of [version 0.4.7](https://github.com/napari/napari/releases/tag/v0.4.7), it is
-no longer necessary to call `%gui qt` manually.  Just create a viewer:
+Simply creating a viewer (e.g., with `viewer = napari.Viewer()`) will start the event
+loop. napari will then detect if you are running an IPython or Jupyter shell, and
+will automatically use the
+[IPython GUI event loop](https://ipython.readthedocs.io/en/stable/config/eventloops.html#integrating-with-gui-event-loops). This prevents *blocking* of the Python
+interpreter, allowing you to continue executing code in your interactive environment.
+Note that this was not always the case - prior to
+[version 0.4.7](https://github.com/napari/napari/releases/tag/v0.4.7) you needed to
+manually call `%gui qt` first to prevent blocking.
+
+Example:
 
 ```python
 In [1]: import napari
@@ -39,10 +66,10 @@ get_settings().application.ipy_interactive = False
 
 ### In a script
 
-Outside of IPython, you must tell napari when to "start the program" using
-{func}`napari.run`.  This will *block* execution of your script at that point,
-show the viewer, and wait for any user interaction.  When the last viewer
-closes, execution of the script will proceed.
+Outside of interactve Python environments, you must tell napari when to
+"start the event loop" by using {func}`napari.run`. This will *block* execution of
+your script at that point, show the viewer, and wait for any user interaction.
+When the last napari viewer closes, execution of the script will proceed.
 
 ```python
 import napari
@@ -53,18 +80,12 @@ viewer = napari.Viewer()
 # Start the program, show the viewer, wait for GUI interaction.
 napari.run()
 
-# Anything below here will execute only after the viewer is closed.
+# Anything below here will execute only after all viewers are closed.
 ```
 
 -----------
 
-## More in depth...
-
-Like most applications with a graphical user interface (GUI), napari operates
-within an **event loop** that waits for – and responds to – events triggered by
-the user's interactions with the interface.  These events might be something like a
-mouse click, or a keypress, and usually correspond to some specific action taken
-by the user (e.g. "user moved the gamma slider").
+## More in depth
 
 At its core, an event loop is rather simple.  It amounts to something that looks
 like this (in pseudo-code):
@@ -81,10 +102,10 @@ while True:  # infinite loop!
             process_event(event)
 ```
 
-Actions taken by the user add events to the queue (e.g. "button pressed",
-"slider moved", etc...), and the event loop handles them one at a time.
+Actions taken by the user add events to the queue and the event loop handles them one
+at a time.
 
-## Qt applications and event loops
+## Qt applications, event loops, and widgets
 
 Currently, napari uses Qt as its GUI backend, and the main loop handling events
 in napari is the [Qt
@@ -112,6 +133,8 @@ Application:
    ```python
    app.exec_()
    ```
+
+If you would like to create your own widgets in napari see {ref}`creating-widgets`.
 
 ### napari's `QApplication`
 
@@ -164,4 +187,5 @@ usage of napari.
 :::
 
 Now that you have an understanding of how napari creates the event loop, you may
-wish to learn more about {ref}`hooking up your own actions <connecting-events>` and callbacks to specific events.
+wish to learn more about {ref}`hooking up your own callbacks <connecting-events>`
+to specific events.

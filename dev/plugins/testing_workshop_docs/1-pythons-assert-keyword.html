@@ -1,7 +1,10 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -9,16 +12,27 @@
     <link sizes="any" href="../../_static/favicon/logo-silhouette-192.png" rel="icon" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/logo-noborder-180.png" type="image/png">
     <title>1: Python’s assert keyword &#8212; napari</title>
-  <link rel="stylesheet" href="../../_static/fa/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/webfonts/fa-brands-400.woff2">
-  <link href="../../_static/styles/theme.css" rel="stylesheet">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/napari-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/napari-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
@@ -27,13 +41,28 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script src="../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'plugins/testing_workshop_docs/1-pythons-assert-keyword';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="2: Pytest testing framework" href="2-pytest-testing-frameworks.html" />
@@ -41,486 +70,467 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
+    <meta name="docsearch:language" content="en">
     
 
   </head>
-  <body>
-    
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-  <div id="navbar-start">
-    
-    <!-- A small template snippet for theme testing -->
-<a class="navbar-brand" href="../../index.html">
-  napari
-</a>
-    
-  </div>
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M20 2H0" stroke="black" stroke-width="3"/>
-  <path d="M20 10H0" stroke="black" stroke-width="3"/>
-  <path d="M20 18H0" stroke="black" stroke-width="3"/>
-</svg>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
   </button>
 
   
-  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
-    <div id="navbar-center" class="mr-auto">
-      
-      <div class="navbar-center-item">
-        <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../usage.html">
-  Usage
- </a>
-</li>
-
-<li class="toctree-l1 current active nav-item">
- <a class="reference internal nav-link" href="../index.html">
-  Plugins
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../community/index.html">
-  Community
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../developers/index.html">
-  Contributing
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../api/index.html">
-  API Reference
- </a>
-</li>
-
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="search"
+         aria-label="search"
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
-    <li class="nav-item">
-        <a class="nav-link nav-external" href="https://napari-hub.org">napari hub<i class="fas fa-external-link-alt"></i></a>
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="napari - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="napari - Home"/>`);</script>
+  
+  
+</a></div>
+    
+      <div class="navbar-item"><!-- A small template snippet for theme testing -->
+<a class="navbar-brand" href="../../index.html">
+  napari
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../usage.html">
+                        Usage
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Plugins
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../community/index.html">
+                        Community
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../developers/index.html">
+                        Contributing
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://napari-hub.org">
+                    napari hub
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../usage.html">
+                        Usage
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Plugins
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../community/index.html">
+                        Community
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../developers/index.html">
+                        Contributing
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://napari-hub.org">
+                    napari hub
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="search"
+         aria-label="search"
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../start_using_plugins/index.html">Start using plugins</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../start_using_plugins/finding_and_installing_plugins.html">Finding and installing plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../building_a_plugin/index.html">Building a plugin</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../building_a_plugin/first_plugin.html">Your first plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../building_a_plugin/guides.html">Plugin contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../building_a_plugin/debug_plugins.html">Debugging during plugin development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../building_a_plugin/best_practices.html">Best practices</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../virtual_environment_docs/index.html">Tools and tips when building napari plugins or: firehose of stuff I wish I knew earlier</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../virtual_environment_docs/1-virtual-environments.html">Virtual environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../virtual_environment_docs/2-deploying-your-plugin.html">Deploying your plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../virtual_environment_docs/3-version-management.html">Version management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../virtual_environment_docs/4-developer-tools.html">Developer tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../virtual_environment_docs/5-survey.html">Survey/Q&amp;A</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../testing_and_publishing/index.html">Testing and publishing</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../testing_and_publishing/test.html">Testing guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing_and_publishing/deploy.html">Publish your plugin</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">In-depth guide to plugin testing</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">1: Python’s assert keyword</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2-pytest-testing-frameworks.html">2: Pytest testing framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="3-readers-and-fixtures.html">3: Readers and fixtures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="4-test-coverage.html">4: Test coverage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing-resources.html">Testing resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../advanced_topics/index.html">Advanced Topics</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../advanced_topics/npe2_migration_guide.html">Migration to <code class="docutils literal notranslate"><span class="pre">npe2</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../advanced_topics/npe1.html">First generation plugins (<em>Deprecated</em>)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../technical_references/index.html">Technical references</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/manifest.html">Manifest Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/contributions.html">Contributions Reference</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
     </li>
     
-</ul>
-      </div>
-      
-    </div>
-
-    <div id="navbar-end">
-      
-      <div class="navbar-end-item">
-        <div class="dropdown" id="version_switcher">
-    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
-
-        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
-        </svg>
-    </button>
-    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
-    <!-- dropdown will be populated by javascript on page load -->
-    </div>
-</div>
-
-<!-- NOTE: this JS must live here (not in our global JS file) because it relies
-     on being processed by Jinja before it is run (specifically for replacing
-     variables plugins/testing_workshop_docs/1-pythons-assert-keyword and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
--->
-
-<script type="text/javascript">
-// Check if corresponding page path exists in other version of docs
-// and, if so, go there instead of the homepage of the other docs version
-function checkPageExistsAndRedirect(event) {
-    const currentFilePath = "plugins/testing_workshop_docs/1-pythons-assert-keyword.html",
-          tryUrl = event.target.getAttribute("href");
-    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
-    $.ajax({
-        type: 'HEAD',
-        url: tryUrl,
-        // if the page exists, go there
-        success: function() {
-            location.href = tryUrl;
-        }
-    }).fail(function() {
-        location.href = otherDocsHomepage;
-    });
-    // this prevents the browser from following the href of the clicked node
-    // (which is fine because this function takes care of redirecting)
-    return false;
-}
-
-// Populate the version switcher from the JSON config file
-(function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
-        const currentFilePath = "plugins/testing_workshop_docs/1-pythons-assert-keyword.html";
-        // create links to the corresponding page in the other docs versions
-        $.each(data, function(index, entry) {
-            // if no custom name specified (e.g., "latest"), use version string
-            if (!("name" in entry)) {
-                entry.name = entry.version;
-            }
-            // create the node
-            const node = document.createElement("a");
-            node.setAttribute("class", "list-group-item list-group-item-action py-1");
-            node.textContent = `${entry.name}`;
-            node.setAttribute("href", `${entry.url}${currentFilePath}`);
-            // on click, AJAX calls will check if the linked page exists before
-            // trying to redirect, and if not, will redirect to the homepage
-            // for that version of the docs.
-            node.onclick = checkPageExistsAndRedirect;
-            // Add dataset values for the version and name in case people want
-            // to apply CSS styling based on this information.
-            node.dataset["versionName"] = entry.name;
-            node.dataset["version"] = entry.version;
-
-            $("#version_switcher_menu").append(node);
-            // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
-            // also highlight the dropdown entry for the currently-viewed
-            // version's entry
-            if (entry.version == "latest") {
-                node.classList.add("active");
-                let btn = document.getElementById("version_switcher_button");
-                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
-                btn.dataset["activeVersion"] = entry.version;
-            }
-        });
-    });
-})();
-</script>
-      </div>
-      
-      <div class="navbar-end-item">
-        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
-        <li class="nav-item">
-          <a class="nav-link" href="https://github.com/napari/napari" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
-            <label class="sr-only">GitHub</label></a>
-        </li>
-      </ul>
-      </div>
-      
-    </div>
-  </div>
-</div>
-    </nav>
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Plugins</a></li>
     
-
-    <div class="napari-page">
-        
-          
-          <!-- Only show if we have sidebars configured, else just a small margin  -->
-          <div class="bd-sidebar">
-            <div class="sidebar-start-items"><form
-  class="search"
-  action="../../search.html"
-  method="get"
->
-  <input
-    type="search"
-    name="q"
-    placeholder="search"
-    aria-label="search"
-    autocomplete="off"
-  />
-
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M8.32001 7.67998L0.746674 15.2533M10.6667 9.59998C13.0133 9.59998 14.9333 7.67998 14.9333 5.33332C14.9333 2.98665 13.0133 1.06665 10.6667 1.06665C8.32001 1.06665 6.40001 2.98665 6.40001 5.33332C6.40001 7.67998 8.32001 9.59998 10.6667 9.59998Z"
-      stroke="black"
-      stroke-width="2"
-    />
-  </svg>
-  </button>
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <div class="bd-toc-item active">
-    <ul class="current nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <img src="../../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../start_using_plugins/index.html">
-   Start using plugins
-  </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../start_using_plugins/finding_and_installing_plugins.html">
-     Finding and installing plugins
-    </a>
-   </li>
+    
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">In-depth guide to plugin testing</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">1: Python’s...</li>
   </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <img src="../../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../building_a_plugin/index.html">
-   Building a plugin
-  </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../building_a_plugin/first_plugin.html">
-     Your first plugin
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../building_a_plugin/guides.html">
-     Plugin contributions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../building_a_plugin/debug_plugins.html">
-     Debugging during plugin development
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../building_a_plugin/best_practices.html">
-     Best practices
-    </a>
-   </li>
-   <li class="toctree-l2 has-children">
-    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-    <label for="toctree-checkbox-3">
-     <img src="../../_static/icons/sidebar-triangle.png"/>
-    </label>
-    <a class="reference internal" href="../virtual_environment_docs/index.html">
-     Tools and tips when building napari plugins or: firehose of stuff I wish I knew earlier
-    </a>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../virtual_environment_docs/1-virtual-environments.html">
-       Virtual environments
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../virtual_environment_docs/2-deploying-your-plugin.html">
-       Deploying your plugin
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../virtual_environment_docs/3-version-management.html">
-       Version management
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../virtual_environment_docs/4-developer-tools.html">
-       Developer tools
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../virtual_environment_docs/5-survey.html">
-       Survey/Q&amp;A
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <img src="../../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../testing_and_publishing/index.html">
-   Testing and publishing
-  </a>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="../testing_and_publishing/test.html">
-     Testing guidelines
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../testing_and_publishing/deploy.html">
-     Publish your plugin
-    </a>
-   </li>
-   <li class="toctree-l2 current active has-children">
-    <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-    <label for="toctree-checkbox-5">
-     <img src="../../_static/icons/sidebar-triangle.png"/>
-    </label>
-    <a class="reference internal" href="index.html">
-     In-depth guide to plugin testing
-    </a>
-    <ul class="current">
-     <li class="toctree-l3 current active">
-      <a class="current reference internal" href="#">
-       1: Python’s assert keyword
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="2-pytest-testing-frameworks.html">
-       2: Pytest testing framework
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="3-readers-and-fixtures.html">
-       3: Readers and fixtures
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="4-test-coverage.html">
-       4: Test coverage
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="testing-resources.html">
-       Testing resources
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
-   <img src="../../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../advanced_topics/index.html">
-   Advanced Topics
-  </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../advanced_topics/npe2_migration_guide.html">
-     Migration to
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       npe2
-      </span>
-     </code>
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../advanced_topics/npe1.html">
-     First generation plugins (
-     <em>
-      Deprecated
-     </em>
-     )
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
-   <img src="../../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../technical_references/index.html">
-   Technical references
-  </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../technical_references/manifest.html">
-     Manifest Reference
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../technical_references/contributions.html">
-     Contributions Reference
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-  </div>
 </nav>
-            </div>
-            <div class="sidebar-end-items">
-            </div>
-          </div>
-          
-        
-
-        
-        <div class="bd-toc">
-          
-            
-            <div class="toc-item">
-              
-<div class="tocsection onthispage mt-5 pt-1 pb-3">
-    On this page
 </div>
-
-<nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#other-lessons-in-this-tutorial">
-   Other lessons in this tutorial:
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#this-lesson-covers">
-     This lesson covers:
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#resources">
-     Resources
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#assert-keyword">
-   Assert keyword
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#test-for-the-pass-case">
-   Test for the Pass case
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#test-for-the-fail-case">
-   Test for the Fail case
-  </a>
- </li>
-</ul>
-
-</nav>
-            </div>
-            
-            <div class="toc-item">
+      
+    </div>
+  
+  
+</div>
+</div>
               
-            </div>
-            
-          
-        </div>
-        
-
-        
-        
-          
-        
-        <main class="col-md-9 col-xl-7 bd-content" role="main">
-            
-            <div>
               
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="python-s-assert-keyword">
-<h1>1: Python’s assert keyword<a class="headerlink" href="#python-s-assert-keyword" title="Permalink to this headline">¶</a></h1>
+<h1>1: Python’s assert keyword<a class="headerlink" href="#python-s-assert-keyword" title="Permalink to this heading">#</a></h1>
 <p>This tutorial defines the assert keyword in Python and shows how it can be used to write test cases for a simple function.</p>
 <section id="other-lessons-in-this-tutorial">
-<h2>Other lessons in this tutorial:<a class="headerlink" href="#other-lessons-in-this-tutorial" title="Permalink to this headline">¶</a></h2>
+<h2>Other lessons in this tutorial:<a class="headerlink" href="#other-lessons-in-this-tutorial" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>1: This lesson (Python’s assert keyword)</p></li>
 <li><p>2: <a class="reference internal" href="2-pytest-testing-frameworks.html"><span class="doc std std-doc">Pytest testing framework</span></a></p></li>
@@ -529,18 +539,18 @@ function checkPageExistsAndRedirect(event) {
 <li><p>Resource links: <a class="reference internal" href="testing-resources.html"><span class="doc std std-doc">Testing resources</span></a></p></li>
 </ul>
 <section id="this-lesson-covers">
-<h3>This lesson covers:<a class="headerlink" href="#this-lesson-covers" title="Permalink to this headline">¶</a></h3>
+<h3>This lesson covers:<a class="headerlink" href="#this-lesson-covers" title="Permalink to this heading">#</a></h3>
 <p><a class="reference internal" href="#assert-keyword"><span class="std std-doc">Assert keyword</span></a>
 <a class="reference internal" href="#test-for-the-pass-case"><span class="std std-doc">Test for Pass</span></a>
 <a class="reference internal" href="#test-for-the-fail-case"><span class="std std-doc">Test for Fail</span></a></p>
 </section>
 <section id="resources">
-<h3>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h3>
+<h3>Resources<a class="headerlink" href="#resources" title="Permalink to this heading">#</a></h3>
 <p>The example plugin and all the tests discussed in this lesson are available in <a class="reference external" href="https://github.com/DragaDoncila/plugin-tests">this GitHub repository</a>.</p>
 </section>
 </section>
 <section id="assert-keyword">
-<h2>Assert keyword<a class="headerlink" href="#assert-keyword" title="Permalink to this headline">¶</a></h2>
+<h2>Assert keyword<a class="headerlink" href="#assert-keyword" title="Permalink to this heading">#</a></h2>
 <p>The key to testing in Python is the <a class="reference external" href="https://realpython.com/python-assert-statement/">assert</a> keyword. We <em>assert</em> a Boolean expression is true and create an error message that appears when that expression is false.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="o">&lt;</span><span class="n">Boolean</span> <span class="n">expression</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">error</span> <span class="n">message</span><span class="o">&gt;</span>
 </pre></div>
@@ -557,7 +567,7 @@ function checkPageExistsAndRedirect(event) {
 <p><code class="docutils literal notranslate"><span class="pre">get_grade_from_mark</span></code> can be tested by writing two test functions. The first one is for when the mark is &gt; 50.</p>
 </section>
 <section id="test-for-the-pass-case">
-<h2>Test for the Pass case<a class="headerlink" href="#test-for-the-pass-case" title="Permalink to this headline">¶</a></h2>
+<h2>Test for the Pass case<a class="headerlink" href="#test-for-the-pass-case" title="Permalink to this heading">#</a></h2>
 <p>When the mark is &gt; 50, call <code class="docutils literal notranslate"><span class="pre">get_grade_from_mark</span></code> and assert that the grade is what we expect (either <code class="docutils literal notranslate"><span class="pre">Pass</span></code> or <code class="docutils literal notranslate"><span class="pre">Fail</span></code>). When testing the passing case, test that the grade is <code class="docutils literal notranslate"><span class="pre">Pass</span></code>. If it’s not <code class="docutils literal notranslate"><span class="pre">Pass</span></code>, the best practice is to write a helpful error message like, <code class="docutils literal notranslate"><span class="pre">&quot;Expected</span> <span class="pre">{mark}</span> <span class="pre">to</span> <span class="pre">pass</span> <span class="pre">but</span> <span class="pre">result</span> <span class="pre">was</span> <span class="pre">{grade}.&quot;</span></code></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_get_grade_pass</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
     <span class="n">grade</span> <span class="o">=</span> <span class="n">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
@@ -566,7 +576,7 @@ function checkPageExistsAndRedirect(event) {
 </div>
 </section>
 <section id="test-for-the-fail-case">
-<h2>Test for the Fail case<a class="headerlink" href="#test-for-the-fail-case" title="Permalink to this headline">¶</a></h2>
+<h2>Test for the Fail case<a class="headerlink" href="#test-for-the-fail-case" title="Permalink to this heading">#</a></h2>
 <p>Test the same thing for <code class="docutils literal notranslate"><span class="pre">Fail</span></code> to test all options. Everything is almost the same, so copy and paste and change a few words to create the second test.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_get_grade_fail</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
     <span class="n">grade</span> <span class="o">=</span> <span class="n">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
@@ -608,61 +618,79 @@ function checkPageExistsAndRedirect(event) {
 </section>
 
 
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">In-depth guide to plugin testing</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2-pytest-testing-frameworks.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">2: Pytest testing framework</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
             </div>
             
             
-            <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="index.html" title="previous page">
-        <svg
-            width="10"
-            height="16"
-            viewBox="0 0 10 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <path
-                d="M8.92892 1L1.85786 8.07107L8.92892 15.1421"
-                stroke="black"
-                stroke-width="2"
-            />
-        </svg>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">In-depth guide to plugin testing</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="2-pytest-testing-frameworks.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">2: Pytest testing framework</p>
-    </div>
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-    <svg
-        width="10"
-        height="16"
-        viewBox="0 0 10 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <path
-            d="M1.07108 15L8.14214 7.92893L1.07108 0.857864"
-            stroke="black"
-            stroke-width="2"
-        />
-    </svg>
-    </a>
-</div>
+  <div class="sidebar-secondary-item">
+
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-lessons-in-this-tutorial">Other lessons in this tutorial:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#this-lesson-covers">This lesson covers:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assert-keyword">Assert keyword</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-for-the-pass-case">Test for the Pass case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-for-the-fail-case">Test for the Fail case</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
             
-        </main>
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
         
-
+      </main>
     </div>
-
-    <script src="../../_static/scripts/napari-sphinx-theme.js"></script><footer class="napari-footer">
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+<footer class="napari-footer">
   
     <div class="footer-item">
-      <a href="/">
+      <a class="footer-icon__hover-blue" href="https://napari.org" target="_blank" rel="noreferrer">
   <svg
   width="30"
   height="30"
@@ -1127,7 +1155,7 @@ function checkPageExistsAndRedirect(event) {
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.3.0</span>
     
   </div>
 </div>

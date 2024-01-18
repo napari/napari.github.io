@@ -1,7 +1,10 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -9,16 +12,27 @@
     <link sizes="any" href="../_static/favicon/logo-silhouette-192.png" rel="icon" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/logo-noborder-180.png" type="image/png">
     <title>Layers at a glance &#8212; napari</title>
-  <link rel="stylesheet" href="../_static/fa/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-brands-400.woff2">
-  <link href="../_static/styles/theme.css" rel="stylesheet">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/napari-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
@@ -27,13 +41,28 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'guides/layers';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="napari tutorials" href="../tutorials/index.html" />
@@ -41,1221 +70,615 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
+    <meta name="docsearch:language" content="en">
     
 
   </head>
-  <body>
-    
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-  <div id="navbar-start">
-    
-    <!-- A small template snippet for theme testing -->
-<a class="navbar-brand" href="../index.html">
-  napari
-</a>
-    
-  </div>
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M20 2H0" stroke="black" stroke-width="3"/>
-  <path d="M20 10H0" stroke="black" stroke-width="3"/>
-  <path d="M20 18H0" stroke="black" stroke-width="3"/>
-</svg>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
   </button>
 
   
-  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
-    <div id="navbar-center" class="mr-auto">
-      
-      <div class="navbar-center-item">
-        <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 current active nav-item">
- <a class="reference internal nav-link" href="../usage.html">
-  Usage
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../plugins/index.html">
-  Plugins
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../community/index.html">
-  Community
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../developers/index.html">
-  Contributing
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../api/index.html">
-  API Reference
- </a>
-</li>
-
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="search"
+         aria-label="search"
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
-    <li class="nav-item">
-        <a class="nav-link nav-external" href="https://napari-hub.org">napari hub<i class="fas fa-external-link-alt"></i></a>
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="napari - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="napari - Home"/>`);</script>
+  
+  
+</a></div>
+    
+      <div class="navbar-item"><!-- A small template snippet for theme testing -->
+<a class="navbar-brand" href="../index.html">
+  napari
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../usage.html">
+                        Usage
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../plugins/index.html">
+                        Plugins
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../community/index.html">
+                        Community
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../developers/index.html">
+                        Contributing
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://napari-hub.org">
+                    napari hub
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../usage.html">
+                        Usage
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../plugins/index.html">
+                        Plugins
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../community/index.html">
+                        Community
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../developers/index.html">
+                        Contributing
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://napari-hub.org">
+                    napari hub
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="search"
+         aria-label="search"
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../tutorials/start_index.html">Getting started</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/fundamentals/quick_start.html">Quick start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/fundamentals/installation.html">How to install napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/fundamentals/getting_started.html">How to launch <code class="docutils literal notranslate"><span class="pre">napari</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/fundamentals/viewer.html">Viewer tutorial</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Layers at a glance</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/index.html">napari tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/annotation/index.html">Annotation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/annotation/annotate_points.html">Annotating videos with napari</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/processing/index.html">Processing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/processing/dask.html">Using Dask and napari to process &amp; view large datasets</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/segmentation/index.html">Segmentation</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/segmentation/annotate_segmentation.html">Annotating segmentation with text and bounding boxes</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/tracking/index.html">Tracking</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/tracking/cell_tracking.html">Single cell tracking with napari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../howtos/index.html">How-to guides</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../howtos/layers/index.html">Using layers</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/image.html">Using the image layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/labels.html">Using the labels layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/points.html">Using the points layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/shapes.html">Using the shapes layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/surface.html">Using the surface layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/tracks.html">Using the tracks layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/vectors.html">Using the vectors layer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../howtos/extending/index.html">Extending napari</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/extending/magicgui.html">Creating widgets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/extending/connecting_events.html">Hooking up your own events</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howtos/napari_imageJ.html">napari + ImageJ how-to guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howtos/docker.html">Napari in Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howtos/perfmon.html">Performance monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howtos/headless.html">Running napari headlessly</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html">In-depth explanations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="event_loop.html">napari event loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threading.html">Multithreading in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3D_interactivity.html">3D interactivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering-explanation.html">Rendering in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering.html">Asynchronous rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html">napari performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preferences.html">Preferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contexts_expressions.html">Contexts and Expressions in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events_reference.html">Events reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../further-resources/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../further-resources/napari-workshops.html">napari workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../further-resources/sample_data.html">Sample databases</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../gallery.html">Gallery</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../_tags/tagsindex.html">Tags</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/analysis.html">analysis (4)</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_labels_with_features.html">Add labels with features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/annotate_segmentation_with_text.html">Annotate segmentation with text</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/paint-nd.html">Paint nD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/annotate-2d.html">Annotate 2D</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/experimental.html">experimental (9)</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/viewer_fps_label.html">Viewer FPS label</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/linked_layers.html">Linked layers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/spherical_points.html">Spherical points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/surface_normals_wireframe.html">Surface normals wireframe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/interactive_move_rectangle_3d.html">Interactive move rectangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/new_theme.html">New theme</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/action_manager.html">Action manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/interaction_box_image.html">Interaction box image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/scale_bar.html">Scale bar</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/gui.html">gui (16)</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/fourier_transform_playground.html">Fourier transform playground</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/get_current_viewer.html">Get current viewer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/multiple_viewer_widget.html">Multiple viewer widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/custom_key_bindings.html">Custom key bindings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/inherit_viewer_style.html">Method to get napari style in magicgui based windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/set_theme.html">Set theme</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/multiple_viewers.html">Multiple viewers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/image_custom_kernel.html">Custom image interpolation kernels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/magic_image_arithmetic.html">magicgui Image Arithmetic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/bbox_annotator.html">bbox annotator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/3Dimage_plane_rendering.html">3D image plane rendering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/action_manager.html">Action manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/mouse_drag_callback.html">Mouse drag callback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/custom_mouse_functions.html">Custom mouse functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/magic_viewer.html">magicgui viewer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/magic_parameter_sweep.html">magicgui parameter sweep</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/historical.html">historical (4)</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/update_console.html">Update console</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/without_gui_qt.html">napari without gui_qt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/shapes_to_labels.html">Shapes to labels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/reader_plugin.html">Reader plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/interactivity.html">interactivity (5)</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/fourier_transform_playground.html">Fourier transform playground</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/cursor_position.html">Cursor position</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/inherit_viewer_style.html">Method to get napari style in magicgui based windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/cursor_ray.html">Cursor ray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/interactive_scripting.html">Interactive scripting</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/layers.html">layers (6)</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/vortex.html">Visualizing optical flow in napari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_labels_with_features.html">Add labels with features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_3D_image.html">Add 3D image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/3Dimage_plane_rendering.html">3D image plane rendering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_labels.html">Add labels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/3D_paths.html">3D Paths</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-advanced.html">visualization-advanced (14)</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/tracks_3d.html">Tracks 3D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_vectors_color_by_angle.html">Add vectors color by angle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/vortex.html">Visualizing optical flow in napari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/points-over-time.html">Points over time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/dynamic-projections-dask.html">Dynamic projections dask</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/tracks_3d_with_graph.html">Tracks 3D with graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/nD_multiscale_image_non_uniform.html">nD multiscale image non-uniform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/show_points_based_on_feature.html">Show points based on feature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/nD_multiscale_image.html">nD multiscale image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/3Dimage_plane_rendering.html">3D image plane rendering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_multiscale_image.html">Add multiscale image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/to_screenshot.html">To screenshot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/affine_transforms.html">Affine transforms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/3D_paths.html">3D Paths</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-basic.html">visualization-basic (22)</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/image_depth.html">Image depth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/pass_colormaps.html">Pass colormaps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_shapes_with_features.html">Add shapes with features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_vectors.html">Add vectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_points_with_features.html">Add points with features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/tracks_2d.html">Tracks 2D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_points.html">Add points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/point_cloud.html">Point cloud</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_surface_2D.html">Add surface 2D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_vectors_image.html">Add vectors image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_labels.html">Add labels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/set_colormaps.html">Set colormaps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/layers.html">Layers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_image.html">Add image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_grayscale_image.html">Add grayscale image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_points_with_multicolor_text.html">Add points with multicolor text</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/minimum_blending.html">Minimum blending</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_shapes_with_text.html">Add shapes with text</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_points_with_text.html">Add points with text</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/labels-2d.html">Labels 2D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_image_transformed.html">Add image transformed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_shapes.html">Add shapes</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-nD.html">visualization-nD (21)</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/nD_image.html">nD image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/surface_texture_and_colors.html">Surface with texture and vertex_colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/nD_labels.html">nD labels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/nD_points.html">nD points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/labels3d.html">Labels 3D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/surface_multi_texture.html">Surface with multiple textures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/nD_vectors.html">nD vectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/mixed-dimensions-labels.html">Mixed dimensions labels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/image-points-3d.html">Image points 3D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_points_on_nD_shapes.html">Add points on nD shapes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/nD_shapes_with_text.html">nD shapes with text</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/nD_surface.html">nD surface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/image_custom_kernel.html">Custom image interpolation kernels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_3D_image.html">Add 3D image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/concentric-spheres.html">Concentric spheres</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/nD_vectors_image.html">nD vectors image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/swap_dims.html">Swap dims</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/nD_points_with_features.html">nD points with features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/dask_nD_image.html">Dask nD image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add-points-3d.html">Add points 3D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/nD_shapes.html">nD shapes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
     </li>
     
-</ul>
-      </div>
-      
-    </div>
-
-    <div id="navbar-end">
-      
-      <div class="navbar-end-item">
-        <div class="dropdown" id="version_switcher">
-    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
-
-        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
-        </svg>
-    </button>
-    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
-    <!-- dropdown will be populated by javascript on page load -->
-    </div>
-</div>
-
-<!-- NOTE: this JS must live here (not in our global JS file) because it relies
-     on being processed by Jinja before it is run (specifically for replacing
-     variables guides/layers and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
--->
-
-<script type="text/javascript">
-// Check if corresponding page path exists in other version of docs
-// and, if so, go there instead of the homepage of the other docs version
-function checkPageExistsAndRedirect(event) {
-    const currentFilePath = "guides/layers.html",
-          tryUrl = event.target.getAttribute("href");
-    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
-    $.ajax({
-        type: 'HEAD',
-        url: tryUrl,
-        // if the page exists, go there
-        success: function() {
-            location.href = tryUrl;
-        }
-    }).fail(function() {
-        location.href = otherDocsHomepage;
-    });
-    // this prevents the browser from following the href of the clicked node
-    // (which is fine because this function takes care of redirecting)
-    return false;
-}
-
-// Populate the version switcher from the JSON config file
-(function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
-        const currentFilePath = "guides/layers.html";
-        // create links to the corresponding page in the other docs versions
-        $.each(data, function(index, entry) {
-            // if no custom name specified (e.g., "latest"), use version string
-            if (!("name" in entry)) {
-                entry.name = entry.version;
-            }
-            // create the node
-            const node = document.createElement("a");
-            node.setAttribute("class", "list-group-item list-group-item-action py-1");
-            node.textContent = `${entry.name}`;
-            node.setAttribute("href", `${entry.url}${currentFilePath}`);
-            // on click, AJAX calls will check if the linked page exists before
-            // trying to redirect, and if not, will redirect to the homepage
-            // for that version of the docs.
-            node.onclick = checkPageExistsAndRedirect;
-            // Add dataset values for the version and name in case people want
-            // to apply CSS styling based on this information.
-            node.dataset["versionName"] = entry.name;
-            node.dataset["version"] = entry.version;
-
-            $("#version_switcher_menu").append(node);
-            // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
-            // also highlight the dropdown entry for the currently-viewed
-            // version's entry
-            if (entry.version == "latest") {
-                node.classList.add("active");
-                let btn = document.getElementById("version_switcher_button");
-                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
-                btn.dataset["activeVersion"] = entry.version;
-            }
-        });
-    });
-})();
-</script>
-      </div>
-      
-      <div class="navbar-end-item">
-        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
-        <li class="nav-item">
-          <a class="nav-link" href="https://github.com/napari/napari" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
-            <label class="sr-only">GitHub</label></a>
-        </li>
-      </ul>
-      </div>
-      
-    </div>
-  </div>
-</div>
-    </nav>
+    <li class="breadcrumb-item"><a href="../usage.html" class="nav-link">Usage</a></li>
     
-
-    <div class="napari-page">
-        
-          
-          <!-- Only show if we have sidebars configured, else just a small margin  -->
-          <div class="bd-sidebar">
-            <div class="sidebar-start-items"><form
-  class="search"
-  action="../search.html"
-  method="get"
->
-  <input
-    type="search"
-    name="q"
-    placeholder="search"
-    aria-label="search"
-    autocomplete="off"
-  />
-
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M8.32001 7.67998L0.746674 15.2533M10.6667 9.59998C13.0133 9.59998 14.9333 7.67998 14.9333 5.33332C14.9333 2.98665 13.0133 1.06665 10.6667 1.06665C8.32001 1.06665 6.40001 2.98665 6.40001 5.33332C6.40001 7.67998 8.32001 9.59998 10.6667 9.59998Z"
-      stroke="black"
-      stroke-width="2"
-    />
-  </svg>
-  </button>
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <div class="bd-toc-item active">
-    <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <img src="../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../tutorials/start_index.html">
-   Getting started
-  </a>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/fundamentals/quick_start.html">
-     Quick start
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/fundamentals/installation.html">
-     How to install napari
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/fundamentals/getting_started.html">
-     How to launch
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       napari
-      </span>
-     </code>
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/fundamentals/viewer.html">
-     Viewer tutorial
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Layers at a glance
-    </a>
-   </li>
+    
+    <li class="breadcrumb-item"><a href="../tutorials/start_index.html" class="nav-link">Getting started</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Layers at a glance</li>
   </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <img src="../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../tutorials/index.html">
-   napari tutorials
-  </a>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-    <label for="toctree-checkbox-3">
-     <img src="../_static/icons/sidebar-triangle.png"/>
-    </label>
-    <a class="reference internal" href="../tutorials/annotation/index.html">
-     Annotation
-    </a>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../tutorials/annotation/annotate_points.html">
-       Annotating videos with napari
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-    <label for="toctree-checkbox-4">
-     <img src="../_static/icons/sidebar-triangle.png"/>
-    </label>
-    <a class="reference internal" href="../tutorials/processing/index.html">
-     Processing
-    </a>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../tutorials/processing/dask.html">
-       Using Dask and napari to process &amp; view large datasets
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-    <label for="toctree-checkbox-5">
-     <img src="../_static/icons/sidebar-triangle.png"/>
-    </label>
-    <a class="reference internal" href="../tutorials/segmentation/index.html">
-     Segmentation
-    </a>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../tutorials/segmentation/annotate_segmentation.html">
-       Annotating segmentation with text and bounding boxes
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-    <label for="toctree-checkbox-6">
-     <img src="../_static/icons/sidebar-triangle.png"/>
-    </label>
-    <a class="reference internal" href="../tutorials/tracking/index.html">
-     Tracking
-    </a>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../tutorials/tracking/cell_tracking.html">
-       Single cell tracking with napari
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
-   <img src="../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../howtos/index.html">
-   How-to guides
-  </a>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-    <label for="toctree-checkbox-8">
-     <img src="../_static/icons/sidebar-triangle.png"/>
-    </label>
-    <a class="reference internal" href="../howtos/layers/index.html">
-     Using layers
-    </a>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../howtos/layers/image.html">
-       Using the image layer
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../howtos/layers/labels.html">
-       Using the labels layer
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../howtos/layers/points.html">
-       Using the points layer
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../howtos/layers/shapes.html">
-       Using the shapes layer
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../howtos/layers/surface.html">
-       Using the surface layer
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../howtos/layers/tracks.html">
-       Using the tracks layer
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../howtos/layers/vectors.html">
-       Using the vectors layer
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-    <label for="toctree-checkbox-9">
-     <img src="../_static/icons/sidebar-triangle.png"/>
-    </label>
-    <a class="reference internal" href="../howtos/extending/index.html">
-     Extending napari
-    </a>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../howtos/extending/magicgui.html">
-       Creating widgets
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../howtos/extending/connecting_events.html">
-       Hooking up your own events
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../howtos/napari_imageJ.html">
-     napari + ImageJ how-to guide
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../howtos/docker.html">
-     Napari in Docker
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../howtos/perfmon.html">
-     Performance monitoring
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../howtos/headless.html">
-     Running napari headlessly
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-  <label for="toctree-checkbox-10">
-   <img src="../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="index.html">
-   In-depth explanations
-  </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="event_loop.html">
-     napari event loop
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="threading.html">
-     Multithreading in napari
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3D_interactivity.html">
-     3D interactivity
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="rendering-explanation.html">
-     Rendering in napari
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="rendering.html">
-     Asynchronous rendering
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="performance.html">
-     napari performance
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="preferences.html">
-     Preferences
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="contexts_expressions.html">
-     Contexts and Expressions in napari
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="events_reference.html">
-     Events reference
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../further-resources/glossary.html">
-   Glossary
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../further-resources/napari-workshops.html">
-   napari workshops
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../further-resources/sample_data.html">
-   Sample databases
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-  <label for="toctree-checkbox-11">
-   <img src="../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../gallery.html">
-   Gallery
-  </a>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-    <label for="toctree-checkbox-12">
-     <img src="../_static/icons/sidebar-triangle.png"/>
-    </label>
-    <a class="reference internal" href="../_tags/tagsindex.html">
-     Tags
-    </a>
-    <ul>
-     <li class="toctree-l3 has-children">
-      <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
-      <label for="toctree-checkbox-13">
-       <img src="../_static/icons/sidebar-triangle.png"/>
-      </label>
-      <a class="reference internal" href="../_tags/analysis.html">
-       analysis (4)
-      </a>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_labels_with_features.html">
-         Add labels with features
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/annotate_segmentation_with_text.html">
-         Annotate segmentation with text
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/paint-nd.html">
-         Paint nD
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/annotate-2d.html">
-         Annotate 2D
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-      <label for="toctree-checkbox-14">
-       <img src="../_static/icons/sidebar-triangle.png"/>
-      </label>
-      <a class="reference internal" href="../_tags/experimental.html">
-       experimental (9)
-      </a>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/viewer_fps_label.html">
-         Viewer FPS label
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/linked_layers.html">
-         Linked layers
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/spherical_points.html">
-         Spherical points
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/surface_normals_wireframe.html">
-         Surface normals wireframe
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/interactive_move_rectangle_3d.html">
-         Interactive move rectangle
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/new_theme.html">
-         New theme
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/action_manager.html">
-         Action manager
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/interaction_box_image.html">
-         Interaction box image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/scale_bar.html">
-         Scale bar
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-      <label for="toctree-checkbox-15">
-       <img src="../_static/icons/sidebar-triangle.png"/>
-      </label>
-      <a class="reference internal" href="../_tags/gui.html">
-       gui (16)
-      </a>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/fourier_transform_playground.html">
-         Fourier transform playground
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/get_current_viewer.html">
-         Get current viewer
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/multiple_viewer_widget.html">
-         Multiple viewer widget
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/custom_key_bindings.html">
-         Custom key bindings
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/inherit_viewer_style.html">
-         Method to get napari style in magicgui based windows
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/set_theme.html">
-         Set theme
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/multiple_viewers.html">
-         Multiple viewers
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/image_custom_kernel.html">
-         Custom image interpolation kernels
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/magic_image_arithmetic.html">
-         magicgui Image Arithmetic
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/bbox_annotator.html">
-         bbox annotator
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/3Dimage_plane_rendering.html">
-         3D image plane rendering
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/action_manager.html">
-         Action manager
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/mouse_drag_callback.html">
-         Mouse drag callback
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/custom_mouse_functions.html">
-         Custom mouse functions
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/magic_viewer.html">
-         magicgui viewer
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/magic_parameter_sweep.html">
-         magicgui parameter sweep
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-      <label for="toctree-checkbox-16">
-       <img src="../_static/icons/sidebar-triangle.png"/>
-      </label>
-      <a class="reference internal" href="../_tags/historical.html">
-       historical (4)
-      </a>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/update_console.html">
-         Update console
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/without_gui_qt.html">
-         napari without gui_qt
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/shapes_to_labels.html">
-         Shapes to labels
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/reader_plugin.html">
-         Reader plugin
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-      <label for="toctree-checkbox-17">
-       <img src="../_static/icons/sidebar-triangle.png"/>
-      </label>
-      <a class="reference internal" href="../_tags/interactivity.html">
-       interactivity (5)
-      </a>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/fourier_transform_playground.html">
-         Fourier transform playground
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/cursor_position.html">
-         Cursor position
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/inherit_viewer_style.html">
-         Method to get napari style in magicgui based windows
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/cursor_ray.html">
-         Cursor ray
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/interactive_scripting.html">
-         Interactive scripting
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
-      <label for="toctree-checkbox-18">
-       <img src="../_static/icons/sidebar-triangle.png"/>
-      </label>
-      <a class="reference internal" href="../_tags/layers.html">
-       layers (6)
-      </a>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/vortex.html">
-         Visualizing optical flow in napari
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_labels_with_features.html">
-         Add labels with features
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_3D_image.html">
-         Add 3D image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/3Dimage_plane_rendering.html">
-         3D image plane rendering
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_labels.html">
-         Add labels
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/3D_paths.html">
-         3D Paths
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
-      <label for="toctree-checkbox-19">
-       <img src="../_static/icons/sidebar-triangle.png"/>
-      </label>
-      <a class="reference internal" href="../_tags/visualization-advanced.html">
-       visualization-advanced (14)
-      </a>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/tracks_3d.html">
-         Tracks 3D
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_vectors_color_by_angle.html">
-         Add vectors color by angle
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/vortex.html">
-         Visualizing optical flow in napari
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/points-over-time.html">
-         Points over time
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/dynamic-projections-dask.html">
-         Dynamic projections dask
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/tracks_3d_with_graph.html">
-         Tracks 3D with graph
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_multiscale_image_non_uniform.html">
-         nD multiscale image non-uniform
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/show_points_based_on_feature.html">
-         Show points based on feature
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_multiscale_image.html">
-         nD multiscale image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/3Dimage_plane_rendering.html">
-         3D image plane rendering
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_multiscale_image.html">
-         Add multiscale image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/to_screenshot.html">
-         To screenshot
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/affine_transforms.html">
-         Affine transforms
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/3D_paths.html">
-         3D Paths
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
-      <label for="toctree-checkbox-20">
-       <img src="../_static/icons/sidebar-triangle.png"/>
-      </label>
-      <a class="reference internal" href="../_tags/visualization-basic.html">
-       visualization-basic (22)
-      </a>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/image_depth.html">
-         Image depth
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/pass_colormaps.html">
-         Pass colormaps
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_shapes_with_features.html">
-         Add shapes with features
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_vectors.html">
-         Add vectors
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_points_with_features.html">
-         Add points with features
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/tracks_2d.html">
-         Tracks 2D
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_points.html">
-         Add points
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/point_cloud.html">
-         Point cloud
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_surface_2D.html">
-         Add surface 2D
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_vectors_image.html">
-         Add vectors image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_labels.html">
-         Add labels
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/set_colormaps.html">
-         Set colormaps
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/layers.html">
-         Layers
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_image.html">
-         Add image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_grayscale_image.html">
-         Add grayscale image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_points_with_multicolor_text.html">
-         Add points with multicolor text
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/minimum_blending.html">
-         Minimum blending
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_shapes_with_text.html">
-         Add shapes with text
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_points_with_text.html">
-         Add points with text
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/labels-2d.html">
-         Labels 2D
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_image_transformed.html">
-         Add image transformed
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_shapes.html">
-         Add shapes
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/>
-      <label for="toctree-checkbox-21">
-       <img src="../_static/icons/sidebar-triangle.png"/>
-      </label>
-      <a class="reference internal" href="../_tags/visualization-nD.html">
-       visualization-nD (21)
-      </a>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_image.html">
-         nD image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/surface_texture_and_colors.html">
-         Surface with texture and vertex_colors
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_labels.html">
-         nD labels
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_points.html">
-         nD points
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/labels3d.html">
-         Labels 3D
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/surface_multi_texture.html">
-         Surface with multiple textures
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_vectors.html">
-         nD vectors
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/mixed-dimensions-labels.html">
-         Mixed dimensions labels
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/image-points-3d.html">
-         Image points 3D
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_points_on_nD_shapes.html">
-         Add points on nD shapes
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_shapes_with_text.html">
-         nD shapes with text
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_surface.html">
-         nD surface
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/image_custom_kernel.html">
-         Custom image interpolation kernels
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add_3D_image.html">
-         Add 3D image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/concentric-spheres.html">
-         Concentric spheres
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_vectors_image.html">
-         nD vectors image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/swap_dims.html">
-         Swap dims
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_points_with_features.html">
-         nD points with features
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/dask_nD_image.html">
-         Dask nD image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/add-points-3d.html">
-         Add points 3D
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../gallery/nD_shapes.html">
-         nD shapes
-        </a>
-       </li>
-      </ul>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
-</ul>
-
-  </div>
 </nav>
-            </div>
-            <div class="sidebar-end-items">
-            </div>
-          </div>
-          
-        
-
-        
-        <div class="bd-toc">
-          
-            
-            <div class="toc-item">
-              
-<div class="tocsection onthispage mt-5 pt-1 pb-3">
-    On this page
 </div>
-
-<nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#layer-visibility">
-   Layer visibility
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#layer-opacity">
-   Layer opacity
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#blending-layers">
-   Blending layers
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#d-rendering-of-images">
-   3D rendering of images
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#layer-interpolation">
-   Layer interpolation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#layer-rendering">
-   Layer rendering
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#naming-layers">
-   Naming layers
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#scaling-layers">
-   Scaling layers
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#translating-layers">
-   Translating layers
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#layer-metadata">
-   Layer metadata
-  </a>
- </li>
-</ul>
-
-</nav>
-            </div>
-            
-            <div class="toc-item">
+      
+    </div>
+  
+  
+</div>
+</div>
               
-            </div>
-            
-          
-        </div>
-        
-
-        
-        
-          
-        
-        <main class="col-md-9 col-xl-7 bd-content" role="main">
-            
-            <div>
               
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="layers-at-a-glance">
-<span id="layers-glance"></span><h1>Layers at a glance<a class="headerlink" href="#layers-at-a-glance" title="Permalink to this headline">¶</a></h1>
+<span id="layers-glance"></span><h1>Layers at a glance<a class="headerlink" href="#layers-at-a-glance" title="Permalink to this heading">#</a></h1>
 <p><a class="reference internal" href="../api/napari.layers.html#module-napari.layers" title="napari.layers"><span class="xref myst py py-mod">Layers</span></a> are the basic viewable objects that can be added to a
 viewer. <strong>napari</strong> supports seven main different layer types: <code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code>,
 <code class="docutils literal notranslate"><span class="pre">Points</span></code>, <code class="docutils literal notranslate"><span class="pre">Shapes</span></code>, <code class="docutils literal notranslate"><span class="pre">Surface</span></code>, <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> and <code class="docutils literal notranslate"><span class="pre">Vectors</span></code>. Each of the layer types
@@ -1278,7 +701,7 @@ object created from <code class="docutils literal notranslate"><span class="pre"
 introduction, check out the
 <a class="reference internal" href="../tutorials/fundamentals/viewer.html#layer-list"><span class="std std-ref">Layer list section in the napari viewer tutorial</span></a>.</p>
 <section id="layer-visibility">
-<h2>Layer visibility<a class="headerlink" href="#layer-visibility" title="Permalink to this headline">¶</a></h2>
+<h2>Layer visibility<a class="headerlink" href="#layer-visibility" title="Permalink to this heading">#</a></h2>
 <p>All our layers support a visibility toggle that allows you to set the <code class="docutils literal notranslate"><span class="pre">visible</span></code>
 property of each layer. This property is located inside the layer widget in the
 layers list and is represented by an eye icon indicating the <code class="docutils literal notranslate"><span class="pre">visibility</span></code> button.
@@ -1287,7 +710,7 @@ one layer, hiding all others. If you then Option/Alt-click on the <code class="d
 button of a layer a second time, the visibility state of all layers will be restored.</p>
 </section>
 <section id="layer-opacity">
-<span id="id1"></span><h2>Layer opacity<a class="headerlink" href="#layer-opacity" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>Layer opacity<a class="headerlink" href="#layer-opacity" title="Permalink to this heading">#</a></h2>
 <p>All our layers support an opacity slider and <code class="docutils literal notranslate"><span class="pre">opacity</span></code> property that allow you
 to adjust the layer opacity between 0, fully invisible and 1, fully visible.</p>
 <div class="admonition note">
@@ -1306,7 +729,7 @@ globally to all the vectors in the layer.</p></li>
 </div>
 </section>
 <section id="blending-layers">
-<h2>Blending layers<a class="headerlink" href="#blending-layers" title="Permalink to this headline">¶</a></h2>
+<h2>Blending layers<a class="headerlink" href="#blending-layers" title="Permalink to this heading">#</a></h2>
 <p>All our layers support three blending modes: <code class="docutils literal notranslate"><span class="pre">translucent</span></code>, <code class="docutils literal notranslate"><span class="pre">additive</span></code>, and
 <code class="docutils literal notranslate"><span class="pre">opaque</span></code>. These modes determine how the visuals for this layer get mixed with
 the visuals from the other layers.</p>
@@ -1327,7 +750,7 @@ colors.</p></li>
 <p><img alt="napari viewer with an image of a cell. Layer controls are open in the left sidebar with the blending set to additive." src="../_images/blending.png" /></p>
 </section>
 <section id="d-rendering-of-images">
-<h2>3D rendering of images<a class="headerlink" href="#d-rendering-of-images" title="Permalink to this headline">¶</a></h2>
+<h2>3D rendering of images<a class="headerlink" href="#d-rendering-of-images" title="Permalink to this heading">#</a></h2>
 <p>All our layers can be rendered in both 2D and 3D mode, and one of our viewer
 buttons can toggle between each mode. The number of dimensions sliders will be 2
 or 3 less than the total number of dimensions of the layer, allowing you to
@@ -1341,7 +764,7 @@ leads to a memory error.</p>
 </div>
 </section>
 <section id="layer-interpolation">
-<h2>Layer interpolation<a class="headerlink" href="#layer-interpolation" title="Permalink to this headline">¶</a></h2>
+<h2>Layer interpolation<a class="headerlink" href="#layer-interpolation" title="Permalink to this heading">#</a></h2>
 <p>We support a variety of interpolation modes when viewing 2D slices. In the
 default mode <code class="docutils literal notranslate"><span class="pre">nearest</span></code> each pixel is represented as a small square of specified
 size. As you zoom in you will eventually see each pixel. In other modes
@@ -1352,7 +775,7 @@ point, with no mixing of nearby data points. These modes have no effect when
 viewing 3D slices.</p>
 </section>
 <section id="layer-rendering">
-<h2>Layer rendering<a class="headerlink" href="#layer-rendering" title="Permalink to this headline">¶</a></h2>
+<h2>Layer rendering<a class="headerlink" href="#layer-rendering" title="Permalink to this heading">#</a></h2>
 <p>When viewing 3D slices, we support a variety of rendering modes. The default
 mode <code class="docutils literal notranslate"><span class="pre">mip</span></code>, or maximum intensity projection, will combine voxels at different
 distances from the camera according to a maximum intensity projection to create
@@ -1362,14 +785,14 @@ biological images such as these cells growing in culture:</p>
 <p>When viewing 2D slices the rendering mode has no effect.</p>
 </section>
 <section id="naming-layers">
-<h2>Naming layers<a class="headerlink" href="#naming-layers" title="Permalink to this headline">¶</a></h2>
+<h2>Naming layers<a class="headerlink" href="#naming-layers" title="Permalink to this heading">#</a></h2>
 <p>All our layers support a <code class="docutils literal notranslate"><span class="pre">name</span></code> property that can be set inside a text box
 inside the layer widget in the layers list. The name of each layer is forced
 into being unique so that you can use the name to index into <code class="docutils literal notranslate"><span class="pre">viewer.layers</span></code> to
 retrieve the layer object.</p>
 </section>
 <section id="scaling-layers">
-<h2>Scaling layers<a class="headerlink" href="#scaling-layers" title="Permalink to this headline">¶</a></h2>
+<h2>Scaling layers<a class="headerlink" href="#scaling-layers" title="Permalink to this heading">#</a></h2>
 <p>All our layers support a <code class="docutils literal notranslate"><span class="pre">scale</span></code> property and keyword argument that will rescale
 the layer multiplicatively according to the scale values (one for each
 dimension). This property can be particularly useful for viewing anisotropic
@@ -1386,74 +809,94 @@ existing layer using the <code class="docutils literal notranslate"><span class=
 <p><video src="../_images/scaling.webm" title="napari viewer with an image where all layers are scaled equally; when rotated, the image appears flat. By using console below the canvas and applying a scale factor to one of the dimensions, the image's volume becomes apparent."><a href="../_images/scaling.webm">napari viewer with an image where all layers are scaled equally; when rotated, the image appears flat. By using console below the canvas and applying a scale factor to one of the dimensions, the image's volume becomes apparent.</a></video></p>
 </section>
 <section id="translating-layers">
-<h2>Translating layers<a class="headerlink" href="#translating-layers" title="Permalink to this headline">¶</a></h2>
+<h2>Translating layers<a class="headerlink" href="#translating-layers" title="Permalink to this heading">#</a></h2>
 <p>All our layers support a <code class="docutils literal notranslate"><span class="pre">translate</span></code> property and keyword argument that you can
 use to offset a layer relative to the other layers, which could be useful if you
 are trying to overlay two image tiles acquired with different stage positions.</p>
 </section>
 <section id="layer-metadata">
-<h2>Layer metadata<a class="headerlink" href="#layer-metadata" title="Permalink to this headline">¶</a></h2>
+<h2>Layer metadata<a class="headerlink" href="#layer-metadata" title="Permalink to this heading">#</a></h2>
 <p>All our layers also support a <code class="docutils literal notranslate"><span class="pre">metadata</span></code> property and keyword argument that you
 can use to store an arbitrary metadata dictionary on the layer.</p>
 </section>
 </section>
 
 
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../tutorials/fundamentals/viewer.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Viewer tutorial</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../tutorials/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">napari tutorials</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
             </div>
             
             
-            <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../tutorials/fundamentals/viewer.html" title="previous page">
-        <svg
-            width="10"
-            height="16"
-            viewBox="0 0 10 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <path
-                d="M8.92892 1L1.85786 8.07107L8.92892 15.1421"
-                stroke="black"
-                stroke-width="2"
-            />
-        </svg>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Viewer tutorial</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="../tutorials/index.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">napari tutorials</p>
-    </div>
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-    <svg
-        width="10"
-        height="16"
-        viewBox="0 0 10 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <path
-            d="M1.07108 15L8.14214 7.92893L1.07108 0.857864"
-            stroke="black"
-            stroke-width="2"
-        />
-    </svg>
-    </a>
-</div>
+  <div class="sidebar-secondary-item">
+
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-visibility">Layer visibility</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-opacity">Layer opacity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blending-layers">Blending layers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-rendering-of-images">3D rendering of images</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-interpolation">Layer interpolation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-rendering">Layer rendering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#naming-layers">Naming layers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling-layers">Scaling layers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#translating-layers">Translating layers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-metadata">Layer metadata</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
             
-        </main>
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
         
-
+      </main>
     </div>
-
-    <script src="../_static/scripts/napari-sphinx-theme.js"></script><footer class="napari-footer">
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+<footer class="napari-footer">
   
     <div class="footer-item">
-      <a href="/">
+      <a class="footer-icon__hover-blue" href="https://napari.org" target="_blank" rel="noreferrer">
   <svg
   width="30"
   height="30"
@@ -1918,7 +1361,7 @@ can use to store an arbitrary metadata dictionary on the layer.</p>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.3.0</span>
     
   </div>
 </div>

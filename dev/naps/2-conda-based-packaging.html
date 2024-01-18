@@ -1,7 +1,10 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -9,16 +12,27 @@
     <link sizes="any" href="../_static/favicon/logo-silhouette-192.png" rel="icon" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/logo-noborder-180.png" type="image/png">
     <title>NAP-2 — Distributing napari with conda-based packaging &#8212; napari</title>
-  <link rel="stylesheet" href="../_static/fa/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-brands-400.woff2">
-  <link href="../_static/styles/theme.css" rel="stylesheet">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/napari-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
@@ -27,13 +41,28 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'naps/2-conda-based-packaging';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="NAP-3 — Spaces" href="3-spaces.html" />
@@ -41,821 +70,505 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
+    <meta name="docsearch:language" content="en">
     
 
   </head>
-  <body>
-    
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-  <div id="navbar-start">
-    
-    <!-- A small template snippet for theme testing -->
-<a class="navbar-brand" href="../index.html">
-  napari
-</a>
-    
-  </div>
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M20 2H0" stroke="black" stroke-width="3"/>
-  <path d="M20 10H0" stroke="black" stroke-width="3"/>
-  <path d="M20 18H0" stroke="black" stroke-width="3"/>
-</svg>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
   </button>
 
   
-  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
-    <div id="navbar-center" class="mr-auto">
-      
-      <div class="navbar-center-item">
-        <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../usage.html">
-  Usage
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../plugins/index.html">
-  Plugins
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../community/index.html">
-  Community
- </a>
-</li>
-
-<li class="toctree-l1 current active nav-item">
- <a class="reference internal nav-link" href="../developers/index.html">
-  Contributing
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../api/index.html">
-  API Reference
- </a>
-</li>
-
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="search"
+         aria-label="search"
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
-    <li class="nav-item">
-        <a class="nav-link nav-external" href="https://napari-hub.org">napari hub<i class="fas fa-external-link-alt"></i></a>
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="napari - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="napari - Home"/>`);</script>
+  
+  
+</a></div>
+    
+      <div class="navbar-item"><!-- A small template snippet for theme testing -->
+<a class="navbar-brand" href="../index.html">
+  napari
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../usage.html">
+                        Usage
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../plugins/index.html">
+                        Plugins
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../community/index.html">
+                        Community
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../developers/index.html">
+                        Contributing
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://napari-hub.org">
+                    napari hub
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../usage.html">
+                        Usage
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../plugins/index.html">
+                        Plugins
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../community/index.html">
+                        Community
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../developers/index.html">
+                        Contributing
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://napari-hub.org">
+                    napari hub
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="search"
+         aria-label="search"
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../developers/contributing.html">Contributing guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developers/architecture/index.html">napari architecture guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developers/architecture/dir_organization.html">napari directory organization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/architecture/napari_models.html">napari models and events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/architecture/app_model.html">napari’s application model</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">napari Advancement Proposals (NAPs)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="0-nap-process.html">NAP 0 — Purpose and Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1-institutional-funding-partners.html">NAP-1 — Institutional and Funding Partners</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">NAP-2 — Distributing napari with conda-based packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3-spaces.html">NAP-3 — Spaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4-async-slicing.html">NAP-4: Asynchronous slicing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5-new-logo.html">NAP-5 — New logo (2022)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6-contributable-menus.html">NAP-6 — Contributable Menus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7-key-binding-dispatch.html">NAP-7 — Key Binding Dispatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="8-telemetry.html">NAP-8 — Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="template.html">NAP-X — Template and Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developers/documentation/index.html">Contributing Documentation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developers/documentation/docs_template.html">Docs template</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/documentation/docs_deployment.html">Documentation and website deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/translations.html">Translations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/core_dev_guide.html">Core Developer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/release.html">Release guide</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../developers/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/profiling.html">Profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/packaging.html">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/maintenance.html">Maintenance</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_18.html">napari 0.4.18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_17.html">napari 0.4.17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_16.html">napari 0.4.16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_15.html">napari 0.4.15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_14.html">napari 0.4.14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_13.html">napari 0.4.13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_12.html">napari 0.4.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_11.html">napari 0.4.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_10.html">napari 0.4.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_9.html">napari 0.4.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_8.html">napari 0.4.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_7.html">napari 0.4.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_6.html">napari 0.4.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_5.html">napari 0.4.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_4.html">napari 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_3.html">napari 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_1.html">napari 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_0.html">napari 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_8.html">napari 0.3.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_7.html">napari 0.3.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_6.html">napari 0.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_5.html">napari 0.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_4.html">napari 0.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_3.html">napari 0.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_2.html">napari 0.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_1.html">napari 0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_0.html">napari 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_12.html">napari 0.2.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_11.html">napari 0.2.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_10.html">napari 0.2.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_9.html">napari 0.2.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_8.html">napari 0.2.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_7.html">napari 0.2.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_6.html">napari 0.2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_5.html">napari 0.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_4.html">napari 0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_3.html">napari 0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_1.html">napari 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_0.html">napari 0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_1_5.html">napari 0.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_1_3.html">napari 0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_1_0.html">napari 0.1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../roadmaps/index.html">Roadmaps</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../roadmaps/0_4.html">Roadmap 0.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../roadmaps/0_3_retrospective.html">Roadmap 0.3 Retrospective</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../roadmaps/0_3.html">Roadmap 0.3</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
     </li>
     
-</ul>
-      </div>
-      
-    </div>
-
-    <div id="navbar-end">
-      
-      <div class="navbar-end-item">
-        <div class="dropdown" id="version_switcher">
-    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
-
-        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
-        </svg>
-    </button>
-    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
-    <!-- dropdown will be populated by javascript on page load -->
-    </div>
-</div>
-
-<!-- NOTE: this JS must live here (not in our global JS file) because it relies
-     on being processed by Jinja before it is run (specifically for replacing
-     variables naps/2-conda-based-packaging and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
--->
-
-<script type="text/javascript">
-// Check if corresponding page path exists in other version of docs
-// and, if so, go there instead of the homepage of the other docs version
-function checkPageExistsAndRedirect(event) {
-    const currentFilePath = "naps/2-conda-based-packaging.html",
-          tryUrl = event.target.getAttribute("href");
-    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
-    $.ajax({
-        type: 'HEAD',
-        url: tryUrl,
-        // if the page exists, go there
-        success: function() {
-            location.href = tryUrl;
-        }
-    }).fail(function() {
-        location.href = otherDocsHomepage;
-    });
-    // this prevents the browser from following the href of the clicked node
-    // (which is fine because this function takes care of redirecting)
-    return false;
-}
-
-// Populate the version switcher from the JSON config file
-(function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
-        const currentFilePath = "naps/2-conda-based-packaging.html";
-        // create links to the corresponding page in the other docs versions
-        $.each(data, function(index, entry) {
-            // if no custom name specified (e.g., "latest"), use version string
-            if (!("name" in entry)) {
-                entry.name = entry.version;
-            }
-            // create the node
-            const node = document.createElement("a");
-            node.setAttribute("class", "list-group-item list-group-item-action py-1");
-            node.textContent = `${entry.name}`;
-            node.setAttribute("href", `${entry.url}${currentFilePath}`);
-            // on click, AJAX calls will check if the linked page exists before
-            // trying to redirect, and if not, will redirect to the homepage
-            // for that version of the docs.
-            node.onclick = checkPageExistsAndRedirect;
-            // Add dataset values for the version and name in case people want
-            // to apply CSS styling based on this information.
-            node.dataset["versionName"] = entry.name;
-            node.dataset["version"] = entry.version;
-
-            $("#version_switcher_menu").append(node);
-            // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
-            // also highlight the dropdown entry for the currently-viewed
-            // version's entry
-            if (entry.version == "latest") {
-                node.classList.add("active");
-                let btn = document.getElementById("version_switcher_button");
-                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
-                btn.dataset["activeVersion"] = entry.version;
-            }
-        });
-    });
-})();
-</script>
-      </div>
-      
-      <div class="navbar-end-item">
-        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
-        <li class="nav-item">
-          <a class="nav-link" href="https://github.com/napari/napari" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
-            <label class="sr-only">GitHub</label></a>
-        </li>
-      </ul>
-      </div>
-      
-    </div>
-  </div>
-</div>
-    </nav>
+    <li class="breadcrumb-item"><a href="../developers/index.html" class="nav-link">Contributing</a></li>
     
-
-    <div class="napari-page">
-        
-          
-          <!-- Only show if we have sidebars configured, else just a small margin  -->
-          <div class="bd-sidebar">
-            <div class="sidebar-start-items"><form
-  class="search"
-  action="../search.html"
-  method="get"
->
-  <input
-    type="search"
-    name="q"
-    placeholder="search"
-    aria-label="search"
-    autocomplete="off"
-  />
-
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M8.32001 7.67998L0.746674 15.2533M10.6667 9.59998C13.0133 9.59998 14.9333 7.67998 14.9333 5.33332C14.9333 2.98665 13.0133 1.06665 10.6667 1.06665C8.32001 1.06665 6.40001 2.98665 6.40001 5.33332C6.40001 7.67998 8.32001 9.59998 10.6667 9.59998Z"
-      stroke="black"
-      stroke-width="2"
-    />
-  </svg>
-  </button>
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <div class="bd-toc-item active">
-    <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../developers/contributing.html">
-   Contributing guide
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <img src="../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../developers/architecture/index.html">
-   napari architecture guide
-  </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../developers/architecture/dir_organization.html">
-     napari directory organization
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../developers/architecture/napari_models.html">
-     napari models and events
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../developers/architecture/app_model.html">
-     napari’s application model
-    </a>
-   </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">napari Advancement Proposals (NAPs)</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">NAP-2 —...</li>
   </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <img src="../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="index.html">
-   napari Advancement Proposals (NAPs)
-  </a>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="0-nap-process.html">
-     NAP 0 — Purpose and Process
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="1-institutional-funding-partners.html">
-     NAP-1 — Institutional and Funding Partners
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     NAP-2 — Distributing napari with conda-based packaging
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3-spaces.html">
-     NAP-3 — Spaces
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4-async-slicing.html">
-     NAP-4: Asynchronous slicing
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5-new-logo.html">
-     NAP-5 — New logo (2022)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="6-contributable-menus.html">
-     NAP-6 — Contributable Menus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="7-key-binding-dispatch.html">
-     NAP-7 — Key Binding Dispatch
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="8-telemetry.html">
-     NAP-8 — Telemetry
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="template.html">
-     NAP-X — Template and Instructions
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <img src="../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../developers/documentation/index.html">
-   Contributing Documentation
-  </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../developers/documentation/docs_template.html">
-     Docs template
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../developers/documentation/docs_deployment.html">
-     Documentation and website deployment
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../developers/translations.html">
-   Translations
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../developers/core_dev_guide.html">
-   Core Developer guide
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../developers/release.html">
-   Release guide
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../developers/testing.html">
-   Testing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../developers/profiling.html">
-   Profiling
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../developers/benchmarks.html">
-   Benchmarks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../developers/packaging.html">
-   Packaging
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../developers/maintenance.html">
-   Maintenance
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <img src="../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../release/index.html">
-   Release notes
-  </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_18.html">
-     napari 0.4.18
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_17.html">
-     napari 0.4.17
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_16.html">
-     napari 0.4.16
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_15.html">
-     napari 0.4.15
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_14.html">
-     napari 0.4.14
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_13.html">
-     napari 0.4.13
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_12.html">
-     napari 0.4.12
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_11.html">
-     napari 0.4.11
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_10.html">
-     napari 0.4.10
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_9.html">
-     napari 0.4.9
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_8.html">
-     napari 0.4.8
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_7.html">
-     napari 0.4.7
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_6.html">
-     napari 0.4.6
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_5.html">
-     napari 0.4.5
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_4.html">
-     napari 0.4.4
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_3.html">
-     napari 0.4.3
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_2.html">
-     napari 0.4.2
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_1.html">
-     napari 0.4.1
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_4_0.html">
-     napari 0.4.0
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_3_8.html">
-     napari 0.3.8
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_3_7.html">
-     napari 0.3.7
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_3_6.html">
-     napari 0.3.6
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_3_5.html">
-     napari 0.3.5
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_3_4.html">
-     napari 0.3.4
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_3_3.html">
-     napari 0.3.3
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_3_2.html">
-     napari 0.3.2
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_3_1.html">
-     napari 0.3.1
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_3_0.html">
-     napari 0.3.0
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_2_12.html">
-     napari 0.2.12
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_2_11.html">
-     napari 0.2.11
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_2_10.html">
-     napari 0.2.10
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_2_9.html">
-     napari 0.2.9
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_2_8.html">
-     napari 0.2.8
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_2_7.html">
-     napari 0.2.7
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_2_6.html">
-     napari 0.2.6
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_2_5.html">
-     napari 0.2.5
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_2_4.html">
-     napari 0.2.4
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_2_3.html">
-     napari 0.2.3
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_2_1.html">
-     napari 0.2.1
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_2_0.html">
-     napari 0.2.0
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_1_5.html">
-     napari 0.1.5
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_1_3.html">
-     napari 0.1.3
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../release/release_0_1_0.html">
-     napari 0.1.0
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <img src="../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../roadmaps/index.html">
-   Roadmaps
-  </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../roadmaps/0_4.html">
-     Roadmap 0.4
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../roadmaps/0_3_retrospective.html">
-     Roadmap 0.3 Retrospective
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../roadmaps/0_3.html">
-     Roadmap 0.3
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-  </div>
 </nav>
-            </div>
-            <div class="sidebar-end-items">
-            </div>
-          </div>
-          
-        
-
-        
-        <div class="bd-toc">
-          
-            
-            <div class="toc-item">
-              
-<div class="tocsection onthispage mt-5 pt-1 pb-3">
-    On this page
 </div>
-
-<nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#abstract">
-   Abstract
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#motivation-and-scope">
-   Motivation and Scope
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#detailed-description">
-   Detailed Description
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#milestone-1-distributing-napari-and-plugins-on-conda-forge">
-     Milestone 1: Distributing napari and plugins on conda-forge
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#potential-risks">
-       Potential Risks
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#milestone-2-building-conda-based-installers-for-napari">
-     Milestone 2: Building conda-based installers for napari
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#milestone-3-adding-support-for-conda-packages-in-the-plugin-manager">
-     Milestone 3: Adding support for conda packages in the plugin manager
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#milestone-4-enabling-in-app-napari-version-updates">
-     Milestone 4: Enabling in-app napari version updates
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id23">
-       Potential risks
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#milestone-5-deprecating-briefcase-based-installers">
-     Milestone 5: Deprecating Briefcase-based installers
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#related-work">
-   Related Work
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#implementation">
-   Implementation
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#general-strategy">
-     General strategy
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id29">
-     Milestone 1: Distributing napari and plugins on conda-forge
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#tasks">
-       Tasks
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id30">
-     Milestone 2: Building conda-based installers for napari
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id32">
-       Tasks
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id33">
-     Milestone 3: Adding support for conda packages in the plugin manager
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id34">
-       Tasks
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id38">
-     Milestone 4: Enabling in-app napari version updates
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id40">
-       Tasks
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id41">
-     Milestone 5: Deprecating Briefcase-based installers
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#backward-compatibility">
-   Backward Compatibility
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#future-work">
-   Future Work
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#alternatives">
-   Alternatives
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#discussion">
-   Discussion
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#references-and-footnotes">
-   References and Footnotes
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#copyright">
-   Copyright
-  </a>
- </li>
-</ul>
-
-</nav>
-            </div>
-            
-            <div class="toc-item">
+      
+    </div>
+  
+  
+</div>
+</div>
               
-            </div>
-            
-          
-        </div>
-        
-
-        
-        
-          
-        
-        <main class="col-md-9 col-xl-7 bd-content" role="main">
-            
-            <div>
               
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="nap-2-distributing-napari-with-conda-based-packaging">
-<span id="nap2"></span><h1>NAP-2 — Distributing napari with conda-based packaging<a class="headerlink" href="#nap-2-distributing-napari-with-conda-based-packaging" title="Permalink to this headline">¶</a></h1>
+<span id="nap2"></span><h1>NAP-2 — Distributing napari with conda-based packaging<a class="headerlink" href="#nap-2-distributing-napari-with-conda-based-packaging" title="Permalink to this heading">#</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
 <dd class="field-odd"><p>Jaime Rodríguez-Guerra</p>
@@ -867,7 +580,7 @@ function checkPageExistsAndRedirect(event) {
 <dd class="field-odd"><p>2022-05-05</p>
 </dd>
 <dt class="field-even">Resolution</dt>
-<dd class="field-even"><p><a class="reference external" href="https://github.com/napari/napari/pull/4602#pullrequestreview-1028720579">https://github.com/napari/napari/pull/4602#pullrequestreview-1028720579</a></p>
+<dd class="field-even"><p><a class="github reference external" href="https://github.com/napari/napari/pull/4602#pullrequestreview-1028720579">napari/napari#4602</a></p>
 </dd>
 <dt class="field-odd">Resolved</dt>
 <dd class="field-odd"><p>2022-07-14</p>
@@ -883,7 +596,7 @@ function checkPageExistsAndRedirect(event) {
 </dd>
 </dl>
 <section id="abstract">
-<h2>Abstract<a class="headerlink" href="#abstract" title="Permalink to this headline">¶</a></h2>
+<h2>Abstract<a class="headerlink" href="#abstract" title="Permalink to this heading">#</a></h2>
 <p>napari can be installed through different means, including <code class="docutils literal notranslate"><span class="pre">pip</span></code> and <code class="docutils literal notranslate"><span class="pre">conda</span></code>. However, users
 not exposed to package managers and command-line interfaces might prefer other options more
 native to their operating system of choice. This is usually achieved through graphical
@@ -893,7 +606,7 @@ world to build platform-specific installers and implement update strategies for 
 its plugin ecosystem.</p>
 </section>
 <section id="motivation-and-scope">
-<h2>Motivation and Scope<a class="headerlink" href="#motivation-and-scope" title="Permalink to this headline">¶</a></h2>
+<h2>Motivation and Scope<a class="headerlink" href="#motivation-and-scope" title="Permalink to this heading">#</a></h2>
 <p>napari is packaged for PyPI <a class="footnote-reference brackets" href="#pypi-napari" id="id1">1</a> and conda-forge <a class="footnote-reference brackets" href="#napari-feedstock" id="id2">2</a> and can be
 installed with any client supporting these repositories (e.g., <code class="docutils literal notranslate"><span class="pre">pip</span></code> and <code class="docutils literal notranslate"><span class="pre">conda</span></code>,
 respectively). For a number of releases, platform-specific installers were also provided with
@@ -973,10 +686,10 @@ We will also provide users an opt-in, “use at your own risk” method to insta
 PyPI packages where they do not exist on conda-forge.</p>
 </section>
 <section id="detailed-description">
-<h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this headline">¶</a></h2>
+<h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this heading">#</a></h2>
 <p>The details for each milestone will be discussed in subsections.</p>
 <section id="milestone-1-distributing-napari-and-plugins-on-conda-forge">
-<h3>Milestone 1: Distributing napari and plugins on conda-forge<a class="headerlink" href="#milestone-1-distributing-napari-and-plugins-on-conda-forge" title="Permalink to this headline">¶</a></h3>
+<h3>Milestone 1: Distributing napari and plugins on conda-forge<a class="headerlink" href="#milestone-1-distributing-napari-and-plugins-on-conda-forge" title="Permalink to this heading">#</a></h3>
 <p>napari 0.2.12 was submitted to conda-forge <a class="footnote-reference brackets" href="#staged-recipes-napari" id="id12">12</a> in Oct 2019 and the PR was
 merged some months later. As a result, napari is available on conda-forge since Feb 2020
 <a class="footnote-reference brackets" href="#napari-feedstock-creation" id="id13">13</a>. The conda-forge bots auto-submit PRs to build the new versions
@@ -1026,7 +739,7 @@ Problem: package napari-console-0.0.4-pyhd8ed1ab_0 requires ipykernel &gt;=5.2.0
 </pre></div>
 </div>
 <section id="potential-risks">
-<h4>Potential Risks<a class="headerlink" href="#potential-risks" title="Permalink to this headline">¶</a></h4>
+<h4>Potential Risks<a class="headerlink" href="#potential-risks" title="Permalink to this heading">#</a></h4>
 <p>Lack of involvement of the community might mean that only one source of packaging is updated often,
 forcing napari core developers to take over in the maintenance of the conda packages.</p>
 <p>Notably, best practices for PyPI packaging are sometimes ignored by some plugins, which means
@@ -1042,7 +755,7 @@ option for those projects that are not (yet) available on conda-forge.</p>
 </section>
 </section>
 <section id="milestone-2-building-conda-based-installers-for-napari">
-<h3>Milestone 2: Building conda-based installers for napari<a class="headerlink" href="#milestone-2-building-conda-based-installers-for-napari" title="Permalink to this headline">¶</a></h3>
+<h3>Milestone 2: Building conda-based installers for napari<a class="headerlink" href="#milestone-2-building-conda-based-installers-for-napari" title="Permalink to this heading">#</a></h3>
 <p>Anaconda releases their Anaconda and Miniconda distributions with platform specific installers:</p>
 <ul class="simple">
 <li><p>On Windows, they offer an EXE built with NSIS</p></li>
@@ -1097,7 +810,7 @@ Milestone 3).</p></li>
 can be built thanks to the nightlies available on the napari channel in Anaconda.org.</p>
 </section>
 <section id="milestone-3-adding-support-for-conda-packages-in-the-plugin-manager">
-<h3>Milestone 3: Adding support for conda packages in the plugin manager<a class="headerlink" href="#milestone-3-adding-support-for-conda-packages-in-the-plugin-manager" title="Permalink to this headline">¶</a></h3>
+<h3>Milestone 3: Adding support for conda packages in the plugin manager<a class="headerlink" href="#milestone-3-adding-support-for-conda-packages-in-the-plugin-manager" title="Permalink to this heading">#</a></h3>
 <p>napari has its own plugin manager, which so far has relied on <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install packages available on
 PyPI. To make it compatible with conda packaging, three key changes are needed:</p>
 <ol class="arabic simple">
@@ -1142,7 +855,7 @@ this involves some UI/UX research first.</p></li>
 </ul>
 </section>
 <section id="milestone-4-enabling-in-app-napari-version-updates">
-<h3>Milestone 4: Enabling in-app napari version updates<a class="headerlink" href="#milestone-4-enabling-in-app-napari-version-updates" title="Permalink to this headline">¶</a></h3>
+<h3>Milestone 4: Enabling in-app napari version updates<a class="headerlink" href="#milestone-4-enabling-in-app-napari-version-updates" title="Permalink to this heading">#</a></h3>
 <p>The installers produced by <code class="docutils literal notranslate"><span class="pre">constructor</span></code> are designed to avoid existing installations.
 Updating a <code class="docutils literal notranslate"><span class="pre">conda</span></code> environment involves more actions than just overwriting some files. For example,
 some packages might feature uninstallation scripts that wouldn’t be executed or cleaned up. For
@@ -1184,13 +897,13 @@ compatible with (either by running some kind of CI ourselves or making this anal
 submission procedure), we could simply query the API to anticipate which packages are installable
 before running the update.</p>
 <section id="id23">
-<h4>Potential risks<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h4>
+<h4>Potential risks<a class="headerlink" href="#id23" title="Permalink to this heading">#</a></h4>
 <p>Co-installability of plugins is ultimately a matter of metadata and good practices. The risks here
 are similar to the concerns shared in Milestone 1.</p>
 </section>
 </section>
 <section id="milestone-5-deprecating-briefcase-based-installers">
-<h3>Milestone 5: Deprecating Briefcase-based installers<a class="headerlink" href="#milestone-5-deprecating-briefcase-based-installers" title="Permalink to this headline">¶</a></h3>
+<h3>Milestone 5: Deprecating Briefcase-based installers<a class="headerlink" href="#milestone-5-deprecating-briefcase-based-installers" title="Permalink to this heading">#</a></h3>
 <p>Once we are satisfied with how <code class="docutils literal notranslate"><span class="pre">conda</span></code> installers are working for the end user, we can think of
 removing the pipelines that build the Briefcase-based installers. Ideally, we mark them for
 deprecation on one release, and then completely remove them on the next one. This involves
@@ -1200,7 +913,7 @@ in napari itself.</p>
 </section>
 </section>
 <section id="related-work">
-<h2>Related Work<a class="headerlink" href="#related-work" title="Permalink to this headline">¶</a></h2>
+<h2>Related Work<a class="headerlink" href="#related-work" title="Permalink to this heading">#</a></h2>
 <p>napari has been using Briefcase to build its installers so far, as discussed in the “Motivation and
 scope” section. Other alternatives we considered before choosing <code class="docutils literal notranslate"><span class="pre">conda</span></code> were:</p>
 <ul class="simple">
@@ -1212,14 +925,14 @@ executables are immutable).</p></li>
 </ul>
 </section>
 <section id="implementation">
-<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h2>
 <p>This NAP has described the whole strategy to implement a successful and comprehensive conda
 packaging story for napari. This work involves many moving pieces across different projects and
 tools, hence why a single PR is out of the question. In the following sections, we will list the
 relevant PRs opened so far. Before that, though, we will propose a general strategy on how this
 infrastructure will be maintained and governed.</p>
 <section id="general-strategy">
-<h3>General strategy<a class="headerlink" href="#general-strategy" title="Permalink to this headline">¶</a></h3>
+<h3>General strategy<a class="headerlink" href="#general-strategy" title="Permalink to this heading">#</a></h3>
 <p>After many months operating on the <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> repository, we would like to propose the creation
 of a new repository (e.g. <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code>), where all these efforts can take place without
 getting in the way of the napari development itself.</p>
@@ -1233,7 +946,7 @@ prototype, which would be designed in a napari-agnostic way for easy reusability
 projects facing our <code class="docutils literal notranslate"><span class="pre">constructor</span></code> improvements already <a class="footnote-reference brackets" href="#mne-constructor" id="id28">27</a>.</p>
 </section>
 <section id="id29">
-<h3>Milestone 1: Distributing napari and plugins on conda-forge<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
+<h3>Milestone 1: Distributing napari and plugins on conda-forge<a class="headerlink" href="#id29" title="Permalink to this heading">#</a></h3>
 <p>This work can be divided in two different tasks: adjusting the conda-forge feedstock for napari,
 and then migrating all the plugins over to conda-forge.</p>
 <ul class="simple">
@@ -1245,7 +958,7 @@ and then migrating all the plugins over to conda-forge.</p>
 tail of non-trivial packages need to be worked on. This is caused by vendored binaries,
 non-compliant licensing schemes or bad packaging practices.</p>
 <section id="tasks">
-<h4>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h4>
+<h4>Tasks<a class="headerlink" href="#tasks" title="Permalink to this heading">#</a></h4>
 <ul class="contains-task-list simple">
 <li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Add documentation about conda-forge in the release guide</p></li>
 <li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Add documentation about conda-forge in the plugin developer guide</p></li>
@@ -1255,7 +968,7 @@ non-compliant licensing schemes or bad packaging practices.</p>
 </section>
 </section>
 <section id="id30">
-<h3>Milestone 2: Building conda-based installers for napari<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<h3>Milestone 2: Building conda-based installers for napari<a class="headerlink" href="#id30" title="Permalink to this heading">#</a></h3>
 <p>Implementing the <code class="docutils literal notranslate"><span class="pre">constructor</span></code> workflow on napari was mainly done in a single, long-lived PR, that
 has seen a couple of minor updates in the recent releases:</p>
 <ul class="simple">
@@ -1290,7 +1003,7 @@ the installation process.</p></li>
 <a class="reference external" href="https://github.com/napari/packaging/issues/15#issuecomment-1203806825">this issue comment</a>.
 A complete list of features can be found in the packaging documentation <a class="footnote-reference brackets" href="#napari-packaging-docs" id="id31">28</a>.</p>
 <section id="id32">
-<h4>Tasks<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h4>
+<h4>Tasks<a class="headerlink" href="#id32" title="Permalink to this heading">#</a></h4>
 <ul class="contains-task-list simple">
 <li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Create <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code> and migrate the conda bundle CI there, along with the relevant
 metadata</p></li>
@@ -1302,7 +1015,7 @@ internally</p></li>
 </section>
 </section>
 <section id="id33">
-<h3>Milestone 3: Adding support for conda packages in the plugin manager<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
+<h3>Milestone 3: Adding support for conda packages in the plugin manager<a class="headerlink" href="#id33" title="Permalink to this heading">#</a></h3>
 <p>Support for conda/mamba handling of plugin installations was implemented in a base PR and then
 extended with different PRs:</p>
 <ul class="simple">
@@ -1319,7 +1032,7 @@ plugins with conda/mamba)</p></li>
 </ul>
 <p>Some more work is needed to offer full support to the plugin ecosystem, as detailed below.</p>
 <section id="id34">
-<h4>Tasks<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h4>
+<h4>Tasks<a class="headerlink" href="#id34" title="Permalink to this heading">#</a></h4>
 <ul class="contains-task-list simple">
 <li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Make the <code class="docutils literal notranslate"><span class="pre">Installer</span></code> class  [^napari-installer-classs] conda/mamba-aware</p></li>
 <li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Populate the plugin listing with data obtained from the napari hub API <a class="footnote-reference brackets" href="#napari-hub-api" id="id35">29</a></p></li>
@@ -1339,7 +1052,7 @@ consents to a warning detailing the risks and recovery options.</p>
 </section>
 </section>
 <section id="id38">
-<h3>Milestone 4: Enabling in-app napari version updates<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
+<h3>Milestone 4: Enabling in-app napari version updates<a class="headerlink" href="#id38" title="Permalink to this heading">#</a></h3>
 <p>Our first attempts <a class="footnote-reference brackets" href="#in-app-update-pr" id="id39">32</a> to implement this consisted of a pop-up dialog that would
 notify the user about the available updates. Accepting the dialog would trigger the creation of a
 new environment (e.g. <code class="docutils literal notranslate"><span class="pre">napari-0.4.16</span></code>) alongside the existing one (e.g. <code class="docutils literal notranslate"><span class="pre">napari-0.4.15</span></code>). While it
@@ -1369,7 +1082,7 @@ found, the server will run the update on its own. In essence, all <code class="d
 <code class="docutils literal notranslate"><span class="pre">magicgui</span></code>) but it will be usable outside of the napari project, following the same philosophy we
 adopted for the constructor work.</p>
 <section id="id40">
-<h4>Tasks<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h4>
+<h4>Tasks<a class="headerlink" href="#id40" title="Permalink to this heading">#</a></h4>
 <ul class="contains-task-list simple">
 <li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Start a simple CLI tool to prototype the role of <code class="docutils literal notranslate"><span class="pre">napari-updater</span></code>, initially under the
 <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code> repo. This will contain the new version detection code as well as the
@@ -1384,12 +1097,12 @@ installation diagnostics, plugin “co-installability” analysis, etc).</p></li
 </section>
 </section>
 <section id="id41">
-<h3>Milestone 5: Deprecating Briefcase-based installers<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h3>
+<h3>Milestone 5: Deprecating Briefcase-based installers<a class="headerlink" href="#id41" title="Permalink to this heading">#</a></h3>
 <p>See the corresponding section in “Detailed description”.</p>
 </section>
 </section>
 <section id="backward-compatibility">
-<h2>Backward Compatibility<a class="headerlink" href="#backward-compatibility" title="Permalink to this headline">¶</a></h2>
+<h2>Backward Compatibility<a class="headerlink" href="#backward-compatibility" title="Permalink to this heading">#</a></h2>
 <p>Migrating the backend on which we build the installers has little impact on the end users who
 just want to run napari. That said, <code class="docutils literal notranslate"><span class="pre">constructor</span></code> does not support the AppImage format for
 Linux or DMG for macOS, which were the ones previously used with Briefcase. We don’t see this
@@ -1403,12 +1116,12 @@ that details the potential problems it can cause, and how to use the <code class
 it, if needed.</p>
 </section>
 <section id="future-work">
-<h2>Future Work<a class="headerlink" href="#future-work" title="Permalink to this headline">¶</a></h2>
+<h2>Future Work<a class="headerlink" href="#future-work" title="Permalink to this heading">#</a></h2>
 <p>The tool handling the updates and managing different napari installations will start simple. In
 the future, if it makes sense, we can talk about adding a UI on top.</p>
 </section>
 <section id="alternatives">
-<h2>Alternatives<a class="headerlink" href="#alternatives" title="Permalink to this headline">¶</a></h2>
+<h2>Alternatives<a class="headerlink" href="#alternatives" title="Permalink to this heading">#</a></h2>
 <blockquote>
 <div><p>Please refer to the “Related work” section for details on other milestones.</p>
 </div></blockquote>
@@ -1426,7 +1139,7 @@ packaging policies established by the napari community.</p></li>
 </ul>
 </section>
 <section id="discussion">
-<h2>Discussion<a class="headerlink" href="#discussion" title="Permalink to this headline">¶</a></h2>
+<h2>Discussion<a class="headerlink" href="#discussion" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/issues/1001">Issue #1001</a> (Plugin dependency management)</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/pull/4404">PR #4404</a> (Switch to a more declarative configuration
@@ -1438,7 +1151,7 @@ to discuss the approval of this NAP</p></li>
 </ul>
 </section>
 <section id="references-and-footnotes">
-<h2>References and Footnotes<a class="headerlink" href="#references-and-footnotes" title="Permalink to this headline">¶</a></h2>
+<h2>References and Footnotes<a class="headerlink" href="#references-and-footnotes" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Napari on PyPI <a class="footnote-reference brackets" href="#pypi-napari" id="id43">1</a></p></li>
 <li><p>Napari on conda-forge <a class="footnote-reference brackets" href="#napari-feedstock" id="id44">2</a></p></li>
@@ -1447,7 +1160,7 @@ to discuss the approval of this NAP</p></li>
 </ul>
 </section>
 <section id="copyright">
-<h2>Copyright<a class="headerlink" href="#copyright" title="Permalink to this headline">¶</a></h2>
+<h2>Copyright<a class="headerlink" href="#copyright" title="Permalink to this heading">#</a></h2>
 <p>This document is dedicated to the public domain with the Creative Commons CC0
 license <a class="footnote-reference brackets" href="#cc0" id="id47">36</a>. Attribution to this source is encouraged where appropriate, as per
 CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id48">37</a>.</p>
@@ -1457,13 +1170,13 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id48">37</a>.</p
 <dd><p><a class="reference external" href="https://pypi.org/project/napari/">https://pypi.org/project/napari/</a></p>
 </dd>
 <dt class="label" id="napari-feedstock"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id44">2</a>)</span></dt>
-<dd><p><a class="reference external" href="https://github.com/conda-forge/napari-feedstock">https://github.com/conda-forge/napari-feedstock</a></p>
+<dd><p><a class="github reference external" href="https://github.com/conda-forge/napari-feedstock">conda-forge/napari-feedstock</a></p>
 </dd>
 <dt class="label" id="briefcase"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
 <dd><p><a class="reference external" href="https://beeware.org/project/projects/tools/briefcase/">https://beeware.org/project/projects/tools/briefcase/</a></p>
 </dd>
 <dt class="label" id="cibuildwheel"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/pypa/cibuildwheel">https://github.com/pypa/cibuildwheel</a></p>
+<dd><p><a class="github reference external" href="https://github.com/pypa/cibuildwheel">pypa/cibuildwheel</a></p>
 </dd>
 <dt class="label" id="audithwheel"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
 <dd><p>https://github.com/pypa/auditwheel</p>
@@ -1481,16 +1194,16 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id48">37</a>.</p
 <dd><p>https://github.com/beeware?q=Python+support&amp;type=all&amp;language=&amp;sort=</p>
 </dd>
 <dt class="label" id="appimage-crash"><span class="brackets"><a class="fn-backref" href="#id10">10</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/napari/napari/issues/3487">https://github.com/napari/napari/issues/3487</a></p>
+<dd><p><a class="github reference external" href="https://github.com/napari/napari/issues/3487">napari/napari#3487</a></p>
 </dd>
 <dt class="label" id="appimage-crash2"><span class="brackets"><a class="fn-backref" href="#id11">11</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/napari/napari/issues/3816">https://github.com/napari/napari/issues/3816</a></p>
+<dd><p><a class="github reference external" href="https://github.com/napari/napari/issues/3816">napari/napari#3816</a></p>
 </dd>
 <dt class="label" id="staged-recipes-napari"><span class="brackets"><a class="fn-backref" href="#id12">12</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/conda-forge/staged-recipes/pull/9983">https://github.com/conda-forge/staged-recipes/pull/9983</a></p>
+<dd><p><a class="github reference external" href="https://github.com/conda-forge/staged-recipes/pull/9983">conda-forge/staged-recipes#9983</a></p>
 </dd>
 <dt class="label" id="napari-feedstock-creation"><span class="brackets"><a class="fn-backref" href="#id13">13</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/conda-forge/napari-feedstock/commit/815a24cadb9522f4fc81a41c9eb89d45b2e284eb">https://github.com/conda-forge/napari-feedstock/commit/815a24cadb9522f4fc81a41c9eb89d45b2e284eb</a></p>
+<dd><p><a class="github reference external" href="https://github.com/conda-forge/napari-feedstock/commit/815a24cadb9522f4fc81a41c9eb89d45b2e284eb">conda-forge/napari-feedstock</a></p>
 </dd>
 <dt class="label" id="release-guide"><span class="brackets"><a class="fn-backref" href="#id14">14</a></span></dt>
 <dd><p>https://napari.org/stable/developers/release.html</p>
@@ -1499,7 +1212,7 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id48">37</a>.</p
 <dd><p><a class="reference external" href="https://anaconda.org/napari/">https://anaconda.org/napari/</a></p>
 </dd>
 <dt class="label" id="staged-recipes-all-plugins"><span class="brackets"><a class="fn-backref" href="#id16">16</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/conda-forge/staged-recipes/pulls?q=is%3Apr+author%3Agoanpeca+created%3A2022-01-01..2022-05-01">https://github.com/conda-forge/staged-recipes/pulls?q=is%3Apr+author%3Agoanpeca+created%3A2022-01-01..2022-05-01</a></p>
+<dd><p><a class="github reference external" href="https://github.com/conda-forge/staged-recipes/pulls?q=is%3Apr+author%3Agoanpeca+created%3A2022-01-01..2022-05-01">conda-forge/staged-recipes</a></p>
 </dd>
 <dt class="label" id="scijava-pinnings"><span class="brackets"><a class="fn-backref" href="#id17">17</a></span></dt>
 <dd><p>https://github.com/scijava/pom-scijava/blob/ff35ca810a8717c4f461ef24df4986bf1914c673/pom.xml#L307</p>
@@ -1511,19 +1224,19 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id48">37</a>.</p
 <dd><p>https://github.com/Semi-ATE/maxiconda-envs</p>
 </dd>
 <dt class="label" id="constructor"><span class="brackets"><a class="fn-backref" href="#id20">20</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/conda/constructor">https://github.com/conda/constructor</a></p>
+<dd><p><a class="github reference external" href="https://github.com/conda/constructor">conda/constructor</a></p>
 </dd>
 <dt class="label" id="constructor-upstream"><span class="brackets"><a class="fn-backref" href="#id21">21</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/napari/packaging/issues/15#issuecomment-1203806825">https://github.com/napari/packaging/issues/15#issuecomment-1203806825</a></p>
+<dd><p><a class="github reference external" href="https://github.com/napari/packaging/issues/15#issuecomment-1203806825">napari/packaging#15</a></p>
 </dd>
 <dt class="label" id="menuinst"><span class="brackets"><a class="fn-backref" href="#id22">22</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/conda/menuinst">https://github.com/conda/menuinst</a></p>
+<dd><p><a class="github reference external" href="https://github.com/conda/menuinst">conda/menuinst</a></p>
 </dd>
 <dt class="label" id="briefcase-utilities-example"><span class="brackets"><a class="fn-backref" href="#id24">23</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/napari/napari/blob/be43e127a079f999d830c457d6d69b7c2b56875d/napari/utils/misc.py#L49">https://github.com/napari/napari/blob/be43e127a079f999d830c457d6d69b7c2b56875d/napari/utils/misc.py#L49</a></p>
+<dd><p><a class="github reference external" href="https://github.com/napari/napari/blob/be43e127a079f999d830c457d6d69b7c2b56875d/napari/utils/misc.py#L49">napari/napari</a></p>
 </dd>
 <dt class="label" id="briefcase-workaround-example"><span class="brackets"><a class="fn-backref" href="#id25">24</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/napari/napari/blob/be43e127a079f999d830c457d6d69b7c2b56875d/napari/plugins/__init__.py#L34-L42">https://github.com/napari/napari/blob/be43e127a079f999d830c457d6d69b7c2b56875d/napari/plugins/__init__.py#L34-L42</a></p>
+<dd><p><a class="github reference external" href="https://github.com/napari/napari/blob/be43e127a079f999d830c457d6d69b7c2b56875d/napari/plugins/__init__.py#L34-L42">napari/napari</a></p>
 </dd>
 <dt class="label" id="pyoxidizer"><span class="brackets"><a class="fn-backref" href="#id26">25</a></span></dt>
 <dd><p><a class="reference external" href="https://pyoxidizer.readthedocs.io/en/stable/">https://pyoxidizer.readthedocs.io/en/stable/</a></p>
@@ -1570,61 +1283,115 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id48">37</a>.</p
 </section>
 
 
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1-institutional-funding-partners.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">NAP-1 — Institutional and Funding Partners</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3-spaces.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">NAP-3 — Spaces</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
             </div>
             
             
-            <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="1-institutional-funding-partners.html" title="previous page">
-        <svg
-            width="10"
-            height="16"
-            viewBox="0 0 10 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <path
-                d="M8.92892 1L1.85786 8.07107L8.92892 15.1421"
-                stroke="black"
-                stroke-width="2"
-            />
-        </svg>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">NAP-1 — Institutional and Funding Partners</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="3-spaces.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">NAP-3 — Spaces</p>
-    </div>
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-    <svg
-        width="10"
-        height="16"
-        viewBox="0 0 10 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <path
-            d="M1.07108 15L8.14214 7.92893L1.07108 0.857864"
-            stroke="black"
-            stroke-width="2"
-        />
-    </svg>
-    </a>
-</div>
+  <div class="sidebar-secondary-item">
+
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abstract">Abstract</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-and-scope">Motivation and Scope</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-description">Detailed Description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#milestone-1-distributing-napari-and-plugins-on-conda-forge">Milestone 1: Distributing napari and plugins on conda-forge</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#potential-risks">Potential Risks</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#milestone-2-building-conda-based-installers-for-napari">Milestone 2: Building conda-based installers for napari</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#milestone-3-adding-support-for-conda-packages-in-the-plugin-manager">Milestone 3: Adding support for conda packages in the plugin manager</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#milestone-4-enabling-in-app-napari-version-updates">Milestone 4: Enabling in-app napari version updates</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">Potential risks</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#milestone-5-deprecating-briefcase-based-installers">Milestone 5: Deprecating Briefcase-based installers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#related-work">Related Work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-strategy">General strategy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">Milestone 1: Distributing napari and plugins on conda-forge</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks">Tasks</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">Milestone 2: Building conda-based installers for napari</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">Tasks</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">Milestone 3: Adding support for conda packages in the plugin manager</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">Tasks</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">Milestone 4: Enabling in-app napari version updates</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">Tasks</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">Milestone 5: Deprecating Briefcase-based installers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-compatibility">Backward Compatibility</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#future-work">Future Work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alternatives">Alternatives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-footnotes">References and Footnotes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copyright">Copyright</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
             
-        </main>
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
         
-
+      </main>
     </div>
-
-    <script src="../_static/scripts/napari-sphinx-theme.js"></script><footer class="napari-footer">
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+<footer class="napari-footer">
   
     <div class="footer-item">
-      <a href="/">
+      <a class="footer-icon__hover-blue" href="https://napari.org" target="_blank" rel="noreferrer">
   <svg
   width="30"
   height="30"
@@ -2089,7 +1856,7 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id48">37</a>.</p
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.3.0</span>
     
   </div>
 </div>

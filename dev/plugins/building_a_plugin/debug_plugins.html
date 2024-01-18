@@ -1,7 +1,10 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -9,16 +12,27 @@
     <link sizes="any" href="../../_static/favicon/logo-silhouette-192.png" rel="icon" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/logo-noborder-180.png" type="image/png">
     <title>Debugging during plugin development &#8212; napari</title>
-  <link rel="stylesheet" href="../../_static/fa/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/webfonts/fa-brands-400.woff2">
-  <link href="../../_static/styles/theme.css" rel="stylesheet">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/napari-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/napari-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
@@ -27,13 +41,28 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script src="../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'plugins/building_a_plugin/debug_plugins';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Best practices" href="best_practices.html" />
@@ -41,554 +70,459 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
+    <meta name="docsearch:language" content="en">
     
 
   </head>
-  <body>
-    
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-  <div id="navbar-start">
-    
-    <!-- A small template snippet for theme testing -->
-<a class="navbar-brand" href="../../index.html">
-  napari
-</a>
-    
-  </div>
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M20 2H0" stroke="black" stroke-width="3"/>
-  <path d="M20 10H0" stroke="black" stroke-width="3"/>
-  <path d="M20 18H0" stroke="black" stroke-width="3"/>
-</svg>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
   </button>
 
   
-  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
-    <div id="navbar-center" class="mr-auto">
-      
-      <div class="navbar-center-item">
-        <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../usage.html">
-  Usage
- </a>
-</li>
-
-<li class="toctree-l1 current active nav-item">
- <a class="reference internal nav-link" href="../index.html">
-  Plugins
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../community/index.html">
-  Community
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../developers/index.html">
-  Contributing
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../api/index.html">
-  API Reference
- </a>
-</li>
-
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="search"
+         aria-label="search"
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
-    <li class="nav-item">
-        <a class="nav-link nav-external" href="https://napari-hub.org">napari hub<i class="fas fa-external-link-alt"></i></a>
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="napari - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="napari - Home"/>`);</script>
+  
+  
+</a></div>
+    
+      <div class="navbar-item"><!-- A small template snippet for theme testing -->
+<a class="navbar-brand" href="../../index.html">
+  napari
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../usage.html">
+                        Usage
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Plugins
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../community/index.html">
+                        Community
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../developers/index.html">
+                        Contributing
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://napari-hub.org">
+                    napari hub
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../usage.html">
+                        Usage
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Plugins
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../community/index.html">
+                        Community
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../developers/index.html">
+                        Contributing
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://napari-hub.org">
+                    napari hub
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="search"
+         aria-label="search"
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../start_using_plugins/index.html">Start using plugins</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../start_using_plugins/finding_and_installing_plugins.html">Finding and installing plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Building a plugin</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="first_plugin.html">Your first plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides.html">Plugin contributions</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Debugging during plugin development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html">Best practices</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../virtual_environment_docs/index.html">Tools and tips when building napari plugins or: firehose of stuff I wish I knew earlier</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../virtual_environment_docs/1-virtual-environments.html">Virtual environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../virtual_environment_docs/2-deploying-your-plugin.html">Deploying your plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../virtual_environment_docs/3-version-management.html">Version management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../virtual_environment_docs/4-developer-tools.html">Developer tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../virtual_environment_docs/5-survey.html">Survey/Q&amp;A</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../testing_and_publishing/index.html">Testing and publishing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../testing_and_publishing/test.html">Testing guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing_and_publishing/deploy.html">Publish your plugin</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../testing_workshop_docs/index.html">In-depth guide to plugin testing</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../testing_workshop_docs/1-pythons-assert-keyword.html">1: Python’s assert keyword</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../testing_workshop_docs/2-pytest-testing-frameworks.html">2: Pytest testing framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../testing_workshop_docs/3-readers-and-fixtures.html">3: Readers and fixtures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../testing_workshop_docs/4-test-coverage.html">4: Test coverage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../testing_workshop_docs/testing-resources.html">Testing resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../advanced_topics/index.html">Advanced Topics</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../advanced_topics/npe2_migration_guide.html">Migration to <code class="docutils literal notranslate"><span class="pre">npe2</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../advanced_topics/npe1.html">First generation plugins (<em>Deprecated</em>)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../technical_references/index.html">Technical references</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/manifest.html">Manifest Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/contributions.html">Contributions Reference</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
     </li>
     
-</ul>
-      </div>
-      
-    </div>
-
-    <div id="navbar-end">
-      
-      <div class="navbar-end-item">
-        <div class="dropdown" id="version_switcher">
-    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
-
-        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
-        </svg>
-    </button>
-    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
-    <!-- dropdown will be populated by javascript on page load -->
-    </div>
-</div>
-
-<!-- NOTE: this JS must live here (not in our global JS file) because it relies
-     on being processed by Jinja before it is run (specifically for replacing
-     variables plugins/building_a_plugin/debug_plugins and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
--->
-
-<script type="text/javascript">
-// Check if corresponding page path exists in other version of docs
-// and, if so, go there instead of the homepage of the other docs version
-function checkPageExistsAndRedirect(event) {
-    const currentFilePath = "plugins/building_a_plugin/debug_plugins.html",
-          tryUrl = event.target.getAttribute("href");
-    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
-    $.ajax({
-        type: 'HEAD',
-        url: tryUrl,
-        // if the page exists, go there
-        success: function() {
-            location.href = tryUrl;
-        }
-    }).fail(function() {
-        location.href = otherDocsHomepage;
-    });
-    // this prevents the browser from following the href of the clicked node
-    // (which is fine because this function takes care of redirecting)
-    return false;
-}
-
-// Populate the version switcher from the JSON config file
-(function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
-        const currentFilePath = "plugins/building_a_plugin/debug_plugins.html";
-        // create links to the corresponding page in the other docs versions
-        $.each(data, function(index, entry) {
-            // if no custom name specified (e.g., "latest"), use version string
-            if (!("name" in entry)) {
-                entry.name = entry.version;
-            }
-            // create the node
-            const node = document.createElement("a");
-            node.setAttribute("class", "list-group-item list-group-item-action py-1");
-            node.textContent = `${entry.name}`;
-            node.setAttribute("href", `${entry.url}${currentFilePath}`);
-            // on click, AJAX calls will check if the linked page exists before
-            // trying to redirect, and if not, will redirect to the homepage
-            // for that version of the docs.
-            node.onclick = checkPageExistsAndRedirect;
-            // Add dataset values for the version and name in case people want
-            // to apply CSS styling based on this information.
-            node.dataset["versionName"] = entry.name;
-            node.dataset["version"] = entry.version;
-
-            $("#version_switcher_menu").append(node);
-            // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
-            // also highlight the dropdown entry for the currently-viewed
-            // version's entry
-            if (entry.version == "latest") {
-                node.classList.add("active");
-                let btn = document.getElementById("version_switcher_button");
-                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
-                btn.dataset["activeVersion"] = entry.version;
-            }
-        });
-    });
-})();
-</script>
-      </div>
-      
-      <div class="navbar-end-item">
-        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
-        <li class="nav-item">
-          <a class="nav-link" href="https://github.com/napari/napari" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
-            <label class="sr-only">GitHub</label></a>
-        </li>
-      </ul>
-      </div>
-      
-    </div>
-  </div>
-</div>
-    </nav>
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Plugins</a></li>
     
-
-    <div class="napari-page">
-        
-          
-          <!-- Only show if we have sidebars configured, else just a small margin  -->
-          <div class="bd-sidebar">
-            <div class="sidebar-start-items"><form
-  class="search"
-  action="../../search.html"
-  method="get"
->
-  <input
-    type="search"
-    name="q"
-    placeholder="search"
-    aria-label="search"
-    autocomplete="off"
-  />
-
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M8.32001 7.67998L0.746674 15.2533M10.6667 9.59998C13.0133 9.59998 14.9333 7.67998 14.9333 5.33332C14.9333 2.98665 13.0133 1.06665 10.6667 1.06665C8.32001 1.06665 6.40001 2.98665 6.40001 5.33332C6.40001 7.67998 8.32001 9.59998 10.6667 9.59998Z"
-      stroke="black"
-      stroke-width="2"
-    />
-  </svg>
-  </button>
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <div class="bd-toc-item active">
-    <ul class="current nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <img src="../../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../start_using_plugins/index.html">
-   Start using plugins
-  </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../start_using_plugins/finding_and_installing_plugins.html">
-     Finding and installing plugins
-    </a>
-   </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Building a plugin</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Debugging...</li>
   </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <img src="../../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="index.html">
-   Building a plugin
-  </a>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="first_plugin.html">
-     Your first plugin
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="guides.html">
-     Plugin contributions
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Debugging during plugin development
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="best_practices.html">
-     Best practices
-    </a>
-   </li>
-   <li class="toctree-l2 has-children">
-    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-    <label for="toctree-checkbox-3">
-     <img src="../../_static/icons/sidebar-triangle.png"/>
-    </label>
-    <a class="reference internal" href="../virtual_environment_docs/index.html">
-     Tools and tips when building napari plugins or: firehose of stuff I wish I knew earlier
-    </a>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../virtual_environment_docs/1-virtual-environments.html">
-       Virtual environments
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../virtual_environment_docs/2-deploying-your-plugin.html">
-       Deploying your plugin
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../virtual_environment_docs/3-version-management.html">
-       Version management
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../virtual_environment_docs/4-developer-tools.html">
-       Developer tools
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../virtual_environment_docs/5-survey.html">
-       Survey/Q&amp;A
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <img src="../../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../testing_and_publishing/index.html">
-   Testing and publishing
-  </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../testing_and_publishing/test.html">
-     Testing guidelines
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../testing_and_publishing/deploy.html">
-     Publish your plugin
-    </a>
-   </li>
-   <li class="toctree-l2 has-children">
-    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-    <label for="toctree-checkbox-5">
-     <img src="../../_static/icons/sidebar-triangle.png"/>
-    </label>
-    <a class="reference internal" href="../testing_workshop_docs/index.html">
-     In-depth guide to plugin testing
-    </a>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../testing_workshop_docs/1-pythons-assert-keyword.html">
-       1: Python’s assert keyword
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../testing_workshop_docs/2-pytest-testing-frameworks.html">
-       2: Pytest testing framework
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../testing_workshop_docs/3-readers-and-fixtures.html">
-       3: Readers and fixtures
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../testing_workshop_docs/4-test-coverage.html">
-       4: Test coverage
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../testing_workshop_docs/testing-resources.html">
-       Testing resources
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
-   <img src="../../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../advanced_topics/index.html">
-   Advanced Topics
-  </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../advanced_topics/npe2_migration_guide.html">
-     Migration to
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       npe2
-      </span>
-     </code>
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../advanced_topics/npe1.html">
-     First generation plugins (
-     <em>
-      Deprecated
-     </em>
-     )
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
-   <img src="../../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../technical_references/index.html">
-   Technical references
-  </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../technical_references/manifest.html">
-     Manifest Reference
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../technical_references/contributions.html">
-     Contributions Reference
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-  </div>
 </nav>
-            </div>
-            <div class="sidebar-end-items">
-            </div>
-          </div>
-          
-        
-
-        
-        <div class="bd-toc">
-          
-            
-            <div class="toc-item">
-              
-<div class="tocsection onthispage mt-5 pt-1 pb-3">
-    On this page
 </div>
-
-<nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#quick-start">
-   Quick start
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#debugging-plugin-start-up-issues">
-   Debugging plugin start-up issues
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#seeing-tracebacks-from-plugin-errors">
-   Seeing tracebacks from plugin errors
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#overview-of-methods-to-debug-plugins-during-development">
-   Overview of methods to debug plugins during development
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#reload-code-as-you-change-it-with-ipython">
-     Reload code as you change it with IPython
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#write-a-script-to-setup-the-plugin-without-user-interaction">
-     Write a script to setup the plugin without user interaction
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#isolate-the-plugin-functionality-from-napari">
-     Isolate the plugin functionality from napari
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-simple-plugin-for-following-examples">
-   A simple plugin for following examples
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#plugin-project-structure">
-     Plugin project structure
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-ipython-to-reload-code-during-plugin-development">
-   Using IPython to reload code during plugin development
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#launch-ipython-and-set-up-the-viewer">
-     Launch IPython and set up the viewer
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#changing-the-code-with-ipython-running">
-     Changing the code with IPython running
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#write-a-setup-script-to-avoid-gui-interaction">
-   Write a setup script to avoid GUI interaction
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#isolate-the-issue-from-napari">
-   Isolate the issue from napari
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#logging-and-user-messages-in-napari">
-   Logging and user messages in napari
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#set-up-plugin-user-messages-and-notifications">
-     Set up plugin user messages and notifications
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#set-up-plugin-log-messages">
-     Set up plugin log messages
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#viewing-plugin-log-messages">
-     Viewing plugin log messages
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#debugging-segfaults-memory-violation-errors">
-   Debugging segfaults/memory violation errors
-  </a>
- </li>
-</ul>
-
-</nav>
-            </div>
-            
-            <div class="toc-item">
+      
+    </div>
+  
+  
+</div>
+</div>
               
-            </div>
-            
-          
-        </div>
-        
-
-        
-        
-          
-        
-        <main class="col-md-9 col-xl-7 bd-content" role="main">
-            
-            <div>
               
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="debugging-during-plugin-development">
-<h1>Debugging during plugin development<a class="headerlink" href="#debugging-during-plugin-development" title="Permalink to this headline">¶</a></h1>
+<h1>Debugging during plugin development<a class="headerlink" href="#debugging-during-plugin-development" title="Permalink to this heading">#</a></h1>
 <p>When developing plugins in napari, you may encounter mistakes or bugs in your code. This page covers some ways to debug napari plugins during development, including:</p>
 <ol class="arabic simple">
 <li><p>Debugging plugin start-up issues.</p></li>
@@ -600,7 +534,7 @@ function checkPageExistsAndRedirect(event) {
 <li><p>Debugging segfaults/memory violation errors</p></li>
 </ol>
 <section id="quick-start">
-<h2>Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
+<h2>Quick start<a class="headerlink" href="#quick-start" title="Permalink to this heading">#</a></h2>
 <p>To quickly get started with debugging your plugin, you can do the following:</p>
 <ol class="arabic">
 <li><p>Install your plugin in <a class="reference external" href="https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/#working-in-development-mode">editable mode</a> in your virtual environment. For example, you could do this by running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> in the root directory of your plugin’s repository.</p></li>
@@ -626,7 +560,7 @@ function checkPageExistsAndRedirect(event) {
 <p><img alt="debugging_in_vscode" src="../../_images/vs_code_debug.png" /></p>
 </section>
 <section id="debugging-plugin-start-up-issues">
-<h2>Debugging plugin start-up issues<a class="headerlink" href="#debugging-plugin-start-up-issues" title="Permalink to this headline">¶</a></h2>
+<h2>Debugging plugin start-up issues<a class="headerlink" href="#debugging-plugin-start-up-issues" title="Permalink to this heading">#</a></h2>
 <p>It is possible that after installing your plugin, napari will fail to launch - or your plugin won’t show up.
 The following commands will report any issues napari detects with your plugin that may prevent napari from launching or prevent napari from discovering your plugin:</p>
 <ul class="simple">
@@ -646,7 +580,7 @@ The following commands will report any issues napari detects with your plugin th
 <p>For example if <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">list</span></code> does show the package is installed, and <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">validate</span></code> reports success, but napari can’t see your plugin, your entry point may be ill-configured.</p>
 </section>
 <section id="seeing-tracebacks-from-plugin-errors">
-<h2>Seeing tracebacks from plugin errors<a class="headerlink" href="#seeing-tracebacks-from-plugin-errors" title="Permalink to this headline">¶</a></h2>
+<h2>Seeing tracebacks from plugin errors<a class="headerlink" href="#seeing-tracebacks-from-plugin-errors" title="Permalink to this heading">#</a></h2>
 <p>By default, napari will output any traceback information from plugin related errors to the console or jupyter notebook that napari was launched from.
 Additionally, a popup will show in the bottom right corner of the napari viewer with a <code class="docutils literal notranslate"><span class="pre">View</span> <span class="pre">Traceback</span></code> button.
 Inside of this popup, the full traceback can be seen, along with the option to drop into the debugger from here.
@@ -658,22 +592,22 @@ Dropping into the debugger will open the built in <a class="reference external" 
 </div>
 </section>
 <section id="overview-of-methods-to-debug-plugins-during-development">
-<h2>Overview of methods to debug plugins during development<a class="headerlink" href="#overview-of-methods-to-debug-plugins-during-development" title="Permalink to this headline">¶</a></h2>
+<h2>Overview of methods to debug plugins during development<a class="headerlink" href="#overview-of-methods-to-debug-plugins-during-development" title="Permalink to this heading">#</a></h2>
 <section id="reload-code-as-you-change-it-with-ipython">
-<h3>Reload code as you change it with IPython<a class="headerlink" href="#reload-code-as-you-change-it-with-ipython" title="Permalink to this headline">¶</a></h3>
+<h3>Reload code as you change it with IPython<a class="headerlink" href="#reload-code-as-you-change-it-with-ipython" title="Permalink to this heading">#</a></h3>
 <p>Reloading code as it changes with IPython provides an easy way to see the immediate impacts of code development without the need to relaunch the viewer multiple times.</p>
 </section>
 <section id="write-a-script-to-setup-the-plugin-without-user-interaction">
-<h3>Write a script to setup the plugin without user interaction<a class="headerlink" href="#write-a-script-to-setup-the-plugin-without-user-interaction" title="Permalink to this headline">¶</a></h3>
+<h3>Write a script to setup the plugin without user interaction<a class="headerlink" href="#write-a-script-to-setup-the-plugin-without-user-interaction" title="Permalink to this heading">#</a></h3>
 <p>Writing a setup script reproducibly places your napari viewer at the state of problems, without having to perform user interaction in the GUI to get back to the problem state. Launching napari and your plugin from a script can often allow you to use your IDE’s built in debugging tools, as long as both your plugin and napari itself are installed in editable mode in your enviroment.</p>
 </section>
 <section id="isolate-the-plugin-functionality-from-napari">
-<h3>Isolate the plugin functionality from napari<a class="headerlink" href="#isolate-the-plugin-functionality-from-napari" title="Permalink to this headline">¶</a></h3>
+<h3>Isolate the plugin functionality from napari<a class="headerlink" href="#isolate-the-plugin-functionality-from-napari" title="Permalink to this heading">#</a></h3>
 <p>To simplify the debugging process, it can be useful to isolate the execution of your plugin code from executing napari itself. For example, in the case of a widget, the widget could be isolated from napari and run separately as a PyQt widget for debugging purposes. In this way, the usual debugging tools, such as those provided by an IDE, can be applied. This method has the additional benefit of aligning with test driven development.</p>
 </section>
 </section>
 <section id="a-simple-plugin-for-following-examples">
-<h2>A simple plugin for following examples<a class="headerlink" href="#a-simple-plugin-for-following-examples" title="Permalink to this headline">¶</a></h2>
+<h2>A simple plugin for following examples<a class="headerlink" href="#a-simple-plugin-for-following-examples" title="Permalink to this heading">#</a></h2>
 <p>To demonstrate these reloading and debugging options, we will create a small plugin called <code class="docutils literal notranslate"><span class="pre">napari-simple-reload</span></code> that prints the text entered into a box by the user. The plugin will provide an autogenerated widget, a <code class="docutils literal notranslate"><span class="pre">magic_factory</span></code> widget, and a <code class="docutils literal notranslate"><span class="pre">QWidget</span></code> - see the <a class="reference internal" href="guides.html#widgets"><span class="std std-doc">contribution guides</span></a> for more detail.</p>
 <p>Firstly, clone the code with <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/seankmartin/napari-plugin-debug.git</span></code>, or download the code <a class="reference external" href="https://github.com/seankmartin/napari-plugin-debug">here</a>. Then install the package into an environment already containing napari by:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>napari-plugin-debug/napari-simple-reload
@@ -681,7 +615,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </pre></div>
 </div>
 <section id="plugin-project-structure">
-<h3>Plugin project structure<a class="headerlink" href="#plugin-project-structure" title="Permalink to this headline">¶</a></h3>
+<h3>Plugin project structure<a class="headerlink" href="#plugin-project-structure" title="Permalink to this heading">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>napari-plugin-debug/napari-simple-reload/
 ├── napari_simple_reload/
 │   ├── __init__.py
@@ -694,10 +628,10 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </section>
 </section>
 <section id="using-ipython-to-reload-code-during-plugin-development">
-<h2>Using IPython to reload code during plugin development<a class="headerlink" href="#using-ipython-to-reload-code-during-plugin-development" title="Permalink to this headline">¶</a></h2>
+<h2>Using IPython to reload code during plugin development<a class="headerlink" href="#using-ipython-to-reload-code-during-plugin-development" title="Permalink to this heading">#</a></h2>
 <p>Here, we demonstrate using the <a class="reference external" href="https://ipython.org/ipython-doc/3/config/extensions/autoreload.html">autoreload extension</a> with IPython or a Jupyter notebook to open the napari viewer with the ability to reload the changed plugin code during development.</p>
 <section id="launch-ipython-and-set-up-the-viewer">
-<h3>Launch IPython and set up the viewer<a class="headerlink" href="#launch-ipython-and-set-up-the-viewer" title="Permalink to this headline">¶</a></h3>
+<h3>Launch IPython and set up the viewer<a class="headerlink" href="#launch-ipython-and-set-up-the-viewer" title="Permalink to this heading">#</a></h3>
 <p>First, we open the napari viewer and add our three plugin widgets to the dock. Launch IPython via the <code class="docutils literal notranslate"><span class="pre">IPython</span></code> command in terminal (IPython is installed with napari) and then enter the following into the IPython console:</p>
 <div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="o">%</span><span class="k">load_ext</span> autoreload
 
@@ -723,7 +657,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </div>
 </section>
 <section id="changing-the-code-with-ipython-running">
-<h3>Changing the code with IPython running<a class="headerlink" href="#changing-the-code-with-ipython-running" title="Permalink to this headline">¶</a></h3>
+<h3>Changing the code with IPython running<a class="headerlink" href="#changing-the-code-with-ipython-running" title="Permalink to this heading">#</a></h3>
 <p>Currently, clicking on the run button for any of these widgets in the napari viewer outputs “You entered <strong>YOUR_ENTRY</strong>!”. However, we would like to change the behaviour such that a special message is printed if nothing is entered. So let’s change our <code class="docutils literal notranslate"><span class="pre">example</span></code> function in <code class="docutils literal notranslate"><span class="pre">_widget.py</span></code> from the downloaded plugin code to:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">example</span><span class="p">(</span><span class="n">input_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">output_string</span> <span class="o">=</span> <span class="p">(</span>
@@ -751,7 +685,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </section>
 </section>
 <section id="write-a-setup-script-to-avoid-gui-interaction">
-<h2>Write a setup script to avoid GUI interaction<a class="headerlink" href="#write-a-setup-script-to-avoid-gui-interaction" title="Permalink to this headline">¶</a></h2>
+<h2>Write a setup script to avoid GUI interaction<a class="headerlink" href="#write-a-setup-script-to-avoid-gui-interaction" title="Permalink to this heading">#</a></h2>
 <p>The key here is to use <code class="docutils literal notranslate"><span class="pre">viewer.window.add_plugin_dock_widget()</span></code> and then programmatically add the required information to your plugin so that when napari is launched, it launches with the required information to reproduce the problem, without having to click through the UI each time.
 To continue with the example plugin shown in the last step, we want to make sure we have no sneaky bugs if the user enters text such as None, 0, or False (which all evaluate to False in Python when converted to a bool). Let’s create a setup script <code class="docutils literal notranslate"><span class="pre">reproduce_issue.py</span></code> and check this for the autogenerated widget:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># reproduce_issue.py</span>
@@ -777,7 +711,7 @@ To continue with the example plugin shown in the last step, we want to make sure
 <p>Running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">reproduce_issue.py</span></code> will run our widget for the inputs <code class="docutils literal notranslate"><span class="pre">False,</span> <span class="pre">0,</span> <span class="pre">None</span></code>. The output shows that there are no sneaky bugs, but notice how the viewer remains at the state of the last entered value of None in the text box in the GUI. This same idea can be used to set up the GUI to a point of failure without having to manually input all the user interactions - and can help better identify the issue.</p>
 </section>
 <section id="isolate-the-issue-from-napari">
-<h2>Isolate the issue from napari<a class="headerlink" href="#isolate-the-issue-from-napari" title="Permalink to this headline">¶</a></h2>
+<h2>Isolate the issue from napari<a class="headerlink" href="#isolate-the-issue-from-napari" title="Permalink to this heading">#</a></h2>
 <p>This solution ties in with the idea of test-driven development (see the <a class="reference internal" href="../testing_and_publishing/test.html#prefer-smaller-unit-tests-when-possible"><span class="std std-doc">napari testing guidelines</span></a>). The idea is to trust that napari will provide the information you expect it to, and test your widgets independently of the viewer. In the case above we can verify that input values work as expected like so:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># test_print.py</span>
 <span class="kn">from</span> <span class="nn">napari_simple_reload._widget</span> <span class="kn">import</span> <span class="n">example_factory</span>
@@ -796,9 +730,9 @@ To continue with the example plugin shown in the last step, we want to make sure
 <p>Then, for <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">test_print.py</span></code> you can use any of your usual debugging tools - such as the visual debugger provided by a Python IDE (e.g. PyCharm, VSCode, or Spyder). Further, an isolated test like this can be integrated into a <a class="reference internal" href="../testing_and_publishing/index.html#plugin-test-deploy"><span class="std std-ref">testing suite for your napari plugin</span></a>.</p>
 </section>
 <section id="logging-and-user-messages-in-napari">
-<h2>Logging and user messages in napari<a class="headerlink" href="#logging-and-user-messages-in-napari" title="Permalink to this headline">¶</a></h2>
+<h2>Logging and user messages in napari<a class="headerlink" href="#logging-and-user-messages-in-napari" title="Permalink to this heading">#</a></h2>
 <section id="set-up-plugin-user-messages-and-notifications">
-<h3>Set up plugin user messages and notifications<a class="headerlink" href="#set-up-plugin-user-messages-and-notifications" title="Permalink to this headline">¶</a></h3>
+<h3>Set up plugin user messages and notifications<a class="headerlink" href="#set-up-plugin-user-messages-and-notifications" title="Permalink to this heading">#</a></h3>
 <p>There are, generally speaking, three main methods for notifying users of problems in napari.</p>
 <ol class="arabic simple">
 <li><p>Raise an exception to indicate a breaking problem in the code (e.g. unexpected user input <code class="docutils literal notranslate"><span class="pre">raise</span> <span class="pre">ValueError(&quot;some</span> <span class="pre">error&quot;)</span></code>).</p></li>
@@ -807,7 +741,7 @@ To continue with the example plugin shown in the last step, we want to make sure
 </ol>
 </section>
 <section id="set-up-plugin-log-messages">
-<h3>Set up plugin log messages<a class="headerlink" href="#set-up-plugin-log-messages" title="Permalink to this headline">¶</a></h3>
+<h3>Set up plugin log messages<a class="headerlink" href="#set-up-plugin-log-messages" title="Permalink to this heading">#</a></h3>
 <p>In addition to these user focused methods, you can set up plugin debug logs and messages during development. You can either use <a class="reference internal" href="../../api/napari.utils.notifications.html#module-napari.utils.notifications" title="napari.utils.notifications"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari</span> <span class="pre">specific</span> <span class="pre">functions</span></code></a>, or <a class="reference external" href="https://docs.python.org/3/library/logging.html">built in Python logging</a>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -861,7 +795,7 @@ To continue with the example plugin shown in the last step, we want to make sure
 </div>
 </section>
 <section id="viewing-plugin-log-messages">
-<h3>Viewing plugin log messages<a class="headerlink" href="#viewing-plugin-log-messages" title="Permalink to this headline">¶</a></h3>
+<h3>Viewing plugin log messages<a class="headerlink" href="#viewing-plugin-log-messages" title="Permalink to this heading">#</a></h3>
 <p>Launch the viewer with the napari notification levels set to debug and your plugin logger level set to debug:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_notication.py</span>
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -891,7 +825,7 @@ DEBUG: 20/09/2022 05:59:23 PM The input string was (logging): fast
 </section>
 </section>
 <section id="debugging-segfaults-memory-violation-errors">
-<h2>Debugging segfaults/memory violation errors<a class="headerlink" href="#debugging-segfaults-memory-violation-errors" title="Permalink to this headline">¶</a></h2>
+<h2>Debugging segfaults/memory violation errors<a class="headerlink" href="#debugging-segfaults-memory-violation-errors" title="Permalink to this heading">#</a></h2>
 <p>If napari crashes with a segfault or memory violation error when using your plugin
 it may be connected with setting some viewer/layers properties outside main thread.
 Because of the limitations of the Qt library, such interactions with napari may lead to a crash.</p>
@@ -908,61 +842,98 @@ in the main thread. For more details you could read the <a class="reference exte
 </section>
 
 
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="guides.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Plugin contributions</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="best_practices.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Best practices</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
             </div>
             
             
-            <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="guides.html" title="previous page">
-        <svg
-            width="10"
-            height="16"
-            viewBox="0 0 10 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <path
-                d="M8.92892 1L1.85786 8.07107L8.92892 15.1421"
-                stroke="black"
-                stroke-width="2"
-            />
-        </svg>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Plugin contributions</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="best_practices.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Best practices</p>
-    </div>
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-    <svg
-        width="10"
-        height="16"
-        viewBox="0 0 10 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <path
-            d="M1.07108 15L8.14214 7.92893L1.07108 0.857864"
-            stroke="black"
-            stroke-width="2"
-        />
-    </svg>
-    </a>
-</div>
+  <div class="sidebar-secondary-item">
+
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick start</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-plugin-start-up-issues">Debugging plugin start-up issues</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seeing-tracebacks-from-plugin-errors">Seeing tracebacks from plugin errors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-methods-to-debug-plugins-during-development">Overview of methods to debug plugins during development</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reload-code-as-you-change-it-with-ipython">Reload code as you change it with IPython</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-script-to-setup-the-plugin-without-user-interaction">Write a script to setup the plugin without user interaction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isolate-the-plugin-functionality-from-napari">Isolate the plugin functionality from napari</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-plugin-for-following-examples">A simple plugin for following examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plugin-project-structure">Plugin project structure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-ipython-to-reload-code-during-plugin-development">Using IPython to reload code during plugin development</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-ipython-and-set-up-the-viewer">Launch IPython and set up the viewer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-code-with-ipython-running">Changing the code with IPython running</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-setup-script-to-avoid-gui-interaction">Write a setup script to avoid GUI interaction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isolate-the-issue-from-napari">Isolate the issue from napari</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logging-and-user-messages-in-napari">Logging and user messages in napari</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-plugin-user-messages-and-notifications">Set up plugin user messages and notifications</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-plugin-log-messages">Set up plugin log messages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-plugin-log-messages">Viewing plugin log messages</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-segfaults-memory-violation-errors">Debugging segfaults/memory violation errors</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
             
-        </main>
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
         
-
+      </main>
     </div>
-
-    <script src="../../_static/scripts/napari-sphinx-theme.js"></script><footer class="napari-footer">
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+<footer class="napari-footer">
   
     <div class="footer-item">
-      <a href="/">
+      <a class="footer-icon__hover-blue" href="https://napari.org" target="_blank" rel="noreferrer">
   <svg
   width="30"
   height="30"
@@ -1427,7 +1398,7 @@ in the main thread. For more details you could read the <a class="reference exte
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.3.0</span>
     
   </div>
 </div>

@@ -448,13 +448,13 @@ document.write(`
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../howtos/index.html">How-to guides</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../howtos/layers/index.html">Using layers</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/image.html">Using the image layer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/labels.html">Using the labels layer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/points.html">Using the points layer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/shapes.html">Using the shapes layer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/surface.html">Using the surface layer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/tracks.html">Using the tracks layer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/vectors.html">Using the vectors layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/image.html">Using the <code class="docutils literal notranslate"><span class="pre">image</span></code> layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/labels.html">Using the <code class="docutils literal notranslate"><span class="pre">labels</span></code> layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/points.html">Using the <code class="docutils literal notranslate"><span class="pre">points</span></code> layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/shapes.html">Using the <code class="docutils literal notranslate"><span class="pre">shapes</span></code> layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/surface.html">Using the <code class="docutils literal notranslate"><span class="pre">surface</span></code> layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/tracks.html">Using the <code class="docutils literal notranslate"><span class="pre">tracks</span></code> layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howtos/layers/vectors.html">Using the <code class="docutils literal notranslate"><span class="pre">vectors</span></code> layer</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../howtos/extending/index.html">Extending napari</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -696,7 +696,8 @@ object created from <code class="docutils literal notranslate"><span class="pre"
 </pre></div>
 </div>
 <p>To learn more about the layers available, see the
-<a class="reference internal" href="../api/napari.layers.html#module-napari.layers" title="napari.layers"><span class="xref myst py py-mod">Layers documentation</span></a>. To learn about how to use the layers currently supported by napari, check out the
+<a class="reference internal" href="../api/napari.layers.html#module-napari.layers" title="napari.layers"><span class="xref myst py py-mod">Layers documentation</span></a>. To learn about how to use the layers
+currently supported by napari, check out the
 <a class="reference internal" href="../howtos/layers/index.html"><span class="doc std std-doc">Using layers how-to guides</span></a>. For a gentle
 introduction, check out the
 <a class="reference internal" href="../tutorials/fundamentals/viewer.html#layer-list"><span class="std std-ref">Layer list section in the napari viewer tutorial</span></a>.</p>
@@ -704,10 +705,11 @@ introduction, check out the
 <h2>Layer visibility<a class="headerlink" href="#layer-visibility" title="Permalink to this heading">#</a></h2>
 <p>All our layers support a visibility toggle that allows you to set the <code class="docutils literal notranslate"><span class="pre">visible</span></code>
 property of each layer. This property is located inside the layer widget in the
-layers list and is represented by an eye icon indicating the <code class="docutils literal notranslate"><span class="pre">visibility</span></code> button.
-Note that you can Option/Alt-click on the <code class="docutils literal notranslate"><span class="pre">visibility</span></code> button to show <em>just</em> that
-one layer, hiding all others. If you then Option/Alt-click on the <code class="docutils literal notranslate"><span class="pre">visibility</span></code>
-button of a layer a second time, the visibility state of all layers will be restored.</p>
+layers list and is represented by an eye icon indicating the <code class="docutils literal notranslate"><span class="pre">visibility</span></code>
+button. Note that you can Option/Alt-click on the <code class="docutils literal notranslate"><span class="pre">visibility</span></code> button to show
+<em>just</em> that one layer, hiding all others. If you then Option/Alt-click on the
+<code class="docutils literal notranslate"><span class="pre">visibility</span></code> button of a layer a second time, the visibility state of all layers
+will be restored.</p>
 </section>
 <section id="layer-opacity">
 <span id="id1"></span><h2>Layer opacity<a class="headerlink" href="#layer-opacity" title="Permalink to this heading">#</a></h2>
@@ -729,24 +731,28 @@ globally to all the vectors in the layer.</p></li>
 </div>
 </section>
 <section id="blending-layers">
-<h2>Blending layers<a class="headerlink" href="#blending-layers" title="Permalink to this heading">#</a></h2>
-<p>All our layers support three blending modes: <code class="docutils literal notranslate"><span class="pre">translucent</span></code>, <code class="docutils literal notranslate"><span class="pre">additive</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">opaque</span></code>. These modes determine how the visuals for this layer get mixed with
-the visuals from the other layers.</p>
+<span id="id2"></span><h2>Blending layers<a class="headerlink" href="#blending-layers" title="Permalink to this heading">#</a></h2>
+<p>All our layers support a number of different blending modes. These modes
+determine how the visuals for this layer get mixed with the visuals from the
+other layers.</p>
 <ul class="simple">
-<li><p>An <code class="docutils literal notranslate"><span class="pre">opaque</span></code> layer hides any layer data below it.</p></li>
 <li><p>A <code class="docutils literal notranslate"><span class="pre">translucent</span></code> setting will cause the layer to blend with the layers below
-it if you decrease its opacity but will fully block those layers if its opacity
-is <code class="docutils literal notranslate"><span class="pre">1</span></code>. This is a reasonable default, useful for many applications.</p></li>
-<li><p>A <code class="docutils literal notranslate"><span class="pre">minimum</span></code> blending mode will cause the layer to blend using the minimum of each pixel’s R, G, and B values. This mode is uniquely useful for
-blending multiple layers with inverted colormaps/LUTs, which represent measured signal with color on a white background. For some inspiration, see the twitter hashtag <a class="reference external" href="https://twitter.com/hashtag/invertedLUT">#invertedLUT</a>.</p></li>
+it if you decrease its opacity but will fully block those layers if its
+opacity is <code class="docutils literal notranslate"><span class="pre">1</span></code>. This is a reasonable default, useful for many applications.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">translucent-no</span> <span class="pre">depth</span></code> setting allows for multiple layers to be blended with
+different opacity, but no depth testing is performed.</p></li>
 <li><p>An <code class="docutils literal notranslate"><span class="pre">additive</span></code> blending mode will cause the layer to blend with the layers
 below even when it has full opacity. This mode is especially useful for
-visualizing multiple layers at the same time, such as cell biology applications
-where you have multiple different components of a cell labeled in different
-colors.</p></li>
+visualizing multiple layers at the same time, such as cell biology
+applications where you have multiple different components of a cell labeled in
+different colors.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">minimum</span></code> blending mode will cause the layer to blend using the minimum of
+each pixel’s R, G, and B values. This mode is uniquely useful for blending
+multiple layers with inverted colormaps/LUTs, which represent measured signal
+with color on a white background.</p></li>
+<li><p>An <code class="docutils literal notranslate"><span class="pre">opaque</span></code> layer hides any layer data below it.</p></li>
 </ul>
-<p>For example:</p>
+<p>For example, the image below shows an image with the blending set to <code class="docutils literal notranslate"><span class="pre">additive</span></code>.</p>
 <p><img alt="napari viewer with an image of a cell. Layer controls are open in the left sidebar with the blending set to additive." src="../_images/blending.png" /></p>
 </section>
 <section id="d-rendering-of-images">
@@ -764,7 +770,7 @@ leads to a memory error.</p>
 </div>
 </section>
 <section id="layer-interpolation">
-<h2>Layer interpolation<a class="headerlink" href="#layer-interpolation" title="Permalink to this heading">#</a></h2>
+<span id="id3"></span><h2>Layer interpolation<a class="headerlink" href="#layer-interpolation" title="Permalink to this heading">#</a></h2>
 <p>We support a variety of interpolation modes when viewing 2D slices. In the
 default mode <code class="docutils literal notranslate"><span class="pre">nearest</span></code> each pixel is represented as a small square of specified
 size. As you zoom in you will eventually see each pixel. In other modes

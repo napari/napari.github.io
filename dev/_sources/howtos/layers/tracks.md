@@ -11,21 +11,30 @@ kernelspec:
   name: python3
 ---
 
-# Using the tracks layer
+# Using the `tracks` layer
 
-In this document, you will learn about the `napari` `Tracks` layer, including
+In this document, you will learn about the `napari` `tracks` layer, including
 displaying tracks and defining relationships between tracks.
 
-## When to use the tracks layer
+For more information about layers, refer to [Layers at a glance](../../guides/layers).
 
-The tracks layer allows you to display trajectories in `nD+t` while visualizing
-the recent history of the track via a fading tail.
+```{note}
+Tracks layers can be created only programmatically, i.e. in the console, using a
+script, etc. Please refer to [A simple example](#a-simple-example) and use the
+code there to add a tracks layer first, then explore the GUI controls.
+```
+
+## When to use the `tracks` layer
+
+The `tracks` layer allows you to display trajectories in `nD+t` while
+visualizing the recent history of the track via a fading tail.
 
 Each track can have annotations associated with it using the `Tracks.properties`
 dictionary. These properties can be used to set the colors of the tracks.
 
 For example, when displaying tracks of different classes/types, one could
-automatically set color the individual tracks by their respective class/type.
+automatically set the color of the individual tracks by their respective
+class/type.
 
 ## A simple example
 
@@ -68,9 +77,40 @@ napari.run()
 
 ![image: tracks simple demo](../../images/tracks_simple_demo.webm)
 
+## GUI controls for the `tracks` layer
+
+* Color by - there is a dropdown for this but at present the only choice is
+  `track_id`.
+* Colormap - choose a colormap from the dropdown. These are explained in
+  [the colormaps section](./surface.md#working-with-colormaps) of
+  _Using the surface layer_.
+* Blending - choose `opaque`, `translucent`, `translucent no depth`, `minimum`
+  or `additive` from the dropdown. Refer to the
+  [Blending layers](blending-layers) section of _Layers at a glance_ for an
+  explanation of each type of blending.
+* Opacity - click and hold the circle on the opacity slider bar and adjust it to
+  any value between 0.00 (clear) and 1.00 (completely opaque).
+* Tail width - adjusting the tail width gives the track the appearance of being
+  narrower or wider. At the minimum value, the track looks like a one-pixel
+  line.
+* Tail length - adjusting the tail length gives the track the appearance of
+  being shorter or longer. At the minimum value, it looks something like a
+  dotted line, at the maximum value it almost looks like an unbroken line.
+* Head length - Adjusting the head length gives the track the appearance of
+  being longer. If it is adjusted to the maximum value, the tracks look like
+  stripes. At the minimum value, the tracks flash across the canvas and
+  disappear before starting again.
+* Tail - check this box to see the tracks. If it is not checked, you will not be
+  able to see the tracks at all.
+* Show ID - check this box to display a previously assigned `track_id` label for
+  each track. Assigning values to `track_id` is explained in
+  [Tracks data](#tracks-data) below.
+* Graph - check this box to display a previously created graph as explained in
+  [](#arguments-of-view_tracks-and-add_tracks).
+
 ## Arguments of `view_tracks` and `add_tracks`
 
-Both `view_tracks` and `add_tracks` have the following doc strings:
+Both `view_tracks` and `add_tracks` have the following docstrings:
 
 ```python
 """
@@ -130,7 +170,7 @@ layer : napari.layers.Tracks
 
 ## Tracks data
 
-The input data to the tracks layer must be an `NxD+1` numpy array or list
+The input data to the tracks layer must be an `NxD+1` NumPy array or list
 containing the coordinates of `N` vertices with a track ID and coordinate in `D`
 dimensions. The ordering of these dimensions is the same as the ordering of the
 dimensions for image layers. This array is always accessible through the
@@ -194,29 +234,34 @@ graph = {
     3: [1, 2]
 }
 ```
-For a full example of 3d+t tracks data with a parent graph, please see our
-[`tracks_3d_with_graph.py` example](https://github.com/napari/napari/blob/main/examples/tracks_3d_with_graph.py).
+For a full example of 3d+t tracks data with a parent graph, please see
+[](../../gallery/tracks_3d_with_graph).
 
-## Using the tracks properties dictionary
+## Using the `tracks` properties dictionary
 
-The `Tracks` layer can contain properties that annotate the vertices of each
+The `tracks` layer can contain properties that annotate the vertices of each
 track. `Tracks.properties` stores the properties in a dictionary where each key
-is the name of the property and the values are numpy arrays with a value for
+is the name of the property and the values are NumPy arrays with a value for
 each vertex in the track (i.e., length `N` for `N` vertices in `Tracks.data`).
 As we will see below, we can use the values in a property to set the display
 properties of the tracks (e.g., the track color).
 
-## 3D rendering of tracks
+## 3D rendering
 
-All our layers can be rendered in both 2D and 3D mode, and one of our viewer
-buttons can toggle between each mode. The number of dimensions sliders will be 2
-or 3 less than the total number of dimensions of the layer.
+All layers can be rendered in both 2D and 3D. One of the viewer buttons at the
+bottom of the left panel can toggle between these 2 modes.
+When in 2D, the button looks like this: ![image: 2D/3D button](../../images/3D-button.png), ready to switch to 3D mode.
+When in 3D, the button looks like this: ![image: 2D/3D button](../../images/2D-button.png), ready to switch to 2D mode.
+
+The number of dimensions sliders will be 2 or 3 less than the total number of
+dimensions of the layer, allowing you to browse volumetric timeseries data and
+other high dimensional data.
 
 ## Changing track width
 
 We can specify the width of the tracks in pixels. The track width can be
 specified via the `tail_width` keyword argument in the `viewer.add_tracks()` and
-`napari.view_tracks()` methods. From a layer that as already been constructed,
+`napari.view_tracks()` methods. From a layer that has already been constructed,
 we can set the track width via the `layer.tail_width` property.
 
 ```python
@@ -225,16 +270,21 @@ viewer = napari.view_tracks(data, tail_width=5, name="my_tracks")
 
 # update the tail width to 3 pixels
 viewer.layers["my_tracks"].tail_width = 3
-
 ```
 
-Additionally, we can adjust the width of the track in the GUI using the "tail width" slider in the Tracks layer controls.
+Additionally, we can adjust the width of the track in the GUI using the
+"tail width" slider in the `tracks` layer controls.
 
 ![image: tracks tail width](../../images/tracks_tail_width.webm)
 
 ## Changing tail length
 
-We can specify the length of the tails of the tracks in time units. The tail is the portion of the track displayed from previous time steps. The track tail length can be specified via the `tail_length ` keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()` methods. From a layer that as already been constructed, we can set the track width via the `tail_length ` property.
+We can specify the length of the tails of the tracks in time units. The tail is
+the portion of the track displayed from previous time steps. The track tail
+length can be specified via the `tail_length` keyword argument in the
+`viewer.add_tracks()` and `napari.view_tracks()` methods. From a layer that has
+already been constructed, we can set the track width via the `tail_length`
+property.
 
 ```python
 # create a tracks layer with a tail length of 5 time units
@@ -245,16 +295,24 @@ viewer.layers["my_tracks"].tail_length = 3
 
 ```
 
-Additionally, we can adjust the width of the track in the GUI using the "tail length" slider in the Tracks layer controls.
+Additionally, we can adjust the width of the track in the GUI using the "tail
+length" slider in the `tracks` layer controls.
 
 ![image: tracks tail length](../../images/tracks_tail_length.webm)
 
 ## Setting the track color with properties
 
-We can color the tracks by mapping colors to the track properties defined in `Tracks.properties`. If we define properties and pass them via the properties keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()` methods, we can then select the property we would like to color the tracks by in the "color by" dropdown menu in the `Tracks` layer controls. We can additionally specify the colormap used to map the property value to color via the "colormap" dropdown menu.
+We can color the tracks by mapping colors to the track properties defined in
+`Tracks.properties`. If we define properties and pass them via the `properties`
+keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()`
+methods, we can then select the property we would like to color the tracks by in
+the "color by" dropdown menu in the `tracks` layer controls. We can additionally
+specify the colormap used to map the property value to color via the "colormap"
+dropdown menu.
 
 ```python
 import napari
+import numpy as np
 from skimage import data
 
 hubble_image = data.hubble_deep_field()
@@ -291,6 +349,7 @@ napari.run()
 
 ## Putting it all together
 
-Here you can see an example of 3D+t tracks. You can view the source code for this example [here](https://github.com/napari/napari/blob/main/examples/tracks_3d.py)
+Here you can see an example of 3D+t tracks. You can view the source code for
+this example in [](../../gallery/tracks_3d)
 
 ![image: tracks 3D plus time](../../images/tracks_3d_t.webm)

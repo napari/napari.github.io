@@ -11,14 +11,24 @@ kernelspec:
   name: python3
 ---
 
-# Using the surface layer
+# Using the `surface` layer
 
-In this document, you will learn about the `napari` `Surface` layer, including
+In this document, you will learn about the `napari` `surface` layer, including
 how to display surface data and edit the properties of surfaces like the
 contrast, opacity, colormaps and blending mode. You will also understand how to
-add and manipulate surfaces both from the GUI and from the console.
+add and manipulate surfaces mostly from the console. There are a few slider
+controls that are available in the GUI.
 
-## When to use the surface layer
+For more information about layers, refer to [Layers at a glance](../../guides/layers).
+
+```{note}
+Surface layers can be created only programmatically, i.e. in the console, or
+using a script, not from the GUI. Please refer to
+[A simple example](#a-simple-example) and use the code there to add a surface
+layer first, then explore the GUI controls.
+```
+
+## When to use the `surface` layer
 
 The surface layer allows you to display a precomputed surface mesh that is
 defined by an `NxD` array of `N` vertices in `D` coordinates, an `Mx3` integer
@@ -29,11 +39,12 @@ colormap.
 ## A simple example
 
 You can create a new viewer and add a surface in one go using the
-`napari.view_surface` method, or if you already have an existing viewer, you can
-add an image to it using `viewer.add_surface`. The api of both methods is the
-same. In these examples we'll mainly use `view_surface`.
+{meth}`napari.view_surface` method, or if you already have an existing viewer,
+you can add an image to it using `viewer.add_surface`. The API of both methods
+is the same. In these examples we'll mainly use `view_surface`.
 
-A simple example of viewing a surface is as follows:
+A simple example of viewing a surface follows. You can copy and paste these
+statements into the napari console to see how they work:
 
 ```{code-cell} python
 import napari
@@ -61,62 +72,85 @@ nbscreenshot(viewer, alt_text="A viewer with a surface")
 viewer.close()
 ```
 
+## GUI controls for the `surface` layer
+
+Once you have created a `surface` layer programmatically, the following GUI
+controls are available in the viewer:
+
+* Opacity - use this slider control to assign opacity from 0 to 1.00 where 0 is
+  transparent and 1.00 is completely opaque.
+* Contrast Limits - click and slide the dots on either end of the slider bar to
+  adjust upper and lower contrast limits.
+* Auto-contrast - choose once or continuous.
+* Gamma - Click on the oval on the gamma slider bar and adjust it to any value
+  between 0.20 and 2.00. Gamma correction or gamma is a nonlinear operation used
+  to encode and decode luminance or tristimulus values in video or still image
+  systems.
+* Colormap - select a value from the dropdown list.
+* Blending - Choose `opaque`, `translucent`, `translucent no depth`, or
+  `additive` from the dropdown. Refer to the [Blending layers](blending-layers)
+  section of _Layers at a glance_ for an explanation of each type of blending.
+* Shading - Choose `none`, `flat`, or `smooth` from the dropdown.
+
 ## Arguments of `view_surface` and `add_surface`
 
 {meth}`~napari.view_layers.view_surface` and {meth}`~napari.Viewer.add_surface`
 accept the same layer-creation parameters.
 
 ```{code-cell} python
-:tags: [hide-cell]
+:tags: [hide-output]
 
 help(napari.view_surface)
 ```
 
 ## Surface data
 
-The data for a surface layer is defined by a 3-tuple of its vertices, faces, and
-vertex values. The vertices are an `NxD` array of `N` vertices in `D`
+The data for a `surface` layer is defined by a 3-tuple of its vertices, faces,
+and vertex values. The vertices are an `NxD` array of `N` vertices in `D`
 coordinates. The faces are an `Mx3` integer array of the indices of the
 triangles making up the faces of the surface. The vertex values are a length `N`
 list of values to associate with each vertex to use alongside a colormap. This
 3-tuple is accessible through the `layer.data` property.
 
-## 3D rendering of images
+## 3D rendering
 
-All our layers can be rendered in both 2D and 3D mode, and one of our viewer
-buttons can toggle between each mode. The number of dimensions sliders will be 2
-or 3 less than the total number of dimensions of the layer. See for example
-these brain surfaces rendered in 3D:
+All layers can be rendered in both 2D and 3D. One of the viewer buttons at the
+bottom of the left panel can toggle between these 2 modes.
+When in 2D, the button looks like this: ![image: 2D/3D button](../../images/3D-button.png), ready to switch to 3D mode.
+When in 3D, the button looks like this: ![image: 2D/3D button](../../images/2D-button.png), ready to switch to 2D mode.
+
+The number of dimensions sliders will be 2 or 3 less than the total number of
+dimensions of the layer, allowing you to browse volumetric timeseries data and
+other high dimensional data. An example is these brain surfaces rendered in 3D:
 
 ![image: brain surface](../../images/brain_surface.webm)
 
 ## Working with colormaps
 
-The same colormaps available for the `Image` layer are also available for the
-`Surface` layer. napari supports any colormap that is created with
+The same colormaps available for the `image` layer are also available for the
+`surface` layer. napari supports any colormap that is created with
 `vispy.color.Colormap`. We provide access to some standard colormaps that you
-can set using a string of their name.
+can set using a string of their name. Please see the list below.
 
 ```{code-cell} python
 list(napari.utils.colormaps.AVAILABLE_COLORMAPS)
 ```
 
-Passing any of these as follows as keyword arguments will set the colormap of
-that surface. You can also access the current colormap through the
-`layer.colormap` property which returns a tuple of the colormap name followed by
-the vispy colormap object. You can list all the available colormaps using
-`layer.colormaps`.
+Passing any of these as keyword arguments will set the colormap of that surface.
+You can also access the current colormap through the `layer.colormap` property
+which returns a tuple of the colormap name followed by the vispy colormap
+object. You can list all the available colormaps using `layer.colormaps`.
 
 It is also possible to create your own colormaps using vispy's
 `vispy.color.Colormap` object, see it's full
 [documentation here](https://vispy.org/api/vispy.color.colormap.html#vispy.color.colormap.Colormap).
-For more detail see the [image layer guide](./image).
+For more detail see [](./image).
 
 ## Adjusting contrast limits
 
-The vertex values of the surface layer get mapped through its colormap according
-to values called contrast limits. These are a 2-tuple of values defining how
-what values get applied the minimum and maximum of the colormap and follow the
-same principles as the `contrast_limits` described in the [image layer
-guide](./image). They are also accessible through the same keyword arguments,
-properties, and range slider as in the image layer.
+The vertex values of the `surface` layer get mapped through its colormap
+according to values called `contrast limits`. These are a 2-tuple of values
+defining how what values get applied the minimum and maximum of the colormap and
+follow the same principles as the `contrast_limits` described in [](./image).
+They are also accessible through the same keyword arguments, properties, and GUI
+layer controls as in the image layer.

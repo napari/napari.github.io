@@ -22,7 +22,8 @@ viewer.add_image(data, name='astronaut')
 ```
 
 To learn more about the layers available, see the
-[Layers documentation](napari.layers). To learn about how to use the layers currently supported by napari, check out the
+[Layers documentation](napari.layers). To learn about how to use the layers
+currently supported by napari, check out the
 [Using layers how-to guides](../../howtos/layers/index). For a gentle
 introduction, check out the
 [Layer list section in the napari viewer tutorial](layer_list).
@@ -31,10 +32,11 @@ introduction, check out the
 
 All our layers support a visibility toggle that allows you to set the `visible`
 property of each layer. This property is located inside the layer widget in the
-layers list and is represented by an eye icon indicating the `visibility` button.
-Note that you can Option/Alt-click on the `visibility` button to show *just* that
-one layer, hiding all others. If you then Option/Alt-click on the `visibility`
-button of a layer a second time, the visibility state of all layers will be restored.
+layers list and is represented by an eye icon indicating the `visibility`
+button. Note that you can Option/Alt-click on the `visibility` button to show
+*just* that one layer, hiding all others. If you then Option/Alt-click on the
+`visibility` button of a layer a second time, the visibility state of all layers
+will be restored.
 
 (layer_opacity)=
 ## Layer opacity
@@ -54,25 +56,30 @@ globally to all the vectors in the layer.
 * For the [tracks layer](napari.layers.Tracks), the opacity value applies globally to all the tracks in the layer.
 ```
 
+(blending-layers)=
 ## Blending layers
 
-All our layers support three blending modes: `translucent`, `additive`, and
-`opaque`. These modes determine how the visuals for this layer get mixed with
-the visuals from the other layers.
+All our layers support a number of different blending modes. These modes
+determine how the visuals for this layer get mixed with the visuals from the
+other layers.
 
-* An `opaque` layer hides any layer data below it.
 * A `translucent` setting will cause the layer to blend with the layers below
-it if you decrease its opacity but will fully block those layers if its opacity
-is `1`. This is a reasonable default, useful for many applications.
-* A `minimum` blending mode will cause the layer to blend using the minimum of each pixel's R, G, and B values. This mode is uniquely useful for
-blending multiple layers with inverted colormaps/LUTs, which represent measured signal with color on a white background. For some inspiration, see the twitter hashtag [#invertedLUT](https://twitter.com/hashtag/invertedLUT).
+  it if you decrease its opacity but will fully block those layers if its
+  opacity is `1`. This is a reasonable default, useful for many applications.
+* A `translucent-no depth` setting allows for multiple layers to be blended with
+  different opacity, but no depth testing is performed.
 * An `additive` blending mode will cause the layer to blend with the layers
-below even when it has full opacity. This mode is especially useful for
-visualizing multiple layers at the same time, such as cell biology applications
-where you have multiple different components of a cell labeled in different
-colors.
+  below even when it has full opacity. This mode is especially useful for
+  visualizing multiple layers at the same time, such as cell biology
+  applications where you have multiple different components of a cell labeled in
+  different colors.
+* A `minimum` blending mode will cause the layer to blend using the minimum of
+  each pixel's R, G, and B values. This mode is uniquely useful for blending
+  multiple layers with inverted colormaps/LUTs, which represent measured signal
+  with color on a white background.
+* An `opaque` layer hides any layer data below it.
 
-For example:
+For example, the image below shows an image with the blending set to `additive`.
 
 ![napari viewer with an image of a cell. Layer controls are open in the left sidebar with the blending set to additive.](./images/blending.png)
 
@@ -91,6 +98,7 @@ Switching to 3D mode for a very large data set could trigger computation that
 leads to a memory error.
 ```
 
+(layer-interpolation)=
 ## Layer interpolation
 
 We support a variety of interpolation modes when viewing 2D slices. In the

@@ -11,32 +11,343 @@ kernelspec:
   name: python3
 ---
 
-# Using the labels layer
+# Using the `labels` layer
 
 In this document, you will learn about the `napari` `Labels` layer, including
 using the layer to display the results of image segmentation analyses, and how
 to manually segment images using the paintbrush and fill buckets. You will also
-understand how to add a labels image and edit it from the GUI and from the
+understand how to add a labels image and edit it from the GUI and the
 console.
 
-## When to use the labels layer
+For more information about layers, refer to [Layers at a glance](../../guides/layers).
 
-The labels layer allows you to take an array of integers and display each
+## When to use the `labels` layer
+
+The `labels` layer allows you to take an array of integers and display each
 integer as a different random color, with the background color 0 rendered as
 transparent.
 
-The `Labels` layer is therefore especially useful for segmentation tasks where
-each pixel is assigned to a different class, as occurs in semantic segmentation,
-or where pixels corresponding to different objects all get assigned the same
-label, as occurs in instance segmentation.
+The `labels` layer is especially useful for segmentation tasks where each pixel
+is assigned to a different class, as in semantic segmentation, or where pixels
+corresponding to different objects all get assigned the same label, as in
+instance segmentation.
 
-## A simple example
+## GUI tools for the `labels` layer
 
-You can create a new viewer and add an labels image in one go using the
-`napari.view_labels` method, or if you already have an existing viewer, you can
-add a `Labels` image to it using `viewer.add_labels`. The api of both methods is
-the same. In these examples we'll mainly use `add_labels` to overlay a `Labels`
-image onto on image.
+The GUI contains following tools in the `layer controls` panel for the `labels`
+layer:
+
+* Buttons
+    * shuffle colors
+    * label eraser
+    * paintbrush
+    * polygon tool
+    * fill bucket
+    * color picker
+    * pan/zoom mode
+* Controls
+    * label
+    * opacity
+    * brush size
+    * blending
+    * color mode
+    * contour
+    * n edit dim
+    * contiguous
+    * preserve labels
+    * show selected
+
+### Buttons
+
+* **Shuffle colors**
+
+  The color that each integer gets assigned is random, aside from 0 which always
+  gets assigned to be transparent. The colormap we use is designed such that
+  nearby integers get assigned distinct colors. The exact colors that get
+  assigned are determined by a [random seed](https://numpy.org/doc/stable/reference/random/generated/numpy.random.seed.html).
+  Changing that seed will shuffle the colors assigned to each label. To change
+  the seed, click on the `shuffle colors` button in the layer controls panel.
+  This changes the color of existing labels. Shuffling colors can be useful as
+  some colors may be hard to distinguish from the background or nearby objects.
+
+* **Label eraser**
+
+  Use this tool to manually erase a label on the `labels layer`. Other layers
+  will not be affected. The label eraser tool looks like this:
+  ![image: eraser tool](../../images/labels-layer-eraser.png)
+
+* **Paintbrush**
+
+  One of the major use cases for the `labels layer` is to manually edit or
+  create image segmentations. One of the tools that can be used for manual
+  editing is the `paintbrush`, activated by clicking the `paintbrush` icon in
+  the `layer controls` panel. Once the paintbrush is enabled, the pan and zoom
+  functionality of the viewer canvas is disabled, and you can paint on the
+  canvas. You can temporarily re-enable pan and zoom by pressing and holding the
+  spacebar. This feature is useful if you want to move around the `labels layer`
+  as you paint.
+
+  Click the `paintbrush` icon and select a color from the `label` option by
+  clicking on the + or - on the label bar in the layer controls panel. This will
+  scroll through the available colors. Whatever color you pick will be the
+  *edge color* of the label. Draw the edge of the label using the `paintbrush`.
+  If you draw a continuous edge, you can fill it in using the `paint bucket` or
+  `fill bucket` tool. It can be the same color as the edge or a different color.
+
+  Adjust the size of your `paintbrush` using the `brush size` slider or using
+  the default keybindings: `[` and `]`. The brush size can be as small as a
+  single pixel for incredibly detailed painting.
+
+  If you have a multidimensional `labels layer` then your `paintbrush` will edit
+  data only in the visible slice by default. If you enable the `n_dimensional`
+  property and paintbrush then your paintbrush will extend out into neighbouring
+  slices according to its size.
+
+  To quickly select the paintbrush, press the `2` key when the `labels layer` is
+  selected.
+
+* **Polygon**
+
+  Another tool that can be used to quickly add or edit image segmentations is
+  the `polygon` tool. It combines functionality of the `paintbrush` and
+  `fill bucket` tools by allowing for readily drawing enclosed instance
+  segmentations. The `polygon` tool can be activated by clicking on the icon
+  resembling a polygon in the layer control panel or by pressing `3`. Once
+  activated, the user actions are as follows:
+
+  1. Left-click anywhere on the canvas to start drawing the polygon.
+  2. Move the mouse to the location where you want the next vertex to be.
+  3. Click again to set the vertex that is tracking the mouse cursor.
+  4. After this step a polygon overlay will appear when moving the mouse. Repeat
+     steps 2 and 3 until the shape to be segmented is enclosed by the polygon
+     overlay.
+  5. To undo the last added vertex, use a right-click.
+  6. To cancel the drawing at any time without making a permanent change on the
+     labels layer, press `Esc`. This will delete the polygon overlay.
+  7. Press `Enter` to finish drawing at any time or double click within a radius
+     of 20 screen pixels of the first vertex. This will add the polygon overlay
+     to the labels layer.
+
+  The polygon overlay will have the color of the label. The polygon overlay also
+  has an opacity that can be adjusted the value of the `opacity` slider in the
+  layer control panel. Furthermore, while the polygon overlay may be visible
+  outside the canvas space during drawing, upon finishing drawing the polygon
+  will be cut off so that the part outside the canvas space is removed. This
+  ensures that the dimensions of the label image are not larger than the image
+  for which you are segmenting of for which you are editing the segmentations.
+
+  Note: if you use the `polygon` tool for adding or editing segmentations of 3D
+  image data, you can only adjust labels in one plane, with the exception when
+  viewing the image data as RGB. The `polygon` tool cannot be activated if the
+  number of displayed dimensions is higher than two. If already active upon
+  toggling the number of displayed dimensions, the `polygon` tool will be
+  automatically deactivated.
+
+* **Fill bucket**
+
+  Sometimes you might want to replace an entire label with a different label.
+  This could be because you want to make two touching regions have the same
+  label, or you want to replace only one label with a different one, or maybe
+  you have painted around the edge of a region and you want to quickly fill in
+  its inside. To do this you can select the `fill bucket` tool by clicking on
+  its icon in the `layer controls` panel, and then click on a target region of interest in the layer. The fill bucket will fill using the currently selected
+  label. If nothing is selected the entire layer will be filled with that label.
+
+  By default, the `fill bucket` will change only contiguous or connected pixels
+  of the same label as the pixel that is clicked on. If you want to change all
+  the pixels of that label layer regardless of where they are in the slice, then
+  you can set the `contiguous` property or checkbox to `False`. Then everything
+  on that layer will be colored by the new label.
+
+  If you have a multidimensional `labels layer` the `fill bucket` will edit data
+  only in the visible slice by default. Enable the `n_dimensional` property and
+  `paintbrush` so the `fill bucket` will extend out into neighbouring slices,
+  either to all pixels with that label in the layer, or only connected pixels
+  depending on if the contiguous property is disabled or not.
+
+  To quickly select the fill bucket, press the `4` key when the `labels layer`
+  is selected.
+
+* **Color picker**
+
+  The `color picker` can be used to select another color at any time. Click the
+  color picker tool then click on the existing color in the labels layer you
+  would like to use. That color now appears on the label bar as the selected
+  color. If the color does not exist in the label color pallette, it defaults
+  to 0 and a checkerboard pattern appears in the thumbnail on the label bar to
+  represent the transparent color.
+
+  To quickly select the color picker, press the `5` key when the `labels layer`
+  is selected.
+
+  **Note:** The color of the label can be selected by clicking on the + or -
+  symbols at either end of the bar or by clicking on the number in the center of
+  the bar and typing in the number of the color to use. 255 colors are available.
+
+### Controls
+
+* Label
+
+  Use this control to choose a color for a label you are about to create or to
+  change the color of an existing label.
+
+* Opacity
+
+  Click and hold the oval on the opacity slider bar and adjust it to any value
+  between 0.00 (clear) and 1.00 (completely opaque).
+
+* Brush size
+
+  Adjust the size of the `paintbrush` using the `brush size` slider to any value
+  from 1 to 40. 1 is as small as a single pixel.
+
+* Blending
+
+  Select from `translucent`, `translucent no depth`, `additive`, `minimum`, or
+  `opaque` from the dropdown. Refer to the [Blending layers](blending-layers)
+  section of _Layers at a glance_ for an explanation of each type of blending.
+
+* Color mode
+
+  Select `auto` or `direct` from the dropdown. Auto is the default and allows
+  color to be set via a hash function with a seed. Direct allows the color of
+  each label to be set directly by a color dictionary, which can be accessed
+  directly via the `color` property of the layer, `layer.color`.
+
+* Contour
+
+  If this field has any value other than 0, only the contours of the labels
+  will show. Change the value by clicking the - or + symbols on either end of
+  the bar, or by clicking the number in the center of the bar and typing in the
+  desired value.
+
+* n edit dim
+
+  This is the number of dimensions across which labels will be edited.
+
+* Contiguous
+
+  If this box is checked, the `fill bucket` changes only connected pixels of the
+  same label.
+
+* Preserve labels
+
+  If this box is checked, existing labels are preserved while painting. It
+  defaults to false to allow painting on existing labels. When set to true,
+  existing labels will be preserved during painting. 
+
+  **You can toggle this mode using the default keybinding `p`.** DOESN'T WORK
+
+* Show selected
+
+  When this is checked, only the selected labels will be displayed. Selected
+  labels are those labels that match the color in the `label` control. When it
+  is not checked, all labels will be displayed.
+
+## Editing using the tools in the GUI
+
+### Pan and zoom mode
+
+The default mode of the `labels layer` is to support panning and zooming. This
+mode is represented by the magnifying glass in the `layer controls` panel. While
+pan and zoom is selected, editing the layer is not possible. Once you click on
+one of the editing tools, pan and zoom is turned off. Return to pan and zoom
+mode by pressing the `6` key when the `labels layer` is selected.
+
+### Creating a new `labels layer`
+
+Create a brand-new empty `labels layer` by clicking the `New labels layer`
+button above the layer list. The shape of the new labels layer will match the
+size of any currently existing image layers, allowing you to paint on top of
+them.
+
+### Selecting a label
+
+A particular label can be chosen in one of three ways:
+
+* Using the label control inside the `layer controls` panel and typing in the
+  numeric value of the desired label;
+
+* Using the + or - buttons to get to the desired label color or **press the
+  default keybinding `m` to set a new label;** DOESN'T WORK
+
+* Selecting the `color picker` tool and then clicking on a pixel with the
+  desired label color in the image.
+
+When a label is chosen, the integer value associated with it appears inside the
+label control and the color of the label is shown in the thumbnail next to the
+control. If the 0 label is selected, then a checkerboard pattern is shown in the
+thumbnail to represent the transparent color.
+
+You can quickly select the color picker by pressing the `5` key when the labels
+layer is selected.
+
+While painting with a label, you can swap between the current (selected) label
+and the transparent background label (`0`) by pressing `x`.
+
+You can set the selected label to a new label -- one larger than the current
+largest label -- by pressing `m` with either the `paintbrush` or `fill bucket`
+tools selected. This selection will guarantee that you are using a label that
+hasn't been used before.
+
+You can also increment or decrement the currently selected label by pressing the
+`=` or `-` keys, respectively.
+
+### Creating, deleting, merging, and splitting connected components
+
+Create and edit object segmentation maps using the `color picker`, `paintbrush`,
+and `fill bucket` tools. Below we show how to use these tools by performing
+common editing tasks on connected components (keep the `contiguous` box checked).
+
+* Creating or drawing a connected component
+  ![Using the paintbrush and fill bucket tools to draw a connected component](../../images/draw_component.webm)
+
+  * Press `m` to select a label color that has not been used.
+  * Select the `paintbrush` tool and draw a closed contour around the object.
+  * Select the `fill bucket` tool and click inside the contour to assign the
+    label to all pixels of the object.
+
+* Deleting a connected component
+  ![Deleting selected labels](../../images/delete_label.webm)
+  Select the background label with the `color picker` or press `x`, then use the 
+  `fill bucket` to set all pixels of the
+  connected component to background.
+
+* Merging connected components
+  ![Selecting a label and merging with a connecting label](../../images/merge_labels.webm)
+  * Select the label of one of the components with the `color picker` tool.
+  * Select the `fill bucket` and fill the components to be merged.
+
+* Splitting a connected component
+  ![Using the paintbrush tool to split a label into two](../../images/split_label.webm)
+  Splitting a connected component will introduce an additional object.
+  * Select the background label with the `color picker` or press `x`.
+  * Use the `paintbrush` tool to draw a dividing line where you want to split
+    the component.
+  * Assign the new label to one of the parts with the `fill bucket`.
+
+### Undo/redo functionality
+
+When using the `fill bucket` or `paintbrush` it can be easy to make a mistake
+that you might want to undo or you might want to redo something that has just
+been undone. Use  `ctrl-z` to redo and `shift-ctrl-z` to redo. There are plans
+to support this sort of functionality more generally, but for now these actions
+will undo the most recent painting or filling event, up to 100 events in the
+past.
+
+```{warning}
+If you have multidimensional data, adjusting the currently viewed slice will
+cause the undo history to be reset.
+```
+
+## Controlling the `labels` layer from the console
+### A simple example
+
+Create a new viewer and add a labels image in one go using the
+{meth}`napari.view_labels` method. If you already have an existing viewer, you
+can add a `Labels` image to it using `viewer.add_labels`. The API for both
+methods is the same. In these examples we'll mainly use `add_labels` to overlay
+a `Labels` layer onto on image.
 
 In this example of instance segmentation, we will find and segment each of the
 coins in an image, assigning each one an integer label, and then overlay the
@@ -79,67 +390,64 @@ nbscreenshot(viewer, alt_text="Segmentation of coins in an image, displayed usin
 viewer.close()
 ```
 
-## Arguments of `view_labels` and `add_labels`
+### Arguments of `view_labels` and `add_labels`
 
 {meth}`~napari.view_layers.view_labels` and {meth}`~napari.Viewer.add_labels`
 accept the same layer-creation parameters.
 
 ```{code-cell} python
-:tags: [hide-cell]
+:tags: [hide-output]
 
 help(napari.view_labels)
 ```
 
-## Labels data
+### Labels data
 
-The labels layer is a subclass of the `Image` layer and as such can support the
-same numpy-like arrays, including
+The `labels` layer is a subclass of the `image` layer and as such can support
+the same NumPy-like arrays, including
 [dask arrays](https://docs.dask.org/en/stable/array.html),
 [xarrays](https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html),
 and [zarr arrays](https://zarr.readthedocs.io/en/stable/api/core.html). A
-`Labels` layer though must be integer valued, and the background label must be
+`Labels` layer must be integer valued, and the background label must be
 0.
 
-Because the labels layer subclasses the image layer it inherits the great
-properties of the image layer, like supporting lazy loading and multiscale
+Because the `labels` layer subclasses the `image` layer, it inherits the great
+properties of the `image` layer, like supporting lazy loading and multiscale
 images for big data layers. For more information about both these concepts see
-the details in the [image layer guide](./image).
-
-## Creating a new labels layer
-
-As you can edit a `Labels` layer using the paintbrush and fill bucket, it is
-possible to create a brand-new empty labels layers by clicking the new labels
-layer button above the layers list. The shape of the new labels layer will match
-the size of any currently existing image layers, allowing you to paint on top of
-them.
+the details in [Using the image layer](./image).
 
 ```{admonition} Want to save without compression?
 :class: tip
 
 When saving a labels layer, lossless zlib compression is applied by default.
- To save with a different level of compression, consider using
+To save with a different level of compression, consider using
 [imageio.imwrite](https://imageio.readthedocs.io/en/stable/_autosummary/imageio.v3.imwrite.html).
-Adjusting compression can be accomplished by including the appropriate kwargs
-as outlined in the following locations for
-[tiff](https://imageio.readthedocs.io/en/stable/_autosummary/imageio.plugins.tifffile.html#metadata-for-writing) or
+
+Adjusting compression can be accomplished by including the appropriate keyword
+arguments as outlined in the following locations for
+[tif](https://imageio.readthedocs.io/en/stable/_autosummary/imageio.plugins.tifffile.html#metadata-for-writing) or
 [png](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#png) files.
 ```
 
-## Non-editable mode
+### Non-editable mode
 
 If you want to disable editing of the labels layer you can set the `editable`
 property of the layer to `False`.
 
-As note in the section on 3D rendering, when using 3D rendering the labels layer
-is not editable. Similarly, for now, a labels layer where the data is
-represented as a multiscale image is not editable.
+As noted in the section on [3D rendering](#3d-rendering), when using 3D
+rendering the labels layer is not editable. Similarly, for now, a `labels` layer
+where the data is represented as a multiscale image is not editable.
 
-## 3D rendering of labels
+### 3D rendering
 
-All our layers can be rendered in both 2D and 3D mode, and one of our viewer
-buttons can toggle between each mode. The number of dimensions sliders will be 2
-or 3 less than the total number of dimensions of the layer, allowing you to
-browse volumetric timeseries data and other high dimensional data.
+All layers can be rendered in both 2D and 3D. One of the viewer buttons at the
+bottom of the left panel can toggle between these 2 modes.
+When in 2D, the button looks like this: ![image: 2D/3D button](../../images/3D-button.png), ready to switch to 3D mode.
+When in 3D, the button looks like this: ![image: 2D/3D button](../../images/2D-button.png), ready to switch to 2D mode.
+
+The number of dimensions sliders will be 2 or 3 less than the total number of
+dimensions of the layer, allowing you to browse volumetric timeseries data and
+other high dimensional data.
 
 ```{code-cell} python
 :tags: [remove-output]
@@ -163,184 +471,6 @@ viewer.camera.angles = (3, 38, 53)
 nbscreenshot(viewer, alt_text="A 3D view of a labels layer on top of 3D blobs")
 ```
 
-Note though that when entering 3D rendering mode the colorpicker, paintbrush,
-and fill bucket options which allow for layer editing are all disabled. Those
-options are only supported when viewing a layer using 2D rendering.
-
-## Pan and zoom mode
-
-The default mode of the labels layer is to support panning and zooming, as in
-the image layer. This mode is represented by the magnifying glass in the layers
-control panel, and while it is selected editing the layer is not possible.
-Continue reading to learn how to use some of the editing modes. You can always
-return to pan and zoom mode by pressing the `Z` key when the labels layer is
-selected.
-
-## Shuffling label colors
-
-The color that each integer gets assigned is random, aside from 0 which always
-gets assigned to be transparent. The colormap we use is designed such that
-nearby integers get assigned distinct colors. The exact colors that get assigned
-as determined by a
-[random seed](https://numpy.org/doc/stable/reference/random/generated/numpy.random.seed.html)
-and changing that seed will shuffle the colors that each label gets assigned.
-Changing the seed can be done by clicking on the `shuffle colors` button in the
-layers control panel. Shuffling colors can be useful as some colors may be hard
-to distinguish from the background or nearby objects.
-
-## Selecting a label
-
-A particular label can be selected either using the label combobox inside the
-layers control panel and typing in the value of the desired label or using the
-plus / minus buttons, or by selecting the color picker tool and then clicking on
-a pixel with the desired label in the image. When a label is selected you will
-see its integer inside the label combobox and the color or the label shown in
-the thumbnail next to the label combobox. If the 0 label is selected, then a
-checkerboard pattern is shown in the thumbnail to represent the transparent
-color.
-
-You can quickly select the color picker by pressing the `L` key when the labels
-layer is selected.
-
-You can set the selected label to be 0, the background label, by pressing `E`.
-
-You can set the selected label to be one larger than the current largest label
-by pressing `M`. This selection will guarantee that you are then using a label
-that hasn't been used before.
-
-You can also increment or decrement the currently selected label by pressing the
-`I` or `D` key, respectively.
-
-## Painting in the labels layer
-
-One of the major use cases for the labels layer is to manually edit or create
-image segmentations. One of the tools that can be used for manual editing is the
-`paintbrush`, that can be made active from by clicking the paintbrush icon in
-the layers control panel. Once the paintbrush is enabled, the pan and zoom
-functionality of the  viewer canvas gets disabled, and you can paint onto the
-canvas. You can temporarily re-enable pan and zoom by pressing and holding the
-spacebar. This feature can be useful if you want to move around the labels layer
-as you paint.
-
-When you start painting the label that you are painting with, and the color that
-you will see are determined by the selected label. Note there is no explicit
-eraser tool, instead you just need to make the selected label 0 and then you are
-effectively painting with the background color. Remember you can use the color
-picker tool at any point to change the selected label.
-
-You can adjust the size of your paintbrush using the brush size slider, making
-it as small as a single pixel for incredibly detailed painting.
-
-If you have a multidimensional labels layer then your paintbrush will only edit
-data in the visible slice by default; however, if you enable the `n_dimensional`
-property and paintbrush then your paintbrush will extend out into neighbouring
-slices according to its size.
-
-You can quickly select the paintbrush by pressing the `P` key when the labels
-layer is selected.
-
-## Using the fill bucket
-
-Sometimes you might want to replace an entire label with a different label. This
-could be because you want to make two touching regions have the same label, or
-you want to just replace one label with a different one, or maybe you have
-painted around the edge of a region and you want to quickly fill in its inside.
-To do this you can select the `fill bucket` by clicking on the droplet icon in
-the layer controls panel and then click on a target region of interest in the
-layer. The fill bucket will fill using the currently selected label.
-
-By default, the fill bucket will only change contiguous or connected pixels of
-the same label as the pixel that is clicked on. If you want to change all the
-pixels of that label regardless of where they are in the slice, then you can set
-the `contiguous` property or checkbox to `False`.
-
-If you have a multidimensional labels layer then your fill bucket will only edit
-data in the visible slice by default; however, if you enable the `n_dimensional`
-property and paintbrush then your fill bucket will extend out into neighbouring
-slices, either to all pixels with that label in the layer, or only connected
-pixels depending on if the contiguous property is disabled or not.
-
-You can quickly select the fill bucket by pressing the `F` key when the labels
-layer is selected.
-
-## Drawing using polygons in the labels layer
-
-Another tool that can be used to quickly add or edit image segmentations is the 
-`polygon` tool. It combines functionality of the `paintbrush` and `fill bucket` 
-tool by allowing for readily drawing enclosed instance segmentations. The `polygon` tool 
-can be activated by clicking on the icon resembling a polygon in the layer control 
-panel or by pressing `3`. Once activated, the user actions are as follows:
-
-1. Left-click anywhere on the canvas to start drawing the polygon.
-2. Move the mouse to the location where you want the next vertex to be.
-3. Click again to set the vertex that is tracking the mouse cursor.
-4. After this step a polygon overlay will appear when moving the mouse. Repeat step 2 and 3
-   until the shape to be segmented is enclosed by the polygon overlay. 
-5. To undo the last added vertex right-click.'
-6. To cancel the drawing at any time without making a permanent change on the labels layer press
-   `escape`. This will delete the polygon overlay
-7. Press `enter` to finish drawing at any time or double click within a radius of 20 screen pixels
-   of the first vertex. This will add the polygon overlay to the labels layer.
-
-The polygon overlay will have the color of the label. The polygon overlay also has an opacity 
-that can be adjusted the value of the `opacity` slider in the layer control panel. 
-Furthermore, while the polygon overlay may be visible outside the canvas space during drawing, upon 
-finishing drawing the polygon will be cut off so that the part outside the canvas space is
-removed. This ensures that the dimensions of the label image are not larger than the image
-for which you are segmenting of for which you are editing the segmentations.
-
-Note: if you use the `polygon` tool for adding or editing segmentations of 3D image data, you can only 
-adjust labels in one plane, with the exception when viewing the image data as RGB. 
-The `polygon` tool cannot be activated if the number of displayed dimensions is higher than two.
-If already active upon toggling the number of displayed dimensions, the `polygon` tool will be 
-automatically deactivated.
-
-## Creating, deleting, merging, and splitting connected components
-
-Using the `color picker`, `paintbrush`, and `fill bucket` tools one can create
-and edit object segmentation maps. Below we show how to use these tools to by
-perform common editing tasks on connected components (keep the `contiguous` box
-checked).
-
-**Drawing a connected component**:
-
-![image: draw component](../../images/draw_component.webm)
-
-Press `M` to select a new label color. Select the `paintbrush` tool and draw a
-closed contour around the object. Select the `fill bucket` tool and click inside
-the contour to assign the label to all pixels of the object.
-
-**Selecting a connected component**:
-
-![image: delete label](../../images/delete_label.webm)
-
-Select the background label with the `color picker` (alternative: press keyboard
-shortcut `E`), then use the `fill bucket` to set all pixels of the connected
-component to background.
-
-**Merging connected components**:
-
-![image: merge labels](../../images/merge_labels.webm)
-
-Select the label of one of the components with the `color picker` tool and then
-filling the components to be merged with the fill bucket.
-
-**Splitting a connected component**:
-
-![image: split label](../../images/split_label.webm)
-
-Splitting a connected component will introduce an additional object, therefore
-press `M` to select a label number that is not already in use. Use the
-paintbrush tool to draw a dividing line, then assign the new label to one of the
-parts with the `fill bucket`.
-
-## Undo / redo functionality
-
-When painting or using the fill bucket it can be easy to make a mistake that you
-might want to undo or then redo. For the labels layer we support an undo with
-`ctrl-Z` and redo with `shift-ctrl-Z`. We plan to support this sort of
-functionality more generally, but for now these actions will undo the most
-recent painting or filling event, up to 100 events in the past.
-
-If you have multidimensional data, then adjusting the currently viewed slice
-will cause the undo history to be reset.
+Note that in 3D rendering mode the `colorpicker`, `paintbrush`, and
+`fill bucket` options are all disabled. Those options allow for layer editing
+and are only supported when viewing a layer rendered in 2D.

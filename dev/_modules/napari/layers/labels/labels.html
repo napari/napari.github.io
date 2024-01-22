@@ -1500,9 +1500,9 @@ document.write(`
 
         <span class="k">if</span> <span class="n">data_slice</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">data_slice</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span> <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="n">raw</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">setup_cache</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_setup_cache</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+            <span class="n">setup_cache</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="n">labels</span> <span class="o">=</span> <span class="n">raw</span>  <span class="c1"># for readability</span>
 
@@ -1512,6 +1512,14 @@ document.write(`
 
         <span class="k">if</span> <span class="n">sliced_labels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">sliced_labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">sliced_labels</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">_data_to_texture</span><span class="p">(</span><span class="n">sliced_labels</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">setup_cache</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_setup_cache</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># cache the labels and keep track of when values are changed</span>
         <span class="n">update_mask</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1532,14 +1540,7 @@ document.write(`
         <span class="k">if</span> <span class="n">labels_to_map</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span><span class="p">:</span>
-            <span class="n">mapped_labels</span> <span class="o">=</span> <span class="n">_cast_labels_data_to_texture_dtype_auto</span><span class="p">(</span>
-                <span class="n">labels_to_map</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>  <span class="c1"># direct</span>
-            <span class="n">mapped_labels</span> <span class="o">=</span> <span class="n">_cast_labels_data_to_texture_dtype_direct</span><span class="p">(</span>
-                <span class="n">labels_to_map</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_direct_colormap</span>
-            <span class="p">)</span>
+        <span class="n">mapped_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">_data_to_texture</span><span class="p">(</span><span class="n">labels_to_map</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">update_mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1595,9 +1596,9 @@ document.write(`
         <span class="k">elif</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">show_selected_label</span> <span class="ow">and</span> <span class="n">label</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span>
         <span class="p">):</span>
-            <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">label</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">col</span></div>
 
     <span class="k">def</span> <span class="nf">_get_value_ray</span><span class="p">(</span>

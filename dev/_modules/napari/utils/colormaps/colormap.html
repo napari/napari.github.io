@@ -1158,20 +1158,26 @@ document.write(`
 
     <span class="n">data_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">num_colors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">colormap</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">zero_preserving_modulo_func</span> <span class="o">=</span> <span class="n">_zero_preserving_modulo</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
+        <span class="n">zero_preserving_modulo_func</span> <span class="o">=</span> <span class="n">_zero_preserving_modulo_numpy</span>
 
     <span class="n">dtype</span> <span class="o">=</span> <span class="n">minimum_dtype_for_labels</span><span class="p">(</span><span class="n">num_colors</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">colormap</span><span class="o">.</span><span class="n">use_selection</span><span class="p">:</span>
-        <span class="n">selection_in_texture</span> <span class="o">=</span> <span class="n">_zero_preserving_modulo</span><span class="p">(</span>
+        <span class="n">selection_in_texture</span> <span class="o">=</span> <span class="n">_zero_preserving_modulo_numpy</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">colormap</span><span class="o">.</span><span class="n">selection</span><span class="p">]),</span> <span class="n">num_colors</span><span class="p">,</span> <span class="n">dtype</span>
         <span class="p">)</span>
         <span class="n">converted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
             <span class="n">data_arr</span> <span class="o">==</span> <span class="n">colormap</span><span class="o">.</span><span class="n">selection</span><span class="p">,</span> <span class="n">selection_in_texture</span><span class="p">,</span> <span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">converted</span> <span class="o">=</span> <span class="n">_zero_preserving_modulo</span><span class="p">(</span>
+        <span class="n">converted</span> <span class="o">=</span> <span class="n">zero_preserving_modulo_func</span><span class="p">(</span>
             <span class="n">data_arr</span><span class="p">,</span> <span class="n">num_colors</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span>
         <span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">converted</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">converted</span><span class="p">,</span> <span class="n">original_shape</span><span class="p">)</span>
 
@@ -1325,6 +1331,15 @@ document.write(`
 
     <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">data</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
+        <span class="n">mapper</span> <span class="o">=</span> <span class="n">direct_colormap</span><span class="o">.</span><span class="n">_label_mapping_and_color_dict</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">target_dtype</span> <span class="o">=</span> <span class="n">minimum_dtype_for_labels</span><span class="p">(</span>
+            <span class="n">direct_colormap</span><span class="o">.</span><span class="n">_num_unique_colors</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">target_dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span>
+            <span class="n">mapper</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">MAPPING_OF_UNKNOWN_VALUE</span><span class="p">)</span>
+        <span class="p">)</span>
 
     <span class="n">original_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">array_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>

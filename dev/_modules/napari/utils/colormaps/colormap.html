@@ -470,6 +470,7 @@ document.write(`
     <span class="n">DefaultDict</span><span class="p">,</span>
     <span class="n">Dict</span><span class="p">,</span>
     <span class="n">List</span><span class="p">,</span>
+    <span class="n">Literal</span><span class="p">,</span>
     <span class="n">Optional</span><span class="p">,</span>
     <span class="n">Tuple</span><span class="p">,</span>
     <span class="n">Union</span><span class="p">,</span>
@@ -482,9 +483,11 @@ document.write(`
 <span class="kn">from</span> <span class="nn">napari._pydantic_compat</span> <span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">PrivateAttr</span><span class="p">,</span> <span class="n">validator</span>
 <span class="kn">from</span> <span class="nn">napari.utils.color</span> <span class="kn">import</span> <span class="n">ColorArray</span>
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps.colorbars</span> <span class="kn">import</span> <span class="n">make_colorbar</span>
+<span class="kn">from</span> <span class="nn">napari.utils.colormaps.standardize_color</span> <span class="kn">import</span> <span class="n">transform_color</span>
 <span class="kn">from</span> <span class="nn">napari.utils.compat</span> <span class="kn">import</span> <span class="n">StrEnum</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">EventedModel</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
+<span class="kn">from</span> <span class="nn">napari.utils.migrations</span> <span class="kn">import</span> <span class="n">deprecated_class_name</span>
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -596,6 +599,9 @@ document.write(`
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">yield from</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpolation</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpolation</span> <span class="o">==</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">LINEAR</span><span class="p">:</span>
@@ -633,7 +639,9 @@ document.write(`
     <span class="n">use_selection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">selection</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">background_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">interpolation</span><span class="p">:</span> <span class="n">ColormapInterpolationMode</span> <span class="o">=</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">ZERO</span>
+    <span class="n">interpolation</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">ZERO</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">ZERO</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
     <span class="n">_cache_mapping</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span>
         <span class="n">default</span><span class="o">=</span><span class="p">{}</span>
     <span class="p">)</span>
@@ -713,14 +721,28 @@ document.write(`
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_to_texture</span><span class="p">(</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">)))</span>
 
 
-<div class="viewcode-block" id="LabelColormap"><a class="viewcode-back" href="../../../../api/napari.utils.LabelColormap.html#napari.utils.LabelColormap">[docs]</a><span class="k">class</span> <span class="nc">LabelColormap</span><span class="p">(</span><span class="n">LabelColormapBase</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Colormap that shuffles values before mapping to colors.</span>
+<div class="viewcode-block" id="CyclicLabelColormap"><a class="viewcode-back" href="../../../../api/napari.utils.CyclicLabelColormap.html#napari.utils.CyclicLabelColormap">[docs]</a><span class="k">class</span> <span class="nc">CyclicLabelColormap</span><span class="p">(</span><span class="n">LabelColormapBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Color cycle with a background value.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
-<span class="sd">    seed : float</span>
+<span class="sd">    colors : ColorArray</span>
+<span class="sd">        Colors to be used for mapping.</span>
+<span class="sd">        For values above the number of colors,</span>
+<span class="sd">        the colors will be cycled.</span>
 <span class="sd">    use_selection : bool</span>
+<span class="sd">        Whether map only selected label.</span>
+<span class="sd">        If `True` only selected label will be mapped to not transparent color.</span>
 <span class="sd">    selection : int</span>
+<span class="sd">        The selected label.</span>
+<span class="sd">    background_value : int</span>
+<span class="sd">        Which value should be treated as a background</span>
+<span class="sd">        and mapped to transparent color.</span>
+<span class="sd">    interpolation : Literal[&#39;zero&#39;]</span>
+<span class="sd">        required by implementation, please do not set value</span>
+<span class="sd">    seed : float</span>
+<span class="sd">        seed used for random color generation. Used for reproducibility.</span>
+<span class="sd">        It will be removed in the future release.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">seed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
@@ -773,7 +795,7 @@ document.write(`
         <span class="n">mapped</span><span class="p">[</span><span class="n">texture_dtype_values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="n">mapped</span>
 
-<div class="viewcode-block" id="LabelColormap.map"><a class="viewcode-back" href="../../../../api/napari.utils.LabelColormap.html#napari.utils.LabelColormap.map">[docs]</a>    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="CyclicLabelColormap.map"><a class="viewcode-back" href="../../../../api/napari.utils.CyclicLabelColormap.html#napari.utils.CyclicLabelColormap.map">[docs]</a>    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Map values to colors.</span>
 
 <span class="sd">        Parameters</span>
@@ -802,7 +824,7 @@ document.write(`
 
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">mapped</span><span class="p">,</span> <span class="n">original_shape</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4</span><span class="p">,))</span></div>
 
-<div class="viewcode-block" id="LabelColormap.shuffle"><a class="viewcode-back" href="../../../../api/napari.utils.LabelColormap.html#napari.utils.LabelColormap.shuffle">[docs]</a>    <span class="k">def</span> <span class="nf">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="CyclicLabelColormap.shuffle"><a class="viewcode-back" href="../../../../api/napari.utils.CyclicLabelColormap.html#napari.utils.CyclicLabelColormap.shuffle">[docs]</a>    <span class="k">def</span> <span class="nf">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Shuffle the colormap colors.</span>
 
 <span class="sd">        Parameters</span>
@@ -814,17 +836,29 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">colors</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span></div></div>
 
 
-<span class="k">class</span> <span class="nc">DirectLabelColormap</span><span class="p">(</span><span class="n">LabelColormapBase</span><span class="p">):</span>
+<span class="n">LabelColormap</span> <span class="o">=</span> <span class="n">deprecated_class_name</span><span class="p">(</span>
+    <span class="n">CyclicLabelColormap</span><span class="p">,</span>
+    <span class="s1">&#39;LabelColormap&#39;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.5.0&#39;</span><span class="p">,</span>
+    <span class="n">since_version</span><span class="o">=</span><span class="s1">&#39;0.4.19&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="DirectLabelColormap"><a class="viewcode-back" href="../../../../api/napari.utils.DirectLabelColormap.html#napari.utils.DirectLabelColormap">[docs]</a><span class="k">class</span> <span class="nc">DirectLabelColormap</span><span class="p">(</span><span class="n">LabelColormapBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Colormap using a direct mapping from labels to color using a dict.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    color_dict: dict from int to (3,) or (4,) array</span>
 <span class="sd">        The dictionary mapping labels to colors.</span>
+
 <span class="sd">    use_selection : bool</span>
-<span class="sd">        Whether to color using the selected label.</span>
+<span class="sd">        Whether to map only the selected label to a color.</span>
+<span class="sd">        If `True` only selected label will be not transparent.</span>
 <span class="sd">    selection : int</span>
 <span class="sd">        The selected label.</span>
+<span class="sd">    colors : ColorArray</span>
+<span class="sd">        Exist because of implementation details. Please do not use it.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">color_dict</span><span class="p">:</span> <span class="n">DefaultDict</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
@@ -837,6 +871,60 @@ document.write(`
         <span class="k">if</span> <span class="s2">&quot;colors&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;colors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Overwrite from base class because .color is a dummy array.</span>
+
+<span class="sd">        This returns the number of colors in the colormap, including</span>
+<span class="sd">        background and unmapped labels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_unique_colors</span> <span class="o">+</span> <span class="mi">2</span>
+
+    <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;color_dict&quot;</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">always</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_validate_color_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ensure colors are RGBA arrays, not strings.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cls : type</span>
+<span class="sd">            The class of the object being instantiated.</span>
+<span class="sd">        v : MutableMapping</span>
+<span class="sd">            A mapping from integers to colors. It *may* have None as a key,</span>
+<span class="sd">            which indicates the color to map items not in the dictionary.</span>
+<span class="sd">            Alternatively, it could be a defaultdict.</span>
+<span class="sd">        values : dict[str, Any]</span>
+<span class="sd">            A dictionary mapping previously-validated attributes to their</span>
+<span class="sd">            validated values. Attributes are validated in the order in which</span>
+<span class="sd">            they are defined.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        res : (default)dict[int, np.ndarray[float]]</span>
+<span class="sd">            A properly-formatted dictionary mapping labels to RGBA arrays.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">defaultdict</span><span class="p">)</span> <span class="ow">and</span> <span class="kc">None</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;color_dict must contain None or be defaultdict instance&quot;</span>
+            <span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">label</span><span class="p">:</span> <span class="n">transform_color</span><span class="p">(</span><span class="n">color_str</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">color_str</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="s1">&#39;background_value&#39;</span> <span class="ow">in</span> <span class="n">values</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="n">bg</span> <span class="o">:=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;background_value&#39;</span><span class="p">])</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">res</span>
+        <span class="p">):</span>
+            <span class="n">res</span><span class="p">[</span><span class="n">bg</span><span class="p">]</span> <span class="o">=</span> <span class="n">transform_color</span><span class="p">(</span><span class="s1">&#39;transparent&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">defaultdict</span><span class="p">):</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">default_factory</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="nf">_selection_as_minimum_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">_cast_labels_data_to_texture_dtype_direct</span><span class="p">(</span>
+                <span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">),</span> <span class="bp">self</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
     <span class="nd">@overload</span>
     <span class="k">def</span> <span class="nf">_data_to_texture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -852,7 +940,7 @@ document.write(`
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Map input values to values for send to GPU.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">_cast_labels_data_to_texture_dtype_direct</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="DirectLabelColormap.map"><a class="viewcode-back" href="../../../../api/napari.utils.DirectLabelColormap.html#napari.utils.DirectLabelColormap.map">[docs]</a>    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Map values to colors.</span>
 
 <span class="sd">        Parameters</span>
@@ -884,7 +972,7 @@ document.write(`
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_selection</span><span class="p">:</span>
             <span class="n">mapped</span><span class="p">[(</span><span class="n">values</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">return</span> <span class="n">mapped</span>
+        <span class="k">return</span> <span class="n">mapped</span></div>
 
     <span class="k">def</span> <span class="nf">_map_without_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="n">cmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cmap_without_selection</span><span class="p">()</span>
@@ -919,7 +1007,11 @@ document.write(`
 
     <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">_num_unique_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Count the number of unique colors in the colormap.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Count the number of unique colors in the colormap.</span>
+
+<span class="sd">        This number does not include background or the default color for</span>
+<span class="sd">        unmapped labels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">({</span><span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()})</span>
 
     <span class="k">def</span> <span class="nf">_clear_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1060,7 +1152,7 @@ document.write(`
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">default_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span></div>
         <span class="c1"># we provided here default color for backward compatibility</span>
         <span class="c1"># if someone is using DirectLabelColormap directly, not through Label layer</span>
 
@@ -1108,7 +1200,7 @@ document.write(`
 <span class="nd">@overload</span>
 <span class="k">def</span> <span class="nf">_cast_labels_data_to_texture_dtype_auto</span><span class="p">(</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">colormap</span><span class="p">:</span> <span class="n">LabelColormap</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="p">:</span> <span class="n">CyclicLabelColormap</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
     <span class="o">...</span>
 
@@ -1116,14 +1208,14 @@ document.write(`
 <span class="nd">@overload</span>
 <span class="k">def</span> <span class="nf">_cast_labels_data_to_texture_dtype_auto</span><span class="p">(</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">,</span>
-    <span class="n">colormap</span><span class="p">:</span> <span class="n">LabelColormap</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="p">:</span> <span class="n">CyclicLabelColormap</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">:</span>
     <span class="o">...</span>
 
 
 <span class="k">def</span> <span class="nf">_cast_labels_data_to_texture_dtype_auto</span><span class="p">(</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">],</span>
-    <span class="n">colormap</span><span class="p">:</span> <span class="n">LabelColormap</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="p">:</span> <span class="n">CyclicLabelColormap</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert labels data to the data type used in the texture.</span>
 
@@ -1144,7 +1236,7 @@ document.write(`
 <span class="sd">    ----------</span>
 <span class="sd">    data : np.ndarray</span>
 <span class="sd">        Labels data to be converted.</span>
-<span class="sd">    colormap : LabelColormap</span>
+<span class="sd">    colormap : CyclicLabelColormap</span>
 <span class="sd">        Colormap used to display the labels data.</span>
 
 <span class="sd">    Returns</span>
@@ -1319,7 +1411,7 @@ document.write(`
 <span class="sd">    ----------</span>
 <span class="sd">    data : np.ndarray | np.integer</span>
 <span class="sd">        Labels data to be converted.</span>
-<span class="sd">    direct_colormap : LabelColormap</span>
+<span class="sd">    direct_colormap : CyclicLabelColormap</span>
 <span class="sd">        Colormap used to display the labels data.</span>
 
 <span class="sd">    Returns</span>

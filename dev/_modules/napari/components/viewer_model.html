@@ -2116,14 +2116,14 @@ document.write(`
 <span class="sd">    &gt;&gt;&gt; test_kwargs = {</span>
 <span class="sd">    ...     &#39;scale&#39;: (0.75, 1),</span>
 <span class="sd">    ...     &#39;blending&#39;: &#39;additive&#39;,</span>
-<span class="sd">    ...     &#39;num_colors&#39;: 10,</span>
+<span class="sd">    ...     &#39;size&#39;: 10,</span>
 <span class="sd">    ... }</span>
 <span class="sd">    &gt;&gt;&gt; prune_kwargs(test_kwargs, &#39;image&#39;)</span>
 <span class="sd">    {&#39;scale&#39;: (0.75, 1), &#39;blending&#39;: &#39;additive&#39;}</span>
 
 <span class="sd">    &gt;&gt;&gt; # only labels has the ``num_colors`` argument</span>
-<span class="sd">    &gt;&gt;&gt; prune_kwargs(test_kwargs, &#39;labels&#39;)</span>
-<span class="sd">    {&#39;scale&#39;: (0.75, 1), &#39;blending&#39;: &#39;additive&#39;, &#39;num_colors&#39;: 10}</span>
+<span class="sd">    &gt;&gt;&gt; prune_kwargs(test_kwargs, &#39;points&#39;)</span>
+<span class="sd">    {&#39;scale&#39;: (0.75, 1), &#39;blending&#39;: &#39;additive&#39;, &#39;size&#39;: 10}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">add_method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">,</span> <span class="s1">&#39;add_&#39;</span> <span class="o">+</span> <span class="n">layer_type</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">add_method</span> <span class="ow">or</span> <span class="n">layer_type</span> <span class="o">==</span> <span class="s1">&#39;layer&#39;</span><span class="p">:</span>

@@ -16,9 +16,10 @@
       :toctree:
    
       Colormap
-      LabelColormap
-      nbscreenshot
+      DirectLabelColormap
+      CyclicLabelColormap
       cancelable_progress
+      nbscreenshot
       progress
    
    
@@ -28,9 +29,9 @@
    .. rubric:: Functions
 
    
+   .. autofunction:: progrange
    .. autofunction:: resize_dask_cache
    .. autofunction:: sys_info
-   .. autofunction:: progrange
    
    
 

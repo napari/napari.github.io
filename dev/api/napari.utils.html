@@ -439,9 +439,10 @@ document.write(`
 </li>
 <li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">napari.utils</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="napari.utils.Colormap.html">napari.utils.Colormap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="napari.utils.LabelColormap.html">napari.utils.LabelColormap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="napari.utils.nbscreenshot.html">napari.utils.nbscreenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.utils.DirectLabelColormap.html">napari.utils.DirectLabelColormap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.utils.CyclicLabelColormap.html">napari.utils.CyclicLabelColormap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="napari.utils.cancelable_progress.html">napari.utils.cancelable_progress</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.utils.nbscreenshot.html">napari.utils.nbscreenshot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="napari.utils.progress.html">napari.utils.progress</a></li>
 </ul>
 </li>
@@ -580,21 +581,40 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Colormap</span></code></a></p></td>
 <td><p>Colormap that relates intensity values to colors.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="napari.utils.LabelColormap.html#napari.utils.LabelColormap" title="napari.utils.LabelColormap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelColormap</span></code></a></p></td>
-<td><p>Colormap that shuffles values before mapping to colors.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="napari.utils.DirectLabelColormap.html#napari.utils.DirectLabelColormap" title="napari.utils.DirectLabelColormap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DirectLabelColormap</span></code></a></p></td>
+<td><p>Colormap using a direct mapping from labels to color using a dict.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="napari.utils.nbscreenshot.html#napari.utils.nbscreenshot" title="napari.utils.nbscreenshot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nbscreenshot</span></code></a></p></td>
-<td><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">NotebookScreenshot</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="napari.utils.CyclicLabelColormap.html#napari.utils.CyclicLabelColormap" title="napari.utils.CyclicLabelColormap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CyclicLabelColormap</span></code></a></p></td>
+<td><p>Color cycle with a background value.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="napari.utils.cancelable_progress.html#napari.utils.cancelable_progress" title="napari.utils.cancelable_progress"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cancelable_progress</span></code></a></p></td>
 <td><p>This class inherits from progress, providing the additional ability to cancel expensive executions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="napari.utils.progress.html#napari.utils.progress" title="napari.utils.progress"><code class="xref py py-obj docutils literal notranslate"><span class="pre">progress</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="napari.utils.nbscreenshot.html#napari.utils.nbscreenshot" title="napari.utils.nbscreenshot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nbscreenshot</span></code></a></p></td>
+<td><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">NotebookScreenshot</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="napari.utils.progress.html#napari.utils.progress" title="napari.utils.progress"><code class="xref py py-obj docutils literal notranslate"><span class="pre">progress</span></code></a></p></td>
 <td><p>This class inherits from tqdm and provides an interface for progress bars in the napari viewer.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Functions</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="napari.utils.progrange">
+<span class="sig-prename descclassname"><span class="pre">napari.utils.</span></span><span class="sig-name descname"><span class="pre">progrange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/progress.html#progrange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.progrange" title="Permalink to this definition">#</a></dt>
+<dd><p>Shorthand for <code class="docutils literal notranslate"><span class="pre">progress(range(*args),</span> <span class="pre">**kwargs)</span></code>.</p>
+<p>Adds tqdm based progress bar to napari viewer, if it
+exists, and returns the wrapped range object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>wrapped range object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="napari.utils.progress.html#napari.utils.progress" title="napari.utils.progress">progress</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="napari.utils.resize_dask_cache">
 <span class="sig-prename descclassname"><span class="pre">napari.utils.</span></span><span class="sig-name descname"><span class="pre">resize_dask_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nbytes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mem_fraction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Cache</span></span></span><a class="reference internal" href="../_modules/napari/utils/_dask_utils.html#resize_dask_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.resize_dask_cache" title="Permalink to this definition">#</a></dt>
@@ -646,22 +666,6 @@ by default, cache size is autodetermined using <code class="docutils literal not
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="napari.utils.progrange">
-<span class="sig-prename descclassname"><span class="pre">napari.utils.</span></span><span class="sig-name descname"><span class="pre">progrange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/progress.html#progrange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.progrange" title="Permalink to this definition">#</a></dt>
-<dd><p>Shorthand for <code class="docutils literal notranslate"><span class="pre">progress(range(*args),</span> <span class="pre">**kwargs)</span></code>.</p>
-<p>Adds tqdm based progress bar to napari viewer, if it
-exists, and returns the wrapped range object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>wrapped range object</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="napari.utils.progress.html#napari.utils.progress" title="napari.utils.progress">progress</a></p>
-</dd>
-</dl>
-</dd></dl>
-
 </section>
 
 
@@ -708,9 +712,9 @@ exists, and returns the wrapped range object.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.progrange"><code class="docutils literal notranslate"><span class="pre">progrange()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.resize_dask_cache"><code class="docutils literal notranslate"><span class="pre">resize_dask_cache()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.sys_info"><code class="docutils literal notranslate"><span class="pre">sys_info()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.progrange"><code class="docutils literal notranslate"><span class="pre">progrange()</span></code></a></li>
 </ul>
   </nav></div>
 

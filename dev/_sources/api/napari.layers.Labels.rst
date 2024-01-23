@@ -146,7 +146,6 @@ napari.layers.Labels
       ~Labels.rotate
       ~Labels.scale
       ~Labels.seed
-      ~Labels.seed_rng
       ~Labels.selected_label
       ~Labels.shear
       ~Labels.show_selected_label

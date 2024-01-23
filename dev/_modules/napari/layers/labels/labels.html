@@ -510,22 +510,22 @@ document.write(`
     <span class="n">interpolate_coordinates</span><span class="p">,</span>
     <span class="n">sphere_indices</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.layers.utils.color_transformations</span> <span class="kn">import</span> <span class="n">transform_color</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span>
 <span class="kn">from</span> <span class="nn">napari.utils._dtype</span> <span class="kn">import</span> <span class="n">normalize_dtype</span><span class="p">,</span> <span class="n">vispy_texture_dtype</span>
 <span class="kn">from</span> <span class="nn">napari.utils._indexing</span> <span class="kn">import</span> <span class="n">elements_in_slice</span><span class="p">,</span> <span class="n">index_in_slice</span>
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">direct_colormap</span><span class="p">,</span>
-    <span class="n">ensure_colormap</span><span class="p">,</span>
     <span class="n">label_colormap</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps.colormap</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">LabelColormap</span><span class="p">,</span>
+    <span class="n">CyclicLabelColormap</span><span class="p">,</span>
+    <span class="n">DirectLabelColormap</span><span class="p">,</span>
     <span class="n">LabelColormapBase</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps.colormap_utils</span> <span class="kn">import</span> <span class="n">shuffle_and_extend_colormap</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
 <span class="kn">from</span> <span class="nn">napari.utils.geometry</span> <span class="kn">import</span> <span class="n">clamp_point_to_bounding_box</span>
 <span class="kn">from</span> <span class="nn">napari.utils.migrations</span> <span class="kn">import</span> <span class="n">deprecated_constructor_arg_by_attr</span>
 <span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">StringEnum</span><span class="p">,</span> <span class="n">_is_array_type</span>
@@ -559,9 +559,9 @@ document.write(`
 <span class="sd">    cache : bool</span>
 <span class="sd">        Whether slices of out-of-core datasets should be cached upon retrieval.</span>
 <span class="sd">        Currently, this only applies to dask arrays.</span>
-<span class="sd">    color : dict of int or None to str or array</span>
-<span class="sd">        Custom label to color mapping. Values must be valid color names or RGBA</span>
-<span class="sd">        arrays. None is used when no color is specified for a label.</span>
+<span class="sd">    colormap : CyclicLabelColormap or DirectLabelColormap or None</span>
+<span class="sd">        Colormap to use for the labels. If None, a random colormap will be</span>
+<span class="sd">        used.</span>
 <span class="sd">    depiction : str</span>
 <span class="sd">        3D Depiction mode. Must be one of {&#39;volume&#39;, &#39;plane&#39;}.</span>
 <span class="sd">        The default value is &#39;volume&#39;.</span>
@@ -584,8 +584,6 @@ document.write(`
 <span class="sd">        displayed.</span>
 <span class="sd">    name : str</span>
 <span class="sd">        Name of the layer.</span>
-<span class="sd">    num_colors : int</span>
-<span class="sd">        Number of unique colors to use in colormap.</span>
 <span class="sd">    opacity : float</span>
 <span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
 <span class="sd">    plane : dict or SlicingPlane</span>
@@ -612,8 +610,6 @@ document.write(`
 <span class="sd">        np.degrees if needed.</span>
 <span class="sd">    scale : tuple of float</span>
 <span class="sd">        Scale factors for the layer.</span>
-<span class="sd">    seed_rng : int</span>
-<span class="sd">        Seed for colormap shuffle random generator.</span>
 <span class="sd">    shear : 1-D array or n-D array</span>
 <span class="sd">        Either a vector of upper triangular values, or an nD shear matrix with</span>
 <span class="sd">        ones along the main diagonal.</span>
@@ -639,7 +635,8 @@ document.write(`
 <span class="sd">    metadata : dict</span>
 <span class="sd">        Labels metadata.</span>
 <span class="sd">    num_colors : int</span>
-<span class="sd">        Number of unique colors to use in colormap.</span>
+<span class="sd">        Number of unique colors to use in colormap. DEPRECATED: set</span>
+<span class="sd">        ``colormap`` directly, using `napari.utils.colormaps.label_colormap`.</span>
 <span class="sd">    features : Dataframe-like</span>
 <span class="sd">        Features table where each row corresponds to a label and each column</span>
 <span class="sd">        is a feature. The first row corresponds to the background label.</span>
@@ -651,9 +648,11 @@ document.write(`
 <span class="sd">        Custom label to color mapping. Values must be valid color names or RGBA</span>
 <span class="sd">        arrays. While there is no limit to the number of custom labels, the</span>
 <span class="sd">        the layer will render incorrectly if they map to more than 1024 distinct</span>
-<span class="sd">        colors.</span>
+<span class="sd">        colors. DEPRECATED: set ``colormap`` directly, using</span>
+<span class="sd">        `napari.utils.colormaps.DirectLabelColormap`.</span>
 <span class="sd">    seed : float</span>
-<span class="sd">        Seed for colormap random generator.</span>
+<span class="sd">        Seed for colormap random generator. DEPRECATED: set ``colormap``</span>
+<span class="sd">        directly, using `napari.utils.colormaps.label_colormap`.</span>
 <span class="sd">    opacity : float</span>
 <span class="sd">        Opacity of the labels, must be between 0 and 1.</span>
 <span class="sd">    contiguous : bool</span>
@@ -741,6 +740,8 @@ document.write(`
 
     <span class="n">_history_limit</span> <span class="o">=</span> <span class="mi">100</span>
 
+    <span class="nd">@deprecated_constructor_arg_by_attr</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">)</span>
+    <span class="nd">@deprecated_constructor_arg_by_attr</span><span class="p">(</span><span class="s2">&quot;num_colors&quot;</span><span class="p">)</span>
     <span class="nd">@deprecated_constructor_arg_by_attr</span><span class="p">(</span><span class="s2">&quot;seed&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -749,14 +750,13 @@ document.write(`
         <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">blending</span><span class="o">=</span><span class="s1">&#39;translucent&#39;</span><span class="p">,</span>
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">colormap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">depiction</span><span class="o">=</span><span class="s1">&#39;volume&#39;</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">multiscale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">num_colors</span><span class="o">=</span><span class="mi">49</span><span class="p">,</span>
         <span class="n">opacity</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
         <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -764,7 +764,6 @@ document.write(`
         <span class="n">rendering</span><span class="o">=</span><span class="s1">&#39;iso_categorical&#39;</span><span class="p">,</span>
         <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">seed_rng</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -773,14 +772,16 @@ document.write(`
             <span class="n">name</span> <span class="o">=</span> <span class="n">magic_name</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span> <span class="o">=</span> <span class="mf">0.5</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_seed_rng</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">seed_rng</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_num_colors</span> <span class="o">=</span> <span class="n">num_colors</span>
+        <span class="c1"># We use 50 colors (49 + transparency) by default for historical</span>
+        <span class="c1"># consistency. This may change in future versions.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span> <span class="o">=</span> <span class="n">label_colormap</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">num_colors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span>
+            <span class="mi">49</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span><span class="p">,</span> <span class="n">background_value</span><span class="o">=</span><span class="mi">0</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_original_random_colormap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_direct_colormap</span> <span class="o">=</span> <span class="n">direct_colormap</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_direct_colormap</span> <span class="o">=</span> <span class="n">direct_colormap</span><span class="p">(</span>
+            <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;transparent&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">}</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">=</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_show_selected_label</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_contour</span> <span class="o">=</span> <span class="mi">0</span>
@@ -811,7 +812,15 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
             <span class="n">brush_shape</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">brush_size</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">color_mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">color_mode</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s1">&#39;Labels.events.color_mode is deprecated since 0.4.19 and &#39;</span>
+                    <span class="s1">&#39;will be removed in 0.5.0, please use &#39;</span>
+                    <span class="s1">&#39;Labels.events.colormap.&#39;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">type_name</span><span class="o">=</span><span class="s1">&#39;color_mode&#39;</span><span class="p">,</span>
+            <span class="p">),</span>
             <span class="n">colormap</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">contiguous</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">contour</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -846,7 +855,8 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_prev_selected_label</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_label</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
+        <span class="k">if</span> <span class="n">colormap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_preserve_labels</span> <span class="o">=</span> <span class="kc">False</span>
@@ -938,61 +948,50 @@ document.write(`
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">seed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;float: Seed for colormap random generator.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;seed is deprecated since 0.4.19 and will be removed in 0.5.0, &quot;</span>
+            <span class="s2">&quot;please check Labels.colormap directly.&quot;</span><span class="p">,</span>
+            <span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span><span class="o">.</span><span class="n">seed</span>
 
     <span class="nd">@seed</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">seed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="s2">&quot;seed is deprecated since 0.4.19 and will be removed in 0.5.0, please use seed_rng instead&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;seed is deprecated since 0.4.19 and will be removed in 0.5.0, &quot;</span>
+            <span class="s2">&quot;please use the new_colormap method instead, or set the colormap &quot;</span>
+            <span class="s2">&quot;directly.&quot;</span><span class="p">,</span>
             <span class="ne">FutureWarning</span><span class="p">,</span>
             <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span> <span class="o">=</span> <span class="n">seed</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="n">label_colormap</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">num_colors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+            <span class="n">background_value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">colormap</span><span class="p">()</span>  <span class="c1"># Will update the LabelVispyColormap shader</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">selected_label</span><span class="p">()</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">seed_rng</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed_rng</span>
+    <span class="k">def</span> <span class="nf">new_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">seed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">32</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
-    <span class="nd">@seed_rng</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">seed_rng</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed_rng</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">seed_rng</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed_rng</span><span class="p">:</span>
-            <span class="k">return</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_seed_rng</span> <span class="o">=</span> <span class="n">seed_rng</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed_rng</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="n">label_colormap</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">num_colors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span> <span class="o">=</span> <span class="n">shuffle_and_extend_colormap</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_original_random_colormap</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed_rng</span>
-            <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">colormap</span><span class="p">()</span>  <span class="c1"># Will update the LabelVispyColormap shader</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">selected_label</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+        <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_original_random_colormap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="n">shuffle_and_extend_colormap</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_original_random_colormap</span><span class="p">,</span> <span class="n">seed</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_original_random_colormap</span> <span class="o">=</span> <span class="n">orig</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LabelColormapBase</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_direct_colormap</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span>
 
     <span class="nd">@colormap</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colormap</span><span class="p">:</span> <span class="n">LabelColormapBase</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_set_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colormap</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colormap</span><span class="p">,</span> <span class="n">LabelColormap</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colormap</span><span class="p">,</span> <span class="n">CyclicLabelColormap</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span> <span class="o">=</span> <span class="n">colormap</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_original_random_colormap</span> <span class="o">=</span> <span class="n">colormap</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span>
@@ -1013,24 +1012,45 @@ document.write(`
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">color_mode</span> <span class="o">=</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">DIRECT</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_direct_colormap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># invalidate the cached color mapping</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">=</span> <span class="n">color_mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">colormap</span><span class="p">()</span>  <span class="c1"># Will update the LabelVispyColormap shader</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">color_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">selected_label</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">num_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;int: Number of unique colors to use in colormap.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_colors</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">&#39;Labels.num_colors is deprecated since 0.4.19 and will be &#39;</span>
+                <span class="s1">&#39;removed in 0.5.0, please use len(Labels.colormap) &#39;</span>
+                <span class="s1">&#39;instead.&#39;</span><span class="p">,</span>
+                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="p">)</span>
 
     <span class="nd">@num_colors</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">num_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_colors</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="n">label_colormap</span><span class="p">(</span>
-            <span class="n">num_colors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">&#39;Setting Labels.num_colors is deprecated since 0.4.19 and &#39;</span>
+                <span class="s1">&#39;will be removed in 0.5.0, please set Labels.colormap &#39;</span>
+                <span class="s1">&#39;instead.&#39;</span><span class="p">,</span>
+                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_num_colors</span> <span class="o">=</span> <span class="n">num_colors</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">selected_label</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="n">label_colormap</span><span class="p">(</span>
+            <span class="n">num_colors</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span>
+            <span class="n">background_value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LayerDataProtocol</span><span class="p">:</span>
@@ -1095,36 +1115,37 @@ document.write(`
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;dict: custom color dict for label coloring&quot;&quot;&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;Labels.color is deprecated since 0.4.19 and will be removed in &quot;</span>
+            <span class="s2">&quot;0.5.0, please use Labels.colormap.color_dict instead. Note: this&quot;</span>
+            <span class="s2">&quot;will only work when the colormap is a DirectLabelsColormap.&quot;</span><span class="p">,</span>
+            <span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_direct_colormap</span><span class="o">.</span><span class="n">color_dict</span><span class="p">}</span>
 
     <span class="nd">@color</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">color</span><span class="p">:</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;Labels.color is deprecated since 0.4.19 and will be removed in &quot;</span>
+            <span class="s2">&quot;0.5.0, please set Labels.colormap directly with an instance &quot;</span>
+            <span class="s2">&quot;of napari.utils.colormaps.DirectLabelColormap instead.&quot;</span><span class="p">,</span>
+            <span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="k">if</span> <span class="n">color</span> <span class="k">else</span> <span class="p">{}</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">color</span><span class="p">:</span>
-            <span class="n">color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;transparent&#39;</span>
-
-        <span class="n">default_color</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
-        <span class="c1"># this is default color for label that is not in the color dict</span>
-        <span class="c1"># is provided as None key</span>
-        <span class="c1"># we pop it as `None` cannot be cast to float</span>
-
-        <span class="n">color</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="n">default_color</span>
-
-        <span class="n">colors</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">label</span><span class="p">:</span> <span class="n">transform_color</span><span class="p">(</span><span class="n">color_str</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">color_str</span> <span class="ow">in</span> <span class="n">color</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-        <span class="p">}</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_color</span> <span class="o">=</span> <span class="n">colors</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="n">direct_colormap</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>
+        <span class="n">color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">,</span> <span class="s1">&#39;transparent&#39;</span>
+        <span class="p">)</span>
+        <span class="n">color</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="n">DirectLabelColormap</span><span class="p">(</span><span class="n">color_dict</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_is_default_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns True if color contains only default colors, otherwise False.</span>
 
 <span class="sd">        Default colors are black for `None` and transparent for</span>
-<span class="sd">        `self._background_label`.</span>
+<span class="sd">        `self.colormap.background_value`.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1136,19 +1157,15 @@ document.write(`
 <span class="sd">        bool</span>
 <span class="sd">            True if color contains only default colors, otherwise False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">{</span><span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">}</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">(</span><span class="n">color</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_color&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
             <span class="k">return</span> <span class="kc">False</span>
-
-        <span class="n">default_keys</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span><span class="p">]</span>
-        <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">default_keys</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">(</span><span class="n">color</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span>
+            <span class="n">color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
-
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">default_keys</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="n">key</span><span class="p">]):</span>
-                <span class="k">return</span> <span class="kc">False</span>
 
         <span class="k">return</span> <span class="kc">True</span>
 
@@ -1189,7 +1206,6 @@ document.write(`
         <span class="n">state</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="p">{</span>
                 <span class="s1">&#39;multiscale&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span><span class="p">,</span>
-                <span class="s1">&#39;num_colors&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_colors</span><span class="p">,</span>
                 <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
                 <span class="s1">&#39;rendering&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">rendering</span><span class="p">,</span>
                 <span class="s1">&#39;depiction&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">depiction</span><span class="p">,</span>
@@ -1197,10 +1213,9 @@ document.write(`
                 <span class="s1">&#39;experimental_clipping_planes&#39;</span><span class="p">:</span> <span class="p">[</span>
                     <span class="n">plane</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">plane</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">experimental_clipping_planes</span>
                 <span class="p">],</span>
-                <span class="s1">&#39;seed_rng&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed_rng</span><span class="p">,</span>
                 <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-                <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">,</span>
                 <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">,</span>
+                <span class="s1">&#39;colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span>
@@ -1227,8 +1242,8 @@ document.write(`
 
 <div class="viewcode-block" id="Labels.swap_selected_and_background_labels"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.swap_selected_and_background_labels">[docs]</a>    <span class="k">def</span> <span class="nf">swap_selected_and_background_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Swap between the selected label and the background label.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_selected_label</span></div>
 
@@ -1240,16 +1255,41 @@ document.write(`
 
 <span class="sd">        DIRECT allows color of each label to be set directly by a color dict.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">&#39;Labels.color_mode is deprecated since 0.4.19 and will be &#39;</span>
+                <span class="s1">&#39;removed in 0.5.0. Please check type(Labels.colormap) &#39;</span>
+                <span class="s1">&#39;instead. napari.utils.colormaps.CyclicLabelColormap &#39;</span>
+                <span class="s1">&#39;corresponds to AUTO color mode, and &#39;</span>
+                <span class="s1">&#39;napari.utils.colormaps.DirectLabelColormap&#39;</span>
+                <span class="s1">&#39; corresponds to DIRECT color mode.&#39;</span><span class="p">,</span>
+                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span><span class="p">)</span>
 
     <span class="nd">@color_mode</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">LabelColorMode</span><span class="p">]):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">&#39;Labels.color_mode is deprecated since 0.4.19 and will be &#39;</span>
+                <span class="s1">&#39;removed in 0.5.0. Please set Labels.colormap instead, to an&#39;</span>
+                <span class="s1">&#39;instance of napari.utils.colormaps.CyclicLabelColormap for &#39;</span>
+                <span class="s1">&#39;&quot;auto&quot; mode, or napari.utils.colormaps.DirectLabelColormap &#39;</span>
+                <span class="s1">&#39;for &quot;direct&quot; mode.&#39;</span><span class="p">,</span>
+                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">color_mode</span> <span class="o">=</span> <span class="n">LabelColorMode</span><span class="p">(</span><span class="n">color_mode</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">=</span> <span class="n">color_mode</span>
         <span class="k">if</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span> <span class="o">=</span> <span class="n">ensure_colormap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span> <span class="o">=</span> <span class="n">ensure_colormap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_direct_colormap</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_direct_colormap</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">color_mode</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">colormap</span><span class="p">()</span>  <span class="c1"># If remove this emitting, connect shader update to color_mode</span>
@@ -1418,7 +1458,7 @@ document.write(`
         <span class="n">sliced_labels</span> <span class="o">=</span> <span class="n">get_contours</span><span class="p">(</span>
             <span class="n">labels</span><span class="p">[</span><span class="n">expanded_slice</span><span class="p">],</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">contour</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># Remove the latest one-pixel border from the result</span>
@@ -1500,17 +1540,14 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">thumbnail</span> <span class="o">=</span> <span class="n">color_array</span>
 
-    <span class="k">def</span> <span class="nf">new_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">seed_rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">32</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-
 <div class="viewcode-block" id="Labels.get_color"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.get_color">[docs]</a>    <span class="k">def</span> <span class="nf">get_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the color corresponding to a specific label.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">:</span>
             <span class="n">col</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">elif</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">show_selected_label</span> <span class="ow">and</span> <span class="n">label</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span>
         <span class="p">):</span>
-            <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span><span class="p">)</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">col</span></div>
@@ -1749,7 +1786,8 @@ document.write(`
         <span class="c1"># If requested new label doesn&#39;t change old label then return</span>
         <span class="n">old_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">int_coord</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">old_label</span> <span class="o">==</span> <span class="n">new_label</span> <span class="ow">or</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">preserve_labels</span> <span class="ow">and</span> <span class="n">old_label</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">preserve_labels</span>
+            <span class="ow">and</span> <span class="n">old_label</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span>
         <span class="p">):</span>
             <span class="k">return</span>
 
@@ -1946,10 +1984,12 @@ document.write(`
         <span class="c1"># subset it if we want to only paint into background/only erase</span>
         <span class="c1"># current label</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preserve_labels</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">new_label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">new_label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">:</span>
                 <span class="n">keep_coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">slice_coord</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">keep_coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">slice_coord</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span>
+                <span class="n">keep_coords</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">slice_coord</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span>
+                <span class="p">)</span>
             <span class="n">slice_coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">sc</span><span class="p">[</span><span class="n">keep_coords</span><span class="p">]</span> <span class="k">for</span> <span class="n">sc</span> <span class="ow">in</span> <span class="n">slice_coord</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">data_setitem</span><span class="p">(</span><span class="n">slice_coord</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="p">)</span>

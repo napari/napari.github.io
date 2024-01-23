@@ -439,9 +439,10 @@ document.write(`
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="napari.utils.Colormap.html">napari.utils.Colormap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="napari.utils.LabelColormap.html">napari.utils.LabelColormap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="napari.utils.nbscreenshot.html">napari.utils.nbscreenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.utils.DirectLabelColormap.html">napari.utils.DirectLabelColormap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.utils.CyclicLabelColormap.html">napari.utils.CyclicLabelColormap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="napari.utils.cancelable_progress.html">napari.utils.cancelable_progress</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.utils.nbscreenshot.html">napari.utils.nbscreenshot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="napari.utils.progress.html">napari.utils.progress</a></li>
 </ul>
 </li>
@@ -577,7 +578,7 @@ document.write(`
 <h1>napari.layers.Labels<a class="headerlink" href="#napari-layers-labels" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="napari.layers.Labels">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.layers.</span></span><span class="sig-name descname"><span class="pre">Labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'translucent'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depiction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'volume'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_clipping_planes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiscale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">49</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plane</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rendering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'iso_categorical'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed_rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/layers/labels/labels.html#Labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Labels" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.layers.</span></span><span class="sig-name descname"><span class="pre">Labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'translucent'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depiction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'volume'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_clipping_planes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiscale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plane</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rendering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'iso_categorical'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/layers/labels/labels.html#Labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Labels" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_ImageBase</span></code></p>
 <p>Labels (or segmentation) layer.</p>
 <p>An image-like layer where every pixel contains an integer ID
@@ -598,8 +599,8 @@ alpha values of the layer visual get mixed. Allowed values are
 {‘opaque’, ‘translucent’, and ‘additive’}.</p></li>
 <li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon retrieval.
 Currently, this only applies to dask arrays.</p></li>
-<li><p><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><em>None to str</em><em> or </em><em>array</em>) – Custom label to color mapping. Values must be valid color names or RGBA
-arrays. None is used when no color is specified for a label.</p></li>
+<li><p><strong>colormap</strong> (<a class="reference internal" href="napari.utils.CyclicLabelColormap.html#napari.utils.CyclicLabelColormap" title="napari.utils.CyclicLabelColormap"><em>CyclicLabelColormap</em></a><em> or </em><a class="reference internal" href="napari.utils.DirectLabelColormap.html#napari.utils.DirectLabelColormap" title="napari.utils.DirectLabelColormap"><em>DirectLabelColormap</em></a><em> or </em><em>None</em>) – Colormap to use for the labels. If None, a random colormap will be
+used.</p></li>
 <li><p><strong>depiction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – 3D Depiction mode. Must be one of {‘volume’, ‘plane’}.
 The default value is ‘volume’.</p></li>
 <li><p><strong>experimental_clipping_planes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> of </em><em>dicts</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> of </em><em>ClippingPlane</em><em>, or </em><em>ClippingPlaneList</em>) – Each dict defines a clipping plane in 3D in data coordinates.
@@ -616,7 +617,6 @@ should be the largest. Please note multiscale rendering is only
 supported in 2D. In 3D, only the lowest resolution scale is
 displayed.</p></li>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Name of the layer.</p></li>
-<li><p><strong>num_colors</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Number of unique colors to use in colormap.</p></li>
 <li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
 <li><p><strong>plane</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em> or </em><em>SlicingPlane</em>) – Properties defining plane rendering in 3D. Properties are defined in
 data coordinates. Valid dictionary keys are
@@ -636,7 +636,6 @@ pitch, roll convention. Otherwise assume an nD rotation. Angles are
 assumed to be in degrees. They can be converted from radians with
 np.degrees if needed.</p></li>
 <li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Scale factors for the layer.</p></li>
-<li><p><strong>seed_rng</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Seed for colormap shuffle random generator.</p></li>
 <li><p><strong>shear</strong> (<em>1-D array</em><em> or </em><em>n-D array</em>) – Either a vector of upper triangular values, or an nD shear matrix with
 ones along the main diagonal.</p></li>
 <li><p><strong>translate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Translation values for the layer.</p></li>
@@ -688,7 +687,8 @@ displayed.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="napari.layers.Labels.num_colors">
 <span class="sig-name descname"><span class="pre">num_colors</span></span><a class="headerlink" href="#napari.layers.Labels.num_colors" title="Permalink to this definition">#</a></dt>
-<dd><p>Number of unique colors to use in colormap.</p>
+<dd><p>Number of unique colors to use in colormap. DEPRECATED: set
+<code class="docutils literal notranslate"><span class="pre">colormap</span></code> directly, using <cite>napari.utils.colormaps.label_colormap</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
@@ -727,7 +727,8 @@ to background.</p>
 <dd><p>Custom label to color mapping. Values must be valid color names or RGBA
 arrays. While there is no limit to the number of custom labels, the
 the layer will render incorrectly if they map to more than 1024 distinct
-colors.</p>
+colors. DEPRECATED: set <code class="docutils literal notranslate"><span class="pre">colormap</span></code> directly, using
+<cite>napari.utils.colormaps.DirectLabelColormap</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)">dict</a> of int to str or array</p>
@@ -738,7 +739,8 @@ colors.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="napari.layers.Labels.seed">
 <span class="sig-name descname"><span class="pre">seed</span></span><a class="headerlink" href="#napari.layers.Labels.seed" title="Permalink to this definition">#</a></dt>
-<dd><p>Seed for colormap random generator.</p>
+<dd><p>Seed for colormap random generator. DEPRECATED: set <code class="docutils literal notranslate"><span class="pre">colormap</span></code>
+directly, using <cite>napari.utils.colormaps.label_colormap</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a></p>
@@ -918,7 +920,7 @@ background label <cite>0</cite> is selected.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Labels.get_value" title="napari.layers.Labels.get_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_value</span></code></a>(position, *[, view_direction, ...])</p></td>
 <td><p>Value of the data at a position.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_colormap</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_colormap</span></code>([seed])</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Labels.paint" title="napari.layers.Labels.paint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paint</span></code></a>(coord, new_label[, refresh])</p></td>
@@ -1098,28 +1100,25 @@ background label <cite>0</cite> is selected.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#id12" title="napari.layers.Labels.seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seed</span></code></a></p></td>
 <td><p>Seed for colormap random generator.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">seed_rng</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id13" title="napari.layers.Labels.selected_label"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selected_label</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id13" title="napari.layers.Labels.selected_label"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selected_label</span></code></a></p></td>
 <td><p>Index of selected label.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Labels.shear" title="napari.layers.Labels.shear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shear</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Labels.shear" title="napari.layers.Labels.shear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shear</span></code></a></p></td>
 <td><p>Shear matrix in world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Labels.show_selected_label" title="napari.layers.Labels.show_selected_label"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_selected_label</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Labels.show_selected_label" title="napari.layers.Labels.show_selected_label"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_selected_label</span></code></a></p></td>
 <td><p>Whether to filter displayed labels to only the selected label or not</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Labels.thumbnail" title="napari.layers.Labels.thumbnail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thumbnail</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Labels.thumbnail" title="napari.layers.Labels.thumbnail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thumbnail</span></code></a></p></td>
 <td><p>Integer array of thumbnail for the layer</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Labels.translate" title="napari.layers.Labels.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Labels.translate" title="napari.layers.Labels.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
 <td><p>Factors to shift the layer by in units of world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Labels.visible" title="napari.layers.Labels.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Labels.visible" title="napari.layers.Labels.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
 <td><p>Whether the visual is currently being displayed.</p></td>
 </tr>
 </tbody>

@@ -45,7 +45,7 @@ When merging, use GitHub's
 to ensure a clean git history.
 
 You should also continue to make your own pull requests as before and in accordance
-with the [general contributor guide](napari-contributing). These pull requests still
+with the [general contributor guide](contributing-code). These pull requests still
 require the approval of another core developer before they can be merged.
 
 ## Reviewing
@@ -80,7 +80,7 @@ consult back with our [mission and values](mission-and-values).
 2. **Performance and benchmarks:** As `napari` targets scientific applications that often involve
 large multidimensional datasets, high performance is a key value of `napari`. While
 every new feature won't scale equally to all sizes of data, keeping in mind performance
-and our [benchmarks](napari-benchmarks) during a review may be important, and you may
+and our [benchmarks](benchmarks) during a review may be important, and you may
 need to ask for benchmarks to be run and reported or new benchmarks to be added.
 
 3. **APIs and stability:** Coding users and plugin developers will make
@@ -154,11 +154,11 @@ For details on how the documentation and website are built, see
 As a core member, you should be familiar with community and developer
 resources such as:
 
-- Our [contributor guide](napari-contributing).
+- Our [contributor guide](contributing-code).
 - Our [code of conduct](napari-coc).
 - Our [governance](napari-governance).
 - Our [mission and values](mission-and-values).
-- Our [benchmarking guide](napari-benchmarks).
+- Our [benchmarking guide](benchmarks).
 - [PEP8](https://peps.python.org/pep-0008/) for Python style.
 - [PEP257](https://peps.python.org/pep-0257/) and the
    [NumPy documentation guide](https://numpy.org/devdocs/dev/howto-docs.html#documentation-style)

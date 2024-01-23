@@ -414,7 +414,15 @@ and [zarr arrays](https://zarr.readthedocs.io/en/stable/api/core.html). A
 Because the `labels` layer subclasses the `image` layer, it inherits the great
 properties of the `image` layer, like supporting lazy loading and multiscale
 images for big data layers. For more information about both these concepts see
-the details in [Using the image layer](./image).
+the details in the [image layer guide](image-layer).
+
+## Creating a new labels layer
+
+As you can edit a `Labels` layer using the paintbrush and fill bucket, it is
+possible to create a brand-new empty labels layers by clicking the new labels
+layer button above the layers list. The shape of the new labels layer will match
+the size of any currently existing image layers, allowing you to paint on top of
+them.
 
 ```{admonition} Want to save without compression?
 :class: tip

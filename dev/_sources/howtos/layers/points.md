@@ -30,9 +30,9 @@ all the points simultaneously.
 Each data point can have annotations associated with it using the
 `Points.properties` dictionary. These properties can be used to set the face and
 edge colors of the points. For example, when displaying points of different
-classes/types, one could automatically set the color of the individual points by
-their respective class/type. For more details on point properties, see
-[](#setting-point-edge-and-face-color-with-properties) below or the
+classes/types, one could automatically set color the individual points by their
+respective class/type. For more details on point properties, see
+[](#setting-point-edge-and-face-color-with-properties) or
 [point annotation tutorial](../../tutorials/annotation/annotate_points).
 
 ## Creating and editing the `points` layer using the GUI
@@ -266,7 +266,7 @@ name of the property and the values are NumPy arrays with a value for each point
 (i.e., length N for N points in `Points.data`). As we will see below, we can use
 the values in a property to set the display properties of the points (e.g., face
 color or edge color). To see the points properties in action, please see the
-[Point annotation tutorial](../../tutorials/annotation/annotate_points).
+[Point annotation tutorial](annotating-points).
 
 
 ### Non-editable mode

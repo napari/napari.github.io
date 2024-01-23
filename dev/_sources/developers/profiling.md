@@ -1,3 +1,5 @@
+(profiling)=
+
 # Profiling
 
 In contrast to performance tracing, profiling does not provide information

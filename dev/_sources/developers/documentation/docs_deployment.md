@@ -3,7 +3,7 @@
 ```{note}
 This guide is intended for napari core contributors and is not required reading
 for regular contributors. If you're looking for information on how to contribute
-to the documentation, see [](docs_contributing_guide).
+to the documentation, see [](contributing-docs).
 ```
 
 The napari documentation and website sources are spread over three repositories,

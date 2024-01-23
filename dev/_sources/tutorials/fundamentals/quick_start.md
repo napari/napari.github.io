@@ -22,7 +22,7 @@ napari is a fast, interactive, multi-dimensional image viewer, with [a vibrant p
 
 napari is an open source project on [GitHub](https://github.com/napari/napari) to facilitate transparency, reuse, and extensibility.
 
-At its core, it provides critical viewer features out-of-the-box, such as support for [large multi-dimensional data](../processing/dask); [“layers”](..//start_index) to simultaneously visualize images, models, and analysis results; and easy manual, interactive annotation in 3D.
+At its core, it provides critical viewer features out-of-the-box, such as support for [large multi-dimensional data](dask); [“layers”](layers-glance) to simultaneously visualize images, models, and analysis results; and easy manual, interactive annotation in 3D.
 
 This tutorial uses napari 0.4.14. <br>
 
@@ -40,7 +40,7 @@ This tutorial is for napari first-timers to give them a quick glance of what nap
 - Get the cell area measurement
 - Next steps
 
-Along the way, you will see how to access napari functions from [Python code](../../api/index) and from GUI - though for different purposes, one method might be easier than another. This quick start guide will not cover ALL possible methods but only some ways to perform basic tasks. For the more complete guide, please visit [our usage guide](../../usage.md).
+Along the way, you will see how to access napari functions from [Python code](api) and from GUI - though for different purposes, one method might be easier than another. This quick start guide will not cover ALL possible methods but only some ways to perform basic tasks. For the more complete guide, please visit [our usage guide](usage).
 
 You will also see some examples of plugins. The core napari viewer focuses on domain-agnostic functions such as layer controls. Analyses and domain specific functions, such as reading a special file format and image segmentation, live in the realm of [plugins](https://www.napari-hub.org/).
 
@@ -70,13 +70,13 @@ You will also see some examples of plugins. The core napari viewer focuses on do
     ```
 
 
-If you run into any issues, please visit the more detailed [installation guide](./installation), or [report an issue on GitHub](https://github.com/napari/napari/issues/new/choose)!
+If you run into any issues, please visit the more detailed [installation guide](installation), or [report an issue on GitHub](https://github.com/napari/napari/issues/new/choose)!
 
 +++
 
 ### Open napari
 
-napari can be opened in one of [multiple ways](./getting_started), depending on how it's used in your image analysis workflow.
+napari can be opened in one of [multiple ways](launch), depending on how it's used in your image analysis workflow.
 
 Here we will be mainly focused on the GUI application.
 
@@ -135,7 +135,7 @@ nbscreenshot(viewer, alt_text="image of a single cell opened in napari viewer")
 
 The layer controls panel at the upper left of the viewer allows you to adjust contrast, colormap, and other layer properties. These settings affect the visualization, but do not affect the underlying data.
 
-To change the image display through the [API](../../api/index), in IPython console, type
+To change the image display through the [API](api), in IPython console, type
 
 ```python
 viewer.layers['cell'].colormap = "yellow"
@@ -199,6 +199,6 @@ viewer.close_all()
 
 - If you don't see the functions you need in existing plugins, try to make your own widget with [magicgui](https://napari.org/magicgui/).
 
-- If you've developed some functionality that you think would benefit the community as a whole, consider publishing it as a [plugin](../../plugins/index)!
+- If you've developed some functionality that you think would benefit the community as a whole, consider publishing it as a [plugin](plugins-index)!
 
-- Help the napari project by [filing issues](https://github.com/napari/napari/issues) for bugs you encounter or features that you'd like to see! Or even better, come [join the community meetings](../../community/meeting_schedule) and get to know the team.
+- Help the napari project by [filing issues](https://github.com/napari/napari/issues) for bugs you encounter or features that you'd like to see! Or even better, come [join the community meetings](meeting-schedule) and get to know the team.

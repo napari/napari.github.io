@@ -12,4 +12,4 @@ Each of these guides has a section on how to manipulate the layers using the GUI
 controls and a section on how to manipulate them programmatically.
 
 For a high-level overview of the napari Layers, see
-[Layers at a glance](../../guides/layers).
+[Layers at a glance](layers-glances).

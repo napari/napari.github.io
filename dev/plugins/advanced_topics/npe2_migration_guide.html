@@ -529,7 +529,7 @@ document.write(`
 system relates to how napari <em>discovers</em> plugin functionality. In the first
 generation plugin engine, napari had to <em>import</em> plugin modules to search for
 hook implementations decorated with <code class="docutils literal notranslate"><span class="pre">&#64;napari_hook_implementation</span></code>. In <code class="docutils literal notranslate"><span class="pre">npe2</span></code>,
-plugins declare their contributions <em>statically</em> with a <a class="reference internal" href="../technical_references/manifest.html"><span class="doc std std-doc">manifest file</span></a>.</p>
+plugins declare their contributions <em>statically</em> with a <a class="reference internal" href="../technical_references/manifest.html#plugin-manifest"><span class="std std-ref">manifest file</span></a>.</p>
 <section id="migrating-using-the-npe2-command-line-tool">
 <h2>Migrating using the <code class="docutils literal notranslate"><span class="pre">npe2</span></code> command line tool<a class="headerlink" href="#migrating-using-the-npe2-command-line-tool" title="Permalink to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">npe2</span></code> provides a command line interface to help convert a
@@ -588,7 +588,7 @@ like:</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code> command will:</p>
 <ol class="arabic simple">
 <li><p>Inspect your plugin for hook implementations, and generate an npe2-compatible
-<a class="reference internal" href="../technical_references/manifest.html"><span class="doc std std-doc">manifest file</span></a>, called <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>.</p></li>
+<a class="reference internal" href="../technical_references/manifest.html#plugin-manifest"><span class="std std-ref">manifest file</span></a>, called <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>.</p></li>
 <li><p><strong>Modify</strong> your <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> to use the new <code class="docutils literal notranslate"><span class="pre">napari.manifest</span></code> entry point, and
 include the manifest file in your package data.</p></li>
 </ol>
@@ -602,7 +602,7 @@ If<span class="w"> </span>you<span class="w"> </span>have<span class="w"> </span
 </pre></div>
 </div>
 <p>You are encouraged to inspect the newly-generated <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> file.  Refer to
-the <a class="reference internal" href="../technical_references/manifest.html"><span class="doc std std-doc">manifest</span></a> and <a class="reference internal" href="../technical_references/contributions.html"><span class="doc std std-doc">contributions</span></a> references pages
+the <a class="reference internal" href="../technical_references/manifest.html#plugin-manifest"><span class="std std-ref">manifest</span></a> and <a class="reference internal" href="../technical_references/contributions.html#contributions-ref"><span class="std std-ref">contributions</span></a> references pages
 for details on each field in the manifest.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -631,20 +631,20 @@ must have global <code class="docutils literal notranslate"><span class="pre">py
 <div><p><em>This section goes into detail on the differences between first-generation and
 second-generation implementations. In many cases, this will be more detail than
 you need.  If you are still struggling with a specific conversion after using
-<code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code> and reading the <a class="reference internal" href="../technical_references/contributions.html"><span class="doc std std-doc">contributions</span></a> reference and
-<a class="reference internal" href="../building_a_plugin/guides.html"><span class="doc std std-doc">guides</span></a>, this section may be of help.</em></p>
+<code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code> and reading the <a class="reference internal" href="../technical_references/contributions.html#contributions-ref"><span class="std std-ref">contributions</span></a> reference and
+<a class="reference internal" href="../building_a_plugin/guides.html#plugin-contribution-guides"><span class="std std-ref">guides</span></a>, this section may be of help.</em></p>
 </div></blockquote>
 <p>Existing <code class="docutils literal notranslate"><span class="pre">napari-plugin-engine</span></code> plugins expose functionality via <em>hook
 implementations</em>. These are functions decorated to indicate they fullfil a
 <em>hook specification</em> described by napari. Though there are some exceptions,
-most <em>hook implementations</em> can be straightforwardly mapped to npe2 <a class="reference internal" href="../technical_references/contributions.html"><span class="doc std std-doc">contributions</span></a></p>
+most <em>hook implementations</em> can be straightforwardly mapped to npe2 <a class="reference internal" href="../technical_references/contributions.html#contributions-ref"><span class="std std-ref">contributions</span></a></p>
 <p><code class="docutils literal notranslate"><span class="pre">npe2</span></code> provides a command-line tool that will generate plugin manifests by
 inspecting exposed <em>hook implementations</em>. Below, we will walk through the
 kinds of migrations <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code> helps with.</p>
 <p>For each type of <em>hook specification</em> there is a corresponding section below
 with migration tips. Each lists the <em>hook specifications</em> that are relevant to
 that section and an example manifest. For details, refer to the
-<a class="reference internal" href="../technical_references/contributions.html"><span class="doc std std-doc">Contributions references</span></a>.</p>
+<a class="reference internal" href="../technical_references/contributions.html#contributions-ref"><span class="std std-ref">Contributions references</span></a>.</p>
 <section id="readers">
 <h3>Readers<a class="headerlink" href="#readers" title="Permalink to this heading">#</a></h3>
 <p>Functions that acted as <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> hooks can be bound directly as the

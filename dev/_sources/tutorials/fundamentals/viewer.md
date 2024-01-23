@@ -18,7 +18,7 @@ kernelspec:
 
 Welcome to the tutorial on the **napari** viewer!
 
-This tutorial assumes you have already installed **napari** and know how to launch the viewer. For help with installation see our [installation](./installation) tutorial. For help launching the viewer see our [getting started](./getting_started) tutorial.
+This tutorial assumes you have already installed **napari** and know how to launch the viewer. For help with installation see our [installation](installation) tutorial. For help launching the viewer see our [getting started](launch) tutorial.
 
 This tutorial will teach you about the **napari** viewer, including how to use its graphical user interface (GUI) and how the data within it is organized. At the end of the tutorial, you should understand both the layout of the viewer on the screen and the data inside of it.
 
@@ -26,7 +26,7 @@ This tutorial will teach you about the **napari** viewer, including how to use i
 
 ## Launching the viewer
 
-As discussed in the [getting started](./getting_started) tutorial, the napari viewer can be launched from the command-line, a python script, an IPython console, or a Jupyter notebook. All four methods launch the same viewer, and anything related to interacting with the viewer on the screen applies equally to all of them. We will use the syntax for running the code inside a jupyter notebook with each code block below pasted into its own cell, but if you'd like to use a python script instead, simply copy and paste the code blocks into scripts with [`napari.run()`](https://napari.org/stable/api/napari.html#napari.run) as the final line (this starts an event loop which will
+As discussed in the [getting started](launch) tutorial, the napari viewer can be launched from the command-line, a python script, an IPython console, or a Jupyter notebook. All four methods launch the same viewer, and anything related to interacting with the viewer on the screen applies equally to all of them. We will use the syntax for running the code inside a jupyter notebook with each code block below pasted into its own cell, but if you'd like to use a python script instead, simply copy and paste the code blocks into scripts with [`napari.run()`](https://napari.org/stable/api/napari.html#napari.run) as the final line (this starts an event loop which will
 open an interactive viewer) and run them.
 
 **Note:** There is also an IPython console available in napari, when napari is launched from the terminal, from a Python script, or when you use the napari bundled app. You can open it with the IPython console button (far left viewer button) or with the menu option **Window** > **console**. You can use this console to programmatically interact with an open viewer using the API methods illustrated in this tutorial.
@@ -76,7 +76,7 @@ nbscreenshot(viewer, alt_text="photograph of an astronaut in napari viewer")
 viewer.close()
 ```
 
- {func}`imshow<napari.imshow>` and the {meth}`add_image<napari.components.ViewerModel.add_image>` methods accept any numpy-array like object as input, including n-dimensional arrays. For more information on adding images to the viewer see the [image layer guide](../../howtos/layers/image).
+ {func}`imshow<napari.imshow>` and the {meth}`add_image<napari.components.ViewerModel.add_image>` methods accept any numpy-array like object as input, including n-dimensional arrays. For more information on adding images to the viewer see the [image layer guide](image-layer).
 
 Now we will continue exploring the rest of the viewer.
 
@@ -135,8 +135,7 @@ The **canvas** is in the center of the viewer and contains the visual display of
 
 +++
 
-<!-- I don't know why "(layer_list)=" is here. -->
-(layer_list)=
+(layer-list)=
 ### Layer list
 
 Layers are one of the basic napari objects. There are different layer types for `Image`, `Points`, `Shapes`, and other data types. They can be added to the viewer either programmatically or through the GUI. Once added, they populate the layer list located on the bottom left side of the canvas.
@@ -510,7 +509,7 @@ viewer.theme = 'dark'
 
 You can also change the theme using the "Toggle theme" keyboard shortcut, by default `Command/Control+Shift+T`. Note that changing the theme using this shortcut will only change the *current* viewer theme. If you wish to make the change permanent for all viewers, make sure to also change your settings in the **Appearance** tab of the **Preferences** menu.
 
-Adding your own custom theme isn't too hard but it requires creating your own color `palette` and rebuilding the icons. It's also possible for [plugins to contribute a theme](contributions-themes). If people want more themes, we're happy to add them or you can look at our [contributing guidelines](../../developers/contributing) for more information about building the icons and add one yourself!
+Adding your own custom theme isn't too hard but it requires creating your own color `palette` and rebuilding the icons. It's also possible for [plugins to contribute a theme](contributions-themes). If people want more themes, we're happy to add them or you can look at our [contributing guidelines](contributing-code) for more information about building the icons and add one yourself!
 
 +++
 
@@ -568,7 +567,7 @@ The ability to add custom keybindings dramatically increases what is possible wi
 
 ## Next steps
 
-This tutorial has given you an overview of the functionality available on the **napari** viewer, including the {class}`LayerList` and some of the different layer types. To learn more about the different layer types **napari** supports, check out [our guides on using layers](../../howtos/layers/index).
+This tutorial has given you an overview of the functionality available on the **napari** viewer, including the {class}`LayerList` and some of the different layer types. To learn more about the different layer types **napari** supports, check out [our guides on using layers](using-layers).
 
 For a more detailed introduction to layer manipulation see
-[Layers at a glance](../../guides/layers).
+[Layers at a glance](layers-glance).

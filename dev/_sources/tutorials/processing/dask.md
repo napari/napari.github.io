@@ -1,3 +1,5 @@
+(dask)=
+
 # Using Dask and napari to process & view large datasets
 
 Often in microscopy, multidimensional data is acquired and written to disk in many small files,

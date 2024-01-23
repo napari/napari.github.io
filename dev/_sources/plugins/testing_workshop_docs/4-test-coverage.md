@@ -1,12 +1,14 @@
+(plugin-testing-workshop-coverage)=
+
 # 4: Test coverage
 
 ## Other lessons in this tutorial:
 
-* 1: [Python’s assert keyword](./1-pythons-assert-keyword.md)
-* 2: [Pytest testing framework](./2-pytest-testing-frameworks.md)
-* 3: [Readers and fixtures](./3-readers-and-fixtures.md)
+* 1: [Python’s assert keyword](plugin-testing-workshop-assert)
+* 2: [Pytest testing framework](plugin-testing-workshop-pytest)
+* 3: [Readers and fixtures](plugin-testing-workshop-reader-fixtures)
 * 4: This lesson (Test coverage)
-* Resource links: [testing resources](./testing-resources.md)
+* Resource links: [testing resources](plugin-testing-resources)
 
 ### This lesson covers:
 * [Coverage](#coverage)

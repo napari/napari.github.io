@@ -1,3 +1,5 @@
+(napari-imagej)=
+
 # napari + ImageJ how-to guide
 
 ImageJ is a Java-based image processing program that provides extensibility via Java plugins and recordable macros. It can display, edit, analyze, process, save, and print 8-bit color and grayscale, 16-bit integer, and 32-bit floating point images. It can read many image file formats, including TIFF, PNG, GIF, JPEG, BMP, DICOM, and FITS, as well as raw formats. It has a plethora of features that can be checked out [here](https://en.wikipedia.org/wiki/ImageJ#Features).

@@ -1,14 +1,16 @@
+(plugin-testing-workshop-pytest)=
+
 # 2: Pytest testing framework
 
 This lesson explains how to use the [pytest testing framework](https://docs.pytest.org/en/7.2.x/) to make testing easier.
 
 ## Other lessons in this tutorial:
 
-* 1: [Python’s assert keyword](./1-pythons-assert-keyword.md)
+* 1: [Python’s assert keyword](plugin-testing-workshop-assert)
 * 2: This lesson (Pytest testing framework)
-* 3: [Readers and fixtures](./3-readers-and-fixtures.md)
-* 4: [Test coverage](./4-test-coverage.md)
-* Resource links: [Testing resources](./testing-resources.md)
+* 3: [Readers and fixtures](plugin-testing-workshop-reader-fixtures)
+* 4: [Test coverage](plugin-testing-workshop-coverage)
+* Resource links: [Testing resources](plugin-testing-resources)
 
 ### This lesson covers:
 * [Testing framework features](#testing-framework-features)
@@ -25,7 +27,7 @@ Testing frameworks provide a whole host of useful features, including:
 * Test discovery - directories can be crawled (searched) to find things that look like tests and run them
 * Housekeeping and ease of use - convenient methods for writing tests and cleaning up after running the tests
 
-Pytest goes through the target destination, such as a file or directory, finding any method or function prefaced with the word `test`. It runs all the methods and functions prefaced with the word `test` but _not_ the code under the main block. When `pytest` runs against `example_test.py` (refer to the [Python's assert keyword](./1-pythons-assert-keyword.md) lesson), it finds several tests that all pass.
+Pytest goes through the target destination, such as a file or directory, finding any method or function prefaced with the word `test`. It runs all the methods and functions prefaced with the word `test` but _not_ the code under the main block. When `pytest` runs against `example_test.py` (refer to the [Python's assert keyword](plugin-testing-workshop-assert) lesson), it finds several tests that all pass.
 
 If the tests fail, `pytest` is very good at tracing back the reason they failed and showing their values throughout test execution. In more complicated examples, this traceback mechanism can be very helpful. In this example, the message is that we got a `Pass` but were expecting a `Fail`. See the lines below that show the `assert` keyword and the errors.
 
@@ -111,6 +113,6 @@ example_func_py:12: AssertionError
 FAILED example_func_py::test_get_grade_pass[50] - AssertionError: Expected 50 to pass, but result was Fail
 ```
 
-Another valuable feature of `pytest` is the `pytest-cov` option discussed in the [Test coverage](./4-test-coverage.md) lesson
+Another valuable feature of `pytest` is the `pytest-cov` option discussed in the [Test coverage](plugin-testing-workshop-coverage) lesson
 
-The next lesson in this tutorial on testing is the [Readers and fixtures](./3-readers-and-fixtures.md) lesson.
+The next lesson in this tutorial on testing is the [Readers and fixtures](plugin-testing-workshop-reader-fixtures) lesson.

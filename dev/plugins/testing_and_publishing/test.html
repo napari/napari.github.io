@@ -530,7 +530,7 @@ consider reading this post on <a class="reference external" href="https://realpy
 Python</a></p>
 <p>We recommend using
 <a class="reference external" href="https://docs.pytest.org/en/6.2.x/getting-started.html">pytest</a> for testing your
-plugin. Aim for <a class="reference internal" href="../building_a_plugin/best_practices.html#how-to-check-test-coverage"><span class="std std-doc">100% test coverage</span></a>!</p>
+plugin. Aim for <a class="reference internal" href="../building_a_plugin/best_practices.html#best-practices-test-coverage"><span class="std std-ref">100% test coverage</span></a>!</p>
 <section id="the-make-napari-viewer-proxy-fixture">
 <h3>The <code class="docutils literal notranslate"><span class="pre">make_napari_viewer_proxy</span></code> fixture<a class="headerlink" href="#the-make-napari-viewer-proxy-fixture" title="Permalink to this heading">#</a></h3>
 <p>Testing a napari <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> requires some setup and teardown each time.  We have
@@ -549,7 +549,7 @@ create a napari viewer for testing:</p>
 you can use the <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> fixture.</p>
 </section>
 <section id="prefer-smaller-unit-tests-when-possible">
-<h3>Prefer smaller unit tests when possible<a class="headerlink" href="#prefer-smaller-unit-tests-when-possible" title="Permalink to this heading">#</a></h3>
+<span id="plugin-testing-prefer-unit-test"></span><h3>Prefer smaller unit tests when possible<a class="headerlink" href="#prefer-smaller-unit-tests-when-possible" title="Permalink to this heading">#</a></h3>
 <p>The most common issue people run into when designing tests for napari plugins is
 that they try to test everything as a full “integration test”, starting from the
 napari event or action that would trigger their plugin to do something.  For

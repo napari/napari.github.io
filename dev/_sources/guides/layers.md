@@ -1,7 +1,7 @@
 (layers-glance)=
 # Layers at a glance
 
-[Layers](napari.layers) are the basic viewable objects that can be added to a
+{class}`~napari.layers` are the basic viewable objects that can be added to a
 viewer. **napari** supports seven main different layer types: `Image`, `Labels`,
 `Points`, `Shapes`, `Surface`, `Tracks` and `Vectors`. Each of the layer types
 corresponds to a different data type, visualization, and interactivity. You can
@@ -24,9 +24,9 @@ viewer.add_image(data, name='astronaut')
 To learn more about the layers available, see the
 [Layers documentation](napari.layers). To learn about how to use the layers
 currently supported by napari, check out the
-[Using layers how-to guides](../../howtos/layers/index). For a gentle
+[Using layers how-to guides](using-layers). For a gentle
 introduction, check out the
-[Layer list section in the napari viewer tutorial](layer_list).
+[Layer list section in the napari viewer tutorial](layer-list).
 
 ## Layer visibility
 

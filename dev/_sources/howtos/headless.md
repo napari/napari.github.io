@@ -1,3 +1,5 @@
+(headless)=
+
 # Running napari headlessly
 
 Running napari headlessly (without opening a napari GUI interface) may be

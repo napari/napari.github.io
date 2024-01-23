@@ -10,7 +10,7 @@ Python](https://realpython.com/python-testing/)
 
 We recommend using
 [pytest](https://docs.pytest.org/en/6.2.x/getting-started.html) for testing your
-plugin. Aim for [100% test coverage](../building_a_plugin/best_practices.md#how-to-check-test-coverage)!
+plugin. Aim for [100% test coverage](best-practices-test-coverage)!
 
 ### The `make_napari_viewer_proxy` fixture
 
@@ -31,6 +31,8 @@ def test_something_with_a_viewer(make_napari_viewer_proxy):
 
 If you embed the viewer in your own application and need to access private attributes,
 you can use the `make_napari_viewer` fixture.
+
+(plugin-testing-prefer-unit-test)=
 
 ### Prefer smaller unit tests when possible
 

@@ -1,4 +1,4 @@
-(docs_contributing_guide)=
+(contributing-docs)=
 # Contributing Documentation
 
 This guide will teach you how to submit new documents to napari's usage
@@ -106,13 +106,13 @@ that could be expanded to include the content you think is lacking.
 Go to your local `napari/docs` folder to find examples of documents you might
 want to contribute. The paths are listed in parentheses below.
 
-- [**Explanations**](../../guides/index) (in [`napari/docs/guides`](https://github.com/napari/docs/tree/main/docs/guides)):
+- [**Explanations**](explanations) (in [`napari/docs/guides`](https://github.com/napari/docs/tree/main/docs/guides)):
   in depth content about napari architecture, development choices and some complex features
-- [**Tutorials**](../../tutorials/index) (in [`napari/docs/tutorials`](https://github.com/napari/docs/tree/main/docs/tutorials)):
+- [**Tutorials**](tutorials) (in [`napari/docs/tutorials`](https://github.com/napari/docs/tree/main/docs/tutorials)):
   detailed, reproducible step by step guides, usually combining multiple napari features to complete a potentially complex task
-- [**How-tos**](../../howtos/index) (in [`napari/docs/howtos`](https://github.com/napari/docs/tree/main/docs/howtos)):
+- [**How-tos**](how-tos) (in [`napari/docs/howtos`](https://github.com/napari/docs/tree/main/docs/howtos)):
   simple step by step guides demonstrating the use of common features
-- [**Getting started**](../../tutorials/start_index) (in [`napari/docs/tutorials/fundamentals`](https://github.com/napari/docs/tree/main/docs/tutorials/fundamentals)):
+- [**Getting started**](getting-started) (in [`napari/docs/tutorials/fundamentals`](https://github.com/napari/docs/tree/main/docs/tutorials/fundamentals)):
   these documents are a mix of tutorials and how-tos covering the fundamentals of installing and working with napari for beginners
 
 The [**Examples gallery**](../../gallery) sources are in the [main `napari/napari` repository](https://github.com/napari/napari/tree/main/examples)
@@ -122,8 +122,10 @@ and show code examples of how to use napari.
 :class: tip
 
 If you already have teaching materials e.g. recordings, slide decks or Jupyter notebooks
-hosted somewhere, you can add links to these on our [napari workshops](../../further-resources/napari-workshops.md) page.
+hosted somewhere, you can add links to these on our [napari workshops](workshops) page.
 ```
+
+(contributing-docs-step-one)=
 
 ## 1. Write your documentation
 
@@ -138,7 +140,7 @@ documents in our repository and on [napari.org](https://napari.org).
 
 If you are amending existing documentation, you can do so in your preferred text
 editor. If you wish to add a new tutorial or a how-to, we recommend you use our
-[template](./docs_template). Inside the template you'll find handy tips for
+[template](docs-template). Inside the template you'll find handy tips for
 taking screenshots of the viewer, hiding code cells, using style guides and what
 to include in the required prerequisites section.
 

@@ -25,6 +25,8 @@ This guide will teach you how to do a clean install of **napari** and launch the
 If you want to contribute code back into napari, you should follow the [development installation instructions in the contributing guide](https://napari.org/developers/contributing.html) instead.
 ```
 
+(install-python-package)=
+
 ## Install as Python package (recommended)
 
 This installation method allows you to use napari from Python to programmatically
@@ -238,7 +240,7 @@ extended with napari plugins installed directly via the app.
 ```{important}
 Note that the bundled app is still
 in active development, and may not be very stable. We strongly recommend
-[installing as a Python package instead](#install-as-python-package-recommended).
+[installing as a Python package instead](install-python-package).
 ```
 
 To access the cross platform bundles you can visit our [release
@@ -253,11 +255,10 @@ expand the `Assets` section. You can then download the appropriate file for your
 
 ## Next steps
 
-- to start learning how to use napari, checkout our [getting
-started](./getting_started) tutorial
+- to start learning how to use napari, checkout our [getting started](launch) tutorial
 - if you are interested in
 contributing to napari please check our [contributing
-guidelines](../../developers/contributing.md)
+guidelines](contributing-code)
 - if you are running into issues or bugs, please open a [new issue](https://github.com/napari/napari/issues/new/choose) on our [issue
 tracker](https://github.com/napari/napari/issues)
 - if you want help using napari, we are a community partner on the [imagesc

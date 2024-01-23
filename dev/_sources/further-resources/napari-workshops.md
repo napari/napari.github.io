@@ -1,4 +1,4 @@
-(napari-workshops)=
+(workshops)=
 # napari workshops
 
 There have been many workshops and tutorials given about napari.
@@ -14,7 +14,8 @@ as a starting point.
 
 If you have organized a napari workshop and would like to see it featured here
 in this page, you can
-[send a Pull Request to the napari/docs repository](../developers/documentation/index.md)
+[send a Pull Request](contributing-docs-step-one) to the
+[napari/docs repository](https://github.com/napari/docs)
 or contact the core developers on [zulip chat](https://napari.zulipchat.com/login/).
 ```
 

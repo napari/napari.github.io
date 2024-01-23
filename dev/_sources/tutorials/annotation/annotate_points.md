@@ -1,3 +1,5 @@
+(annotating-points)=
+
 # Annotating videos with napari
 
 **Note**: this tutorial has been updated and is now compatible with napari > 0.4.5 and magicgui > 0.2.5. For details, see [this pull request](https://github.com/napari/napari.github.io/pull/114).
@@ -182,7 +184,7 @@ def point_annotator(
 First, we load the movie to be annotated.
 Since behavior movies can be quite long, we will use a lazy loading strategy (i.e., we will only load the frames as they are used).
 Using [`dask-image`](https://github.com/dask/dask-image), we can construct an object that we can pass to napari for lazy loading in just one line.
-For more explanation on using dask to lazily load images in napari, see [this](../processing/dask) tutorial.
+For more explanation on using dask to lazily load images in napari, see [this](dask) tutorial.
 
 ```python
 stack = imread(im_path)

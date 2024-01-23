@@ -422,7 +422,7 @@ document.write(`
 <li class="toctree-l1 has-children"><a class="reference internal" href="../start_index.html">Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../fundamentals/quick_start.html">Quick start</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../fundamentals/installation.html">How to install napari</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../fundamentals/getting_started.html">How to launch <code class="docutils literal notranslate"><span class="pre">napari</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fundamentals/getting_started.html">How to launch napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../fundamentals/viewer.html">Viewer tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/layers.html">Layers at a glance</a></li>
 </ul>
@@ -684,7 +684,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="single-cell-tracking-with-napari">
 <h1>Single cell tracking with napari<a class="headerlink" href="#single-cell-tracking-with-napari" title="Permalink to this heading">#</a></h1>
-<p>In this application note, we will use napari (requires version 0.4.0 or greater) to visualize single cell tracking data using the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer. For an overview of the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer, please see the <a class="reference internal" href="../../howtos/layers/tracks.html"><span class="doc std std-doc">tracks layer guide</span></a>.</p>
+<p>In this application note, we will use napari (requires version 0.4.0 or greater) to visualize single cell tracking data using the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer. For an overview of the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer, please see the <a class="reference internal" href="../../howtos/layers/tracks.html#layers-tracks"><span class="std std-ref">tracks layer guide</span></a>.</p>
 <p>This application note covers two examples:</p>
 <ol class="arabic simple">
 <li><p>Visualization of a cell tracking challenge dataset</p></li>
@@ -728,7 +728,7 @@ document.write(`
 <span class="n">stack</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">load_image</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_IMAGES</span><span class="p">)])</span>
 </pre></div>
 </div>
-<p>For each image in the time-lapse sequence, we will now extract the unique track label (<code class="docutils literal notranslate"><span class="pre">track_id</span></code>), centroid and timestamp in order to create the track data we will pass to the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer. For more information on the format of the track data, please see the “tracks data” section of the <a class="reference internal" href="../../howtos/layers/tracks.html"><span class="doc std std-doc">tracks layer guide</span></a>.</p>
+<p>For each image in the time-lapse sequence, we will now extract the unique track label (<code class="docutils literal notranslate"><span class="pre">track_id</span></code>), centroid and timestamp in order to create the track data we will pass to the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer. For more information on the format of the track data, please see the “tracks data” section of the <a class="reference internal" href="../../howtos/layers/tracks.html#layers-tracks"><span class="std std-ref">tracks layer guide</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">regionprops_plus_time</span><span class="p">(</span><span class="n">idx</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the unique track label, centroid and time for each track vertex.</span>
 
@@ -769,7 +769,7 @@ These single tracks are sometimes known as tracklets:</p>
 <section id="calculating-the-graph-using-the-lineage-information">
 <h3>Calculating the graph using the lineage information<a class="headerlink" href="#calculating-the-graph-using-the-lineage-information" title="Permalink to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer can also be used to visualize a track ‘graph’ using the additional keyword argument <code class="docutils literal notranslate"><span class="pre">graph</span></code>. The <code class="docutils literal notranslate"><span class="pre">graph</span></code>  represents associations between tracks, by defining the
-mapping between a <code class="docutils literal notranslate"><span class="pre">track_id</span></code> and the parents of the track. This graph can be useful in single cell tracking to understand the lineage of cells over multiple cell division events. For more information on the format of the track <code class="docutils literal notranslate"><span class="pre">graph</span></code>, please see the “tracks graph” section of the <a class="reference internal" href="../../howtos/layers/tracks.html"><span class="doc std std-doc">tracks layer guide</span></a>.</p>
+mapping between a <code class="docutils literal notranslate"><span class="pre">track_id</span></code> and the parents of the track. This graph can be useful in single cell tracking to understand the lineage of cells over multiple cell division events. For more information on the format of the track <code class="docutils literal notranslate"><span class="pre">graph</span></code>, please see the “tracks graph” section of the <a class="reference internal" href="../../howtos/layers/tracks.html#layers-tracks"><span class="std std-ref">tracks layer guide</span></a>.</p>
 <p>In the cell tracking challenge dataset, cell lineage information is stored in a text file <code class="docutils literal notranslate"><span class="pre">man_track.txt</span></code> in the following format:</p>
 <blockquote>
 <div><p>A text file representing an acyclic graph for the whole video. Every line corresponds

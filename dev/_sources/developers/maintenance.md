@@ -1,3 +1,5 @@
+(maintenance)=
+
 # Maintenance
 
 This document describes maintenance tasks that need to be performed from time to time. Its purpose is to avoid relying on personal memory alone, and it should be updated regularly.

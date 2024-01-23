@@ -1,3 +1,5 @@
+(usage)=
+
 # Usage
 
 napari leverages the power of Python to enable fast and interactive browsing,

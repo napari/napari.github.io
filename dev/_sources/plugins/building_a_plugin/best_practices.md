@@ -211,6 +211,8 @@ make sure that you test all of the various ways that your code might be called.
 
 See [Tips for testing napari plugins](plugin-testing-tips).
 
+(best-practices-test-coverage)=
+
 ### How to check test coverage?
 
 The [cookiecutter

@@ -89,7 +89,7 @@ How to install napari.
 :::
 
 :::{grid-item-card} Getting started
-:link: getting_started
+:link: launch
 :link-type: ref
 
 Get started with napari.

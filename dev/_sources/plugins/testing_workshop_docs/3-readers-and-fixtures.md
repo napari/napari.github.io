@@ -1,14 +1,16 @@
+(plugin-testing-workshop-reader-fixtures)=
+
 # 3: Readers and fixtures
 
 This lesson explains how to use and test a plugin's reader function, built-in fixtures, custom fixtures, and enclosed testing.
 
 ## Other lessons in this tutorial:
 
-* 1: [Python’s assert keyword](./1-pythons-assert-keyword.md)
-* 2: [Pytest testing framework](./2-pytest-testing-frameworks.md)
+* 1: [Python’s assert keyword](plugin-testing-workshop-assert)
+* 2: [Pytest testing framework](plugin-testing-workshop-pytest)
 * 3: This lesson (Readers and fixtures)
-* 4: [Test coverage](./4-test-coverage.md)
-* Resource links: [Testing resources](./testing-resources.md)
+* 4: [Test coverage](plugin-testing-workshop-coverage)
+* Resource links: [Testing resources](plugin-testing-resources)
 
 ### This lesson covers:
 * [Readers](#reader)
@@ -148,4 +150,4 @@ We run our tests again, and now two are collected, both passing.
 ## Enclosed testing
 Note that although we're testing a `napari` plugin, we did not need a viewer or napari to test this. It's important that we didn't need those because napari and the napari viewer are out of our control. What we can control is the code _we_ wrote. We wrote that data by simply mocking up an array and getting a temporary path to it. We could thoroughly test our functions in an enclosed way without relying on other people's code or mocking up many complicated objects.
 
-The next lesson in this series on testing is [Test coverage](./4-test-coverage).
+The next lesson in this series on testing is [Test coverage](plugin-testing-workshop-coverage).

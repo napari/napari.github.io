@@ -1,3 +1,5 @@
+(plugin-testing-resources)=
+
 # Testing resources
 
 These resources may be helpful in developing tests:

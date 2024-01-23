@@ -1,3 +1,5 @@
+(roadmaps)=
+
 # Roadmaps
 
 The current `napari` roadmap can be seen in the following GitHub board: [napari global roadmap](https://github.com/orgs/napari/projects/24/views/2?pane=info)

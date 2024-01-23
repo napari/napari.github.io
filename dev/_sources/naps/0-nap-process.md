@@ -59,7 +59,7 @@ ecosystem forward, together.
 ### When is a NAP warranted?
 
 Most contributions to napari should go through the standard [contributing
-process](napari-contributing), that is, opening a pull request to the main
+process](contributing-code), that is, opening a pull request to the main
 repository. They will typically be uncontroversial improvements, and
 require little design discussion. The git commit and the pull request
 itself serve as an adequate record of the contribution's history.

@@ -3,8 +3,8 @@
 
 ```{note}
 These pages describe advanced usage and how napari works internally. If you are
-just getting started, check out our [tutorials](../tutorials/index.md) or
-[how-to guides](../howtos/index.md) instead.
+just getting started, check out our [tutorials](tutorials) or
+[how-to guides](how-tos) instead.
 ```
 
 ## Advanced usage

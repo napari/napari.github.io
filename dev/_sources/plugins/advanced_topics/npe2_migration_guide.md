@@ -9,7 +9,7 @@ The primary difference between the first generation and second generation plugin
 system relates to how napari *discovers* plugin functionality. In the first
 generation plugin engine, napari had to *import* plugin modules to search for
 hook implementations decorated with `@napari_hook_implementation`. In `npe2`,
-plugins declare their contributions *statically* with a [manifest file](../technical_references/manifest).
+plugins declare their contributions *statically* with a [manifest file](plugin-manifest).
 
 ## Migrating using the `npe2` command line tool
 
@@ -76,7 +76,7 @@ Executing `npe2 convert .` will **modify** the current directory!
 The `npe2 convert` command will:
 
 1. Inspect your plugin for hook implementations, and generate an npe2-compatible
-   [manifest file](../technical_references/manifest), called `napari.yaml`.
+   [manifest file](plugin-manifest), called `napari.yaml`.
 2. **Modify** your `setup.cfg` to use the new `napari.manifest` entry point, and
    include the manifest file in your package data.
 
@@ -92,7 +92,7 @@ If you have any napari_plugin_engine imports or hook_implementation decorators, 
 ```
 
 You are encouraged to inspect the newly-generated `napari.yaml` file.  Refer to
-the [manifest](../technical_references/manifest) and [contributions](../technical_references/contributions) references pages
+the [manifest](plugin-manifest) and [contributions](contributions-ref) references pages
 for details on each field in the manifest.
 
 ```{note}
@@ -123,14 +123,14 @@ The next time napari is run, your plugin should be discovered as an
 > *This section goes into detail on the differences between first-generation and
 second-generation implementations. In many cases, this will be more detail than
 you need.  If you are still struggling with a specific conversion after using
-`npe2 convert` and reading the [contributions](../technical_references/contributions) reference and
-[guides](../building_a_plugin/guides), this section may be of help.*
+`npe2 convert` and reading the [contributions](contributions-ref) reference and
+[guides](plugin-contribution-guides), this section may be of help.*
 
 
 Existing `napari-plugin-engine` plugins expose functionality via *hook
 implementations*. These are functions decorated to indicate they fullfil a
 *hook specification* described by napari. Though there are some exceptions,
-most *hook implementations* can be straightforwardly mapped to npe2 [contributions](../technical_references/contributions)
+most *hook implementations* can be straightforwardly mapped to npe2 [contributions](contributions-ref)
 
 `npe2` provides a command-line tool that will generate plugin manifests by
 inspecting exposed *hook implementations*. Below, we will walk through the
@@ -139,7 +139,7 @@ kinds of migrations `npe2 convert` helps with.
 For each type of *hook specification* there is a corresponding section below
 with migration tips. Each lists the *hook specifications* that are relevant to
 that section and an example manifest. For details, refer to the
-[Contributions references](../technical_references/contributions).
+[Contributions references](contributions-ref).
 
 ### Readers
 

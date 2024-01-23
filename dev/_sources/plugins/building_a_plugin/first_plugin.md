@@ -34,8 +34,8 @@ installing napari.
 
 Napari plugins are just Python packages. *Minimally*, they must:
 
-1. Include a static [plugin manifest](../technical_references/manifest) file that details the
-   [contributions](../technical_references/contributions) contained in the plugin.
+1. Include a static [plugin manifest](plugin-manifest) file that details the
+   [contributions](contributions-ref) contained in the plugin.
 2. Declare a `napari.manifest` [entry point][entry_points] that allows
    napari to detect the plugin at runtime.
 
@@ -178,7 +178,7 @@ autogeneration capabilities to turn this function into a widget)*
 ### Add a `napari.yaml` manifest
 
 
-If you haven't already, create an empty [plugin manifest](../technical_references/manifest) file at `napari_hello/napari.yaml`
+If you haven't already, create an empty [plugin manifest](plugin-manifest) file at `napari_hello/napari.yaml`
 We will use this file to tell napari:
 
 1. That our plugin contributes a [**command**](contributions-commands)
@@ -294,11 +294,11 @@ cookiecutter https://github.com/napari/cookiecutter-napari-plugin
 
 Plugins can do a lot more than just say hi!  You can see the complete list
 of available contributions and their fields in the
-[Contributions Reference](../technical_references/contributions), and learn more about each
-specific contribution type in the [Guides](../building_a_plugin/guides).
+[Contributions Reference](contributions-ref), and learn more about each
+specific contribution type in the [Guides](plugin-contribution-guides).
 
-Review the [Best Practices](../building_a_plugin/best_practices) when developing plugins and,
-when you're ready to share your plugin, see [Testing and Publishing](../testing_and_publishing/index).
+Review the [Best Practices](best-practices) when developing plugins and,
+when you're ready to share your plugin, see [Testing and Publishing](plugin-test-deploy).
 
 [miniconda]: https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html
 [python_env]: https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html#managing-python

@@ -14,6 +14,8 @@ theme:
   intro: Template for adding new napari documentation
 ---
 
+(docs-template)=
+
 # Docs template
 
 This template will guide you to write a well formatted document and prepare it for contribution to napari.org.

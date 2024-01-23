@@ -1,3 +1,5 @@
+(plugin-testing-workshop-assert)=
+
 # 1: Python's assert keyword
 
 This tutorial defines the assert keyword in Python and shows how it can be used to write test cases for a simple function.
@@ -5,10 +7,10 @@ This tutorial defines the assert keyword in Python and shows how it can be used 
 ## Other lessons in this tutorial:
 
 * 1: This lesson (Python's assert keyword)
-* 2: [Pytest testing framework](./2-pytest-testing-frameworks)
-* 3: [Readers and fixtures](./3-readers-and-fixtures)
-* 4: [Test coverage](./4-test-coverage)
-* Resource links: [Testing resources](./testing-resources)
+* 2: [Pytest testing framework](plugin-testing-workshop-pytest)
+* 3: [Readers and fixtures](plugin-testing-workshop-reader-fixtures)
+* 4: [Test coverage](plugin-testing-workshop-coverage)
+* Resource links: [Testing resources](plugin-testing-resources)
 
 ### This lesson covers:
 [Assert keyword](#assert-keyword)
@@ -91,4 +93,4 @@ Note that when the assertion fails, a traceback occurs.
 
 This example is a simple way to demonstrate the use of the assert keyword, but it’s not particularly useful for testing a larger codebase. This test function has to be called explicitly to test different marks. There’s not much detail when the code is running. We just get `“All passing.”` and there’s no information about other tests when one of the tests fails.
 
-Making testing more convenient is where [testing frameworks](./2-pytest-testing-frameworks), like [pytest](https://docs.pytest.org/) come in.
+Making testing more convenient is where [testing frameworks](plugin-testing-workshop-pytest), like [pytest](https://docs.pytest.org/) come in.

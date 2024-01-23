@@ -1,4 +1,4 @@
-(napari-benchmarks)=
+(benchmarks)=
 # Benchmarks
 
 While not mandatory for most pull requests, we ask that performance related

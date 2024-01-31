@@ -121,6 +121,21 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+
+<script>
+document.write(`<div class="bd-header-announcement"></div>`);
+fetch("https://napari.org/dev/_static/announcement.html")
+  .then(res => {return res.text();})
+  .then(data => {
+    div = document.querySelector(".bd-header-announcement");
+    div.classList.add(...["bd-header-announcement", "container-fluid"]);
+    div.innerHTML = `<div class="bd-header-announcement__content">${data}</div>`;
+  })
+  .catch(error => {
+    console.log("[PST]: Failed to load announcement at: https://napari.org/dev/_static/announcement.html");
+  });
+</script>
   
     <nav class="bd-header navbar navbar-expand-lg bd-navbar">
 <div class="bd-header__inner bd-page-width">
@@ -687,9 +702,9 @@ v0.6.0. It is considered an &quot;implementation detail&quot; of the napari
 application, not part of the napari viewer model. If your use case
 requires access to qt_viewer, please open an issue to discuss.
   layer_buttons = viewer.window.qt_viewer.layerButtons
-calling &lt;function register_action at 0x7f606c296e60&gt;
-calling &lt;function bind_shortcut at 0x7f606c296dd0&gt;
-calling &lt;function bind_button at 0x7f606c295360&gt;
+calling &lt;function register_action at 0x7f1620182e60&gt;
+calling &lt;function bind_shortcut at 0x7f1620182dd0&gt;
+calling &lt;function bind_button at 0x7f1620181360&gt;
 </pre></div>
 </div>
 <div class="line-block">

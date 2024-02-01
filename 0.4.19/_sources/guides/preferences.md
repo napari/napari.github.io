@@ -45,7 +45,7 @@ Main application settings.
 
 * <small>Access programmatically with `SETTINGS.application.dask`.</small>
 * <small>Type: `DaskSettings`.</small>
-* <small>Default: `DaskSettings(enabled=True, cache=4.189448192)`.</small>
+* <small>Default: `DaskSettings(enabled=True, cache=16.837476352)`.</small>
 * <small>UI: This setting can be configured via the preferences dialog.</small>
 #### First time
 

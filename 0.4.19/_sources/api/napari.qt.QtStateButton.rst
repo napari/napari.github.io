@@ -68,6 +68,9 @@ napari.qt.QtStateButton
       ~QtStateButton.backgroundRole
    
    
+      ~QtStateButton.backingStore
+   
+   
       ~QtStateButton.baseSize
    
    
@@ -116,6 +119,9 @@ napari.qt.QtStateButton
       ~QtStateButton.colorCount
    
    
+      ~QtStateButton.connect
+   
+   
       ~QtStateButton.connectNotify
    
    
@@ -132,6 +138,9 @@ napari.qt.QtStateButton
    
    
       ~QtStateButton.create
+   
+   
+      ~QtStateButton.createWinId
    
    
       ~QtStateButton.createWindowContainer
@@ -192,6 +201,9 @@ napari.qt.QtStateButton
    
    
       ~QtStateButton.effectiveWinId
+   
+   
+      ~QtStateButton.emit
    
    
       ~QtStateButton.ensurePolished
@@ -350,6 +362,9 @@ napari.qt.QtStateButton
       ~QtStateButton.installEventFilter
    
    
+      ~QtStateButton.internalWinId
+   
+   
       ~QtStateButton.isActiveWindow
    
    
@@ -372,6 +387,9 @@ napari.qt.QtStateButton
    
    
       ~QtStateButton.isEnabledTo
+   
+   
+      ~QtStateButton.isEnabledToTLW
    
    
       ~QtStateButton.isFlat
@@ -399,6 +417,9 @@ napari.qt.QtStateButton
    
    
       ~QtStateButton.isSignalConnected
+   
+   
+      ~QtStateButton.isTopLevel
    
    
       ~QtStateButton.isVisible
@@ -584,9 +605,6 @@ napari.qt.QtStateButton
       ~QtStateButton.property
    
    
-      ~QtStateButton.pyqtConfigure
-   
-   
       ~QtStateButton.raise_
    
    
@@ -594,6 +612,12 @@ napari.qt.QtStateButton
    
    
       ~QtStateButton.rect
+   
+   
+      ~QtStateButton.redirected
+   
+   
+      ~QtStateButton.registerUserData
    
    
       ~QtStateButton.releaseKeyboard
@@ -959,6 +983,9 @@ napari.qt.QtStateButton
       ~QtStateButton.toolTipDuration
    
    
+      ~QtStateButton.topLevelWidget
+   
+   
       ~QtStateButton.tr
    
    
@@ -1076,6 +1103,7 @@ napari.qt.QtStateButton
       ~QtStateButton.customContextMenuRequested
       ~QtStateButton.destroyed
       ~QtStateButton.objectNameChanged
+      ~QtStateButton.painters
       ~QtStateButton.pressed
       ~QtStateButton.released
       ~QtStateButton.staticMetaObject

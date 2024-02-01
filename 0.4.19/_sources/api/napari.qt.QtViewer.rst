@@ -56,6 +56,9 @@ napari.qt.QtViewer
       ~QtViewer.backgroundRole
    
    
+      ~QtViewer.backingStore
+   
+   
       ~QtViewer.baseSize
    
    
@@ -104,6 +107,9 @@ napari.qt.QtViewer
       ~QtViewer.colorCount
    
    
+      ~QtViewer.connect
+   
+   
       ~QtViewer.connectNotify
    
    
@@ -126,6 +132,9 @@ napari.qt.QtViewer
    
    
       ~QtViewer.createHandle
+   
+   
+      ~QtViewer.createWinId
    
    
       ~QtViewer.createWindowContainer
@@ -189,6 +198,9 @@ napari.qt.QtViewer
    
    
       ~QtViewer.effectiveWinId
+   
+   
+      ~QtViewer.emit
    
    
       ~QtViewer.ensurePolished
@@ -365,6 +377,9 @@ napari.qt.QtViewer
       ~QtViewer.installEventFilter
    
    
+      ~QtViewer.internalWinId
+   
+   
       ~QtViewer.isActiveWindow
    
    
@@ -378,6 +393,9 @@ napari.qt.QtViewer
    
    
       ~QtViewer.isEnabledTo
+   
+   
+      ~QtViewer.isEnabledToTLW
    
    
       ~QtViewer.isFullScreen
@@ -402,6 +420,9 @@ napari.qt.QtViewer
    
    
       ~QtViewer.isSignalConnected
+   
+   
+      ~QtViewer.isTopLevel
    
    
       ~QtViewer.isVisible
@@ -617,9 +638,6 @@ napari.qt.QtViewer
       ~QtViewer.property
    
    
-      ~QtViewer.pyqtConfigure
-   
-   
       ~QtViewer.raise_
    
    
@@ -629,7 +647,13 @@ napari.qt.QtViewer
       ~QtViewer.rect
    
    
+      ~QtViewer.redirected
+   
+   
       ~QtViewer.refresh
+   
+   
+      ~QtViewer.registerUserData
    
    
       ~QtViewer.releaseKeyboard
@@ -1001,6 +1025,9 @@ napari.qt.QtViewer
       ~QtViewer.toolTipDuration
    
    
+      ~QtViewer.topLevelWidget
+   
+   
       ~QtViewer.tr
    
    
@@ -1141,6 +1168,7 @@ napari.qt.QtViewer
       ~QtViewer.layerButtons
       ~QtViewer.layers
       ~QtViewer.objectNameChanged
+      ~QtViewer.painters
       ~QtViewer.splitterMoved
       ~QtViewer.staticMetaObject
       ~QtViewer.viewerButtons

@@ -26,6 +26,9 @@ napari.qt.threading.WorkerBaseSignals
       ~WorkerBaseSignals.children
    
    
+      ~WorkerBaseSignals.connect
+   
+   
       ~WorkerBaseSignals.connectNotify
    
    
@@ -48,6 +51,9 @@ napari.qt.threading.WorkerBaseSignals
    
    
       ~WorkerBaseSignals.dynamicPropertyNames
+   
+   
+      ~WorkerBaseSignals.emit
    
    
       ~WorkerBaseSignals.event
@@ -95,10 +101,10 @@ napari.qt.threading.WorkerBaseSignals
       ~WorkerBaseSignals.property
    
    
-      ~WorkerBaseSignals.pyqtConfigure
-   
-   
       ~WorkerBaseSignals.receivers
+   
+   
+      ~WorkerBaseSignals.registerUserData
    
    
       ~WorkerBaseSignals.removeEventFilter

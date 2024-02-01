@@ -1,17 +1,17 @@
 Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+  File "/home/czaki/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
     executenb(
-  File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/nbclient/client.py", line 1314, in execute
+  File "/home/czaki/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/nbclient/client.py", line 1314, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
-  File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+  File "/home/czaki/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
     return loop.run_until_complete(inner)
-  File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+  File "/home/czaki/.pyenv/versions/3.10.4/lib/python3.10/asyncio/base_events.py", line 646, in run_until_complete
     return future.result()
-  File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/nbclient/client.py", line 709, in async_execute
+  File "/home/czaki/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/nbclient/client.py", line 709, in async_execute
     await self.async_execute_cell(
-  File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+  File "/home/czaki/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/nbclient/client.py", line 1062, in async_execute_cell
     await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+  File "/home/czaki/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
@@ -39,7 +39,7 @@ Cell [0;32mIn[10], line 2[0m
 [1;32m      3[0m [43m  [49m[43mdata[49m[43m [49m[38;5;241;43m=[39;49m[43m [49m[38;5;241;43m500[39;49m[43m [49m[38;5;241;43m*[39;49m[43m [49m[43mnp[49m[38;5;241;43m.[39;49m[43mrandom[49m[38;5;241;43m.[39;49m[43mrand[49m[43m([49m[43mn_points[49m[43m,[49m[43m [49m[38;5;241;43m2[39;49m[43m)[49m
 [1;32m      4[0m [43m  [49m[38;5;28;43;01mreturn[39;49;00m[43m [49m[43m([49m[43mdata[49m[43m,[49m[43m [49m[43m{[49m[38;5;124;43m'[39;49m[38;5;124;43mname[39;49m[38;5;124;43m'[39;49m[43m:[49m[43m [49m[38;5;124;43m'[39;49m[38;5;124;43mMy Points[39;49m[38;5;124;43m'[39;49m[43m}[49m[43m,[49m[43m [49m[38;5;124;43m'[39;49m[38;5;124;43mpoints[39;49m[38;5;124;43m'[39;49m[43m)[49m
 
-File [0;32m/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/magicgui/type_map/_magicgui.py:539[0m, in [0;36m_magicgui.<locals>.inner_func[0;34m(func)[0m
+File [0;32m~/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/magicgui/type_map/_magicgui.py:539[0m, in [0;36m_magicgui.<locals>.inner_func[0;34m(func)[0m
 [1;32m    534[0m     [38;5;28;01mreturn[39;00m MagicFactory(
 [1;32m    535[0m         func, magic_class[38;5;241m=[39mmagic_class, widget_init[38;5;241m=[39mwidget_init, [38;5;241m*[39m[38;5;241m*[39mkwargs
 [1;32m    536[0m     )
@@ -47,7 +47,7 @@ File [0;32m/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages
 [1;32m    538[0m [38;5;66;03m# so we shortcut that and just return the FunctionGui here.[39;00m
 [0;32m--> 539[0m [38;5;28;01mreturn[39;00m cast(FunctionGui, [43mmagic_class[49m[43m([49m[43mfunc[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkwargs[49m[43m)[49m)
 
-File [0;32m/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/magicgui/widgets/_function_gui.py:197[0m, in [0;36mFunctionGui.__init__[0;34m(self, function, call_button, layout, scrollable, labels, tooltips, app, visible, auto_call, result_widget, param_options, name, persist, raise_on_unknown, **kwargs)[0m
+File [0;32m~/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/magicgui/widgets/_function_gui.py:197[0m, in [0;36mFunctionGui.__init__[0;34m(self, function, call_button, layout, scrollable, labels, tooltips, app, visible, auto_call, result_widget, param_options, name, persist, raise_on_unknown, **kwargs)[0m
 [1;32m    189[0m         name [38;5;241m=[39m [38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00mfunction[38;5;241m.[39m[38;5;18m__module__[39m[38;5;132;01m}[39;00m[38;5;124m.[39m[38;5;132;01m{[39;00mfunction[38;5;241m.[39m[38;5;18m__class__[39m[38;5;132;01m}[39;00m[38;5;124m"[39m
 [1;32m    190[0m [38;5;28mself[39m[38;5;241m.[39m_callable_name [38;5;241m=[39m name
 [1;32m    192[0m [38;5;28msuper[39m()[38;5;241m.[39m[38;5;21m__init__[39m(
@@ -61,21 +61,21 @@ File [0;32m/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages
 [1;32m    200[0m [38;5;28mself[39m[38;5;241m.[39m_param_options [38;5;241m=[39m param_options
 [1;32m    201[0m [38;5;28mself[39m[38;5;241m.[39m_result_name [38;5;241m=[39m [38;5;124m"[39m[38;5;124m"[39m
 
-File [0;32m/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/magicgui/signature.py:233[0m, in [0;36mMagicSignature.widgets[0;34m(self, app)[0m
+File [0;32m~/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/magicgui/signature.py:233[0m, in [0;36mMagicSignature.widgets[0;34m(self, app)[0m
 [1;32m    230[0m [38;5;28;01mdef[39;00m [38;5;21mwidgets[39m([38;5;28mself[39m, app: AppRef [38;5;241m|[39m [38;5;28;01mNone[39;00m [38;5;241m=[39m [38;5;28;01mNone[39;00m) [38;5;241m-[39m[38;5;241m>[39m MappingProxyType:
 [1;32m    231[0m [38;5;250m    [39m[38;5;124;03m"""Return mapping from parameters to widgets for all params in Signature."""[39;00m
 [1;32m    232[0m     [38;5;28;01mreturn[39;00m MappingProxyType(
 [0;32m--> 233[0m         {n: p[38;5;241m.[39mto_widget(app) [38;5;28;01mfor[39;00m n, p [38;5;129;01min[39;00m [38;5;28mself[39m[38;5;241m.[39mparameters[38;5;241m.[39mitems()}
 [1;32m    234[0m     )
 
-File [0;32m/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/magicgui/signature.py:233[0m, in [0;36m<dictcomp>[0;34m(.0)[0m
+File [0;32m~/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/magicgui/signature.py:233[0m, in [0;36m<dictcomp>[0;34m(.0)[0m
 [1;32m    230[0m [38;5;28;01mdef[39;00m [38;5;21mwidgets[39m([38;5;28mself[39m, app: AppRef [38;5;241m|[39m [38;5;28;01mNone[39;00m [38;5;241m=[39m [38;5;28;01mNone[39;00m) [38;5;241m-[39m[38;5;241m>[39m MappingProxyType:
 [1;32m    231[0m [38;5;250m    [39m[38;5;124;03m"""Return mapping from parameters to widgets for all params in Signature."""[39;00m
 [1;32m    232[0m     [38;5;28;01mreturn[39;00m MappingProxyType(
 [0;32m--> 233[0m         {n: [43mp[49m[38;5;241;43m.[39;49m[43mto_widget[49m[43m([49m[43mapp[49m[43m)[49m [38;5;28;01mfor[39;00m n, p [38;5;129;01min[39;00m [38;5;28mself[39m[38;5;241m.[39mparameters[38;5;241m.[39mitems()}
 [1;32m    234[0m     )
 
-File [0;32m/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/magicgui/signature.py:137[0m, in [0;36mMagicParameter.to_widget[0;34m(self, app)[0m
+File [0;32m~/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/magicgui/signature.py:137[0m, in [0;36mMagicParameter.to_widget[0;34m(self, app)[0m
 [1;32m    134[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmagicgui[39;00m[38;5;21;01m.[39;00m[38;5;21;01mwidgets[39;00m [38;5;28;01mimport[39;00m create_widget
 [1;32m    136[0m value [38;5;241m=[39m Undefined [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39mdefault [38;5;129;01min[39;00m ([38;5;28mself[39m[38;5;241m.[39mempty, TZ_EMPTY) [38;5;28;01melse[39;00m [38;5;28mself[39m[38;5;241m.[39mdefault
 [0;32m--> 137[0m widget [38;5;241m=[39m [43mcreate_widget[49m[43m([49m
@@ -88,7 +88,7 @@ File [0;32m/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages
 [1;32m    144[0m widget[38;5;241m.[39mparam_kind [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39mkind
 [1;32m    145[0m [38;5;28;01mreturn[39;00m widget
 
-File [0;32m/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/magicgui/widgets/bases/_create_widget.py:126[0m, in [0;36mcreate_widget[0;34m(value, annotation, name, param_kind, label, gui_only, app, widget_type, options, is_result, raise_on_unknown)[0m
+File [0;32m~/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/magicgui/widgets/bases/_create_widget.py:126[0m, in [0;36mcreate_widget[0;34m(value, annotation, name, param_kind, label, gui_only, app, widget_type, options, is_result, raise_on_unknown)[0m
 [1;32m    121[0m wdg_class, opts [38;5;241m=[39m get_widget_class(
 [1;32m    122[0m     value, annotation, options_, is_result, raise_on_unknown
 [1;32m    123[0m )
@@ -97,12 +97,12 @@ File [0;32m/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages
 [1;32m    127[0m     [38;5;28;01mif[39;00m param_kind:
 [1;32m    128[0m         widget[38;5;241m.[39mparam_kind [38;5;241m=[39m param_kind  [38;5;66;03m# type: ignore[39;00m
 
-File [0;32m/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/magicgui/widgets/_concrete.py:122[0m, in [0;36mbackend_widget.<locals>.wrapper.<locals>.__init__[0;34m(self, **kwargs)[0m
+File [0;32m~/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/magicgui/widgets/_concrete.py:122[0m, in [0;36mbackend_widget.<locals>.wrapper.<locals>.__init__[0;34m(self, **kwargs)[0m
 [1;32m    120[0m     widget [38;5;241m=[39m transform(widget)
 [1;32m    121[0m kwargs[[38;5;124m"[39m[38;5;124mwidget_type[39m[38;5;124m"[39m] [38;5;241m=[39m widget
 [0;32m--> 122[0m [38;5;28;43msuper[39;49m[43m([49m[38;5;28;43mcls[39;49m[43m,[49m[43m [49m[38;5;28;43mself[39;49m[43m)[49m[38;5;241;43m.[39;49m[38;5;21;43m__init__[39;49m[43m([49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkwargs[49m[43m)[49m
 
-File [0;32m/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/magicgui/widgets/bases/_ranged_widget.py:65[0m, in [0;36mRangedWidget.__init__[0;34m(self, value, min, max, step, bind, nullable, **base_widget_kwargs)[0m
+File [0;32m~/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/magicgui/widgets/bases/_ranged_widget.py:65[0m, in [0;36mRangedWidget.__init__[0;34m(self, value, min, max, step, bind, nullable, **base_widget_kwargs)[0m
 [1;32m     53[0m [38;5;28;01mdef[39;00m [38;5;21m__init__[39m(
 [1;32m     54[0m     [38;5;28mself[39m,
 [1;32m     55[0m     value: T [38;5;241m|[39m _Undefined [38;5;241m=[39m Undefined,
@@ -117,14 +117,14 @@ File [0;32m/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages
 [1;32m     71[0m     [38;5;28;01mif[39;00m step [38;5;129;01mis[39;00m Undefined [38;5;129;01mor[39;00m step [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
 [1;32m     72[0m         [38;5;28mself[39m[38;5;241m.[39mstep [38;5;241m=[39m [38;5;28;01mNone[39;00m
 
-File [0;32m/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/magicgui/widgets/bases/_value_widget.py:57[0m, in [0;36mValueWidget.__init__[0;34m(self, value, bind, nullable, **base_widget_kwargs)[0m
+File [0;32m~/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/magicgui/widgets/bases/_value_widget.py:57[0m, in [0;36mValueWidget.__init__[0;34m(self, value, bind, nullable, **base_widget_kwargs)[0m
 [1;32m     55[0m [38;5;28mself[39m[38;5;241m.[39m_bound_value [38;5;241m=[39m bind
 [1;32m     56[0m [38;5;28mself[39m[38;5;241m.[39m_call_bound: [38;5;28mbool[39m [38;5;241m=[39m [38;5;28;01mTrue[39;00m
 [0;32m---> 57[0m [38;5;28;43msuper[39;49m[43m([49m[43m)[49m[38;5;241;43m.[39;49m[38;5;21;43m__init__[39;49m[43m([49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mbase_widget_kwargs[49m[43m)[49m
 [1;32m     58[0m [38;5;28;01mif[39;00m value [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m Undefined:
 [1;32m     59[0m     [38;5;28mself[39m[38;5;241m.[39mvalue [38;5;241m=[39m cast(T, value)
 
-File [0;32m/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/magicgui/widgets/bases/_widget.py:105[0m, in [0;36mWidget.__init__[0;34m(self, widget_type, name, annotation, label, tooltip, visible, enabled, gui_only, parent, backend_kwargs, **extra)[0m
+File [0;32m~/.pyenv/versions/3.10.4/envs/napari_3.10/lib/python3.10/site-packages/magicgui/widgets/bases/_widget.py:105[0m, in [0;36mWidget.__init__[0;34m(self, widget_type, name, annotation, label, tooltip, visible, enabled, gui_only, parent, backend_kwargs, **extra)[0m
 [1;32m    103[0m label [38;5;241m=[39m label [38;5;129;01mor[39;00m extra[38;5;241m.[39mpop([38;5;124m"[39m[38;5;124mdescription[39m[38;5;124m"[39m, [38;5;28;01mNone[39;00m)
 [1;32m    104[0m [38;5;28;01mif[39;00m extra:
 [0;32m--> 105[0m     [38;5;28;01mraise[39;00m [38;5;167;01mTypeError[39;00m(

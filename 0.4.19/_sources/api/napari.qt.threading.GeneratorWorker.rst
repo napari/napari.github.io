@@ -23,9 +23,6 @@ napari.qt.threading.GeneratorWorker
       ~GeneratorWorker.await_workers
    
    
-      ~GeneratorWorker.create
-   
-   
       ~GeneratorWorker.pause
    
    

@@ -23,9 +23,6 @@ napari.qt.threading.WorkerBase
       ~WorkerBase.await_workers
    
    
-      ~WorkerBase.create
-   
-   
       ~WorkerBase.quit
    
    

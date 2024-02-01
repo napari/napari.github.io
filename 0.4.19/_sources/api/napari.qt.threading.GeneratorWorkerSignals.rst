@@ -26,6 +26,9 @@ napari.qt.threading.GeneratorWorkerSignals
       ~GeneratorWorkerSignals.children
    
    
+      ~GeneratorWorkerSignals.connect
+   
+   
       ~GeneratorWorkerSignals.connectNotify
    
    
@@ -48,6 +51,9 @@ napari.qt.threading.GeneratorWorkerSignals
    
    
       ~GeneratorWorkerSignals.dynamicPropertyNames
+   
+   
+      ~GeneratorWorkerSignals.emit
    
    
       ~GeneratorWorkerSignals.event
@@ -95,10 +101,10 @@ napari.qt.threading.GeneratorWorkerSignals
       ~GeneratorWorkerSignals.property
    
    
-      ~GeneratorWorkerSignals.pyqtConfigure
-   
-   
       ~GeneratorWorkerSignals.receivers
+   
+   
+      ~GeneratorWorkerSignals.registerUserData
    
    
       ~GeneratorWorkerSignals.removeEventFilter

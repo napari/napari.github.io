@@ -23,9 +23,6 @@ napari.qt.threading.FunctionWorker
       ~FunctionWorker.await_workers
    
    
-      ~FunctionWorker.create
-   
-   
       ~FunctionWorker.quit
    
    

@@ -50,6 +50,9 @@ napari.qt.QtViewerButtons
       ~QtViewerButtons.backgroundRole
    
    
+      ~QtViewerButtons.backingStore
+   
+   
       ~QtViewerButtons.baseSize
    
    
@@ -89,6 +92,9 @@ napari.qt.QtViewerButtons
       ~QtViewerButtons.colorCount
    
    
+      ~QtViewerButtons.connect
+   
+   
       ~QtViewerButtons.connectNotify
    
    
@@ -105,6 +111,9 @@ napari.qt.QtViewerButtons
    
    
       ~QtViewerButtons.create
+   
+   
+      ~QtViewerButtons.createWinId
    
    
       ~QtViewerButtons.createWindowContainer
@@ -168,6 +177,9 @@ napari.qt.QtViewerButtons
    
    
       ~QtViewerButtons.effectiveWinId
+   
+   
+      ~QtViewerButtons.emit
    
    
       ~QtViewerButtons.ensurePolished
@@ -329,6 +341,9 @@ napari.qt.QtViewerButtons
       ~QtViewerButtons.installEventFilter
    
    
+      ~QtViewerButtons.internalWinId
+   
+   
       ~QtViewerButtons.isActiveWindow
    
    
@@ -339,6 +354,9 @@ napari.qt.QtViewerButtons
    
    
       ~QtViewerButtons.isEnabledTo
+   
+   
+      ~QtViewerButtons.isEnabledToTLW
    
    
       ~QtViewerButtons.isFullScreen
@@ -363,6 +381,9 @@ napari.qt.QtViewerButtons
    
    
       ~QtViewerButtons.isSignalConnected
+   
+   
+      ~QtViewerButtons.isTopLevel
    
    
       ~QtViewerButtons.isVisible
@@ -551,9 +572,6 @@ napari.qt.QtViewerButtons
       ~QtViewerButtons.property
    
    
-      ~QtViewerButtons.pyqtConfigure
-   
-   
       ~QtViewerButtons.raise_
    
    
@@ -561,6 +579,12 @@ napari.qt.QtViewerButtons
    
    
       ~QtViewerButtons.rect
+   
+   
+      ~QtViewerButtons.redirected
+   
+   
+      ~QtViewerButtons.registerUserData
    
    
       ~QtViewerButtons.releaseKeyboard
@@ -887,6 +911,9 @@ napari.qt.QtViewerButtons
       ~QtViewerButtons.toolTipDuration
    
    
+      ~QtViewerButtons.topLevelWidget
+   
+   
       ~QtViewerButtons.tr
    
    
@@ -1015,6 +1042,7 @@ napari.qt.QtViewerButtons
       ~QtViewerButtons.customContextMenuRequested
       ~QtViewerButtons.destroyed
       ~QtViewerButtons.objectNameChanged
+      ~QtViewerButtons.painters
       ~QtViewerButtons.staticMetaObject
       ~QtViewerButtons.windowIconChanged
       ~QtViewerButtons.windowIconTextChanged

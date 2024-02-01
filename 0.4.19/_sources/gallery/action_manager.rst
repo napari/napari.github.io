@@ -37,14 +37,14 @@ Action manager
 
  .. code-block:: none
 
-    /home/runner/work/napari/napari/examples/action_manager.py:43: FutureWarning: Public access to Window.qt_viewer is deprecated and will be removed in
+    /home/czaki/Projekty/napari/examples/action_manager.py:43: FutureWarning: Public access to Window.qt_viewer is deprecated and will be removed in
     v0.6.0. It is considered an "implementation detail" of the napari
     application, not part of the napari viewer model. If your use case
     requires access to qt_viewer, please open an issue to discuss.
       layer_buttons = viewer.window.qt_viewer.layerButtons
-    calling <function bind_button at 0x7f45b33d37f0>
-    calling <function register_action at 0x7f45b33d1c60>
-    calling <function bind_shortcut at 0x7f45b33d3010>
+    calling <function register_action at 0x7f3ae0f44b80>
+    calling <function bind_shortcut at 0x7f3ae0f468c0>
+    calling <function bind_button at 0x7f3ae0f45090>
 
 
 

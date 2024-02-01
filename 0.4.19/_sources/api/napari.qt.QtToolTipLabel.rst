@@ -53,6 +53,9 @@ napari.qt.QtToolTipLabel
       ~QtToolTipLabel.backgroundRole
    
    
+      ~QtToolTipLabel.backingStore
+   
+   
       ~QtToolTipLabel.baseSize
    
    
@@ -98,6 +101,9 @@ napari.qt.QtToolTipLabel
       ~QtToolTipLabel.colorCount
    
    
+      ~QtToolTipLabel.connect
+   
+   
       ~QtToolTipLabel.connectNotify
    
    
@@ -114,6 +120,9 @@ napari.qt.QtToolTipLabel
    
    
       ~QtToolTipLabel.create
+   
+   
+      ~QtToolTipLabel.createWinId
    
    
       ~QtToolTipLabel.createWindowContainer
@@ -177,6 +186,9 @@ napari.qt.QtToolTipLabel
    
    
       ~QtToolTipLabel.effectiveWinId
+   
+   
+      ~QtToolTipLabel.emit
    
    
       ~QtToolTipLabel.ensurePolished
@@ -347,6 +359,9 @@ napari.qt.QtToolTipLabel
       ~QtToolTipLabel.installEventFilter
    
    
+      ~QtToolTipLabel.internalWinId
+   
+   
       ~QtToolTipLabel.isActiveWindow
    
    
@@ -357,6 +372,9 @@ napari.qt.QtToolTipLabel
    
    
       ~QtToolTipLabel.isEnabledTo
+   
+   
+      ~QtToolTipLabel.isEnabledToTLW
    
    
       ~QtToolTipLabel.isFullScreen
@@ -381,6 +399,9 @@ napari.qt.QtToolTipLabel
    
    
       ~QtToolTipLabel.isSignalConnected
+   
+   
+      ~QtToolTipLabel.isTopLevel
    
    
       ~QtToolTipLabel.isVisible
@@ -581,9 +602,6 @@ napari.qt.QtToolTipLabel
       ~QtToolTipLabel.property
    
    
-      ~QtToolTipLabel.pyqtConfigure
-   
-   
       ~QtToolTipLabel.raise_
    
    
@@ -591,6 +609,12 @@ napari.qt.QtToolTipLabel
    
    
       ~QtToolTipLabel.rect
+   
+   
+      ~QtToolTipLabel.redirected
+   
+   
+      ~QtToolTipLabel.registerUserData
    
    
       ~QtToolTipLabel.releaseKeyboard
@@ -977,6 +1001,9 @@ napari.qt.QtToolTipLabel
       ~QtToolTipLabel.toolTipDuration
    
    
+      ~QtToolTipLabel.topLevelWidget
+   
+   
       ~QtToolTipLabel.tr
    
    
@@ -1110,6 +1137,7 @@ napari.qt.QtToolTipLabel
       ~QtToolTipLabel.linkActivated
       ~QtToolTipLabel.linkHovered
       ~QtToolTipLabel.objectNameChanged
+      ~QtToolTipLabel.painters
       ~QtToolTipLabel.staticMetaObject
       ~QtToolTipLabel.windowIconChanged
       ~QtToolTipLabel.windowIconTextChanged

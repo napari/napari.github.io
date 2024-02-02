@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=d4fb5197"></script>
+    <script src="../../../../_static/documentation_options.js?v=cdebdaaa"></script>
     <script src="../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -556,7 +556,6 @@ document.write(`
 <div class="viewcode-block" id="Event">
 <a class="viewcode-back" href="../../../../api/napari.utils.events.Event.html#napari.utils.events.Event">[docs]</a>
 <span class="k">class</span> <span class="nc">Event</span><span class="p">:</span>
-
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class describing events that occur and can be reacted to with callbacks.</span>
 <span class="sd">    Each event instance contains information about a single event that has</span>
 <span class="sd">    occurred such as a key press, mouse motion, timer activation, etc.</span>
@@ -713,9 +712,9 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span><span class="p">:</span> <span class="n">weakref</span><span class="o">.</span><span class="n">WeakKeyDictionary</span><span class="p">[</span>
-            <span class="n">_T</span><span class="p">,</span> <span class="nb">int</span>
-        <span class="p">]</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">WeakKeyDictionary</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span><span class="p">:</span> <span class="n">weakref</span><span class="o">.</span><span class="n">WeakKeyDictionary</span><span class="p">[</span><span class="n">_T</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">weakref</span><span class="o">.</span><span class="n">WeakKeyDictionary</span><span class="p">()</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nonecount</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iterable</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]):</span>
@@ -734,7 +733,6 @@ document.write(`
 <div class="viewcode-block" id="EventEmitter">
 <a class="viewcode-back" href="../../../../api/napari.utils.events.EventEmitter.html#napari.utils.events.EventEmitter">[docs]</a>
 <span class="k">class</span> <span class="nc">EventEmitter</span><span class="p">:</span>
-
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Encapsulates a list of event callbacks.</span>
 
 <span class="sd">    Each instance of EventEmitter represents the source of a stream of similar</span>
@@ -1431,7 +1429,6 @@ document.write(`
 <div class="viewcode-block" id="EmitterGroup">
 <a class="viewcode-back" href="../../../../api/napari.utils.events.EmitterGroup.html#napari.utils.events.EmitterGroup">[docs]</a>
 <span class="k">class</span> <span class="nc">EmitterGroup</span><span class="p">(</span><span class="n">EventEmitter</span><span class="p">):</span>
-
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;EmitterGroup instances manage a set of related</span>
 <span class="sd">    :class:`EventEmitters &lt;vispy.event.EventEmitter&gt;`.</span>
 <span class="sd">    Its primary purpose is to provide organization for objects</span>
@@ -1700,7 +1697,6 @@ document.write(`
 
 
 <span class="k">class</span> <span class="nc">EventBlocker</span><span class="p">:</span>
-
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a block for an EventEmitter to be used in a context</span>
 <span class="sd">    manager (i.e. &#39;with&#39; statement).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1724,7 +1720,6 @@ document.write(`
 
 
 <span class="k">class</span> <span class="nc">EventBlockerAll</span><span class="p">:</span>
-
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a block_all for an EmitterGroup to be used in a context</span>
 <span class="sd">    manager (i.e. &#39;with&#39; statement).</span>
 <span class="sd">    &quot;&quot;&quot;</span>

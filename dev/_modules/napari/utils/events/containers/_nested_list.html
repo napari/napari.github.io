@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../../_static/documentation_options.js?v=d4fb5197"></script>
+    <script src="../../../../../_static/documentation_options.js?v=cdebdaaa"></script>
     <script src="../../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -477,6 +477,7 @@ document.write(`
 
 <span class="sd">see module docstring of evented_list.py for more details</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">contextlib</span>
@@ -642,22 +643,24 @@ document.write(`
     <span class="c1"># def remove(self, value: T): ...</span>
 
     <span class="nd">@overload</span>  <span class="c1"># type: ignore</span>
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">_T</span><span class="p">,</span> <span class="n">NestableEventedList</span><span class="p">[</span><span class="n">_T</span><span class="p">]]:</span>
-        <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">_T</span><span class="p">,</span> <span class="n">NestableEventedList</span><span class="p">[</span><span class="n">_T</span><span class="p">]]:</span> <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
 
     <span class="nd">@overload</span>
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">ParentIndex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NestableEventedList</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span>
-        <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">ParentIndex</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NestableEventedList</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span> <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
 
     <span class="nd">@overload</span>
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">slice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NestableEventedList</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span>
-        <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">slice</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NestableEventedList</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span> <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
 
     <span class="nd">@overload</span>
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">NestedIndex</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">_T</span><span class="p">,</span> <span class="n">NestableEventedList</span><span class="p">[</span><span class="n">_T</span><span class="p">]]:</span>
-        <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">_T</span><span class="p">,</span> <span class="n">NestableEventedList</span><span class="p">[</span><span class="n">_T</span><span class="p">]]:</span> <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">MaybeNestedIndex</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
@@ -670,12 +673,14 @@ document.write(`
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
     <span class="nd">@overload</span>
-    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">NestedIndex</span><span class="p">],</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span><span class="p">):</span>
-        <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">NestedIndex</span><span class="p">],</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span>
+    <span class="p">):</span> <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
 
     <span class="nd">@overload</span>
-    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">slice</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]):</span>
-        <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">slice</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span>
+    <span class="p">):</span> <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
 
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">MaybeNestedIndex</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="c1"># NOTE: if we check isinstance(..., MutableList), then we&#39;ll actually</span>

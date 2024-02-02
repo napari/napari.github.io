@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=d4fb5197"></script>
+    <script src="../../../../_static/documentation_options.js?v=cdebdaaa"></script>
     <script src="../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -739,9 +739,11 @@ document.write(`
             <span class="n">continuous_colormap</span><span class="o">=</span><span class="n">edge_colormap</span><span class="p">,</span>
             <span class="n">contrast_limits</span><span class="o">=</span><span class="n">edge_contrast_limits</span><span class="p">,</span>
             <span class="n">categorical_colormap</span><span class="o">=</span><span class="n">edge_color_cycle</span><span class="p">,</span>
-            <span class="n">properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span>
-            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">currents</span><span class="p">(),</span>
+            <span class="n">properties</span><span class="o">=</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">properties</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span>
+                <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">currents</span><span class="p">()</span>
+            <span class="p">),</span>
         <span class="p">)</span>
 
         <span class="c1"># Data containing vectors in the currently viewed slice</span>
@@ -877,9 +879,11 @@ document.write(`
                 <span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
                 <span class="s1">&#39;edge_width&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
                 <span class="s1">&#39;vector_style&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_style</span><span class="p">,</span>
-                <span class="s1">&#39;edge_color&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">size</span>
-                <span class="k">else</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">current_color</span><span class="p">],</span>
+                <span class="s1">&#39;edge_color&#39;</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">size</span>
+                    <span class="k">else</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">current_color</span><span class="p">]</span>
+                <span class="p">),</span>
                 <span class="s1">&#39;edge_color_cycle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color_cycle</span><span class="p">,</span>
                 <span class="s1">&#39;edge_colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_colormap</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
                 <span class="s1">&#39;edge_contrast_limits&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_contrast_limits</span><span class="p">,</span>

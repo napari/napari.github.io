@@ -1,4 +1,4 @@
-(release)=
+(napari-release)=
 
 # Release guide
 

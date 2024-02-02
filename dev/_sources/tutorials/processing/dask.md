@@ -1,4 +1,4 @@
-(dask)=
+(dask-napari)=
 
 # Using Dask and napari to process & view large datasets
 

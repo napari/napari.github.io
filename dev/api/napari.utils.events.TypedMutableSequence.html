@@ -600,7 +600,7 @@ document.write(`
 provided, then a TypeError will be raised when attempting to add an
 item to this sequence if it is not an instance of one of the types in
 <code class="docutils literal notranslate"><span class="pre">basetype</span></code>.</p></li>
-<li><p><strong>lookup</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em> of </em><em>Type</em><em>[</em><em>L</em><em>] </em><em>: function</em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><em>object</em></a><em>) </em><em>-&gt; L</em>) – Mapping between a type, and a function that converts items in the list
+<li><p><strong>lookup</strong> – Mapping between a type, and a function that converts items in the list
 to that type.  This is used for custom indexing.  For example, if a
 <code class="docutils literal notranslate"><span class="pre">lookup</span></code> of {str: lambda x: x.name} is provided, then you can index
 into the list using <code class="docutils literal notranslate"><span class="pre">list['frank']</span></code> and it will search for an object
@@ -611,19 +611,19 @@ whos attribute <code class="docutils literal notranslate"><span class="pre">.nam
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.TypedMutableSequence.append" title="napari.utils.events.TypedMutableSequence.append"><code class="xref py py-obj docutils literal notranslate"><span class="pre">append</span></code></a>(value)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">append</span></code>(value)</p></td>
 <td><p>S.append(value) -- append value to the end of the sequence</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.TypedMutableSequence.clear" title="napari.utils.events.TypedMutableSequence.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code>()</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.TypedMutableSequence.copy" title="napari.utils.events.TypedMutableSequence.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
 <td><p>Return a shallow copy of the list.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.TypedMutableSequence.count" title="napari.utils.events.TypedMutableSequence.count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count</span></code></a>(value)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">count</span></code>(value)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.TypedMutableSequence.extend" title="napari.utils.events.TypedMutableSequence.extend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extend</span></code></a>(values)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">extend</span></code>(values)</p></td>
 <td><p>S.extend(iterable) -- extend sequence by appending elements from the iterable</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.TypedMutableSequence.index" title="napari.utils.events.TypedMutableSequence.index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code></a>(value[, start, stop])</p></td>
@@ -632,44 +632,22 @@ whos attribute <code class="docutils literal notranslate"><span class="pre">.nam
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.TypedMutableSequence.insert" title="napari.utils.events.TypedMutableSequence.insert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert</span></code></a>(index, value)</p></td>
 <td><p>S.insert(index, value) -- insert value before index</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.TypedMutableSequence.pop" title="napari.utils.events.TypedMutableSequence.pop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></a>([index])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code>([index])</p></td>
 <td><p>Raise IndexError if list is empty or index is out of range.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.TypedMutableSequence.remove" title="napari.utils.events.TypedMutableSequence.remove"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code></a>(value)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code>(value)</p></td>
 <td><p>S.remove(value) -- remove first occurrence of value.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.TypedMutableSequence.reverse" title="napari.utils.events.TypedMutableSequence.reverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reverse</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">reverse</span></code>()</p></td>
 <td><p>S.reverse() -- reverse <em>IN PLACE</em></p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Details</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.TypedMutableSequence.append">
-<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.utils.events.TypedMutableSequence.append" title="Link to this definition">#</a></dt>
-<dd><p>S.append(value) – append value to the end of the sequence</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.TypedMutableSequence.clear">
-<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span> <span class="pre">--</span> <span class="pre">remove</span> <span class="pre">all</span> <span class="pre">items</span> <span class="pre">from</span> <span class="pre">S</span></span></span><a class="headerlink" href="#napari.utils.events.TypedMutableSequence.clear" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="napari.utils.events.TypedMutableSequence.copy">
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="../_modules/napari/utils/events/containers/_typed.html#TypedMutableSequence.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.events.TypedMutableSequence.copy" title="Link to this definition">#</a></dt>
 <dd><p>Return a shallow copy of the list.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.TypedMutableSequence.count">
-<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">integer</span> <span class="pre">--</span> <span class="pre">return</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">occurrences</span> <span class="pre">of</span> <span class="pre">value</span></span></span><a class="headerlink" href="#napari.utils.events.TypedMutableSequence.count" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.TypedMutableSequence.extend">
-<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.utils.events.TypedMutableSequence.extend" title="Link to this definition">#</a></dt>
-<dd><p>S.extend(iterable) – extend sequence by appending elements from the iterable</p>
 </dd></dl>
 
 <dl class="py method">
@@ -702,25 +680,6 @@ using the corresponding lookup converter function.</p></li>
 <dt class="sig sig-object py" id="napari.utils.events.TypedMutableSequence.insert">
 <span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/events/containers/_typed.html#TypedMutableSequence.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.events.TypedMutableSequence.insert" title="Link to this definition">#</a></dt>
 <dd><p>S.insert(index, value) – insert value before index</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.TypedMutableSequence.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">item</span> <span class="pre">--</span> <span class="pre">remove</span> <span class="pre">and</span> <span class="pre">return</span> <span class="pre">item</span> <span class="pre">at</span> <span class="pre">index</span> <span class="pre">(default</span> <span class="pre">last).</span></span></span><a class="headerlink" href="#napari.utils.events.TypedMutableSequence.pop" title="Link to this definition">#</a></dt>
-<dd><p>Raise IndexError if list is empty or index is out of range.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.TypedMutableSequence.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.utils.events.TypedMutableSequence.remove" title="Link to this definition">#</a></dt>
-<dd><p>S.remove(value) – remove first occurrence of value.
-Raise ValueError if the value is not present.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.TypedMutableSequence.reverse">
-<span class="sig-name descname"><span class="pre">reverse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#napari.utils.events.TypedMutableSequence.reverse" title="Link to this definition">#</a></dt>
-<dd><p>S.reverse() – reverse <em>IN PLACE</em></p>
 </dd></dl>
 
 </dd></dl>
@@ -772,16 +731,9 @@ Raise ValueError if the value is not present.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.TypedMutableSequence"><code class="docutils literal notranslate"><span class="pre">TypedMutableSequence</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.TypedMutableSequence.append"><code class="docutils literal notranslate"><span class="pre">TypedMutableSequence.append()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.TypedMutableSequence.clear"><code class="docutils literal notranslate"><span class="pre">TypedMutableSequence.clear()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.TypedMutableSequence.copy"><code class="docutils literal notranslate"><span class="pre">TypedMutableSequence.copy()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.TypedMutableSequence.count"><code class="docutils literal notranslate"><span class="pre">TypedMutableSequence.count()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.TypedMutableSequence.extend"><code class="docutils literal notranslate"><span class="pre">TypedMutableSequence.extend()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.TypedMutableSequence.index"><code class="docutils literal notranslate"><span class="pre">TypedMutableSequence.index()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.TypedMutableSequence.insert"><code class="docutils literal notranslate"><span class="pre">TypedMutableSequence.insert()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.TypedMutableSequence.pop"><code class="docutils literal notranslate"><span class="pre">TypedMutableSequence.pop()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.TypedMutableSequence.remove"><code class="docutils literal notranslate"><span class="pre">TypedMutableSequence.remove()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.TypedMutableSequence.reverse"><code class="docutils literal notranslate"><span class="pre">TypedMutableSequence.reverse()</span></code></a></li>
 </ul>
 </li>
 </ul>

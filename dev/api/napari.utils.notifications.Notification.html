@@ -598,7 +598,7 @@ document.write(`
 <li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The main message/payload of the notification.</p></li>
 <li><p><strong>severity</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference internal" href="napari.utils.notifications.NotificationSeverity.html#napari.utils.notifications.NotificationSeverity" title="napari.utils.notifications.NotificationSeverity"><em>NotificationSeverity</em></a><em>, </em><em>optional</em>) – The severity of the notification, by default
 <cite>NotificationSeverity.WARNING</cite>.</p></li>
-<li><p><strong>actions</strong> (<em>sequence</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><em>tuple</em></a><em>, </em><em>optional</em>) – Where each tuple is a <cite>(str, callable)</cite> 2-tuple where the first item
+<li><p><strong>actions</strong> – Where each tuple is a <cite>(str, callable)</cite> 2-tuple where the first item
 is a name for the action (which may, for example, be put on a button),
 and the callable is a callback to perform when the action is triggered.
 (for example, one might show a traceback dialog). by default ()</p></li>
@@ -619,10 +619,10 @@ and the callable is a callback to perform when the action is triggered.
 <p class="rubric">Attributes</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.notifications.Notification.blocked" title="napari.utils.notifications.Notification.blocked"><code class="xref py py-obj docutils literal notranslate"><span class="pre">blocked</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">blocked</span></code></p></td>
 <td><p>This boolean property indicates whether the event will be delivered to event callbacks.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.notifications.Notification.handled" title="napari.utils.notifications.Notification.handled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">handled</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">handled</span></code></p></td>
 <td><p>This boolean property indicates whether the event has already been acted on by an event handler.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">message</span></code></p></td>
@@ -631,10 +631,10 @@ and the callable is a callback to perform when the action is triggered.
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">native</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.notifications.Notification.source" title="napari.utils.notifications.Notification.source"><code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code></p></td>
 <td><p>The object that the event applies to (i.e. the source of the event).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.notifications.Notification.sources" title="napari.utils.notifications.Notification.sources"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sources</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sources</span></code></p></td>
 <td><p>List of objects that the event applies to (i.e. are or have been a source of the event).</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code></p></td>
@@ -643,39 +643,6 @@ and the callable is a callback to perform when the action is triggered.
 </tbody>
 </table>
 <p class="rubric">Details</p>
-<dl class="py property">
-<dt class="sig sig-object py" id="napari.utils.notifications.Notification.blocked">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">blocked</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.utils.notifications.Notification.blocked" title="Link to this definition">#</a></dt>
-<dd><p>This boolean property indicates whether the event will be delivered
-to event callbacks. If it is set to True, then no further callbacks
-will receive the event. When possible, it is recommended to use
-Event.handled rather than Event.blocked.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="napari.utils.notifications.Notification.handled">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">handled</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.utils.notifications.Notification.handled" title="Link to this definition">#</a></dt>
-<dd><p>This boolean property indicates whether the event has already been
-acted on by an event handler. Since many handlers may have access to
-the same events, it is recommended that each check whether the event
-has already been handled as well as set handled=True if it decides to
-act on the event.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="napari.utils.notifications.Notification.source">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">source</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></em><a class="headerlink" href="#napari.utils.notifications.Notification.source" title="Link to this definition">#</a></dt>
-<dd><p>The object that the event applies to (i.e. the source of the event).</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="napari.utils.notifications.Notification.sources">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sources</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#napari.utils.notifications.Notification.sources" title="Link to this definition">#</a></dt>
-<dd><p>List of objects that the event applies to (i.e. are or have
-been a source of the event). Can contain multiple objects in case
-the event traverses a hierarchy of objects.</p>
-</dd></dl>
-
 </dd></dl>
 
 </section>
@@ -724,13 +691,7 @@ the event traverses a hierarchy of objects.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.notifications.Notification"><code class="docutils literal notranslate"><span class="pre">Notification</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.notifications.Notification.blocked"><code class="docutils literal notranslate"><span class="pre">Notification.blocked</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.notifications.Notification.handled"><code class="docutils literal notranslate"><span class="pre">Notification.handled</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.notifications.Notification.source"><code class="docutils literal notranslate"><span class="pre">Notification.source</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.notifications.Notification.sources"><code class="docutils literal notranslate"><span class="pre">Notification.sources</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.notifications.Notification"><code class="docutils literal notranslate"><span class="pre">Notification</span></code></a></li>
 </ul>
   </nav></div>
 

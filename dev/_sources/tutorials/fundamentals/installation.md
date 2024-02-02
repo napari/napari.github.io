@@ -13,7 +13,7 @@ jupyter:
     name: python3
 ---
 
-(installation)=
+(napari-installation)=
 
 # How to install napari
 

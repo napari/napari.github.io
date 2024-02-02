@@ -1,4 +1,4 @@
-(translations)=
+(napari-translations)=
 
 # Translations
 

@@ -2,7 +2,7 @@
 # How to launch napari
 
 This tutorial assumes you have already installed napari.
-For help with installation see our [installation tutorial](installation).
+For help with installation see our [installation tutorial](napari-installation).
 
 This tutorial will teach you all the different ways to launch `napari`.
 At the end of the tutorial you should be able to launch `napari` and see the viewer your favorite way.

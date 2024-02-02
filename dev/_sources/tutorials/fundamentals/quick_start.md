@@ -22,7 +22,7 @@ napari is a fast, interactive, multi-dimensional image viewer, with [a vibrant p
 
 napari is an open source project on [GitHub](https://github.com/napari/napari) to facilitate transparency, reuse, and extensibility.
 
-At its core, it provides critical viewer features out-of-the-box, such as support for [large multi-dimensional data](dask); [“layers”](layers-glance) to simultaneously visualize images, models, and analysis results; and easy manual, interactive annotation in 3D.
+At its core, it provides critical viewer features out-of-the-box, such as support for [large multi-dimensional data](dask-napari); [“layers”](layers-glance) to simultaneously visualize images, models, and analysis results; and easy manual, interactive annotation in 3D.
 
 This tutorial uses napari 0.4.14. <br>
 
@@ -70,7 +70,7 @@ You will also see some examples of plugins. The core napari viewer focuses on do
     ```
 
 
-If you run into any issues, please visit the more detailed [installation guide](installation), or [report an issue on GitHub](https://github.com/napari/napari/issues/new/choose)!
+If you run into any issues, please visit the more detailed [installation guide](napari-installation), or [report an issue on GitHub](https://github.com/napari/napari/issues/new/choose)!
 
 +++
 

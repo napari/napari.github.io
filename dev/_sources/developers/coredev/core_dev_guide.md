@@ -80,7 +80,7 @@ consult back with our [mission and values](mission-and-values).
 2. **Performance and benchmarks:** As `napari` targets scientific applications that often involve
 large multidimensional datasets, high performance is a key value of `napari`. While
 every new feature won't scale equally to all sizes of data, keeping in mind performance
-and our [benchmarks](benchmarks) during a review may be important, and you may
+and our [benchmarks](napari-benchmarks) during a review may be important, and you may
 need to ask for benchmarks to be run and reported or new benchmarks to be added.
 
 3. **APIs and stability:** Coding users and plugin developers will make
@@ -96,7 +96,7 @@ version numbers `0.x` and do not have a deprecation policy, but we will work to 
 strings following [PEP257](https://peps.python.org/pep-0257/) and the
 [NumPy documentation guide](https://numpy.org/devdocs/dev/howto-docs.html#documentation-style).
 For any major new features, accompanying changes should be made to our
-[tutorials](https://napari.org/tutorials). These should not only
+[tutorials](tutorials). These should not only
 illustrates the new feature, but explains it. Titles for all documents in napari should follow [sentence case capitalization](https://apastyle.apa.org/style-grammar-guidelines/capitalization/sentence-case), but the name `napari` should always be written in lowercase.
 
 5. **Implementations and algorithms:** You should understand the code being modified
@@ -162,7 +162,7 @@ As a core member, you should be familiar with the following napari guides:
 ### Technical guides
 
 - Our [contributor guide](napari-contributing).
-- Our [benchmarking guide](benchmarks).
+- Our [benchmarking guide](napari-benchmarks).
 - Our [release guide](release).
 - Our [maintenance guide](maintenance).
 - Our [packaging guide](napari-packaging).

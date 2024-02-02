@@ -26,7 +26,7 @@ Even though plugins don't necessarily need to list `napari` as a direct dependen
 [should not depend on a specific Qt backend](best-practices-no-qt-backend),
 you will need a working installation of napari in your active Python
 environment to use and test your plugin.
-See the [installation guide](installation) if this is your first time
+See the [installation guide](napari-installation) if this is your first time
 installing napari.
 
 

@@ -6,7 +6,9 @@ napari.components.LayerList
 .. autoclass:: LayerList
    :members:
    :show-inheritance:
-   :inherited-members:
+   
+      :inherited-members:
+   
 
    
 

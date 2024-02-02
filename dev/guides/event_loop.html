@@ -477,6 +477,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../howtos/docker.html">Napari in Docker</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../howtos/perfmon.html">Performance monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../howtos/headless.html">Running napari headlessly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howtos/themes.html">Creating and testing themes</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">In-depth explanations</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
@@ -840,8 +841,8 @@ all napari examples included this <code class="docutils literal notranslate"><sp
 </pre></div>
 </div>
 <p>On entering the context, <code class="docutils literal notranslate"><span class="pre">gui_qt</span></code> would create a <code class="docutils literal notranslate"><span class="pre">QApplication</span></code>, and on exiting
-the context, it would start the event loop (the two critical steps <a class="reference internal" href="#qt-applications-and-event-loops"><span class="xref myst">mentioned
-above</span></a>).</p>
+the context, it would start the event loop (the two critical steps <a class="reference internal" href="#qt-applications-event-loops-and-widgets">mentioned
+above</a>).</p>
 <p>Unlike a typical context manager, however, it did not actually <em>destroy</em> the
 <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> (since it may still be needed in the same session)… and future
 calls to <code class="docutils literal notranslate"><span class="pre">gui_qt</span></code> were only needed to start the event loop.  By auto-creating

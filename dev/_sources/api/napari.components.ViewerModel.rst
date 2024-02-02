@@ -6,7 +6,9 @@ napari.components.ViewerModel
 .. autoclass:: ViewerModel
    :members:
    :show-inheritance:
-   :inherited-members:
+   
+      :inherited-members:
+   
 
    
 

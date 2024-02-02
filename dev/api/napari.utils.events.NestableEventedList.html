@@ -603,7 +603,7 @@ When <code class="docutils literal notranslate"><span class="pre">_reemit_child_
 remits the event, but changes any <code class="docutils literal notranslate"><span class="pre">index</span></code> keys in the event to a
 <code class="docutils literal notranslate"><span class="pre">NestedIndex</span></code> (a tuple of <code class="docutils literal notranslate"><span class="pre">int</span></code>) such that indices emitted by any given
 <code class="docutils literal notranslate"><span class="pre">NestableEventedList</span></code> are always relative to itself.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>iterable</em><em>, </em><em>optional</em>) – Elements to initialize the list with. by default None.</p></li>
@@ -614,7 +614,8 @@ to that type.</p></li>
 </dd>
 <dt class="field-even">Events<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>types used</strong> – Index = Union[int, Tuple[int, …]]</p></li>
+<li><dl class="simple">
+<dt><strong>types used</strong> – Index = Union[int, Tuple[int, …]]</dt><dd><ul>
 <li><p><strong>inserting (index</strong> (<em>Index)</em>) – emitted before an item is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
 <li><p><strong>inserted (index</strong> (<em>Index, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
 <li><p><strong>removing (index</strong> (<em>Index)</em>) – emitted before an item is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
@@ -627,28 +628,36 @@ to that type.</p></li>
 </ul>
 </dd>
 </dl>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">inherited-members<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.NestableEventedList.append" title="napari.utils.events.NestableEventedList.append"><code class="xref py py-obj docutils literal notranslate"><span class="pre">append</span></code></a>(value)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">append</span></code>(value)</p></td>
 <td><p>S.append(value) -- append value to the end of the sequence</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.NestableEventedList.clear" title="napari.utils.events.NestableEventedList.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.NestableEventedList.copy" title="napari.utils.events.NestableEventedList.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code>()</p></td>
 <td><p>Return a shallow copy of the list.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.NestableEventedList.count" title="napari.utils.events.NestableEventedList.count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count</span></code></a>(value)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">count</span></code>(value)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.NestableEventedList.extend" title="napari.utils.events.NestableEventedList.extend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extend</span></code></a>(values)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">extend</span></code>(values)</p></td>
 <td><p>S.extend(iterable) -- extend sequence by appending elements from the iterable</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.NestableEventedList.has_index" title="napari.utils.events.NestableEventedList.has_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_index</span></code></a>(index)</p></td>
 <td><p>Return true if <cite>index</cite> is valid for this nestable list.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.NestableEventedList.index" title="napari.utils.events.NestableEventedList.index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code></a>(value[, start, stop])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code>(value[, start, stop])</p></td>
 <td><p>Return first index of value.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.NestableEventedList.insert" title="napari.utils.events.NestableEventedList.insert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert</span></code></a>(index, value)</p></td>
@@ -657,16 +666,16 @@ to that type.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.NestableEventedList.move" title="napari.utils.events.NestableEventedList.move"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move</span></code></a>(src_index[, dest_index])</p></td>
 <td><p>Move a single item from <code class="docutils literal notranslate"><span class="pre">src_index</span></code> to <code class="docutils literal notranslate"><span class="pre">dest_index</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.NestableEventedList.move_multiple" title="napari.utils.events.NestableEventedList.move_multiple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_multiple</span></code></a>(sources[, dest_index])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_multiple</span></code>(sources[, dest_index])</p></td>
 <td><p>Move a batch of <cite>sources</cite> indices, to a single destination.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.NestableEventedList.pop" title="napari.utils.events.NestableEventedList.pop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></a>([index])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code>([index])</p></td>
 <td><p>Raise IndexError if list is empty or index is out of range.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.NestableEventedList.remove" title="napari.utils.events.NestableEventedList.remove"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code></a>(value)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code>(value)</p></td>
 <td><p>S.remove(value) -- remove first occurrence of value.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.NestableEventedList.reverse" title="napari.utils.events.NestableEventedList.reverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reverse</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">reverse</span></code>()</p></td>
 <td><p>Reverse list <em>IN PLACE</em>.</p></td>
 </tr>
 </tbody>
@@ -678,63 +687,9 @@ to that type.</p></li>
 </table>
 <p class="rubric">Details</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.NestableEventedList.append">
-<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.utils.events.NestableEventedList.append" title="Link to this definition">#</a></dt>
-<dd><p>S.append(value) – append value to the end of the sequence</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.NestableEventedList.clear">
-<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span> <span class="pre">--</span> <span class="pre">remove</span> <span class="pre">all</span> <span class="pre">items</span> <span class="pre">from</span> <span class="pre">S</span></span></span><a class="headerlink" href="#napari.utils.events.NestableEventedList.clear" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.NestableEventedList.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#napari.utils.events.NestableEventedList.copy" title="Link to this definition">#</a></dt>
-<dd><p>Return a shallow copy of the list.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.NestableEventedList.count">
-<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">integer</span> <span class="pre">--</span> <span class="pre">return</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">occurrences</span> <span class="pre">of</span> <span class="pre">value</span></span></span><a class="headerlink" href="#napari.utils.events.NestableEventedList.count" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.NestableEventedList.extend">
-<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.utils.events.NestableEventedList.extend" title="Link to this definition">#</a></dt>
-<dd><p>S.extend(iterable) – extend sequence by appending elements from the iterable</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="napari.utils.events.NestableEventedList.has_index">
 <span class="sig-name descname"><span class="pre">has_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/napari/utils/events/containers/_nested_list.html#NestableEventedList.has_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.events.NestableEventedList.has_index" title="Link to this definition">#</a></dt>
 <dd><p>Return true if <cite>index</cite> is valid for this nestable list.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.NestableEventedList.index">
-<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#napari.utils.events.NestableEventedList.index" title="Link to this definition">#</a></dt>
-<dd><p>Return first index of value.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>value</strong> (<em>Any</em>) – A value to lookup.  If <cite>type(value)</cite> is in the lookups functions
-provided for this class, then values in the list will be searched
-using the corresponding lookup converter function.</p></li>
-<li><p><strong>start</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – The starting index to search, by default 0</p></li>
-<li><p><strong>stop</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – The ending index to search, by default None</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The index of the value</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – If the value is not present</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -766,55 +721,6 @@ by default, will insert at the front of the root list.</p></li>
     object</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.NestableEventedList.move_multiple">
-<span class="sig-name descname"><span class="pre">move_multiple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.12)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.12)"><span class="pre">slice</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#napari.utils.events.NestableEventedList.move_multiple" title="Link to this definition">#</a></dt>
-<dd><p>Move a batch of <cite>sources</cite> indices, to a single destination.</p>
-<p>Note, if <cite>dest_index</cite> is higher than any of the <cite>sources</cite>, then
-the resulting position of the moved objects after the move operation
-is complete will be lower than <cite>dest_index</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>sources</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.12)"><em>slice</em></a><em>]</em>) – A sequence of indices</p></li>
-<li><p><strong>dest_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – The destination index.  All sources will be inserted before this
-index (in pre-move space), by default 0… which has the effect of
-“bringing to front” everything in <code class="docutils literal notranslate"><span class="pre">sources</span></code>, or acting as a
-“reorder” method if <code class="docutils literal notranslate"><span class="pre">sources</span></code> contains all indices.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The number of successful move operations completed.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.12)"><strong>TypeError</strong></a> – If the destination index is a slice, or any of the source indices
-    are not <code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">slice</span></code>.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.NestableEventedList.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">item</span> <span class="pre">--</span> <span class="pre">remove</span> <span class="pre">and</span> <span class="pre">return</span> <span class="pre">item</span> <span class="pre">at</span> <span class="pre">index</span> <span class="pre">(default</span> <span class="pre">last).</span></span></span><a class="headerlink" href="#napari.utils.events.NestableEventedList.pop" title="Link to this definition">#</a></dt>
-<dd><p>Raise IndexError if list is empty or index is out of range.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.NestableEventedList.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.utils.events.NestableEventedList.remove" title="Link to this definition">#</a></dt>
-<dd><p>S.remove(value) – remove first occurrence of value.
-Raise ValueError if the value is not present.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.NestableEventedList.reverse">
-<span class="sig-name descname"><span class="pre">reverse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.utils.events.NestableEventedList.reverse" title="Link to this definition">#</a></dt>
-<dd><p>Reverse list <em>IN PLACE</em>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -866,19 +772,9 @@ Raise ValueError if the value is not present.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.NestableEventedList"><code class="docutils literal notranslate"><span class="pre">NestableEventedList</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.NestableEventedList.append"><code class="docutils literal notranslate"><span class="pre">NestableEventedList.append()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.NestableEventedList.clear"><code class="docutils literal notranslate"><span class="pre">NestableEventedList.clear()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.NestableEventedList.copy"><code class="docutils literal notranslate"><span class="pre">NestableEventedList.copy()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.NestableEventedList.count"><code class="docutils literal notranslate"><span class="pre">NestableEventedList.count()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.NestableEventedList.extend"><code class="docutils literal notranslate"><span class="pre">NestableEventedList.extend()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.NestableEventedList.has_index"><code class="docutils literal notranslate"><span class="pre">NestableEventedList.has_index()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.NestableEventedList.index"><code class="docutils literal notranslate"><span class="pre">NestableEventedList.index()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.NestableEventedList.insert"><code class="docutils literal notranslate"><span class="pre">NestableEventedList.insert()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.NestableEventedList.move"><code class="docutils literal notranslate"><span class="pre">NestableEventedList.move()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.NestableEventedList.move_multiple"><code class="docutils literal notranslate"><span class="pre">NestableEventedList.move_multiple()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.NestableEventedList.pop"><code class="docutils literal notranslate"><span class="pre">NestableEventedList.pop()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.NestableEventedList.remove"><code class="docutils literal notranslate"><span class="pre">NestableEventedList.remove()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.NestableEventedList.reverse"><code class="docutils literal notranslate"><span class="pre">NestableEventedList.reverse()</span></code></a></li>
 </ul>
 </li>
 </ul>

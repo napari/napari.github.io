@@ -1,4 +1,4 @@
-(themes)=
+(napari-themes)=
 
 # Creating and testing themes
 

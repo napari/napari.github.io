@@ -1,4 +1,4 @@
-(perfmon)=
+(napari-perfmon)=
 
 # Performance monitoring
 

@@ -17,7 +17,7 @@ A quick glance of what napari does aimed at first-timers.
 
 ::::{grid}
 :::{grid-item-card} How to install napari
-:link: installation
+:link: napari-installation
 :link-type: ref
 
 How to do a clean install of napari and launch the viewer.

@@ -955,9 +955,16 @@ be projected onto the viewed dimenions.</p>
 <li><p><cite>data</cite> property (setter &amp; getter)</p></li>
 </ul>
 <p>May define the following:</p>
-<ul class="simple">
+<ul>
 <li><p><cite>_set_view_slice()</cite>: called to set currently viewed slice</p></li>
-<li><p><cite>_basename()</cite>: base/default name of the layer</p></li>
+<li><p><cite>_basename()</cite>: base/default name of the layer</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">inherited-members<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</div></blockquote>
+</li>
 </ul>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
@@ -965,7 +972,7 @@ be projected onto the viewed dimenions.</p>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_layer_data_tuple</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Layer.bind_key" title="napari.layers.Layer.bind_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bind_key</span></code></a>(key_bind[, func, overwrite])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">bind_key</span></code>(key_bind[, func, overwrite])</p></td>
 <td><p>Bind a key combination to a keymap.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_update_properties</span></code>()</p></td>
@@ -1111,63 +1118,6 @@ be projected onto the viewed dimenions.</p>
 <dd class="field-odd"><p>napari.utils.transforms.Affine</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.layers.Layer.bind_key">
-<span class="sig-name descname"><span class="pre">bind_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_bind:</span> <span class="pre">~app_model.types._keys._keybindings.KeyBinding</span> <span class="pre">|</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">ellipsis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func=&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite=False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.layers.Layer.bind_key" title="Link to this definition">#</a></dt>
-<dd><p>Bind a key combination to a keymap.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>keymap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em> of </em><em>str: callable</em>) – Keymap to modify.</p></li>
-<li><p><strong>key_bind</strong> (<em>keybinding-like</em><em> or </em><em>...</em>) – Key combination.
-<code class="docutils literal notranslate"><span class="pre">...</span></code> acts as a wildcard if no key combinations can be matched
-in the keymap (this will overwrite all key combinations
-further down the lookup chain).</p></li>
-<li><p><strong>func</strong> (<em>callable</em><em>, </em><em>None</em><em>, or </em><em>...</em>) – Callable to bind to the key combination.
-If <code class="docutils literal notranslate"><span class="pre">None</span></code> is passed, unbind instead.
-<code class="docutils literal notranslate"><span class="pre">...</span></code> acts as a blocker, effectively unbinding the key
-combination for all keymaps further down the lookup chain.</p></li>
-<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>keyword-only</em><em>, </em><em>optional</em>) – Whether to overwrite the key combination if it already exists.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>unbound</strong> – Callable unbound by this operation, if any.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>callable or None</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>Key combinations are represented in the form <code class="docutils literal notranslate"><span class="pre">[modifier-]key</span></code>,
-e.g. <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">Control-c</span></code>, or <code class="docutils literal notranslate"><span class="pre">Control-Alt-Delete</span></code>.
-Valid modifiers are Control, Alt, Shift, and Meta.</p>
-<p>Letters will always be read as upper-case.
-Due to the native implementation of the key system, Shift pressed in
-certain key combinations may yield inconsistent or unexpected results.
-Therefore, it is not recommended to use Shift with non-letter keys. On OSX,
-Control is swapped with Meta such that pressing Command reads as Control.</p>
-<p>Special keys include Shift, Control, Alt, Meta, Up, Down, Left, Right,
-PageUp, PageDown, Insert, Delete, Home, End, Escape, Backspace, F1,
-F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, Space, Enter, and Tab</p>
-<p>Functions take in only one argument: the parent that the function
-was bound to.</p>
-<p>By default, all functions are assumed to work on key presses only,
-but can be denoted to work on release too by separating the function
-into two statements with the yield keyword:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">hello_world</span><span class="p">(</span><span class="n">viewer</span><span class="p">):</span>
-    <span class="c1"># on key press</span>
-    <span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;hello world!&#39;</span>
-
-    <span class="k">yield</span>
-
-    <span class="c1"># on key release</span>
-    <span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;goodbye world :(&#39;</span>
-</pre></div>
-</div>
-<p>To create a keymap that will block others, <code class="docutils literal notranslate"><span class="pre">bind_key(...,</span> <span class="pre">...)`</span></code>.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -1740,7 +1690,6 @@ dimensions will be used.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Layer.source"><code class="docutils literal notranslate"><span class="pre">Layer.source</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Layer.projection_mode"><code class="docutils literal notranslate"><span class="pre">Layer.projection_mode</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">Layer.affine</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Layer.bind_key"><code class="docutils literal notranslate"><span class="pre">Layer.bind_key()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">Layer.blending</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Layer.click_plane_from_click_data"><code class="docutils literal notranslate"><span class="pre">Layer.click_plane_from_click_data()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Layer.create"><code class="docutils literal notranslate"><span class="pre">Layer.create()</span></code></a></li>

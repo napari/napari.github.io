@@ -6,7 +6,9 @@ napari.components.Camera
 .. autoclass:: Camera
    :members:
    :show-inheritance:
-   :inherited-members:
+   
+      :inherited-members:
+   
 
    
 

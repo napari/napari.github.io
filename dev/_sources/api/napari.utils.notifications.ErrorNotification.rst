@@ -6,7 +6,9 @@ napari.utils.notifications.ErrorNotification
 .. autoclass:: ErrorNotification
    :members:
    :show-inheritance:
-   :inherited-members:
+   
+      :inherited-members:
+   
 
    
 

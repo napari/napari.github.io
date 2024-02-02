@@ -1,4 +1,4 @@
-(headless)=
+(napari-headless)=
 
 # Running napari headlessly
 

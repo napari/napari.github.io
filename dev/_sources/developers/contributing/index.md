@@ -111,7 +111,7 @@ Performance related PRs should include a benchmark in order to clearly depict th
 use-case that is being optimized for. Ideally PRs that add a new feature should
 also include benchmarks to show the new feature is not too slow but this is less vital.
 [](napari-benchmarks) provides more information on benchmarking. If you find
-poor performance, [profiling](profiling) and [performance monitoring](perfmon) can help
+poor performance, [profiling](profiling) and [performance monitoring](napari-perfmon) can help
 identify the cause and where to optimize.
 
 ### Contributing documentation

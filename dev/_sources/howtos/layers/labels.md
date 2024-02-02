@@ -10,6 +10,7 @@ kernelspec:
   language: python
   name: python3
 ---
+(layers-labels)=
 
 # Using the `labels` layer
 

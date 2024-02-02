@@ -1,4 +1,4 @@
-(docker)=
+(napari-docker)=
 
 # Napari in Docker
 

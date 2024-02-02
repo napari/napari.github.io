@@ -850,11 +850,8 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_args</span> <span class="o">=</span> <span class="n">args</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
 
-<div class="viewcode-block" id="FunctionWorker.work">
-<a class="viewcode-back" href="../../../api/napari.qt.threading.FunctionWorker.html#napari.qt.threading.FunctionWorker.work">[docs]</a>
     <span class="k">def</span> <span class="nf">work</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_R</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_func</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">)</span></div>
-
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_func</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="GeneratorWorkerSignals">
@@ -916,8 +913,6 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_pause_interval</span> <span class="o">=</span> <span class="mf">0.01</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pbar</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="GeneratorWorker.work">
-<a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.work">[docs]</a>
     <span class="k">def</span> <span class="nf">work</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_R</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="ne">Exception</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Core event loop that calls the original function.</span>
 
@@ -953,15 +948,11 @@ document.write(`
                 <span class="c1"># The worker has probably been deleted.  warning will be</span>
                 <span class="c1"># emitted in `WorkerBase.run`</span>
                 <span class="k">return</span> <span class="n">exc</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="kc">None</span>
 
-
-<div class="viewcode-block" id="GeneratorWorker.send">
-<a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.send">[docs]</a>
     <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_S</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a value into the function (if a generator was used).&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_incoming_value</span> <span class="o">=</span> <span class="n">value</span></div>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">_incoming_value</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">def</span> <span class="nf">_next_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_S</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">out</span> <span class="o">=</span> <span class="kc">None</span>
@@ -975,31 +966,22 @@ document.write(`
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Whether the worker is currently paused.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paused</span>
 
-<div class="viewcode-block" id="GeneratorWorker.toggle_pause">
-<a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.toggle_pause">[docs]</a>
     <span class="k">def</span> <span class="nf">toggle_pause</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Request to pause the worker if playing or resume if paused.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_paused</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_resume_requested</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_pause_requested</span> <span class="o">=</span> <span class="kc">True</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pause_requested</span> <span class="o">=</span> <span class="kc">True</span>
 
-
-<div class="viewcode-block" id="GeneratorWorker.pause">
-<a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.pause">[docs]</a>
     <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Request to pause the worker.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_paused</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_pause_requested</span> <span class="o">=</span> <span class="kc">True</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pause_requested</span> <span class="o">=</span> <span class="kc">True</span>
 
-
-<div class="viewcode-block" id="GeneratorWorker.resume">
-<a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.resume">[docs]</a>
     <span class="k">def</span> <span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a request to resume the worker.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_paused</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_resume_requested</span> <span class="o">=</span> <span class="kc">True</span></div>
-
+            <span class="bp">self</span><span class="o">.</span><span class="n">_resume_requested</span> <span class="o">=</span> <span class="kc">True</span>
 
 
 <span class="c1">#############################################################################</span>

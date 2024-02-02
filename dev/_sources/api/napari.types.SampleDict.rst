@@ -6,7 +6,9 @@ napari.types.SampleDict
 .. autoclass:: SampleDict
    :members:
    :show-inheritance:
-   :inherited-members:
+   
+      :inherited-members:
+   
 
    
 

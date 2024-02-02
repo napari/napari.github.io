@@ -6,7 +6,9 @@ napari.utils.DirectLabelColormap
 .. autoclass:: DirectLabelColormap
    :members:
    :show-inheritance:
-   :inherited-members:
+   
+      :inherited-members:
+   
 
    
 

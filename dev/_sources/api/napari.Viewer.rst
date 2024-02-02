@@ -6,7 +6,9 @@ napari.Viewer
 .. autoclass:: Viewer
    :members:
    :show-inheritance:
-   :inherited-members:
+   
+      :inherited-members:
+   
 
    
 

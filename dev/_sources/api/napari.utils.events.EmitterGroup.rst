@@ -6,7 +6,9 @@ napari.utils.events.EmitterGroup
 .. autoclass:: EmitterGroup
    :members:
    :show-inheritance:
-   :inherited-members:
+   
+      :inherited-members:
+   
 
    
 

@@ -1,6 +1,6 @@
 # About the project and team
 
-napari is a consensus-based community project. Anyone with an interest in the project can join the community, contribute to the project design, and participate in the decision making process. You can learn more about how the project is run by reading our [governance model](https://napari.org/community/governance.html). This page lists our current and emeritus [core developers](https://napari.org/community/governance.html#core-developers). Core developers are community members that have demonstrated a sustained commitment to the project through ongoing contributions and that they can maintain napari with care.
+napari is a consensus-based community project. Anyone with an interest in the project can join the community, contribute to the project design, and participate in the decision making process. You can learn more about how the project is run by reading our [governance model](napari-governance). This page lists our current and emeritus [core developers](governance.md#core-developers). Core developers are community members that have demonstrated a sustained commitment to the project through ongoing contributions and that they can maintain napari with care.
 
 ## Current Core Developers
 

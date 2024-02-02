@@ -6,7 +6,9 @@ napari.qt.threading.WorkerBase
 .. autoclass:: WorkerBase
    :members:
    :show-inheritance:
-   :inherited-members:
+   
+      :inherited-members:
+   
 
    
 

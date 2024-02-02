@@ -6,7 +6,9 @@ napari.layers.Tracks
 .. autoclass:: Tracks
    :members:
    :show-inheritance:
-   :inherited-members:
+   
+      :inherited-members:
+   
 
    
 

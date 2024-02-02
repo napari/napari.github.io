@@ -595,7 +595,7 @@ document.write(`
 <p>This class is designed to behave exactly like the builtin <code class="docutils literal notranslate"><span class="pre">list</span></code>, but
 will emit events before and after all mutations (insertion, removal,
 setting, and moving).</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>iterable</em><em>, </em><em>optional</em>) – Elements to initialize the list with.</p></li>
@@ -606,7 +606,8 @@ to that type.</p></li>
 </dd>
 <dt class="field-even">Events<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>inserting (index</strong> (<em>int)</em>) – emitted before an item is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
+<li><dl class="simple">
+<dt><strong>inserting (index</strong> (<em>int)</em>) – emitted before an item is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></dt><dd><ul>
 <li><p><strong>inserted (index</strong> (<em>int, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
 <li><p><strong>removing (index</strong> (<em>int)</em>) – emitted before an item is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
 <li><p><strong>removed (index</strong> (<em>int, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
@@ -618,25 +619,33 @@ to that type.</p></li>
 </ul>
 </dd>
 </dl>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">inherited-members<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.EventedList.append" title="napari.utils.events.EventedList.append"><code class="xref py py-obj docutils literal notranslate"><span class="pre">append</span></code></a>(value)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">append</span></code>(value)</p></td>
 <td><p>S.append(value) -- append value to the end of the sequence</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.EventedList.clear" title="napari.utils.events.EventedList.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.EventedList.copy" title="napari.utils.events.EventedList.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code>()</p></td>
 <td><p>Return a shallow copy of the list.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.EventedList.count" title="napari.utils.events.EventedList.count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count</span></code></a>(value)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">count</span></code>(value)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.EventedList.extend" title="napari.utils.events.EventedList.extend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extend</span></code></a>(values)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">extend</span></code>(values)</p></td>
 <td><p>S.extend(iterable) -- extend sequence by appending elements from the iterable</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.EventedList.index" title="napari.utils.events.EventedList.index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code></a>(value[, start, stop])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code>(value[, start, stop])</p></td>
 <td><p>Return first index of value.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.EventedList.insert" title="napari.utils.events.EventedList.insert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert</span></code></a>(index, value)</p></td>
@@ -648,10 +657,10 @@ to that type.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.EventedList.move_multiple" title="napari.utils.events.EventedList.move_multiple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_multiple</span></code></a>(sources[, dest_index])</p></td>
 <td><p>Move a batch of <cite>sources</cite> indices, to a single destination.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.EventedList.pop" title="napari.utils.events.EventedList.pop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></a>([index])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code>([index])</p></td>
 <td><p>Raise IndexError if list is empty or index is out of range.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.EventedList.remove" title="napari.utils.events.EventedList.remove"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code></a>(value)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code>(value)</p></td>
 <td><p>S.remove(value) -- remove first occurrence of value.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.EventedList.reverse" title="napari.utils.events.EventedList.reverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reverse</span></code></a>()</p></td>
@@ -665,60 +674,6 @@ to that type.</p></li>
 </tbody>
 </table>
 <p class="rubric">Details</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.EventedList.append">
-<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.utils.events.EventedList.append" title="Link to this definition">#</a></dt>
-<dd><p>S.append(value) – append value to the end of the sequence</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.EventedList.clear">
-<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span> <span class="pre">--</span> <span class="pre">remove</span> <span class="pre">all</span> <span class="pre">items</span> <span class="pre">from</span> <span class="pre">S</span></span></span><a class="headerlink" href="#napari.utils.events.EventedList.clear" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.EventedList.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#napari.utils.events.EventedList.copy" title="Link to this definition">#</a></dt>
-<dd><p>Return a shallow copy of the list.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.EventedList.count">
-<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">integer</span> <span class="pre">--</span> <span class="pre">return</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">occurrences</span> <span class="pre">of</span> <span class="pre">value</span></span></span><a class="headerlink" href="#napari.utils.events.EventedList.count" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.EventedList.extend">
-<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.utils.events.EventedList.extend" title="Link to this definition">#</a></dt>
-<dd><p>S.extend(iterable) – extend sequence by appending elements from the iterable</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.EventedList.index">
-<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#napari.utils.events.EventedList.index" title="Link to this definition">#</a></dt>
-<dd><p>Return first index of value.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>value</strong> (<em>Any</em>) – A value to lookup.  If <cite>type(value)</cite> is in the lookups functions
-provided for this class, then values in the list will be searched
-using the corresponding lookup converter function.</p></li>
-<li><p><strong>start</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – The starting index to search, by default 0</p></li>
-<li><p><strong>stop</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – The ending index to search, by default None</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The index of the value</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – If the value is not present</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.utils.events.EventedList.insert">
 <span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/events/containers/_evented_list.html#EventedList.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.events.EventedList.insert" title="Link to this definition">#</a></dt>
@@ -761,19 +716,6 @@ index (in pre-move space), by default 0… which has the effect of
     are not <code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">slice</span></code>.</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.EventedList.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">item</span> <span class="pre">--</span> <span class="pre">remove</span> <span class="pre">and</span> <span class="pre">return</span> <span class="pre">item</span> <span class="pre">at</span> <span class="pre">index</span> <span class="pre">(default</span> <span class="pre">last).</span></span></span><a class="headerlink" href="#napari.utils.events.EventedList.pop" title="Link to this definition">#</a></dt>
-<dd><p>Raise IndexError if list is empty or index is out of range.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.EventedList.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.utils.events.EventedList.remove" title="Link to this definition">#</a></dt>
-<dd><p>S.remove(value) – remove first occurrence of value.
-Raise ValueError if the value is not present.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -831,17 +773,9 @@ Raise ValueError if the value is not present.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EventedList"><code class="docutils literal notranslate"><span class="pre">EventedList</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EventedList.append"><code class="docutils literal notranslate"><span class="pre">EventedList.append()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EventedList.clear"><code class="docutils literal notranslate"><span class="pre">EventedList.clear()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EventedList.copy"><code class="docutils literal notranslate"><span class="pre">EventedList.copy()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EventedList.count"><code class="docutils literal notranslate"><span class="pre">EventedList.count()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EventedList.extend"><code class="docutils literal notranslate"><span class="pre">EventedList.extend()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EventedList.index"><code class="docutils literal notranslate"><span class="pre">EventedList.index()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EventedList.insert"><code class="docutils literal notranslate"><span class="pre">EventedList.insert()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EventedList.move"><code class="docutils literal notranslate"><span class="pre">EventedList.move()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EventedList.move_multiple"><code class="docutils literal notranslate"><span class="pre">EventedList.move_multiple()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EventedList.pop"><code class="docutils literal notranslate"><span class="pre">EventedList.pop()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EventedList.remove"><code class="docutils literal notranslate"><span class="pre">EventedList.remove()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EventedList.reverse"><code class="docutils literal notranslate"><span class="pre">EventedList.reverse()</span></code></a></li>
 </ul>
 </li>

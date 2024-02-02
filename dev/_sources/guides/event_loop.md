@@ -174,7 +174,7 @@ with napari.gui_qt():
 
 On entering the context, `gui_qt` would create a `QApplication`, and on exiting
 the context, it would start the event loop (the two critical steps [mentioned
-above](#qt-applications-and-event-loops)).
+above](#qt-applications-event-loops-and-widgets)).
 
 Unlike a typical context manager, however, it did not actually *destroy* the
 `QApplication` (since it may still be needed in the same session)... and future

@@ -6,7 +6,9 @@ napari.types.ArrayBase
 .. autoclass:: ArrayBase
    :members:
    :show-inheritance:
-   :inherited-members:
+   
+      :inherited-members:
+   
 
    
 

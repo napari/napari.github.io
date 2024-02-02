@@ -6,7 +6,9 @@ napari.components.Dims
 .. autoclass:: Dims
    :members:
    :show-inheritance:
-   :inherited-members:
+   
+      :inherited-members:
+   
 
    
 

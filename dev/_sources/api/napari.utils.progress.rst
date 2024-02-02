@@ -6,7 +6,7 @@ napari.utils.progress
 .. autoclass:: progress
    :members:
    :show-inheritance:
-   :inherited-members:
+   
 
    
 

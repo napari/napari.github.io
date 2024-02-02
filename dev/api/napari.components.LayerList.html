@@ -592,13 +592,14 @@ document.write(`
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.components.</span></span><span class="sig-name descname"><span class="pre">LayerList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/components/layerlist.html#LayerList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.LayerList" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList" title="napari.utils.events.containers._selectable_list.SelectableEventedList"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectableEventedList</span></code></a>[<a class="reference internal" href="napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.base.base.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></a>]</p>
 <p>List-like layer collection with built-in reordering and callback hooks.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>data</strong> (<em>iterable</em>) – Iterable of napari.layer.Layer</p>
 </dd>
 <dt class="field-even">Events<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>inserting</strong> (<em>(index: int)</em>) – emitted before an item is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
+<li><dl class="simple">
+<dt><strong>inserting</strong> (<em>(index: int)</em>) – emitted before an item is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></dt><dd><ul>
 <li><p><strong>inserted</strong> (<em>(index: int, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
 <li><p><strong>removing</strong> (<em>(index: int)</em>) – emitted before an item is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
 <li><p><strong>removed</strong> (<em>(index: int, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
@@ -614,28 +615,36 @@ and/or removed from the set.</p></li>
 </ul>
 </dd>
 </dl>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">inherited-members<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.append" title="napari.components.LayerList.append"><code class="xref py py-obj docutils literal notranslate"><span class="pre">append</span></code></a>(value)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">append</span></code>(value)</p></td>
 <td><p>S.append(value) -- append value to the end of the sequence</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.clear" title="napari.components.LayerList.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.copy" title="napari.components.LayerList.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code>()</p></td>
 <td><p>Return a shallow copy of the list.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.count" title="napari.components.LayerList.count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count</span></code></a>(value)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">count</span></code>(value)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.extend" title="napari.components.LayerList.extend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extend</span></code></a>(values)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">extend</span></code>(values)</p></td>
 <td><p>S.extend(iterable) -- extend sequence by appending elements from the iterable</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.get_extent" title="napari.components.LayerList.get_extent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_extent</span></code></a>(layers)</p></td>
 <td><p>Return extent for a given layer list.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.index" title="napari.components.LayerList.index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code></a>(value[, start, stop])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code>(value[, start, stop])</p></td>
 <td><p>Return first index of value.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.insert" title="napari.components.LayerList.insert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert</span></code></a>(index, value)</p></td>
@@ -644,37 +653,37 @@ and/or removed from the set.</p></li>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">link_layers</span></code>([layers, attributes])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.move" title="napari.components.LayerList.move"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move</span></code></a>(src_index[, dest_index])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">move</span></code>(src_index[, dest_index])</p></td>
 <td><p>Insert object at <code class="docutils literal notranslate"><span class="pre">src_index</span></code> before <code class="docutils literal notranslate"><span class="pre">dest_index</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.move_multiple" title="napari.components.LayerList.move_multiple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_multiple</span></code></a>(sources[, dest_index])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_multiple</span></code>(sources[, dest_index])</p></td>
 <td><p>Move a batch of <cite>sources</cite> indices, to a single destination.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.move_selected" title="napari.components.LayerList.move_selected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_selected</span></code></a>(index, insert)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_selected</span></code>(index, insert)</p></td>
 <td><p>Reorder list by moving the item at index and inserting it at the insert index.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.pop" title="napari.components.LayerList.pop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></a>([index])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code>([index])</p></td>
 <td><p>Raise IndexError if list is empty or index is out of range.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.remove" title="napari.components.LayerList.remove"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code></a>(value)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code>(value)</p></td>
 <td><p>S.remove(value) -- remove first occurrence of value.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.remove_selected" title="napari.components.LayerList.remove_selected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_selected</span></code></a>()</p></td>
 <td><p>Remove selected layers from LayerList, but first unlink them.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.reverse" title="napari.components.LayerList.reverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reverse</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">reverse</span></code>()</p></td>
 <td><p>Reverse list <em>IN PLACE</em>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.save" title="napari.components.LayerList.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(path, *[, selected, plugin, _writer])</p></td>
 <td><p>Save all or only selected layers to a path using writer plugins.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.select_all" title="napari.components.LayerList.select_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_all</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_all</span></code>()</p></td>
 <td><p>Select all items in the list.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.select_next" title="napari.components.LayerList.select_next"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_next</span></code></a>([step, shift])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_next</span></code>([step, shift])</p></td>
 <td><p>Selects next item from list.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.select_previous" title="napari.components.LayerList.select_previous"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_previous</span></code></a>([shift])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_previous</span></code>([shift])</p></td>
 <td><p>Selects previous item from list.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.toggle_selected_visibility" title="napari.components.LayerList.toggle_selected_visibility"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toggle_selected_visibility</span></code></a>()</p></td>
@@ -694,40 +703,12 @@ and/or removed from the set.</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.ndim" title="napari.components.LayerList.ndim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></a></p></td>
 <td><p>Maximum dimensionality of layers.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.selection" title="napari.components.LayerList.selection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selection</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">selection</span></code></p></td>
 <td><p>Get current selection.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Details</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.components.LayerList.append">
-<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.LayerList.append" title="Link to this definition">#</a></dt>
-<dd><p>S.append(value) – append value to the end of the sequence</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.components.LayerList.clear">
-<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span> <span class="pre">--</span> <span class="pre">remove</span> <span class="pre">all</span> <span class="pre">items</span> <span class="pre">from</span> <span class="pre">S</span></span></span><a class="headerlink" href="#napari.components.LayerList.clear" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.components.LayerList.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#napari.components.LayerList.copy" title="Link to this definition">#</a></dt>
-<dd><p>Return a shallow copy of the list.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.components.LayerList.count">
-<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">integer</span> <span class="pre">--</span> <span class="pre">return</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">occurrences</span> <span class="pre">of</span> <span class="pre">value</span></span></span><a class="headerlink" href="#napari.components.LayerList.count" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.components.LayerList.extend">
-<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.LayerList.extend" title="Link to this definition">#</a></dt>
-<dd><p>S.extend(iterable) – extend sequence by appending elements from the iterable</p>
-</dd></dl>
-
 <dl class="py property">
 <dt class="sig sig-object py" id="napari.components.LayerList.extent">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Extent</span></em><a class="headerlink" href="#napari.components.LayerList.extent" title="Link to this definition">#</a></dt>
@@ -757,96 +738,9 @@ For example see the cross Vectors layer in the <cite>multiple_viewer_widget</cit
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="napari.components.LayerList.index">
-<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#napari.components.LayerList.index" title="Link to this definition">#</a></dt>
-<dd><p>Return first index of value.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>value</strong> (<em>Any</em>) – A value to lookup.  If <cite>type(value)</cite> is in the lookups functions
-provided for this class, then values in the list will be searched
-using the corresponding lookup converter function.</p></li>
-<li><p><strong>start</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – The starting index to search, by default 0</p></li>
-<li><p><strong>stop</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – The ending index to search, by default None</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The index of the value</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – If the value is not present</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="napari.components.LayerList.insert">
 <span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.base.base.Layer"><span class="pre">Layer</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/components/layerlist.html#LayerList.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.LayerList.insert" title="Link to this definition">#</a></dt>
 <dd><p>Insert <code class="docutils literal notranslate"><span class="pre">value</span></code> before index.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.components.LayerList.move">
-<span class="sig-name descname"><span class="pre">move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#napari.components.LayerList.move" title="Link to this definition">#</a></dt>
-<dd><p>Insert object at <code class="docutils literal notranslate"><span class="pre">src_index</span></code> before <code class="docutils literal notranslate"><span class="pre">dest_index</span></code>.</p>
-<p>Both indices refer to the list prior to any object removal
-(pre-move space).</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.components.LayerList.move_multiple">
-<span class="sig-name descname"><span class="pre">move_multiple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.12)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.12)"><span class="pre">slice</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#napari.components.LayerList.move_multiple" title="Link to this definition">#</a></dt>
-<dd><p>Move a batch of <cite>sources</cite> indices, to a single destination.</p>
-<p>Note, if <cite>dest_index</cite> is higher than any of the <cite>sources</cite>, then
-the resulting position of the moved objects after the move operation
-is complete will be lower than <cite>dest_index</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>sources</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.12)"><em>slice</em></a><em>]</em>) – A sequence of indices</p></li>
-<li><p><strong>dest_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – The destination index.  All sources will be inserted before this
-index (in pre-move space), by default 0… which has the effect of
-“bringing to front” everything in <code class="docutils literal notranslate"><span class="pre">sources</span></code>, or acting as a
-“reorder” method if <code class="docutils literal notranslate"><span class="pre">sources</span></code> contains all indices.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The number of successful move operations completed.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.12)"><strong>TypeError</strong></a> – If the destination index is a slice, or any of the source indices
-    are not <code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">slice</span></code>.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.components.LayerList.move_selected">
-<span class="sig-name descname"><span class="pre">move_selected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.LayerList.move_selected" title="Link to this definition">#</a></dt>
-<dd><p>Reorder list by moving the item at index and inserting it
-at the insert index. If additional items are selected these will
-get inserted at the insert index too. This allows for rearranging
-the list based on dragging and dropping a selection of items, where
-index is the index of the primary item being dragged, and insert is
-the index of the drop location, and the selection indicates if
-multiple items are being dragged. If the moved layer is not selected
-select it.</p>
-<p>This method is deprecated. Please use layers.move_multiple
-with layers.selection instead.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Index of primary item to be moved</p></li>
-<li><p><strong>insert</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Index that item(s) will be inserted at</p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -865,28 +759,9 @@ with layers.selection instead.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="napari.components.LayerList.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">item</span> <span class="pre">--</span> <span class="pre">remove</span> <span class="pre">and</span> <span class="pre">return</span> <span class="pre">item</span> <span class="pre">at</span> <span class="pre">index</span> <span class="pre">(default</span> <span class="pre">last).</span></span></span><a class="headerlink" href="#napari.components.LayerList.pop" title="Link to this definition">#</a></dt>
-<dd><p>Raise IndexError if list is empty or index is out of range.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.components.LayerList.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.LayerList.remove" title="Link to this definition">#</a></dt>
-<dd><p>S.remove(value) – remove first occurrence of value.
-Raise ValueError if the value is not present.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="napari.components.LayerList.remove_selected">
 <span class="sig-name descname"><span class="pre">remove_selected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/components/layerlist.html#LayerList.remove_selected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.LayerList.remove_selected" title="Link to this definition">#</a></dt>
 <dd><p>Remove selected layers from LayerList, but first unlink them.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.components.LayerList.reverse">
-<span class="sig-name descname"><span class="pre">reverse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.components.LayerList.reverse" title="Link to this definition">#</a></dt>
-<dd><p>Reverse list <em>IN PLACE</em>.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -944,30 +819,6 @@ through to find the first one that can save the data.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="napari.components.LayerList.select_all">
-<span class="sig-name descname"><span class="pre">select_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.LayerList.select_all" title="Link to this definition">#</a></dt>
-<dd><p>Select all items in the list.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.components.LayerList.select_next">
-<span class="sig-name descname"><span class="pre">select_next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.LayerList.select_next" title="Link to this definition">#</a></dt>
-<dd><p>Selects next item from list.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.components.LayerList.select_previous">
-<span class="sig-name descname"><span class="pre">select_previous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.LayerList.select_previous" title="Link to this definition">#</a></dt>
-<dd><p>Selects previous item from list.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="napari.components.LayerList.selection">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">selection</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="napari.utils.events.Selection.html#napari.utils.events.Selection" title="napari.utils.events.containers._selection.Selection"><span class="pre">Selection</span></a><span class="p"><span class="pre">[</span></span><span class="pre">_S</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#napari.components.LayerList.selection" title="Link to this definition">#</a></dt>
-<dd><p>Get current selection.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="napari.components.LayerList.toggle_selected_visibility">
 <span class="sig-name descname"><span class="pre">toggle_selected_visibility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/components/layerlist.html#LayerList.toggle_selected_visibility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.LayerList.toggle_selected_visibility" title="Link to this definition">#</a></dt>
 <dd><p>Toggle visibility of selected layers</p>
@@ -1022,28 +873,12 @@ through to find the first one that can save the data.</p></li>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList"><code class="docutils literal notranslate"><span class="pre">LayerList</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.append"><code class="docutils literal notranslate"><span class="pre">LayerList.append()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.clear"><code class="docutils literal notranslate"><span class="pre">LayerList.clear()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.copy"><code class="docutils literal notranslate"><span class="pre">LayerList.copy()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.count"><code class="docutils literal notranslate"><span class="pre">LayerList.count()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.extend"><code class="docutils literal notranslate"><span class="pre">LayerList.extend()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.extent"><code class="docutils literal notranslate"><span class="pre">LayerList.extent</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.get_extent"><code class="docutils literal notranslate"><span class="pre">LayerList.get_extent()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.index"><code class="docutils literal notranslate"><span class="pre">LayerList.index()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.insert"><code class="docutils literal notranslate"><span class="pre">LayerList.insert()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.move"><code class="docutils literal notranslate"><span class="pre">LayerList.move()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.move_multiple"><code class="docutils literal notranslate"><span class="pre">LayerList.move_multiple()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.move_selected"><code class="docutils literal notranslate"><span class="pre">LayerList.move_selected()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.ndim"><code class="docutils literal notranslate"><span class="pre">LayerList.ndim</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.pop"><code class="docutils literal notranslate"><span class="pre">LayerList.pop()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.remove"><code class="docutils literal notranslate"><span class="pre">LayerList.remove()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.remove_selected"><code class="docutils literal notranslate"><span class="pre">LayerList.remove_selected()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.reverse"><code class="docutils literal notranslate"><span class="pre">LayerList.reverse()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.save"><code class="docutils literal notranslate"><span class="pre">LayerList.save()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.select_all"><code class="docutils literal notranslate"><span class="pre">LayerList.select_all()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.select_next"><code class="docutils literal notranslate"><span class="pre">LayerList.select_next()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.select_previous"><code class="docutils literal notranslate"><span class="pre">LayerList.select_previous()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.selection"><code class="docutils literal notranslate"><span class="pre">LayerList.selection</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.toggle_selected_visibility"><code class="docutils literal notranslate"><span class="pre">LayerList.toggle_selected_visibility()</span></code></a></li>
 </ul>
 </li>

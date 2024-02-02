@@ -6,7 +6,9 @@ napari.utils.cancelable\_progress
 .. autoclass:: cancelable_progress
    :members:
    :show-inheritance:
-   :inherited-members:
+   
+      :inherited-members:
+   
 
    
 

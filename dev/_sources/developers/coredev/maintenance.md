@@ -1,4 +1,4 @@
-(maintenance)=
+(napari-maintenance)=
 
 # Maintenance
 

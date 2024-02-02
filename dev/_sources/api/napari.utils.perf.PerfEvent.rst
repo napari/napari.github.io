@@ -6,7 +6,9 @@ napari.utils.perf.PerfEvent
 .. autoclass:: PerfEvent
    :members:
    :show-inheritance:
-   :inherited-members:
+   
+      :inherited-members:
+   
 
    
 

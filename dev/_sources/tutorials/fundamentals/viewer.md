@@ -18,7 +18,7 @@ kernelspec:
 
 Welcome to the tutorial on the **napari** viewer!
 
-This tutorial assumes you have already installed **napari** and know how to launch the viewer. For help with installation see our [installation](installation) tutorial. For help launching the viewer see our [getting started](launch) tutorial.
+This tutorial assumes you have already installed **napari** and know how to launch the viewer. For help with installation see our [installation](napari-installation) tutorial. For help launching the viewer see our [getting started](launch) tutorial.
 
 This tutorial will teach you about the **napari** viewer, including how to use its graphical user interface (GUI) and how the data within it is organized. At the end of the tutorial, you should understand both the layout of the viewer on the screen and the data inside of it.
 

@@ -82,7 +82,7 @@ See some of the things napari can do.
 :::
 
 :::{grid-item-card} Installation
-:link: installation
+:link: napari-installation
 :link-type: ref
 
 How to install napari.

@@ -619,7 +619,7 @@ be made for each emitter that looks like
 <code class="xref py py-func docutils literal notranslate"><span class="pre">emitter.connect((source,</span> <span class="pre">'on_'</span> <span class="pre">+</span> <span class="pre">event_name))</span></code>.
 This provides a simple mechanism for automatically connecting a large
 group of emitters to default callbacks.  By default, false.</p></li>
-<li><p><strong>emitters</strong> (<em>keyword arguments</em>) – See the <code class="xref py py-func docutils literal notranslate"><span class="pre">add</span></code> method.</p></li>
+<li><p><strong>emitters</strong> – See the <code class="xref py py-func docutils literal notranslate"><span class="pre">add</span></code> method.</p></li>
 </ul>
 </dd>
 </dl>
@@ -629,16 +629,16 @@ group of emitters to default callbacks.  By default, false.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.EmitterGroup.add" title="napari.utils.events.EmitterGroup.add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add</span></code></a>([auto_connect])</p></td>
 <td><p>Add one or more EventEmitter instances to this emitter group. Each keyword argument may be specified as either an EventEmitter instance or an Event subclass, in which case an EventEmitter will be generated automatically::.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.EmitterGroup.block" title="napari.utils.events.EmitterGroup.block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">block</span></code></a>([callback])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">block</span></code>([callback])</p></td>
 <td><p>Block this emitter.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.EmitterGroup.block_all" title="napari.utils.events.EmitterGroup.block_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_all</span></code></a>()</p></td>
 <td><p>Block all emitters in this group by increase counter of semaphores for each event emitter</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.EmitterGroup.blocked" title="napari.utils.events.EmitterGroup.blocked"><code class="xref py py-obj docutils literal notranslate"><span class="pre">blocked</span></code></a>([callback])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">blocked</span></code>([callback])</p></td>
 <td><p>Return boolean indicating whether the emitter is blocked for the given callback.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.EmitterGroup.blocker" title="napari.utils.events.EmitterGroup.blocker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">blocker</span></code></a>([callback])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">blocker</span></code>([callback])</p></td>
 <td><p>Return an EventBlocker to be used in 'with' statements</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.EmitterGroup.blocker_all" title="napari.utils.events.EmitterGroup.blocker_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">blocker_all</span></code></a>()</p></td>
@@ -650,7 +650,7 @@ group of emitters to default callbacks.  By default, false.</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.EmitterGroup.disconnect" title="napari.utils.events.EmitterGroup.disconnect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disconnect</span></code></a>([callback])</p></td>
 <td><p>Disconnect the callback from this group.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.EmitterGroup.unblock" title="napari.utils.events.EmitterGroup.unblock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unblock</span></code></a>([callback])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unblock</span></code>([callback])</p></td>
 <td><p>Unblock this emitter.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.EmitterGroup.unblock_all" title="napari.utils.events.EmitterGroup.unblock_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unblock_all</span></code></a>()</p></td>
@@ -661,10 +661,10 @@ group of emitters to default callbacks.  By default, false.</p></li>
 <p class="rubric">Attributes</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.EmitterGroup.callback_refs" title="napari.utils.events.EmitterGroup.callback_refs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">callback_refs</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">callback_refs</span></code></p></td>
 <td><p>The set of callback references</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.EmitterGroup.callbacks" title="napari.utils.events.EmitterGroup.callbacks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">callbacks</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">callbacks</span></code></p></td>
 <td><p>The set of callbacks</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.EmitterGroup.emitters" title="napari.utils.events.EmitterGroup.emitters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">emitters</span></code></a></p></td>
@@ -673,10 +673,10 @@ group of emitters to default callbacks.  By default, false.</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.EmitterGroup.ignore_callback_errors" title="napari.utils.events.EmitterGroup.ignore_callback_errors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ignore_callback_errors</span></code></a></p></td>
 <td><p>Whether exceptions during callbacks will be caught by the emitter</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.events.EmitterGroup.print_callback_errors" title="napari.utils.events.EmitterGroup.print_callback_errors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_callback_errors</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_callback_errors</span></code></p></td>
 <td><p>Print a message and stack trace if a callback raises an exception</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.events.EmitterGroup.source" title="napari.utils.events.EmitterGroup.source"><code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code></p></td>
 <td><p>The object that events generated by this emitter apply to</p></td>
 </tr>
 </tbody>
@@ -703,38 +703,9 @@ generated automatically:</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.EmitterGroup.block">
-<span class="sig-name descname"><span class="pre">block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.utils.events.Event.html#napari.utils.events.Event" title="napari.utils.events.event.Event"><span class="pre">Event</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.utils.events.EmitterGroup.block" title="Link to this definition">#</a></dt>
-<dd><p>Block this emitter. Any attempts to emit an event while blocked
-will be silently ignored. If <em>callback</em> is given, then the emitter
-is only blocked for that specific callback.</p>
-<p>Calls to block are cumulative; the emitter must be unblocked the same
-number of times as it is blocked.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="napari.utils.events.EmitterGroup.block_all">
 <span class="sig-name descname"><span class="pre">block_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/events/event.html#EmitterGroup.block_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.events.EmitterGroup.block_all" title="Link to this definition">#</a></dt>
 <dd><p>Block all emitters in this group by increase counter of semaphores for each event emitter</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.EmitterGroup.blocked">
-<span class="sig-name descname"><span class="pre">blocked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.utils.events.Event.html#napari.utils.events.Event" title="napari.utils.events.event.Event"><span class="pre">Event</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#napari.utils.events.EmitterGroup.blocked" title="Link to this definition">#</a></dt>
-<dd><p>Return boolean indicating whether the emitter is blocked for
-the given callback.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.EmitterGroup.blocker">
-<span class="sig-name descname"><span class="pre">blocker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.utils.events.Event.html#napari.utils.events.Event" title="napari.utils.events.event.Event"><span class="pre">Event</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.utils.events.EmitterGroup.blocker" title="Link to this definition">#</a></dt>
-<dd><p>Return an EventBlocker to be used in ‘with’ statements</p>
-<p class="rubric">Notes</p>
-<p>For example, one could do:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">emitter</span><span class="o">.</span><span class="n">blocker</span><span class="p">():</span>
-    <span class="k">pass</span>  <span class="c1"># ..do stuff; no events will be emitted..</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="py method">
@@ -747,18 +718,6 @@ the given callback.</p>
     <span class="k">pass</span>  <span class="c1"># ..do stuff; no events will be emitted..</span>
 </pre></div>
 </div>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="napari.utils.events.EmitterGroup.callback_refs">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">callback_refs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#napari.utils.events.EmitterGroup.callback_refs" title="Link to this definition">#</a></dt>
-<dd><p>The set of callback references</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="napari.utils.events.EmitterGroup.callbacks">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">callbacks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.utils.events.Event.html#napari.utils.events.Event" title="napari.utils.events.event.Event"><span class="pre">Event</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">ReferenceType</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#napari.utils.events.EmitterGroup.callbacks" title="Link to this definition">#</a></dt>
-<dd><p>The set of callbacks</p>
 </dd></dl>
 
 <dl class="py method">
@@ -791,33 +750,6 @@ more information.</p>
 <dd><p>Whether exceptions during callbacks will be caught by the emitter</p>
 <p>This allows it to continue invoking other callbacks if an error
 occurs.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="napari.utils.events.EmitterGroup.print_callback_errors">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">print_callback_errors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></em><a class="headerlink" href="#napari.utils.events.EmitterGroup.print_callback_errors" title="Link to this definition">#</a></dt>
-<dd><p>Print a message and stack trace if a callback raises an exception</p>
-<p>Valid values are “first” (only show first instance), “reminders” (show
-complete first instance, then counts), “always” (always show full
-traceback), or “never”.</p>
-<p>This assumes ignore_callback_errors=True. These will be raised as
-warnings, so ensure that the vispy logging level is set to at
-least “warning”.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="napari.utils.events.EmitterGroup.source">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">source</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></em><a class="headerlink" href="#napari.utils.events.EmitterGroup.source" title="Link to this definition">#</a></dt>
-<dd><p>The object that events generated by this emitter apply to</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.utils.events.EmitterGroup.unblock">
-<span class="sig-name descname"><span class="pre">unblock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.utils.events.Event.html#napari.utils.events.Event" title="napari.utils.events.event.Event"><span class="pre">Event</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.utils.events.EmitterGroup.unblock" title="Link to this definition">#</a></dt>
-<dd><p>Unblock this emitter. See <code class="xref py py-func docutils literal notranslate"><span class="pre">event.EventEmitter.block()</span></code>.</p>
-<p>Note: Use of <code class="docutils literal notranslate"><span class="pre">unblock(None)</span></code> only reverses the effect of
-<code class="docutils literal notranslate"><span class="pre">block(None)</span></code>; it does not unblock callbacks that were explicitly
-blocked using <code class="docutils literal notranslate"><span class="pre">block(callback)</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -878,20 +810,12 @@ See <a class="reference external" href="https://en.wikipedia.org/wiki/Semaphore_
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup"><code class="docutils literal notranslate"><span class="pre">EmitterGroup</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.add"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.add()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.block"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.block()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.block_all"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.block_all()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.blocked"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.blocked()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.blocker"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.blocker()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.blocker_all"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.blocker_all()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.callback_refs"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.callback_refs</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.callbacks"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.callbacks</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.connect"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.connect()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.disconnect"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.disconnect()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.emitters"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.emitters</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.ignore_callback_errors"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.ignore_callback_errors</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.print_callback_errors"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.print_callback_errors</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.source"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.source</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.unblock"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.unblock()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.events.EmitterGroup.unblock_all"><code class="docutils literal notranslate"><span class="pre">EmitterGroup.unblock_all()</span></code></a></li>
 </ul>
 </li>

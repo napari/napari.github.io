@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=3e164c05"></script>
+    <script src="../../../../_static/documentation_options.js?v=ec88fecc"></script>
     <script src="../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -510,6 +510,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">napari.utils._dask_utils</span> <span class="kn">import</span> <span class="n">DaskIndexer</span>
 <span class="kn">from</span> <span class="nn">napari.utils._dtype</span> <span class="kn">import</span> <span class="n">get_dtype_limits</span><span class="p">,</span> <span class="n">normalize_dtype</span>
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="n">AVAILABLE_COLORMAPS</span><span class="p">,</span> <span class="n">ensure_colormap</span>
+<span class="kn">from</span> <span class="nn">napari.utils.colormaps.colormap_utils</span> <span class="kn">import</span> <span class="n">_coerce_contrast_limits</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.event_utils</span> <span class="kn">import</span> <span class="n">connect_no_arg</span>
@@ -931,7 +932,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_custom_interpolation_kernel_2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">custom_interpolation_kernel_2d</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_raw_to_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_raw_to_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine displayed image from raw image.</span>
 
 <span class="sd">        For normal image layers, just return the actual image.</span>
@@ -946,8 +947,7 @@ document.write(`
 <span class="sd">        image : array</span>
 <span class="sd">            Displayed array.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">raw</span>
-        <span class="k">return</span> <span class="n">image</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="k">def</span> <span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the slice output based on this layer&#39;s current state.&quot;&quot;&quot;</span>
@@ -1010,6 +1010,10 @@ document.write(`
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the slice output state currently on the layer. Currently used</span>
 <span class="sd">        for both sync and async slicing.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">to_displayed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_raw_to_displayed</span><span class="p">)</span>
+        <span class="c1"># We call to_displayed here to ensure that if the contrast limits</span>
+        <span class="c1"># are outside the range of supported by vispy, then data view is</span>
+        <span class="c1"># rescaled to fit within the range.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">slice_input</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">tile_to_data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span> <span class="o">=</span> <span class="n">response</span>
@@ -1440,6 +1444,11 @@ document.write(`
         <span class="k">return</span> <span class="n">state</span>
 
     <span class="k">def</span> <span class="nf">_update_slice_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">_ImageSliceResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keep_auto_contrast</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">raw</span>
+            <span class="n">input_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="n">data</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span> <span class="o">=</span> <span class="n">calc_data_range</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">)</span>
+
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_update_slice_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 
         <span class="c1"># Maybe reset the contrast limits based on the new slice.</span>
@@ -1472,9 +1481,9 @@ document.write(`
         <span class="c1"># note, we don&#39;t support changing multiscale in an Image instance</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">MultiScaleData</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="n">data</span>  <span class="c1"># type: ignore</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keep_auto_contrast</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reset_editable</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -1597,7 +1606,7 @@ document.write(`
 
     <span class="k">def</span> <span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update thumbnail with current image data and colormap.&quot;&quot;&quot;</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">thumbnail</span><span class="o">.</span><span class="n">view</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">thumbnail</span><span class="o">.</span><span class="n">raw</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -1658,7 +1667,7 @@ document.write(`
         <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span>
             <span class="n">input_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
         <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;slice&#39;</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">view</span>  <span class="c1"># ugh</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">raw</span>  <span class="c1"># ugh</span>
             <span class="n">input_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="n">data</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -1668,7 +1677,48 @@ document.write(`
                     <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
-        <span class="k">return</span> <span class="n">calc_data_range</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">calc_data_range</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_raw_to_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine displayed image from raw image.</span>
+
+<span class="sd">        This function checks if current contrast_limits are within the range</span>
+<span class="sd">        supported by vispy.</span>
+<span class="sd">        If yes, it returns the raw image.</span>
+<span class="sd">        If not, it rescales the raw image to fit within</span>
+<span class="sd">        the range supported by vispy.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        raw : array</span>
+<span class="sd">            Raw array.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        image : array</span>
+<span class="sd">            Displayed array.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fixed_contrast_info</span> <span class="o">=</span> <span class="n">_coerce_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span>
+            <span class="n">fixed_contrast_info</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span>
+        <span class="p">):</span>
+            <span class="k">return</span> <span class="n">raw</span>
+
+        <span class="k">return</span> <span class="n">fixed_contrast_info</span><span class="o">.</span><span class="n">coerce_data</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+
+    <span class="nd">@IntensityVisualizationMixin</span><span class="o">.</span><span class="n">contrast_limits</span><span class="o">.</span><span class="n">setter</span>  <span class="c1"># type: ignore [attr-defined]</span>
+    <span class="k">def</span> <span class="nf">contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="p">):</span>
+        <span class="n">IntensityVisualizationMixin</span><span class="o">.</span><span class="n">contrast_limits</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span>
+            <span class="n">_coerce_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">)</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keep_auto_contrast</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_keep_auto_contrast</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_keep_auto_contrast</span> <span class="o">=</span> <span class="n">prev</span></div>
 
 </pre></div>
 

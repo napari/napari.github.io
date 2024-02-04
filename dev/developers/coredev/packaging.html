@@ -607,20 +607,20 @@ This workflow will also create a GitHub release. See <a class="reference interna
 </section>
 <section id="conda-forge-packages">
 <h3>conda-forge packages<a class="headerlink" href="#conda-forge-packages" title="Link to this heading">#</a></h3>
-<p>Once the Python package makes it to PyPI, it will be picked by the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> bots.
+<p>Once the Python package makes it to PyPI, it will be picked up by the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> bots.
 The bots will automatically submit a PR to the <a class="reference external" href="https://github.com/conda-forge/napari-feedstock"><code class="docutils literal notranslate"><span class="pre">napari-feedstock</span></code></a> repository within a few hours.
 This is all automated by the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> infrastructure (see <a class="reference external" href="https://github.com/conda-forge/napari-feedstock/pulls?q=is%3Apr+sort%3Aupdated-desc+is%3Aclosed">previous examples</a>).
 We only need to check that the metadata in the recipe has been adjusted for the new release.
 Pay special attention to the runtime dependencies and version strings!</p>
 <blockquote>
 <div><p>We keep a copy of the feedstock’s recipe in the <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code> repo, which is updated manually whenever a change to <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> is detected.
-Check the file <code class="docutils literal notranslate"><span class="pre">conda-recipe/meta.yaml</span></code> and make sure its <code class="docutils literal notranslate"><span class="pre">outputs</span></code> are synced to the <code class="docutils literal notranslate"><span class="pre">napari-feedstock</span></code> copy.</p>
+Check the file <code class="docutils literal notranslate"><span class="pre">conda-recipe/meta.yaml</span></code> and make sure its <code class="docutils literal notranslate"><span class="pre">outputs</span></code> contents are synced to the <code class="docutils literal notranslate"><span class="pre">napari-feedstock</span></code> copy.</p>
 </div></blockquote>
 <p>Once the conda-forge CI is passing and the PR is approved and merged, the final packages will be built on the default branch and uploaded to the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> channel.
-Due to the staging steps and CDN synchronization delays, the conda packages can take up to 1 h to be available after the merge.</p>
+Due to the staging steps and CDN synchronization delays, the conda packages can take up to 1h to be available after the merge.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Check <a class="reference internal" href="release.html"><span class="doc">Release guide</span></a> for more details about the conda-forge release process and maintenance tasks</p>
+<p>Check <a class="reference internal" href="release.html"><span class="doc">Release guide</span></a> for more details about the conda-forge release process and maintenance tasks.</p>
 </div>
 </section>
 <section id="conda-packages-in-the-napari-channel">
@@ -633,9 +633,9 @@ We mainly use it to provide:</p>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">napari</span></code> channel also contains the final releases.
+<p>The <code class="docutils literal notranslate"><span class="pre">napari</span></code> channel happens to contain the final releases too.
 However, these are not meant to be used by end users, who should use <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>.
-The releases uploaded to our channel are used to build our <code class="docutils literal notranslate"><span class="pre">constructor</span></code> installers (see below).
+The releases uploaded to our channel are the same ones we use to build our <code class="docutils literal notranslate"><span class="pre">constructor</span></code> installers (see below).
 Otherwise, we would have to wait for the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> PR, which is only triggered by the PyPI release.
 That means we would not be able to create the installers in the same tagging event.</p>
 </div>
@@ -649,7 +649,7 @@ After <a class="reference external" href="https://conda-forge.org/docs/maintaine
 <h2>Installers<a class="headerlink" href="#installers" title="Link to this heading">#</a></h2>
 <p>Once the packages have been built and uploaded to their corresponding repositories,
 we can bundle them along with their dependencies in a single executable that end users can run to install napari on their systems,
-with no prior knowledge of <code class="docutils literal notranslate"><span class="pre">pip</span></code>, <code class="docutils literal notranslate"><span class="pre">conda</span></code>, virtual environments or anything.</p>
+with no prior knowledge of <code class="docutils literal notranslate"><span class="pre">pip</span></code>, <code class="docutils literal notranslate"><span class="pre">conda</span></code>, virtual environments, command line prompts or anything.</p>
 <p>A software installer is usually expected to fulfill these requirements:</p>
 <ul class="simple">
 <li><p>It will install the application so it can be run immediately after.</p></li>
@@ -671,7 +671,7 @@ It supports the following installer types:</p>
 PKG files are graphical installers native to macOS, so that’s the method we use with napari.</p></li>
 <li><p>On Windows, a graphical installer based on <a class="reference external" href="https://nsis.sourceforge.io/Main_Page">NSIS</a> is generated.</p></li>
 </ul>
-<p>The configuration is done through a <code class="docutils literal notranslate"><span class="pre">construct.yaml</span></code> file, documented <a class="reference external" href="https://github.com/conda/constructor/blob/main/CONSTRUCT.md">here</a>.
+<p>The configuration is done through a <code class="docutils literal notranslate"><span class="pre">construct.yaml</span></code> file, documented <a class="reference external" href="https://conda.github.io/constructor/construct-yaml/">here</a>.
 We generate one on the fly in the <code class="docutils literal notranslate"><span class="pre">build_installers.py</span></code> script found in <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code>.
 For a hypothetical napari v1.2.3 we would have built this configuration file:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># os-agnostic configuration</span>
@@ -681,7 +681,6 @@ For a hypothetical napari v1.2.3 we would have built this configuration file:</p
 <span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EULA.md</span>
 <span class="nt">channels</span><span class="p">:</span>
 <span class="w">  </span><span class="c1"># - local  # only in certain situations, like nightly installers where we build napari locally</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari/label/bundle_tools_3</span><span class="w">  </span><span class="c1"># temporary location of our forks of the constructor stack</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span>
 <span class="nt">specs</span><span class="p">:</span><span class="w"> </span><span class="c1"># specs for the &#39;base&#39;  environment</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w">   </span><span class="c1"># pinned to the version of the running interpreter, configured in the CI</span>
@@ -728,9 +727,8 @@ For a hypothetical napari v1.2.3 we would have built this configuration file:</p
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">channels</span></code>: where the packages will be downloaded from.
 We mainly rely on <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> for this, where <code class="docutils literal notranslate"><span class="pre">napari</span></code> is published.
-However, we also have <code class="docutils literal notranslate"><span class="pre">napari/label/bundle_tools_3</span></code>, where we store our <code class="docutils literal notranslate"><span class="pre">constructor</span></code> stack forks (more on this later).
-In nightly installers, we locally build our own development packages for <code class="docutils literal notranslate"><span class="pre">conda</span></code>, without resorting to <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>.
-To make use of those (which are eventually published to <code class="docutils literal notranslate"><span class="pre">napari/label/nightly</span></code>),
+In CI, we locally build our own (development) packages for <code class="docutils literal notranslate"><span class="pre">conda</span></code>, without resorting to <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>.
+To make use of those (which are eventually published to the <a class="reference external" href="https://anaconda.org/napari">napari channel</a>),
 we unpack the GitHub Actions artifact in a specific location that <code class="docutils literal notranslate"><span class="pre">constructor</span></code> recognizes as a <em>local</em> channel once indexed.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">extra_envs&gt;</span> <span class="pre">napari-0.5.0</span></code>: the environment that will actually contain the napari installation.
 In this key, you will find <code class="docutils literal notranslate"><span class="pre">specs</span></code>, which lists the conda packages to be installed in that environment.
@@ -775,135 +773,45 @@ screen on macOS.</p>
 for its use, you can have <code class="docutils literal notranslate"><span class="pre">constructor</span></code> handle the signing via <code class="docutils literal notranslate"><span class="pre">productsign</span></code> automatically.
 However, this is not enough for a warning-free installation, since its contents need to be
 <em>notarized</em> and <em>stapled</em> too. For this reason, <code class="docutils literal notranslate"><span class="pre">constructor</span></code> has been modified to also
-<code class="docutils literal notranslate"><span class="pre">codesign</span></code> the bundled <code class="docutils literal notranslate"><span class="pre">_conda.exe</span></code> (the binary provided by conda-standalone, see below) with
-the <em>Application Certificate</em>. Otherwise, notarization fails. After that, two actions take care
-of notarizing and stapling the resulting PKG.</p>
-<p>On Windows, any Microsoft-blessed certificate will do. Our <code class="docutils literal notranslate"><span class="pre">constructor</span></code> fork allows us to specify
+<code class="docutils literal notranslate"><span class="pre">codesign</span></code> the bundled <code class="docutils literal notranslate"><span class="pre">_conda</span></code> executable (the binary provided by conda-standalone, see below) with the <em>Application Certificate</em>. Otherwise, notarization fails. After that, two actions take
+care of notarizing and stapling the resulting PKG.</p>
+<p>On Windows, any Microsoft-blessed certificate will do. <code class="docutils literal notranslate"><span class="pre">constructor</span></code> allows us to specify
 a path to a PFX certificate and then have the Windows SDK <code class="docutils literal notranslate"><span class="pre">signtool</span></code> add the signature. Note that
-<code class="docutils literal notranslate"><span class="pre">signtool</span></code> is not installed by default on Windows (but it is on GitHub Actions).</p>
+<code class="docutils literal notranslate"><span class="pre">signtool</span></code> is not installed by default on Windows (but it is on GitHub Actions). Right now, we
+simply reuse the Apple certificate just to sign the installer with <em>something</em>. Note that this
+certificate is not recognized by Windows as a valid one, so users will still get the SmartScreen
+warning. However, it will allow folks to check the signature metadata and see that it comes
+from napari.</p>
 <hr class="docutils" />
 <p>More details about our packaging infrastructure can be found in the <a class="reference external" href="https://napari.org/dev/naps/2-conda-based-packaging.html">NAP-2 document</a>.</p>
 </section>
-<section id="details-of-our-constructor-stack-fork">
-<h3>Details of our <code class="docutils literal notranslate"><span class="pre">constructor</span></code> stack fork<a class="headerlink" href="#details-of-our-constructor-stack-fork" title="Link to this heading">#</a></h3>
-<blockquote>
-<div><p>Note: All these changes have been sent upstream. See progress in <a class="reference external" href="https://github.com/napari/packaging/issues/15">this issue</a>.</p>
-</div></blockquote>
-<p>Many of the features here listed were not available on <code class="docutils literal notranslate"><span class="pre">constructor</span></code> when we started working on it.
-We have added them to the relevant parts of the stack as needed, but that has resulted in a lot of
-moving pieces being juggled to make this work. Let’s begin by enumerating the stack components:</p>
-<ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">constructor</span></code> is the command-line tool that <em>builds</em> the installer. It depends on <code class="docutils literal notranslate"><span class="pre">conda</span></code> to
-solve the <code class="docutils literal notranslate"><span class="pre">specs</span></code> request. It also requires a copy of <code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code> (a PyInstaller-frozen
-version of <code class="docutils literal notranslate"><span class="pre">conda</span></code>) to be present at build time so it can be bundled in the installer. This
-is needed because that <code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code> copy will handle the extraction, linking and
-shortcut creation when the user runs the installer on their machine.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code> is a frozen version of <code class="docutils literal notranslate"><span class="pre">conda</span></code>. Among its dependencies, we can find
-<code class="docutils literal notranslate"><span class="pre">menuinst</span></code>, which handles the creation of shortcuts and menu entries.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">menuinst</span></code> was only used on Windows before our work, so we basically rewrote it to handle
-cross-platform shortcuts.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">conda</span></code> interfaces with <code class="docutils literal notranslate"><span class="pre">menuinst</span></code> to delegate the shortcut creation. Since this was only enabled
-on Windows, we needed to unlock the other platforms and rewrite the parts that assumed Windows
-only behavior. Surprise, this involved custom solver behavior too!</p></li>
-</ol>
-<p>Because <code class="docutils literal notranslate"><span class="pre">menuinst</span></code> is frozen together with <code class="docutils literal notranslate"><span class="pre">conda</span></code> for <code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code>, every little change in any
-of those requires a rebuild of <code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code> so <code class="docutils literal notranslate"><span class="pre">constructor</span></code> can find the new version during
-the installer creation. As a result, we needed to fork <em>and repackage</em> all four components!</p>
-<p>Notice the repackaging needs. It’s not enough to fork and patch the code. We also need to create
-the conda packages and put them in a channel so the downstream dependencies can pick them when they
-are rebuilt. This repackaging is done through a separate <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> clone that only handles our
-forks. It is configured to use GitHub Actions (instead of Azure) and upload to the <code class="docutils literal notranslate"><span class="pre">napari</span></code> channel
-(instead of <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>).</p>
-<p>For example, if a patch is introduced in <code class="docutils literal notranslate"><span class="pre">menuinst</span></code>, the following needs to happen before it makes
-it to the final napari installer:</p>
-<ol class="arabic simple">
-<li><p>Write and test the patch. Make sure it passes its own CI.</p></li>
-<li><p>Make sure <code class="docutils literal notranslate"><span class="pre">conda</span></code> still works with the new changes. It needs to call <code class="docutils literal notranslate"><span class="pre">menuinst</span></code> after all.</p></li>
-<li><p>Create the <code class="docutils literal notranslate"><span class="pre">menuinst</span></code> package and upload it to Anaconda.org.</p></li>
-<li><p>Rebuild and upload <code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code> so it picks the new <code class="docutils literal notranslate"><span class="pre">menuinst</span></code> version.</p></li>
-<li><p>Trigger the napari CI to build the new installer.</p></li>
-</ol>
-<p>Very fun! So where do all these packages live?</p>
-<table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Package</p></th>
-<th class="head"><p>Source</p></th>
-<th class="head"><p>Feedstock</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">constructor</span></code></p></td>
-<td><p><a class="reference external" href="https://github.com/jaimergp/constructor/tree/menuinst-cep">jaimergp/constructor &#64; <code class="docutils literal notranslate"><span class="pre">menuinst-cep</span></code></a></p></td>
-<td><p><a class="reference external" href="https://github.com/jaimergp-forge/constructor-feedstock">jaimergp-forge/constructor-feedstock</a></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code></p></td>
-<td><p><em>Same as feedstock</em>.</p></td>
-<td><p><a class="reference external" href="https://github.com/conda-forge/conda-standalone-feedstock">conda-forge/conda-standalone-feedstock PR#21</a></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">conda</span></code></p></td>
-<td><p><a class="reference external" href="https://github.com/jaimergp/conda/tree/cep-menuinst">jaimergp/conda &#64; <code class="docutils literal notranslate"><span class="pre">cep-menuinst</span></code></a></p></td>
-<td><p><a class="reference external" href="https://github.com/jaimergp-forge/conda-feedstock">jaimergp-forge/conda-feedstock</a></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">menuinst</span></code></p></td>
-<td><p><a class="reference external" href="https://github.com/conda/menuinst/tree/cep-devel">conda/menuinst &#64; <code class="docutils literal notranslate"><span class="pre">cep-devel</span></code></a></p></td>
-<td><p><a class="reference external" href="https://github.com/jaimergp-forge/menuinst-feedstock">jaimergp-forge/menuinst-feedstock</a></p></td>
-</tr>
-</tbody>
-</table>
-<p>Most of the forks live in <code class="docutils literal notranslate"><span class="pre">jaimergp</span></code>’s account, under a non-default branch. They are published
-through the <code class="docutils literal notranslate"><span class="pre">jaimergp-forge</span></code> every time a commit to <code class="docutils literal notranslate"><span class="pre">main</span></code> (<code class="docutils literal notranslate"><span class="pre">master</span></code> in some repos) is made.
-Versions are arbitrary here, but they are set to be greater than the latest official version, and
-the <code class="docutils literal notranslate"><span class="pre">build</span></code> number is incremented for every rebuild.</p>
-<p>The only exception is <code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code>. It doesn’t have its own repository or fork because it’s
-basically a repackaged <code class="docutils literal notranslate"><span class="pre">conda</span></code> with some patches. Those patches live in the feedstock only. The
-other difference is that the feedstock does not live in <code class="docutils literal notranslate"><span class="pre">jaimergp-forge</span></code>, but just as draft PR in
-the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> original feedstock. This is because, for some reason, if <code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code> is
-built on GitHub Actions machines, the Windows version will fail with <code class="docutils literal notranslate"><span class="pre">_ssl</span></code> errors which do not
-appear in Azure. For this reason, the CI is run as normal on <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>, and then the artifacts
-are retrieved from the Azure UI and manually uploaded to the <code class="docutils literal notranslate"><span class="pre">napari</span></code> channel. Fun again!</p>
-<p><em>Eventually</em> all these complexities will be gone because all of our changes will have been merged
-upstream. For now, this not the case. Speaking of which, what are our changes? Below you can find
-a high-level list of the main changes introduced in the stack.</p>
-<section id="changes-in-menuinst">
-<h4>Changes in <code class="docutils literal notranslate"><span class="pre">menuinst</span></code><a class="headerlink" href="#changes-in-menuinst" title="Link to this heading">#</a></h4>
+<section id="details-of-the-constructor-stack">
+<h3>Details of the <code class="docutils literal notranslate"><span class="pre">constructor</span></code> stack<a class="headerlink" href="#details-of-the-constructor-stack" title="Link to this heading">#</a></h3>
+<p>Generating a <code class="docutils literal notranslate"><span class="pre">conda</span></code>-based installer requires several components in place:</p>
 <ul class="simple">
-<li><p>Add cross-platform specification for shortcut configuration</p></li>
-<li><p>Enable support on Windows, Linux and macOS</p></li>
-<li><p>Re-engineer environment activation</p></li>
-<li><p>Maintain backwards compatibility with Windows</p></li>
-<li><p>Simplify API</p></li>
-<li><p>Remove CLI</p></li>
-<li><p>Provide binary launchers for better compatibility with the macOS permissions and events system</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">constructor</span></code> is the command-line tool that <em>builds</em> the installer.</p>
+<ul>
+<li><p>It depends on <code class="docutils literal notranslate"><span class="pre">conda</span></code> to solve the <code class="docutils literal notranslate"><span class="pre">specs</span></code> request.</p></li>
+<li><p>It also requires a copy of <code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code> (a PyInstaller-frozen version of <code class="docutils literal notranslate"><span class="pre">conda</span></code>) to be
+present at build time so it can be bundled in the installer. This is needed because that
+<code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code> copy will handle the extraction, linking and shortcut creation when the user
+runs the installer on their machine.</p></li>
 </ul>
-</section>
-<section id="changes-in-conda">
-<h4>Changes in <code class="docutils literal notranslate"><span class="pre">conda</span></code><a class="headerlink" href="#changes-in-conda" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p>Enable code paths for non-Windows Platforms</p></li>
-<li><p>Fix shortcut removal logic</p></li>
-<li><p>Add <code class="docutils literal notranslate"><span class="pre">--shortcuts-only</span></code> flag to support <code class="docutils literal notranslate"><span class="pre">menu_packages</span></code> constructor key natively</p></li>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">menuinst</span></code> handles the creation of shortcuts / desktop menu entries across all platforms.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">conda</span></code> depends on this library to handle shortcuts when packages are installed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">constructor</span></code> delegates the shortcut creation to <code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code>’s <code class="docutils literal notranslate"><span class="pre">menuinst</span></code> bundled copy
+at <em>installation time</em>.</p>
+<ul>
+<li><p>For performance reasons, uninstalling the shortcut is done via a <a class="reference external" href="https://github.com/conda/constructor/blob/764ba8a/constructor/nsis/_nsis.py">bundled script</a>
+that calls <code class="docutils literal notranslate"><span class="pre">menuinst</span></code> directly.</p></li>
 </ul>
-</section>
-<section id="changes-in-conda-standalone">
-<h4>Changes in <code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code><a class="headerlink" href="#changes-in-conda-standalone" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p>Unvendor menuinst patches</p></li>
-<li><p>Do not vendor constructor NSIS scripts</p></li>
-<li><p>Adapt <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">constructor</span></code> entry point for the new menuinst API</p></li>
+</li>
 </ul>
-</section>
-<section id="changes-in-constructor">
-<h4>Changes in <code class="docutils literal notranslate"><span class="pre">constructor</span></code><a class="headerlink" href="#changes-in-constructor" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">--shortcuts-only</span></code></p></li>
-<li><p>Add branding options for macOS PKG installers</p></li>
-<li><p>Always leave <code class="docutils literal notranslate"><span class="pre">_conda.exe</span></code> in the installation location</p></li>
-<li><p>Do not offer options for <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">init</span></code> or PATH manipulations (these should be Anaconda specific)</p></li>
-<li><p>Add signing for Windows</p></li>
-<li><p>Add notarization for macOS PKG</p></li>
+</li>
 </ul>
 <!-- hyperlinks -->
-</section>
 </section>
 </section>
 </section>
@@ -962,13 +870,7 @@ a high-level list of the main changes introduced in the stack.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-installation-path">Default installation path</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#branding">Branding</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#signing">Signing</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#details-of-our-constructor-stack-fork">Details of our <code class="docutils literal notranslate"><span class="pre">constructor</span></code> stack fork</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#changes-in-menuinst">Changes in <code class="docutils literal notranslate"><span class="pre">menuinst</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#changes-in-conda">Changes in <code class="docutils literal notranslate"><span class="pre">conda</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#changes-in-conda-standalone">Changes in <code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#changes-in-constructor">Changes in <code class="docutils literal notranslate"><span class="pre">constructor</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#details-of-the-constructor-stack">Details of the <code class="docutils literal notranslate"><span class="pre">constructor</span></code> stack</a></li>
 </ul>
 </li>
 </ul>

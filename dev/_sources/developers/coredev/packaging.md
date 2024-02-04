@@ -20,20 +20,20 @@ This workflow will also create a GitHub release. See {doc}`release` for more det
 
 ### conda-forge packages
 
-Once the Python package makes it to PyPI, it will be picked by the `conda-forge` bots.
+Once the Python package makes it to PyPI, it will be picked up by the `conda-forge` bots.
 The bots will automatically submit a PR to the [`napari-feedstock`][1] repository within a few hours.
 This is all automated by the `conda-forge` infrastructure (see [previous examples][16]).
 We only need to check that the metadata in the recipe has been adjusted for the new release.
 Pay special attention to the runtime dependencies and version strings!
 
 > We keep a copy of the feedstock's recipe in the `napari/packaging` repo, which is updated manually whenever a change to `setup.cfg` is detected.
-> Check the file `conda-recipe/meta.yaml` and make sure its `outputs` are synced to the `napari-feedstock` copy.
+> Check the file `conda-recipe/meta.yaml` and make sure its `outputs` contents are synced to the `napari-feedstock` copy.
 
 Once the conda-forge CI is passing and the PR is approved and merged, the final packages will be built on the default branch and uploaded to the `conda-forge` channel.
-Due to the staging steps and CDN synchronization delays, the conda packages can take up to 1 h to be available after the merge.
+Due to the staging steps and CDN synchronization delays, the conda packages can take up to 1h to be available after the merge.
 
 ```{note}
-Check {doc}`release` for more details about the conda-forge release process and maintenance tasks
+Check {doc}`release` for more details about the conda-forge release process and maintenance tasks.
 ```
 
 ### conda packages in the `napari` channel
@@ -45,9 +45,9 @@ We mainly use it to provide:
 - Release candidates, uploaded to `napari/label/rc`.
 
 ```{note}
-The `napari` channel also contains the final releases.
+The `napari` channel happens to contain the final releases too.
 However, these are not meant to be used by end users, who should use `conda-forge`.
-The releases uploaded to our channel are used to build our `constructor` installers (see below).
+The releases uploaded to our channel are the same ones we use to build our `constructor` installers (see below).
 Otherwise, we would have to wait for the `conda-forge` PR, which is only triggered by the PyPI release.
 That means we would not be able to create the installers in the same tagging event.
 ```
@@ -62,7 +62,7 @@ Additionally, the tarballs are also passed as artifacts to the next stage in the
 
 Once the packages have been built and uploaded to their corresponding repositories,
 we can bundle them along with their dependencies in a single executable that end users can run to install napari on their systems,
-with no prior knowledge of `pip`, `conda`, virtual environments or anything.
+with no prior knowledge of `pip`, `conda`, virtual environments, command line prompts or anything.
 
 A software installer is usually expected to fulfill these requirements:
 
@@ -100,7 +100,6 @@ company: Napari
 license: EULA.md
 channels:
   # - local  # only in certain situations, like nightly installers where we build napari locally
-  - napari/label/bundle_tools_3  # temporary location of our forks of the constructor stack
   - conda-forge
 specs: # specs for the 'base'  environment
   - python   # pinned to the version of the running interpreter, configured in the CI
@@ -145,11 +144,10 @@ signing_certificate: certificate.pfx  # path to signing certificate
 
 The main OS-agnostic keys are:
 
-* `channels`: where the packages will be downloaded from. 
-  We mainly rely on `conda-forge` for this, where `napari` is published. 
-  However, we also have `napari/label/bundle_tools_3`, where we store our `constructor` stack forks (more on this later). 
-  In nightly installers, we locally build our own development packages for `conda`, without resorting to `conda-forge`. 
-  To make use of those (which are eventually published to `napari/label/nightly`), 
+* `channels`: where the packages will be downloaded from.
+  We mainly rely on `conda-forge` for this, where `napari` is published.
+  In CI, we locally build our own (development) packages for `conda`, without resorting to `conda-forge`.
+  To make use of those (which are eventually published to the [napari channel][17]),
   we unpack the GitHub Actions artifact in a specific location that `constructor` recognizes as a _local_ channel once indexed.
 * {{ '`extra_envs> napari-NAPARI_VER`'.replace('NAPARI_VER', napari_version) }}: the environment that will actually contain the napari installation.
   In this key, you will find `specs`, which lists the conda packages to be installed in that environment.
@@ -196,116 +194,38 @@ On macOS, once Apple's _Installer Certificate_ has been installed to a keychain 
 for its use, you can have `constructor` handle the signing via `productsign` automatically.
 However, this is not enough for a warning-free installation, since its contents need to be
 _notarized_ and _stapled_ too. For this reason, `constructor` has been modified to also
-`codesign` the bundled `_conda.exe` (the binary provided by conda-standalone, see below) with
-the _Application Certificate_. Otherwise, notarization fails. After that, two actions take care
-of notarizing and stapling the resulting PKG.
+`codesign` the bundled `_conda` executable (the binary provided by conda-standalone, see below) with the _Application Certificate_. Otherwise, notarization fails. After that, two actions take
+care of notarizing and stapling the resulting PKG.
 
-On Windows, any Microsoft-blessed certificate will do. Our `constructor` fork allows us to specify
+On Windows, any Microsoft-blessed certificate will do. `constructor` allows us to specify
 a path to a PFX certificate and then have the Windows SDK `signtool` add the signature. Note that
-`signtool` is not installed by default on Windows (but it is on GitHub Actions).
-
+`signtool` is not installed by default on Windows (but it is on GitHub Actions). Right now, we
+simply reuse the Apple certificate just to sign the installer with _something_. Note that this
+certificate is not recognized by Windows as a valid one, so users will still get the SmartScreen
+warning. However, it will allow folks to check the signature metadata and see that it comes
+from napari.
 
 ---
 
 More details about our packaging infrastructure can be found in the [NAP-2 document][nap-2].
 
-#### Details of our `constructor` stack fork
+#### Details of the `constructor` stack
 
-> Note: All these changes have been sent upstream. See progress in [this issue][18].
+Generating a `conda`-based installer requires several components in place:
 
-Many of the features here listed were not available on `constructor` when we started working on it.
-We have added them to the relevant parts of the stack as needed, but that has resulted in a lot of
-moving pieces being juggled to make this work. Let's begin by enumerating the stack components:
+- `constructor` is the command-line tool that _builds_ the installer.
+  - It depends on `conda` to solve the `specs` request.
+  - It also requires a copy of `conda-standalone` (a PyInstaller-frozen version of `conda`) to be
+   present at build time so it can be bundled in the installer. This is needed because that
+   `conda-standalone` copy will handle the extraction, linking and shortcut creation when the user
+   runs the installer on their machine.
+- `menuinst` handles the creation of shortcuts / desktop menu entries across all platforms.
+  - `conda` depends on this library to handle shortcuts when packages are installed.
+  - `constructor` delegates the shortcut creation to `conda-standalone`'s `menuinst` bundled copy
+    at _installation time_.
+    - For performance reasons, uninstalling the shortcut is done via a [bundled script][22]
+      that calls `menuinst` directly.
 
-1. `constructor` is the command-line tool that _builds_ the installer. It depends on `conda` to
-   solve the `specs` request. It also requires a copy of `conda-standalone` (a PyInstaller-frozen
-   version of `conda`) to be present at build time so it can be bundled in the installer. This
-   is needed because that `conda-standalone` copy will handle the extraction, linking and
-   shortcut creation when the user runs the installer on their machine.
-2. `conda-standalone` is a frozen version of `conda`. Among its dependencies, we can find
-   `menuinst`, which handles the creation of shortcuts and menu entries.
-4. `menuinst` was only used on Windows before our work, so we basically rewrote it to handle
-   cross-platform shortcuts.
-3. `conda` interfaces with `menuinst` to delegate the shortcut creation. Since this was only enabled
-   on Windows, we needed to unlock the other platforms and rewrite the parts that assumed Windows
-   only behavior. Surprise, this involved custom solver behavior too!
-
-Because `menuinst` is frozen together with `conda` for `conda-standalone`, every little change in any
-of those requires a rebuild of `conda-standalone` so `constructor` can find the new version during
-the installer creation. As a result, we needed to fork _and repackage_ all four components!
-
-Notice the repackaging needs. It's not enough to fork and patch the code. We also need to create
-the conda packages and put them in a channel so the downstream dependencies can pick them when they
-are rebuilt. This repackaging is done through a separate `conda-forge` clone that only handles our
-forks. It is configured to use GitHub Actions (instead of Azure) and upload to the `napari` channel
-(instead of `conda-forge`).
-
-For example, if a patch is introduced in `menuinst`, the following needs to happen before it makes
-it to the final napari installer:
-
-1. Write and test the patch. Make sure it passes its own CI.
-2. Make sure `conda` still works with the new changes. It needs to call `menuinst` after all.
-3. Create the `menuinst` package and upload it to Anaconda.org.
-4. Rebuild and upload `conda-standalone` so it picks the new `menuinst` version.
-5. Trigger the napari CI to build the new installer.
-
-Very fun! So where do all these packages live?
-
-| Package            | Source                                          | Feedstock                                          |
-|--------------------|-------------------------------------------------|----------------------------------------------------|
-| `constructor`      | [jaimergp/constructor @ `menuinst-cep`][9]      | [jaimergp-forge/constructor-feedstock][12]         |
-| `conda-standalone` | _Same as feedstock_.                            | [conda-forge/conda-standalone-feedstock PR#21][13] |
-| `conda`            | [jaimergp/conda @ `cep-menuinst`][10]           | [jaimergp-forge/conda-feedstock][14]               |
-| `menuinst`         | [conda/menuinst @ `cep-devel`][11]                 | [jaimergp-forge/menuinst-feedstock][15]            |
-
-
-Most of the forks live in `jaimergp`'s account, under a non-default branch. They are published
-through the `jaimergp-forge` every time a commit to `main` (`master` in some repos) is made.
-Versions are arbitrary here, but they are set to be greater than the latest official version, and
-the `build` number is incremented for every rebuild.
-
-The only exception is `conda-standalone`. It doesn't have its own repository or fork because it's
-basically a repackaged `conda` with some patches. Those patches live in the feedstock only. The
-other difference is that the feedstock does not live in `jaimergp-forge`, but just as draft PR in
-the `conda-forge` original feedstock. This is because, for some reason, if `conda-standalone` is
-built on GitHub Actions machines, the Windows version will fail with `_ssl` errors which do not
-appear in Azure. For this reason, the CI is run as normal on `conda-forge`, and then the artifacts
-are retrieved from the Azure UI and manually uploaded to the `napari` channel. Fun again!
-
-_Eventually_ all these complexities will be gone because all of our changes will have been merged
-upstream. For now, this not the case. Speaking of which, what are our changes? Below you can find
-a high-level list of the main changes introduced in the stack.
-
-##### Changes in `menuinst`
-
-* Add cross-platform specification for shortcut configuration
-* Enable support on Windows, Linux and macOS
-* Re-engineer environment activation
-* Maintain backwards compatibility with Windows
-* Simplify API
-* Remove CLI
-* Provide binary launchers for better compatibility with the macOS permissions and events system
-
-##### Changes in `conda`
-
-* Enable code paths for non-Windows Platforms
-* Fix shortcut removal logic
-* Add `--shortcuts-only` flag to support `menu_packages` constructor key natively
-
-##### Changes in `conda-standalone`
-
-* Unvendor menuinst patches
-* Do not vendor constructor NSIS scripts
-* Adapt `conda constructor` entry point for the new menuinst API
-
-##### Changes in `constructor`
-
-* Use `--shortcuts-only`
-* Add branding options for macOS PKG installers
-* Always leave `_conda.exe` in the installation location
-* Do not offer options for `conda init` or PATH manipulations (these should be Anaconda specific)
-* Add signing for Windows
-* Add notarization for macOS PKG
 
 <!-- hyperlinks -->
 
@@ -314,19 +234,12 @@ a high-level list of the main changes introduced in the stack.
 [3]: https://github.com/napari/napari/blob/main/Makefile#L20
 [4]: https://github.com/pypa/gh-action-pypi-publish
 [6]: https://github.com/conda/constructor
-[7]: https://github.com/conda/constructor/blob/main/CONSTRUCT.md
+[7]: https://conda.github.io/constructor/construct-yaml/
 [8]: https://conda-forge.org/docs/maintainer/updating_pkgs.html#rerendering-feedstocks
-[9]: https://github.com/jaimergp/constructor/tree/menuinst-cep
-[10]: https://github.com/jaimergp/conda/tree/cep-menuinst
-[11]: https://github.com/conda/menuinst/tree/cep-devel
-[12]: https://github.com/jaimergp-forge/constructor-feedstock
-[13]: https://github.com/conda-forge/conda-standalone-feedstock
-[14]: https://github.com/jaimergp-forge/conda-feedstock
-[15]: https://github.com/jaimergp-forge/menuinst-feedstock
 [16]: https://github.com/conda-forge/napari-feedstock/pulls?q=is%3Apr+sort%3Aupdated-desc+is%3Aclosed
 [17]: https://anaconda.org/napari
-[18]: https://github.com/napari/packaging/issues/15
 [19]: https://nsis.sourceforge.io/Main_Page
 [20]: https://pypi.org/project/napari
 [21]: https://anaconda.org/conda-forge/napari
+[22]: https://github.com/conda/constructor/blob/764ba8a/constructor/nsis/_nsis.py
 [nap-2]: https://napari.org/dev/naps/2-conda-based-packaging.html

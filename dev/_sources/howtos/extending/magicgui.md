@@ -514,7 +514,7 @@ time the function is called:
 ```{code-cell} python
 :tags: [remove-output]
 
-@magicgui(call_button='Make Points', n_points={'maximum': 200})
+@magicgui(call_button='Make Points', n_points={'max': 200})
 def make_points(n_points=40) -> napari.types.LayerDataTuple:
   data = 500 * np.random.rand(n_points, 2)
   # 'My Points' is the name of an existing layer

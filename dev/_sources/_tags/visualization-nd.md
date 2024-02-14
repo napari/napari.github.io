@@ -23,7 +23,6 @@ caption: With this tag
 ../gallery/nD_surface.rst
 ../gallery/nD_vectors.rst
 ../gallery/nD_vectors_image.rst
-../gallery/surface_multi_texture.rst
 ../gallery/surface_texture_and_colors.rst
 ../gallery/swap_dims.rst
 ```

@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../_static/documentation_options.js?v=b5a1f6d8"></script>
+    <script src="../../../_static/documentation_options.js?v=c0f4c847"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -731,10 +731,10 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
             <span class="n">layers_change</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;This event will be removed in 0.5.0. Please use viewer.layers.events instead&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;This event will be removed in 0.5.0. Please use viewer.layers.events instead&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">),</span>
-                <span class="n">type_name</span><span class="o">=</span><span class="s2">&quot;layers_change&quot;</span><span class="p">,</span>
+                <span class="n">type_name</span><span class="o">=</span><span class="s1">&#39;layers_change&#39;</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="n">reset_view</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
@@ -810,7 +810,7 @@ document.write(`
                     <span class="s2">&quot;Theme &#39;</span><span class="si">{theme_name}</span><span class="s2">&#39; not found; options are </span><span class="si">{themes}</span><span class="s2">.&quot;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">theme_name</span><span class="o">=</span><span class="n">v</span><span class="p">,</span>
-                    <span class="n">themes</span><span class="o">=</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">available_themes</span><span class="p">()),</span>
+                    <span class="n">themes</span><span class="o">=</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">available_themes</span><span class="p">()),</span>
                 <span class="p">)</span>
             <span class="p">)</span>
 
@@ -1107,7 +1107,7 @@ document.write(`
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">affine</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">_update_name</span><span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">reload</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layer_reload</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="s1">&#39;mode&#39;</span><span class="p">):</span>
             <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layer_mode_change</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_layer_help_from_mode</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
@@ -1143,19 +1143,19 @@ document.write(`
         <span class="k">for</span> <span class="n">fun</span><span class="p">,</span> <span class="n">mode_</span> <span class="ow">in</span> <span class="n">layer_to_func_and_mode</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="p">[]):</span>
             <span class="k">if</span> <span class="n">mode_</span> <span class="o">==</span> <span class="n">layer</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
                 <span class="k">continue</span>
-            <span class="n">action_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;napari:</span><span class="si">{</span><span class="n">fun</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">action_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;napari:</span><span class="si">{</span><span class="n">fun</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span>
             <span class="n">desc</span> <span class="o">=</span> <span class="n">action_manager</span><span class="o">.</span><span class="n">_actions</span><span class="p">[</span><span class="n">action_name</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">shortcuts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">action_name</span><span class="p">,</span> <span class="p">[]):</span>
                 <span class="k">continue</span>
             <span class="n">help_li</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;use &lt;</span><span class="si">{shortcut}</span><span class="s2">&gt; for </span><span class="si">{desc}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;use &lt;</span><span class="si">{shortcut}</span><span class="s1">&gt; for </span><span class="si">{desc}</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="n">shortcut</span><span class="o">=</span><span class="n">shortcuts</span><span class="p">[</span><span class="n">action_name</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
                     <span class="n">desc</span><span class="o">=</span><span class="n">desc</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
 
-        <span class="n">layer</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">help_li</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">help_li</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_on_layer_mode_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_layer_help_from_mode</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
@@ -1214,10 +1214,10 @@ document.write(`
 <div class="viewcode-block" id="ViewerModel.add_image">
 <a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.add_image">[docs]</a>
     <span class="nd">@rename_argument</span><span class="p">(</span>
-        <span class="n">from_name</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
-        <span class="n">to_name</span><span class="o">=</span><span class="s2">&quot;interpolation2d&quot;</span><span class="p">,</span>
-        <span class="n">version</span><span class="o">=</span><span class="s2">&quot;0.6.0&quot;</span><span class="p">,</span>
-        <span class="n">since_version</span><span class="o">=</span><span class="s2">&quot;0.4.17&quot;</span><span class="p">,</span>
+        <span class="n">from_name</span><span class="o">=</span><span class="s1">&#39;interpolation&#39;</span><span class="p">,</span>
+        <span class="n">to_name</span><span class="o">=</span><span class="s1">&#39;interpolation2d&#39;</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.6.0&#39;</span><span class="p">,</span>
+        <span class="n">since_version</span><span class="o">=</span><span class="s1">&#39;0.4.17&#39;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">add_image</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1527,7 +1527,7 @@ document.write(`
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                 <span class="n">available</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">plugin_manager</span><span class="o">.</span><span class="n">available_samples</span><span class="p">())</span>
         <span class="c1"># npe2 uri sample data, extract the path so we can use viewer.open</span>
-        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;__self__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">):</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;__self__&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">):</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;reader_plugin&#39;</span><span class="p">)</span>
                 <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="o">.</span><span class="n">reader_plugin</span> <span class="o">!=</span> <span class="n">reader_plugin</span>
@@ -1540,14 +1540,14 @@ document.write(`
 
         <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">&quot;Plugin </span><span class="si">{plugin!r}</span><span class="s2"> does not provide sample data named </span><span class="si">{sample!r}</span><span class="s2">. &quot;</span><span class="p">,</span>
+                <span class="s1">&#39;Plugin </span><span class="si">{plugin!r}</span><span class="s1"> does not provide sample data named </span><span class="si">{sample!r}</span><span class="s1">. &#39;</span><span class="p">,</span>
                 <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
                 <span class="n">sample</span><span class="o">=</span><span class="n">sample</span><span class="p">,</span>
                 <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="n">available</span><span class="p">:</span>
                 <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Plugin </span><span class="si">{plugin!r}</span><span class="s2"> does not provide sample data named </span><span class="si">{sample!r}</span><span class="s2">. Available samples include: </span><span class="si">{samples}</span><span class="s2">.&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;Plugin </span><span class="si">{plugin!r}</span><span class="s1"> does not provide sample data named </span><span class="si">{sample!r}</span><span class="s1">. Available samples include: </span><span class="si">{samples}</span><span class="s1">.&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
                     <span class="n">sample</span><span class="o">=</span><span class="n">sample</span><span class="p">,</span>
@@ -1555,7 +1555,7 @@ document.write(`
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Plugin </span><span class="si">{plugin!r}</span><span class="s2"> does not provide sample data named </span><span class="si">{sample!r}</span><span class="s2">. No plugin samples have been registered.&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;Plugin </span><span class="si">{plugin!r}</span><span class="s1"> does not provide sample data named </span><span class="si">{sample!r}</span><span class="s1">. No plugin samples have been registered.&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
                     <span class="n">sample</span><span class="o">=</span><span class="n">sample</span><span class="p">,</span>
@@ -1581,7 +1581,7 @@ document.write(`
                     <span class="p">):</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                                <span class="s2">&quot;Chosen reader </span><span class="si">{chosen_reader}</span><span class="s2"> failed to open sample. Plugin </span><span class="si">{plugin}</span><span class="s2"> declares </span><span class="si">{original_reader}</span><span class="s2"> as the reader for this sample - try calling `open_sample` with no `reader_plugin` or passing </span><span class="si">{original_reader}</span><span class="s2"> explicitly.&quot;</span><span class="p">,</span>
+                                <span class="s1">&#39;Chosen reader </span><span class="si">{chosen_reader}</span><span class="s1"> failed to open sample. Plugin </span><span class="si">{plugin}</span><span class="s1"> declares </span><span class="si">{original_reader}</span><span class="s1"> as the reader for this sample - try calling `open_sample` with no `reader_plugin` or passing </span><span class="si">{original_reader}</span><span class="s1"> explicitly.&#39;</span><span class="p">,</span>
                                 <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                 <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
                                 <span class="n">chosen_reader</span><span class="o">=</span><span class="n">reader_plugin</span><span class="p">,</span>
@@ -1766,7 +1766,7 @@ document.write(`
         <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">]</span>  <span class="c1"># PathObjects -&gt; str</span>
         <span class="n">_path</span> <span class="o">=</span> <span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="c1"># we want to display the paths nicely so make a help string here</span>
-        <span class="n">path_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">_path</span><span class="si">}</span><span class="s2">], ...]&quot;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">_path</span>
+        <span class="n">path_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;[</span><span class="si">{</span><span class="n">_path</span><span class="si">}</span><span class="s1">], ...]&#39;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">_path</span>
         <span class="n">readers</span> <span class="o">=</span> <span class="n">get_potential_readers</span><span class="p">(</span><span class="n">_path</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">readers</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">NoAvailableReaderError</span><span class="p">(</span>
@@ -1791,7 +1791,7 @@ document.write(`
                         <span class="s2">&quot;This may be because you&#39;ve switched environments, or have uninstalled the plugin without updating the reader preference. &quot;</span>
                     <span class="p">)</span>
                     <span class="o">+</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;You can remove this preference in the preference dialog, or by editing `settings.plugins.extension2reader`.&quot;</span>
+                        <span class="s1">&#39;You can remove this preference in the preference dialog, or by editing `settings.plugins.extension2reader`.&#39;</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
             <span class="p">)</span>
@@ -1823,7 +1823,7 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">MultipleReaderError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Multiple plugins found capable of reading </span><span class="si">{path_message}</span><span class="s2">. Select plugin from </span><span class="si">{plugins}</span><span class="s2"> and pass to reading function e.g. `viewer.open(..., plugin=...)`.&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;Multiple plugins found capable of reading </span><span class="si">{path_message}</span><span class="s1">. Select plugin from </span><span class="si">{plugins}</span><span class="s1"> and pass to reading function e.g. `viewer.open(..., plugin=...)`.&#39;</span><span class="p">,</span>
                     <span class="n">path_message</span><span class="o">=</span><span class="n">path_message</span><span class="p">,</span>
                     <span class="n">plugins</span><span class="o">=</span><span class="n">readers</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -1999,7 +1999,7 @@ document.write(`
             <span class="n">bad_key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;keyword argument &#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;_add_layer_from_data received an unexpected keyword argument (</span><span class="si">{bad_key}</span><span class="s2">) for layer type </span><span class="si">{layer_type}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;_add_layer_from_data received an unexpected keyword argument (</span><span class="si">{bad_key}</span><span class="s1">) for layer type </span><span class="si">{layer_type}</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">bad_key</span><span class="o">=</span><span class="n">bad_key</span><span class="p">,</span>
                     <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span><span class="p">,</span>
@@ -2031,7 +2031,7 @@ document.write(`
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">&quot;LayerData must be a 1-, 2-, or 3-tuple&quot;</span><span class="p">,</span>
+                <span class="s1">&#39;LayerData must be a 1-, 2-, or 3-tuple&#39;</span><span class="p">,</span>
                 <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="p">)</span>
@@ -2041,7 +2041,7 @@ document.write(`
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;The second item in a LayerData tuple must be a dict&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;The second item in a LayerData tuple must be a dict&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
@@ -2051,7 +2051,7 @@ document.write(`
         <span class="k">if</span> <span class="n">_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;The third item in a LayerData tuple must be one of: </span><span class="si">{layers!r}</span><span class="s2">.&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;The third item in a LayerData tuple must be one of: </span><span class="si">{layers!r}</span><span class="s1">.&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">layers</span><span class="o">=</span><span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">,</span>
                 <span class="p">)</span>
@@ -2164,7 +2164,7 @@ document.write(`
     <span class="k">if</span> <span class="ow">not</span> <span class="n">add_method</span> <span class="ow">or</span> <span class="n">layer_type</span> <span class="o">==</span> <span class="s1">&#39;layer&#39;</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">&quot;Invalid layer_type: </span><span class="si">{layer_type}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s1">&#39;Invalid layer_type: </span><span class="si">{layer_type}</span><span class="s1">&#39;</span><span class="p">,</span>
                 <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span><span class="p">,</span>
             <span class="p">)</span>

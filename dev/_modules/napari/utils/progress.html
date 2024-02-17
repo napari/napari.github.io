@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../_static/documentation_options.js?v=b5a1f6d8"></script>
+    <script src="../../../_static/documentation_options.js?v=c0f4c847"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -482,7 +482,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">napari.utils.events.event</span> <span class="kn">import</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;progress&quot;</span><span class="p">,</span> <span class="s2">&quot;progrange&quot;</span><span class="p">,</span> <span class="s2">&quot;cancelable_progress&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;progress&#39;</span><span class="p">,</span> <span class="s1">&#39;progrange&#39;</span><span class="p">,</span> <span class="s1">&#39;cancelable_progress&#39;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="progress">
@@ -567,9 +567,9 @@ document.write(`
         <span class="c1"># if the progress bar is set to disable the &#39;desc&#39; member is not set by the</span>
         <span class="c1"># tqdm super constructor, so we set it to a dummy value to avoid errors thrown below</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">disable</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">desc</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;progress&quot;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;progress&#39;</span><span class="p">))</span>
         <span class="n">progress</span><span class="o">.</span><span class="n">_all_instances</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_init</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -596,7 +596,7 @@ document.write(`
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="c1"># TODO: This could break if user is formatting their own terminal tqdm</span>
-        <span class="n">etas</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">total</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">etas</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">total</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">eta</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">etas</span><span class="p">)</span></div>
 
 

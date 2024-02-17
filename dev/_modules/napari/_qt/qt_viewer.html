@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../_static/documentation_options.js?v=b5a1f6d8"></script>
+    <script src="../../../_static/documentation_options.js?v=c0f4c847"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -560,7 +560,7 @@ document.write(`
     <span class="c1"># `[]`. This function will return None.</span>
 
     <span class="k">for</span> <span class="n">entry</span><span class="p">,</span> <span class="n">writer</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
-        <span class="n">ext_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;;&quot;</span><span class="p">),</span>
+        <span class="n">ext_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;;&#39;</span><span class="p">),</span>
         <span class="n">writers</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">selected_filter</span><span class="p">):</span>
@@ -593,24 +593,24 @@ document.write(`
         <span class="k">if</span> <span class="n">selected_layer</span><span class="o">.</span><span class="n">_type_string</span> <span class="o">==</span> <span class="s1">&#39;image&#39;</span><span class="p">:</span>
             <span class="n">ext</span> <span class="o">=</span> <span class="n">imsave_extensions</span><span class="p">()</span>
 
-            <span class="n">ext_list</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;*</span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">ext</span><span class="p">]</span>
+            <span class="n">ext_list</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;*</span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">ext</span><span class="p">]</span>
             <span class="n">ext_str</span> <span class="o">=</span> <span class="s1">&#39;;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ext_list</span><span class="p">)</span>
 
             <span class="n">ext_str</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">&quot;All Files (*);; Image file types:;;</span><span class="si">{ext_str}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s1">&#39;All Files (*);; Image file types:;;</span><span class="si">{ext_str}</span><span class="s1">&#39;</span><span class="p">,</span>
                 <span class="n">ext_str</span><span class="o">=</span><span class="n">ext_str</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">selected_layer</span><span class="o">.</span><span class="n">_type_string</span> <span class="o">==</span> <span class="s1">&#39;points&#39;</span><span class="p">:</span>
-            <span class="n">ext_str</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;All Files (*);; *.csv;;&quot;</span><span class="p">)</span>
+            <span class="n">ext_str</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;All Files (*);; *.csv;;&#39;</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># layer other than image or points</span>
-            <span class="n">ext_str</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;All Files (*);;&quot;</span><span class="p">)</span>
+            <span class="n">ext_str</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;All Files (*);;&#39;</span><span class="p">)</span>
 
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># multiple layers.</span>
-        <span class="n">ext_str</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;All Files (*);;&quot;</span><span class="p">)</span>
+        <span class="n">ext_str</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;All Files (*);;&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">ext_str</span><span class="p">,</span> <span class="p">[]</span>
 
 
@@ -754,7 +754,7 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">&quot;Access to QtViewer.view is deprecated since 0.5.0 and will be removed in the napari 0.6.0. Change to QtViewer.canvas.view instead.&quot;</span>
+                <span class="s1">&#39;Access to QtViewer.view is deprecated since 0.5.0 and will be removed in the napari 0.6.0. Change to QtViewer.canvas.view instead.&#39;</span>
             <span class="p">),</span>
             <span class="ne">FutureWarning</span><span class="p">,</span>
             <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -769,7 +769,7 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">&quot;Access to QtViewer.camera will become deprecated in the 0.6.0. Change to QtViewer.canvas.camera instead.&quot;</span>
+                <span class="s1">&#39;Access to QtViewer.camera will become deprecated in the 0.6.0. Change to QtViewer.canvas.camera instead.&#39;</span>
             <span class="p">),</span>
             <span class="ne">FutureWarning</span><span class="p">,</span>
             <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -900,12 +900,12 @@ document.write(`
 
     <span class="k">def</span> <span class="nf">_leave_canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;disable status on canvas leave&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">mouse_over_canvas</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">_enter_canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;enable status on canvas enter&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;Ready&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Ready&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">mouse_over_canvas</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">_ensure_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1045,14 +1045,14 @@ document.write(`
             <span class="kn">import</span> <span class="nn">napari</span>
 
             <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
                 <span class="n">console</span> <span class="o">=</span> <span class="n">QtConsole</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
                 <span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
                     <span class="p">{</span><span class="s1">&#39;napari&#39;</span><span class="p">:</span> <span class="n">napari</span><span class="p">,</span> <span class="s1">&#39;action_manager&#39;</span><span class="p">:</span> <span class="n">action_manager</span><span class="p">}</span>
                 <span class="p">)</span>
                 <span class="k">with</span> <span class="n">CallerFrame</span><span class="p">(</span><span class="n">_in_napari</span><span class="p">)</span> <span class="k">as</span> <span class="n">c</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;__name__&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-                        <span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">({</span><span class="s2">&quot;np&quot;</span><span class="p">:</span> <span class="n">np</span><span class="p">})</span>
+                    <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+                        <span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">({</span><span class="s1">&#39;np&#39;</span><span class="p">:</span> <span class="n">np</span><span class="p">})</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">console_backlog</span><span class="p">:</span>
                     <span class="c1"># recover weak refs</span>
                     <span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
@@ -1175,14 +1175,14 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">):</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;There are no layers in the viewer to save&quot;</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;There are no layers in the viewer to save&#39;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">selected</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="p">):</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                 <span class="s1">&#39;Please select one or more layers to save,&#39;</span>
                 <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">or use &quot;Save all layers...&quot;&#39;</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">msg</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Nothing to save&quot;</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Nothing to save&#39;</span><span class="p">))</span>
 
         <span class="c1"># prepare list of extensions for drop down menu.</span>
         <span class="n">ext_str</span><span class="p">,</span> <span class="n">writers</span> <span class="o">=</span> <span class="n">_extension_string_for_layers</span><span class="p">(</span>
@@ -1191,7 +1191,7 @@ document.write(`
             <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span>
         <span class="p">)</span>
 
-        <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;selected&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">selected</span> <span class="k">else</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;selected&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">selected</span> <span class="k">else</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
         <span class="n">dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">()</span>
         <span class="n">hist</span> <span class="o">=</span> <span class="n">get_save_history</span><span class="p">()</span>
         <span class="n">dlg</span><span class="o">.</span><span class="n">setHistory</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
@@ -1226,12 +1226,12 @@ document.write(`
                     <span class="n">filename</span><span class="p">,</span> <span class="n">selected</span><span class="o">=</span><span class="n">selected</span><span class="p">,</span> <span class="n">_writer</span><span class="o">=</span><span class="n">writer</span>
                 <span class="p">)</span>
                 <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Saved </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">saved</span><span class="p">)</span>
-                <span class="n">error_messages</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">wa</span><span class="p">)</span>
+                <span class="n">error_messages</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">wa</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">saved</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;File </span><span class="si">{filename}</span><span class="s2"> save failed.</span><span class="se">\n</span><span class="si">{error_messages}</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;File </span><span class="si">{filename}</span><span class="s1"> save failed.</span><span class="se">\n</span><span class="si">{error_messages}</span><span class="s1">&#39;</span><span class="p">,</span>
                         <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                         <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
                         <span class="n">error_messages</span><span class="o">=</span><span class="n">error_messages</span><span class="p">,</span>
@@ -1323,17 +1323,17 @@ document.write(`
         <span class="n">dlg</span><span class="o">.</span><span class="n">setHistory</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
 
         <span class="n">open_kwargs</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;parent&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="p">,</span>
-            <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
+            <span class="s1">&#39;parent&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="p">,</span>
+            <span class="s1">&#39;caption&#39;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="k">if</span> <span class="s2">&quot;pyside&quot;</span> <span class="ow">in</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s1">&#39;pyside&#39;</span> <span class="ow">in</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
             <span class="c1"># PySide6</span>
-            <span class="n">open_kwargs</span><span class="p">[</span><span class="s2">&quot;dir&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">open_kwargs</span><span class="p">[</span><span class="s1">&#39;dir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">open_kwargs</span><span class="p">[</span><span class="s2">&quot;directory&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">open_kwargs</span><span class="p">[</span><span class="s1">&#39;directory&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">in_ipython</span><span class="p">():</span>
-            <span class="n">open_kwargs</span><span class="p">[</span><span class="s2">&quot;options&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>
+            <span class="n">open_kwargs</span><span class="p">[</span><span class="s1">&#39;options&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>
 
         <span class="k">return</span> <span class="n">dlg</span><span class="o">.</span><span class="n">getOpenFileNames</span><span class="p">(</span><span class="o">**</span><span class="n">open_kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -1542,17 +1542,17 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="k">if</span> <span class="n">cb</span><span class="o">.</span><span class="n">mimeData</span><span class="p">()</span><span class="o">.</span><span class="n">hasUrls</span><span class="p">():</span>
-            <span class="n">show_info</span><span class="p">(</span><span class="s2">&quot;No image in clipboard, trying to open link instead.&quot;</span><span class="p">)</span>
+            <span class="n">show_info</span><span class="p">(</span><span class="s1">&#39;No image in clipboard, trying to open link instead.&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_open_from_list_of_urls_data</span><span class="p">(</span>
                 <span class="n">cb</span><span class="o">.</span><span class="n">mimeData</span><span class="p">()</span><span class="o">.</span><span class="n">urls</span><span class="p">(),</span> <span class="n">stack</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="o">=</span><span class="kc">False</span>
             <span class="p">)</span>
             <span class="k">return</span>
         <span class="k">if</span> <span class="n">cb</span><span class="o">.</span><span class="n">mimeData</span><span class="p">()</span><span class="o">.</span><span class="n">hasText</span><span class="p">():</span>
             <span class="n">show_info</span><span class="p">(</span>
-                <span class="s2">&quot;No image in clipboard, trying to parse text in clipboard as a link.&quot;</span>
+                <span class="s1">&#39;No image in clipboard, trying to parse text in clipboard as a link.&#39;</span>
             <span class="p">)</span>
             <span class="n">url_list</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">cb</span><span class="o">.</span><span class="n">mimeData</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">cb</span><span class="o">.</span><span class="n">mimeData</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
                 <span class="n">url</span> <span class="o">=</span> <span class="n">QUrl</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
                 <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">():</span>
                     <span class="k">continue</span>
@@ -1566,7 +1566,7 @@ document.write(`
                     <span class="n">url_list</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="o">=</span><span class="kc">False</span>
                 <span class="p">)</span>
                 <span class="k">return</span>
-        <span class="n">show_info</span><span class="p">(</span><span class="s2">&quot;No image or link in clipboard.&quot;</span><span class="p">)</span>
+        <span class="n">show_info</span><span class="p">(</span><span class="s1">&#39;No image or link in clipboard.&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="QtViewer.dropEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.dropEvent">[docs]</a>
@@ -1726,8 +1726,8 @@ document.write(`
     <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="c1"># in-n-out is used in napari for dependency injection.</span>
-    <span class="k">for</span> <span class="n">pref</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;napari.&quot;</span><span class="p">,</span> <span class="s2">&quot;in_n_out.&quot;</span><span class="p">}:</span>
-        <span class="k">if</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;__name__&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">pref</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">pref</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;napari.&#39;</span><span class="p">,</span> <span class="s1">&#39;in_n_out.&#39;</span><span class="p">}:</span>
+        <span class="k">if</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">pref</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">True</span>
     <span class="k">return</span> <span class="kc">False</span>
 </pre></div>

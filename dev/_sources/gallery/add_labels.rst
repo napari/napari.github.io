@@ -59,7 +59,7 @@ Display a labels layer above of an image layer using the ``add_labels`` and
     cleared = remove_small_objects(clear_border(bw), 20)
 
     # label image regions
-    label_image = label(cleared).astype("uint8")
+    label_image = label(cleared).astype('uint8')
 
     # initialise viewer with coins image
     viewer = napari.view_image(image, name='coins', rgb=False)

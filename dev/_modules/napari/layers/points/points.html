@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=b5a1f6d8"></script>
+    <script src="../../../../_static/documentation_options.js?v=c0f4c847"></script>
     <script src="../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -787,14 +787,14 @@ document.write(`
     <span class="n">_modeclass</span> <span class="o">=</span> <span class="n">Mode</span>
     <span class="n">_projectionclass</span> <span class="o">=</span> <span class="n">PointsProjectionMode</span>
 
-    <span class="n">_drag_modes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Mode</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="s2">&quot;Points&quot;</span><span class="p">,</span> <span class="n">Event</span><span class="p">],</span> <span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">_drag_modes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Mode</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="s1">&#39;Points&#39;</span><span class="p">,</span> <span class="n">Event</span><span class="p">],</span> <span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">transform_with_box</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">ADD</span><span class="p">:</span> <span class="n">add</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">:</span> <span class="n">select</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="n">_move_modes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Mode</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="s2">&quot;Points&quot;</span><span class="p">,</span> <span class="n">Event</span><span class="p">],</span> <span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">_move_modes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Mode</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="s1">&#39;Points&#39;</span><span class="p">,</span> <span class="n">Event</span><span class="p">],</span> <span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">highlight_box_handles</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">ADD</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
@@ -1033,30 +1033,30 @@ document.write(`
             <span class="ow">or</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-            <span class="s2">&quot;vertex_indices&quot;</span><span class="p">:</span> <span class="p">((),),</span>
-            <span class="s2">&quot;data_indices&quot;</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))),</span>
+            <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="s1">&#39;vertex_indices&#39;</span><span class="p">:</span> <span class="p">((),),</span>
+            <span class="s1">&#39;data_indices&#39;</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))),</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="n">prior_data</span> <span class="ow">and</span> <span class="n">data_not_empty</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActionType</span><span class="o">.</span><span class="n">CHANGING</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActionType</span><span class="o">.</span><span class="n">CHANGING</span>
         <span class="k">elif</span> <span class="n">data_not_empty</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActionType</span><span class="o">.</span><span class="n">ADDING</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;data_indices&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActionType</span><span class="o">.</span><span class="n">ADDING</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;data_indices&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActionType</span><span class="o">.</span><span class="n">REMOVING</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActionType</span><span class="o">.</span><span class="n">REMOVING</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;data_indices&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;data_indices&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
 
         <span class="k">if</span> <span class="n">prior_data</span> <span class="ow">and</span> <span class="n">data_not_empty</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActionType</span><span class="o">.</span><span class="n">CHANGED</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActionType</span><span class="o">.</span><span class="n">CHANGED</span>
         <span class="k">elif</span> <span class="n">data_not_empty</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;data_indices&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActionType</span><span class="o">.</span><span class="n">ADDED</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;data_indices&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActionType</span><span class="o">.</span><span class="n">ADDED</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActionType</span><span class="o">.</span><span class="n">REMOVED</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActionType</span><span class="o">.</span><span class="n">REMOVED</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]):</span>
@@ -1157,10 +1157,10 @@ document.write(`
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">set_values</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">num_data</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_color_manager</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="p">,</span> <span class="s2">&quot;face_color&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="p">,</span> <span class="s1">&#39;face_color&#39;</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_color_manager</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="p">,</span> <span class="s2">&quot;edge_color&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="p">,</span> <span class="s1">&#39;edge_color&#39;</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">properties</span><span class="p">()</span>
@@ -1366,7 +1366,7 @@ document.write(`
             <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;Size is not compatible for broadcasting&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;Size is not compatible for broadcasting&#39;</span><span class="p">,</span>
                         <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
@@ -1374,8 +1374,8 @@ document.write(`
                 <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;Since 0.4.18 point sizes must be isotropic; the average from each dimension will be&quot;</span>
-                        <span class="s2">&quot; used instead. This will become an error in version 0.6.0.&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;Since 0.4.18 point sizes must be isotropic; the average from each dimension will be&#39;</span>
+                        <span class="s1">&#39; used instead. This will become an error in version 0.6.0.&#39;</span><span class="p">,</span>
                         <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="p">),</span>
                     <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
@@ -1394,8 +1394,8 @@ document.write(`
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Since 0.4.18 point sizes must be isotropic; the average from each dimension will be used instead. &quot;</span>
-                    <span class="s2">&quot;This will become an error in version 0.6.0.&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;Since 0.4.18 point sizes must be isotropic; the average from each dimension will be used instead. &#39;</span>
+                    <span class="s1">&#39;This will become an error in version 0.6.0.&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
@@ -2801,7 +2801,7 @@ document.write(`
             <span class="n">world</span><span class="o">=</span><span class="n">world</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">properties</span><span class="p">:</span>
-            <span class="n">source_info</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot;; &quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+            <span class="n">source_info</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="s1">&#39;; &#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">source_info</span></div>
 
@@ -2836,7 +2836,7 @@ document.write(`
 <span class="sd">        msg : string</span>
 <span class="sd">            String containing a message that can be used as a tooltip.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">(</span>
                 <span class="n">position</span><span class="p">,</span>
                 <span class="n">view_direction</span><span class="o">=</span><span class="n">view_direction</span><span class="p">,</span>

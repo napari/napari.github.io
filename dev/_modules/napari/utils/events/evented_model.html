@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=b5a1f6d8"></script>
+    <script src="../../../../_static/documentation_options.js?v=c0f4c847"></script>
     <script src="../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -530,7 +530,7 @@ document.write(`
 <span class="sd">    - https://codereview.qt-project.org/c/pyside/pyside-setup/+/261411</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="s2">&quot;PySide2&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s1">&#39;PySide2&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
         <span class="k">yield</span>
         <span class="k">return</span>
 
@@ -586,14 +586,14 @@ document.write(`
                 <span class="bp">cls</span><span class="o">.</span><span class="n">__properties__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span>
                 <span class="c1"># determine compare operator</span>
                 <span class="k">if</span> <span class="p">(</span>
-                    <span class="nb">hasattr</span><span class="p">(</span><span class="n">attr</span><span class="o">.</span><span class="n">fget</span><span class="p">,</span> <span class="s2">&quot;__annotations__&quot;</span><span class="p">)</span>
-                    <span class="ow">and</span> <span class="s2">&quot;return&quot;</span> <span class="ow">in</span> <span class="n">attr</span><span class="o">.</span><span class="n">fget</span><span class="o">.</span><span class="vm">__annotations__</span>
+                    <span class="nb">hasattr</span><span class="p">(</span><span class="n">attr</span><span class="o">.</span><span class="n">fget</span><span class="p">,</span> <span class="s1">&#39;__annotations__&#39;</span><span class="p">)</span>
+                    <span class="ow">and</span> <span class="s1">&#39;return&#39;</span> <span class="ow">in</span> <span class="n">attr</span><span class="o">.</span><span class="n">fget</span><span class="o">.</span><span class="vm">__annotations__</span>
                     <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
-                        <span class="n">attr</span><span class="o">.</span><span class="n">fget</span><span class="o">.</span><span class="vm">__annotations__</span><span class="p">[</span><span class="s2">&quot;return&quot;</span><span class="p">],</span> <span class="nb">str</span>
+                        <span class="n">attr</span><span class="o">.</span><span class="n">fget</span><span class="o">.</span><span class="vm">__annotations__</span><span class="p">[</span><span class="s1">&#39;return&#39;</span><span class="p">],</span> <span class="nb">str</span>
                     <span class="p">)</span>
                 <span class="p">):</span>
                     <span class="bp">cls</span><span class="o">.</span><span class="n">__eq_operators__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">pick_equality_operator</span><span class="p">(</span>
-                        <span class="n">attr</span><span class="o">.</span><span class="n">fget</span><span class="o">.</span><span class="vm">__annotations__</span><span class="p">[</span><span class="s2">&quot;return&quot;</span><span class="p">]</span>
+                        <span class="n">attr</span><span class="o">.</span><span class="n">fget</span><span class="o">.</span><span class="vm">__annotations__</span><span class="p">[</span><span class="s1">&#39;return&#39;</span><span class="p">]</span>
                     <span class="p">)</span>
 
         <span class="bp">cls</span><span class="o">.</span><span class="n">__field_dependents__</span> <span class="o">=</span> <span class="n">_get_field_dependents</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
@@ -675,7 +675,7 @@ document.write(`
                 <span class="p">)</span>
             <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__fields__</span><span class="p">:</span>
-                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unrecognized field dependency: </span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unrecognized field dependency: </span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="n">deps</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">prop_name</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># if dependencies haven&#39;t been explicitly defined, we can glean</span>
@@ -706,7 +706,7 @@ document.write(`
     <span class="n">_changes_queue</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
     <span class="n">_primary_changes</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">set</span><span class="p">)</span>
     <span class="n">_delay_check_semaphore</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="vm">__slots__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;__weakref__&quot;</span><span class="p">}</span>  <span class="c1"># type: ignore</span>
+    <span class="vm">__slots__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;__weakref__&#39;</span><span class="p">}</span>  <span class="c1"># type: ignore</span>
 
     <span class="c1"># pydantic BaseModel configuration.  see:</span>
     <span class="c1"># https://pydantic-docs.helpmanual.io/usage/model_config/</span>
@@ -920,7 +920,7 @@ document.write(`
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Unsupported update from </span><span class="si">{values}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;Unsupported update from </span><span class="si">{values}</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">values</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">values</span><span class="p">),</span>
                 <span class="p">)</span>

@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../_static/documentation_options.js?v=b5a1f6d8"></script>
+    <script src="../../../_static/documentation_options.js?v=c0f4c847"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -481,7 +481,7 @@ document.write(`
 
 <span class="kn">import</span> <span class="nn">napari</span>
 
-<span class="n">OS_RELEASE_PATH</span> <span class="o">=</span> <span class="s2">&quot;/etc/os-release&quot;</span>
+<span class="n">OS_RELEASE_PATH</span> <span class="o">=</span> <span class="s1">&#39;/etc/os-release&#39;</span>
 
 
 <span class="k">def</span> <span class="nf">_linux_sys_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -493,14 +493,14 @@ document.write(`
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">OS_RELEASE_PATH</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_p</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f_p</span><span class="p">:</span>
-                <span class="n">field</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+                <span class="n">field</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
                 <span class="n">data</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;PRETTY_NAME&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;PRETTY_NAME&quot;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="s2">&quot;NAME&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s2">&quot;VERSION&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;PRETTY_NAME&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;PRETTY_NAME&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;NAME&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;VERSION&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
                 <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;VERSION&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
-            <span class="k">if</span> <span class="s2">&quot;VERSION_ID&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;VERSION_ID&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
                 <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;VERSION_ID&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
             <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> (no version)&#39;</span>
 
@@ -513,18 +513,18 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">):</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-            <span class="p">[</span><span class="s2">&quot;lsb_release&quot;</span><span class="p">,</span> <span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="s2">&quot;-r&quot;</span><span class="p">],</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">[</span><span class="s1">&#39;lsb_release&#39;</span><span class="p">,</span> <span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;-r&#39;</span><span class="p">],</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
-            <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
+            <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
             <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="n">version_str</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Description&quot;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">version_str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Release&quot;</span><span class="p">]):</span>
-            <span class="n">version_str</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Release&quot;</span><span class="p">]</span>
+        <span class="n">version_str</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">version_str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Release&#39;</span><span class="p">]):</span>
+            <span class="n">version_str</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Release&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">version_str</span>
-    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span>
 
 
 <span class="k">def</span> <span class="nf">_sys_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -532,17 +532,17 @@ document.write(`
 <span class="sd">    Discover MacOS or Linux Human readable information. For Linux provide information about distribution.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;linux&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;linux&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">_linux_sys_name</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;darwin&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;darwin&#39;</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">):</span>
                 <span class="n">res</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-                    <span class="p">[</span><span class="s2">&quot;sw_vers&quot;</span><span class="p">,</span> <span class="s2">&quot;-productVersion&quot;</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s1">&#39;sw_vers&#39;</span><span class="p">,</span> <span class="s1">&#39;-productVersion&#39;</span><span class="p">],</span>
                     <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
-                <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;MacOS </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+                <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;MacOS </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span>
 
 
 <div class="viewcode-block" id="sys_info">
@@ -557,15 +557,15 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">sys_version</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
     <span class="n">text</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;napari&lt;/b&gt;: </span><span class="si">{</span><span class="n">napari</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&lt;br&gt;&quot;</span>
-        <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;Platform&lt;/b&gt;: </span><span class="si">{</span><span class="n">platform</span><span class="o">.</span><span class="n">platform</span><span class="p">()</span><span class="si">}</span><span class="s2">&lt;br&gt;&quot;</span>
+        <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;napari&lt;/b&gt;: </span><span class="si">{</span><span class="n">napari</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+        <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;Platform&lt;/b&gt;: </span><span class="si">{</span><span class="n">platform</span><span class="o">.</span><span class="n">platform</span><span class="p">()</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
     <span class="p">)</span>
 
     <span class="n">__sys_name</span> <span class="o">=</span> <span class="n">_sys_name</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">__sys_name</span><span class="p">:</span>
-        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;System&lt;/b&gt;: </span><span class="si">{</span><span class="n">__sys_name</span><span class="si">}</span><span class="s2">&lt;br&gt;&quot;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;System&lt;/b&gt;: </span><span class="si">{</span><span class="n">__sys_name</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
 
-    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;Python&lt;/b&gt;: </span><span class="si">{</span><span class="n">sys_version</span><span class="si">}</span><span class="s2">&lt;br&gt;&quot;</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;Python&lt;/b&gt;: </span><span class="si">{</span><span class="n">sys_version</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">qtpy</span> <span class="kn">import</span> <span class="n">API_NAME</span><span class="p">,</span> <span class="n">PYQT_VERSION</span><span class="p">,</span> <span class="n">PYSIDE_VERSION</span><span class="p">,</span> <span class="n">QtCore</span>
@@ -578,12 +578,12 @@ document.write(`
             <span class="n">API_VERSION</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
         <span class="n">text</span> <span class="o">+=</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;Qt&lt;/b&gt;: </span><span class="si">{</span><span class="n">QtCore</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&lt;br&gt;&quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;</span><span class="si">{</span><span class="n">API_NAME</span><span class="si">}</span><span class="s2">&lt;/b&gt;: </span><span class="si">{</span><span class="n">API_VERSION</span><span class="si">}</span><span class="s2">&lt;br&gt;&quot;</span>
+            <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;Qt&lt;/b&gt;: </span><span class="si">{</span><span class="n">QtCore</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+            <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;</span><span class="si">{</span><span class="n">API_NAME</span><span class="si">}</span><span class="s1">&lt;/b&gt;: </span><span class="si">{</span><span class="n">API_VERSION</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
         <span class="p">)</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># noqa BLE001</span>
-        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;Qt&lt;/b&gt;: Import failed (</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">)&lt;br&gt;&quot;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;Qt&lt;/b&gt;: Import failed (</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">)&lt;br&gt;&#39;</span>
 
     <span class="n">modules</span> <span class="o">=</span> <span class="p">(</span>
         <span class="p">(</span><span class="s1">&#39;numpy&#39;</span><span class="p">,</span> <span class="s1">&#39;NumPy&#39;</span><span class="p">),</span>
@@ -601,47 +601,47 @@ document.write(`
     <span class="k">for</span> <span class="n">module</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">modules</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">loaded</span><span class="p">[</span><span class="n">module</span><span class="p">]</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&lt;/b&gt;: </span><span class="si">{</span><span class="n">loaded</span><span class="p">[</span><span class="n">module</span><span class="p">]</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&lt;br&gt;&quot;</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&lt;/b&gt;: </span><span class="si">{</span><span class="n">loaded</span><span class="p">[</span><span class="n">module</span><span class="p">]</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># noqa BLE001</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&lt;/b&gt;: Import failed (</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">)&lt;br&gt;&quot;</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&lt;/b&gt;: Import failed (</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">)&lt;br&gt;&#39;</span>
 
-    <span class="n">text</span> <span class="o">+=</span> <span class="s2">&quot;&lt;br&gt;&lt;b&gt;OpenGL:&lt;/b&gt;&lt;br&gt;&quot;</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&lt;br&gt;&lt;b&gt;OpenGL:&lt;/b&gt;&lt;br&gt;&#39;</span>
 
     <span class="k">if</span> <span class="n">loaded</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vispy&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">napari._vispy.utils.gl</span> <span class="kn">import</span> <span class="n">get_max_texture_sizes</span>
 
         <span class="n">sys_info_text</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="s1">&#39;&lt;br&gt;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                 <span class="p">[</span>
-                    <span class="n">loaded</span><span class="p">[</span><span class="s1">&#39;vispy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sys_info</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)[</span><span class="n">index</span><span class="p">]</span>
+                    <span class="n">loaded</span><span class="p">[</span><span class="s1">&#39;vispy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sys_info</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="n">index</span><span class="p">]</span>
                     <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">]</span>
                 <span class="p">]</span>
             <span class="p">)</span>
-            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;br&gt;  - &quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;br&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;br&gt;  - &#39;</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - </span><span class="si">{</span><span class="n">sys_info_text</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">max_3d_texture_size</span> <span class="o">=</span> <span class="n">get_max_texture_sizes</span><span class="p">()</span>
         <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - GL_MAX_3D_TEXTURE_SIZE: </span><span class="si">{</span><span class="n">max_3d_texture_size</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">text</span> <span class="o">+=</span> <span class="s2">&quot;  - failed to load vispy&quot;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;  - failed to load vispy&#39;</span>
 
-    <span class="n">text</span> <span class="o">+=</span> <span class="s2">&quot;&lt;br&gt;&lt;b&gt;Screens:&lt;/b&gt;&lt;br&gt;&quot;</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&lt;br&gt;&lt;b&gt;Screens:&lt;/b&gt;&lt;br&gt;&#39;</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">qtpy.QtGui</span> <span class="kn">import</span> <span class="n">QGuiApplication</span>
 
         <span class="n">screen_list</span> <span class="o">=</span> <span class="n">QGuiApplication</span><span class="o">.</span><span class="n">screens</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">screen</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">screen_list</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  - screen </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: resolution </span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">()</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span><span class="si">}</span><span class="s2">, scale </span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">devicePixelRatio</span><span class="p">()</span><span class="si">}</span><span class="s2">&lt;br&gt;&quot;</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - screen </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">: resolution </span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">()</span><span class="si">}</span><span class="s1">x</span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span><span class="si">}</span><span class="s1">, scale </span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">devicePixelRatio</span><span class="p">()</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># noqa BLE001</span>
-        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  - failed to load screen information </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - failed to load screen information </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span>
 
-    <span class="n">text</span> <span class="o">+=</span> <span class="s2">&quot;&lt;br&gt;&lt;b&gt;Settings path:&lt;/b&gt;&lt;br&gt;&quot;</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&lt;br&gt;&lt;b&gt;Settings path:&lt;/b&gt;&lt;br&gt;&#39;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
 
-        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">config_path</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - </span><span class="si">{</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">config_path</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">napari.utils._appdirs</span> <span class="kn">import</span> <span class="n">user_config_dir</span>
 
@@ -649,7 +649,7 @@ document.write(`
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">as_html</span><span class="p">:</span>
         <span class="n">text</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;b&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;/b&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;br&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;b&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;/b&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">text</span></div>
 

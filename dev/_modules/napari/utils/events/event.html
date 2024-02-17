@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=b5a1f6d8"></script>
+    <script src="../../../../_static/documentation_options.js?v=c0f4c847"></script>
     <script src="../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -580,10 +580,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@rename_argument</span><span class="p">(</span>
-        <span class="n">from_name</span><span class="o">=</span><span class="s2">&quot;type&quot;</span><span class="p">,</span>
-        <span class="n">to_name</span><span class="o">=</span><span class="s2">&quot;type_name&quot;</span><span class="p">,</span>
-        <span class="n">version</span><span class="o">=</span><span class="s2">&quot;0.6.0&quot;</span><span class="p">,</span>
-        <span class="n">since_version</span><span class="o">=</span><span class="s2">&quot;0.4.18&quot;</span><span class="p">,</span>
+        <span class="n">from_name</span><span class="o">=</span><span class="s1">&#39;type&#39;</span><span class="p">,</span>
+        <span class="n">to_name</span><span class="o">=</span><span class="s1">&#39;type_name&#39;</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.6.0&#39;</span><span class="p">,</span>
+        <span class="n">since_version</span><span class="o">=</span><span class="s1">&#39;0.4.18&#39;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">type_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">native</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
@@ -664,7 +664,7 @@ document.write(`
         <span class="n">_event_repr_depth</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">_event_repr_depth</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="k">return</span> <span class="s2">&quot;&lt;...&gt;&quot;</span>
+                <span class="k">return</span> <span class="s1">&#39;&lt;...&gt;&#39;</span>
             <span class="n">attrs</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">):</span>
@@ -676,7 +676,7 @@ document.write(`
                     <span class="k">continue</span>
                 <span class="n">attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
-                <span class="n">attrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">attr</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">attrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">=</span><span class="si">{</span><span class="n">attr</span><span class="si">!r}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">_event_repr_depth</span> <span class="o">-=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span><span class="si">}</span><span class="s1">&gt;&#39;</span>
@@ -701,7 +701,7 @@ document.write(`
 <span class="p">]</span>  <span class="c1"># dereferenced method</span>
 
 
-<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_T&quot;</span><span class="p">)</span>
+<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;_T&#39;</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_WeakCounter</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">_T</span><span class="p">]):</span>
@@ -769,7 +769,7 @@ document.write(`
 <span class="sd">        The class of events that this emitter will generate.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="nd">@rename_argument</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;type_name&quot;</span><span class="p">,</span> <span class="s2">&quot;0.6.0&quot;</span><span class="p">,</span> <span class="s2">&quot;0.4.18&quot;</span><span class="p">)</span>
+    <span class="nd">@rename_argument</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;type_name&#39;</span><span class="p">,</span> <span class="s1">&#39;0.6.0&#39;</span><span class="p">,</span> <span class="s1">&#39;0.4.18&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">source</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1124,7 +1124,7 @@ document.write(`
                     <span class="k">return</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;During bind method </span><span class="si">{callback}</span><span class="s2"> of object </span><span class="si">{obj}</span><span class="s2"> an error happen&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;During bind method </span><span class="si">{callback}</span><span class="s1"> of object </span><span class="si">{obj}</span><span class="s1"> an error happen&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
                     <span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span>
@@ -1143,7 +1143,7 @@ document.write(`
         <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">_is_pos_arg</span><span class="p">,</span> <span class="n">parameters_list</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Binning function cannot have more than one positional argument&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;Binning function cannot have more than one positional argument&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
@@ -1236,7 +1236,7 @@ document.write(`
                     <span class="k">if</span> <span class="n">cb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                                <span class="s2">&quot;Problem with function </span><span class="si">{old_cb}</span><span class="s2"> of </span><span class="si">{obj}</span><span class="s2"> connected to event </span><span class="si">{self_}</span><span class="s2">&quot;</span><span class="p">,</span>
+                                <span class="s1">&#39;Problem with function </span><span class="si">{old_cb}</span><span class="s1"> of </span><span class="si">{obj}</span><span class="s1"> connected to event </span><span class="si">{self_}</span><span class="s1">&#39;</span><span class="p">,</span>
                                 <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                 <span class="n">old_cb</span><span class="o">=</span><span class="n">old_cb</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
                                 <span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span>
@@ -1265,7 +1265,7 @@ document.write(`
             <span class="k">if</span> <span class="n">ps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;Event source-stack mismatch.&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;Event source-stack mismatch.&#39;</span><span class="p">,</span>
                         <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
@@ -1312,7 +1312,7 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Event emitters can be called with an Event instance or with keyword arguments only.&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;Event emitters can be called with an Event instance or with keyword arguments only.&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
@@ -1352,7 +1352,7 @@ document.write(`
         <span class="k">if</span> <span class="n">callback</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blocked</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blocked</span><span class="p">[</span><span class="n">callback</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Cannot unblock </span><span class="si">{self_}</span><span class="s2"> for callback </span><span class="si">{callback}</span><span class="s2">; emitter was not previously blocked.&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;Cannot unblock </span><span class="si">{self_}</span><span class="s1"> for callback </span><span class="si">{callback}</span><span class="s1">; emitter was not previously blocked.&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">self_</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
                     <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
@@ -1474,7 +1474,7 @@ document.write(`
         <span class="n">EventEmitter</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">auto_connect</span> <span class="o">=</span> <span class="n">auto_connect</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">auto_connect_format</span> <span class="o">=</span> <span class="s2">&quot;on_</span><span class="si">%s</span><span class="s2">&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auto_connect_format</span> <span class="o">=</span> <span class="s1">&#39;on_</span><span class="si">%s</span><span class="s1">&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_emitters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">EventEmitter</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># whether the sub-emitters have been connected to the group:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_emitters_connected</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1776,7 +1776,7 @@ document.write(`
 
 
 
-<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;NAPARI_DEBUG_EVENTS&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;true&#39;</span><span class="p">):</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NAPARI_DEBUG_EVENTS&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;true&#39;</span><span class="p">):</span>
     <span class="n">set_event_tracing_enabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 

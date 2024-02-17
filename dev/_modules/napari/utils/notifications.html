@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../_static/documentation_options.js?v=b5a1f6d8"></script>
+    <script src="../../../_static/documentation_options.js?v=c0f4c847"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -533,11 +533,11 @@ document.write(`
 
     <span class="k">def</span> <span class="nf">as_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ERROR</span><span class="p">:</span> <span class="s2">&quot;ⓧ&quot;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">WARNING</span><span class="p">:</span> <span class="s2">&quot;⚠️&quot;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">INFO</span><span class="p">:</span> <span class="s2">&quot;ⓘ&quot;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span> <span class="s2">&quot;🐛&quot;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">NONE</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ERROR</span><span class="p">:</span> <span class="s1">&#39;ⓧ&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">WARNING</span><span class="p">:</span> <span class="s1">&#39;⚠️&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">INFO</span><span class="p">:</span> <span class="s1">&#39;ⓘ&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span> <span class="s1">&#39;🐛&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">NONE</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
         <span class="p">}[</span><span class="bp">self</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
@@ -655,7 +655,7 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="o">.</span><span class="n">__traceback__</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">fmt</span><span class="p">(</span><span class="n">exc_info</span><span class="p">,</span> <span class="n">as_html</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;NoColor&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fmt</span><span class="p">(</span><span class="n">exc_info</span><span class="p">,</span> <span class="n">as_html</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;NoColor&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">napari.utils._tracebacks</span> <span class="kn">import</span> <span class="n">get_tb_formatter</span>
@@ -724,7 +724,7 @@ document.write(`
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Notification</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_error</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NAPARI_EXIT_ON_ERROR&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">catch_error</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;NAPARI_CATCH_ERRORS&quot;</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">catch_error</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NAPARI_CATCH_ERRORS&#39;</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span>
             <span class="s1">&#39;0&#39;</span><span class="p">,</span>
             <span class="s1">&#39;False&#39;</span><span class="p">,</span>
         <span class="p">)</span>
@@ -804,13 +804,13 @@ document.write(`
         <span class="n">thread</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="ne">KeyboardInterrupt</span><span class="p">):</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Closed by KeyboardInterrupt&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Closed by KeyboardInterrupt&#39;</span><span class="p">)</span>
 
         <span class="n">capture_exception</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_error</span><span class="p">:</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">__excepthook__</span><span class="p">(</span><span class="n">exctype</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Exit on error&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Exit on error&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">catch_error</span><span class="p">:</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">__excepthook__</span><span class="p">(</span><span class="n">exctype</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">)</span>
             <span class="k">return</span>
@@ -909,9 +909,9 @@ document.write(`
         <span class="nb">print</span><span class="p">(</span><span class="n">notification</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span>
-            <span class="s2">&quot;An error occurred while trying to format an error and show it in console.</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;You can try to uninstall IPython to disable rich traceback formatting</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;And/or report a bug to napari&quot;</span>
+            <span class="s1">&#39;An error occurred while trying to format an error and show it in console.</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="s1">&#39;You can try to uninstall IPython to disable rich traceback formatting</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="s1">&#39;And/or report a bug to napari&#39;</span>
         <span class="p">)</span>
         <span class="c1"># this will likely get silenced by QT.</span>
         <span class="k">raise</span></div>

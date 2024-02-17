@@ -72,16 +72,16 @@ current dims point (`viewer.dims.point`).
     from napari.utils.events.event import WarningEmitter
     from napari.utils.notifications import show_info
 
-    NAPARI_GE_4_16 = parse_version(napari.__version__) > parse_version("0.4.16")
+    NAPARI_GE_4_16 = parse_version(napari.__version__) > parse_version('0.4.16')
 
 
-    def copy_layer_le_4_16(layer: Layer, name: str = ""):
+    def copy_layer_le_4_16(layer: Layer, name: str = ''):
         res_layer = deepcopy(layer)
         # this deepcopy is not optimal for labels and images layers
         if isinstance(layer, (Image, Labels)):
             res_layer.data = layer.data
 
-        res_layer.metadata["viewer_name"] = name
+        res_layer.metadata['viewer_name'] = name
 
         res_layer.events.disconnect()
         res_layer.events.source = res_layer
@@ -91,12 +91,12 @@ current dims point (`viewer.dims.point`).
         return res_layer
 
 
-    def copy_layer(layer: Layer, name: str = ""):
+    def copy_layer(layer: Layer, name: str = ''):
         if not NAPARI_GE_4_16:
             return copy_layer_le_4_16(layer, name)
 
         res_layer = Layer.create(*layer.as_layer_data_tuple())
-        res_layer.metadata["viewer_name"] = name
+        res_layer.metadata['viewer_name'] = name
         return res_layer
 
 
@@ -106,7 +106,7 @@ current dims point (`viewer.dims.point`).
         for event_name, event_emitter in layer.events.emitters.items():
             if isinstance(event_emitter, WarningEmitter):
                 continue
-            if event_name in ("thumbnail", "name"):
+            if event_name in ('thumbnail', 'name'):
                 continue
             if (
                 isinstance(getattr(klass, event_name, None), property)
@@ -121,10 +121,10 @@ current dims point (`viewer.dims.point`).
     ):
         """move the cross to the mouse position"""
 
-        if not getattr(viewer_model, "mouse_over_canvas", True):
+        if not getattr(viewer_model, 'mouse_over_canvas', True):
             # There is no way for napari 0.4.15 to check if mouse is over sending canvas.
             show_info(
-                "Mouse is not over the canvas. You may need to click on the canvas."
+                'Mouse is not over the canvas. You may need to click on the canvas.'
             )
             return
 
@@ -200,7 +200,7 @@ current dims point (`viewer.dims.point`).
         """
 
         def __init__(self, viewer: napari.Viewer) -> None:
-            super().__init__("Add cross layer")
+            super().__init__('Add cross layer')
             self.viewer = viewer
             self.setChecked(False)
             self.stateChanged.connect(self._update_cross_visibility)
@@ -243,7 +243,7 @@ current dims point (`viewer.dims.point`).
         def _update_ndim(self, event):
             if self.layer in self.viewer.layers:
                 self.viewer.layers.remove(self.layer)
-            self.layer = Vectors(name=".cross", ndim=event.value)
+            self.layer = Vectors(name='.cross', ndim=event.value)
             self.layer.edge_width = 1.5
             self.update_cross()
 
@@ -283,7 +283,7 @@ current dims point (`viewer.dims.point`).
 
         def __init__(self) -> None:
             super().__init__()
-            self.btn = QPushButton("Perform action")
+            self.btn = QPushButton('Perform action')
             self.spin = QDoubleSpinBox()
             layout = QVBoxLayout()
             layout.addWidget(self.spin)
@@ -298,16 +298,16 @@ current dims point (`viewer.dims.point`).
         def __init__(self, viewer: napari.Viewer) -> None:
             super().__init__()
             self.viewer = viewer
-            self.viewer_model1 = ViewerModel(title="model1")
-            self.viewer_model2 = ViewerModel(title="model2")
+            self.viewer_model1 = ViewerModel(title='model1')
+            self.viewer_model2 = ViewerModel(title='model2')
             self._block = False
             self.qt_viewer1 = QtViewerWrap(viewer, self.viewer_model1)
             self.qt_viewer2 = QtViewerWrap(viewer, self.viewer_model2)
             self.tab_widget = QTabWidget()
             w1 = ExampleWidget()
             w2 = ExampleWidget()
-            self.tab_widget.addTab(w1, "Sample 1")
-            self.tab_widget.addTab(w2, "Sample 2")
+            self.tab_widget.addTab(w1, 'Sample 1')
+            self.tab_widget.addTab(w2, 'Sample 2')
             viewer_splitter = QSplitter()
             viewer_splitter.setOrientation(Qt.Vertical)
             viewer_splitter.addWidget(self.qt_viewer1)
@@ -381,10 +381,10 @@ current dims point (`viewer.dims.point`).
         def _layer_added(self, event):
             """add layer to additional viewers and connect all required events"""
             self.viewer_model1.layers.insert(
-                event.index, copy_layer(event.value, "model1")
+                event.index, copy_layer(event.value, 'model1')
             )
             self.viewer_model2.layers.insert(
-                event.index, copy_layer(event.value, "model2")
+                event.index, copy_layer(event.value, 'model2')
             )
             for name in get_property_names(event.value):
                 getattr(event.value.events, name).connect(
@@ -399,7 +399,7 @@ current dims point (`viewer.dims.point`).
                 self.viewer_model2.layers[
                     event.value.name
                 ].events.set_data.connect(self._set_data_refresh)
-            if event.value.name != ".cross":
+            if event.value.name != '.cross':
                 self.viewer_model1.layers[event.value.name].events.data.connect(
                     self._sync_data
                 )
@@ -482,7 +482,7 @@ current dims point (`viewer.dims.point`).
                 self._block = False
 
 
-    if __name__ == "__main__":
+    if __name__ == '__main__':
         from qtpy import QtCore, QtWidgets
         QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_ShareOpenGLContexts)
         # above two lines are needed to allow to undock the widget with
@@ -491,8 +491,8 @@ current dims point (`viewer.dims.point`).
         dock_widget = MultipleViewerWidget(view)
         cross = CrossWidget(view)
 
-        view.window.add_dock_widget(dock_widget, name="Sample")
-        view.window.add_dock_widget(cross, name="Cross", area="left")
+        view.window.add_dock_widget(dock_widget, name='Sample')
+        view.window.add_dock_widget(cross, name='Cross', area='left')
 
         view.open_sample('napari', 'cells3d')
 

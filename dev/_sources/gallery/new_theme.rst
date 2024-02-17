@@ -64,7 +64,7 @@ Displays an image and sets the theme to new custom theme.
     print('Originally themes', available_themes())
 
     blue_theme = get_theme('dark')
-    blue_theme.id = "blue"
+    blue_theme.id = 'blue'
     blue_theme.icon = (
         'rgb(0, 255, 255)'  # you can provide colors as rgb(XXX, YYY, ZZZ)
     )
@@ -74,7 +74,7 @@ Displays an image and sets the theme to new custom theme.
     blue_theme.current = 'orange'  # or as color name
     blue_theme.font_size = '10pt'  # you can provide a font size in points (pt) for the application
 
-    register_theme('blue', blue_theme, "custom")
+    register_theme('blue', blue_theme, 'custom')
 
     # List themes
     print('New themes', available_themes())

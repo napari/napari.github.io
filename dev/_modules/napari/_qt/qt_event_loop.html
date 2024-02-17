@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../_static/documentation_options.js?v=b5a1f6d8"></script>
+    <script src="../../../_static/documentation_options.js?v=c0f4c847"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -515,7 +515,7 @@ document.write(`
 
 
 <span class="k">def</span> <span class="nf">set_app_id</span><span class="p">(</span><span class="n">app_id</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;nt&quot;</span> <span class="ow">and</span> <span class="n">app_id</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">&#39;frozen&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span> <span class="ow">and</span> <span class="n">app_id</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">&#39;frozen&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">ctypes</span>
 
         <span class="n">ctypes</span><span class="o">.</span><span class="n">windll</span><span class="o">.</span><span class="n">shell32</span><span class="o">.</span><span class="n">SetCurrentProcessExplicitAppUserModelID</span><span class="p">(</span><span class="n">app_id</span><span class="p">)</span>
@@ -533,7 +533,7 @@ document.write(`
 
 <span class="c1"># store reference to QApplication to prevent garbage collection</span>
 <span class="n">_app_ref</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">_IPYTHON_WAS_HERE_FIRST</span> <span class="o">=</span> <span class="s2">&quot;IPython&quot;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
+<span class="n">_IPYTHON_WAS_HERE_FIRST</span> <span class="o">=</span> <span class="s1">&#39;IPython&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
 
 
 <div class="viewcode-block" id="get_app">
@@ -595,7 +595,7 @@ document.write(`
 
     <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">app</span><span class="p">:</span>
-        <span class="n">set_values</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="s2">&quot;ipy_interactive&quot;</span><span class="p">)</span>
+        <span class="n">set_values</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="s1">&#39;ipy_interactive&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">set_values</span><span class="p">:</span>
             <span class="n">warn</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
@@ -608,7 +608,7 @@ document.write(`
         <span class="k">if</span> <span class="n">perf_config</span> <span class="ow">and</span> <span class="n">perf_config</span><span class="o">.</span><span class="n">trace_qt_events</span><span class="p">:</span>
             <span class="n">warn</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Using NAPARI_PERFMON with an already-running QtApp (--gui qt?) is not supported.&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;Using NAPARI_PERFMON with an already-running QtApp (--gui qt?) is not supported.&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -630,11 +630,11 @@ document.write(`
             <span class="p">)</span>
 
         <span class="n">argv</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;darwin&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;napari&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;darwin&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;napari&#39;</span><span class="p">):</span>
             <span class="c1"># Make sure the app name in the Application menu is `napari`</span>
             <span class="c1"># which is taken from the basename of sys.argv[0]; we use</span>
             <span class="c1"># a copy so the original value is still available at sys.argv</span>
-            <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;napari&quot;</span>
+            <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span>
 
         <span class="k">if</span> <span class="n">perf_config</span> <span class="ow">and</span> <span class="n">perf_config</span><span class="o">.</span><span class="n">trace_qt_events</span><span class="p">:</span>
             <span class="kn">from</span> <span class="nn">napari._qt.perf.qt_event_tracing</span> <span class="kn">import</span> <span class="p">(</span>
@@ -794,7 +794,7 @@ document.write(`
 <span class="sd">    at the prompt.  So it will likely &quot;appear&quot; like there is no event loop</span>
 <span class="sd">    running, but we still don&#39;t need to start one.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">ipy_module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;IPython&quot;</span><span class="p">)</span>
+    <span class="n">ipy_module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;IPython&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">ipy_module</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
 
@@ -819,7 +819,7 @@ document.write(`
 
 <span class="k">def</span> <span class="nf">_try_enable_ipython_gui</span><span class="p">(</span><span class="n">gui</span><span class="o">=</span><span class="s1">&#39;qt&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Start %gui qt the eventloop.&quot;&quot;&quot;</span>
-    <span class="n">ipy_module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;IPython&quot;</span><span class="p">)</span>
+    <span class="n">ipy_module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;IPython&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">ipy_module</span><span class="p">:</span>
         <span class="k">return</span>
 
@@ -882,7 +882,7 @@ document.write(`
     <span class="k">if</span> <span class="ow">not</span> <span class="n">app</span><span class="o">.</span><span class="n">topLevelWidgets</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
         <span class="n">warn</span><span class="p">(</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">&quot;Refusing to run a QApplication with no topLevelWidgets. To run the app anyway, use `</span><span class="si">{_func_name}</span><span class="s2">(force=True)`&quot;</span><span class="p">,</span>
+                <span class="s1">&#39;Refusing to run a QApplication with no topLevelWidgets. To run the app anyway, use `</span><span class="si">{_func_name}</span><span class="s1">(force=True)`&#39;</span><span class="p">,</span>
                 <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">_func_name</span><span class="o">=</span><span class="n">_func_name</span><span class="p">,</span>
             <span class="p">),</span>
@@ -894,8 +894,8 @@ document.write(`
         <span class="n">loops</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">thread</span><span class="p">()</span><span class="o">.</span><span class="n">loopLevel</span><span class="p">()</span>
         <span class="n">warn</span><span class="p">(</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_n</span><span class="p">(</span>
-                <span class="s2">&quot;A QApplication is already running with 1 event loop. To enter *another* event loop, use `</span><span class="si">{_func_name}</span><span class="s2">(max_loop_level=</span><span class="si">{max_loop_level}</span><span class="s2">)`&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;A QApplication is already running with </span><span class="si">{n}</span><span class="s2"> event loops. To enter *another* event loop, use `</span><span class="si">{_func_name}</span><span class="s2">(max_loop_level=</span><span class="si">{max_loop_level}</span><span class="s2">)`&quot;</span><span class="p">,</span>
+                <span class="s1">&#39;A QApplication is already running with 1 event loop. To enter *another* event loop, use `</span><span class="si">{_func_name}</span><span class="s1">(max_loop_level=</span><span class="si">{max_loop_level}</span><span class="s1">)`&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;A QApplication is already running with </span><span class="si">{n}</span><span class="s1"> event loops. To enter *another* event loop, use `</span><span class="si">{_func_name}</span><span class="s1">(max_loop_level=</span><span class="si">{max_loop_level}</span><span class="s1">)`&#39;</span><span class="p">,</span>
                 <span class="n">n</span><span class="o">=</span><span class="n">loops</span><span class="p">,</span>
                 <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">_func_name</span><span class="o">=</span><span class="n">_func_name</span><span class="p">,</span>

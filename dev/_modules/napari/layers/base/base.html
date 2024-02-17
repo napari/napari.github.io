@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=b5a1f6d8"></script>
+    <script src="../../../../_static/documentation_options.js?v=c0f4c847"></script>
     <script src="../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -555,7 +555,7 @@ document.write(`
     <span class="kn">from</span> <span class="nn">napari.layers._source</span> <span class="kn">import</span> <span class="n">Source</span>
 
 
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;napari.layers.base.base&quot;</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;napari.layers.base.base&#39;</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">no_op</span><span class="p">(</span><span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -912,7 +912,7 @@ document.write(`
             <span class="n">help</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">interactive</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;layer.events.interactive is deprecated since 0.4.18 and will be removed in 0.6.0. Please use layer.events.mouse_pan and layer.events.mouse_zoom&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;layer.events.interactive is deprecated since 0.4.18 and will be removed in 0.6.0. Please use layer.events.mouse_pan and layer.events.mouse_zoom&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="n">type_name</span><span class="o">=</span><span class="s1">&#39;interactive&#39;</span><span class="p">,</span>
@@ -953,7 +953,7 @@ document.write(`
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="bp">cls</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> layer </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> at </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> layer </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">!r}</span><span class="s1"> at </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span><span class="si">}</span><span class="s1">&gt;&#39;</span>
 
     <span class="k">def</span> <span class="nf">_mode_setter_helper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode_in</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Mode</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">StringEnum</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -991,7 +991,7 @@ document.write(`
         <span class="k">if</span> <span class="n">mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Mode not recognized: </span><span class="si">{mode}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span>
+                    <span class="s1">&#39;Mode not recognized: </span><span class="si">{mode}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span>
                 <span class="p">)</span>
             <span class="p">)</span>
 
@@ -1546,7 +1546,7 @@ document.write(`
     <span class="k">def</span> <span class="nf">interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">&quot;Layer.interactive is deprecated since napari 0.4.18 and will be removed in 0.6.0. Please use Layer.mouse_pan and Layer.mouse_zoom instead&quot;</span>
+                <span class="s1">&#39;Layer.interactive is deprecated since napari 0.4.18 and will be removed in 0.6.0. Please use Layer.mouse_pan and Layer.mouse_zoom instead&#39;</span>
             <span class="p">),</span>
             <span class="ne">FutureWarning</span><span class="p">,</span>
             <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -1557,7 +1557,7 @@ document.write(`
     <span class="k">def</span> <span class="nf">interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">&quot;Layer.interactive is deprecated since napari 0.4.18 and will be removed in 0.6.0. Please use Layer.mouse_pan and Layer.mouse_zoom instead&quot;</span>
+                <span class="s1">&#39;Layer.interactive is deprecated since napari 0.4.18 and will be removed in 0.6.0. Please use Layer.mouse_pan and Layer.mouse_zoom instead&#39;</span>
             <span class="p">),</span>
             <span class="ne">FutureWarning</span><span class="p">,</span>
             <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -2569,7 +2569,7 @@ document.write(`
 <span class="sd">        msg : string</span>
 <span class="sd">            String containing a message that can be used as a tooltip.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span>
 
 <div class="viewcode-block" id="Layer.save">
 <a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.save">[docs]</a>
@@ -2699,7 +2699,7 @@ document.write(`
             <span class="n">bad_key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;keyword argument &#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;_add_layer_from_data received an unexpected keyword argument (</span><span class="si">{bad_key}</span><span class="s2">) for layer type </span><span class="si">{layer_type}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;_add_layer_from_data received an unexpected keyword argument (</span><span class="si">{bad_key}</span><span class="s1">) for layer type </span><span class="si">{layer_type}</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">bad_key</span><span class="o">=</span><span class="n">bad_key</span><span class="p">,</span>
                     <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span><span class="p">,</span>

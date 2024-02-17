@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../../_static/documentation_options.js?v=b5a1f6d8"></script>
+    <script src="../../../../../_static/documentation_options.js?v=c0f4c847"></script>
     <script src="../../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -505,7 +505,7 @@ document.write(`
 <span class="n">NestedIndex</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Index</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
 <span class="n">MaybeNestedIndex</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Index</span><span class="p">,</span> <span class="n">NestedIndex</span><span class="p">]</span>
 <span class="n">ParentIndex</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s1">&#39;ParentIndex&#39;</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span>
-<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_T&quot;</span><span class="p">)</span>
+<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;_T&#39;</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">ensure_tuple_index</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="n">MaybeNestedIndex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NestedIndex</span><span class="p">:</span>
@@ -533,7 +533,7 @@ document.write(`
 
     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
         <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-            <span class="s2">&quot;Invalid nested index: </span><span class="si">{index}</span><span class="s2">. Must be an int or tuple&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;Invalid nested index: </span><span class="si">{index}</span><span class="s1">. Must be an int or tuple&#39;</span><span class="p">,</span>
             <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
         <span class="p">)</span>
@@ -798,7 +798,7 @@ document.write(`
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dest_i</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Destination index may not be a slice&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;Destination index may not be a slice&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
@@ -816,7 +816,7 @@ document.write(`
             <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="p">():</span>
                 <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;Group cannot move itself&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;Group cannot move itself&#39;</span><span class="p">,</span>
                         <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
@@ -840,7 +840,7 @@ document.write(`
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">src_i</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;Terminal source index may not be a slice&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;Terminal source index may not be a slice&#39;</span><span class="p">,</span>
                         <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
@@ -893,7 +893,7 @@ document.write(`
 <span class="sd">            object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s2">&quot;move(src_index=</span><span class="si">%s</span><span class="s2">, dest_index=</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;move(src_index=</span><span class="si">%s</span><span class="s1">, dest_index=</span><span class="si">%s</span><span class="s1">)&#39;</span><span class="p">,</span>
             <span class="n">src_index</span><span class="p">,</span>
             <span class="n">dest_index</span><span class="p">,</span>
         <span class="p">)</span>
@@ -905,7 +905,7 @@ document.write(`
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">src_i</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Terminal source index may not be a slice&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;Terminal source index may not be a slice&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
@@ -913,7 +913,7 @@ document.write(`
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dest_i</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Destination index may not be a slice&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;Destination index may not be a slice&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
@@ -921,7 +921,7 @@ document.write(`
         <span class="k">if</span> <span class="n">src_i</span> <span class="o">==</span> <span class="p">():</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Group cannot move itself&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;Group cannot move itself&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
@@ -984,7 +984,7 @@ document.write(`
                 <span class="k">return</span> <span class="kc">False</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Not supported index type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Not supported index type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

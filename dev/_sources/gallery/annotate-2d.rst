@@ -59,7 +59,7 @@ Display one points layer ontop of one image layer using the ``add_points`` and
 
     import napari
 
-    print("click to add points; close the window when finished.")
+    print('click to add points; close the window when finished.')
 
     viewer = napari.view_image(data.astronaut(), rgb=True)
     points = viewer.add_points(np.zeros((0, 2)))
@@ -68,7 +68,7 @@ Display one points layer ontop of one image layer using the ``add_points`` and
     if __name__ == '__main__':
         napari.run()
 
-        print("you clicked on:")
+        print('you clicked on:')
         print(points.data)
 
 

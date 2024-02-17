@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../_static/documentation_options.js?v=b5a1f6d8"></script>
+    <script src="../../../_static/documentation_options.js?v=c0f4c847"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -690,7 +690,7 @@ document.write(`
             <span class="c1"># https://doc-snapshots.qt.io/qt6-dev/qmouseevent-obsolete.html#globalPos</span>
             <span class="n">pnt</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="n">e</span><span class="o">.</span><span class="n">globalPosition</span><span class="p">()</span><span class="o">.</span><span class="n">toPoint</span><span class="p">()</span>
-                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s2">&quot;globalPosition&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s1">&#39;globalPosition&#39;</span><span class="p">)</span>
                 <span class="k">else</span> <span class="n">e</span><span class="o">.</span><span class="n">globalPos</span><span class="p">()</span>
             <span class="p">)</span>
             <span class="n">QToolTip</span><span class="o">.</span><span class="n">showText</span><span class="p">(</span><span class="n">pnt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
@@ -904,7 +904,7 @@ document.write(`
 
     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quit_app</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">confirm_need</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Override to handle closing app or just the window.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">status_throttler</span><span class="p">,</span> <span class="s2">&quot;_timer&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">status_throttler</span><span class="p">,</span> <span class="s1">&#39;_timer&#39;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">status_throttler</span><span class="o">.</span><span class="n">_timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">quit_app</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -941,7 +941,7 @@ document.write(`
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-                <span class="n">parent</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="s2">&quot;_parent&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="n">parent</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="s1">&#39;_parent&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -958,7 +958,7 @@ document.write(`
             <span class="c1"># of times which makes it hard to track the original size before</span>
             <span class="c1"># maximization.</span>
             <span class="n">condition</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">isMaximized</span><span class="p">()</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;nt&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">isFullScreen</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">isMaximized</span><span class="p">()</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">isFullScreen</span><span class="p">()</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="n">condition</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_old_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_positions</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_positions</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -1516,7 +1516,7 @@ document.write(`
             <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
                 <span class="n">name</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">&quot;Dock widget </span><span class="si">{number}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s1">&#39;Dock widget </span><span class="si">{number}</span><span class="s1">&#39;</span><span class="p">,</span>
                 <span class="n">number</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_unnamed_dockwidget_count</span><span class="p">,</span>
             <span class="p">)</span>
 
@@ -1614,7 +1614,7 @@ document.write(`
             <span class="kn">import</span> <span class="nn">warnings</span>
 
             <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">)</span>
                 <span class="c1"># deprecating with 0.4.8, but let&#39;s try to keep compatibility.</span>
                 <span class="n">shortcut</span> <span class="o">=</span> <span class="n">dock_widget</span><span class="o">.</span><span class="n">shortcut</span>
             <span class="k">if</span> <span class="n">shortcut</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1664,7 +1664,7 @@ document.write(`
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;Could not find a dock widget containing: </span><span class="si">{widget}</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;Could not find a dock widget containing: </span><span class="si">{widget}</span><span class="s1">&#39;</span><span class="p">,</span>
                         <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                         <span class="n">widget</span><span class="o">=</span><span class="n">widget</span><span class="p">,</span>
                     <span class="p">)</span>
@@ -1733,7 +1733,7 @@ document.write(`
         <span class="k">if</span> <span class="n">magic_kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">magic_kwargs</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s1">&#39;auto_call&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="s1">&#39;call_button&#39;</span><span class="p">:</span> <span class="s2">&quot;run&quot;</span><span class="p">,</span>
+                <span class="s1">&#39;call_button&#39;</span><span class="p">:</span> <span class="s1">&#39;run&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;layout&#39;</span><span class="p">:</span> <span class="s1">&#39;vertical&#39;</span><span class="p">,</span>
             <span class="p">}</span>
 
@@ -1830,7 +1830,7 @@ document.write(`
         <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;This viewer has already been closed and deleted. Please create a new one.&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;This viewer has already been closed and deleted. Please create a new one.&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
@@ -1842,7 +1842,7 @@ document.write(`
             <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;This viewer has already been closed and deleted. Please create a new one.&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;This viewer has already been closed and deleted. Please create a new one.&#39;</span><span class="p">,</span>
                         <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
@@ -1857,7 +1857,7 @@ document.write(`
 
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;The window geometry settings could not be loaded due to the following error: </span><span class="si">{err}</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;The window geometry settings could not be loaded due to the following error: </span><span class="si">{err}</span><span class="s1">&#39;</span><span class="p">,</span>
                         <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                         <span class="n">err</span><span class="o">=</span><span class="n">err</span><span class="p">,</span>
                     <span class="p">),</span>
@@ -1897,7 +1897,7 @@ document.write(`
     <span class="k">def</span> <span class="nf">_update_theme_font_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
         <span class="n">font_size</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="n">event</span> <span class="k">else</span> <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">font_size</span>
-        <span class="n">extra_variables</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;font_size&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">font_size</span><span class="si">}</span><span class="s2">pt&quot;</span><span class="p">}</span>
+        <span class="n">extra_variables</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;font_size&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">font_size</span><span class="si">}</span><span class="s1">pt&#39;</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_theme</span><span class="p">(</span><span class="n">extra_variables</span><span class="o">=</span><span class="n">extra_variables</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_update_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra_variables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -1909,13 +1909,13 @@ document.write(`
             <span class="n">value</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="n">event</span> <span class="k">else</span> <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">theme</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">value</span>
             <span class="n">actual_theme_name</span> <span class="o">=</span> <span class="n">value</span>
-            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;system&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;system&#39;</span><span class="p">:</span>
                 <span class="c1"># system isn&#39;t a theme, so get the name</span>
                 <span class="n">actual_theme_name</span> <span class="o">=</span> <span class="n">get_system_theme</span><span class="p">()</span>
             <span class="c1"># check `font_size` value is always passed when updating style</span>
-            <span class="k">if</span> <span class="s2">&quot;font_size&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">extra_variables</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;font_size&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">extra_variables</span><span class="p">:</span>
                 <span class="n">extra_variables</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-                    <span class="p">{</span><span class="s2">&quot;font_size&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">font_size</span><span class="si">}</span><span class="s2">pt&quot;</span><span class="p">}</span>
+                    <span class="p">{</span><span class="s1">&#39;font_size&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">font_size</span><span class="si">}</span><span class="s1">pt&#39;</span><span class="p">}</span>
                 <span class="p">)</span>
             <span class="c1"># set the style sheet with the theme name and extra_variables</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span>

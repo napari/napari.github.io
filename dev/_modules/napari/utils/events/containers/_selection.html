@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../../_static/documentation_options.js?v=b5a1f6d8"></script>
+    <script src="../../../../../_static/documentation_options.js?v=c0f4c847"></script>
     <script src="../../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -482,8 +482,8 @@ document.write(`
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">napari._pydantic_compat</span> <span class="kn">import</span> <span class="n">ModelField</span>
 
-<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_T&quot;</span><span class="p">)</span>
-<span class="n">_S</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_S&quot;</span><span class="p">)</span>
+<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;_T&#39;</span><span class="p">)</span>
+<span class="n">_S</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;_S&#39;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Selection">
@@ -547,7 +547,7 @@ document.write(`
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_emit_change</span><span class="p">(</span><span class="n">added</span><span class="o">=</span><span class="n">added</span><span class="p">,</span> <span class="n">removed</span><span class="o">=</span><span class="n">removed</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="si">!r}</span><span class="s2">)&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="si">!r}</span><span class="s1">)&#39;</span>
 
     <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Make selection hashable.&quot;&quot;&quot;</span>
@@ -631,8 +631,8 @@ document.write(`
         <span class="kn">from</span> <span class="nn">napari._pydantic_compat</span> <span class="kn">import</span> <span class="n">sequence_like</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;selection&quot;</span><span class="p">,</span> <span class="p">[])</span>
-            <span class="n">current</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_current&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;selection&#39;</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_current&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Selection</span><span class="p">):</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">_set</span>
             <span class="n">current</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">_current</span>

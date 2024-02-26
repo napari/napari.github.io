@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=ec99bfa9"></script>
+    <script src="../../../../_static/documentation_options.js?v=bb5d5d2e"></script>
     <script src="../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -479,7 +479,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">contextlib</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">perf_counter_ns</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">from</span> <span class="nn">napari.utils.perf._event</span> <span class="kn">import</span> <span class="n">PerfEvent</span>
 <span class="kn">from</span> <span class="nn">napari.utils.perf._stat</span> <span class="kn">import</span> <span class="n">Stat</span>
@@ -543,13 +543,21 @@ document.write(`
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">phase</span> <span class="o">==</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span>  <span class="c1"># Complete Event</span>
             <span class="c1"># Update our self.timers (in milliseconds).</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span>
-            <span class="n">duration_ms</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">duration_ms</span>
+            <span class="n">duration_ms</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">duration_ms</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">timers</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">timers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">duration_ms</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">timers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Stat</span><span class="p">(</span><span class="n">duration_ms</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">add_instant_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">add_instant_event</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">category</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">process_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">thread_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one instant event.</span>
 
 <span class="sd">        Parameters</span>
@@ -560,7 +568,18 @@ document.write(`
 <span class="sd">            Arguments to display in the Args section of the Tracing GUI.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">now</span> <span class="o">=</span> <span class="n">perf_counter_ns</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">PerfEvent</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span>
+            <span class="n">PerfEvent</span><span class="p">(</span>
+                <span class="n">name</span><span class="p">,</span>
+                <span class="n">now</span><span class="p">,</span>
+                <span class="n">now</span><span class="p">,</span>
+                <span class="n">phase</span><span class="o">=</span><span class="s1">&#39;I&#39;</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">,</span>
+                <span class="n">process_id</span><span class="o">=</span><span class="n">process_id</span><span class="p">,</span>
+                <span class="n">thread_id</span><span class="o">=</span><span class="n">thread_id</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_counter_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one counter event.</span>
@@ -590,7 +609,7 @@ document.write(`
             <span class="p">)</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear all timers.&quot;&quot;&quot;</span>
         <span class="c1"># After the GUI displays timing information it clears the timers</span>
         <span class="c1"># so that we start accumulating fresh information.</span>
@@ -620,8 +639,12 @@ document.write(`
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">category</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">print_time</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="p">):</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">process_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">thread_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">phase</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">PerfEvent</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Time a block of code.</span>
 
 <span class="sd">    block_timer can be used when perfmon is disabled. Use perf_timer instead</span>
@@ -658,7 +681,16 @@ document.write(`
 
     <span class="c1"># Pass in start_ns for start and end, we call update_end_ns</span>
     <span class="c1"># once the block as finished.</span>
-    <span class="n">event</span> <span class="o">=</span> <span class="n">PerfEvent</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">start_ns</span><span class="p">,</span> <span class="n">start_ns</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">PerfEvent</span><span class="p">(</span>
+        <span class="n">name</span><span class="p">,</span>
+        <span class="n">start_ns</span><span class="p">,</span>
+        <span class="n">start_ns</span><span class="p">,</span>
+        <span class="n">category</span><span class="p">,</span>
+        <span class="n">process_id</span><span class="o">=</span><span class="n">process_id</span><span class="p">,</span>
+        <span class="n">thread_id</span><span class="o">=</span><span class="n">thread_id</span><span class="p">,</span>
+        <span class="n">phase</span><span class="o">=</span><span class="n">phase</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">yield</span> <span class="n">event</span>
 
     <span class="c1"># Update with the real end time.</span>
@@ -671,14 +703,21 @@ document.write(`
 
 
 
-<span class="k">def</span> <span class="nf">_create_timer</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">_create_timer</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">PerfTimers</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]:</span>
     <span class="c1"># The one global instance</span>
     <span class="n">timers</span> <span class="o">=</span> <span class="n">PerfTimers</span><span class="p">()</span>
 
     <span class="c1"># perf_timer is enabled</span>
     <span class="n">perf_timer</span> <span class="o">=</span> <span class="n">block_timer</span>
 
-    <span class="k">def</span> <span class="nf">add_instant_event</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_instant_event</span><span class="p">(</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">category</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">process_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">thread_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one instant event.</span>
 
 <span class="sd">        Parameters</span>
@@ -688,16 +727,22 @@ document.write(`
 <span class="sd">        **kwargs</span>
 <span class="sd">            Arguments to display in the Args section of the Chrome Tracing GUI.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">timers</span><span class="o">.</span><span class="n">add_instant_event</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">timers</span><span class="o">.</span><span class="n">add_instant_event</span><span class="p">(</span>
+            <span class="n">name</span><span class="p">,</span>
+            <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">,</span>
+            <span class="n">process_id</span><span class="o">=</span><span class="n">process_id</span><span class="p">,</span>
+            <span class="n">thread_id</span><span class="o">=</span><span class="n">thread_id</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">add_counter_event</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">add_counter_event</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one counter event.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        name : str</span>
 <span class="sd">            The name of this event like &quot;draw&quot;.</span>
-<span class="sd">        **kwargs : Dict[str, float]</span>
+<span class="sd">        **kwargs : float</span>
 <span class="sd">            The individual counters for this event.</span>
 
 <span class="sd">        Notes</span>
@@ -709,6 +754,8 @@ document.write(`
     <span class="k">return</span> <span class="n">timers</span><span class="p">,</span> <span class="n">perf_timer</span><span class="p">,</span> <span class="n">add_instant_event</span><span class="p">,</span> <span class="n">add_counter_event</span>
 
 
+<span class="n">timers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PerfTimers</span><span class="p">]</span>
+
 <span class="k">if</span> <span class="n">USE_PERFMON</span><span class="p">:</span>
     <span class="n">timers</span><span class="p">,</span> <span class="n">perf_timer</span><span class="p">,</span> <span class="n">add_instant_event</span><span class="p">,</span> <span class="n">add_counter_event</span> <span class="o">=</span> <span class="n">_create_timer</span><span class="p">()</span>
 
@@ -718,13 +765,20 @@ document.write(`
 
 <div class="viewcode-block" id="add_instant_event">
 <a class="viewcode-back" href="../../../../api/napari.utils.perf.html#napari.utils.perf.add_instant_event">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_instant_event</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">add_instant_event</span><span class="p">(</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">category</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">process_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">thread_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">pass</span></div>
 
 
 <div class="viewcode-block" id="add_counter_event">
 <a class="viewcode-back" href="../../../../api/napari.utils.perf.html#napari.utils.perf.add_counter_event">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_counter_event</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">add_counter_event</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">pass</span></div>
 
 
@@ -732,7 +786,16 @@ document.write(`
 <div class="viewcode-block" id="perf_timer">
 <a class="viewcode-back" href="../../../../api/napari.utils.perf.html#napari.utils.perf.perf_timer">[docs]</a>
     <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-    <span class="k">def</span> <span class="nf">perf_timer</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">category</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">perf_timer</span><span class="p">(</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">category</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">print_time</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">process_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">thread_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">phase</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
         <span class="k">yield</span></div>
 
 </pre></div>

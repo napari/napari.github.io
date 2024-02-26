@@ -78,6 +78,7 @@ napari.layers.Image
 
    .. autosummary::
    
+      ~Image.ModeCallable
       ~Image.affine
       ~Image.attenuation
       ~Image.blending

@@ -72,6 +72,7 @@ napari.layers.Layer
 
    .. autosummary::
    
+      ~Layer.ModeCallable
       ~Layer.affine
       ~Layer.blending
       ~Layer.bounding_box

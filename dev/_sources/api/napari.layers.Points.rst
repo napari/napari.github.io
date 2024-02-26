@@ -90,6 +90,7 @@ napari.layers.Points
 
    .. autosummary::
    
+      ~Points.ModeCallable
       ~Points.affine
       ~Points.antialiasing
       ~Points.blending

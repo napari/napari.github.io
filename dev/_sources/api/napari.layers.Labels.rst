@@ -102,6 +102,7 @@ napari.layers.Labels
 
    .. autosummary::
    
+      ~Labels.ModeCallable
       ~Labels.affine
       ~Labels.blending
       ~Labels.bounding_box

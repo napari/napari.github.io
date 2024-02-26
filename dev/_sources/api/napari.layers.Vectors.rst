@@ -75,6 +75,7 @@ napari.layers.Vectors
 
    .. autosummary::
    
+      ~Vectors.ModeCallable
       ~Vectors.affine
       ~Vectors.blending
       ~Vectors.bounding_box

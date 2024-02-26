@@ -78,6 +78,7 @@ napari.layers.Surface
 
    .. autosummary::
    
+      ~Surface.ModeCallable
       ~Surface.affine
       ~Surface.blending
       ~Surface.bounding_box

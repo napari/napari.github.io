@@ -72,6 +72,7 @@ napari.layers.Tracks
 
    .. autosummary::
    
+      ~Tracks.ModeCallable
       ~Tracks.affine
       ~Tracks.blending
       ~Tracks.bounding_box

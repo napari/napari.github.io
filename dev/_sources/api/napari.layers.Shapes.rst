@@ -120,6 +120,7 @@ napari.layers.Shapes
 
    .. autosummary::
    
+      ~Shapes.ModeCallable
       ~Shapes.affine
       ~Shapes.blending
       ~Shapes.bounding_box

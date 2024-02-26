@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=bb5d5d2e"></script>
+    <script src="../../../../_static/documentation_options.js?v=6a63a148"></script>
     <script src="../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -483,6 +483,7 @@ document.write(`
     <span class="n">ClassVar</span><span class="p">,</span>
     <span class="n">Dict</span><span class="p">,</span>
     <span class="n">List</span><span class="p">,</span>
+    <span class="n">Literal</span><span class="p">,</span>
     <span class="n">Optional</span><span class="p">,</span>
     <span class="n">Sequence</span><span class="p">,</span>
     <span class="n">Tuple</span><span class="p">,</span>
@@ -531,7 +532,9 @@ document.write(`
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps.standardize_color</span> <span class="kn">import</span> <span class="n">hex_to_name</span><span class="p">,</span> <span class="n">rgb_to_hex</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events.migrations</span> <span class="kn">import</span> <span class="n">deprecation_warning_event</span>
 <span class="kn">from</span> <span class="nn">napari.utils.geometry</span> <span class="kn">import</span> <span class="n">project_points_onto_plane</span><span class="p">,</span> <span class="n">rotate_points</span>
+<span class="kn">from</span> <span class="nn">napari.utils.migrations</span> <span class="kn">import</span> <span class="n">add_deprecated_property</span><span class="p">,</span> <span class="n">rename_argument</span>
 <span class="kn">from</span> <span class="nn">napari.utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_coords_status</span>
 <span class="kn">from</span> <span class="nn">napari.utils.transforms</span> <span class="kn">import</span> <span class="n">Affine</span>
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
@@ -576,18 +579,18 @@ document.write(`
 <span class="sd">        Size of the point marker in data pixels. If given as a scalar, all points are made</span>
 <span class="sd">        the same size. If given as an array, size must be the same or broadcastable</span>
 <span class="sd">        to the same shape as the data.</span>
-<span class="sd">    edge_width : float, array</span>
-<span class="sd">        Width of the symbol edge in pixels.</span>
-<span class="sd">    edge_width_is_relative : bool</span>
-<span class="sd">        If enabled, edge_width is interpreted as a fraction of the point size.</span>
-<span class="sd">    edge_color : str, array-like, dict</span>
+<span class="sd">    border_width : float, array</span>
+<span class="sd">        Width of the symbol border in pixels.</span>
+<span class="sd">    border_width_is_relative : bool</span>
+<span class="sd">        If enabled, border_width is interpreted as a fraction of the point size.</span>
+<span class="sd">    border_color : str, array-like, dict</span>
 <span class="sd">        Color of the point marker border. Numeric color values should be RGB(A).</span>
-<span class="sd">    edge_color_cycle : np.ndarray, list</span>
-<span class="sd">        Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a</span>
+<span class="sd">    border_color_cycle : np.ndarray, list</span>
+<span class="sd">        Cycle of colors (provided as string name, RGB, or RGBA) to map to border_color if a</span>
 <span class="sd">        categorical attribute is used color the vectors.</span>
-<span class="sd">    edge_colormap : str, napari.utils.Colormap</span>
-<span class="sd">        Colormap to set edge_color if a continuous attribute is used to set face_color.</span>
-<span class="sd">    edge_contrast_limits : None, (float, float)</span>
+<span class="sd">    border_colormap : str, napari.utils.Colormap</span>
+<span class="sd">        Colormap to set border_color if a continuous attribute is used to set face_color.</span>
+<span class="sd">    border_contrast_limits : None, (float, float)</span>
 <span class="sd">        clims for mapping the property to a color map. These are the min and max value</span>
 <span class="sd">        of the specified property that are mapped to 0 and 1, respectively.</span>
 <span class="sd">        The default value is None. If set the none, the clims will be set to</span>
@@ -679,18 +682,18 @@ document.write(`
 <span class="sd">        Array of symbols for each point.</span>
 <span class="sd">    size : array (N,)</span>
 <span class="sd">        Array of sizes for each point. Must have the same shape as the layer `data`.</span>
-<span class="sd">    edge_width : array (N,)</span>
-<span class="sd">        Width of the marker edges in pixels for all points</span>
-<span class="sd">    edge_width : array (N,)</span>
-<span class="sd">        Width of the marker edges for all points as a fraction of their size.</span>
-<span class="sd">    edge_color : Nx4 numpy array</span>
-<span class="sd">        Array of edge color RGBA values, one for each point.</span>
-<span class="sd">    edge_color_cycle : np.ndarray, list</span>
-<span class="sd">        Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a</span>
+<span class="sd">    border_width : array (N,)</span>
+<span class="sd">        Width of the marker borders in pixels for all points</span>
+<span class="sd">    border_width : array (N,)</span>
+<span class="sd">        Width of the marker borders for all points as a fraction of their size.</span>
+<span class="sd">    border_color : Nx4 numpy array</span>
+<span class="sd">        Array of border color RGBA values, one for each point.</span>
+<span class="sd">    border_color_cycle : np.ndarray, list</span>
+<span class="sd">        Cycle of colors (provided as string name, RGB, or RGBA) to map to border_color if a</span>
 <span class="sd">        categorical attribute is used color the vectors.</span>
-<span class="sd">    edge_colormap : str, napari.utils.Colormap</span>
-<span class="sd">        Colormap to set edge_color if a continuous attribute is used to set face_color.</span>
-<span class="sd">    edge_contrast_limits : None, (float, float)</span>
+<span class="sd">    border_colormap : str, napari.utils.Colormap</span>
+<span class="sd">        Colormap to set border_color if a continuous attribute is used to set face_color.</span>
+<span class="sd">    border_contrast_limits : None, (float, float)</span>
 <span class="sd">        clims for mapping the property to a color map. These are the min and max value</span>
 <span class="sd">        of the specified property that are mapped to 0 and 1, respectively.</span>
 <span class="sd">        The default value is None. If set the none, the clims will be set to</span>
@@ -712,14 +715,14 @@ document.write(`
 <span class="sd">    current_size : float</span>
 <span class="sd">        Size of the marker for the next point to be added or the currently</span>
 <span class="sd">        selected point.</span>
-<span class="sd">    current_edge_width : float</span>
-<span class="sd">        Edge width of the marker for the next point to be added or the currently</span>
+<span class="sd">    current_border_width : float</span>
+<span class="sd">        Border width of the marker for the next point to be added or the currently</span>
 <span class="sd">        selected point.</span>
-<span class="sd">    current_edge_color : str</span>
-<span class="sd">        Edge color of the marker edge for the next point to be added or the currently</span>
+<span class="sd">    current_border_color : str</span>
+<span class="sd">        Border color of the marker border for the next point to be added or the currently</span>
 <span class="sd">        selected point.</span>
 <span class="sd">    current_face_color : str</span>
-<span class="sd">        Face color of the marker edge for the next point to be added or the currently</span>
+<span class="sd">        Face color of the marker border for the next point to be added or the currently</span>
 <span class="sd">        selected point.</span>
 <span class="sd">    out_of_slice_display : bool</span>
 <span class="sd">        If True, renders points not just in central plane but also slightly out of slice</span>
@@ -743,8 +746,8 @@ document.write(`
 <span class="sd">        CYCLE allows the color to be set via a color cycle over an attribute</span>
 
 <span class="sd">        COLORMAP allows color to be set via a color map over an attribute</span>
-<span class="sd">    edge_color_mode : str</span>
-<span class="sd">        Edge color setting mode.</span>
+<span class="sd">    border_color_mode : str</span>
+<span class="sd">        Border color setting mode.</span>
 
 <span class="sd">        DIRECT (default mode) allows each point to be set arbitrarily</span>
 
@@ -768,8 +771,8 @@ document.write(`
 <span class="sd">        Size of the point markers in the currently viewed slice.</span>
 <span class="sd">    _view_symbol : array (M, )</span>
 <span class="sd">        Symbols of the point markers in the currently viewed slice.</span>
-<span class="sd">    _view_edge_width : array (M, )</span>
-<span class="sd">        Edge width of the point markers in the currently viewed slice.</span>
+<span class="sd">    _view_border_width : array (M, )</span>
+<span class="sd">        Border width of the point markers in the currently viewed slice.</span>
 <span class="sd">    _indices_view : array (M, )</span>
 <span class="sd">        Integer indices of the points in the currently viewed slice and are shown.</span>
 <span class="sd">    _selected_view :</span>
@@ -807,12 +810,42 @@ document.write(`
         <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="c1"># TODO  write better documentation for edge_color and face_color</span>
+    <span class="c1"># TODO  write better documentation for border_color and face_color</span>
 
     <span class="c1"># The max number of points that will ever be used to render the thumbnail</span>
     <span class="c1"># If more points are present then they are randomly subsampled</span>
     <span class="n">_max_points_thumbnail</span> <span class="o">=</span> <span class="mi">1024</span>
 
+    <span class="nd">@rename_argument</span><span class="p">(</span>
+        <span class="s1">&#39;edge_width&#39;</span><span class="p">,</span> <span class="s1">&#39;border_width&#39;</span><span class="p">,</span> <span class="n">since_version</span><span class="o">=</span><span class="s1">&#39;0.5.0&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.6.0&#39;</span>
+    <span class="p">)</span>
+    <span class="nd">@rename_argument</span><span class="p">(</span>
+        <span class="s1">&#39;edge_width_is_relative&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;border_width_is_relative&#39;</span><span class="p">,</span>
+        <span class="n">since_version</span><span class="o">=</span><span class="s1">&#39;0.5.0&#39;</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.6.0&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="nd">@rename_argument</span><span class="p">(</span>
+        <span class="s1">&#39;edge_color&#39;</span><span class="p">,</span> <span class="s1">&#39;border_color&#39;</span><span class="p">,</span> <span class="n">since_version</span><span class="o">=</span><span class="s1">&#39;0.5.0&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.6.0&#39;</span>
+    <span class="p">)</span>
+    <span class="nd">@rename_argument</span><span class="p">(</span>
+        <span class="s1">&#39;edge_color_cycle&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;border_color_cycle&#39;</span><span class="p">,</span>
+        <span class="n">since_version</span><span class="o">=</span><span class="s1">&#39;0.5.0&#39;</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.6.0&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="nd">@rename_argument</span><span class="p">(</span>
+        <span class="s1">&#39;edge_colormap&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;border_colormap&#39;</span><span class="p">,</span>
+        <span class="n">since_version</span><span class="o">=</span><span class="s1">&#39;0.5.0&#39;</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.6.0&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="nd">@rename_argument</span><span class="p">(</span>
+        <span class="s1">&#39;edge_contrast_limits&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;border_contrast_limits&#39;</span><span class="p">,</span>
+        <span class="n">since_version</span><span class="o">=</span><span class="s1">&#39;0.5.0&#39;</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.6.0&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -824,12 +857,12 @@ document.write(`
         <span class="n">text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
         <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-        <span class="n">edge_width</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
-        <span class="n">edge_width_is_relative</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;dimgray&#39;</span><span class="p">,</span>
-        <span class="n">edge_color_cycle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">edge_colormap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
-        <span class="n">edge_contrast_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">border_width</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+        <span class="n">border_width_is_relative</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">border_color</span><span class="o">=</span><span class="s1">&#39;dimgray&#39;</span><span class="p">,</span>
+        <span class="n">border_color_cycle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">border_colormap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
+        <span class="n">border_contrast_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>
         <span class="n">face_color_cycle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">face_colormap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
@@ -912,13 +945,13 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
             <span class="n">size</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">current_size</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">edge_width</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">current_edge_width</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">edge_width_is_relative</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">border_width</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">current_border_width</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">border_width_is_relative</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">face_color</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">current_face_color</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">edge_color</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">current_edge_color</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">border_color</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">current_border_color</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">properties</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">current_properties</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">symbol</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -932,6 +965,28 @@ document.write(`
             <span class="n">features</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">feature_defaults</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
+
+        <span class="n">deprecated_events</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_width&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;current_</span><span class="si">{}</span><span class="s1">_width&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_width_is_relative&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_color&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;current_</span><span class="si">{}</span><span class="s1">_color&#39;</span><span class="p">,</span>
+        <span class="p">]:</span>
+            <span class="n">old_attr</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;edge&#39;</span><span class="p">)</span>
+            <span class="n">new_attr</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;border&#39;</span><span class="p">)</span>
+            <span class="n">old_emitter</span> <span class="o">=</span> <span class="n">deprecation_warning_event</span><span class="p">(</span>
+                <span class="s1">&#39;layer.events&#39;</span><span class="p">,</span>
+                <span class="n">old_attr</span><span class="p">,</span>
+                <span class="n">new_attr</span><span class="p">,</span>
+                <span class="n">since_version</span><span class="o">=</span><span class="s1">&#39;0.5.0&#39;</span><span class="p">,</span>
+                <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.6.0&#39;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="n">new_attr</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">old_emitter</span><span class="p">)</span>
+            <span class="n">deprecated_events</span><span class="p">[</span><span class="n">old_attr</span><span class="p">]</span> <span class="o">=</span> <span class="n">old_emitter</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">**</span><span class="n">deprecated_events</span><span class="p">)</span>
 
         <span class="c1"># Save the point coordinates</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -949,7 +1004,7 @@ document.write(`
             <span class="n">features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width_is_relative</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_border_width_is_relative</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_shown</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
 
         <span class="c1"># Indices of selected points</span>
@@ -964,8 +1019,8 @@ document.write(`
         <span class="c1"># constructor so each point gets its own value then the default</span>
         <span class="c1"># value is used when adding new points</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="k">else</span> <span class="mi">10</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_current_edge_width</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">edge_width</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">edge_width</span><span class="p">)</span> <span class="k">else</span> <span class="mf">0.1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_border_width</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">border_width</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">border_width</span><span class="p">)</span> <span class="k">else</span> <span class="mf">0.1</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">current_symbol</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;o&#39;</span>
@@ -982,12 +1037,12 @@ document.write(`
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span>
             <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">currents</span><span class="p">()</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span> <span class="o">=</span> <span class="n">ColorManager</span><span class="o">.</span><span class="n">_from_layer_kwargs</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_border</span> <span class="o">=</span> <span class="n">ColorManager</span><span class="o">.</span><span class="n">_from_layer_kwargs</span><span class="p">(</span>
             <span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
-            <span class="n">colors</span><span class="o">=</span><span class="n">edge_color</span><span class="p">,</span>
-            <span class="n">continuous_colormap</span><span class="o">=</span><span class="n">edge_colormap</span><span class="p">,</span>
-            <span class="n">contrast_limits</span><span class="o">=</span><span class="n">edge_contrast_limits</span><span class="p">,</span>
-            <span class="n">categorical_colormap</span><span class="o">=</span><span class="n">edge_color_cycle</span><span class="p">,</span>
+            <span class="n">colors</span><span class="o">=</span><span class="n">border_color</span><span class="p">,</span>
+            <span class="n">continuous_colormap</span><span class="o">=</span><span class="n">border_colormap</span><span class="p">,</span>
+            <span class="n">contrast_limits</span><span class="o">=</span><span class="n">border_contrast_limits</span><span class="p">,</span>
+            <span class="n">categorical_colormap</span><span class="o">=</span><span class="n">border_color_cycle</span><span class="p">,</span>
             <span class="n">properties</span><span class="o">=</span><span class="n">color_properties</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_face</span> <span class="o">=</span> <span class="n">ColorManager</span><span class="o">.</span><span class="n">_from_layer_kwargs</span><span class="p">(</span>
@@ -1008,8 +1063,8 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">shown</span> <span class="o">=</span> <span class="n">shown</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span> <span class="o">=</span> <span class="n">edge_width</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">edge_width_is_relative</span> <span class="o">=</span> <span class="n">edge_width_is_relative</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">border_width</span> <span class="o">=</span> <span class="n">border_width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">border_width_is_relative</span> <span class="o">=</span> <span class="n">border_width_is_relative</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas_size_limits</span> <span class="o">=</span> <span class="n">canvas_size_limits</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">shading</span> <span class="o">=</span> <span class="n">shading</span>
@@ -1017,6 +1072,30 @@ document.write(`
 
         <span class="c1"># Trigger generation of view slice and thumbnail</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_add_deprecated_properties</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds deprecated properties to class.&quot;&quot;&quot;</span>
+        <span class="n">deprecated_properties</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;edge_width&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;edge_width_is_relative&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;current_edge_width&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;edge_color&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;edge_color_cycle&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;edge_colormap&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;edge_contrast_limits&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;current_edge_color&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;edge_color_mode&#39;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">old_property</span> <span class="ow">in</span> <span class="n">deprecated_properties</span><span class="p">:</span>
+            <span class="n">new_property</span> <span class="o">=</span> <span class="n">old_property</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;edge&#39;</span><span class="p">,</span> <span class="s1">&#39;border&#39;</span><span class="p">)</span>
+            <span class="n">add_deprecated_property</span><span class="p">(</span>
+                <span class="bp">cls</span><span class="p">,</span>
+                <span class="n">old_property</span><span class="p">,</span>
+                <span class="n">new_property</span><span class="p">,</span>
+                <span class="n">since_version</span><span class="o">=</span><span class="s1">&#39;0.5.0&#39;</span><span class="p">,</span>
+                <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.6.0&#39;</span><span class="p">,</span>
+            <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -1066,15 +1145,15 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span>
 
         <span class="c1"># Add/remove property and style values based on the number of new points.</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">cur_npoints</span><span class="p">:</span>
                 <span class="c1"># If there are now fewer points, remove the size and colors of the</span>
                 <span class="c1"># extra ones</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_remove</span><span class="p">(</span>
-                        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">colors</span><span class="p">))</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">_remove</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">colors</span><span class="p">))</span>
                     <span class="p">)</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_remove</span><span class="p">(</span>
@@ -1082,7 +1161,7 @@ document.write(`
                     <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_shown</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shown</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_border_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_border_width</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_symbol</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)]</span>
 
             <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">cur_npoints</span><span class="p">:</span>
@@ -1091,11 +1170,11 @@ document.write(`
                 <span class="n">adding</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="n">cur_npoints</span>
                 <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_size</span><span class="p">,</span> <span class="n">adding</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">new_edge_width</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_border_width</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">new_border_width</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_border_width</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">new_edge_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_width</span>
-                <span class="n">edge_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="n">new_edge_width</span><span class="p">],</span> <span class="n">adding</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="n">new_border_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_border_width</span>
+                <span class="n">border_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="n">new_border_width</span><span class="p">],</span> <span class="n">adding</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_symbol</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">new_symbol</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_symbol</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
@@ -1107,8 +1186,8 @@ document.write(`
                 <span class="c1"># to handle any in-place modification of feature_defaults.</span>
                 <span class="c1"># Also see: https://github.com/napari/napari/issues/5634</span>
                 <span class="n">current_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">currents</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_update_current_properties</span><span class="p">(</span><span class="n">current_properties</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_add</span><span class="p">(</span><span class="n">n_colors</span><span class="o">=</span><span class="n">adding</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">_update_current_properties</span><span class="p">(</span><span class="n">current_properties</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">_add</span><span class="p">(</span><span class="n">n_colors</span><span class="o">=</span><span class="n">adding</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_update_current_properties</span><span class="p">(</span><span class="n">current_properties</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_add</span><span class="p">(</span><span class="n">n_colors</span><span class="o">=</span><span class="n">adding</span><span class="p">)</span>
 
@@ -1116,8 +1195,8 @@ document.write(`
                 <span class="bp">self</span><span class="o">.</span><span class="n">_shown</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_shown</span><span class="p">,</span> <span class="n">shown</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> <span class="n">size</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
-                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span><span class="p">,</span> <span class="n">edge_width</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">border_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_border_width</span><span class="p">,</span> <span class="n">border_width</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
                 <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_symbol</span><span class="p">,</span> <span class="n">symbol</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
@@ -1160,7 +1239,7 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="p">,</span> <span class="s1">&#39;face_color&#39;</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_color_manager</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="p">,</span> <span class="s1">&#39;edge_color&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="p">,</span> <span class="s1">&#39;border_color&#39;</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">properties</span><span class="p">()</span>
@@ -1180,7 +1259,7 @@ document.write(`
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span>
         <span class="n">current_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_update_current_properties</span><span class="p">(</span><span class="n">current_properties</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">_update_current_properties</span><span class="p">(</span><span class="n">current_properties</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_update_current_properties</span><span class="p">(</span><span class="n">current_properties</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_properties</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">feature_defaults</span><span class="p">()</span>
@@ -1236,7 +1315,7 @@ document.write(`
             <span class="n">current_properties</span><span class="p">,</span> <span class="n">update_indices</span><span class="o">=</span><span class="n">update_indices</span>
         <span class="p">)</span>
         <span class="n">current_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_update_current_properties</span><span class="p">(</span><span class="n">current_properties</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">_update_current_properties</span><span class="p">(</span><span class="n">current_properties</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_update_current_properties</span><span class="p">(</span><span class="n">current_properties</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_properties</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">feature_defaults</span><span class="p">()</span>
@@ -1481,143 +1560,146 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">edge_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;(N, D) array: edge_width of all N points.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span>
+    <span class="k">def</span> <span class="nf">border_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;(N, D) array: border_width of all N points.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_border_width</span>
 
-    <span class="nd">@edge_width</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">edge_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_width</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nd">@border_width</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">border_width</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">border_width</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># broadcast to np.array</span>
-        <span class="n">edge_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">edge_width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">border_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">border_width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
-        <span class="c1"># edge width cannot be negative</span>
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">edge_width</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="c1"># border width cannot be negative</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">border_width</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;All edge_width must be &gt; 0&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;All border_width must be &gt; 0&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
-        <span class="c1"># if relative edge width is enabled, edge_width must be between 0 and 1</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_width_is_relative</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">edge_width</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># if relative border width is enabled, border_width must be between 0 and 1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_width_is_relative</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">border_width</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;All edge_width must be between 0 and 1 if edge_width_is_relative is enabled&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;All border_width must be between 0 and 1 if border_width_is_relative is enabled&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span> <span class="o">=</span> <span class="n">edge_width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_border_width</span> <span class="o">=</span> <span class="n">border_width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">border_width</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">border_width</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">edge_width_is_relative</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: treat edge_width as a fraction of point size.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width_is_relative</span>
+    <span class="k">def</span> <span class="nf">border_width_is_relative</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: treat border_width as a fraction of point size.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_border_width_is_relative</span>
 
-    <span class="nd">@edge_width_is_relative</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">edge_width_is_relative</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_width_is_relative</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">edge_width_is_relative</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span>
-            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="nd">@border_width_is_relative</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">border_width_is_relative</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">border_width_is_relative</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">border_width_is_relative</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">border_width</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">border_width</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
         <span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;edge_width_is_relative can only be enabled if edge_width is between 0 and 1&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;border_width_is_relative can only be enabled if border_width is between 0 and 1&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width_is_relative</span> <span class="o">=</span> <span class="n">edge_width_is_relative</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_width_is_relative</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_border_width_is_relative</span> <span class="o">=</span> <span class="n">border_width_is_relative</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">border_width_is_relative</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">current_edge_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;float: edge_width of marker for the next added point.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_edge_width</span>
+    <span class="k">def</span> <span class="nf">current_border_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;float: border_width of marker for the next added point.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_border_width</span>
 
-    <span class="nd">@current_edge_width</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">current_edge_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_width</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_current_edge_width</span> <span class="o">=</span> <span class="n">edge_width</span>
+    <span class="nd">@current_border_width</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">current_border_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">border_width</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_border_width</span> <span class="o">=</span> <span class="n">border_width</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_properties</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromiter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">edge_width</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">border_width</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">border_width</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_width</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_edge_width</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">border_width</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_border_width</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">edge_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;(N x 4) np.ndarray: Array of RGBA edge colors for each point&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">colors</span>
+    <span class="k">def</span> <span class="nf">border_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;(N x 4) np.ndarray: Array of RGBA border colors for each point&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">colors</span>
 
-    <span class="nd">@edge_color</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">edge_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_color</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_set_color</span><span class="p">(</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">edge_color</span><span class="p">,</span>
+    <span class="nd">@border_color</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">border_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">border_color</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">_set_color</span><span class="p">(</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">border_color</span><span class="p">,</span>
             <span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
             <span class="n">properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
             <span class="n">current_properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_color</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">border_color</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">edge_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Union[list, np.ndarray] :  Color cycle for edge_color.</span>
+    <span class="k">def</span> <span class="nf">border_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Union[list, np.ndarray] :  Color cycle for border_color.</span>
 <span class="sd">        Can be a list of colors defined by name, RGB or RGBA</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">categorical_colormap</span><span class="o">.</span><span class="n">fallback_color</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">categorical_colormap</span><span class="o">.</span><span class="n">fallback_color</span><span class="o">.</span><span class="n">values</span>
 
-    <span class="nd">@edge_color_cycle</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">edge_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_color_cycle</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">categorical_colormap</span> <span class="o">=</span> <span class="n">edge_color_cycle</span>
+    <span class="nd">@border_color_cycle</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">border_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">border_color_cycle</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">categorical_colormap</span> <span class="o">=</span> <span class="n">border_color_cycle</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">edge_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Colormap</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the colormap to be applied to a property to get the edge color.</span>
+    <span class="k">def</span> <span class="nf">border_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Colormap</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the colormap to be applied to a property to get the border color.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        colormap : napari.utils.Colormap</span>
 <span class="sd">            The Colormap object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">continuous_colormap</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">continuous_colormap</span>
 
-    <span class="nd">@edge_colormap</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">edge_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colormap</span><span class="p">:</span> <span class="n">ValidColormapArg</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">continuous_colormap</span> <span class="o">=</span> <span class="n">colormap</span>
+    <span class="nd">@border_colormap</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">border_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colormap</span><span class="p">:</span> <span class="n">ValidColormapArg</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">continuous_colormap</span> <span class="o">=</span> <span class="n">colormap</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">edge_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">border_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;None, (float, float): contrast limits for mapping</span>
-<span class="sd">        the edge_color colormap property to 0 and 1</span>
+<span class="sd">        the border_color colormap property to 0 and 1</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">contrast_limits</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">contrast_limits</span>
 
-    <span class="nd">@edge_contrast_limits</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">edge_contrast_limits</span><span class="p">(</span>
+    <span class="nd">@border_contrast_limits</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">border_contrast_limits</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
     <span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">contrast_limits</span> <span class="o">=</span> <span class="n">contrast_limits</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">contrast_limits</span> <span class="o">=</span> <span class="n">contrast_limits</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">current_edge_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: Edge color of marker for the next added point or the selected point(s).&quot;&quot;&quot;</span>
-        <span class="n">hex_</span> <span class="o">=</span> <span class="n">rgb_to_hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">current_color</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">current_border_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: border color of marker for the next added point or the selected point(s).&quot;&quot;&quot;</span>
+        <span class="n">hex_</span> <span class="o">=</span> <span class="n">rgb_to_hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">current_color</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">hex_to_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">hex_</span><span class="p">,</span> <span class="n">hex_</span><span class="p">)</span>
 
-    <span class="nd">@current_edge_color</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">current_edge_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_color</span><span class="p">:</span> <span class="n">ColorType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nd">@current_border_color</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">current_border_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">border_color</span><span class="p">:</span> <span class="n">ColorType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_properties</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">update_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">update_indices</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_update_current_color</span><span class="p">(</span>
-            <span class="n">edge_color</span><span class="p">,</span> <span class="n">update_indices</span><span class="o">=</span><span class="n">update_indices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">_update_current_color</span><span class="p">(</span>
+            <span class="n">border_color</span><span class="p">,</span> <span class="n">update_indices</span><span class="o">=</span><span class="n">update_indices</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_edge_color</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_border_color</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">edge_color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: Edge color setting mode</span>
+    <span class="k">def</span> <span class="nf">border_color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: border color setting mode</span>
 
 <span class="sd">        DIRECT (default mode) allows each point to be set arbitrarily</span>
 
@@ -1625,11 +1707,11 @@ document.write(`
 
 <span class="sd">        COLORMAP allows color to be set via a color map over an attribute</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_mode</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">color_mode</span>
 
-    <span class="nd">@edge_color_mode</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">edge_color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_color_mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ColorMode</span><span class="p">]):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_set_color_mode</span><span class="p">(</span><span class="n">edge_color_mode</span><span class="p">,</span> <span class="s1">&#39;edge&#39;</span><span class="p">)</span>
+    <span class="nd">@border_color_mode</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">border_color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">border_color_mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ColorMode</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_color_mode</span><span class="p">(</span><span class="n">border_color_mode</span><span class="p">,</span> <span class="s1">&#39;border&#39;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">face_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -1719,18 +1801,20 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_color_mode</span><span class="p">(</span><span class="n">face_color_mode</span><span class="p">,</span> <span class="s1">&#39;face&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_set_color_mode</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">color_mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ColorMode</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">color_mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ColorMode</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+        <span class="n">attribute</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;border&#39;</span><span class="p">,</span> <span class="s1">&#39;face&#39;</span><span class="p">],</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the face_color_mode or edge_color_mode property</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the face_color_mode or border_color_mode property</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        color_mode : str, ColorMode</span>
-<span class="sd">            The value for setting edge or face_color_mode. If color_mode is a string,</span>
+<span class="sd">            The value for setting border or face_color_mode. If color_mode is a string,</span>
 <span class="sd">            it should be one of: &#39;direct&#39;, &#39;cycle&#39;, or &#39;colormap&#39;</span>
-<span class="sd">        attribute : str in {&#39;edge&#39;, &#39;face&#39;}</span>
+<span class="sd">        attribute : str in {&#39;border&#39;, &#39;face&#39;}</span>
 <span class="sd">            The name of the attribute to set the color of.</span>
-<span class="sd">            Should be &#39;edge&#39; for edge_color_mode or &#39;face&#39; for face_color_mode.</span>
+<span class="sd">            Should be &#39;border&#39; for border_color_mode or &#39;face&#39; for face_color_mode.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">color_mode</span> <span class="o">=</span> <span class="n">ColorMode</span><span class="p">(</span><span class="n">color_mode</span><span class="p">)</span>
         <span class="n">color_manager</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -1785,7 +1869,7 @@ document.write(`
 <div class="viewcode-block" id="Points.refresh_colors">
 <a class="viewcode-back" href="../../../../api/napari.layers.Points.html#napari.layers.Points.refresh_colors">[docs]</a>
     <span class="k">def</span> <span class="nf">refresh_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate and update face and edge colors if using a cycle or color map</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate and update face and border colors if using a cycle or color map</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1798,7 +1882,7 @@ document.write(`
 <span class="sd">            the color cycle map or colormap), set ``update_color_mapping=False``.</span>
 <span class="sd">            Default value is False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_refresh_colors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">_refresh_colors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_refresh_colors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">)</span></div>
 
 
@@ -1816,8 +1900,8 @@ document.write(`
                 <span class="s1">&#39;symbol&#39;</span><span class="p">:</span> <span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">size</span> <span class="k">else</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">current_symbol</span><span class="p">]</span>
                 <span class="p">),</span>
-                <span class="s1">&#39;edge_width&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
-                <span class="s1">&#39;edge_width_is_relative&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_width_is_relative</span><span class="p">,</span>
+                <span class="s1">&#39;border_width&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_width</span><span class="p">,</span>
+                <span class="s1">&#39;border_width_is_relative&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_width_is_relative</span><span class="p">,</span>
                 <span class="s1">&#39;face_color&#39;</span><span class="p">:</span> <span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">face_color</span>
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">size</span>
@@ -1826,14 +1910,14 @@ document.write(`
                 <span class="s1">&#39;face_color_cycle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_color_cycle</span><span class="p">,</span>
                 <span class="s1">&#39;face_colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_colormap</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
                 <span class="s1">&#39;face_contrast_limits&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_contrast_limits</span><span class="p">,</span>
-                <span class="s1">&#39;edge_color&#39;</span><span class="p">:</span> <span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span>
+                <span class="s1">&#39;border_color&#39;</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">border_color</span>
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">size</span>
-                    <span class="k">else</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">current_edge_color</span><span class="p">]</span>
+                    <span class="k">else</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">current_border_color</span><span class="p">]</span>
                 <span class="p">),</span>
-                <span class="s1">&#39;edge_color_cycle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color_cycle</span><span class="p">,</span>
-                <span class="s1">&#39;edge_colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_colormap</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
-                <span class="s1">&#39;edge_contrast_limits&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_contrast_limits</span><span class="p">,</span>
+                <span class="s1">&#39;border_color_cycle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_color_cycle</span><span class="p">,</span>
+                <span class="s1">&#39;border_colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_colormap</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
+                <span class="s1">&#39;border_contrast_limits&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_contrast_limits</span><span class="p">,</span>
                 <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
                 <span class="s1">&#39;property_choices&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">property_choices</span><span class="p">,</span>
                 <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
@@ -1876,9 +1960,11 @@ document.write(`
         <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span><span class="p">)</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
             <span class="k">if</span> <span class="p">(</span>
-                <span class="n">unique_edge_color</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+                <span class="n">unique_border_color</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">border_color</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+                <span class="p">)</span>
             <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_color</span> <span class="o">=</span> <span class="n">unique_edge_color</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">current_border_color</span> <span class="o">=</span> <span class="n">unique_border_color</span>
 
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">unique_face_color</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
@@ -1889,9 +1975,11 @@ document.write(`
                 <span class="bp">self</span><span class="o">.</span><span class="n">current_size</span> <span class="o">=</span> <span class="n">unique_size</span>
 
             <span class="k">if</span> <span class="p">(</span>
-                <span class="n">unique_edge_width</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+                <span class="n">unique_border_width</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">border_width</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+                <span class="p">)</span>
             <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_width</span> <span class="o">=</span> <span class="n">unique_edge_width</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">current_border_width</span> <span class="o">=</span> <span class="n">unique_border_width</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">unique_symbol</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
             <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -2056,15 +2144,15 @@ document.write(`
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">_view_edge_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the edge_width of the points in view</span>
+    <span class="k">def</span> <span class="nf">_view_border_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the border_width of the points in view</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        view_edge_width : (N,) np.ndarray</span>
-<span class="sd">            Array of edge_widths for the N points in view</span>
+<span class="sd">        view_border_width : (N,) np.ndarray</span>
+<span class="sd">            Array of border_widths for the N points in view</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_width</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_view_face_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -2079,16 +2167,16 @@ document.write(`
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">_view_edge_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the edge colors of the points in view</span>
+    <span class="k">def</span> <span class="nf">_view_border_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the border colors of the points in view</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        view_edge_color : (N x 4) np.ndarray</span>
-<span class="sd">            RGBA color array for the edge colors of the N points in view.</span>
+<span class="sd">        view_border_color : (N x 4) np.ndarray</span>
+<span class="sd">            RGBA color array for the border colors of the N points in view.</span>
 <span class="sd">            If there are no points in view, returns array of length 0.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_reset_editable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set editable mode based on layer properties.&quot;&quot;&quot;</span>
@@ -2499,9 +2587,9 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">_shown</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shown</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_symbol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_symbol</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_remove</span><span class="p">(</span><span class="n">indices_to_remove</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_border_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_border_width</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">_remove</span><span class="p">(</span><span class="n">indices_to_remove</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_remove</span><span class="p">(</span><span class="n">indices_to_remove</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
@@ -2616,13 +2704,13 @@ document.write(`
 
             <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">_paste</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">])</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
-                <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;edge_width&#39;</span><span class="p">]),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_border_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">border_width</span><span class="p">,</span>
+                <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;border_width&#39;</span><span class="p">]),</span>
                 <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_paste</span><span class="p">(</span>
-                <span class="n">colors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;edge_color&#39;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_border</span><span class="o">.</span><span class="n">_paste</span><span class="p">(</span>
+                <span class="n">colors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;border_color&#39;</span><span class="p">],</span>
                 <span class="n">properties</span><span class="o">=</span><span class="n">_features_to_properties</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;features&#39;</span><span class="p">]</span>
                 <span class="p">),</span>
@@ -2648,12 +2736,12 @@ document.write(`
             <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
-                <span class="s1">&#39;edge_color&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
+                <span class="s1">&#39;border_color&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">border_color</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
                 <span class="s1">&#39;face_color&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
                 <span class="s1">&#39;shown&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shown</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
                 <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
                 <span class="s1">&#39;symbol&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
-                <span class="s1">&#39;edge_width&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
+                <span class="s1">&#39;border_width&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">border_width</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
                 <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
                 <span class="s1">&#39;indices&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span><span class="p">,</span>
                 <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">_copy</span><span class="p">(</span><span class="n">index</span><span class="p">),</span>
@@ -2875,6 +2963,9 @@ document.write(`
             <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">value</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">value</span><span class="p">]))</span>
         <span class="p">]</span></div>
 
+
+
+<span class="n">Points</span><span class="o">.</span><span class="n">_add_deprecated_properties</span><span class="p">()</span>
 </pre></div>
 
                 </article>

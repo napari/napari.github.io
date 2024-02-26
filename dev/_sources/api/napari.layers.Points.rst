@@ -94,9 +94,18 @@ napari.layers.Points
       ~Points.affine
       ~Points.antialiasing
       ~Points.blending
+      ~Points.border_color
+      ~Points.border_color_cycle
+      ~Points.border_color_mode
+      ~Points.border_colormap
+      ~Points.border_contrast_limits
+      ~Points.border_width
+      ~Points.border_width_is_relative
       ~Points.bounding_box
       ~Points.canvas_size_limits
       ~Points.class_keymap
+      ~Points.current_border_color
+      ~Points.current_border_width
       ~Points.current_edge_color
       ~Points.current_edge_width
       ~Points.current_face_color

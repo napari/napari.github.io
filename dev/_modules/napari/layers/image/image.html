@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=0081a446"></script>
+    <script src="../../../../_static/documentation_options.js?v=4d80a4c5"></script>
     <script src="../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1115,20 +1115,21 @@ document.write(`
 <span class="sd">    blending : str</span>
 <span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
 <span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
-<span class="sd">        {&#39;opaque&#39;, &#39;translucent&#39;, and &#39;additive&#39;}.</span>
+<span class="sd">        {&#39;translucent&#39;, &#39;translucent_no_depth&#39;, &#39;additive&#39;, &#39;minimum&#39;, &#39;opaque&#39;}.</span>
 <span class="sd">    cache : bool</span>
 <span class="sd">        Whether slices of out-of-core datasets should be cached upon retrieval.</span>
 <span class="sd">        Currently, this only applies to dask arrays.</span>
 <span class="sd">    colormap : str, napari.utils.Colormap, tuple, dict</span>
-<span class="sd">        Colormap to use for luminance images. If a string must be the name</span>
-<span class="sd">        of a supported colormap from vispy or matplotlib. If a tuple the</span>
-<span class="sd">        first value must be a string to assign as a name to a colormap and</span>
-<span class="sd">        the second item must be a Colormap. If a dict the key must be a</span>
-<span class="sd">        string to assign as a name to a colormap and the value must be a</span>
+<span class="sd">        Colormaps to use for luminance images. If a string, it can be the name</span>
+<span class="sd">        of a supported colormap from vispy or matplotlib or the name of</span>
+<span class="sd">        a vispy color or a hexadecimal RGB color representation.</span>
+<span class="sd">        If a tuple, the first value must be a string to assign as a name to a</span>
+<span class="sd">        colormap and the second item must be a Colormap. If a dict, the key must</span>
+<span class="sd">        be a string to assign as a name to a colormap and the value must be a</span>
 <span class="sd">        Colormap.</span>
 <span class="sd">    contrast_limits : list (2,)</span>
-<span class="sd">        Color limits to be used for determining the colormap bounds for</span>
-<span class="sd">        luminance images. If not passed is calculated as the min and max of</span>
+<span class="sd">        Intensity value limits to be used for determining the minimum and maximum colormap bounds for</span>
+<span class="sd">        luminance images. If not passed, they will be calculated as the min and max intensity value of</span>
 <span class="sd">        the image.</span>
 <span class="sd">    custom_interpolation_kernel_2d : np.ndarray</span>
 <span class="sd">        Convolution kernel used with the &#39;custom&#39; interpolation mode in 2D rendering.</span>
@@ -1140,13 +1141,13 @@ document.write(`
 <span class="sd">        Valid dictionary keys are {&#39;position&#39;, &#39;normal&#39;, and &#39;enabled&#39;}.</span>
 <span class="sd">        Values on the negative side of the normal are discarded if the plane is enabled.</span>
 <span class="sd">    gamma : float</span>
-<span class="sd">        Gamma correction for determining colormap linearity. Defaults to 1.</span>
+<span class="sd">        Gamma correction for determining colormap linearity; defaults to 1.</span>
 <span class="sd">    interpolation2d : str</span>
 <span class="sd">        Interpolation mode used by vispy for rendering 2d data.</span>
 <span class="sd">        Must be one of our supported modes.</span>
 <span class="sd">        (for list of supported modes see Interpolation enum)</span>
 <span class="sd">        &#39;custom&#39; is a special mode for 2D interpolation in which a regular grid</span>
-<span class="sd">        of samples are taken from the texture around a position using &#39;linear&#39;</span>
+<span class="sd">        of samples is taken from the texture around a position using &#39;linear&#39;</span>
 <span class="sd">        interpolation before being multiplied with a custom interpolation kernel</span>
 <span class="sd">        (provided with &#39;custom_interpolation_kernel_2d&#39;).</span>
 <span class="sd">    interpolation3d : str</span>
@@ -1157,8 +1158,8 @@ document.write(`
 <span class="sd">        Layer metadata.</span>
 <span class="sd">    multiscale : bool</span>
 <span class="sd">        Whether the data is a multiscale image or not. Multiscale data is</span>
-<span class="sd">        represented by a list of array like image data. If not specified by</span>
-<span class="sd">        the user and if the data is a list of arrays that decrease in shape</span>
+<span class="sd">        represented by a list of array-like image data. If not specified by</span>
+<span class="sd">        the user and if the data is a list of arrays that decrease in shape,</span>
 <span class="sd">        then it will be taken to be multiscale. The first image in the list</span>
 <span class="sd">        should be the largest. Please note multiscale rendering is only</span>
 <span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
@@ -1172,21 +1173,22 @@ document.write(`
 <span class="sd">        data coordinates. Valid dictionary keys are</span>
 <span class="sd">        {&#39;position&#39;, &#39;normal&#39;, &#39;thickness&#39;, and &#39;enabled&#39;}.</span>
 <span class="sd">    projection_mode : str</span>
-<span class="sd">        How data outside the viewed dimensions but inside the thick Dims slice will</span>
+<span class="sd">        How data outside the viewed dimensions, but inside the thick Dims slice will</span>
 <span class="sd">        be projected onto the viewed dimensions. Must fit to ImageProjectionMode</span>
 <span class="sd">    rendering : str</span>
 <span class="sd">        Rendering mode used by vispy. Must be one of our supported</span>
 <span class="sd">        modes.</span>
-<span class="sd">    rgb : bool</span>
-<span class="sd">        Whether the image is rgb RGB or RGBA. If not specified by user and</span>
-<span class="sd">        the last dimension of the data has length 3 or 4 it will be set as</span>
-<span class="sd">        `True`. If `False` the image is interpreted as a luminance image.</span>
+<span class="sd">    rgb : bool, optional</span>
+<span class="sd">        Whether the image is RGB or RGBA if rgb. If not</span>
+<span class="sd">        specified by user, but the last dimension of the data has length 3 or 4,</span>
+<span class="sd">        it will be set as `True`. If `False`, the image is interpreted as a</span>
+<span class="sd">        luminance image.</span>
 <span class="sd">    rotate : float, 3-tuple of float, or n-D array.</span>
-<span class="sd">        If a float convert into a 2D rotation matrix using that value as an</span>
-<span class="sd">        angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,</span>
-<span class="sd">        pitch, roll convention. Otherwise assume an nD rotation. Angles are</span>
+<span class="sd">        If a float, convert into a 2D rotation matrix using that value as an</span>
+<span class="sd">        angle. If 3-tuple, convert into a 3D rotation matrix, using a yaw,</span>
+<span class="sd">        pitch, roll convention. Otherwise, assume an nD rotation. Angles are</span>
 <span class="sd">        assumed to be in degrees. They can be converted from radians with</span>
-<span class="sd">        np.degrees if needed.</span>
+<span class="sd">        &#39;np.degrees&#39; if needed.</span>
 <span class="sd">    scale : tuple of float</span>
 <span class="sd">        Scale factors for the layer.</span>
 <span class="sd">    shear : 1-D array or n-D array</span>

@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../_static/documentation_options.js?v=0081a446"></script>
+    <script src="../_static/documentation_options.js?v=4d80a4c5"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1085,7 +1085,7 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.interpolation2d</span></code></p></td>
-<td><p>Interpolation mode used by vispy for rendering 2d data. Must be one of our supported modes. (for list of supported modes see Interpolation enum) ‘custom’ is a special mode for 2D interpolation in which a regular grid of samples are taken from the texture around a position using ‘linear’ interpolation before being multiplied with a custom interpolation kernel (provided with ‘custom_interpolation_kernel_2d’).</p></td>
+<td><p>Interpolation mode used by vispy for rendering 2d data. Must be one of our supported modes. (for list of supported modes see Interpolation enum) ‘custom’ is a special mode for 2D interpolation in which a regular grid of samples is taken from the texture around a position using ‘linear’ interpolation before being multiplied with a custom interpolation kernel (provided with ‘custom_interpolation_kernel_2d’).</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
@@ -1110,7 +1110,7 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Image</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.contrast_limits</span></code></p></td>
-<td><p>Color limits to be used for determining the colormap bounds for luminance images. If not passed is calculated as the min and max of the image.</p></td>
+<td><p>Intensity value limits to be used for determining the minimum and maximum colormap bounds for luminance images. If not passed, they will be calculated as the min and max intensity value of the image.</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Image</span></code></p></td>
@@ -1120,12 +1120,12 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Image</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.gamma</span></code></p></td>
-<td><p>Gamma correction for determining colormap linearity. Defaults to 1.</p></td>
+<td><p>Gamma correction for determining colormap linearity; defaults to 1.</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code>, <code class="docutils literal notranslate"><span class="pre">Surface</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.colormap</span></code></p></td>
-<td><p>Colormap to use for luminance images. If a string must be the name of a supported colormap from vispy or matplotlib. If a tuple the first value must be a string to assign as a name to a colormap and the second item must be a Colormap. If a dict the key must be a string to assign as a name to a colormap and the value must be a Colormap.</p></td>
+<td><p>Colormaps to use for luminance images. If a string, it can be the name of a supported colormap from vispy or matplotlib or the name of a vispy color or a hexadecimal RGB color representation. If a tuple, the first value must be a string to assign as a name to a colormap and the second item must be a Colormap. If a dict, the key must be a string to assign as a name to a colormap and the value must be a Colormap.</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>

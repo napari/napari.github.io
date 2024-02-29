@@ -109,8 +109,6 @@ napari.layers.Labels
       ~Labels.brush_size
       ~Labels.brush_size_on_mouse_move
       ~Labels.class_keymap
-      ~Labels.color
-      ~Labels.color_mode
       ~Labels.colormap
       ~Labels.contiguous
       ~Labels.contour
@@ -139,7 +137,6 @@ napari.layers.Labels
       ~Labels.n_edit_dimensions
       ~Labels.name
       ~Labels.ndim
-      ~Labels.num_colors
       ~Labels.opacity
       ~Labels.plane
       ~Labels.preserve_labels
@@ -148,7 +145,6 @@ napari.layers.Labels
       ~Labels.rendering
       ~Labels.rotate
       ~Labels.scale
-      ~Labels.seed
       ~Labels.selected_label
       ~Labels.shear
       ~Labels.show_selected_label

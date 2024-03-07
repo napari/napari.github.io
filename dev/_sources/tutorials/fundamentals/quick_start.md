@@ -131,6 +131,10 @@ viewer.add_image(data.cell(), name='cell')
 nbscreenshot(viewer, alt_text="image of a single cell opened in napari viewer")
 ```
 
+```{note}
+Once you have a napari viewer open, you can also make a new `Image` layer from an image (or URL to an image) copied to your Clipboard using `File -> New Image from Clipboard` menu item (keybinding {kbd}`Command/Ctrl+N`).
+```
+
 ### Image display adjustment
 
 The layer controls panel at the upper left of the viewer allows you to adjust contrast, colormap, and other layer properties. These settings affect the visualization, but do not affect the underlying data.

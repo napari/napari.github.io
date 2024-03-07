@@ -108,7 +108,7 @@ We'll go through each of these in the next sections.
 
 The main menu consists of the **File**, **View**, **Window**, **Plugins**, and **Help** options.
 
-* **File** has the options to open files, folders, and samples, save layers and screenshots,copy screenshots to clipboard and, in the Windows version, preferences.
+* **File** has the options to open files, folders, and samples, save layers and screenshots, copy screenshots to clipboard and, in the Windows version, preferences. Additionally, you can make a new `Image` layer from an image (or URL to an image) copied to your Clipboard (keybinding {kbd}`Command/Ctrl+N`).
 
     All the options on the **File** menu are relatively self-explanatory except **Preferences** on the Windows version of napari. **Preferences** allows you to personalize napari to some degree. To learn more about the **Preferences** menu, there is a tutorial designed for developers [here](https://napari.org/stable/guides/preferences.html).
 

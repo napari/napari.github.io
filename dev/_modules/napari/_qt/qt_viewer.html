@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../_static/documentation_options.js?v=4af5cb0a"></script>
+    <script src="../../../_static/documentation_options.js?v=edd7f1b8"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1164,6 +1164,60 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">add_layer_visual_mapping</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">vispy_layer</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_remove_invalid_chars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selected_layer_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes invalid characters from selected layer name to suggest a filename.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        selected_layer_name : str</span>
+<span class="sd">            The selected napari layer name.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        suggested_name : str</span>
+<span class="sd">            Suggested name from input selected layer name, without invalid characters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">unprintable_ascii_chars</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x01</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x02</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x03</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x04</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x05</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x06</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x07</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x08</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x0e</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x0f</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x10</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x11</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x12</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x13</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x14</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x15</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x16</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x17</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x18</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x19</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x1a</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x1c</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x1d</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x1e</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x1f</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\x7f</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">invalid_characters</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unprintable_ascii_chars</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+            <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span>  <span class="c1"># invalid Windows filename character</span>
+            <span class="o">+</span> <span class="s1">&#39;:*?&quot;&lt;&gt;|</span><span class="se">\t\n\r\x0b\x0c</span><span class="s1">&#39;</span>  <span class="c1"># invalid Windows path characters</span>
+        <span class="p">)</span>
+        <span class="n">translation_table</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">ord</span><span class="p">,</span> <span class="n">invalid_characters</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="c1"># Remove invalid characters</span>
+        <span class="n">suggested_name</span> <span class="o">=</span> <span class="n">selected_layer_name</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">translation_table</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">suggested_name</span>
+
     <span class="k">def</span> <span class="nf">_save_layers_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selected</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Save layers (all or selected) to disk, using ``LayerList.save()``.</span>
 
@@ -1195,12 +1249,20 @@ document.write(`
         <span class="n">dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">()</span>
         <span class="n">hist</span> <span class="o">=</span> <span class="n">get_save_history</span><span class="p">()</span>
         <span class="n">dlg</span><span class="o">.</span><span class="n">setHistory</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
-
+        <span class="c1"># get the layer&#39;s name to use for a default name if only one layer is selected</span>
+        <span class="n">selected_layer_name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">selected_layer_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">selected_layer_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remove_invalid_chars</span><span class="p">(</span>
+                <span class="n">selected_layer_name</span>
+            <span class="p">)</span>
         <span class="n">filename</span><span class="p">,</span> <span class="n">selected_filter</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>  <span class="c1"># parent</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Save </span><span class="si">{msg}</span><span class="s1"> layers&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">),</span>  <span class="c1"># caption</span>
-            <span class="c1"># home dir by default</span>
-            <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="c1"># directory in PyQt, dir in PySide</span>
+            <span class="c1"># home dir by default if selected all, home dir and file name if only 1 layer</span>
+            <span class="nb">str</span><span class="p">(</span>
+                <span class="n">Path</span><span class="p">(</span><span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">selected_layer_name</span>
+            <span class="p">),</span>  <span class="c1"># directory in PyQt, dir in PySide</span>
             <span class="nb">filter</span><span class="o">=</span><span class="n">ext_str</span><span class="p">,</span>
             <span class="n">options</span><span class="o">=</span><span class="p">(</span>
                 <span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>

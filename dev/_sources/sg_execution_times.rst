@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**02:20.974** total execution time for 89 files **from all galleries**:
+**02:21.863** total execution time for 89 files **from all galleries**:
 
 .. container::
 
@@ -33,268 +33,268 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_image_depth.py` (``../examples/image_depth.py``)
-     - 00:05.486
-     - 0.0
-   * - :ref:`sphx_glr_gallery_add-points-3d.py` (``../examples/add-points-3d.py``)
-     - 00:04.979
+     - 00:05.500
      - 0.0
    * - :ref:`sphx_glr_gallery_3D_paths.py` (``../examples/3D_paths.py``)
-     - 00:04.681
+     - 00:05.212
+     - 0.0
+   * - :ref:`sphx_glr_gallery_add-points-3d.py` (``../examples/add-points-3d.py``)
+     - 00:04.981
      - 0.0
    * - :ref:`sphx_glr_gallery_add_multiscale_image.py` (``../examples/add_multiscale_image.py``)
-     - 00:04.037
+     - 00:03.977
      - 0.0
    * - :ref:`sphx_glr_gallery_add_points_on_nD_shapes.py` (``../examples/add_points_on_nD_shapes.py``)
-     - 00:03.777
+     - 00:03.807
      - 0.0
    * - :ref:`sphx_glr_gallery_labels3d.py` (``../examples/labels3d.py``)
-     - 00:03.631
+     - 00:03.566
      - 0.0
    * - :ref:`sphx_glr_gallery_nD_vectors.py` (``../examples/nD_vectors.py``)
-     - 00:03.221
-     - 0.0
-   * - :ref:`sphx_glr_gallery_paint-nd.py` (``../examples/paint-nd.py``)
-     - 00:03.111
+     - 00:03.327
      - 0.0
    * - :ref:`sphx_glr_gallery_image-points-3d.py` (``../examples/image-points-3d.py``)
-     - 00:03.050
+     - 00:03.174
      - 0.0
-   * - :ref:`sphx_glr_gallery_nD_points.py` (``../examples/nD_points.py``)
-     - 00:02.851
-     - 0.0
-   * - :ref:`sphx_glr_gallery_swap_dims.py` (``../examples/swap_dims.py``)
-     - 00:02.795
-     - 0.0
-   * - :ref:`sphx_glr_gallery_add_labels_with_features.py` (``../examples/add_labels_with_features.py``)
-     - 00:02.712
-     - 0.0
-   * - :ref:`sphx_glr_gallery_multiple_viewer_widget.py` (``../examples/multiple_viewer_widget.py``)
-     - 00:02.638
+   * - :ref:`sphx_glr_gallery_paint-nd.py` (``../examples/paint-nd.py``)
+     - 00:03.161
      - 0.0
    * - :ref:`sphx_glr_gallery_vortex.py` (``../examples/vortex.py``)
-     - 00:02.637
+     - 00:02.985
+     - 0.0
+   * - :ref:`sphx_glr_gallery_swap_dims.py` (``../examples/swap_dims.py``)
+     - 00:02.974
+     - 0.0
+   * - :ref:`sphx_glr_gallery_nD_points.py` (``../examples/nD_points.py``)
+     - 00:02.950
      - 0.0
    * - :ref:`sphx_glr_gallery_nD_image.py` (``../examples/nD_image.py``)
-     - 00:02.633
+     - 00:02.676
      - 0.0
-   * - :ref:`sphx_glr_gallery_3Dimage_plane_rendering.py` (``../examples/3Dimage_plane_rendering.py``)
-     - 00:02.599
+   * - :ref:`sphx_glr_gallery_add_labels_with_features.py` (``../examples/add_labels_with_features.py``)
+     - 00:02.652
      - 0.0
-   * - :ref:`sphx_glr_gallery_to_screenshot.py` (``../examples/to_screenshot.py``)
-     - 00:02.555
+   * - :ref:`sphx_glr_gallery_multiple_viewer_widget.py` (``../examples/multiple_viewer_widget.py``)
+     - 00:02.631
      - 0.0
    * - :ref:`sphx_glr_gallery_dask_nD_image.py` (``../examples/dask_nD_image.py``)
-     - 00:02.545
+     - 00:02.537
+     - 0.0
+   * - :ref:`sphx_glr_gallery_3Dimage_plane_rendering.py` (``../examples/3Dimage_plane_rendering.py``)
+     - 00:02.537
+     - 0.0
+   * - :ref:`sphx_glr_gallery_to_screenshot.py` (``../examples/to_screenshot.py``)
+     - 00:02.460
      - 0.0
    * - :ref:`sphx_glr_gallery_scale_bar.py` (``../examples/scale_bar.py``)
-     - 00:02.358
+     - 00:02.326
      - 0.0
    * - :ref:`sphx_glr_gallery_points-over-time.py` (``../examples/points-over-time.py``)
-     - 00:02.220
+     - 00:02.172
      - 0.0
    * - :ref:`sphx_glr_gallery_surface_texture_and_colors.py` (``../examples/surface_texture_and_colors.py``)
-     - 00:02.006
-     - 0.0
-   * - :ref:`sphx_glr_gallery_concentric-spheres.py` (``../examples/concentric-spheres.py``)
-     - 00:01.925
+     - 00:02.049
      - 0.0
    * - :ref:`sphx_glr_gallery_cursor_ray.py` (``../examples/cursor_ray.py``)
-     - 00:01.919
+     - 00:01.949
      - 0.0
-   * - :ref:`sphx_glr_gallery_mixed-dimensions-labels.py` (``../examples/mixed-dimensions-labels.py``)
-     - 00:01.916
+   * - :ref:`sphx_glr_gallery_concentric-spheres.py` (``../examples/concentric-spheres.py``)
+     - 00:01.941
      - 0.0
    * - :ref:`sphx_glr_gallery_nD_shapes.py` (``../examples/nD_shapes.py``)
-     - 00:01.870
+     - 00:01.908
      - 0.0
    * - :ref:`sphx_glr_gallery_nD_shapes_with_text.py` (``../examples/nD_shapes_with_text.py``)
-     - 00:01.812
+     - 00:01.807
      - 0.0
-   * - :ref:`sphx_glr_gallery_shapes_to_labels.py` (``../examples/shapes_to_labels.py``)
-     - 00:01.794
+   * - :ref:`sphx_glr_gallery_mixed-dimensions-labels.py` (``../examples/mixed-dimensions-labels.py``)
+     - 00:01.792
      - 0.0
    * - :ref:`sphx_glr_gallery_add_points.py` (``../examples/add_points.py``)
-     - 00:01.752
+     - 00:01.764
      - 0.0
    * - :ref:`sphx_glr_gallery_nD_multiscale_image.py` (``../examples/nD_multiscale_image.py``)
-     - 00:01.673
+     - 00:01.718
+     - 0.0
+   * - :ref:`sphx_glr_gallery_shapes_to_labels.py` (``../examples/shapes_to_labels.py``)
+     - 00:01.685
      - 0.0
    * - :ref:`sphx_glr_gallery_layers.py` (``../examples/layers.py``)
-     - 00:01.645
-     - 0.0
-   * - :ref:`sphx_glr_gallery_dynamic-projections-dask.py` (``../examples/dynamic-projections-dask.py``)
-     - 00:01.487
+     - 00:01.640
      - 0.0
    * - :ref:`sphx_glr_gallery_cursor_position.py` (``../examples/cursor_position.py``)
-     - 00:01.486
+     - 00:01.495
      - 0.0
    * - :ref:`sphx_glr_gallery_multiple_viewers.py` (``../examples/multiple_viewers.py``)
-     - 00:01.480
+     - 00:01.492
+     - 0.0
+   * - :ref:`sphx_glr_gallery_dynamic-projections-dask.py` (``../examples/dynamic-projections-dask.py``)
+     - 00:01.486
      - 0.0
    * - :ref:`sphx_glr_gallery_tracks_3d.py` (``../examples/tracks_3d.py``)
-     - 00:01.457
+     - 00:01.458
      - 0.0
    * - :ref:`sphx_glr_gallery_affine_transforms.py` (``../examples/affine_transforms.py``)
-     - 00:01.417
-     - 0.0
-   * - :ref:`sphx_glr_gallery_annotate_segmentation_with_text.py` (``../examples/annotate_segmentation_with_text.py``)
-     - 00:01.368
-     - 0.0
-   * - :ref:`sphx_glr_gallery_new_theme.py` (``../examples/new_theme.py``)
-     - 00:01.365
+     - 00:01.420
      - 0.0
    * - :ref:`sphx_glr_gallery_nD_multiscale_image_non_uniform.py` (``../examples/nD_multiscale_image_non_uniform.py``)
-     - 00:01.351
+     - 00:01.372
      - 0.0
-   * - :ref:`sphx_glr_gallery_nD_labels.py` (``../examples/nD_labels.py``)
-     - 00:01.312
-     - 0.0
-   * - :ref:`sphx_glr_gallery_interactive_move_rectangle_3d.py` (``../examples/interactive_move_rectangle_3d.py``)
-     - 00:01.309
+   * - :ref:`sphx_glr_gallery_annotate_segmentation_with_text.py` (``../examples/annotate_segmentation_with_text.py``)
+     - 00:01.346
      - 0.0
    * - :ref:`sphx_glr_gallery_surface_normals_wireframe.py` (``../examples/surface_normals_wireframe.py``)
-     - 00:01.286
+     - 00:01.335
+     - 0.0
+   * - :ref:`sphx_glr_gallery_new_theme.py` (``../examples/new_theme.py``)
+     - 00:01.334
+     - 0.0
+   * - :ref:`sphx_glr_gallery_nD_labels.py` (``../examples/nD_labels.py``)
+     - 00:01.318
+     - 0.0
+   * - :ref:`sphx_glr_gallery_interactive_move_rectangle_3d.py` (``../examples/interactive_move_rectangle_3d.py``)
+     - 00:01.297
      - 0.0
    * - :ref:`sphx_glr_gallery_set_colormaps.py` (``../examples/set_colormaps.py``)
-     - 00:01.234
-     - 0.0
-   * - :ref:`sphx_glr_gallery_tracks_3d_with_graph.py` (``../examples/tracks_3d_with_graph.py``)
-     - 00:01.202
+     - 00:01.268
      - 0.0
    * - :ref:`sphx_glr_gallery_add_points_with_multicolor_text.py` (``../examples/add_points_with_multicolor_text.py``)
-     - 00:01.196
+     - 00:01.236
      - 0.0
-   * - :ref:`sphx_glr_gallery_labels-2d.py` (``../examples/labels-2d.py``)
-     - 00:01.194
-     - 0.0
-   * - :ref:`sphx_glr_gallery_tracks_2d.py` (``../examples/tracks_2d.py``)
-     - 00:01.177
-     - 0.0
-   * - :ref:`sphx_glr_gallery_nD_vectors_image.py` (``../examples/nD_vectors_image.py``)
-     - 00:01.172
-     - 0.0
-   * - :ref:`sphx_glr_gallery_interaction_box_image.py` (``../examples/interaction_box_image.py``)
-     - 00:01.167
+   * - :ref:`sphx_glr_gallery_tracks_3d_with_graph.py` (``../examples/tracks_3d_with_graph.py``)
+     - 00:01.208
      - 0.0
    * - :ref:`sphx_glr_gallery_pass_colormaps.py` (``../examples/pass_colormaps.py``)
-     - 00:01.161
+     - 00:01.169
      - 0.0
-   * - :ref:`sphx_glr_gallery_bbox_annotator.py` (``../examples/bbox_annotator.py``)
-     - 00:01.153
+   * - :ref:`sphx_glr_gallery_interaction_box_image.py` (``../examples/interaction_box_image.py``)
+     - 00:01.162
+     - 0.0
+   * - :ref:`sphx_glr_gallery_labels-2d.py` (``../examples/labels-2d.py``)
+     - 00:01.154
+     - 0.0
+   * - :ref:`sphx_glr_gallery_nD_vectors_image.py` (``../examples/nD_vectors_image.py``)
+     - 00:01.154
+     - 0.0
+   * - :ref:`sphx_glr_gallery_tracks_2d.py` (``../examples/tracks_2d.py``)
+     - 00:01.128
      - 0.0
    * - :ref:`sphx_glr_gallery_add_shapes.py` (``../examples/add_shapes.py``)
-     - 00:01.149
+     - 00:01.112
      - 0.0
    * - :ref:`sphx_glr_gallery_add_3D_image.py` (``../examples/add_3D_image.py``)
-     - 00:01.078
+     - 00:01.099
+     - 0.0
+   * - :ref:`sphx_glr_gallery_bbox_annotator.py` (``../examples/bbox_annotator.py``)
+     - 00:01.079
      - 0.0
    * - :ref:`sphx_glr_gallery_add_shapes_with_text.py` (``../examples/add_shapes_with_text.py``)
-     - 00:01.065
+     - 00:01.069
      - 0.0
    * - :ref:`sphx_glr_gallery_nD_points_with_features.py` (``../examples/nD_points_with_features.py``)
-     - 00:01.063
+     - 00:01.037
      - 0.0
    * - :ref:`sphx_glr_gallery_add_labels.py` (``../examples/add_labels.py``)
-     - 00:01.018
-     - 0.0
-   * - :ref:`sphx_glr_gallery_annotate-2d.py` (``../examples/annotate-2d.py``)
-     - 00:01.004
-     - 0.0
-   * - :ref:`sphx_glr_gallery_update_console.py` (``../examples/update_console.py``)
-     - 00:00.1000
-     - 0.0
-   * - :ref:`sphx_glr_gallery_add_vectors.py` (``../examples/add_vectors.py``)
-     - 00:00.998
+     - 00:01.020
      - 0.0
    * - :ref:`sphx_glr_gallery_add_vectors_image.py` (``../examples/add_vectors_image.py``)
-     - 00:00.989
-     - 0.0
-   * - :ref:`sphx_glr_gallery_linked_layers.py` (``../examples/linked_layers.py``)
-     - 00:00.977
-     - 0.0
-   * - :ref:`sphx_glr_gallery_add_vectors_color_by_angle.py` (``../examples/add_vectors_color_by_angle.py``)
-     - 00:00.976
+     - 00:01.009
      - 0.0
    * - :ref:`sphx_glr_gallery_minimum_blending.py` (``../examples/minimum_blending.py``)
-     - 00:00.975
+     - 00:00.989
      - 0.0
-   * - :ref:`sphx_glr_gallery_spherical_points.py` (``../examples/spherical_points.py``)
-     - 00:00.964
-     - 0.0
-   * - :ref:`sphx_glr_gallery_add_shapes_with_features.py` (``../examples/add_shapes_with_features.py``)
-     - 00:00.943
-     - 0.0
-   * - :ref:`sphx_glr_gallery_add_points_with_text.py` (``../examples/add_points_with_text.py``)
-     - 00:00.931
+   * - :ref:`sphx_glr_gallery_annotate-2d.py` (``../examples/annotate-2d.py``)
+     - 00:00.986
      - 0.0
    * - :ref:`sphx_glr_gallery_add_points_with_features.py` (``../examples/add_points_with_features.py``)
-     - 00:00.923
+     - 00:00.978
+     - 0.0
+   * - :ref:`sphx_glr_gallery_linked_layers.py` (``../examples/linked_layers.py``)
+     - 00:00.976
+     - 0.0
+   * - :ref:`sphx_glr_gallery_update_console.py` (``../examples/update_console.py``)
+     - 00:00.975
+     - 0.0
+   * - :ref:`sphx_glr_gallery_add_shapes_with_features.py` (``../examples/add_shapes_with_features.py``)
+     - 00:00.973
+     - 0.0
+   * - :ref:`sphx_glr_gallery_spherical_points.py` (``../examples/spherical_points.py``)
+     - 00:00.966
      - 0.0
    * - :ref:`sphx_glr_gallery_mouse_drag_callback.py` (``../examples/mouse_drag_callback.py``)
-     - 00:00.910
+     - 00:00.954
+     - 0.0
+   * - :ref:`sphx_glr_gallery_add_vectors.py` (``../examples/add_vectors.py``)
+     - 00:00.953
+     - 0.0
+   * - :ref:`sphx_glr_gallery_add_points_with_text.py` (``../examples/add_points_with_text.py``)
+     - 00:00.953
+     - 0.0
+   * - :ref:`sphx_glr_gallery_add_vectors_color_by_angle.py` (``../examples/add_vectors_color_by_angle.py``)
+     - 00:00.930
      - 0.0
    * - :ref:`sphx_glr_gallery_magic_parameter_sweep.py` (``../examples/magic_parameter_sweep.py``)
-     - 00:00.909
+     - 00:00.918
      - 0.0
    * - :ref:`sphx_glr_gallery_show_points_based_on_feature.py` (``../examples/show_points_based_on_feature.py``)
-     - 00:00.904
-     - 0.0
-   * - :ref:`sphx_glr_gallery_magic_image_arithmetic.py` (``../examples/magic_image_arithmetic.py``)
-     - 00:00.894
-     - 0.0
-   * - :ref:`sphx_glr_gallery_point_cloud.py` (``../examples/point_cloud.py``)
-     - 00:00.893
-     - 0.0
-   * - :ref:`sphx_glr_gallery_image_custom_kernel.py` (``../examples/image_custom_kernel.py``)
-     - 00:00.874
+     - 00:00.891
      - 0.0
    * - :ref:`sphx_glr_gallery_set_theme.py` (``../examples/set_theme.py``)
-     - 00:00.846
+     - 00:00.869
+     - 0.0
+   * - :ref:`sphx_glr_gallery_magic_image_arithmetic.py` (``../examples/magic_image_arithmetic.py``)
+     - 00:00.868
+     - 0.0
+   * - :ref:`sphx_glr_gallery_point_cloud.py` (``../examples/point_cloud.py``)
+     - 00:00.855
+     - 0.0
+   * - :ref:`sphx_glr_gallery_image_custom_kernel.py` (``../examples/image_custom_kernel.py``)
+     - 00:00.853
      - 0.0
    * - :ref:`sphx_glr_gallery_action_manager.py` (``../examples/action_manager.py``)
-     - 00:00.825
+     - 00:00.824
      - 0.0
    * - :ref:`sphx_glr_gallery_add_surface_2D.py` (``../examples/add_surface_2D.py``)
-     - 00:00.791
+     - 00:00.820
      - 0.0
    * - :ref:`sphx_glr_gallery_add_grayscale_image.py` (``../examples/add_grayscale_image.py``)
-     - 00:00.789
+     - 00:00.805
      - 0.0
    * - :ref:`sphx_glr_gallery_nD_surface.py` (``../examples/nD_surface.py``)
-     - 00:00.787
-     - 0.0
-   * - :ref:`sphx_glr_gallery_viewer_fps_label.py` (``../examples/viewer_fps_label.py``)
-     - 00:00.778
-     - 0.0
-   * - :ref:`sphx_glr_gallery_without_gui_qt.py` (``../examples/without_gui_qt.py``)
-     - 00:00.744
+     - 00:00.791
      - 0.0
    * - :ref:`sphx_glr_gallery_add_image.py` (``../examples/add_image.py``)
-     - 00:00.739
+     - 00:00.753
+     - 0.0
+   * - :ref:`sphx_glr_gallery_without_gui_qt.py` (``../examples/without_gui_qt.py``)
+     - 00:00.743
+     - 0.0
+   * - :ref:`sphx_glr_gallery_viewer_fps_label.py` (``../examples/viewer_fps_label.py``)
+     - 00:00.733
      - 0.0
    * - :ref:`sphx_glr_gallery_interactive_scripting.py` (``../examples/interactive_scripting.py``)
-     - 00:00.724
+     - 00:00.732
      - 0.0
    * - :ref:`sphx_glr_gallery_custom_mouse_functions.py` (``../examples/custom_mouse_functions.py``)
-     - 00:00.699
+     - 00:00.664
      - 0.0
    * - :ref:`sphx_glr_gallery_add_image_transformed.py` (``../examples/add_image_transformed.py``)
-     - 00:00.695
+     - 00:00.654
      - 0.0
    * - :ref:`sphx_glr_gallery_custom_key_bindings.py` (``../examples/custom_key_bindings.py``)
-     - 00:00.611
+     - 00:00.634
      - 0.0
    * - :ref:`sphx_glr_gallery_fourier_transform_playground.py` (``../examples/fourier_transform_playground.py``)
-     - 00:00.449
+     - 00:00.455
      - 0.0
    * - :ref:`sphx_glr_gallery_magic_viewer.py` (``../examples/magic_viewer.py``)
      - 00:00.439
      - 0.0
    * - :ref:`sphx_glr_gallery_inherit_viewer_style.py` (``../examples/inherit_viewer_style.py``)
-     - 00:00.422
+     - 00:00.419
      - 0.0
    * - :ref:`sphx_glr_gallery_get_current_viewer.py` (``../examples/get_current_viewer.py``)
-     - 00:00.392
+     - 00:00.391
      - 0.0
    * - :ref:`sphx_glr_gallery_reader_plugin.py` (``../examples/reader_plugin.py``)
      - 00:00.007

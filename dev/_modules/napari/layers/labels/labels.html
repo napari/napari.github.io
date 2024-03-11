@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=d685d93c"></script>
+    <script src="../../../../_static/documentation_options.js?v=9184822a"></script>
     <script src="../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -496,6 +496,7 @@ document.write(`
 
 <span class="kn">from</span> <span class="nn">napari.layers._data_protocols</span> <span class="kn">import</span> <span class="n">LayerDataProtocol</span>
 <span class="kn">from</span> <span class="nn">napari.layers._multiscale_data</span> <span class="kn">import</span> <span class="n">MultiScaleData</span>
+<span class="kn">from</span> <span class="nn">napari.layers._scalar_field.scalar_field</span> <span class="kn">import</span> <span class="n">ScalarFieldBase</span>
 <span class="kn">from</span> <span class="nn">napari.layers.base</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">no_op</span>
 <span class="kn">from</span> <span class="nn">napari.layers.base._base_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">highlight_box_handles</span><span class="p">,</span>
@@ -503,7 +504,6 @@ document.write(`
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_multiscale</span>
 <span class="kn">from</span> <span class="nn">napari.layers.image._slice</span> <span class="kn">import</span> <span class="n">_ImageSliceResponse</span>
-<span class="kn">from</span> <span class="nn">napari.layers.image.image</span> <span class="kn">import</span> <span class="n">_ImageBase</span>
 <span class="kn">from</span> <span class="nn">napari.layers.labels._labels_constants</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">LabelColorMode</span><span class="p">,</span>
     <span class="n">LabelsRendering</span><span class="p">,</span>
@@ -541,10 +541,12 @@ document.write(`
 <span class="kn">from</span> <span class="nn">napari.utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_coords_status</span>
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Labels&#39;</span><span class="p">,)</span>
+
 
 <div class="viewcode-block" id="Labels">
 <a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels">[docs]</a>
-<span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">_ImageBase</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">ScalarFieldBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Labels (or segmentation) layer.</span>
 
 <span class="sd">    An image-like layer where every pixel contains an integer ID</span>
@@ -991,7 +993,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LayerDataProtocol</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">LayerDataProtocol</span><span class="p">,</span> <span class="n">MultiScaleData</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;array: Image data.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
 

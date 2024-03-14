@@ -616,25 +616,50 @@ from unit tests to integration and functional tests.</p>
 <p>All of <code class="docutils literal notranslate"><span class="pre">napari</span></code> tests are located in folders named <code class="docutils literal notranslate"><span class="pre">_tests</span></code>. We keep our unit
 tests located in the individual folders with the modules or functions they are
 testing (e.g. the tests for the <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer are located in
-<code class="docutils literal notranslate"><span class="pre">/napari/layers/image/_tests</span></code> alongside the <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer code). Our integration and
-functional tests are located in
-the <code class="docutils literal notranslate"><span class="pre">napari/_tests</span></code> folder at the top of the repository.</p>
-<p>We also strive to unit test as much of our model file and utils code independently of
-our GUI code. These tests are located in the <code class="docutils literal notranslate"><span class="pre">napari/layers</span></code>, <code class="docutils literal notranslate"><span class="pre">napari/components</span></code>,
-and <code class="docutils literal notranslate"><span class="pre">napari/utils</span></code> folders. Our GUI code is tests in the <code class="docutils literal notranslate"><span class="pre">napari/_tests</span></code>,
-<code class="docutils literal notranslate"><span class="pre">napari/_qt</span></code>, <code class="docutils literal notranslate"><span class="pre">napari/_vispy</span></code> folders. The tests in these three folders are ignored
-when we run them in the subset of our
+<a class="reference external" href="https://github.com/napari/napari/tree/main/napari/layers/image/_tests"><code class="docutils literal notranslate"><span class="pre">/napari/layers/image/_tests</span></code></a>
+alongside the <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer code).
+Our integration and functional tests are located in
+the <a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_tests"><code class="docutils literal notranslate"><span class="pre">napari/_tests</span></code></a>
+folder at the top of the repository.</p>
+<p>We also strive to unit test as much of our model and utils code independently of
+our GUI code. These tests are located in the following folders:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/napari/layers"><code class="docutils literal notranslate"><span class="pre">napari/layers</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/napari/components"><code class="docutils literal notranslate"><span class="pre">napari/components</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/napari/utils"><code class="docutils literal notranslate"><span class="pre">napari/utils</span></code></a></p></li>
+</ul>
+<p>Our GUI code is tests in the following folders:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_tests"><code class="docutils literal notranslate"><span class="pre">napari/_tests</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_qt"><code class="docutils literal notranslate"><span class="pre">napari/_qt</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_vispy"><code class="docutils literal notranslate"><span class="pre">napari/_vispy</span></code></a></p></li>
+</ul>
+<p>The tests in these three folders are ignored when we run them in the subset of our
 <a class="reference external" href="https://en.wikipedia.org/wiki/Continuous_integration">continuous integration</a>
 workflows that run in a headless environment (without a Qt backend).
 When we are testing “non-GUI” code in a way that requires a GUI backend, they are
-placed here. The <code class="docutils literal notranslate"><span class="pre">napari/plugins</span></code> folder contains a mix of tests.</p>
-<p>Pytest fixtures that are available globally to aid testing live in <code class="docutils literal notranslate"><span class="pre">napari/conftest.py</span></code>.</p>
+placed here.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">napari/plugins</span></code> folder contains tests related to plugins.</p>
+<p>Pytest fixtures to aid testing live in:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/napari/napari/blob/main/napari/conftest.py"><code class="docutils literal notranslate"><span class="pre">napari/conftest.py</span></code></a> -
+available globally to all of <code class="docutils literal notranslate"><span class="pre">napari</span></code>.</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/blob/main/napari/utils/_testsupport.py"><code class="docutils literal notranslate"><span class="pre">napari/utils/_testsupport.py</span></code></a> -
+available globally to all of <code class="docutils literal notranslate"><span class="pre">napari</span></code> <strong>and</strong> to all tests in the same environment
+that <code class="docutils literal notranslate"><span class="pre">napari</span></code> is in (as this file is exported).</p></li>
+</ul>
+<p>There are also fixtures for testing the <code class="docutils literal notranslate"><span class="pre">napari</span></code> builtin plugin (provides contributions
+that come builtin with <code class="docutils literal notranslate"><span class="pre">napari</span></code>).
+These live in
+<a class="reference external" href="https://github.com/napari/napari/blob/main/napari_builtins/_tests/conftest.py"><code class="docutils literal notranslate"><span class="pre">napari_builtins/_tests/conftest.py</span></code></a>
+and are available within
+<a class="reference external" href="https://github.com/napari/napari/tree/main/napari_builtins/_tests"><code class="docutils literal notranslate"><span class="pre">napari_builtins/_tests</span></code></a>.</p>
 </section>
 <section id="running-tests">
-<h2>Running tests<a class="headerlink" href="#running-tests" title="Link to this heading">#</a></h2>
+<span id="id2"></span><h2>Running tests<a class="headerlink" href="#running-tests" title="Link to this heading">#</a></h2>
 <p>To run our test suite locally, run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> on the command line.  If, for some reason
 you don’t already have the test requirements in your environment, run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[testing]</span></code>.</p>
-<p>There are a very small number of tests (&lt;5) that require showing GUI elements, (such
+<p>There are some tests that require showing GUI elements, (such
 as testing screenshots). By default, these are only run during continuous integration.
 If you’d like to include them in local tests, set the environment variable “CI”:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">CI</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>pytest
@@ -727,10 +752,10 @@ library for at least some inputs.</p>
 (including <a class="reference external" href="https://hypothesis.readthedocs.io/en/latest/numpy.html">Numpy support</a>).</p>
 </section>
 <section id="testing-with-qt-and-napari-viewer">
-<h3>Testing with <code class="docutils literal notranslate"><span class="pre">Qt</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code><a class="headerlink" href="#testing-with-qt-and-napari-viewer" title="Link to this heading">#</a></h3>
+<span id="testing-qt"></span><h3>Testing with <code class="docutils literal notranslate"><span class="pre">Qt</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code><a class="headerlink" href="#testing-with-qt-and-napari-viewer" title="Link to this heading">#</a></h3>
 <p>There are a couple things to keep in mind when writing a test where a <code class="docutils literal notranslate"><span class="pre">Qt</span></code> event
 loop or a <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code> is required.  The important thing is that any widgets
-you create during testing are cleaned up at the end of each test:</p>
+you create during testing need to be cleaned up at the end of each test:</p>
 <ol class="arabic">
 <li><p>If you need a <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> to be running for your test, you can use the
 <a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot"><code class="docutils literal notranslate"><span class="pre">qtbot</span></code></a> fixture from <code class="docutils literal notranslate"><span class="pre">pytest-qt</span></code></p>
@@ -779,8 +804,43 @@ Duplicate cleanup may cause an error.  Use the fixture as follows:</p>
 </ol>
 <blockquote>
 <div><p>If you’re curious to see the actual <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> fixture definition, it’s
-in <code class="docutils literal notranslate"><span class="pre">napari/utils/_testsupport.py</span></code></p>
+in <a class="reference external" href="https://github.com/napari/napari/blob/main/napari/utils/_testsupport.py"><code class="docutils literal notranslate"><span class="pre">napari/utils/_testsupport.py</span></code></a>.</p>
 </div></blockquote>
+<section id="skipping-tests-that-show-gui-elements">
+<h4>Skipping tests that show GUI elements<a class="headerlink" href="#skipping-tests-that-show-gui-elements" title="Link to this heading">#</a></h4>
+<p>Tests that require showing GUI elements should be marked with <code class="docutils literal notranslate"><span class="pre">skip_local_popups</span></code>.
+This is so they can be excluded and run only during continuous integration (see
+<a class="reference internal" href="#running-tests"><span class="std std-ref">Running tests</span></a> for details).</p>
+</section>
+<section id="testing-qwidget-visibility">
+<h4>Testing <code class="docutils literal notranslate"><span class="pre">QWidget</span></code> visibility<a class="headerlink" href="#testing-qwidget-visibility" title="Link to this heading">#</a></h4>
+<p>When checking that <code class="docutils literal notranslate"><span class="pre">QWidget</span></code> visibility is updated correctly, you may need to use
+<a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.waitUntil"><code class="docutils literal notranslate"><span class="pre">qtbot.waitUntil</span></code></a> or
+<a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.waitExposed"><code class="docutils literal notranslate"><span class="pre">qtbot.waitExposed</span></code></a> (see <a class="reference internal" href="#testing-qt"><span class="std std-ref">Testing with Qt and napari.Viewer</span></a> for details on <code class="docutils literal notranslate"><span class="pre">qtbot</span></code>).
+This is because visibility can take some time to change.</p>
+<p>For example, the following code can be used to check that a widget correctly
+appears after it is created.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QWidget</span>
+
+
+<span class="k">def</span> <span class="nf">test_widget_hidden</span><span class="p">(</span><span class="n">make_napari_viewer</span><span class="p">,</span> <span class="n">qtbot</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check widget visibility correctly updated after hide.&quot;&quot;&quot;</span>
+    <span class="c1"># create viewer and make it visible</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">make_napari_viewer</span><span class="p">(</span><span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">(</span><span class="n">viewer</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+    <span class="n">widget</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_dock_widgets</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+    <span class="c1"># wait until the `widget` appears</span>
+    <span class="n">qtbot</span><span class="o">.</span><span class="n">waitUntil</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">isVisible</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">widget</span><span class="o">.</span><span class="n">isVisible</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Note that we need to make the <code class="docutils literal notranslate"><span class="pre">viewer</span></code> visible when creating it as we are checking
+visibility. Additionally, you can set the timeout for <code class="docutils literal notranslate"><span class="pre">qtbot.waitUntil</span></code> (default is 5
+seconds).</p>
+<p>Another function that may be useful for testing <code class="docutils literal notranslate"><span class="pre">QWidget</span></code> visibility is
+<a class="reference external" href="https://doc.qt.io/qt-5/qwidget.html#isVisibleTo"><code class="docutils literal notranslate"><span class="pre">QWidget.isVisibleTo</span></code></a>, which
+tells you if a widget is visible relative to an ancestor.</p>
+</section>
 </section>
 <section id="mocking-fake-it-till-you-make-it">
 <h3>Mocking: “Fake it till you make it”<a class="headerlink" href="#mocking-fake-it-till-you-make-it" title="Link to this heading">#</a></h3>
@@ -858,7 +918,11 @@ so certain tests have been disabled from windows in CI, see
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-tests">Writing tests</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#property-based-testing-with-hypothesis">Property-based testing with Hypothesis</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-with-qt-and-napari-viewer">Testing with <code class="docutils literal notranslate"><span class="pre">Qt</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-with-qt-and-napari-viewer">Testing with <code class="docutils literal notranslate"><span class="pre">Qt</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#skipping-tests-that-show-gui-elements">Skipping tests that show GUI elements</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-qwidget-visibility">Testing <code class="docutils literal notranslate"><span class="pre">QWidget</span></code> visibility</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mocking-fake-it-till-you-make-it">Mocking: “Fake it till you make it”</a></li>
 </ul>
 </li>

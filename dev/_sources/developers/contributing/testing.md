@@ -33,28 +33,56 @@ from unit tests to integration and functional tests.
 All of `napari` tests are located in folders named `_tests`. We keep our unit
 tests located in the individual folders with the modules or functions they are
 testing (e.g. the tests for the `Image` layer are located in
-`/napari/layers/image/_tests` alongside the `Image` layer code). Our integration and
-functional tests are located in
-the `napari/_tests` folder at the top of the repository.
+[`/napari/layers/image/_tests`](https://github.com/napari/napari/tree/main/napari/layers/image/_tests)
+alongside the `Image` layer code).
+Our integration and functional tests are located in
+the [`napari/_tests`](https://github.com/napari/napari/tree/main/napari/_tests)
+folder at the top of the repository.
 
-We also strive to unit test as much of our model file and utils code independently of
-our GUI code. These tests are located in the `napari/layers`, `napari/components`,
-and `napari/utils` folders. Our GUI code is tests in the `napari/_tests`,
-`napari/_qt`, `napari/_vispy` folders. The tests in these three folders are ignored
-when we run them in the subset of our
+We also strive to unit test as much of our model and utils code independently of
+our GUI code. These tests are located in the following folders:
+
+* [`napari/layers`](https://github.com/napari/napari/tree/main/napari/layers)
+* [`napari/components`](https://github.com/napari/napari/tree/main/napari/components)
+* [`napari/utils`](https://github.com/napari/napari/tree/main/napari/utils)
+
+Our GUI code is tests in the following folders:
+
+* [`napari/_tests`](https://github.com/napari/napari/tree/main/napari/_tests)
+* [`napari/_qt`](https://github.com/napari/napari/tree/main/napari/_qt)
+* [`napari/_vispy`](https://github.com/napari/napari/tree/main/napari/_vispy)
+
+The tests in these three folders are ignored when we run them in the subset of our
 [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)
 workflows that run in a headless environment (without a Qt backend).
 When we are testing "non-GUI" code in a way that requires a GUI backend, they are
-placed here. The `napari/plugins` folder contains a mix of tests.
+placed here.
 
-Pytest fixtures that are available globally to aid testing live in `napari/conftest.py`.
+The `napari/plugins` folder contains tests related to plugins.
+
+Pytest fixtures to aid testing live in:
+
+* [`napari/conftest.py`](https://github.com/napari/napari/blob/main/napari/conftest.py) -
+  available globally to all of `napari`.
+* [`napari/utils/_testsupport.py`](https://github.com/napari/napari/blob/main/napari/utils/_testsupport.py) -
+  available globally to all of `napari` **and** to all tests in the same environment
+  that `napari` is in (as this file is exported).
+
+There are also fixtures for testing the `napari` builtin plugin (provides contributions
+that come builtin with `napari`).
+These live in
+[`napari_builtins/_tests/conftest.py`](https://github.com/napari/napari/blob/main/napari_builtins/_tests/conftest.py)
+and are available within
+[`napari_builtins/_tests`](https://github.com/napari/napari/tree/main/napari_builtins/_tests).
+
+(running-tests)=
 
 ## Running tests
 
 To run our test suite locally, run `pytest` on the command line.  If, for some reason
 you don't already have the test requirements in your environment, run `python -m pip install -e .[testing]`.
 
-There are a very small number of tests (<5) that require showing GUI elements, (such
+There are some tests that require showing GUI elements, (such
 as testing screenshots). By default, these are only run during continuous integration.
 If you'd like to include them in local tests, set the environment variable "CI":
 
@@ -87,13 +115,13 @@ This tells Qt to render windows "offscreen", which is slower but will avoid the 
    ```shell
    QT_QPA_PLATFORM=offscreen pytest napari
    ```
-   or 
+   or
    ```shell
    QT_QPA_PLATFORM=offscreen tox -e py310-linux-pyqt5
    ```
-   
+
 2. If you are using Linux or WSL, you can use the `xvfb-run` command.
-   This will run the tests in a virtual X server. 
+   This will run the tests in a virtual X server.
    ```sh
    xvfb-run pytest napari
    ```
@@ -101,7 +129,7 @@ This tells Qt to render windows "offscreen", which is slower but will avoid the 
    ```sh
    xvfb-run tox -e py310-linux-pyqt5
    ```
-   
+
 where the tox environment selector `py310-linux-pyqt5` must match your OS and Python version.
 
 ### Tips for speeding up local testing
@@ -155,11 +183,13 @@ See also [this paper on property-based testing in science](https://conference.sc
 [the Hypothesis documentation](https://hypothesis.readthedocs.io/en/latest/)
 (including [Numpy support](https://hypothesis.readthedocs.io/en/latest/numpy.html)).
 
+(testing-qt)=
+
 ### Testing with `Qt` and `napari.Viewer`
 
 There are a couple things to keep in mind when writing a test where a `Qt` event
 loop or a `napari.Viewer` is required.  The important thing is that any widgets
-you create during testing are cleaned up at the end of each test:
+you create during testing need to be cleaned up at the end of each test:
 
 1. If you need a `QApplication` to be running for your test, you can use the
    [`qtbot`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot) fixture from `pytest-qt`
@@ -209,7 +239,46 @@ you create during testing are cleaned up at the end of each test:
     ```
 
 > If you're curious to see the actual `make_napari_viewer` fixture definition, it's
-> in `napari/utils/_testsupport.py`
+> in [`napari/utils/_testsupport.py`](https://github.com/napari/napari/blob/main/napari/utils/_testsupport.py).
+
+#### Skipping tests that show GUI elements
+
+Tests that require showing GUI elements should be marked with `skip_local_popups`.
+This is so they can be excluded and run only during continuous integration (see
+[](running-tests) for details).
+
+#### Testing `QWidget` visibility
+
+When checking that `QWidget` visibility is updated correctly, you may need to use
+[`qtbot.waitUntil`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.waitUntil) or
+[`qtbot.waitExposed`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.waitExposed) (see [](testing-qt) for details on `qtbot`).
+This is because visibility can take some time to change.
+
+For example, the following code can be used to check that a widget correctly
+appears after it is created.
+
+```python
+from qtpy.QtWidgets import QWidget
+
+
+def test_widget_hidden(make_napari_viewer, qtbot):
+    """Check widget visibility correctly updated after hide."""
+    # create viewer and make it visible
+    viewer = make_napari_viewer(show=True)
+    viewer.window.add_dock_widget(QWidget(viewer), name='test')
+    widget = viewer.window._dock_widgets['test']
+    # wait until the `widget` appears
+    qtbot.waitUntil(widget.isVisible)
+    assert widget.isVisible()
+```
+
+Note that we need to make the `viewer` visible when creating it as we are checking
+visibility. Additionally, you can set the timeout for `qtbot.waitUntil` (default is 5
+seconds).
+
+Another function that may be useful for testing `QWidget` visibility is
+[`QWidget.isVisibleTo`](https://doc.qt.io/qt-5/qwidget.html#isVisibleTo), which
+tells you if a widget is visible relative to an ancestor.
 
 ### Mocking: "Fake it till you make it"
 

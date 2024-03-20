@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../_static/documentation_options.js?v=03a4ed4c"></script>
+    <script src="../../../_static/documentation_options.js?v=bc1b4b18"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -498,16 +498,13 @@ document.write(`
 
     <span class="k">class</span> <span class="nc">SigInst</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">_T</span><span class="p">]):</span>
         <span class="nd">@staticmethod</span>
-        <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="n">slot</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">_T</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">type</span><span class="p">:</span> <span class="nb">type</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="o">...</span>
+        <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="n">slot</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">_T</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">type</span><span class="p">:</span> <span class="nb">type</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 
         <span class="nd">@staticmethod</span>
-        <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="n">slot</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">_T</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="o">...</span>
+        <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="n">slot</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">_T</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 
         <span class="nd">@staticmethod</span>
-        <span class="k">def</span> <span class="nf">emit</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="o">...</span>
+        <span class="k">def</span> <span class="nf">emit</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 
     <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">ParamSpec</span>
 
@@ -527,7 +524,7 @@ document.write(`
 
 
 <span class="k">def</span> <span class="nf">as_generator_function</span><span class="p">(</span>
-    <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">_R</span><span class="p">]</span>
+    <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">_R</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">_R</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Turns a regular function (single return) into a generator function.&quot;&quot;&quot;</span>
 
@@ -699,7 +696,6 @@ document.write(`
 <span class="sd">        --------</span>
 <span class="sd">        ```python</span>
 <span class="sd">        class MyWorker(WorkerBase):</span>
-
 <span class="sd">            def work(self):</span>
 <span class="sd">                i = 0</span>
 <span class="sd">                while True:</span>
@@ -998,8 +994,7 @@ document.write(`
     <span class="n">_worker_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">GeneratorWorker</span><span class="p">]</span> <span class="o">|</span> <span class="nb">type</span><span class="p">[</span><span class="n">FunctionWorker</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">_ignore_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GeneratorWorker</span><span class="p">[</span><span class="n">_Y</span><span class="p">,</span> <span class="n">_S</span><span class="p">,</span> <span class="n">_R</span><span class="p">]:</span>
-    <span class="o">...</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GeneratorWorker</span><span class="p">[</span><span class="n">_Y</span><span class="p">,</span> <span class="n">_S</span><span class="p">,</span> <span class="n">_R</span><span class="p">]:</span> <span class="o">...</span>
 
 
 <span class="nd">@overload</span>
@@ -1011,8 +1006,7 @@ document.write(`
     <span class="n">_worker_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">GeneratorWorker</span><span class="p">]</span> <span class="o">|</span> <span class="nb">type</span><span class="p">[</span><span class="n">FunctionWorker</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">_ignore_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FunctionWorker</span><span class="p">[</span><span class="n">_R</span><span class="p">]:</span>
-    <span class="o">...</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FunctionWorker</span><span class="p">[</span><span class="n">_R</span><span class="p">]:</span> <span class="o">...</span>
 
 
 <span class="k">def</span> <span class="nf">create_worker</span><span class="p">(</span>
@@ -1073,7 +1067,9 @@ document.write(`
 <span class="sd">    ```python</span>
 <span class="sd">    def long_function(duration):</span>
 <span class="sd">        import time</span>
+
 <span class="sd">        time.sleep(duration)</span>
+
 
 <span class="sd">    worker = create_worker(long_function, 10)</span>
 <span class="sd">    ```</span>
@@ -1129,8 +1125,7 @@ document.write(`
     <span class="n">connect</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Callable</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">worker_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">WorkerBase</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">ignore_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">GeneratorWorker</span><span class="p">[</span><span class="n">_Y</span><span class="p">,</span> <span class="n">_S</span><span class="p">,</span> <span class="n">_R</span><span class="p">]]:</span>
-    <span class="o">...</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">GeneratorWorker</span><span class="p">[</span><span class="n">_Y</span><span class="p">,</span> <span class="n">_S</span><span class="p">,</span> <span class="n">_R</span><span class="p">]]:</span> <span class="o">...</span>
 
 
 <span class="nd">@overload</span>
@@ -1140,8 +1135,7 @@ document.write(`
     <span class="n">connect</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Callable</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">worker_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">WorkerBase</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">ignore_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">FunctionWorker</span><span class="p">[</span><span class="n">_R</span><span class="p">]]:</span>
-    <span class="o">...</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">FunctionWorker</span><span class="p">[</span><span class="n">_R</span><span class="p">]]:</span> <span class="o">...</span>
 
 
 <span class="nd">@overload</span>
@@ -1151,8 +1145,7 @@ document.write(`
     <span class="n">connect</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Callable</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">worker_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">WorkerBase</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">ignore_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">FunctionWorker</span> <span class="o">|</span> <span class="n">GeneratorWorker</span><span class="p">]]:</span>
-    <span class="o">...</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">FunctionWorker</span> <span class="o">|</span> <span class="n">GeneratorWorker</span><span class="p">]]:</span> <span class="o">...</span>
 
 
 <span class="k">def</span> <span class="nf">thread_worker</span><span class="p">(</span>
@@ -1236,7 +1229,8 @@ document.write(`
 <span class="sd">            yield i</span>
 
 <span class="sd">        # do teardown</span>
-<span class="sd">        return &#39;anything&#39;</span>
+<span class="sd">        return &quot;anything&quot;</span>
+
 
 <span class="sd">    # call the function to start running in another thread.</span>
 <span class="sd">    worker = long_function()</span>
@@ -1289,8 +1283,7 @@ document.write(`
     <span class="k">class</span> <span class="nc">WorkerProtocol</span><span class="p">(</span><span class="n">QObject</span><span class="p">):</span>
         <span class="n">finished</span><span class="p">:</span> <span class="n">Signal</span>
 
-        <span class="k">def</span> <span class="nf">work</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="o">...</span>
+        <span class="k">def</span> <span class="nf">work</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 
 
 <span class="k">def</span> <span class="nf">new_worker_qthread</span><span class="p">(</span>
@@ -1345,9 +1338,7 @@ document.write(`
 <span class="sd">    Create some QObject that has a long-running work method:</span>
 
 <span class="sd">    ```python</span>
-
 <span class="sd">    class Worker(QObject):</span>
-
 <span class="sd">        finished = Signal()</span>
 <span class="sd">        increment = Signal(int)</span>
 
@@ -1359,16 +1350,18 @@ document.write(`
 <span class="sd">        def work(self):</span>
 <span class="sd">            # some long running task...</span>
 <span class="sd">            import time</span>
+
 <span class="sd">            for i in range(10):</span>
 <span class="sd">                time.sleep(1)</span>
 <span class="sd">                self.increment.emit(i)</span>
 <span class="sd">            self.finished.emit()</span>
 
+
 <span class="sd">    worker, thread = new_worker_qthread(</span>
 <span class="sd">        Worker,</span>
-<span class="sd">        &#39;argument&#39;,</span>
+<span class="sd">        &quot;argument&quot;,</span>
 <span class="sd">        _start_thread=True,</span>
-<span class="sd">        _connect={&#39;increment&#39;: print},</span>
+<span class="sd">        _connect={&quot;increment&quot;: print},</span>
 <span class="sd">    )</span>
 <span class="sd">    ```</span>
 <span class="sd">    &quot;&quot;&quot;</span>

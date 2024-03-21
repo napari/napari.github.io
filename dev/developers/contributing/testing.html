@@ -659,12 +659,14 @@ and are available within
 <span id="id2"></span><h2>Running tests<a class="headerlink" href="#running-tests" title="Link to this heading">#</a></h2>
 <p>To run our test suite locally, run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> on the command line.  If, for some reason
 you don’t already have the test requirements in your environment, run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[testing]</span></code>.</p>
-<p>There are some tests that require showing GUI elements, (such
-as testing screenshots). By default, these are only run during continuous integration.
-If you’d like to include them in local tests, set the environment variable “CI”:</p>
+<p>There are some tests that require showing GUI elements (such
+as testing screenshots) and window focus (such as testing drag and drop behavior). By default, these are only run during continuous integration.
+If you’d like to enable them in local tests, you can set the environment variables: <code class="docutils literal notranslate"><span class="pre">NAPARI_POPUP_TESTS=1</span></code> or <code class="docutils literal notranslate"><span class="pre">NAPARI_FOCUS_TESTS=1</span></code> or set the environment variable <code class="docutils literal notranslate"><span class="pre">CI=1</span></code>:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">CI</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>pytest
 </pre></div>
 </div>
+<p>Note: setting <code class="docutils literal notranslate"><span class="pre">CI=1</span></code> will also disable certain tests that take too long, etc. on CI.
+Also, if running the GUI tests that use <code class="docutils literal notranslate"><span class="pre">pyautogui</span></code> on macOS, be sure to give the Terminal app <code class="docutils literal notranslate"><span class="pre">Accessibility</span></code> permissions in <code class="docutils literal notranslate"><span class="pre">System</span> <span class="pre">Settings</span> <span class="pre">&gt;</span> <span class="pre">Privacy</span> <span class="pre">&amp;</span> <span class="pre">Security</span> <span class="pre">&gt;</span> <span class="pre">Accessibility</span></code> so <code class="docutils literal notranslate"><span class="pre">pyautogui</span></code> can control the mouse, keyboard, etc.</p>
 <p>It is also possible to run test using <code class="docutils literal notranslate"><span class="pre">tox</span></code>. This is the same way as it is done in CI.
 The main difference is that tox will create a virtual environment for each test environment, so it will take more time
 but it will be more similar to the CI environment.</p>
@@ -806,11 +808,10 @@ Duplicate cleanup may cause an error.  Use the fixture as follows:</p>
 <div><p>If you’re curious to see the actual <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> fixture definition, it’s
 in <a class="reference external" href="https://github.com/napari/napari/blob/main/napari/utils/_testsupport.py"><code class="docutils literal notranslate"><span class="pre">napari/utils/_testsupport.py</span></code></a>.</p>
 </div></blockquote>
-<section id="skipping-tests-that-show-gui-elements">
-<h4>Skipping tests that show GUI elements<a class="headerlink" href="#skipping-tests-that-show-gui-elements" title="Link to this heading">#</a></h4>
-<p>Tests that require showing GUI elements should be marked with <code class="docutils literal notranslate"><span class="pre">skip_local_popups</span></code>.
-This is so they can be excluded and run only during continuous integration (see
-<a class="reference internal" href="#running-tests"><span class="std std-ref">Running tests</span></a> for details).</p>
+<section id="skipping-tests-that-show-gui-elements-or-need-window-focus">
+<h4>Skipping tests that show GUI elements or need window focus<a class="headerlink" href="#skipping-tests-that-show-gui-elements-or-need-window-focus" title="Link to this heading">#</a></h4>
+<p>Tests that require showing GUI elements should be marked with <code class="docutils literal notranslate"><span class="pre">skip_local_popups</span></code>. If a test requires window focus, it should be marked with <code class="docutils literal notranslate"><span class="pre">skip_local_focus</span></code>.
+This is so they can be excluded and run only during continuous integration (see <a class="reference internal" href="#running-tests"><span class="std std-ref">Running tests</span></a> for details).</p>
 </section>
 <section id="testing-qwidget-visibility">
 <h4>Testing <code class="docutils literal notranslate"><span class="pre">QWidget</span></code> visibility<a class="headerlink" href="#testing-qwidget-visibility" title="Link to this heading">#</a></h4>
@@ -919,7 +920,7 @@ so certain tests have been disabled from windows in CI, see
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-tests">Writing tests</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#property-based-testing-with-hypothesis">Property-based testing with Hypothesis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-with-qt-and-napari-viewer">Testing with <code class="docutils literal notranslate"><span class="pre">Qt</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#skipping-tests-that-show-gui-elements">Skipping tests that show GUI elements</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#skipping-tests-that-show-gui-elements-or-need-window-focus">Skipping tests that show GUI elements or need window focus</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-qwidget-visibility">Testing <code class="docutils literal notranslate"><span class="pre">QWidget</span></code> visibility</a></li>
 </ul>
 </li>

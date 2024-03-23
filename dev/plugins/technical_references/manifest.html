@@ -577,21 +577,25 @@ your package metadata:</p>
 <td><p>Whether this plugin should be searchable and visible in the built-in plugin installer and the napari hub. By default (<code class="docutils literal notranslate"><span class="pre">'public'</span></code>) all plugins are visible. To prevent your plugin from appearing in search results, change this to <code class="docutils literal notranslate"><span class="pre">'hidden'</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">icon</span></code></p></td>
-<td><p>The path to a square PNG icon of at least 128x128 pixels (256x256 for Retina screens). May be one of:</p></td>
+<td><p>The path to a square PNG icon of at least 128x128 pixels (256x256 for Retina screens). May be one of: <ul><li>a secure (https) URL </li><li>a path relative to the manifest file, (must be shipped in the sdist)</li><li>a string in the format <code class="docutils literal notranslate"><span class="pre">{package}:{resource}</span></code>, where <code class="docutils literal notranslate"><span class="pre">package</span></code> and <code class="docutils literal notranslate"><span class="pre">resource</span></code> are arguments to <code class="docutils literal notranslate"><span class="pre">importlib.resources.path(package,</span> <span class="pre">resource)</span></code>, (e.g. <code class="docutils literal notranslate"><span class="pre">top_module.some_folder:my_logo.png</span></code>).</li></ul></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">categories</span></code></p></td>
+<td><p>A list of categories that this plugin belongs to. This is used to help users discover your plugin. Allowed values: <code class="docutils literal notranslate"><span class="pre">[Acquisition,</span> <span class="pre">Annotation,</span> <span class="pre">Dataset,</span> <span class="pre">Image</span> <span class="pre">Processing,</span> <span class="pre">IO,</span> <span class="pre">Measurement,</span> <span class="pre">Segmentation,</span> <span class="pre">Simulation,</span> <span class="pre">Themes,</span> <span class="pre">Transformations,</span> <span class="pre">Utilities,</span> <span class="pre">Visualization]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">schema_version</span></code></p></td>
+<td><p>A SemVer compatible version string matching the napari plugin schema version that the plugin is compatible with.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">on_activate</span></code></p></td>
+<td><p>Fully qualified python path to a function that will be called upon plugin activation (e.g. <code class="docutils literal notranslate"><span class="pre">'my_plugin.some_module:activate'</span></code>). The activate function can be used to connect command ids to python callables, or perform other side-effects. A plugin will be ‘activated’ when one of its contributions is requested by the user (such as a widget, or reader).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">on_deactivate</span></code></p></td>
+<td><p>Fully qualified python path to a function that will be called when a user deactivates a plugin (e.g. <code class="docutils literal notranslate"><span class="pre">'my_plugin.some_module:deactivate'</span></code>). This is optional, and may be used to perform any plugin cleanup.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">contributions</span></code></p></td>
+<td><p>An object describing the plugin’s <a class="reference internal" href="contributions.html"><span class="doc std std-doc">contributions</span></a></p></td>
 </tr>
 </tbody>
 </table>
-<ul class="simple">
-<li><p>a secure (https) URL</p></li>
-<li><p>a path relative to the manifest file, (must be shipped in the sdist)</p></li>
-<li><p>a string in the format <code class="docutils literal notranslate"><span class="pre">{package}:{resource}</span></code>, where <code class="docutils literal notranslate"><span class="pre">package</span></code> and <code class="docutils literal notranslate"><span class="pre">resource</span></code> are arguments to <code class="docutils literal notranslate"><span class="pre">importlib.resources.path(package,</span> <span class="pre">resource)</span></code>, (e.g. <code class="docutils literal notranslate"><span class="pre">top_module.some_folder:my_logo.png</span></code>).|
-|  <code class="docutils literal notranslate"><span class="pre">categories</span></code>  | A list of categories that this plugin belongs to. This is used to help users discover your plugin. Allowed values:
-<code class="docutils literal notranslate"><span class="pre">[Acquisition,</span> <span class="pre">Annotation,</span> <span class="pre">Dataset,</span> <span class="pre">Image</span> <span class="pre">Processing,</span> <span class="pre">IO,</span> <span class="pre">Measurement,</span> <span class="pre">Segmentation,</span> <span class="pre">Simulation,</span> <span class="pre">Themes,</span> <span class="pre">Transformations,</span> <span class="pre">Utilities,</span> <span class="pre">Visualization]</span></code>|
-|  <code class="docutils literal notranslate"><span class="pre">schema_version</span></code>  | A SemVer compatible version string matching the napari plugin schema version that the plugin is compatible with.|
-|  <code class="docutils literal notranslate"><span class="pre">on_activate</span></code>  | Fully qualified python path to a function that will be called upon plugin activation (e.g. <code class="docutils literal notranslate"><span class="pre">'my_plugin.some_module:activate'</span></code>). The activate function can be used to connect command ids to python callables, or perform other side-effects. A plugin will be ‘activated’ when one of its contributions is requested by the user (such as a widget, or reader).|
-|  <code class="docutils literal notranslate"><span class="pre">on_deactivate</span></code>  | Fully qualified python path to a function that will be called when a user deactivates a plugin (e.g. <code class="docutils literal notranslate"><span class="pre">'my_plugin.some_module:deactivate'</span></code>). This is optional, and may be used to perform any plugin cleanup.|
-|  <code class="docutils literal notranslate"><span class="pre">contributions</span></code>  | An object describing the plugin’s <a class="reference internal" href="contributions.html"><span class="doc std std-doc">contributions</span></a>|</p></li>
-</ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Standard python

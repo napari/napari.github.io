@@ -145,7 +145,18 @@ napari to seamlessly browse enormous datasets that are loaded in the right way.
 For example, here we are browsing over 100GB of lattice lightsheet data stored
 in a `zarr` file:
 
-![napari viewer with an image layer of lattice lightsheet data opened. It can be browsed using the slider at the bottom of the viewer.](../../images/LLSM.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/LLSM.webm" type="video/webm" />
+    <source src="../../_static/images/LLSM.mp4" type="video/mp4" />
+    <img src="../../_static/images/LLSM.png"
+      title="Your browser does not support the video tag"
+      alt="napari viewer with an image layer of lattice lightsheet data opened. It can be browsed using the slider at the bottom of the viewer."
+    >
+  </video>
+</figure>
+```
 
 ## Multiscale images
 
@@ -162,7 +173,18 @@ viewed in 2D or incredibly large 3D images when viewed in 3D. For example this
 easily browsed as at each moment in time we only load the level of the
 multiscale image and the part of the image that needs to be displayed:
 
-![napari viewer with a large image layer zoomed all the way in and all the way out in a matter of seconds thanks to multiscale image support.](../../images/pathology.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/pathology.webm" type="video/webm" />
+    <source src="../../_static/images/pathology.mp4" type="video/mp4" />
+    <img src="../../_static/images/pathology.png"
+      title="Your browser does not support the video tag"
+      alt="napari viewer with a large image layer zoomed all the way in and all the way out in a matter of seconds thanks to multiscale image support."
+    >
+  </video>
+</figure>
+```
 
 This example had precomputed multiscale images stored in a `zarr` file, which is
 best for performance. If you don't have a precomputed multiscale image but try

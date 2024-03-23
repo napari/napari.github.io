@@ -162,7 +162,18 @@ The labels layer allows you to record the segmentation result by assigning backg
 1. Circle the cell
 1. Use "fill" bucket to fill it.
 
-![manual_label](../../images/manual_label.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/manual_label.webm" type="video/webm" />
+    <source src="../../_static/images/manual_label.mp4" type="video/mp4" />
+    <img src="../../_static/images/manual_label.png"
+      title="Your browser does not support the video tag"
+      alt="Manually labeling a region of interest in napari"
+    >
+  </video>
+</figure>
+```
 
 Several plugins can perform automatic segmentation that takes image layers as input and generates labels layers as output.
 

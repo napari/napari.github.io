@@ -151,7 +151,8 @@ layer:
   label, or you want to replace only one label with a different one, or maybe
   you have painted around the edge of a region and you want to quickly fill in
   its inside. To do this you can select the `fill bucket` tool by clicking on
-  its icon in the `layer controls` panel, and then click on a target region of interest in the layer. The fill bucket will fill using the currently selected
+  its icon in the `layer controls` panel, and then click on a target region of
+  interest in the layer. The fill bucket will fill using the currently selected
   label. If nothing is selected the entire layer will be filled with that label.
 
   By default, the `fill bucket` will change only contiguous or connected pixels
@@ -301,7 +302,19 @@ and `fill bucket` tools. Below we show how to use these tools by performing
 common editing tasks on connected components (keep the `contiguous` box checked).
 
 * Creating or drawing a connected component
-  ![Using the paintbrush and fill bucket tools to draw a connected component](../../images/draw_component.webm)
+
+  ```{raw} html
+  <figure>
+    <video width="100%" controls autoplay loop muted playsinline>
+      <source src="../../_static/images/draw_component.webm" type="video/webm" />
+      <source src="../../_static/images/draw_component.mp4" type="video/mp4" />
+      <img src="../../_static/images/draw_component.png"
+        title="Your browser does not support the video tag"
+        alt="Using the paintbrush and fill bucket tools to draw a connected component."
+      >
+    </video>
+  </figure>
+  ```
 
   * Press `m` to select a label color that has not been used.
   * Select the `paintbrush` tool and draw a closed contour around the object.
@@ -309,18 +322,55 @@ common editing tasks on connected components (keep the `contiguous` box checked)
     label to all pixels of the object.
 
 * Deleting a connected component
-  ![Deleting selected labels](../../images/delete_label.webm)
+
+  ```{raw} html
+  <figure>
+    <video width="100%" controls autoplay loop muted playsinline>
+      <source src="../../_static/images/delete_label.webm" type="video/webm" />
+      <source src="../../_static/images/delete_label.mp4" type="video/mp4" />
+      <img src="../../_static/images/delete_label.png"
+        title="Your browser does not support the video tag"
+        alt="Deleting selected labels."
+      >
+    </video>
+  </figure>
+  ```
+
   Select the background label with the `color picker` or press `x`, then use the 
   `fill bucket` to set all pixels of the
   connected component to background.
 
 * Merging connected components
-  ![Selecting a label and merging with a connecting label](../../images/merge_labels.webm)
+
+  ```{raw} html
+  <figure>
+    <video width="100%" controls autoplay loop muted playsinline>
+      <source src="../../_static/images/merge_labels.webm" type="video/webm" />
+      <source src="../../_static/images/merge_labels.mp4" type="video/mp4" />
+      <img src="../../_static/images/merge_labels.png"
+        title="Your browser does not support the video tag"
+        alt="Selecting a label and merging with a connecting label."
+      >
+    </video>
+  </figure>
+  ```
+
   * Select the label of one of the components with the `color picker` tool.
   * Select the `fill bucket` and fill the components to be merged.
 
 * Splitting a connected component
-  ![Using the paintbrush tool to split a label into two](../../images/split_label.webm)
+  ```{raw} html
+  <figure>
+    <video width="100%" controls autoplay loop muted playsinline>
+      <source src="../../_static/images/split_label.webm" type="video/webm" />
+      <source src="../../_static/images/split_label.mp4" type="video/mp4" />
+      <img src="../../_static/images/split_label.png"
+        title="Your browser does not support the video tag"
+        alt="Using the paintbrush tool to split a label into two."
+      >
+    </video>
+  </figure>
+  ```
   Splitting a connected component will introduce an additional object.
   * Select the background label with the `color picker` or press `x`.
   * Use the `paintbrush` tool to draw a dividing line where you want to split

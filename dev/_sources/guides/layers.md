@@ -91,7 +91,18 @@ or 3 less than the total number of dimensions of the layer, allowing you to
 browse volumetric timeseries data and other high dimensional data. See for
 example these cells undergoing mitosis in this volumetric timeseries:
 
-![napari viewer with an image of a cell undergoing mitosis. The scroll bar below the canvas controls the timeseries, allowing different stages of mitosis to be visible.](./images/mitosis.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/mitosis.webm" type="video/webm" />
+    <source src="../_static/images/mitosis.mp4" type="video/mp4" />
+    <img src="../_static/images/mitosis.png"
+      title="Your browser does not support the video tag"
+      alt="napari viewer with an image of a cell undergoing mitosis. The scroll bar below the canvas controls the timeseries, allowing different stages of mitosis to be visible."
+    >
+  </video>
+</figure>
+```
 
 ```{note}
 Switching to 3D mode for a very large data set could trigger computation that
@@ -147,8 +158,18 @@ napari.view_image(retina, name='retina', scale=[1,10,1,1])
 viewer.layers['retina'].scale = [1,10,1,1]
 ```
 
-![napari viewer with an image where all layers are scaled equally; when rotated, the image appears flat. By using console below the canvas and applying a scale factor to one of the dimensions, the image's volume becomes apparent.](images/scaling.webm)
-
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/scaling.webm" type="video/webm" />
+    <source src="../_static/images/scaling.mp4" type="video/mp4" />
+    <img src="../_static/images/scaling.png"
+      title="Your browser does not support the video tag"
+      alt="napari viewer with an image where all layers are scaled equally; when rotated, the image appears flat. By using console below the canvas and applying a scale factor to one of the dimensions, the image's volume becomes apparent."
+    >
+  </video>
+</figure>
+```
 
 ## Translating layers
 

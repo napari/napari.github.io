@@ -77,7 +77,18 @@ viewer.add_tracks(tracks_data, name='tracks')
 napari.run()
 ```
 
-![image: tracks simple demo](../../images/tracks_simple_demo.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/tracks_simple_demo.webm" type="video/webm" />
+    <source src="../../_static/images/tracks_simple_demo.mp4" type="video/mp4" />
+    <img src="../../_static/images/tracks_simple_demo.png"
+      title="Your browser does not support the video tag"
+      alt="Tracks simple demo."
+    >
+  </video>
+</figure>
+```
 
 ## GUI controls for the `tracks` layer
 
@@ -277,7 +288,18 @@ viewer.layers["my_tracks"].tail_width = 3
 Additionally, we can adjust the width of the track in the GUI using the
 "tail width" slider in the `tracks` layer controls.
 
-![image: tracks tail width](../../images/tracks_tail_width.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/tracks_tail_width.webm" type="video/webm" />
+    <source src="../../_static/images/tracks_tail_width.mp4" type="video/mp4" />
+    <img src="../../_static/images/tracks_tail_width.png"
+      title="Your browser does not support the video tag"
+      alt="Changing tracks width using the tail width slider."
+    >
+  </video>
+</figure>
+```
 
 ## Changing tail length
 
@@ -300,7 +322,18 @@ viewer.layers["my_tracks"].tail_length = 3
 Additionally, we can adjust the width of the track in the GUI using the "tail
 length" slider in the `tracks` layer controls.
 
-![image: tracks tail length](../../images/tracks_tail_length.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/tracks_tail_length.webm" type="video/webm" />
+    <source src="../../_static/images/tracks_tail_length.mp4" type="video/mp4" />
+    <img src="../../_static/images/tracks_tail_length.png"
+      title="Your browser does not support the video tag"
+      alt="Changing tracks length using the tail width slider."
+    >
+  </video>
+</figure>
+```
 
 ## Setting the track color with properties
 
@@ -347,11 +380,33 @@ viewer.add_tracks(tracks_data, properties=properties)
 napari.run()
 ```
 
-![image: tracks colored by properties](../../images/tracks_color_by.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/tracks_color_by.webm" type="video/webm" />
+    <source src="../../_static/images/tracks_color_by.mp4" type="video/mp4" />
+    <img src="../../_static/images/tracks_color_by.png"
+      title="Your browser does not support the video tag"
+      alt="Selecting tracks by the time property and changing the color."
+    >
+  </video>
+</figure>
+```
 
 ## Putting it all together
 
 Here you can see an example of 3D+t tracks. You can view the source code for
 this example in [](../../gallery/tracks_3d)
 
-![image: tracks 3D plus time](../../images/tracks_3d_t.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/tracks_3d_t.webm" type="video/webm" />
+    <source src="../../_static/images/tracks_3d_t.mp4" type="video/mp4" />
+    <img src="../../_static/images/tracks_3d_t.png"
+      title="Your browser does not support the video tag"
+      alt="3D rendering of tracks."
+    >
+  </video>
+</figure>
+```

@@ -123,7 +123,18 @@ The number of dimensions sliders will be 2 or 3 less than the total number of
 dimensions of the layer, allowing you to browse volumetric timeseries data and
 other high dimensional data. An example is these brain surfaces rendered in 3D:
 
-![image: brain surface](../../images/brain_surface.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/brain_surface.webm" type="video/webm" />
+    <source src="../../_static/images/brain_surface.mp4" type="video/mp4" />
+    <img src="../../_static/images/brain_surface.png"
+      title="Your browser does not support the video tag"
+      alt="Brain surface in 3D view."
+    >
+  </video>
+</figure>
+```
 
 ## Working with colormaps
 

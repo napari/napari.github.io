@@ -808,8 +808,16 @@ provided your image format can be read by the <a class="reference external" href
 <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2000</span><span class="p">],</span> <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><video src="../../_images/dask1.webm" title="napari viewer with image loaded as a dask array showing mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope."><a href="../../_images/dask1.webm">napari viewer with image loaded as a dask array showing mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope.</a></video></p>
-<section id="side-note-regarding-higher-dimensional-datasets">
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/dask1.webm" type="video/webm" />
+    <source src="../../_static/images/dask1.mp4" type="video/mp4" />
+    <img src="../../_static/images/dask1.png"
+      title="Your browser does not support the video tag"
+      alt="napari viewer with image loaded as a dask array showing mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope."
+    >
+  </video>
+</figure><section id="side-note-regarding-higher-dimensional-datasets">
 <h3><strong>Side note regarding higher-dimensional datasets</strong><a class="headerlink" href="#side-note-regarding-higher-dimensional-datasets" title="Link to this heading">#</a></h3>
 <p>In the above example, it would be quite common to have a 5+ dimensional dataset
 (e.g. different timepoints <em>and</em> channels represented among the 3D TIFF files in a folder).
@@ -955,8 +963,16 @@ and loaded the results into RAM and viewed them in <code class="docutils literal
 but it’s surprisingly usable,
 and allows you to preview the result of a relatively complex processing pipeline <em>on-the-fly</em>,
 for arbitrary timepoints/channels, while storing <em>only</em> the raw data on disk.</p>
-<p><video src="../../_images/dask2.webm" title="napari viewer showing the same dataset as the previous video, demonstrating on-the-fly processing of a dask array with sliding through dimensions still performing reasonably well considering the amount of processing going on as you slice."><a href="../../_images/dask2.webm">napari viewer showing the same dataset as the previous video, demonstrating on-the-fly processing of a dask array with sliding through dimensions still performing reasonably well considering the amount of processing going on as you slice.</a></video></p>
-<p>This workflow is very much patterned after <a class="reference external" href="https://blog.dask.org/2019/08/09/image-itk">another great post by John Kirkham, Matthew Rocklin, and Matthew McCormick</a>
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/dask2.webm" type="video/webm" />
+    <source src="../../_static/images/dask2.mp4" type="video/mp4" />
+    <img src="../../_static/images/dask2.png"
+      title="Your browser does not support the video tag"
+      alt="napari viewer showing the same dataset as the previous video, demonstrating on-the-fly processing of a dask array with sliding through dimensions still performing reasonably well considering the amount of processing going on as you slice."
+    >
+  </video>
+</figure><p>This workflow is very much patterned after <a class="reference external" href="https://blog.dask.org/2019/08/09/image-itk">another great post by John Kirkham, Matthew Rocklin, and Matthew McCormick</a>
 that describes a similar image processing pipeline using <a class="reference external" href="https://itk.org/">ITK</a>.
 <code class="docutils literal notranslate"><span class="pre">napari</span></code> simply sits at the end of this lazy processing chain,
 ready to show you the result on demand!</p>

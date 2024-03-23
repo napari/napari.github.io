@@ -130,7 +130,18 @@ stack = imread("/path/to/experiment/*.tif")
 napari.view_image(stack, contrast_limits=[0,2000], multiscale=False)
 ```
 
-![napari viewer with image loaded as a dask array showing mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope.](../assets/tutorials/dask1.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/dask1.webm" type="video/webm" />
+    <source src="../../_static/images/dask1.mp4" type="video/mp4" />
+    <img src="../../_static/images/dask1.png"
+      title="Your browser does not support the video tag"
+      alt="napari viewer with image loaded as a dask array showing mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope."
+    >
+  </video>
+</figure>
+```
 
 ### **Side note regarding higher-dimensional datasets**
 
@@ -292,7 +303,18 @@ but it's surprisingly usable,
 and allows you to preview the result of a relatively complex processing pipeline *on-the-fly*,
 for arbitrary timepoints/channels, while storing *only* the raw data on disk.
 
-![napari viewer showing the same dataset as the previous video, demonstrating on-the-fly processing of a dask array with sliding through dimensions still performing reasonably well considering the amount of processing going on as you slice.](../assets/tutorials/dask2.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/dask2.webm" type="video/webm" />
+    <source src="../../_static/images/dask2.mp4" type="video/mp4" />
+    <img src="../../_static/images/dask2.png"
+      title="Your browser does not support the video tag"
+      alt="napari viewer showing the same dataset as the previous video, demonstrating on-the-fly processing of a dask array with sliding through dimensions still performing reasonably well considering the amount of processing going on as you slice."
+    >
+  </video>
+</figure>
+```
 
 This workflow is very much patterned after [another great post by John Kirkham, Matthew Rocklin, and Matthew McCormick](https://blog.dask.org/2019/08/09/image-itk)
 that describes a similar image processing pipeline using [ITK](https://itk.org/).

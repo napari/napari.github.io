@@ -17,7 +17,18 @@ point_annotator(im_path, labels=['ear_l', 'ear_r', 'tail'])
 
 The resulting viewer looks like this (images from [Mathis et al., 2018](https://www.nature.com/articles/s41593-018-0209-y), downloaded from [here](https://github.com/DeepLabCut/DeepLabCut/tree/f21321ef8060c537f9df0ce9346189bda07701b5/examples/openfield-Pranav-2018-10-30/labeled-data/m4s1)):
 
-![Demo of point annotator shows user adding keypoint labels to a video of a mouse, frame by frame. The user navigates the viewer mostly with keyboard shortcuts, and uses the computer mouse to click on keypoints like the mouse's ears and tail.](../assets/tutorials/point_annotator_demo.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/point_annotator_demo.webm" type="video/webm" />
+    <source src="../../_static/images/point_annotator_demo.mp4" type="video/mp4" />
+    <img src="../../_static/images/point_annotator_demo.png"
+      title="Your browser does not support the video tag"
+      alt="Demo of point annotator shows user adding keypoint labels to a video of a mouse, frame by frame. The user navigates the viewer mostly with keyboard shortcuts, and uses the computer mouse to click on keypoints like the mouse's ears and tail."
+    >
+  </video>
+</figure>
+```
 
 You can explore the project in [this repository](https://github.com/kevinyamauchi/PointAnnotator) or check out the main function below.
 We will walk through the code in the following sections.

@@ -283,7 +283,18 @@ dimensions of the layer, allowing you to browse volumetric timeseries data and
 other high dimensional data. See for example these points overlaid on an image
 in both 2D and 3D:
 
-![image: smFISH with points overlaid](../../images/smFISH.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/smFISH.webm" type="video/webm" />
+    <source src="../../_static/images/smFISH.mp4" type="video/mp4" />
+    <img src="../../_static/images/smFISH.png"
+      title="Your browser does not support the video tag"
+      alt="smFISH with points overlaid."
+    >
+  </video>
+</figure>
+```
 
 ### Adding, deleting, and selecting points
 
@@ -434,4 +445,15 @@ layer using the `symbol` keyword argument.
 Here you can see an example of adding, selecting, deleting points, and changing
 their properties:
 
-![image: editing points](../../images/editing_points.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/editing_points.webm" type="video/webm" />
+    <source src="../../_static/images/editing_points.mp4" type="video/mp4" />
+    <img src="../../_static/images/editing_points.png"
+      title="Your browser does not support the video tag"
+      alt="Selecting and changing points color, size and symbol in napari."
+    >
+  </video>
+</figure>
+```

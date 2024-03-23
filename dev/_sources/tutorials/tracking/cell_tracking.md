@@ -176,7 +176,18 @@ viewer.add_tracks(data, properties=properties, graph=graph, scale=SCALE, name='t
 napari.run()
 ```
 
-![napari viewer with fluorescence imaging cells image layer and tracks layer loaded. The dimension slider under the canvas is at 0.](../assets/tutorials/tracks_isbi.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/tracks_isbi.webm" type="video/webm" />
+    <source src="../../_static/images/tracks_isbi.mp4" type="video/mp4" />
+    <img src="../../_static/images/tracks_isbi.png"
+      title="Your browser does not support the video tag"
+      alt="napari viewer with fluorescence imaging cells image layer and tracks layer loaded. The dimension slider under the canvas is at 0."
+    >
+  </video>
+</figure>
+```
 
 ---
 

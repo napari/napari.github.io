@@ -44,7 +44,18 @@ All shapes are edited in the same way:
    `shift` key down and when finished release the mouse button first! Here is a
    shape being resized:
 
-   ![image: shape resizing](../../images/shape_resizing.webm)
+   ```{raw} html
+   <figure>
+     <video width="100%" controls autoplay loop muted playsinline>
+       <source src="../../_static/images/shape_resizing.webm" type="video/webm" />
+       <source src="../../_static/images/shape_resizing.mp4" type="video/mp4" />
+       <img src="../../_static/images/shape_resizing.png"
+         title="Your browser does not support the video tag"
+         alt="Resizing a shape"
+       >
+     </video>
+   </figure>
+   ```
 
 4. Change the face or edge color by clicking on the thumbnail to the right of
    `face color:` or `edge color:` and choosing or creating a color from the
@@ -72,7 +83,18 @@ new slice values.
 
 ### Adding (inserting), editing, and deleting (removing) individual vertices
 
-![animation of napari viewer with a shapes layer bounded by vertices over an initial static image. The shapes are selected and the vertices moved by the mouse pointer, resulting in new shapes.](../../images/shape_vertex_editing.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/shape_vertex_editing.webm" type="video/webm" />
+    <source src="../../_static/images/shape_vertex_editing.mp4" type="video/mp4" />
+    <img src="../../_static/images/shape_vertex_editing.png"
+      title="Your browser does not support the video tag"
+      alt="animation of napari viewer with a shapes layer bounded by vertices over an initial static image. The shapes are selected and the vertices moved by the mouse pointer, resulting in new shapes."
+    >
+  </video>
+</figure>
+```
 
 ### Creating a new `shapes` layer
 
@@ -545,7 +567,18 @@ dimensions of the layer, allowing you to browse volumetric timeseries data and
 other high dimensional data. See [](../../gallery/nD_shapes) to see shapes in
 both 2D and 3D:
 
-![A stack of colorful polygon shapes over an image layer. The view alternates between 2D and 3D views of the data.](../../images/nD_shapes.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/nD_shapes.webm" type="video/webm" />
+    <source src="../../_static/images/nD_shapes.mp4" type="video/mp4" />
+    <img src="../../_static/images/nD_shapes.png"
+      title="Your browser does not support the video tag"
+      alt="A stack of colorful polygon shapes over an image layer. The view alternates between 2D and 3D views of the data."
+    >
+  </video>
+</figure>
+```
 
 Also note that for a multidimensional shape to be displayed on a given view
 slice, all of its non-displayed coordinates must match the coordinates of that
@@ -602,4 +635,15 @@ opacity of individual shapes you need to adjust the alpha value in the
 Here you can see an example of adding, selecting, and editing shapes and
 changing their properties:
 
-![image: editing shapes](../../images/editing_shapes.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/editing_shapes.webm" type="video/webm" />
+    <source src="../../_static/images/editing_shapes.mp4" type="video/mp4" />
+    <img src="../../_static/images/editing_shapes.png"
+      title="Your browser does not support the video tag"
+      alt="Editing shapes properties in napari."
+    >
+  </video>
+</figure>
+```

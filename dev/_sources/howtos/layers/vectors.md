@@ -127,7 +127,18 @@ dimensions of the layer, allowing you to browse volumetric timeseries data and
 other high dimensional data. See [](../../gallery/nD_vectors) to see shapes in
 both 2D and 3D:
 
-![image: nD vectors](../../images/nD_vectors.webm)
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../../_static/images/nD_vectors.webm" type="video/webm" />
+    <source src="../../_static/images/nD_vectors.mp4" type="video/mp4" />
+    <img src="../../_static/images/nD_vectors.png"
+      title="Your browser does not support the video tag"
+      alt="3D rendering of a vectors layer over an image."
+    >
+  </video>
+</figure>
+```
 
 ## Arguments of `view_vectors` and `add_vectors`
 

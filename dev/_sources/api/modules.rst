@@ -13,6 +13,7 @@ For the average user's workflows.
    napari.types
    napari.utils
    napari.window
+   napari.utils.transforms
 
 .. rubric:: Advanced
 

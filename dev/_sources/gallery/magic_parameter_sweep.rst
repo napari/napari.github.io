@@ -45,10 +45,10 @@ It demonstrates:
 .. code-block:: Python
 
     import typing
+    from typing import Annotated
 
     import skimage.data
     import skimage.filters
-    from typing_extensions import Annotated
 
     import napari
 

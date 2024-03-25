@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../_static/documentation_options.js?v=2facc883"></script>
+    <script src="../../../_static/documentation_options.js?v=1903c844"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -512,7 +512,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FunctionType</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_specification</span>
 
@@ -532,7 +532,7 @@ document.write(`
 <div class="viewcode-block" id="napari_provide_sample_data">
 <a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_provide_sample_data">[docs]</a>
 <span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">napari_provide_sample_data</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">SampleData</span><span class="p">,</span> <span class="n">SampleDict</span><span class="p">]]:</span>
+<span class="k">def</span> <span class="nf">napari_provide_sample_data</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">SampleData</span><span class="p">,</span> <span class="n">SampleDict</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Provide sample data.</span>
 
 <span class="sd">    Plugins may implement this hook to provide sample data for use in napari.</span>
@@ -590,7 +590,7 @@ document.write(`
 <div class="viewcode-block" id="napari_get_reader">
 <a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_get_reader">[docs]</a>
 <span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">napari_get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ReaderFunction</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">napari_get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ReaderFunction</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a function capable of loading ``path`` into napari, or ``None``.</span>
 
 <span class="sd">    This is the primary &quot;**reader plugin**&quot; function.  It accepts a path or</span>
@@ -650,7 +650,7 @@ document.write(`
 <a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_get_writer">[docs]</a>
 <span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_get_writer</span><span class="p">(</span>
-    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">layer_types</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">layer_types</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WriterFunction</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return function capable of writing napari layer data to ``path``.</span>
 
@@ -895,7 +895,7 @@ document.write(`
 <a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_experimental_provide_function">[docs]</a>
 <span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_experimental_provide_function</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">(</span>
-    <span class="n">Union</span><span class="p">[</span><span class="n">FunctionType</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">FunctionType</span><span class="p">]]</span>
+    <span class="n">Union</span><span class="p">[</span><span class="n">FunctionType</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">FunctionType</span><span class="p">]]</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Provide function(s) that can be passed to magicgui.</span>
 
@@ -934,7 +934,7 @@ document.write(`
 <a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_experimental_provide_dock_widget">[docs]</a>
 <span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_experimental_provide_dock_widget</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">(</span>
-    <span class="n">Union</span><span class="p">[</span><span class="n">AugmentedWidget</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">AugmentedWidget</span><span class="p">]]</span>
+    <span class="n">Union</span><span class="p">[</span><span class="n">AugmentedWidget</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">AugmentedWidget</span><span class="p">]]</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Provide functions that return widgets to be docked in the viewer.</span>
 
@@ -1011,7 +1011,7 @@ document.write(`
 <a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_experimental_provide_theme">[docs]</a>
 <span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_experimental_provide_theme</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">(</span>
-    <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">]]]</span>
+    <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">]]]</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Provide GUI with a set of colors used through napari. This hook allows you to</span>
 <span class="sd">    provide additional color schemes so you can accomplish your desired styling.</span>

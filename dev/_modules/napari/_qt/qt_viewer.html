@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../_static/documentation_options.js?v=2facc883"></script>
+    <script src="../../../_static/documentation_options.js?v=1903c844"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -478,20 +478,15 @@ document.write(`
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
-<span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">weakref</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FrameType</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">TYPE_CHECKING</span><span class="p">,</span>
     <span class="n">Any</span><span class="p">,</span>
-    <span class="n">Dict</span><span class="p">,</span>
-    <span class="n">List</span><span class="p">,</span>
     <span class="n">Optional</span><span class="p">,</span>
-    <span class="n">Sequence</span><span class="p">,</span>
-    <span class="n">Tuple</span><span class="p">,</span>
-    <span class="n">Type</span><span class="p">,</span>
     <span class="n">Union</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">weakref</span> <span class="kn">import</span> <span class="n">WeakSet</span><span class="p">,</span> <span class="n">ref</span>
@@ -570,7 +565,7 @@ document.write(`
 
 <span class="k">def</span> <span class="nf">_extension_string_for_layers</span><span class="p">(</span>
     <span class="n">layers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Layer</span><span class="p">],</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">WriterContribution</span><span class="p">]]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">WriterContribution</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return an extension string and the list of corresponding writers.</span>
 
 <span class="sd">    The extension string is a &quot;;;&quot; delimeted string of entries. Each entry</span>
@@ -657,7 +652,7 @@ document.write(`
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">viewer</span><span class="p">:</span> <span class="n">ViewerModel</span><span class="p">,</span>
         <span class="n">show_welcome_screen</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">canvas_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">VispyCanvas</span><span class="p">]</span> <span class="o">=</span> <span class="n">VispyCanvas</span><span class="p">,</span>
+        <span class="n">canvas_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">VispyCanvas</span><span class="p">]</span> <span class="o">=</span> <span class="n">VispyCanvas</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_instances</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -1105,7 +1100,7 @@ document.write(`
 <span class="sd">        Provides updates after slicing using the slice response data.</span>
 <span class="sd">        This only gets triggered on the async slicing path.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">responses</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">weakref</span><span class="o">.</span><span class="n">ReferenceType</span><span class="p">[</span><span class="n">Layer</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">responses</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">weakref</span><span class="o">.</span><span class="n">ReferenceType</span><span class="p">[</span><span class="n">Layer</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;QtViewer._on_slice_ready: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">responses</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">weak_layer</span><span class="p">,</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">layer</span> <span class="o">:=</span> <span class="n">weak_layer</span><span class="p">():</span>
@@ -1377,7 +1372,7 @@ document.write(`
         <span class="k">if</span> <span class="n">dial</span><span class="o">.</span><span class="n">exec_</span><span class="p">():</span>
             <span class="n">update_save_history</span><span class="p">(</span><span class="n">dial</span><span class="o">.</span><span class="n">selectedFiles</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="nf">_open_file_dialog_uni</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_open_file_dialog_uni</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Open dialog to get list of files from user</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1440,8 +1435,8 @@ document.write(`
 
     <span class="k">def</span> <span class="nf">_qt_open</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">filenames</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-        <span class="n">stack</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]],</span>
+        <span class="n">filenames</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">stack</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]],</span>
         <span class="n">choose_plugin</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1663,7 +1658,7 @@ document.write(`
 
 
     <span class="k">def</span> <span class="nf">_open_from_list_of_urls_data</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">urls_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">QUrl</span><span class="p">],</span> <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="p">:</span> <span class="nb">bool</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">urls_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">QUrl</span><span class="p">],</span> <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="p">):</span>
         <span class="n">filenames</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls_list</span><span class="p">:</span>

@@ -15,6 +15,7 @@
       :nosignatures:
       :toctree:
    
+      FullLayerData
       SampleDict
       ArrayBase
    

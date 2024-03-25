@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../_static/documentation_options.js?v=2facc883"></script>
+    <script src="../../_static/documentation_options.js?v=1903c844"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -473,21 +473,16 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for napari.types</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span><span class="p">,</span> <span class="n">wraps</span>
+<span></span><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span><span class="p">,</span> <span class="n">wraps</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">TracebackType</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">TYPE_CHECKING</span><span class="p">,</span>
     <span class="n">Any</span><span class="p">,</span>
     <span class="n">Callable</span><span class="p">,</span>
-    <span class="n">Dict</span><span class="p">,</span>
-    <span class="n">Iterable</span><span class="p">,</span>
-    <span class="n">List</span><span class="p">,</span>
     <span class="n">NewType</span><span class="p">,</span>
     <span class="n">Optional</span><span class="p">,</span>
-    <span class="n">Sequence</span><span class="p">,</span>
-    <span class="n">Tuple</span><span class="p">,</span>
-    <span class="n">Type</span><span class="p">,</span>
     <span class="n">Union</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -543,22 +538,22 @@ document.write(`
 
 <span class="c1"># layer data may be: (data,) (data, meta), or (data, meta, layer_type)</span>
 <span class="c1"># using &quot;Any&quot; for the data type until ArrayLike is more mature.</span>
-<span class="n">FullLayerData</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">LayerTypeName</span><span class="p">]</span>
-<span class="n">LayerData</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span> <span class="n">FullLayerData</span><span class="p">]</span>
+<span class="n">FullLayerData</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">LayerTypeName</span><span class="p">]</span>
+<span class="n">LayerData</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span> <span class="n">FullLayerData</span><span class="p">]</span>
 
 <span class="n">PathLike</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span>
 <span class="n">PathOrPaths</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">PathLike</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]]</span>
-<span class="n">ReaderFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">PathOrPaths</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]]</span>
-<span class="n">WriterFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">FullLayerData</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+<span class="n">ReaderFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">PathOrPaths</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]]</span>
+<span class="n">WriterFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">FullLayerData</span><span class="p">]],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
 
 <span class="n">ExcInfo</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span>
-    <span class="n">Tuple</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">],</span> <span class="ne">BaseException</span><span class="p">,</span> <span class="n">TracebackType</span><span class="p">],</span>
-    <span class="n">Tuple</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="nb">tuple</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">],</span> <span class="ne">BaseException</span><span class="p">,</span> <span class="n">TracebackType</span><span class="p">],</span>
+    <span class="nb">tuple</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
 <span class="p">]</span>
 
 <span class="c1"># Types for GUI HookSpecs</span>
 <span class="n">WidgetCallable</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="s1">&#39;FunctionGui&#39;</span><span class="p">,</span> <span class="s1">&#39;QWidget&#39;</span><span class="p">]]</span>
-<span class="n">AugmentedWidget</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">WidgetCallable</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">WidgetCallable</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]]</span>
+<span class="n">AugmentedWidget</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">WidgetCallable</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">WidgetCallable</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]]</span>
 
 
 <span class="c1"># Sample Data for napari_provide_sample_data hookspec is either a string/path</span>
@@ -582,14 +577,14 @@ document.write(`
 <span class="c1"># while their names should not change (without deprecation), their typing</span>
 <span class="c1"># implementations may... or may be rolled over to napari/image-types</span>
 
-<span class="n">ArrayBase</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+<span class="n">ArrayBase</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
 
 
 <span class="n">ImageData</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s1">&#39;ImageData&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
 <span class="n">LabelsData</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s1">&#39;LabelsData&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
 <span class="n">PointsData</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s1">&#39;PointsData&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
-<span class="n">ShapesData</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s1">&#39;ShapesData&#39;</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span>
-<span class="n">SurfaceData</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s1">&#39;SurfaceData&#39;</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span>
+<span class="n">ShapesData</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s1">&#39;ShapesData&#39;</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span>
+<span class="n">SurfaceData</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s1">&#39;SurfaceData&#39;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span>
 <span class="n">TracksData</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s1">&#39;TracksData&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
 <span class="n">VectorsData</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s1">&#39;VectorsData&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
 <span class="n">_LayerData</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span>
@@ -627,7 +622,7 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">reader_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">reader_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[(</span><span class="n">result</span><span class="p">,)]</span>
 
@@ -637,21 +632,19 @@ document.write(`
 
 <span class="k">def</span> <span class="nf">_register_types_with_magicgui</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Register ``napari.types`` objects with magicgui.&quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">sys</span>
     <span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">Future</span>
 
     <span class="kn">from</span> <span class="nn">magicgui</span> <span class="kn">import</span> <span class="n">register_type</span>
 
     <span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">_magicgui</span> <span class="k">as</span> <span class="n">_mgui</span>
 
-    <span class="k">for</span> <span class="n">type_</span> <span class="ow">in</span> <span class="p">(</span><span class="n">LayerDataTuple</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">LayerDataTuple</span><span class="p">]):</span>
+    <span class="k">for</span> <span class="n">type_</span> <span class="ow">in</span> <span class="p">(</span><span class="n">LayerDataTuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">LayerDataTuple</span><span class="p">]):</span>
         <span class="n">register_type</span><span class="p">(</span>
             <span class="n">type_</span><span class="p">,</span>
             <span class="n">return_callback</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">add_layer_data_tuples_to_viewer</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
-            <span class="n">future_type</span> <span class="o">=</span> <span class="n">Future</span><span class="p">[</span><span class="n">type_</span><span class="p">]</span>  <span class="c1"># type: ignore [valid-type]</span>
-            <span class="n">register_type</span><span class="p">(</span><span class="n">future_type</span><span class="p">,</span> <span class="n">return_callback</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">add_future_data</span><span class="p">)</span>
+        <span class="n">future_type</span> <span class="o">=</span> <span class="n">Future</span><span class="p">[</span><span class="n">type_</span><span class="p">]</span>  <span class="c1"># type: ignore [valid-type]</span>
+        <span class="n">register_type</span><span class="p">(</span><span class="n">future_type</span><span class="p">,</span> <span class="n">return_callback</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">add_future_data</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">data_type</span> <span class="ow">in</span> <span class="n">get_args</span><span class="p">(</span><span class="n">_LayerData</span><span class="p">):</span>
         <span class="n">register_type</span><span class="p">(</span>
@@ -659,27 +652,21 @@ document.write(`
             <span class="n">choices</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">get_layers_data</span><span class="p">,</span>
             <span class="n">return_callback</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">add_layer_data_to_viewer</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
-            <span class="n">register_type</span><span class="p">(</span>
-                <span class="n">Future</span><span class="p">[</span><span class="n">data_type</span><span class="p">],</span>  <span class="c1"># type: ignore [valid-type]</span>
-                <span class="n">choices</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">get_layers_data</span><span class="p">,</span>
-                <span class="n">return_callback</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span>
-                    <span class="n">_mgui</span><span class="o">.</span><span class="n">add_future_data</span><span class="p">,</span> <span class="n">_from_tuple</span><span class="o">=</span><span class="kc">False</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
+        <span class="n">register_type</span><span class="p">(</span>
+            <span class="n">Future</span><span class="p">[</span><span class="n">data_type</span><span class="p">],</span>  <span class="c1"># type: ignore [valid-type]</span>
+            <span class="n">choices</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">get_layers_data</span><span class="p">,</span>
+            <span class="n">return_callback</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">_mgui</span><span class="o">.</span><span class="n">add_future_data</span><span class="p">,</span> <span class="n">_from_tuple</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+        <span class="p">)</span>
         <span class="n">register_type</span><span class="p">(</span>
             <span class="n">Optional</span><span class="p">[</span><span class="n">data_type</span><span class="p">],</span>  <span class="c1"># type: ignore [call-overload]</span>
             <span class="n">choices</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">get_layers_data</span><span class="p">,</span>
             <span class="n">return_callback</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">add_layer_data_to_viewer</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
-            <span class="n">register_type</span><span class="p">(</span>
-                <span class="n">Future</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">data_type</span><span class="p">]],</span>  <span class="c1"># type: ignore [valid-type]</span>
-                <span class="n">choices</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">get_layers_data</span><span class="p">,</span>
-                <span class="n">return_callback</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span>
-                    <span class="n">_mgui</span><span class="o">.</span><span class="n">add_future_data</span><span class="p">,</span> <span class="n">_from_tuple</span><span class="o">=</span><span class="kc">False</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
+        <span class="n">register_type</span><span class="p">(</span>
+            <span class="n">Future</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">data_type</span><span class="p">]],</span>  <span class="c1"># type: ignore [valid-type]</span>
+            <span class="n">choices</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">get_layers_data</span><span class="p">,</span>
+            <span class="n">return_callback</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">_mgui</span><span class="o">.</span><span class="n">add_future_data</span><span class="p">,</span> <span class="n">_from_tuple</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+        <span class="p">)</span>
 
 
 <span class="n">_register_types_with_magicgui</span><span class="p">()</span>

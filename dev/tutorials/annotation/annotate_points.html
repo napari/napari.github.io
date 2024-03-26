@@ -695,6 +695,13 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="annotating-videos-with-napari">
 <span id="annotating-points"></span><h1>Annotating videos with napari<a class="headerlink" href="#annotating-videos-with-napari" title="Link to this heading">#</a></h1>
+<div class="warning admonition">
+<p class="admonition-title">DEPRECATED ATTRIBUTES</p>
+<p>As of napari 0.5.0, <code class="docutils literal notranslate"><span class="pre">edge_*</span></code> attributes are being renamed to
+<code class="docutils literal notranslate"><span class="pre">border_*</span></code> attributes. We have yet to update the images and/or videos in
+this tutorial. Please use <code class="docutils literal notranslate"><span class="pre">border</span></code> in place of <code class="docutils literal notranslate"><span class="pre">edge</span></code> for all <code class="docutils literal notranslate"><span class="pre">Points</span></code> attributes moving forward.</p>
+<p>The code in this tutorial uses the latest API. Only images and videos may be out of date.</p>
+</div>
 <p><strong>Note</strong>: this tutorial has been updated and is now compatible with napari &gt; 0.4.5 and magicgui &gt; 0.2.5. For details, see <a class="reference external" href="https://github.com/napari/napari.github.io/pull/114">this pull request</a>.</p>
 <p>In this tutorial, we will use napari (requires version 0.3.2 or greater) to make a simple GUI application for annotating points in videos.
 This GUI could be useful for making annotations required to train algorithms for markless tracking of animals (e.g., <a class="reference external" href="http://www.mackenziemathislab.org/deeplabcut">DeepLabCut</a>).
@@ -796,14 +803,14 @@ We will walk through the code in the following sections.</p>
     <span class="n">points_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span>
         <span class="n">ndim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
         <span class="n">property_choices</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">labels</span><span class="p">},</span>
-        <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">,</span>
-        <span class="n">edge_color_cycle</span><span class="o">=</span><span class="n">COLOR_CYCLE</span><span class="p">,</span>
+        <span class="n">border_color</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">,</span>
+        <span class="n">border_color_cycle</span><span class="o">=</span><span class="n">COLOR_CYCLE</span><span class="p">,</span>
         <span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
         <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
-        <span class="n">edge_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>  <span class="c1"># fraction of point size</span>
+        <span class="n">border_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>  <span class="c1"># fraction of point size</span>
         <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">points_layer</span><span class="o">.</span><span class="n">edge_color_mode</span> <span class="o">=</span> <span class="s1">&#39;cycle&#39;</span>
+    <span class="n">points_layer</span><span class="o">.</span><span class="n">border_color_mode</span> <span class="o">=</span> <span class="s1">&#39;cycle&#39;</span>
 
     <span class="c1"># add the label menu widget to the viewer</span>
     <span class="n">label_widget</span> <span class="o">=</span> <span class="n">create_label_menu</span><span class="p">(</span><span class="n">points_layer</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
@@ -898,20 +905,20 @@ The key, ‘label’, is the name of the property we are storing which feature o
 The values, ‘labels’, is the list of the names of the features we will be annotating (defined above in the “point_annotator()” section).</p>
 <p>We add the <code class="docutils literal notranslate"><span class="pre">Points</span></code> layer to the viewer using the <code class="docutils literal notranslate"><span class="pre">viewer.add_points()</span></code> method.
 As discussed above, we will be storing which feature of interest each point corresponds to via the <code class="docutils literal notranslate"><span class="pre">label</span></code> property we defined in the <code class="docutils literal notranslate"><span class="pre">properties</span></code> dictionary.
-To visualize the feature each point represents, we set the edge color as a color cycle mapped to the <code class="docutils literal notranslate"><span class="pre">label</span></code> property (<code class="docutils literal notranslate"><span class="pre">edge_color='label'</span></code>).</p>
+To visualize the feature each point represents, we set the border color as a color cycle mapped to the <code class="docutils literal notranslate"><span class="pre">label</span></code> property (<code class="docutils literal notranslate"><span class="pre">border_color='label'</span></code>).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">points_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span>
     <span class="n">ndim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">property_choices</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">labels</span><span class="p">},</span>
-    <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">,</span>
-    <span class="n">edge_color_cycle</span><span class="o">=</span><span class="n">COLOR_CYCLE</span><span class="p">,</span>
+    <span class="n">border_color</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">,</span>
+    <span class="n">border_color_cycle</span><span class="o">=</span><span class="n">COLOR_CYCLE</span><span class="p">,</span>
     <span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
     <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
-    <span class="n">edge_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>  <span class="c1"># fraction of point size</span>
+    <span class="n">border_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>  <span class="c1"># fraction of point size</span>
     <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Note that we set the <code class="docutils literal notranslate"><span class="pre">edge_color_cycle</span></code> to <code class="docutils literal notranslate"><span class="pre">COLOR_CYCLE</span></code>.
+<p>Note that we set the <code class="docutils literal notranslate"><span class="pre">border_color_cycle</span></code> to <code class="docutils literal notranslate"><span class="pre">COLOR_CYCLE</span></code>.
 You can define your own color cycle as a list of colors.
 The colors can be defined as hex strings, standard color names or RGBA arrays.
 For example, the <a class="reference external" href="https://github.com/d3/d3-3.x-api-reference/blob/master/Ordinal-Scales.md#category10">category10 color palette</a> would be:</p>
@@ -930,8 +937,8 @@ For example, the <a class="reference external" href="https://github.com/d3/d3-3.
 </pre></div>
 </div>
 <p>We set the points <code class="docutils literal notranslate"><span class="pre">ndim</span></code> to 3 so that the coordinates for the point annotations we add will be 3 dimensional (time + 2D).</p>
-<p>Finally, we set the edge color to a color cycle:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">points_layer</span><span class="o">.</span><span class="n">edge_color_mode</span> <span class="o">=</span> <span class="s1">&#39;cycle&#39;</span>
+<p>Finally, we set the border color to a color cycle:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">points_layer</span><span class="o">.</span><span class="n">border_color_mode</span> <span class="o">=</span> <span class="s1">&#39;cycle&#39;</span>
 </pre></div>
 </div>
 </section>

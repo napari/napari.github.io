@@ -2,6 +2,15 @@
 
 # Annotating videos with napari
 
+```{Admonition} DEPRECATED ATTRIBUTES
+:class: warning
+As of napari 0.5.0, `edge_*` attributes are being renamed to 
+`border_*` attributes. We have yet to update the images and/or videos in 
+this tutorial. Please use `border` in place of `edge` for all `Points` attributes moving forward.
+
+The code in this tutorial uses the latest API. Only images and videos may be out of date.
+```
+
 **Note**: this tutorial has been updated and is now compatible with napari > 0.4.5 and magicgui > 0.2.5. For details, see [this pull request](https://github.com/napari/napari.github.io/pull/114).
 
 In this tutorial, we will use napari (requires version 0.3.2 or greater) to make a simple GUI application for annotating points in videos.
@@ -114,14 +123,14 @@ def point_annotator(
     points_layer = viewer.add_points(
         ndim=3,
         property_choices={'label': labels},
-        edge_color='label',
-        edge_color_cycle=COLOR_CYCLE,
+        border_color='label',
+        border_color_cycle=COLOR_CYCLE,
         symbol='o',
         face_color='transparent',
-        edge_width=0.5,  # fraction of point size
+        border_width=0.5,  # fraction of point size
         size=12,
     )
-    points_layer.edge_color_mode = 'cycle'
+    points_layer.border_color_mode = 'cycle'
 
     # add the label menu widget to the viewer
     label_widget = create_label_menu(points_layer, labels)
@@ -221,22 +230,22 @@ The values, 'labels', is the list of the names of the features we will be annota
 
 We add the `Points` layer to the viewer using the `viewer.add_points()` method.
 As discussed above, we will be storing which feature of interest each point corresponds to via the `label` property we defined in the `properties` dictionary.
-To visualize the feature each point represents, we set the edge color as a color cycle mapped to the `label` property (`edge_color='label'`).
+To visualize the feature each point represents, we set the border color as a color cycle mapped to the `label` property (`border_color='label'`).
 
 ```python
 points_layer = viewer.add_points(
     ndim=3,
     property_choices={'label': labels},
-    edge_color='label',
-    edge_color_cycle=COLOR_CYCLE,
+    border_color='label',
+    border_color_cycle=COLOR_CYCLE,
     symbol='o',
     face_color='transparent',
-    edge_width=0.5,  # fraction of point size
+    border_width=0.5,  # fraction of point size
     size=12,
 )
 ```
 
-Note that we set the `edge_color_cycle` to `COLOR_CYCLE`.
+Note that we set the `border_color_cycle` to `COLOR_CYCLE`.
 You can define your own color cycle as a list of colors.
 The colors can be defined as hex strings, standard color names or RGBA arrays.
 For example, the [category10 color palette](https://github.com/d3/d3-3.x-api-reference/blob/master/Ordinal-Scales.md#category10) would be:
@@ -258,10 +267,10 @@ COLOR_CYCLE = [
 
 We set the points `ndim` to 3 so that the coordinates for the point annotations we add will be 3 dimensional (time + 2D).
 
-Finally, we set the edge color to a color cycle:
+Finally, we set the border color to a color cycle:
 
 ```python
-    points_layer.edge_color_mode = 'cycle'
+    points_layer.border_color_mode = 'cycle'
 ```
 
 ## Adding a GUI for selecting points

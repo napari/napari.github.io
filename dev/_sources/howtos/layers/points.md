@@ -13,6 +13,15 @@ kernelspec:
 
 # Using the `points` layer
 
+```{Admonition} DEPRECATED ATTRIBUTES
+:class: warning
+As of napari 0.5.0, `edge_*` attributes are being renamed to 
+`border_*` attributes. We have yet to update the images and/or videos in 
+this tutorial. Please use `border` in place of `edge` for all `Points` attributes moving forward.
+
+The code in this tutorial uses the latest API. Only images and videos may be out of date.
+```
+
 In this document, you will learn about the `napari` `Points` layer, including
 displaying `points` over an image that have been found in an automated fashion,
 or manually annotating an image with `points`. You will also understand how to
@@ -23,16 +32,16 @@ For more information about layers, refer to [Layers at a glance](../../guides/la
 ## When to use the `points` layer
 
 The `points` layer allows you to display an `NxD` array of `N` points in `D`
-coordinates. You can adjust the size, face color, and edge color of all the
+coordinates. You can adjust the size, face color, and border color of all the
 points independently. You can also adjust `opacity` and `symbol` representing
 all the points simultaneously.
 
 Each data point can have annotations associated with it using the
 `Points.properties` dictionary. These properties can be used to set the face and
-edge colors of the points. For example, when displaying points of different
+border colors of the points. For example, when displaying points of different
 classes/types, one could automatically set color the individual points by their
 respective class/type. For more details on point properties, see
-[](#setting-point-edge-and-face-color-with-properties) or
+[](#setting-point-border-and-face-color-with-properties) or
 [point annotation tutorial](../../tutorials/annotation/annotate_points).
 
 ## Creating and editing the `points` layer using the GUI
@@ -51,7 +60,7 @@ layer:
     * Blending
     * Symbol
     * Face color
-    * Edge color
+    * Border color
     * Display text
     * Out of slice
 * Other tools
@@ -141,12 +150,12 @@ layer:
   need to have any points selected for it to have an effect. In fact, you cannot
   change the symbol for a single point on a layer and leave the rest the same.
 
-* Face and edge colors
+* Face and border colors
 
   To change the point color properties from the GUI first select the points
   whose properties you want to change, otherwise you will just be initializing
   the property for the next point to add. Select the point you want to change,
-  then click the thumbnail next to `face color:` or `edge color:` to select or
+  then click the thumbnail next to `face color:` or `border color:` to select or
   create a color from the pallette.
 
 * Display text
@@ -206,10 +215,10 @@ on an existing image.
 
 Each data point can have annotations associated with it using the
 `Points.properties` dictionary. These properties can be used to set the face and
-edge colors of the points. For example, when displaying points of different
+border colors of the points. For example, when displaying points of different
 classes/types, one could automatically set the color of the individual points by
 their respective class/type. For more details on point properties, see
-[](#setting-point-edge-and-face-color-with-properties) below or the
+[](#setting-point-border-and-face-color-with-properties) below or the
 [Point annotation tutorial](../../tutorials/annotation/annotate_points).
 
 In this example, we will overlay some points on the image of an astronaut:
@@ -265,7 +274,7 @@ The `points` layer can contain properties that annotate each point.
 name of the property and the values are NumPy arrays with a value for each point
 (i.e., length N for N points in `Points.data`). As we will see below, we can use
 the values in a property to set the display properties of the points (e.g., face
-color or edge color). To see the points properties in action, please see the
+color or border color). To see the points properties in action, please see the
 [Point annotation tutorial](annotating-points).
 
 
@@ -318,20 +327,20 @@ The value of the size of the next point to be added can be found in the
 `layer.current_size` property. Note this property is different from `layer.size`
 which contains the current sizes of all the points.
 
-### Changing points edge and face color
+### Changing points border and face color
 
-Individual points can each have different edge and face colors. You can
-initially set these colors by providing a list of colors to the `edge_color` or
+Individual points can each have different border and face colors. You can
+initially set these colors by providing a list of colors to the `border_color` or
 `face_color` keyword arguments respectively. The colors of each of the points
-are available as lists under the `layer.edge_color` and `layer.face_color`
+are available as lists under the `layer.border_color` and `layer.face_color`
 properties. Similar to the `size` and `current_size` properties, these
-properties are different from the `layer.current_edge_color` and
+properties are different from the `layer.current_border_color` and
 `layer.current_face_color` properties that will determine the color of the next
 point to be added or any currently selected points.
 
-### Setting point edge and face color with properties
+### Setting point border and face color with properties
 
-Point edge and face colors can be set as a function of a property in
+Point border and face colors can be set as a function of a property in
 `Points.properties`. There are two ways the values in `Points.properties` can be
 mapped to colors: (1) color cycles and (2) colormaps.
 
@@ -349,10 +358,10 @@ For guidance on choosing colormaps, see the
 list(napari.utils.colormaps.AVAILABLE_COLORMAPS)
 ```
 
-### Setting edge or face color with a color cycle
+### Setting border or face color with a color cycle
 
-Here we will set the edge color of the markers with a color cycle on a property.
-To do the same for a face color, substitute `face_color` for `edge_color` in the
+Here we will set the border color of the markers with a color cycle on a property.
+To do the same for a face color, substitute `face_color` for `border_color` in the
 example snippet below.
 
 ```{code-cell} python
@@ -366,15 +375,15 @@ point_properties = {
 points_layer = viewer.add_points(
     points,
     properties=point_properties,
-    edge_color='good_point',
-    edge_color_cycle=['magenta', 'green'],
-    edge_width=0.5,
+    border_color='good_point',
+    border_color_cycle=['magenta', 'green'],
+    border_width=0.5,
 )
 ```
 
 ```{code-cell} python
 :tags: [hide-input]
-nbscreenshot(viewer, alt_text="3 points overlaid on an astronaut image, where the edge color of the points has been changed to a color cycle")
+nbscreenshot(viewer, alt_text="3 points overlaid on an astronaut image, where the border color of the points has been changed to a color cycle")
 ```
 
 ```{code-cell} python
@@ -386,18 +395,18 @@ viewer.close()
 In the example above, the `point_properties` were provided as a dictionary with
 two properties: `good_point` and `confidence`. The values of each property are
 stored in a NumPy ndarray with length 3 since there were 3 coordinates provided
-in `points`. We set the edge color as a function of the `good_point` property by
-providing the keyword argument `edge_color='good_point'` to the
-`viewer.add_points()` method. The color cycle is set via the `edge_color_cycle`
-keyword argument, `edge_color_cycle=['magenta', 'green']`. The color cycle can
+in `points`. We set the border color as a function of the `good_point` property by
+providing the keyword argument `border_color='good_point'` to the
+`viewer.add_points()` method. The color cycle is set via the `border_color_cycle`
+keyword argument, `border_color_cycle=['magenta', 'green']`. The color cycle can
 be provided as a list of colors (as a list of strings or a (M x 4) array of M
 RGBA colors).
 
-### Setting edge or face color with a colormap
+### Setting border or face color with a colormap
 
 In the example snippet below, we set the face color of the markers with a
-colormap on a property. To do the same for an edge color, substitute `face` for
-`edge`.
+colormap on a property. To do the same for a border color, substitute `face` for
+`border`.
 
 ```{code-cell} python
 viewer = napari.view_image(data.astronaut(), rgb=True)

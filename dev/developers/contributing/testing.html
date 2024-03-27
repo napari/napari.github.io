@@ -757,21 +757,27 @@ library for at least some inputs.</p>
 <section id="testing-with-qt-and-napari-viewer">
 <span id="testing-qt"></span><h3>Testing with <code class="docutils literal notranslate"><span class="pre">Qt</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code><a class="headerlink" href="#testing-with-qt-and-napari-viewer" title="Link to this heading">#</a></h3>
 <p>There are a couple things to keep in mind when writing a test where a <code class="docutils literal notranslate"><span class="pre">Qt</span></code> event
-loop or a <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code> is required.  The important thing is that any widgets
-you create during testing need to be cleaned up at the end of each test:</p>
-<ol class="arabic">
-<li><p>If you need a <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> to be running for your test, you can use the
-<a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot"><code class="docutils literal notranslate"><span class="pre">qtbot</span></code></a> fixture from <code class="docutils literal notranslate"><span class="pre">pytest-qt</span></code></p>
-<blockquote>
-<div><p>note: fixtures in pytest can be a little mysterious, since it’s not always
-clear where they are coming from.  In this case, using a pytest-qt fixture
+loop or a <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Viewer</span></code></a> is required.  The important thing is that any widgets
+you create during testing need to be cleaned up at the end of each test. We thus
+recommend that you use the following fixtures when needing a widget or
+<a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Viewer</span></code></a> in a test.</p>
+<section id="qtbot">
+<h4>qtbot<a class="headerlink" href="#qtbot" title="Link to this heading">#</a></h4>
+<p>If you need a <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> to be running for your test, you can use the
+<a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot"><code class="docutils literal notranslate"><span class="pre">qtbot</span></code></a>
+fixture from <code class="docutils literal notranslate"><span class="pre">pytest-qt</span></code>, a napari testing dependency.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Fixtures in pytest can be a little mysterious, since it’s not always
+clear where they are coming from.  In this case using the <code class="docutils literal notranslate"><span class="pre">pytest-qt</span></code> <code class="docutils literal notranslate"><span class="pre">qtbot</span></code>fixture
 looks like this:</p>
-</div></blockquote>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># just by putting `qtbot` in the list of arguments</span>
 <span class="c1"># pytest-qt will start up an event loop for you</span>
 <span class="k">def</span> <span class="nf">test_something</span><span class="p">(</span><span class="n">qtbot</span><span class="p">):</span>
     <span class="o">...</span>
 </pre></div>
+</div>
+<br/>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">qtbot</span></code> provides a convenient
 <a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.addWidget"><code class="docutils literal notranslate"><span class="pre">addWidget</span></code></a>
@@ -786,29 +792,17 @@ signals, etc…).  See the <a class="reference external" href="https://pytest-qt
     <span class="o">...</span>
 </pre></div>
 </div>
-</li>
-<li><p>When writing a test that requires a <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code> object, we provide a
+</section>
+<section id="make-napari-viewer">
+<h4><code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code><a class="headerlink" href="#make-napari-viewer" title="Link to this heading">#</a></h4>
+<p>We provide a
 <a class="reference external" href="https://docs.pytest.org/en/stable/explanation/fixtures.html">pytest fixture</a> called
-<code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> that will take care of creating a viewer and cleaning up
-at the end of the test.  When using this function, it is <strong>not</strong> necessary to
-use a <code class="docutils literal notranslate"><span class="pre">qtbot</span></code> fixture, nor should you do any additional cleanup (such as
-using <code class="docutils literal notranslate"><span class="pre">qtbot.addWidget</span></code> or calling <code class="docutils literal notranslate"><span class="pre">viewer.close()</span></code>) at the end of the test.
-Duplicate cleanup may cause an error.  Use the fixture as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the make_napari_viewer fixture is defined in napari/utils/_testsupport.py</span>
-<span class="k">def</span> <span class="nf">test_something_with_a_viewer</span><span class="p">(</span><span class="n">make_napari_viewer</span><span class="p">):</span>
-    <span class="c1"># make_napari_viewer takes any keyword arguments that napari.Viewer() takes</span>
-    <span class="n">viewer</span> <span class="o">=</span> <span class="n">make_napari_viewer</span><span class="p">()</span>
-
-    <span class="c1"># do stuff with the viewer, no qtbot or viewer.close() methods needed.</span>
-    <span class="o">...</span>
-</pre></div>
-</div>
-</li>
-</ol>
-<blockquote>
-<div><p>If you’re curious to see the actual <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> fixture definition, it’s
-in <a class="reference external" href="https://github.com/napari/napari/blob/main/napari/utils/_testsupport.py"><code class="docutils literal notranslate"><span class="pre">napari/utils/_testsupport.py</span></code></a>.</p>
-</div></blockquote>
+<code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> for tests that require the <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Viewer</span></code></a>. This
+fixture is available globally and to all tests in the same environment that <code class="docutils literal notranslate"><span class="pre">napari</span></code>
+is in (see <a class="reference internal" href="#test-organization"><span class="std std-ref">Test organization</span></a> for details). Thus, there is no need to import it,
+you simply include <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> as a test function parameter, as shown in the
+<strong>Examples</strong> section below:</p>
+</section>
 <section id="skipping-tests-that-show-gui-elements-or-need-window-focus">
 <h4>Skipping tests that show GUI elements or need window focus<a class="headerlink" href="#skipping-tests-that-show-gui-elements-or-need-window-focus" title="Link to this heading">#</a></h4>
 <p>Tests that require showing GUI elements should be marked with <code class="docutils literal notranslate"><span class="pre">skip_local_popups</span></code>. If a test requires window focus, it should be marked with <code class="docutils literal notranslate"><span class="pre">skip_local_focus</span></code>.
@@ -921,6 +915,8 @@ so certain tests have been disabled from windows in CI, see
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-tests">Writing tests</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#property-based-testing-with-hypothesis">Property-based testing with Hypothesis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-with-qt-and-napari-viewer">Testing with <code class="docutils literal notranslate"><span class="pre">Qt</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#qtbot">qtbot</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#make-napari-viewer"><code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#skipping-tests-that-show-gui-elements-or-need-window-focus">Skipping tests that show GUI elements or need window focus</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-qwidget-visibility">Testing <code class="docutils literal notranslate"><span class="pre">QWidget</span></code> visibility</a></li>
 </ul>

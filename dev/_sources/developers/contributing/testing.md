@@ -191,62 +191,63 @@ See also [this paper on property-based testing in science](https://conference.sc
 ### Testing with `Qt` and `napari.Viewer`
 
 There are a couple things to keep in mind when writing a test where a `Qt` event
-loop or a `napari.Viewer` is required.  The important thing is that any widgets
-you create during testing need to be cleaned up at the end of each test:
+loop or a {class}`~napari.Viewer` is required.  The important thing is that any widgets
+you create during testing need to be cleaned up at the end of each test. We thus
+recommend that you use the following fixtures when needing a widget or
+{class}`~napari.Viewer` in a test.
 
-1. If you need a `QApplication` to be running for your test, you can use the
-   [`qtbot`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot) fixture from `pytest-qt`
+#### qtbot
 
-    > note: fixtures in pytest can be a little mysterious, since it's not always
-    > clear where they are coming from.  In this case, using a pytest-qt fixture
-    > looks like this:
+If you need a `QApplication` to be running for your test, you can use the
+[`qtbot`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot)
+fixture from `pytest-qt`, a napari testing dependency.
 
-    ```python
-    # just by putting `qtbot` in the list of arguments
-    # pytest-qt will start up an event loop for you
-    def test_something(qtbot):
-        ...
-    ```
+````{note}
+Fixtures in pytest can be a little mysterious, since it's not always
+clear where they are coming from.  In this case using the `pytest-qt` `qtbot`fixture
+looks like this:
 
-   `qtbot` provides a convenient
-   [`addWidget`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.addWidget)
-   method that will ensure that the widget gets closed at the end of the test.
-   It *also* provides a whole bunch of other
-   convenient methods for interacting with your GUI tests (clicking, waiting
-   signals, etc...).  See the [`qtbot` docs](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot) for details.
+```python
+# just by putting `qtbot` in the list of arguments
+# pytest-qt will start up an event loop for you
+def test_something(qtbot):
+    ...
+```
+<br/>
+````
 
-    ```python
-    # the qtbot provides convenience methods like addWidget
-    def test_something_else(qtbot):
-        widget = QWidget()
-        qtbot.addWidget(widget)  # tell qtbot to clean this widget later
-        ...
-    ```
+`qtbot` provides a convenient
+[`addWidget`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.addWidget)
+method that will ensure that the widget gets closed at the end of the test.
+It *also* provides a whole bunch of other
+convenient methods for interacting with your GUI tests (clicking, waiting
+signals, etc...).  See the [`qtbot` docs](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot) for details.
 
-2. When writing a test that requires a `napari.Viewer` object, we provide a
-   [pytest fixture](https://docs.pytest.org/en/stable/explanation/fixtures.html) called
-   `make_napari_viewer` that will take care of creating a viewer and cleaning up
-   at the end of the test.  When using this function, it is **not** necessary to
-   use a `qtbot` fixture, nor should you do any additional cleanup (such as
-   using `qtbot.addWidget` or calling `viewer.close()`) at the end of the test.
-   Duplicate cleanup may cause an error.  Use the fixture as follows:
+```python
+# the qtbot provides convenience methods like addWidget
+def test_something_else(qtbot):
+    widget = QWidget()
+    qtbot.addWidget(widget)  # tell qtbot to clean this widget later
+    ...
+```
 
-    ```python
-    # the make_napari_viewer fixture is defined in napari/utils/_testsupport.py
-    def test_something_with_a_viewer(make_napari_viewer):
-        # make_napari_viewer takes any keyword arguments that napari.Viewer() takes
-        viewer = make_napari_viewer()
+#### `make_napari_viewer`
 
-        # do stuff with the viewer, no qtbot or viewer.close() methods needed.
-        ...
-    ```
+We provide a
+[pytest fixture](https://docs.pytest.org/en/stable/explanation/fixtures.html) called
+`make_napari_viewer` for tests that require the {class}`~napari.Viewer`. This
+fixture is available globally and to all tests in the same environment that `napari`
+is in (see [](test-organization) for details). Thus, there is no need to import it,
+you simply include `make_napari_viewer` as a test function parameter, as shown in the
+**Examples** section below:
 
-> If you're curious to see the actual `make_napari_viewer` fixture definition, it's
-> in [`napari/utils/_testsupport.py`](https://github.com/napari/napari/blob/main/napari/utils/_testsupport.py).
+```{eval-rst}
+.. autofunction:: napari.utils._testsupport.make_napari_viewer()
+```
 
 #### Skipping tests that show GUI elements or need window focus
 
-Tests that require showing GUI elements should be marked with `skip_local_popups`. If a test requires window focus, it should be marked with `skip_local_focus`. 
+Tests that require showing GUI elements should be marked with `skip_local_popups`. If a test requires window focus, it should be marked with `skip_local_focus`.
 This is so they can be excluded and run only during continuous integration (see [](running-tests) for details).
 
 #### Testing `QWidget` visibility

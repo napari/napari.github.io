@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=f15999c6"></script>
+    <script src="../../../../_static/documentation_options.js?v=1d3466ac"></script>
     <script src="../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -515,24 +515,19 @@ document.write(`
 <span class="sd">        D dimensions. An (N1, N2, ..., ND, D) array is interpreted as</span>
 <span class="sd">        &quot;image-like&quot; data where there is a length D vector of the</span>
 <span class="sd">        projections at each pixel.</span>
-<span class="sd">    ndim : int</span>
-<span class="sd">        Number of dimensions for vectors. When data is not None, ndim must be D.</span>
-<span class="sd">        An empty vectors layer can be instantiated with arbitrary ndim.</span>
-<span class="sd">    features : dict[str, array-like] or DataFrame</span>
-<span class="sd">        Features table where each row corresponds to a vector and each column</span>
-<span class="sd">        is a feature.</span>
-<span class="sd">    properties : dict {str: array (N,)}, DataFrame</span>
-<span class="sd">        Properties for each vector. Each property should be an array of length N,</span>
-<span class="sd">        where N is the number of vectors.</span>
-<span class="sd">    property_choices : dict {str: array (N,)}</span>
-<span class="sd">        possible values for each property.</span>
-<span class="sd">    edge_width : float</span>
-<span class="sd">        Width for all vectors in pixels.</span>
-<span class="sd">    vector_style : str</span>
-<span class="sd">        One of a list of preset display modes that determines how vectors are displayed.</span>
-<span class="sd">        Allowed values are {&#39;line&#39;, &#39;triangle&#39;, and &#39;arrow&#39;}.</span>
-<span class="sd">    length : float</span>
-<span class="sd">        Multiplicative factor on projections for length of all vectors.</span>
+<span class="sd">    affine : n-D array or napari.utils.transforms.Affine</span>
+<span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
+<span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
+<span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
+<span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
+<span class="sd">        provided scale, rotate, and shear values.</span>
+<span class="sd">    blending : str</span>
+<span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
+<span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
+<span class="sd">        {&#39;opaque&#39;, &#39;translucent&#39;, and &#39;additive&#39;}.</span>
+<span class="sd">    cache : bool</span>
+<span class="sd">        Whether slices of out-of-core datasets should be cached upon retrieval.</span>
+<span class="sd">        Currently, this only applies to dask arrays.</span>
 <span class="sd">    edge_color : str</span>
 <span class="sd">        Color of all of the vectors.</span>
 <span class="sd">    edge_color_cycle : np.ndarray, list</span>
@@ -545,43 +540,57 @@ document.write(`
 <span class="sd">        of the specified property that are mapped to 0 and 1, respectively.</span>
 <span class="sd">        The default value is None. If set the none, the clims will be set to</span>
 <span class="sd">        (property.min(), property.max())</span>
+<span class="sd">    edge_width : float</span>
+<span class="sd">        Width for all vectors in pixels.</span>
+<span class="sd">    experimental_clipping_planes : list of dicts, list of ClippingPlane, or ClippingPlaneList</span>
+<span class="sd">        Each dict defines a clipping plane in 3D in data coordinates.</span>
+<span class="sd">        Valid dictionary keys are {&#39;position&#39;, &#39;normal&#39;, and &#39;enabled&#39;}.</span>
+<span class="sd">        Values on the negative side of the normal are discarded if the plane is enabled.</span>
+<span class="sd">    feature_defaults : dict[str, Any] or DataFrame</span>
+<span class="sd">        The default value of each feature in a table with one row.</span>
+<span class="sd">    features : dict[str, array-like] or DataFrame</span>
+<span class="sd">        Features table where each row corresponds to a vector and each column</span>
+<span class="sd">        is a feature.</span>
+<span class="sd">    length : float</span>
+<span class="sd">        Multiplicative factor on projections for length of all vectors.</span>
+<span class="sd">    metadata : dict</span>
+<span class="sd">        Layer metadata.</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Name of the layer.</span>
+<span class="sd">    ndim : int</span>
+<span class="sd">        Number of dimensions for vectors. When data is not None, ndim must be D.</span>
+<span class="sd">        An empty vectors layer can be instantiated with arbitrary ndim.</span>
+<span class="sd">    opacity : float</span>
+<span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
 <span class="sd">    out_of_slice_display : bool</span>
 <span class="sd">        If True, renders vectors not just in central plane but also slightly out of slice</span>
 <span class="sd">        according to specified point marker size.</span>
-<span class="sd">    name : str</span>
-<span class="sd">        Name of the layer.</span>
-<span class="sd">    metadata : dict</span>
-<span class="sd">        Layer metadata.</span>
-<span class="sd">    scale : tuple of float</span>
-<span class="sd">        Scale factors for the layer.</span>
-<span class="sd">    translate : tuple of float</span>
-<span class="sd">        Translation values for the layer.</span>
+<span class="sd">    projection_mode : str</span>
+<span class="sd">        How data outside the viewed dimensions but inside the thick Dims slice will</span>
+<span class="sd">        be projected onto the viewed dimenions.</span>
+<span class="sd">    properties : dict {str: array (N,)}, DataFrame</span>
+<span class="sd">        Properties for each vector. Each property should be an array of length N,</span>
+<span class="sd">        where N is the number of vectors.</span>
+<span class="sd">    property_choices : dict {str: array (N,)}</span>
+<span class="sd">        possible values for each property.</span>
 <span class="sd">    rotate : float, 3-tuple of float, or n-D array.</span>
 <span class="sd">        If a float convert into a 2D rotation matrix using that value as an</span>
 <span class="sd">        angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,</span>
 <span class="sd">        pitch, roll convention. Otherwise assume an nD rotation. Angles are</span>
 <span class="sd">        assumed to be in degrees. They can be converted from radians with</span>
 <span class="sd">        np.degrees if needed.</span>
+<span class="sd">    scale : tuple of float</span>
+<span class="sd">        Scale factors for the layer.</span>
 <span class="sd">    shear : 1-D array or n-D array</span>
 <span class="sd">        Either a vector of upper triangular values, or an nD shear matrix with</span>
 <span class="sd">        ones along the main diagonal.</span>
-<span class="sd">    affine : n-D array or napari.utils.transforms.Affine</span>
-<span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
-<span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
-<span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
-<span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
-<span class="sd">        provided scale, rotate, and shear values.</span>
-<span class="sd">    opacity : float</span>
-<span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
-<span class="sd">    blending : str</span>
-<span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
-<span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
-<span class="sd">        {&#39;opaque&#39;, &#39;translucent&#39;, and &#39;additive&#39;}.</span>
+<span class="sd">    translate : tuple of float</span>
+<span class="sd">        Translation values for the layer.</span>
+<span class="sd">    vector_style : str</span>
+<span class="sd">        One of a list of preset display modes that determines how vectors are displayed.</span>
+<span class="sd">        Allowed values are {&#39;line&#39;, &#39;triangle&#39;, and &#39;arrow&#39;}.</span>
 <span class="sd">    visible : bool</span>
 <span class="sd">        Whether the layer visual is currently being displayed.</span>
-<span class="sd">    cache : bool</span>
-<span class="sd">        Whether slices of out-of-core datasets should be cached upon retrieval.</span>
-<span class="sd">        Currently, this only applies to dask arrays.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -601,11 +610,11 @@ document.write(`
 <span class="sd">        Determines how vectors are displayed.</span>
 
 <span class="sd">        * ``VectorStyle.LINE``:</span>
-<span class="sd">        Vectors are displayed as lines.</span>
+<span class="sd">            Vectors are displayed as lines.</span>
 <span class="sd">        * ``VectorStyle.TRIANGLE``:</span>
-<span class="sd">        Vectors are displayed as triangles.</span>
+<span class="sd">            Vectors are displayed as triangles.</span>
 <span class="sd">        * ``VectorStyle.ARROW``:</span>
-<span class="sd">        Vectors are displayed as arrows.</span>
+<span class="sd">            Vectors are displayed as arrows.</span>
 <span class="sd">    length : float</span>
 <span class="sd">        Multiplicative factor on projections for length of all vectors.</span>
 <span class="sd">    edge_color : str</span>
@@ -653,32 +662,32 @@ document.write(`
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">ndim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">feature_defaults</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">property_choices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">edge_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">vector_style</span><span class="o">=</span><span class="s1">&#39;triangle&#39;</span><span class="p">,</span>
+        <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">blending</span><span class="o">=</span><span class="s1">&#39;translucent&#39;</span><span class="p">,</span>
+        <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
         <span class="n">edge_color_cycle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">edge_colormap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
         <span class="n">edge_contrast_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">out_of_slice_display</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
-        <span class="n">blending</span><span class="o">=</span><span class="s1">&#39;translucent&#39;</span><span class="p">,</span>
-        <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">edge_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">feature_defaults</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ndim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+        <span class="n">out_of_slice_display</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+        <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">property_choices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">vector_style</span><span class="o">=</span><span class="s1">&#39;triangle&#39;</span><span class="p">,</span>
+        <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">ndim</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
@@ -949,11 +958,11 @@ document.write(`
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Vectors display mode: Determines how vectors are displayed.</span>
 
 <span class="sd">        VectorStyle.LINE</span>
-<span class="sd">                Displays vectors as rectangular lines.</span>
-<span class="sd">            VectorStyle.TRIANGLE</span>
-<span class="sd">                Displays vectors as triangles.</span>
-<span class="sd">            VectorStyle.ARROW</span>
-<span class="sd">                Displays vectors as arrows.</span>
+<span class="sd">            Displays vectors as rectangular lines.</span>
+<span class="sd">        VectorStyle.TRIANGLE</span>
+<span class="sd">            Displays vectors as triangles.</span>
+<span class="sd">        VectorStyle.ARROW</span>
+<span class="sd">            Displays vectors as arrows.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vector_style</span><span class="p">)</span>
 

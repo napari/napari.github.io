@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../_static/documentation_options.js?v=f15999c6"></script>
+    <script src="../_static/documentation_options.js?v=1d3466ac"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -675,36 +675,33 @@ will have a <cite>.start()</cite> method that can be used to start the thread.</
 <a class="reference internal" href="#napari.qt.create_worker" title="napari.qt.create_worker"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_worker()</span></code></a> for additional keyword arguments that can be used
 when calling the function.</p>
 <p>The returned worker will have these signals:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p><em>started</em>: emitted when the work is started</p></li>
 <li><p><em>finished</em>: emitted when the work is finished</p></li>
 <li><p><em>returned</em>: emitted with return value</p></li>
 <li><p><em>errored</em>: emitted with error object on Exception</p></li>
 </ul>
-</div></blockquote>
 <p>It will also have a <code class="docutils literal notranslate"><span class="pre">worker.start()</span></code> method that can be used to start
 execution of the function in another thread. (useful if you need to connect
 callbacks to signals prior to execution)</p>
 <p>If the decorated function is a generator, the returned worker will also
 provide these signals:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p><em>yielded</em>: emitted with yielded values</p></li>
 <li><p><em>paused</em>: emitted when a running job has successfully paused</p></li>
 <li><p><em>resumed</em>: emitted when a paused job has successfully resumed</p></li>
 <li><p><em>aborted</em>: emitted when a running job is successfully aborted</p></li>
 </ul>
-</div></blockquote>
 <p>And these methods:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p><em>quit</em>: ask the thread to quit</p></li>
 <li><p><em>toggle_paused</em>: toggle the running state of the thread.</p></li>
-<li><p><em>send</em>: send a value into the generator.  (This requires that your
-decorator function uses the <code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">=</span> <span class="pre">yield</span></code> syntax)</p></li>
+<li><dl class="simple">
+<dt><em>send</em>: send a value into the generator.  (This requires that your</dt><dd><p>decorator function uses the <code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">=</span> <span class="pre">yield</span></code> syntax)</p>
+</dd>
+</dl>
+</li>
 </ul>
-</div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

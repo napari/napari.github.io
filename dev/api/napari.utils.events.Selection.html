@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../_static/documentation_options.js?v=f15999c6"></script>
+    <script src="../_static/documentation_options.js?v=1d3466ac"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -601,7 +601,7 @@ document.write(`
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.utils.events.</span></span><span class="sig-name descname"><span class="pre">Selection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.12)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><span class="pre">_T</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/events/containers/_selection.html#Selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.events.Selection" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="napari.utils.events.EventedSet.html#napari.utils.events.EventedSet" title="napari.utils.events.containers._set.EventedSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventedSet</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_T</span></code>]</p>
 <p>A model of selected items, with <code class="docutils literal notranslate"><span class="pre">active</span></code> and <code class="docutils literal notranslate"><span class="pre">current</span></code> item.</p>
-<p>There can only be one <code class="docutils literal notranslate"><span class="pre">active</span></code> and one <a href="#id1"><span class="problematic" id="id2">``</span></a>current` item, but there can be
+<p>There can only be one <code class="docutils literal notranslate"><span class="pre">active</span></code> and one <code class="docutils literal notranslate"><span class="pre">current</span></code> item, but there can be
 multiple selected items.  An “active” item is defined as a single selected
 item (if multiple items are selected, there is no active item).  The
 “current” item is mostly useful for (e.g.) keyboard actions: even with
@@ -644,12 +644,9 @@ handling mouse/key events.</p>
 
 <dl class="field-list">
 <dt class="field-odd">Events<span class="colon">:</span></dt>
-<dd class="field-odd"><ul>
-<li><dl>
-<dt><strong>changed (added</strong> (<em>Set[_T], removed: Set[_T])</em>) – Emitted when the set changes, includes item(s) that have been added</dt><dd><blockquote>
-<div><p>and/or removed from the set.</p>
-</div></blockquote>
-<ul class="simple">
+<dd class="field-odd"><ul class="simple">
+<li><dl class="simple">
+<dt><strong>changed (added</strong> (<em>Set[_T], removed: Set[_T])</em>) – Emitted when the set changes, includes item(s) that have been added and/or removed from the set.</dt><dd><ul>
 <li><p><strong>active (value</strong> (<em>_T)</em>) – emitted when the current item has changed.</p></li>
 <li><p><strong>_current (value</strong> (<em>_T)</em>) – emitted when the current item has changed. (Private event)</p></li>
 </ul>

@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=f15999c6"></script>
+    <script src="../../../../_static/documentation_options.js?v=1d3466ac"></script>
     <script src="../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -551,35 +551,18 @@ document.write(`
 <span class="sd">    ndim : int</span>
 <span class="sd">        Number of dimensions for shapes. When data is not None, ndim must be D.</span>
 <span class="sd">        An empty points layer can be instantiated with arbitrary ndim.</span>
-<span class="sd">    features : dict[str, array-like] or DataFrame</span>
-<span class="sd">        Features table where each row corresponds to a point and each column</span>
-<span class="sd">        is a feature.</span>
-<span class="sd">    feature_defaults : dict[str, Any] or DataFrame</span>
-<span class="sd">        The default value of each feature in a table with one row.</span>
-<span class="sd">    properties : dict {str: array (N,)}, DataFrame</span>
-<span class="sd">        Properties for each point. Each property should be an array of length N,</span>
-<span class="sd">        where N is the number of points.</span>
-<span class="sd">    property_choices : dict {str: array (N,)}</span>
-<span class="sd">        possible values for each property.</span>
-<span class="sd">    text : str, dict</span>
-<span class="sd">        Text to be displayed with the points. If text is set to a key in properties,</span>
-<span class="sd">        the value of that property will be displayed. Multiple properties can be</span>
-<span class="sd">        composed using f-string-like syntax (e.g., &#39;{property_1}, {float_property:.2f}).</span>
-<span class="sd">        A dictionary can be provided with keyword arguments to set the text values</span>
-<span class="sd">        and display properties. See TextManager.__init__() for the valid keyword arguments.</span>
-<span class="sd">        For example usage, see /napari/examples/add_points_with_text.py.</span>
-<span class="sd">    symbol : str, array</span>
-<span class="sd">        Symbols to be used for the point markers. Must be one of the</span>
-<span class="sd">        following: arrow, clobber, cross, diamond, disc, hbar, ring,</span>
-<span class="sd">        square, star, tailed_arrow, triangle_down, triangle_up, vbar, x.</span>
-<span class="sd">    size : float, array</span>
-<span class="sd">        Size of the point marker in data pixels. If given as a scalar, all points are made</span>
-<span class="sd">        the same size. If given as an array, size must be the same or broadcastable</span>
-<span class="sd">        to the same shape as the data.</span>
-<span class="sd">    border_width : float, array</span>
-<span class="sd">        Width of the symbol border in pixels.</span>
-<span class="sd">    border_width_is_relative : bool</span>
-<span class="sd">        If enabled, border_width is interpreted as a fraction of the point size.</span>
+<span class="sd">    affine : n-D array or napari.utils.transforms.Affine</span>
+<span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
+<span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
+<span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
+<span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
+<span class="sd">        provided scale, rotate, and shear values.</span>
+<span class="sd">    antialiasing: float</span>
+<span class="sd">        Amount of antialiasing in canvas pixels.</span>
+<span class="sd">    blending : str</span>
+<span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
+<span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
+<span class="sd">        {&#39;opaque&#39;, &#39;translucent&#39;, and &#39;additive&#39;}.</span>
 <span class="sd">    border_color : str, array-like, dict</span>
 <span class="sd">        Color of the point marker border. Numeric color values should be RGB(A).</span>
 <span class="sd">    border_color_cycle : np.ndarray, list</span>
@@ -592,6 +575,19 @@ document.write(`
 <span class="sd">        of the specified property that are mapped to 0 and 1, respectively.</span>
 <span class="sd">        The default value is None. If set the none, the clims will be set to</span>
 <span class="sd">        (property.min(), property.max())</span>
+<span class="sd">    border_width : float, array</span>
+<span class="sd">        Width of the symbol border in pixels.</span>
+<span class="sd">    border_width_is_relative : bool</span>
+<span class="sd">        If enabled, border_width is interpreted as a fraction of the point size.</span>
+<span class="sd">    cache : bool</span>
+<span class="sd">        Whether slices of out-of-core datasets should be cached upon retrieval.</span>
+<span class="sd">        Currently, this only applies to dask arrays.</span>
+<span class="sd">    canvas_size_limits : tuple of float</span>
+<span class="sd">        Lower and upper limits for the size of points in canvas pixels.</span>
+<span class="sd">    experimental_clipping_planes : list of dicts, list of ClippingPlane, or ClippingPlaneList</span>
+<span class="sd">        Each dict defines a clipping plane in 3D in data coordinates.</span>
+<span class="sd">        Valid dictionary keys are {&#39;position&#39;, &#39;normal&#39;, and &#39;enabled&#39;}.</span>
+<span class="sd">        Values on the negative side of the normal are discarded if the plane is enabled.</span>
 <span class="sd">    face_color : str, array-like, dict</span>
 <span class="sd">        Color of the point marker body. Numeric color values should be RGB(A).</span>
 <span class="sd">    face_color_cycle : np.ndarray, list</span>
@@ -604,46 +600,39 @@ document.write(`
 <span class="sd">        of the specified property that are mapped to 0 and 1, respectively.</span>
 <span class="sd">        The default value is None. If set the none, the clims will be set to</span>
 <span class="sd">        (property.min(), property.max())</span>
-<span class="sd">    out_of_slice_display : bool</span>
-<span class="sd">        If True, renders points not just in central plane but also slightly out of slice</span>
-<span class="sd">        according to specified point marker size.</span>
+<span class="sd">    feature_defaults : dict[str, Any] or DataFrame</span>
+<span class="sd">        The default value of each feature in a table with one row.</span>
+<span class="sd">    features : dict[str, array-like] or DataFrame</span>
+<span class="sd">        Features table where each row corresponds to a point and each column</span>
+<span class="sd">        is a feature.</span>
+<span class="sd">    metadata : dict</span>
+<span class="sd">        Layer metadata.</span>
 <span class="sd">    n_dimensional : bool</span>
 <span class="sd">        This property will soon be deprecated in favor of &#39;out_of_slice_display&#39;.</span>
 <span class="sd">        Use that instead.</span>
 <span class="sd">    name : str</span>
 <span class="sd">        Name of the layer.</span>
-<span class="sd">    metadata : dict</span>
-<span class="sd">        Layer metadata.</span>
-<span class="sd">    scale : tuple of float</span>
-<span class="sd">        Scale factors for the layer.</span>
-<span class="sd">    translate : tuple of float</span>
-<span class="sd">        Translation values for the layer.</span>
+<span class="sd">    opacity : float</span>
+<span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
+<span class="sd">    out_of_slice_display : bool</span>
+<span class="sd">        If True, renders points not just in central plane but also slightly out of slice</span>
+<span class="sd">        according to specified point marker size.</span>
+<span class="sd">    projection_mode : str</span>
+<span class="sd">        How data outside the viewed dimensions but inside the thick Dims slice will</span>
+<span class="sd">        be projected onto the viewed dimenions.</span>
+<span class="sd">    properties : dict {str: array (N,)}, DataFrame</span>
+<span class="sd">        Properties for each point. Each property should be an array of length N,</span>
+<span class="sd">        where N is the number of points.</span>
+<span class="sd">    property_choices : dict {str: array (N,)}</span>
+<span class="sd">        possible values for each property.</span>
 <span class="sd">    rotate : float, 3-tuple of float, or n-D array.</span>
 <span class="sd">        If a float convert into a 2D rotation matrix using that value as an</span>
 <span class="sd">        angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,</span>
 <span class="sd">        pitch, roll convention. Otherwise assume an nD rotation. Angles are</span>
 <span class="sd">        assumed to be in degrees. They can be converted from radians with</span>
 <span class="sd">        np.degrees if needed.</span>
-<span class="sd">    shear : 1-D array or n-D array</span>
-<span class="sd">        Either a vector of upper triangular values, or an nD shear matrix with</span>
-<span class="sd">        ones along the main diagonal.</span>
-<span class="sd">    affine : n-D array or napari.utils.transforms.Affine</span>
-<span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
-<span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
-<span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
-<span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
-<span class="sd">        provided scale, rotate, and shear values.</span>
-<span class="sd">    opacity : float</span>
-<span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
-<span class="sd">    blending : str</span>
-<span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
-<span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
-<span class="sd">        {&#39;opaque&#39;, &#39;translucent&#39;, and &#39;additive&#39;}.</span>
-<span class="sd">    visible : bool</span>
-<span class="sd">        Whether the layer visual is currently being displayed.</span>
-<span class="sd">    cache : bool</span>
-<span class="sd">        Whether slices of out-of-core datasets should be cached upon retrieval.</span>
-<span class="sd">        Currently, this only applies to dask arrays.</span>
+<span class="sd">    scale : tuple of float</span>
+<span class="sd">        Scale factors for the layer.</span>
 <span class="sd">    shading : str, Shading</span>
 <span class="sd">        Render lighting and shading on points. Options are:</span>
 
@@ -651,12 +640,30 @@ document.write(`
 <span class="sd">          No shading is added to the points.</span>
 <span class="sd">        * &#39;spherical&#39;</span>
 <span class="sd">          Shading and depth buffer are changed to give a 3D spherical look to the points</span>
-<span class="sd">    antialiasing: float</span>
-<span class="sd">        Amount of antialiasing in canvas pixels.</span>
-<span class="sd">    canvas_size_limits : tuple of float</span>
-<span class="sd">        Lower and upper limits for the size of points in canvas pixels.</span>
+<span class="sd">    shear : 1-D array or n-D array</span>
+<span class="sd">        Either a vector of upper triangular values, or an nD shear matrix with</span>
+<span class="sd">        ones along the main diagonal.</span>
 <span class="sd">    shown : 1-D array of bool</span>
 <span class="sd">        Whether to show each point.</span>
+<span class="sd">    size : float, array</span>
+<span class="sd">        Size of the point marker in data pixels. If given as a scalar, all points are made</span>
+<span class="sd">        the same size. If given as an array, size must be the same or broadcastable</span>
+<span class="sd">        to the same shape as the data.</span>
+<span class="sd">    symbol : str, array</span>
+<span class="sd">        Symbols to be used for the point markers. Must be one of the</span>
+<span class="sd">        following: arrow, clobber, cross, diamond, disc, hbar, ring,</span>
+<span class="sd">        square, star, tailed_arrow, triangle_down, triangle_up, vbar, x.</span>
+<span class="sd">    text : str, dict</span>
+<span class="sd">        Text to be displayed with the points. If text is set to a key in properties,</span>
+<span class="sd">        the value of that property will be displayed. Multiple properties can be</span>
+<span class="sd">        composed using f-string-like syntax (e.g., &#39;{property_1}, {float_property:.2f}).</span>
+<span class="sd">        A dictionary can be provided with keyword arguments to set the text values</span>
+<span class="sd">        and display properties. See TextManager.__init__() for the valid keyword arguments.</span>
+<span class="sd">        For example usage, see /napari/examples/add_points_with_text.py.</span>
+<span class="sd">    translate : tuple of float</span>
+<span class="sd">        Translation values for the layer.</span>
+<span class="sd">    visible : bool</span>
+<span class="sd">        Whether the layer visual is currently being displayed.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -846,44 +853,44 @@ document.write(`
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
         <span class="n">ndim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">feature_defaults</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
-        <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-        <span class="n">border_width</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
-        <span class="n">border_width_is_relative</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">antialiasing</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">blending</span><span class="o">=</span><span class="s1">&#39;translucent&#39;</span><span class="p">,</span>
         <span class="n">border_color</span><span class="o">=</span><span class="s1">&#39;dimgray&#39;</span><span class="p">,</span>
         <span class="n">border_color_cycle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">border_colormap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
         <span class="n">border_contrast_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">border_width</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+        <span class="n">border_width_is_relative</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">canvas_size_limits</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10000</span><span class="p">),</span>
+        <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>
         <span class="n">face_color_cycle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">face_colormap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
         <span class="n">face_contrast_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">out_of_slice_display</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">feature_defaults</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">n_dimensional</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-        <span class="n">blending</span><span class="o">=</span><span class="s1">&#39;translucent&#39;</span><span class="p">,</span>
-        <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">property_choices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
-        <span class="n">canvas_size_limits</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10000</span><span class="p">),</span>
-        <span class="n">antialiasing</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">shown</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">out_of_slice_display</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+        <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">property_choices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+        <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">shown</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">ndim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

@@ -54,7 +54,7 @@ There are two ways to then add a widget to a napari viewer:
 There is an important implementation distinction between the two methods;
 {meth}`~napari.qt.Window.add_dock_widget` expects an *instance* of a widget, like
 an instance of class {class}`~magicgui.widgets.FunctionGui` or
-`qtpy.QtWidgets.QWidget`, whereas
+[`QtWidgets.QWidget`](https://doc.qt.io/qt-5/qwidget.html), whereas
 [widget contributions](widgets-contribution-guide), expect a `callable`
 (like a function or class) that will return a widget instance. When describing
 each of the three widget creation methods below, we will first show how to create a
@@ -68,8 +68,7 @@ for a widget contribution.
 
 [`magicgui`](https://pyapp-kit.github.io/magicgui/) makes building widgets to represent
 function inputs easy via the
-[`magicgui.magicgui`](https://pyapp-kit.github.io/magicgui/api/magicgui/#magicgui.magicgui)
-decorator:
+{func}`@magicgui <magicgui.magicgui>` decorator:
 
 ```{code-cell} python
 :tags: [remove-stderr]
@@ -102,20 +101,16 @@ widget_demo.show()
 the appropriate widget type for a given function parameter, and to indicate a
 context-dependent action for the object returned from the function (in the
 absence of a type hint, the type of the default value will be used). You can also
-customize your widget using
-[`magicgui.magicgui`](https://pyapp-kit.github.io/magicgui/api/magicgui/#magicgui.magicgui)
+customize your widget using {func}`magicgui.magicgui`
 parameters. In the example above, `call_button` specifies the button text and the
 `param_options` `slider_float` and `dropdown` let you customize the widget
 associated with those function parameters.
 
 Third party packages (like napari in this case) may provide support for their types
-using
-[`magicgui.register_type`](https://pyapp-kit.github.io/magicgui/usage/types_widgets.html#register-type).
-Indeed napari uses
-[`magicgui.register_type`](https://pyapp-kit.github.io/magicgui/usage/types_widgets.html#register-type)
-to provide support for napari-specific type annotations. This makes it easy to
-use `magicgui` to build widgets in napari. Note all type annotations below *require*
-that the resulting widget be added to a napari viewer.
+using {func}`magicgui.type_map.register_type`. Indeed napari uses
+{func}`~magicgui.type_map.register_type` to provide support for napari-specific type
+annotations. This makes it easy to use `magicgui` to build widgets in napari. Note all
+type annotations below *require* that the resulting widget be added to a napari viewer.
 
 Below we demonstrate how to create a simple threshold widget using `magicgui` and add
 it to the viewer. Note the `auto_call` parameter tells `magicgui` to call the function
@@ -158,7 +153,7 @@ widgets. We then explain how to use
 [`magicgui` function widgets in plugin widget contributions](magicgui-plugin-widgets).
 
 ```{note}
-For a more complex example of a `magicgui.magicgui` widget, see the
+For a more complex example of a {func}`magicgui.magicgui` widget, see the
 [gaussian blur example](https://pyapp-kit.github.io/magicgui/generated_examples/napari/napari_parameter_sweep/#napari-parameter-sweeps)
 in the `magicgui` documentation.
 ```

@@ -39,24 +39,29 @@ Then click the _Generate new token_ button in the upper right corner.
 
 Fill the form:
 
-1. Set expiration to custom and then select the proper date
-2. Select **napari** to be the resource owner
-3. Select _Only selected repositories_ and then select **napari/napari** repository
+1. Choose a name for the token. This is only for you to better remember what
+   the token is. The name will not be used by any workflows or in any other
+   step.
+2. Set expiration to custom and then select one year after the current date.
+3. Optionally set a description. Again this is only for your own memory. A link
+   to this page might be appropriate.
+4. Select **napari** to be the resource owner
+5. Select _Only selected repositories_ and then select **napari/napari** repository
 
 ![screenshot of the token creation form](../../images/token_permission_form.png)
 
-4. Select the required permissions for repository metadata, pull requests, and code (contents)
+6. Select the required permissions for repository metadata, pull requests, and code (contents)
 
 ![screenshot of the token creation form](../../images/token_permission_selection.png)
 
-5. Click the _Generate token_ button
-6. Copy token
-7. Go to the napari repository settings
-8. Expand the _Secrets and variables_ section and select _Actions_
-9. Click the edit button for the `GHA_TOKEN` secret
+7. Click the _Generate token_ button
+8. Copy token
+9. Go to the napari repository settings
+10. Expand the _Secrets and variables_ section and select _Actions_
+11. Click the edit button for the `GHA_TOKEN` secret
 
 ![screenshot of the token creation form](../../images/secrets_section.png)
 
-10. Paste a new token to the value field
+12. Paste a new token to the value field
 
 To validate if the token is working, you can run the "Upgrade test constraints" workflow manually. Ensure that there will be some packages to update.

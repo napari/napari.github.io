@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=a711db66"></script>
+    <script src="../../../../_static/documentation_options.js?v=9e33186e"></script>
     <script src="../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -626,12 +626,12 @@ document.write(`
 <span class="sd">        represented by a list of data objects and should go from largest to</span>
 <span class="sd">        smallest.</span>
 <span class="sd">    name : str, optional</span>
-<span class="sd">        Name of the layer. If not provided then will be guessed using heuristics</span>
+<span class="sd">        Name of the layer. If not provided then will be guessed using heuristics.</span>
 <span class="sd">    opacity : float</span>
 <span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
 <span class="sd">    projection_mode : str</span>
 <span class="sd">        How data outside the viewed dimensions but inside the thick Dims slice will</span>
-<span class="sd">        be projected onto the viewed dimenions.</span>
+<span class="sd">        be projected onto the viewed dimensions. Must fit to cls._projectionclass.</span>
 <span class="sd">    rotate : float, 3-tuple of float, or n-D array.</span>
 <span class="sd">        If a float convert into a 2D rotation matrix using that value as an</span>
 <span class="sd">        angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,</span>
@@ -1298,17 +1298,6 @@ document.write(`
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;world2grid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">translate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">translate_grid</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">translate</span><span class="p">()</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">_is_moving</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_private_is_moving</span>
-
-    <span class="nd">@_is_moving</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">_is_moving</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moving_coordinates</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_private_is_moving</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">def</span> <span class="nf">_update_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the dimensionality of transforms and slices when data changes.&quot;&quot;&quot;</span>

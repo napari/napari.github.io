@@ -69,7 +69,7 @@ labels_layer = viewer.add_labels(
 )
 ```
 
-See the ["Deprecations" section below](#Deprecations) for more information on
+See the ["Deprecations" section below](#deprecations) for more information on
 the new API. ([#6542](https://github.com/napari/napari/pull/6542))
 
 ### More on colormaps!

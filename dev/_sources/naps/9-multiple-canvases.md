@@ -75,7 +75,7 @@ Providing native support in napari would allow developers to more easily create 
     * There will be no possibility of a viewer with no canvases.
 * Users shall be able to add, remove, and (maybe[^maybe-rearrange]) rearrange canvases.
 
-[^maybe-rearrange]: Exact UI/UX may is yet to be decided, see [UI Architecture](#UI-Design-and-Architecture) for some discussion.
+[^maybe-rearrange]: Exact UI/UX may is yet to be decided, see [UI Architecture](#ui-design-and-architecture) for some discussion.
 
 ### Design Considerations & Decisions
 Part of this design document is intended to capture the desired behavior and prevent scope creep. At the extreme “multiple canvases” can be achieved with “multiple viewers”. Therefore we need to draw a line somewhere to differentiate a “canvas” from a “viewer”. [^napari-lite]
@@ -96,10 +96,9 @@ In addition to maintaining the model-view-controller (MVC) architecture of napar
 ### Architecture
 napari architecture is based on the MVC pattern. The model layer comprises a `ViewerModel` and a list of Layer models (subclasses of a base `Layer`). There are seven layer types, each with a corresponding view type. Currently models and views are paired 1:1, and the correlation is stored in a map (`layer_to_visual`) on the `VispyCanvas`. Figure 1 shows the class relationships for the base model types and the Image layer types (for brevity - other layer types have similar connectivity).
 
-```{image} _static/multicanvas-napari-architecture-today.png
----
-name: fig-1
----
+```{figure} _static/multicanvas-napari-architecture-today.png
+:name: nap-9-fig-1
+
 Fig. 1: napari architecture today.
 ```
 
@@ -119,10 +118,9 @@ Figure 2 shows proposed changes (in orange) to the architecture to support multi
 * Callbacks (interaction, events) will need to be specifically connected to individual `CanvasModel` objects where relevant (dims, camera) rather than the `ViewerModel`.
 
 
-```{image} _static/multicanvas-napari-architecture-tomorrow.png
----
-name: fig-2
----
+```{figure} _static/multicanvas-napari-architecture-tomorrow.png
+:name: nap-9-fig-2
+
 Fig. 2: napari architecture tomorrow, with proposed changes from this NAP highlighted in orange.
 ```
 
@@ -165,7 +163,7 @@ Slice state for each layer is currently stored on the Layer model. Again, see [N
 > [name=Ashley A]
 
 ### UI Design and Architecture
-Specific UI design and architecture remains to be determined. This will be explored as part of step 4 in the [Implementation Plan](#Implementation). UI design needs additional refinement and exploration, and this is expected to continue after basic/core implementation propsed in this NAP is complete. UI changes may also be described in a separate NAP along with a discussion of convenience functions and affordances for common operations. Some placeholder or experimental code will be used in the meantime as a prototype implementation.
+Specific UI design and architecture remains to be determined. This will be explored as part of step 4 in the [Implementation Plan](#implementation). UI design needs additional refinement and exploration, and this is expected to continue after basic/core implementation propsed in this NAP is complete. UI changes may also be described in a separate NAP along with a discussion of convenience functions and affordances for common operations. Some placeholder or experimental code will be used in the meantime as a prototype implementation.
 
 Some open questions here are (for example):
 * Should each canvas also have visible dims sliders, or can we keep one set of dims sliders that changes based on the active (selected) canvas?
@@ -221,7 +219,7 @@ See other image viewers for examples for multiple canvases (mostly demonstrating
     * Update main widget as `ViewerModel` “active” canvas changes, storing additional canvases and swapping them out as necessary
 
 4. Update `QtViewer` to show multiple canvases simultaneously
-    * This is exploratory work at the moment, see [UI Architecture](#UI-Design-and-Architecture) section below
+    * This is exploratory work at the moment, see [UI Architecture](#ui-design-and-architecture) section below
 
 [^async-only]: Depending on the timeline and prototype implementation, it may be acceptable/preferable for multi-canvas feature to rely on (currently experimental) async slicing ([see NAP-4](https://napari.org/stable/naps/4-async-slicing.html)).
 

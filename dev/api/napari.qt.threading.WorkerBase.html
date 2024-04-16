@@ -601,24 +601,12 @@ document.write(`
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.qt.threading.</span></span><span class="sig-name descname"><span class="pre">WorkerBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func:</span> <span class="pre">~typing.Callable[[~_P],</span> <span class="pre">~superqt.utils._qthreading._R]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">SignalsClass:</span> <span class="pre">type[~superqt.utils._qthreading.WorkerBaseSignals]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'superqt.utils._qthreading.WorkerBaseSignals'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#WorkerBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.WorkerBase" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QRunnable</span></code>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_R</span></code>]</p>
 <p>Base class for creating a Worker that can run in another thread.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>SignalsClass</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.12)"><em>type</em></a><em>, </em><em>optional</em>) – A QObject subclass that contains signals, by default WorkerBaseSignals</p>
-</dd>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">inherited-members<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.qt.threading.WorkerBase.signals">
-<span class="sig-name descname"><span class="pre">signals</span></span><a class="headerlink" href="#napari.qt.threading.WorkerBase.signals" title="Link to this definition">#</a></dt>
-<dd><p>signal emitter object. To allow identify which worker thread emitted signal.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="napari.qt.threading.WorkerBaseSignals.html#napari.qt.threading.WorkerBaseSignals" title="napari.qt.threading.WorkerBaseSignals">WorkerBaseSignals</a></p>
-</dd>
-<dt class="field-even">Inherited-members<span class="colon">:</span></dt>
-<dd class="field-even"><p></p></dd>
-</dl>
-</dd></dl>
-
+</div></blockquote>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
@@ -670,43 +658,6 @@ document.write(`
 <dt class="sig sig-object py" id="napari.qt.threading.WorkerBase.await_workers">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">await_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msecs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#WorkerBase.await_workers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.WorkerBase.await_workers" title="Link to this definition">#</a></dt>
 <dd><p>Ask all workers to quit, and wait up to <cite>msec</cite> for quit.</p>
-<p>Attempts to clean up all running workers by calling <cite>worker.quit()</cite>
-method.  Any workers in the <cite>WorkerBase._worker_set</cite> set will have this
-method.</p>
-<p>By default, this function will block indefinitely, until worker threads
-finish.  If a timeout is provided, a <cite>RuntimeError</cite> will be raised if
-the workers do not gracefully exit in the time requests, but the threads
-will NOT be killed.  It is (currently) left to the user to use their OS
-to force-quit rogue threads.</p>
-<p>!!! important</p>
-<blockquote>
-<div><p>If the user does not put any yields in their function, and the function
-is super long, it will just hang… For instance, there’s no graceful
-way to kill this thread in python:</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
-&#64;thread_worker
-def ZZZzzz():</p>
-<blockquote>
-<div><p>time.sleep(10000000)</p>
-</div></blockquote>
-<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
-<p>This is why it’s always advisable to use a generator that periodically
-yields for long-running computations in another thread.</p>
-<p>See [this stack-overflow
-post](<a class="reference external" href="https://stackoverflow.com/questions/323972/is-there-any-way-to-kill-a-thread">https://stackoverflow.com/questions/323972/is-there-any-way-to-kill-a-thread</a>)
-for a good discussion on the difficulty of killing a rogue python thread:</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>msecs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Waits up to msecs milliseconds for all threads to exit and removes all
-threads from the thread pool. If msecs is <cite>None</cite> (the default), the
-timeout is ignored (waits for the last thread to exit).</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.12)"><strong>RuntimeError</strong></a> – If a timeout is provided and workers do not quit successfully within
-    the time allotted.</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -719,88 +670,24 @@ timeout is ignored (waits for the last thread to exit).</p>
 <dt class="sig sig-object py" id="napari.qt.threading.WorkerBase.quit">
 <span class="sig-name descname"><span class="pre">quit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#WorkerBase.quit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.WorkerBase.quit" title="Link to this definition">#</a></dt>
 <dd><p>Send a request to abort the worker.</p>
-<dl class="simple">
-<dt>!!! note</dt><dd><p>It is entirely up to subclasses to honor this method by checking
-<cite>self.abort_requested</cite> periodically in their <cite>worker.work</cite>
-method, and exiting if <cite>True</cite>.</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.WorkerBase.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#WorkerBase.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.WorkerBase.run" title="Link to this definition">#</a></dt>
 <dd><p>Start the worker.</p>
-<p>The end-user should never need to call this function.
-But it cannot be made private or renamed, since it is called by Qt.</p>
-<p>The order of method calls when starting a worker is:</p>
-<dl class="simple">
-<dt><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a></dt><dd><p>calls QThreadPool.globalInstance().start(worker)
-|               triggered by the QThreadPool.start() method
-|               |             called by worker.run
-|               |             |
-V               V             V
-worker.start -&gt; worker.run -&gt; worker.work</p>
-</dd>
-</dl>
-<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
-<p><strong>This</strong> is the function that actually gets called when calling
-<cite>QThreadPool.start(worker)</cite>.  It simply wraps the <cite>work()</cite>
-method, and emits a few signals.  Subclasses should NOT override this
-method (except with good reason), and instead should implement
-<cite>work()</cite>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.WorkerBase.start">
 <span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#WorkerBase.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.WorkerBase.start" title="Link to this definition">#</a></dt>
 <dd><p>Start this worker in a thread and add it to the global threadpool.</p>
-<p>The order of method calls when starting a worker is:</p>
-<dl class="simple">
-<dt><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a></dt><dd><p>calls QThreadPool.globalInstance().start(worker)
-|               triggered by the QThreadPool.start() method
-|               |             called by worker.run
-|               |             |
-V               V             V
-worker.start -&gt; worker.run -&gt; worker.work</p>
-</dd>
-</dl>
-<p><a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.WorkerBase.work">
 <span class="sig-name descname"><span class="pre">work</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.12)"><span class="pre">Exception</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_R</span></span></span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#WorkerBase.work"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.WorkerBase.work" title="Link to this definition">#</a></dt>
 <dd><p>Main method to execute the worker.</p>
-<p>The end-user should never need to call this function.
-But subclasses must implement this method (See
-[<cite>GeneratorFunction.work</cite>][superqt.utils._qthreading.GeneratorWorker.work] for
-an example implementation). Minimally, it should check <cite>self.abort_requested</cite>
-periodically and exit if True.</p>
-<p class="rubric">Examples</p>
-<p><a href="#id25"><span class="problematic" id="id26">``</span></a><a href="#id27"><span class="problematic" id="id28">`</span></a>python
-class MyWorker(WorkerBase):</p>
-<blockquote>
-<div><dl>
-<dt>def work(self):</dt><dd><p>i = 0
-while True:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>if self.abort_requested:</dt><dd><p>self.aborted.emit()
-break</p>
-</dd>
-</dl>
-<p>i += 1
-if i &gt; max_iters:</p>
-<blockquote>
-<div><p>break</p>
-</div></blockquote>
-<p>time.sleep(0.5)</p>
-</div></blockquote>
-</dd>
-</dl>
-</div></blockquote>
-<p><a href="#id29"><span class="problematic" id="id30">``</span></a><a href="#id31"><span class="problematic" id="id32">`</span></a></p>
 </dd></dl>
 
 </dd></dl>
@@ -852,7 +739,6 @@ if i &gt; max_iters:</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase"><code class="docutils literal notranslate"><span class="pre">WorkerBase</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase.signals"><code class="docutils literal notranslate"><span class="pre">WorkerBase.signals</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase.abort_requested"><code class="docutils literal notranslate"><span class="pre">WorkerBase.abort_requested</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase.await_workers"><code class="docutils literal notranslate"><span class="pre">WorkerBase.await_workers()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase.is_running"><code class="docutils literal notranslate"><span class="pre">WorkerBase.is_running</span></code></a></li>

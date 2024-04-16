@@ -37,7 +37,7 @@ Currently, the primary purpose of the `app` is to compose the following
   [commands](app-model-commands) (the actual callable objects) that have been
   registered with the application. Accessible via `app.commands`.
 * {class}`~app_model.registries.MenusRegistry`: maintains all of the
-  [menus and submenus](appp-model-menus) that have been registered with the application.
+  [menus and submenus](app-model-menus) that have been registered with the application.
   Accessible via `app.menus`.
 * {class}`~app_model.registries.KeyBindingsRegistry`: maintains the association
   between a [KeyBinding](app-model-keybindings) and a command ID in the

@@ -205,7 +205,7 @@ directory. The dataset is 3.69 GB unzipped.
 ```
 
 While we could use plain `dask` through `delayed`, as we have shown above, we
-will [make our lives easier](make-your-life-easier-with-dask-image) here and use
+will [make our lives easier](#make-your-life-easier-with-dask-image) here and use
 `dask-image`.
 
 Using [dask_image.imread](https://image.dask.org/en/latest/dask_image.imread.html#module-dask_image.imread),
@@ -326,4 +326,3 @@ ready to show you the result on demand!
 - [Documentation on dask.delayed](https://docs.dask.org/en/latest/delayed.html)
 - [Dask working notes on dask-image](https://blog.dask.org/2019/06/20/load-image-data)
 - [Dask working notes on image processing with `dask.array.map_blocks`](https://blog.dask.org/2019/08/09/image-itk)
-- [](brain_dataset_tutorial.md)

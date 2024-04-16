@@ -470,7 +470,7 @@ initialization of `_QtMainWindow`. This is the same as
 
 (app-model-testing)=
 
-## app-model testing
+## `app-model` testing
 
 This section provides a guide to testing app-model aspects of napari. For general
 information on napari testing see [](napari-testing).
@@ -492,7 +492,7 @@ duration and will get cleaned up at the end.
 
 ```{note}
 Since the `_mock_app` fixture is autouse, a
-:class:`~napari._app_model._app.NapariApplication` is instantiated during setup
+{class}`~napari._app_model._app.NapariApplication` is instantiated during setup
 of every test.
 ```
 

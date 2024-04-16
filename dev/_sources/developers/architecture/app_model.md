@@ -311,6 +311,8 @@ at runtime (see [issue 6600](https://github.com/napari/napari/issues/6600)
 for more on this). Note that it is likely that this pull request will be split into
 smaller pull requests for ease of review and better git history.
 
+(app_model_dep_inj_result)=
+
 ## Dependency injection and result processing
 
 Dependency injection allows to write functions using parameter type annotations,

@@ -484,16 +484,17 @@ Segmentation faults can also occur as a
 singleton `app` may keep a reference to an object, e.g., a
 {class}`~napari._qt.qt_main_window.Window`, that has
 since been cleaned up at the end of a previous test.
-Thus, we mock the `app` in a `_mock_app` fixture and
-[autouse](https://docs.pytest.org/en/latest/how-to/fixtures.html#autouse-fixtures-fixtures-you-don-t-have-to-request)
-it so a new instance of `app` is returned every time {func}`~napari._app_model.get_app`
+Thus, we mock the `app` in a `_mock_app` fixture, and
+explicitly use it in [`make_napari_viewer`](make_napari_viewer) as well as in all tests that
+use the `get_app` function. This way, a new instance of `app` is returned 
+every time {func}`~napari._app_model.get_app`
 is used inside a test. This 'test' `app` is available for use throughout the test's
 duration and will get cleaned up at the end.
 
 ```{note}
-Since the `_mock_app` fixture is autouse, a
-{class}`~napari._app_model._app.NapariApplication` is instantiated during setup
-of every test.
+Since the `_mock_app` fixture is used in `make_napari_viewer`, plugins and other
+external users that write tests using `make_napari_viewer` will also have the benefit
+of a new app for each test.
 ```
 
 The mock `app` registers non-Qt `Action`s, providers and processors. This is

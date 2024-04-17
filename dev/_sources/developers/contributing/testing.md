@@ -240,6 +240,7 @@ def test_something_else(qtbot):
     ...
 ```
 
+(make_napari_viewer)=
 #### `make_napari_viewer`
 
 We provide a

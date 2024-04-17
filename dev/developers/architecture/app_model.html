@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../_static/documentation_options.js?v=9e33186e"></script>
+    <script src="../../_static/documentation_options.js?v=c9d09956"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1021,16 +1021,17 @@ Segmentation faults can also occur as a
 singleton <code class="docutils literal notranslate"><span class="pre">app</span></code> may keep a reference to an object, e.g., a
 <a class="reference internal" href="../../api/napari.window.Window.html#napari.window.Window" title="napari._qt.qt_main_window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">Window</span></code></a>, that has
 since been cleaned up at the end of a previous test.
-Thus, we mock the <code class="docutils literal notranslate"><span class="pre">app</span></code> in a <code class="docutils literal notranslate"><span class="pre">_mock_app</span></code> fixture and
-<a class="reference external" href="https://docs.pytest.org/en/latest/how-to/fixtures.html#autouse-fixtures-fixtures-you-don-t-have-to-request">autouse</a>
-it so a new instance of <code class="docutils literal notranslate"><span class="pre">app</span></code> is returned every time <code class="xref py py-func docutils literal notranslate"><span class="pre">get_app()</span></code>
+Thus, we mock the <code class="docutils literal notranslate"><span class="pre">app</span></code> in a <code class="docutils literal notranslate"><span class="pre">_mock_app</span></code> fixture, and
+explicitly use it in <a class="reference internal" href="../contributing/testing.html#make-napari-viewer"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code></span></a> as well as in all tests that
+use the <code class="docutils literal notranslate"><span class="pre">get_app</span></code> function. This way, a new instance of <code class="docutils literal notranslate"><span class="pre">app</span></code> is returned
+every time <code class="xref py py-func docutils literal notranslate"><span class="pre">get_app()</span></code>
 is used inside a test. This ‘test’ <code class="docutils literal notranslate"><span class="pre">app</span></code> is available for use throughout the test’s
 duration and will get cleaned up at the end.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Since the <code class="docutils literal notranslate"><span class="pre">_mock_app</span></code> fixture is autouse, a
-<code class="xref py py-class docutils literal notranslate"><span class="pre">NapariApplication</span></code> is instantiated during setup
-of every test.</p>
+<p>Since the <code class="docutils literal notranslate"><span class="pre">_mock_app</span></code> fixture is used in <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code>, plugins and other
+external users that write tests using <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> will also have the benefit
+of a new app for each test.</p>
 </div>
 <p>The mock <code class="docutils literal notranslate"><span class="pre">app</span></code> registers non-Qt <code class="docutils literal notranslate"><span class="pre">Action</span></code>s, providers and processors. This is
 because it was thought that these would be required for the majority of tests.

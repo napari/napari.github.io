@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../_static/documentation_options.js?v=9e33186e"></script>
+    <script src="../../../_static/documentation_options.js?v=c9d09956"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -613,49 +613,48 @@ through several CI workflows detailed below.</p>
 <ul>
 <li><p><strong>job:</strong> <code class="docutils literal notranslate"><span class="pre">build-and-upload</span></code></p></li>
 <li><p>Pulls in sources from <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code> and builds docs locally. Uploads
-artifacts to this repo (<code class="docutils literal notranslate"><span class="pre">napari/napari</span></code>).</p></li>
-<li><p>This is triggered on every Pull Request and shows up as a “Build PR
-Docs” check on the PR.</p></li>
+artifacts to this repository (<code class="docutils literal notranslate"><span class="pre">napari/napari</span></code>).</p></li>
+<li><p>This is triggered on any push to a branch named ‘docs*’ or tag named ‘v*’,
+to <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code>. The artifact can be used to check the documentation
+but is not used for docs deployment.</p></li>
 </ul>
 </li>
 <li><p><strong>Workflow file:</strong> <a class="reference external" href="https://github.com/napari/napari/blob/main/.github/workflows/deploy_docs.yml"><code class="docutils literal notranslate"><span class="pre">deploy_docs.yml</span></code></a></p>
 <ul>
-<li><p><strong>job:</strong> <code class="docutils literal notranslate"><span class="pre">build-and-deploy</span></code></p></li>
-<li><p>Triggers <a class="reference external" href="https://github.com/napari/docs/blob/main/.github/workflows/deploy_docs.yml"><code class="docutils literal notranslate"><span class="pre">deploy_docs.yml</span></code></a>
+<li><p><strong>job:</strong> <code class="docutils literal notranslate"><span class="pre">build-napari-docs</span></code></p></li>
+<li><p>Triggers <a class="reference external" href="https://github.com/napari/docs/blob/main/.github/workflows/build_and_deploy.yml"><code class="docutils literal notranslate"><span class="pre">build_and_deploy.yml</span></code></a>
 workflow at the <a class="reference external" href="https://github.com/napari/docs">napari/docs</a> repo.
 Waits for results and reports it.</p></li>
 <li><p>This is triggered on any commit to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch on
 <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> (and consequently triggers a new deployment of the
-<code class="docutils literal notranslate"><span class="pre">napari.org</span></code> website.)</p></li>
+<code class="docutils literal notranslate"><span class="pre">napari.org</span></code> website). When the commit is tagged, the <code class="docutils literal notranslate"><span class="pre">build_and_deploy.yml</span></code>
+workflow will deploy to the version folder e.g., ‘0.5.0/’.</p></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p><a class="reference external" href="https://github.com/napari/docs"><code class="docutils literal notranslate"><span class="pre">napari/docs</span></code></a></p>
 <ul class="simple">
-<li><p><strong>Workflow file:</strong> <a class="reference external" href="https://github.com/napari/docs/blob/main/.github/workflows/build_docs.yml"><code class="docutils literal notranslate"><span class="pre">build_docs.yml</span></code></a></p>
+<li><p><strong>Workflow file:</strong> <a class="reference external" href="https://github.com/napari/docs/blob/main/.github/workflows/build_and_deploy.yml"><code class="docutils literal notranslate"><span class="pre">build_and_deploy.yml</span></code></a></p>
 <ul>
 <li><p><strong>job:</strong> <code class="docutils literal notranslate"><span class="pre">build-and-upload</span></code></p></li>
-<li><p>Pulls in sources from <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> and builds docs locally. Uploads
-artifacts to this repo (<code class="docutils literal notranslate"><span class="pre">napari/docs</span></code>).</p></li>
-<li><p>This is triggered on every Pull Request and shows up as a “Build PR
-Docs” check on the PR.</p></li>
-</ul>
-</li>
-<li><p><strong>Workflow file:</strong> <a class="reference external" href="https://github.com/napari/docs/blob/main/.github/workflows/deploy_docs.yml"><code class="docutils literal notranslate"><span class="pre">deploy_docs.yml</span></code></a></p>
-<ul>
-<li><p><strong>job:</strong> <code class="docutils literal notranslate"><span class="pre">build-and-deploy</span></code></p></li>
-<li><p>Builds docs locally and deploys resulting artifacts to GitHub pages at
-the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch of <a class="reference external" href="https://github.com/napari/napari.github.io/tree/gh-pages">napari/napari.github.io</a>.</p></li>
+<li><p>Pulls in sources from <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code>, builds docs, then uploads as an
+artifact named ‘html’ to this repository (<code class="docutils literal notranslate"><span class="pre">napari/docs</span></code>).</p></li>
+<li><p>This is triggered on every Pull Request and shows up as a “Build &amp; Deploy PR
+Docs / Build &amp; Uplod Artifact” check on the PR.</p></li>
+<li><p><strong>job:</strong> <code class="docutils literal notranslate"><span class="pre">deploy</span></code></p></li>
+<li><p>Downloads the artifact from the <code class="docutils literal notranslate"><span class="pre">build-and-upload</span></code> job and deploys the html
+to GitHub pages at the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch of
+<a class="reference external" href="https://github.com/napari/napari.github.io/tree/gh-pages">napari/napari.github.io</a>.</p></li>
 <li><p>Always deploys to the <code class="docutils literal notranslate"><span class="pre">dev/</span></code> folder on <code class="docutils literal notranslate"><span class="pre">napari.github.io</span></code> (version
 “latest” on the website).</p></li>
-<li><p>This is triggered on any commit to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch on <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code>
+<li><p>Deployment is triggered by any commit to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch on <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code>
 (and consequently triggers a new deployment of the <code class="docutils literal notranslate"><span class="pre">napari.org</span></code>
 website.)</p></li>
 </ul>
 </li>
 </ul>
-<p>Note that these file are not identical to the <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> versions.</p>
+<p>Note that these files are not identical to the <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> version.</p>
 </li>
 <li><p><a class="reference external" href="https://github.com/napari/napari.github.io"><code class="docutils literal notranslate"><span class="pre">napari/napari.github.io</span></code></a></p>
 <ul class="simple">

@@ -6,9 +6,7 @@ napari.qt.QtViewerButtons
 .. autoclass:: QtViewerButtons
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

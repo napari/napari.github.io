@@ -6,9 +6,7 @@ napari.utils.CyclicLabelColormap
 .. autoclass:: CyclicLabelColormap
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

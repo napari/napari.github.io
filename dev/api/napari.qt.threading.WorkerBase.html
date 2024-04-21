@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../_static/documentation_options.js?v=c9d09956"></script>
+    <script src="../_static/documentation_options.js?v=2d443c1f"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -601,22 +601,16 @@ document.write(`
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.qt.threading.</span></span><span class="sig-name descname"><span class="pre">WorkerBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func:</span> <span class="pre">~typing.Callable[[~_P],</span> <span class="pre">~superqt.utils._qthreading._R]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">SignalsClass:</span> <span class="pre">type[~superqt.utils._qthreading.WorkerBaseSignals]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'superqt.utils._qthreading.WorkerBaseSignals'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#WorkerBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.WorkerBase" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QRunnable</span></code>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_R</span></code>]</p>
 <p>Base class for creating a Worker that can run in another thread.</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">inherited-members<span class="colon">:</span></dt>
-<dd class="field-odd"><p></p></dd>
-</dl>
-</div></blockquote>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">autoDelete</span></code>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.threading.WorkerBase.autoDelete" title="napari.qt.threading.WorkerBase.autoDelete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">autoDelete</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.threading.WorkerBase.await_workers" title="napari.qt.threading.WorkerBase.await_workers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">await_workers</span></code></a>([msecs])</p></td>
 <td><p>Ask all workers to quit, and wait up to <cite>msec</cite> for quit.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create</span></code>(functionToRun)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.threading.WorkerBase.create" title="napari.qt.threading.WorkerBase.create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create</span></code></a>(functionToRun)</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.threading.WorkerBase.quit" title="napari.qt.threading.WorkerBase.quit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quit</span></code></a>()</p></td>
@@ -625,7 +619,7 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.threading.WorkerBase.run" title="napari.qt.threading.WorkerBase.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>()</p></td>
 <td><p>Start the worker.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAutoDelete</span></code>(self, _autoDelete)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.threading.WorkerBase.setAutoDelete" title="napari.qt.threading.WorkerBase.setAutoDelete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAutoDelete</span></code></a>(self, _autoDelete)</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.threading.WorkerBase.start" title="napari.qt.threading.WorkerBase.start"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start</span></code></a>()</p></td>
@@ -655,10 +649,20 @@ document.write(`
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="napari.qt.threading.WorkerBase.autoDelete">
+<span class="sig-name descname"><span class="pre">autoDelete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#napari.qt.threading.WorkerBase.autoDelete" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.WorkerBase.await_workers">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">await_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msecs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#WorkerBase.await_workers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.WorkerBase.await_workers" title="Link to this definition">#</a></dt>
 <dd><p>Ask all workers to quit, and wait up to <cite>msec</cite> for quit.</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="napari.qt.threading.WorkerBase.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">functionToRun</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QRunnable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.qt.threading.WorkerBase.create" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="napari.qt.threading.WorkerBase.is_running">
@@ -677,6 +681,11 @@ document.write(`
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#WorkerBase.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.WorkerBase.run" title="Link to this definition">#</a></dt>
 <dd><p>Start the worker.</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="napari.qt.threading.WorkerBase.setAutoDelete">
+<span class="sig-name descname"><span class="pre">setAutoDelete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_autoDelete</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.qt.threading.WorkerBase.setAutoDelete" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.WorkerBase.start">
@@ -740,10 +749,13 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase"><code class="docutils literal notranslate"><span class="pre">WorkerBase</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase.abort_requested"><code class="docutils literal notranslate"><span class="pre">WorkerBase.abort_requested</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase.autoDelete"><code class="docutils literal notranslate"><span class="pre">WorkerBase.autoDelete()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase.await_workers"><code class="docutils literal notranslate"><span class="pre">WorkerBase.await_workers()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase.create"><code class="docutils literal notranslate"><span class="pre">WorkerBase.create()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase.is_running"><code class="docutils literal notranslate"><span class="pre">WorkerBase.is_running</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase.quit"><code class="docutils literal notranslate"><span class="pre">WorkerBase.quit()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase.run"><code class="docutils literal notranslate"><span class="pre">WorkerBase.run()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase.setAutoDelete"><code class="docutils literal notranslate"><span class="pre">WorkerBase.setAutoDelete()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase.start"><code class="docutils literal notranslate"><span class="pre">WorkerBase.start()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.qt.threading.WorkerBase.work"><code class="docutils literal notranslate"><span class="pre">WorkerBase.work()</span></code></a></li>
 </ul>

@@ -6,9 +6,7 @@ napari.layers.Labels
 .. autoclass:: Labels
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

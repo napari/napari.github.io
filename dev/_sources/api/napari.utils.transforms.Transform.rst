@@ -6,9 +6,7 @@ napari.utils.transforms.Transform
 .. autoclass:: Transform
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

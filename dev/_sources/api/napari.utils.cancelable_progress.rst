@@ -7,8 +7,6 @@ napari.utils.cancelable\_progress
    :members:
    :show-inheritance:
    
-      :inherited-members:
-   
 
    
 

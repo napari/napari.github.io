@@ -6,9 +6,7 @@ napari.utils.notifications.NotificationManager
 .. autoclass:: NotificationManager
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

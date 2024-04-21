@@ -6,9 +6,7 @@ napari.qt.threading.WorkerBaseSignals
 .. autoclass:: WorkerBaseSignals
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

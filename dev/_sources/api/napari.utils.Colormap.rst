@@ -6,9 +6,7 @@ napari.utils.Colormap
 .. autoclass:: Colormap
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

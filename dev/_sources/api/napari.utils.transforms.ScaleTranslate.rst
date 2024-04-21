@@ -6,9 +6,7 @@ napari.utils.transforms.ScaleTranslate
 .. autoclass:: ScaleTranslate
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

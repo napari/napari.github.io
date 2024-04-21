@@ -6,9 +6,7 @@ napari.qt.threading.FunctionWorker
 .. autoclass:: FunctionWorker
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

@@ -6,9 +6,7 @@ napari.utils.events.EventedList
 .. autoclass:: EventedList
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

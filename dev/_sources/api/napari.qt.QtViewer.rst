@@ -6,9 +6,7 @@ napari.qt.QtViewer
 .. autoclass:: QtViewer
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

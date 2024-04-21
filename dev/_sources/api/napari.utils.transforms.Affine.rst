@@ -6,9 +6,7 @@ napari.utils.transforms.Affine
 .. autoclass:: Affine
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

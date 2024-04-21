@@ -6,9 +6,7 @@ napari.utils.events.SelectableEventedList
 .. autoclass:: SelectableEventedList
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

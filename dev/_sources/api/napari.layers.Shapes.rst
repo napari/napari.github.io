@@ -6,9 +6,7 @@ napari.layers.Shapes
 .. autoclass:: Shapes
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

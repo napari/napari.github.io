@@ -6,9 +6,7 @@ napari.utils.events.NestableEventedList
 .. autoclass:: NestableEventedList
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

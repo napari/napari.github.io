@@ -6,9 +6,7 @@ napari.layers.Points
 .. autoclass:: Points
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

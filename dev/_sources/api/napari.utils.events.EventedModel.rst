@@ -6,9 +6,7 @@ napari.utils.events.EventedModel
 .. autoclass:: EventedModel
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

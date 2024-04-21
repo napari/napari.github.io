@@ -6,9 +6,7 @@ napari.layers.Vectors
 .. autoclass:: Vectors
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

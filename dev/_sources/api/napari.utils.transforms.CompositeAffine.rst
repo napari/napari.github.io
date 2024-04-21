@@ -6,9 +6,7 @@ napari.utils.transforms.CompositeAffine
 .. autoclass:: CompositeAffine
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

@@ -6,9 +6,7 @@ napari.layers.Surface
 .. autoclass:: Surface
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

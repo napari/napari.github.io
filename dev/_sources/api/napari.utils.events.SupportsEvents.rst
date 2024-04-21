@@ -6,9 +6,7 @@ napari.utils.events.SupportsEvents
 .. autoclass:: SupportsEvents
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

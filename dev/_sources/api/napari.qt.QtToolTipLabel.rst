@@ -6,9 +6,7 @@ napari.qt.QtToolTipLabel
 .. autoclass:: QtToolTipLabel
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

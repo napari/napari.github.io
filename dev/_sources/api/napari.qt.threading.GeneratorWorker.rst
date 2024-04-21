@@ -6,9 +6,7 @@ napari.qt.threading.GeneratorWorker
 .. autoclass:: GeneratorWorker
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

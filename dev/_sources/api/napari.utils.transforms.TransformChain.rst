@@ -6,9 +6,7 @@ napari.utils.transforms.TransformChain
 .. autoclass:: TransformChain
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

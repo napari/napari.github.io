@@ -6,9 +6,7 @@ napari.qt.Window
 .. autoclass:: Window
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

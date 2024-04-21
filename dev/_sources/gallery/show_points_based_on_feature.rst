@@ -23,7 +23,7 @@ Show points based on feature
 
 .. tags:: visualization-advanced
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-39
+.. GENERATED FROM PYTHON SOURCE LINES 7-38
 
 
 
@@ -38,7 +38,6 @@ Show points based on feature
 
 .. code-block:: Python
 
-    #!/usr/bin/env python3
 
     import numpy as np
     from magicgui import magicgui

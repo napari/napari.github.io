@@ -6,9 +6,7 @@ napari.utils.events.TypedMutableSequence
 .. autoclass:: TypedMutableSequence
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

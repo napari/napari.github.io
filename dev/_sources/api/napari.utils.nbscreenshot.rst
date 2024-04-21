@@ -6,9 +6,7 @@ napari.utils.nbscreenshot
 .. autoclass:: nbscreenshot
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

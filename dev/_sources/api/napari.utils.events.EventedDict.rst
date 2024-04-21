@@ -6,9 +6,7 @@ napari.utils.events.EventedDict
 .. autoclass:: EventedDict
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

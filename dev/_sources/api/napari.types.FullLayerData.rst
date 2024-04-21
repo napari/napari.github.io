@@ -6,9 +6,7 @@ napari.types.FullLayerData
 .. autoclass:: FullLayerData
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

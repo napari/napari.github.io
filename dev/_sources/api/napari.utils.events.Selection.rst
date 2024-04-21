@@ -6,9 +6,7 @@ napari.utils.events.Selection
 .. autoclass:: Selection
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

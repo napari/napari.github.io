@@ -6,9 +6,7 @@ napari.layers.Layer
 .. autoclass:: Layer
    :members:
    :show-inheritance:
-   
-      :inherited-members:
-   
+   :inherited-members:
 
    
 

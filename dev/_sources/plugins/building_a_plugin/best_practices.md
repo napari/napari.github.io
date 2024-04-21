@@ -174,9 +174,29 @@ but it's still a good idea!)
 
 It's good practice to not depend on `napari` if not strictly necessary.
 If you only use `napari` for type annotations, we recommend that you use strings
-instead of importing the types. For example, you can see in the
+instead of importing the types. This is called a
+[Forward reference](https://peps.python.org/pep-0484/#forward-references).
+For example, you can see in the
 [widget contribution guide](widgets-contribution-guide) that napari type annotations
 are strings and not imported.
+
+If you'd like to maintain IDE type support and autocompletion, you can
+still do so by hiding the napari imports inside of a {attr}`typing.TYPE_CHECKING`
+clause:
+
+```python
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+  import napari
+
+@magicgui
+def my_func(data: 'napari.types.ImageData') -> 'napari.types.ImageData':
+    ...
+```
+
+This will not require napari at runtime, but if it is installed in your
+development environment, you will still get all the type inference.
 
 ## Don't leave resources open
 

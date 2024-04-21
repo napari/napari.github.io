@@ -683,9 +683,26 @@ but it’s still a good idea!)</p>
 <span id="best-practice-napari-type"></span><h2>Don’t require <code class="docutils literal notranslate"><span class="pre">napari</span></code> if not necessary<a class="headerlink" href="#don-t-require-napari-if-not-necessary" title="Link to this heading">#</a></h2>
 <p>It’s good practice to not depend on <code class="docutils literal notranslate"><span class="pre">napari</span></code> if not strictly necessary.
 If you only use <code class="docutils literal notranslate"><span class="pre">napari</span></code> for type annotations, we recommend that you use strings
-instead of importing the types. For example, you can see in the
+instead of importing the types. This is called a
+<a class="reference external" href="https://peps.python.org/pep-0484/#forward-references">Forward reference</a>.
+For example, you can see in the
 <a class="reference internal" href="guides.html#widgets-contribution-guide"><span class="std std-ref">widget contribution guide</span></a> that napari type annotations
 are strings and not imported.</p>
+<p>If you’d like to maintain IDE type support and autocompletion, you can
+still do so by hiding the napari imports inside of a <code class="xref py py-attr docutils literal notranslate"><span class="pre">typing.TYPE_CHECKING</span></code>
+clause:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+  <span class="kn">import</span> <span class="nn">napari</span>
+
+<span class="nd">@magicgui</span>
+<span class="k">def</span> <span class="nf">my_func</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>This will not require napari at runtime, but if it is installed in your
+development environment, you will still get all the type inference.</p>
 </section>
 <section id="don-t-leave-resources-open">
 <h2>Don’t leave resources open<a class="headerlink" href="#don-t-leave-resources-open" title="Link to this heading">#</a></h2>

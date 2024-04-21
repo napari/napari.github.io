@@ -178,7 +178,7 @@ When creating a widget that is not a
 {class}`~magicgui.widgets.bases.ContainerWidget` subclass,
 adding a layer input widget requires more than just
 parameter annotation.
-See the [`QWidget` example](#qtwidgets-qwidget) below.
+See the [`QWidget` example](#qtwidgetsqwidget) below.
 ```
 
 The consequence of each type annotation is described below:

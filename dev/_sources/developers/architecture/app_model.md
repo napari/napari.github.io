@@ -485,7 +485,7 @@ singleton `app` may keep a reference to an object, e.g., a
 {class}`~napari._qt.qt_main_window.Window`, that has
 since been cleaned up at the end of a previous test.
 Thus, we mock the `app` in a `_mock_app` fixture, and
-explicitly use it in [`make_napari_viewer`](make_napari_viewer) as well as in all tests that
+explicitly use it in {ref}`make_napari_viewer` as well as in all tests that
 use the `get_app` function. This way, a new instance of `app` is returned 
 every time {func}`~napari._app_model.get_app`
 is used inside a test. This 'test' `app` is available for use throughout the test's

@@ -59,6 +59,6 @@ Read more about napari’s [mission and values](https://napari.org/community/mis
     - The CZI Imaging Tech Team, through an effort led by Justin Kiggins, has created [napari-hub.org](https://www.napari-hub.org/), a site to make discovering and sharing napari plugins easier.
     - CZI has launched a [grant program](https://chanzuckerberg.com/rfa/napari-plugin-grants/) to help accelerate the napari plugin developer community.
 
-The current representative of the Insitutional and Funding Partner Advisory Council on the napari steering council is Nicholas Sofroniew.
+The current representative of the Insitutional and Funding Partner Advisory Council on the napari steering council is Kyle I. S. Harrington.
 
 If you or your organization are interested in also supporting the napari project and becoming an Institutional and Funding Partner, please email the napari steering council at `napari-steering-council@googlegroups.com`.

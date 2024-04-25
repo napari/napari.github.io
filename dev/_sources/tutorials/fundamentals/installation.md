@@ -17,8 +17,6 @@ jupyter:
 
 # How to install napari
 
-Welcome to the **napari** installation guide!
-
 This guide will teach you how to do a clean install of **napari** and launch the viewer.
 
 ```{note}
@@ -40,6 +38,17 @@ It requires:
 You may also want:
 - an environment manager like [conda](https://docs.conda.io/en/latest/miniconda.html) or
 [venv](https://docs.python.org/3/library/venv.html) **(Highly recommended)**
+
+```{note}
+New to Python or uncertain about conda, pip and virtual environments? You can use our
+[Bundled App](#install-as-a-bundled-app) to get started or first look at some
+resources we recommend:
+
+- [Scientific Python: Getting started with Python for science](https://lectures.scientific-python.org/intro/index.html)
+- [Talley Lambert's Python environments workshop](https://hackmd.io/@talley/SJB_lObBi)
+- [Carpentries GIT workshop](https://swcarpentry.github.io/git-novice) (for those interested in contributing)
+
+```
 
 Python package distributions of napari can be installed via `pip`, `conda-forge`, or from source.
 

@@ -20,6 +20,7 @@
       CyclicLabelColormap
       cancelable_progress
       nbscreenshot
+      NotebookScreenshot
       progress
    
    

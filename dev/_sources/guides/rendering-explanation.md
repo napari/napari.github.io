@@ -30,7 +30,7 @@ The issue is not just aesthetic. Manipulating user interface elements like
 sliders becomes almost impossible if the framerate is really slow. This
 creates a deeply frustrating experience for the user. Furthermore, if
 napari "blocks" for several seconds, the operating system might indicate to
-the user that the application is hung or has crashed. For example MacOS
+the user that the application is hung or has crashed. For example macOS
 will show the "spinning wheel of death". This is clearly not acceptable.
 
 A fast average framerate is important, but it's also important that napari

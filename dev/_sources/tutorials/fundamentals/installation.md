@@ -238,7 +238,7 @@ pip install napari[all, pyqt] -c constraints_py3.10.txt
 ## Install as a bundled app
 
 napari can also be installed as a bundled app on each of the major platforms,
-MacOS, Windows, and Linux with a simple one-click download and installation
+macOS, Windows, and Linux with a simple one-click download and installation
 process. You might want to install napari as a bundled app if you are unfamiliar
 with installing Python packages or if you were unable to get the installation
 process described above working. The bundled app version of napari is the same

@@ -61,7 +61,7 @@ Here are some examples:
 - `alt` is **valid** as a base key because it contains no other modifiers and no other parts
 - `alt+meta` is **invalid** because it is a key combination comprised of only modifiers
 - `alt+t` is **valid** as a key combination
-- `alt t` is **invalid** because it is a key chord whose first part is a single modifier 
+- `alt t` is **invalid** because it is a key chord whose first part is a single modifier
 - `ctrl+x alt` is **invalid** because it is a key chord whose second part is a single modifier
 - `ctrl+x alt+v` is **valid** as a key chord
 - `meta meta` is **invalid** because it is a key chord comprised of only single modifier parts
@@ -91,7 +91,7 @@ class KeyBindingEntry:
     when: Optional[Expr] = field(compare=False)
     block_rule: bool = field(init=False)
     negate_rule: bool = field(init=False)
-    
+
     def __post_init__(self):
         self.block_rule = self.command_id == ''
         self.negate_rule = self.command_id.startswith('-')
@@ -270,7 +270,7 @@ def has_conflicts(key: int, keymap: Dict[int, List[KeyBindingEntry]]) -> bool:
     for _, entries in filter(conflict_filter, keymap.items()):
         if find_active_match(entries):
             return True
-    
+
     return False
 ```
 
@@ -331,7 +331,7 @@ class KeyBindingDispatcher:
             key_seq = mods | key
             if self.prefix:
                 key_seq = KeyChord(self.prefix, key_seq)
-                
+
             if (entries := self.keymap.get(key_seq) and (match := find_active_match(entries)):
                 self.active_combo = mods | key
                 if not self.prefix and has_conflicts(key_seq, self.keymap):
@@ -410,7 +410,7 @@ Out of scope is work related to the GUI and how it may have to handle the new sy
 
 ## Alternatives
 
-Although a mapping approach is very effective for looking up individual keys, it loses its efficiency when performing a partial search, since its items are traversed like a list to perform that search. 
+Although a mapping approach is very effective for looking up individual keys, it loses its efficiency when performing a partial search, since its items are traversed like a list to perform that search.
 
 This inefficiency can be mitigated by using a data structure where entries are stored similar to a _[trie](https://en.wikipedia.org/wiki/Trie)_ (aka a _prefix tree_). Since modifier keys do not care about what order they are pressed in, we will use a [directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) instead of a traditional tree, essentially making this a _prefix [multitree](https://en.wikipedia.org/wiki/Multitree)_.
 
@@ -448,7 +448,7 @@ In the mapping case, imagine that every possible valid key binding has at least 
 
 On the other hand, for a prefix tree, the amount of options for each node would be at most _K - D_, where _D_ is the depth of the node relative to the last completed part. When searching a key sequence with 4 modifiers for each part, the maximum number of options visited for one part would be _K + (K-1) + (K-2) + (K-3) + (K-4)_, or _2(5K-10)_ for two parts, resulting in a conflict search runtime complexity of _O(log(n))_.
 
-Therefore, when searching for indirect conflicts, using a prefix-based data structure would be more efficient than a mapping-based one. However, when [put to a test on VSCode's default key bindings](https://gist.github.com/kne42/82d20e0ed48ccef0ac30aee7c2924b79), which are comprised of approximately 900 entries, the difference in speed was not significant, with the prefix tree approach finishing only 59ms faster with an average of 109ms over the mapping one with an average of 168ms over 700 runs. For the test, `when` conditionals were simulated to take 3µs to evaluate and both methods were searching for the conflict of the most common modifier (which would be `Ctrl` on Windows/Linux or `Cmd` on MacOS).
+Therefore, when searching for indirect conflicts, using a prefix-based data structure would be more efficient than a mapping-based one. However, when [put to a test on VSCode's default key bindings](https://gist.github.com/kne42/82d20e0ed48ccef0ac30aee7c2924b79), which are comprised of approximately 900 entries, the difference in speed was not significant, with the prefix tree approach finishing only 59ms faster with an average of 109ms over the mapping one with an average of 168ms over 700 runs. For the test, `when` conditionals were simulated to take 3µs to evaluate and both methods were searching for the conflict of the most common modifier (which would be `Ctrl` on Windows/Linux or `Cmd` on macOS).
 
 Although the prefix tree is approximately 50% faster at finding indirect conflicts, a difference of ~60ms is not significant enough to be noticed by the user. It then comes down to other factors to determine which implementation is better. While a prefix tree approach would be able to handle more than two-part key bindings, it is arguable that any more parts might be confusing to the user. It's also possible to save the "state" of the search in the sense of narrowing down to a specific node, which may be useful for key binding completion.
 

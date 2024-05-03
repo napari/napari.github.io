@@ -28,7 +28,7 @@ In order to make changes to `napari`, you will need to [fork](https://docs.githu
     :::
 
     :::{tab-item} Using `venv`
-    After installing Python on your machine, create a virtual environment on your terminal and activate it. On Linux and MacOS, you can run
+    After installing Python on your machine, create a virtual environment on your terminal and activate it. On Linux and macOS, you can run
     ```sh
     python -m venv <path-to-env>
     source <path-to-env>/bin/activate

@@ -89,7 +89,7 @@ Once the file is saved, you can investigate using free tools. Some options inclu
     You can install graphviz with system package managers:
 
     * Ubuntu: `sudo apt install graphviz`
-    * MacOS with brew: `brew install graphviz`
+    * macOS with brew: `brew install graphviz`
     * Windows with choco `choco install graphviz`
 
     You can then use `gprof2dot`, a Python library, to convert the `.pstat`

@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_action_manager.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -42,9 +42,9 @@ Action manager
     application, not part of the napari viewer model. If your use case
     requires access to qt_viewer, please open an issue to discuss.
       layer_buttons = viewer.window.qt_viewer.layerButtons
-    calling <function bind_button at 0x7f1c29b1a170>
-    calling <function register_action at 0x7f1c29b191b0>
-    calling <function bind_shortcut at 0x7f1c29b1b0a0>
+    calling <function bind_button at 0x7ff08d32e830>
+    calling <function bind_shortcut at 0x7ff08d32cc10>
+    calling <function register_action at 0x7ff08d32fbe0>
 
 
 

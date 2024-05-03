@@ -352,7 +352,7 @@ or create issues on GitHub.
 - remove a few more qtbot.wait calls in tests (#4888)
 - use npe2api in plugin install dialog (#4893)
 - Add perfmon directory for shared configs and tools (#4898)
-- Conda: fix MacOS signing (#4904)
+- Conda: fix macOS signing (#4904)
 - Improve error message for a failed write (#4913)
 - Minor type fix (add Optional) (#4916)
 - add user keymap (#4946)
@@ -472,4 +472,3 @@ or create issues on GitHub.
 - [Robin Koch](https://github.com/napari/napari/commits?author=RobAnKo) - @RobAnKo
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 - [Ziyang Liu](https://github.com/napari/napari/commits?author=potating-potato) - @potating-potato
-

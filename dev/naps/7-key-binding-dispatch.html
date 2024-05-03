@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../_static/documentation_options.js?v=d9f96e99"></script>
+    <script src="../_static/documentation_options.js?v=1d92c8fb"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -682,7 +682,7 @@ document.write(`
     <span class="n">when</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">block_rule</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">negate_rule</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    
+
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">block_rule</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_id</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">negate_rule</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
@@ -846,7 +846,7 @@ document.write(`
     <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">entries</span> <span class="ow">in</span> <span class="nb">filter</span><span class="p">(</span><span class="n">conflict_filter</span><span class="p">,</span> <span class="n">keymap</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
         <span class="k">if</span> <span class="n">find_active_match</span><span class="p">(</span><span class="n">entries</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">True</span>
-    
+
     <span class="k">return</span> <span class="kc">False</span>
 </pre></div>
 </div>
@@ -906,7 +906,7 @@ document.write(`
             <span class="n">key_seq</span> <span class="o">=</span> <span class="n">mods</span> <span class="o">|</span> <span class="n">key</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="p">:</span>
                 <span class="n">key_seq</span> <span class="o">=</span> <span class="n">KeyChord</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="p">,</span> <span class="n">key_seq</span><span class="p">)</span>
-                
+
             <span class="k">if</span> <span class="p">(</span><span class="n">entries</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keymap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key_seq</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">match</span> <span class="o">:=</span> <span class="n">find_active_match</span><span class="p">(</span><span class="n">entries</span><span class="p">)):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">active_combo</span> <span class="o">=</span> <span class="n">mods</span> <span class="o">|</span> <span class="n">key</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="ow">and</span> <span class="n">has_conflicts</span><span class="p">(</span><span class="n">key_seq</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">keymap</span><span class="p">):</span>
@@ -1014,7 +1014,7 @@ document.write(`
 </div>
 <p>In the mapping case, imagine that every possible valid key binding has at least one entry. Letting <em>K</em> be the number of valid key codes, the amount of possible combinations for the first part of a key chord would be <em>16 * K</em>, plus 4 to include single modifiers. Combining this with the second part, it would be <em>(16 * K + 4)(16 * K)</em>, resulting in a conflict search runtime complexity of <em>O(n)</em>.</p>
 <p>On the other hand, for a prefix tree, the amount of options for each node would be at most <em>K - D</em>, where <em>D</em> is the depth of the node relative to the last completed part. When searching a key sequence with 4 modifiers for each part, the maximum number of options visited for one part would be <em>K + (K-1) + (K-2) + (K-3) + (K-4)</em>, or <em>2(5K-10)</em> for two parts, resulting in a conflict search runtime complexity of <em>O(log(n))</em>.</p>
-<p>Therefore, when searching for indirect conflicts, using a prefix-based data structure would be more efficient than a mapping-based one. However, when <a class="reference external" href="https://gist.github.com/kne42/82d20e0ed48ccef0ac30aee7c2924b79">put to a test on VSCode’s default key bindings</a>, which are comprised of approximately 900 entries, the difference in speed was not significant, with the prefix tree approach finishing only 59ms faster with an average of 109ms over the mapping one with an average of 168ms over 700 runs. For the test, <code class="docutils literal notranslate"><span class="pre">when</span></code> conditionals were simulated to take 3µs to evaluate and both methods were searching for the conflict of the most common modifier (which would be <code class="docutils literal notranslate"><span class="pre">Ctrl</span></code> on Windows/Linux or <code class="docutils literal notranslate"><span class="pre">Cmd</span></code> on MacOS).</p>
+<p>Therefore, when searching for indirect conflicts, using a prefix-based data structure would be more efficient than a mapping-based one. However, when <a class="reference external" href="https://gist.github.com/kne42/82d20e0ed48ccef0ac30aee7c2924b79">put to a test on VSCode’s default key bindings</a>, which are comprised of approximately 900 entries, the difference in speed was not significant, with the prefix tree approach finishing only 59ms faster with an average of 109ms over the mapping one with an average of 168ms over 700 runs. For the test, <code class="docutils literal notranslate"><span class="pre">when</span></code> conditionals were simulated to take 3µs to evaluate and both methods were searching for the conflict of the most common modifier (which would be <code class="docutils literal notranslate"><span class="pre">Ctrl</span></code> on Windows/Linux or <code class="docutils literal notranslate"><span class="pre">Cmd</span></code> on macOS).</p>
 <p>Although the prefix tree is approximately 50% faster at finding indirect conflicts, a difference of ~60ms is not significant enough to be noticed by the user. It then comes down to other factors to determine which implementation is better. While a prefix tree approach would be able to handle more than two-part key bindings, it is arguable that any more parts might be confusing to the user. It’s also possible to save the “state” of the search in the sense of narrowing down to a specific node, which may be useful for key binding completion.</p>
 <p>However, the mapping approach is a lot cleaner code-wise, as it requires no additional logic to construct or update the data structure. Additionally, the user and the GUI can much more easily read this data structure and perform more complicated searches on it using bitwise operations. The mapping approach was ultimately chosen due to its lower barrier of entry to read and maintain for developers.</p>
 </section>

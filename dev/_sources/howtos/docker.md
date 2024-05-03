@@ -32,7 +32,7 @@ which would build a Docker image tagged with napari version.
 First, make sure there's a running X server on the host machine.
 These can be useful if you are looking for options:
 * Windows: [vcxsrc](https://sourceforge.net/projects/vcxsrv/)
-* MacOS: [xquartz](https://www.xquartz.org/) (may not work due to graphical driver issue with opengl)
+* macOS: [xquartz](https://www.xquartz.org/) (may not work due to graphical driver issue with opengl)
 
 To run a container with external mapping of display, an example being:
 

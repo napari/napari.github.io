@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
   <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="../../../_static/documentation_options.js?v=1d92c8fb"></script>
+    <script src="../../../_static/documentation_options.js?v=e4c4bd0d"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -808,9 +808,11 @@ document.write(`
 
 
 <span class="k">def</span> <span class="nf">_add_worker_data</span><span class="p">(</span><span class="n">worker</span><span class="p">:</span> <span class="n">FunctionWorker</span><span class="p">,</span> <span class="n">return_type</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">napari._app_model.injection</span> <span class="kn">import</span> <span class="n">_processors</span>
+    <span class="kn">from</span> <span class="nn">napari._qt._qapp_model.injection._qprocessors</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">_add_layer_data_to_viewer</span><span class="p">,</span>
+    <span class="p">)</span>
 
-    <span class="n">cb</span> <span class="o">=</span> <span class="n">_processors</span><span class="o">.</span><span class="n">_add_layer_data_to_viewer</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="n">_add_layer_data_to_viewer</span>
     <span class="n">worker</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">returned</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
         <span class="n">partial</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="n">return_type</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
     <span class="p">)</span>
@@ -819,9 +821,11 @@ document.write(`
 <span class="k">def</span> <span class="nf">_add_worker_data_from_tuple</span><span class="p">(</span>
     <span class="n">worker</span><span class="p">:</span> <span class="n">FunctionWorker</span><span class="p">,</span> <span class="n">return_type</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">napari._app_model.injection</span> <span class="kn">import</span> <span class="n">_processors</span>
+    <span class="kn">from</span> <span class="nn">napari._qt._qapp_model.injection._qprocessors</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">_add_layer_data_tuples_to_viewer</span><span class="p">,</span>
+    <span class="p">)</span>
 
-    <span class="n">cb</span> <span class="o">=</span> <span class="n">_processors</span><span class="o">.</span><span class="n">_add_layer_data_tuples_to_viewer</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="n">_add_layer_data_tuples_to_viewer</span>
     <span class="n">worker</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">returned</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
         <span class="n">partial</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="n">return_type</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
     <span class="p">)</span>

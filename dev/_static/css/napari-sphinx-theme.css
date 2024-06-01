@@ -212,17 +212,7 @@ h1 {
 
 .navbar {
     background-color: var(--napari-primary-blue) !important;
-    height: 64px;
     box-shadow: none;
-}
-
-.navbar .nav-item.active a {
-    font-weight: 700 !important;
-}
-
-.navbar .nav-item a>i {
-    margin-left: 0.5rem;
-    font-size: 0.875rem !important;
 }
 
 .navbar-brand {
@@ -238,35 +228,36 @@ h1 {
     color: var(--napari-color-text-base) !important;
 }
 
-.navbar .navbar-brand p.title {
-    font-size: 1rem;
-    line-height: 125%;
-}
-
-.navbar .nav-item a {
-    text-decoration-line: none;
-    color: var(--napari-color-text-base) !important;
+.bd-header .navbar-nav li.pst-header-nav-item {
     font-size: 1.0625rem;
-    padding: 15px 1.0625rem 15px !important;
-    border-bottom: .1875rem solid transparent;
     font-weight: 500 !important;
 }
 
-.bd-header .navbar-nav li a.nav-link {
-    font-weight: bold;
+.navbar-icon-links li.nav-item a.nav-link {
+    color: var(--napari-color-text-base) !important;
 }
 
-.bd-header .navbar-nav li a.nav-link:hover {
-    text-decoration: none !important;
-    border-bottom: .1875rem solid var(--napari-color-text-base);
+.bd-header .navbar-nav li.pst-header-nav-item>.nav-link {
+    color: var(--napari-color-text-base) !important;
+    border-bottom: 3px solid transparent;
 }
 
-.bd-header .navbar-nav>.current>.nav-link {
-    border-bottom: .1875rem solid var(--napari-color-text-base);
+.bd-header .navbar-nav li.pst-header-nav-item>.nav-link:hover {
+    color: var(--napari-color-text-base) !important;
+    border-bottom: 3px solid var(--pst-color-primary);
 }
 
-.col-lg-9.navbar-header-items {
-    max-width: 75%;
+.bd-header .navbar-nav li.pst-header-nav-item.current>.nav-link::before {
+    border-bottom: 0px solid var(--pst-color-primary);
+}
+
+.bd-header .navbar-nav li.pst-header-nav-item.current>.nav-link {
+    border-bottom: 3px solid var(--pst-color-primary);
+    font-weight: 700 !important;
+}
+
+.bd-header .navbar-nav li.pst-header-nav-item>.nav-link {
+    padding: 15px 1.0625rem 15px !important;
 }
 
 /***************************
@@ -308,14 +299,21 @@ button.version-switcher__button {
  sidebar
 ***************************/
 
-.bd-sidebar label {
-    left: 0px;
+.bd-search {
+    border: 1px solid transparent;
 }
 
-.bd-sidebar-primary label.toctree-toggle:hover {
-    background: none;
+/* Remove "Section Navigation" caption */
+.bd-links__title {
+    display: none;
 }
 
+/* Move chevron to the left */
+.bd-sidebar-primary li.has-children>details>summary .toctree-toggle {
+    right: unset;
+}
+
+/* Fonts and styles */
 .bd-sidebar a.reference,
 .bd-sidebar .caption-text {
     font-size: 0.875rem;
@@ -325,10 +323,6 @@ button.version-switcher__button {
 .bd-sidebar-primary .sidebar-primary-items__end {
     margin-bottom: 0;
     margin-top: 0;
-}
-
-.bd-search {
-    border: 1px solid transparent;
 }
 
 .bd-sidebar .toctree-l1 a {
@@ -437,10 +431,6 @@ button.version-switcher__button {
 .navbar-nav li a:hover,
 .navbar-nav li.current>a {
     color: var(--napari-color-text-base);
-}
-
-.navbar-nav .toctree-checkbox:checked~label i {
-    transform: rotate(90deg);
 }
 
 nav.bd-links li>a {
@@ -627,7 +617,6 @@ h2 {
 
 h3 {
     font-weight: 700;
-    font-size: 1.25rem;
     color: var(--napari-color-text-base) !important;
 }
 
@@ -655,6 +644,10 @@ a.headerlink {
     transform: scale(1.01);
 }
 
+.prev-next-area p {
+    color: var(--napari-color-text-base);
+}
+
 /***************************
  Admonitions
 ***************************/
@@ -680,6 +673,10 @@ div.admonition,
 div.admonition *:last-child,
 .admonition *:last-child {
     margin-bottom: 0;
+}
+
+div.admonition::after {
+    padding-bottom: 10px;
 }
 
 div.admonition p.admonition-title~*,
@@ -1017,7 +1014,6 @@ div.admonition.note>.admonition-title::after {
     background-color: var(--napari-light-blue);
     color: var(--napari-dark-gray);
 }
-
 
 /***************************
  Calendar popup

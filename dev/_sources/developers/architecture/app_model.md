@@ -127,10 +127,20 @@ This is because command id's may currently only be registered once, and associat
 
 ### `Action`s in napari
 
-In napari, non-Qt `Action`s are defined in
-[`napari/_app_model/actions`](https://github.com/napari/napari/tree/main/napari/_app_model/actions)
-while Qt `Action`s are defined in
-[`napari/_qt/_qapp_model/qactions`](https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions).
+In napari, menu bar actions are defined in
+[`napari/_qt/_qapp_model/qactions`](https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions),
+with one file per menu.
+While not all menu bar actions strictly require Qt, they are defined for the purpose
+of living in a menu and are thus considered 'GUI' actions.
+This also ensures that there is only one file defining both actions and their
+submenus.
+Note if we move to supporting more GUI backends, we may want to move these out of
+`_qt/` to a shared `gui/` folder, depending on implementation.
+
+The layer context menu actions do not require a GUI (they only require the `layerlist`)
+and thus live in
+[`napari/_app_model/actions`](https://github.com/napari/napari/tree/main/napari/_app_model/actions).
+
 Non-Qt `Action`s get registered with `app` during
 initialization of the napari `app`, in `NapariApplication`'s
 {meth}`~napari._app_model._app.NapariApplication.__init__`. Qt `Action`s
@@ -455,18 +465,17 @@ ways will not work:
 
 ### Providers and processors in napari
 
-Non-Qt providers and processors are defined in
-[`napari/_app_model/injection`](https://github.com/napari/napari/tree/main/napari/_app_model/injection).
-Qt providers and processors are defined in
+Currently there are only GUI related providers and processors.
+They are defined in
 [`napari/_qt/_qapp_model/injection`](https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection).
+They are registered in {func}`~napari._qt._qapp_model.qactions.init_qactions`,
+which gets called during initialization of `_QtMainWindow`. This is the same as
+[registration of `Action`s](app-model-actions-napari).
 
-Non-Qt providers and processors are registered in the `app` `Store` during
+In future we intend to have non-GUI providers that will supply layer objects.
+They would be registered in the `app` `Store` during
 initialization of the napari `app`, in `NapariApplication`'s
 {meth}`~napari._app_model._app.NapariApplication.__init__`.
-Qt providers and processors are registered in
-{func}`~napari._qt._qapp_model.qactions.init_qactions`, which gets called during
-initialization of `_QtMainWindow`. This is the same as
-[registration of `Action`s](app-model-actions-napari).
 
 (app-model-testing)=
 

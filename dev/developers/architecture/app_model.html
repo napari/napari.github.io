@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../_static/documentation_options.js?v=6a182246"></script>
+    <script src="../../_static/documentation_options.js?v=026c897f"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -677,11 +677,19 @@ when executing the above code:</p>
 </div>
 <section id="actions-in-napari">
 <span id="app-model-actions-napari"></span><h3><code class="docutils literal notranslate"><span class="pre">Action</span></code>s in napari<a class="headerlink" href="#actions-in-napari" title="Link to this heading">#</a></h3>
-<p>In napari, non-Qt <code class="docutils literal notranslate"><span class="pre">Action</span></code>s are defined in
-<a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_app_model/actions"><code class="docutils literal notranslate"><span class="pre">napari/_app_model/actions</span></code></a>
-while Qt <code class="docutils literal notranslate"><span class="pre">Action</span></code>s are defined in
-<a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions"><code class="docutils literal notranslate"><span class="pre">napari/_qt/_qapp_model/qactions</span></code></a>.
-Non-Qt <code class="docutils literal notranslate"><span class="pre">Action</span></code>s get registered with <code class="docutils literal notranslate"><span class="pre">app</span></code> during
+<p>In napari, menu bar actions are defined in
+<a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions"><code class="docutils literal notranslate"><span class="pre">napari/_qt/_qapp_model/qactions</span></code></a>,
+with one file per menu.
+While not all menu bar actions strictly require Qt, they are defined for the purpose
+of living in a menu and are thus considered ‘GUI’ actions.
+This also ensures that there is only one file defining both actions and their
+submenus.
+Note if we move to supporting more GUI backends, we may want to move these out of
+<code class="docutils literal notranslate"><span class="pre">_qt/</span></code> to a shared <code class="docutils literal notranslate"><span class="pre">gui/</span></code> folder, depending on implementation.</p>
+<p>The layer context menu actions do not require a GUI (they only require the <code class="docutils literal notranslate"><span class="pre">layerlist</span></code>)
+and thus live in
+<a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_app_model/actions"><code class="docutils literal notranslate"><span class="pre">napari/_app_model/actions</span></code></a>.</p>
+<p>Non-Qt <code class="docutils literal notranslate"><span class="pre">Action</span></code>s get registered with <code class="docutils literal notranslate"><span class="pre">app</span></code> during
 initialization of the napari <code class="docutils literal notranslate"><span class="pre">app</span></code>, in <code class="docutils literal notranslate"><span class="pre">NapariApplication</span></code>’s
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code>. Qt <code class="docutils literal notranslate"><span class="pre">Action</span></code>s
 get registered in
@@ -970,17 +978,16 @@ ways will not work:</p>
 </section>
 <section id="providers-and-processors-in-napari">
 <h3>Providers and processors in napari<a class="headerlink" href="#providers-and-processors-in-napari" title="Link to this heading">#</a></h3>
-<p>Non-Qt providers and processors are defined in
-<a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_app_model/injection"><code class="docutils literal notranslate"><span class="pre">napari/_app_model/injection</span></code></a>.
-Qt providers and processors are defined in
-<a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection"><code class="docutils literal notranslate"><span class="pre">napari/_qt/_qapp_model/injection</span></code></a>.</p>
-<p>Non-Qt providers and processors are registered in the <code class="docutils literal notranslate"><span class="pre">app</span></code> <code class="docutils literal notranslate"><span class="pre">Store</span></code> during
-initialization of the napari <code class="docutils literal notranslate"><span class="pre">app</span></code>, in <code class="docutils literal notranslate"><span class="pre">NapariApplication</span></code>’s
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code>.
-Qt providers and processors are registered in
-<code class="xref py py-func docutils literal notranslate"><span class="pre">init_qactions()</span></code>, which gets called during
-initialization of <code class="docutils literal notranslate"><span class="pre">_QtMainWindow</span></code>. This is the same as
+<p>Currently there are only GUI related providers and processors.
+They are defined in
+<a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection"><code class="docutils literal notranslate"><span class="pre">napari/_qt/_qapp_model/injection</span></code></a>.
+They are registered in <code class="xref py py-func docutils literal notranslate"><span class="pre">init_qactions()</span></code>,
+which gets called during initialization of <code class="docutils literal notranslate"><span class="pre">_QtMainWindow</span></code>. This is the same as
 <a class="reference internal" href="#app-model-actions-napari"><span class="std std-ref">registration of <code class="docutils literal notranslate"><span class="pre">Action</span></code>s</span></a>.</p>
+<p>In future we intend to have non-GUI providers that will supply layer objects.
+They would be registered in the <code class="docutils literal notranslate"><span class="pre">app</span></code> <code class="docutils literal notranslate"><span class="pre">Store</span></code> during
+initialization of the napari <code class="docutils literal notranslate"><span class="pre">app</span></code>, in <code class="docutils literal notranslate"><span class="pre">NapariApplication</span></code>’s
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code>.</p>
 </section>
 </section>
 <section id="app-model-testing">

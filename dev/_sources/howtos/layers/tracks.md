@@ -31,8 +31,8 @@ code there to add a tracks layer first, then explore the GUI controls.
 The `tracks` layer allows you to display trajectories in `nD+t` while
 visualizing the recent history of the track via a fading tail.
 
-Each track can have annotations associated with it using the `Tracks.properties`
-dictionary. These properties can be used to set the colors of the tracks.
+Each track can have annotations associated with it using the `Tracks.features`
+table. These features can be used to set the colors of the tracks.
 
 For example, when displaying tracks of different classes/types, one could
 automatically set the color of the individual tracks by their respective
@@ -40,9 +40,9 @@ class/type.
 
 ## A simple example
 
-You can create a new viewer and add a set of tracks in one go using the
-`napari.view_tracks` method, or if you already have an existing viewer, you can
-add tracks to it using `viewer.add_tracks`. The API of both methods is the same.
+You can create a new viewer and add a set of tracks in one go using {func}`napari.view_tracks`,
+or if you already have an existing viewer, you can add tracks to it using {meth}`viewer.add_tracks<napari.Viewer.add_tracks>`.
+The API of both methods is the same.
 
 In this example, we will overlay some tracks on an image from the Hubble space
 telescope:
@@ -118,68 +118,7 @@ napari.run()
 * Show ID - check this box to display a previously assigned `track_id` label for
   each track. Assigning values to `track_id` is explained in
   [Tracks data](#tracks-data) below.
-* Graph - check this box to display a previously created graph as explained in
-  [](#arguments-of-view_tracks-and-add_tracks).
-
-## Arguments of `view_tracks` and `add_tracks`
-
-Both `view_tracks` and `add_tracks` have the following docstrings:
-
-```python
-"""
-Parameters
-----------
-data : array (N, D+1)
-    Coordinates for N points in D+1 dimensions. ID,T,(Z),Y,X. The first
-    axis is the integer ID of the track. D is either 3 or 4 for planar
-    or volumetric timeseries respectively.
-properties : dict {str: array (N,)}, DataFrame
-    Properties for each point. Each property should be an array of length N,
-    where N is the number of points.
-graph : dict {int: list}
-    Graph representing associations between tracks. Dictionary defines the
-    mapping between a track ID and the parents of the track. This can be
-    one (the track has one parent, and the parent has >=1 child) in the
-    case of track splitting, or more than one (the track has multiple
-    parents, but only one child) in the case of track merging.
-    See examples/tracks_3d_with_graph.py
-color_by: str
-    Track property (from property keys) by which to color vertices.
-tail_width : float
-    Width of the track tails in pixels.
-tail_length : float
-    Length of the track tails in units of time.
-colormap : str
-    Default colormap to use to set vertex colors. Specialized colormaps,
-    relating to specified properties can be passed to the layer via
-    colormaps_dict.
-colormaps_dict : dict {str: napari.utils.Colormap}
-    Optional dictionary mapping each property to a colormap for that
-    property. This allows each property to be assigned a specific colormap,
-    rather than having a global colormap for everything.
-name : str
-    Name of the layer.
-metadata : dict
-    Layer metadata.
-scale : tuple of float
-    Scale factors for the layer.
-translate : tuple of float
-    Translation values for the layer.
-opacity : float
-    Opacity of the layer visual, between 0.0 and 1.0.
-blending : str
-    One of a list of preset blending modes that determines how RGB and
-    alpha values of the layer visual get mixed. Allowed values are
-    {'opaque', 'translucent', and 'additive'}.
-visible : bool
-    Whether the layer visual is currently being displayed.
-
-Returns
--------
-layer : napari.layers.Tracks
-    The newly-created tracks layer.
-"""
-```
+* Graph - check this box to display a previously created graph.
 
 ## Tracks data
 
@@ -250,13 +189,13 @@ graph = {
 For a full example of 3d+t tracks data with a parent graph, please see
 [](../../gallery/tracks_3d_with_graph).
 
-## Using the `tracks` properties dictionary
+## Using the `tracks` features table
 
-The `tracks` layer can contain properties that annotate the vertices of each
-track. `Tracks.properties` stores the properties in a dictionary where each key
-is the name of the property and the values are NumPy arrays with a value for
+The `Tracks` layer can contain features that annotate the vertices of each
+track. `Tracks.features` stores the features in a table where each column
+is the name of the feature and the values are rows with a value for
 each vertex in the track (i.e., length `N` for `N` vertices in `Tracks.data`).
-As we will see below, we can use the values in a property to set the display
+As we will see below, we can use the feature values to set the display
 properties of the tracks (e.g., the track color).
 
 ## 3D rendering
@@ -335,14 +274,14 @@ length" slider in the `tracks` layer controls.
 </figure>
 ```
 
-## Setting the track color with properties
+## Setting the track color with features
 
-We can color the tracks by mapping colors to the track properties defined in
-`Tracks.properties`. If we define properties and pass them via the `properties`
+We can color the tracks by mapping colors to the track features defined in
+`Tracks.features`. If we define features and pass them via the `features`
 keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()`
-methods, we can then select the property we would like to color the tracks by in
+methods, we can then select the feature we would like to color the tracks by in
 the "color by" dropdown menu in the `tracks` layer controls. We can additionally
-specify the colormap used to map the property value to color via the "colormap"
+specify the colormap used to map the feature value to color via the "colormap"
 dropdown menu.
 
 ```python
@@ -370,13 +309,13 @@ tracks_data = np.asarray([
     [3, 4, 636, 1000]
 ])
 track_confidence = np.array(5*[0.9] + 5*[0.3] + 5 * [0.1])
-properties = {
+features = {
     'time': tracks_data[:, 1],
     'confidence': track_confidence
 }
 
 viewer = napari.view_image(hubble_image)
-viewer.add_tracks(tracks_data, properties=properties)
+viewer.add_tracks(tracks_data, features=features)
 napari.run()
 ```
 
@@ -387,7 +326,7 @@ napari.run()
     <source src="../../_static/images/tracks_color_by.mp4" type="video/mp4" />
     <img src="../../_static/images/tracks_color_by.png"
       title="Your browser does not support the video tag"
-      alt="Selecting tracks by the time property and changing the color."
+      alt="Selecting tracks by the time feature and changing the color."
     >
   </video>
 </figure>

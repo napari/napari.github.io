@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../_static/documentation_options.js?v=026c897f"></script>
+    <script src="../../_static/documentation_options.js?v=a3cb86ce"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -766,16 +766,16 @@ document.write(`
 <span class="n">image</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">coins</span><span class="p">()[</span><span class="mi">50</span><span class="p">:</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">:</span><span class="o">-</span><span class="mi">50</span><span class="p">]</span>
 <span class="n">label_image</span> <span class="o">=</span> <span class="n">segment</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
-<span class="c1"># create the properties dictionary</span>
-<span class="n">properties</span> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span>
+<span class="c1"># create the features dictionary</span>
+<span class="n">feature</span> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span>
     <span class="n">label_image</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;bbox&#39;</span><span class="p">,</span> <span class="s1">&#39;perimeter&#39;</span><span class="p">,</span> <span class="s1">&#39;area&#39;</span><span class="p">)</span>
 <span class="p">)</span>
-<span class="n">properties</span><span class="p">[</span><span class="s1">&#39;circularity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span>
-    <span class="n">properties</span><span class="p">[</span><span class="s1">&#39;perimeter&#39;</span><span class="p">],</span> <span class="n">properties</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span>
+<span class="n">features</span><span class="p">[</span><span class="s1">&#39;circularity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span>
+    <span class="n">features</span><span class="p">[</span><span class="s1">&#39;perimeter&#39;</span><span class="p">],</span> <span class="n">features</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span>
 <span class="p">)</span>
 
 <span class="c1"># create the bounding box rectangles</span>
-<span class="n">bbox_rects</span> <span class="o">=</span> <span class="n">make_bbox</span><span class="p">([</span><span class="n">properties</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;bbox-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
+<span class="n">bbox_rects</span> <span class="o">=</span> <span class="n">make_bbox</span><span class="p">([</span><span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;bbox-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
 
 <span class="c1"># specify the display parameters for the text</span>
 <span class="n">text_parameters</span> <span class="o">=</span> <span class="p">{</span>
@@ -796,7 +796,7 @@ document.write(`
     <span class="n">bbox_rects</span><span class="p">,</span>
     <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
     <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span>
-    <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span>
+    <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="n">text_parameters</span><span class="p">,</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bounding box&#39;</span><span class="p">,</span>
 <span class="p">)</span>
@@ -854,13 +854,13 @@ document.write(`
 <section id="analyzing-the-segmentation">
 <h2>Analyzing the segmentation<a class="headerlink" href="#analyzing-the-segmentation" title="Link to this heading">#</a></h2>
 <p>Next, we use <a class="reference external" href="https://scikit-image.org/docs/dev/api/skimage.measure.html#regionprops-table"><code class="docutils literal notranslate"><span class="pre">regionprops_table</span></code></a> from skimage to quantify some parameters of each detection object (e.g., area and perimeter).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the properties dictionary</span>
-<span class="n">properties</span> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the features dictionary</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span>
     <span class="n">label_image</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;bbox&#39;</span><span class="p">,</span> <span class="s1">&#39;perimeter&#39;</span><span class="p">,</span> <span class="s1">&#39;area&#39;</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Conveniently, <code class="docutils literal notranslate"><span class="pre">regionprops_table()</span></code> returns a dictionary in the same format as the napari layer properties dictionary, so we will be able to use it directly. If we inspect the values of properties, we see each key is the name of the properties and the values are arrays with an element containing the property value for each shape. Note that the bounding boxes have been output as <code class="docutils literal notranslate"><span class="pre">bbox-0</span></code>,  <code class="docutils literal notranslate"><span class="pre">bbox-1</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-1</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-2</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-3</span></code> which correspond with the min_row, min_column, max_row, amnd max_column of each bounding box, respectively.</p>
+<p>Conveniently, <code class="docutils literal notranslate"><span class="pre">regionprops_table()</span></code> returns a dictionary that can be used as input for a napari layer’s features table, so we will be able to use it directly. If we inspect the values of features, we see each key is the name of the feature and the values are arrays with an element containing the feature value for each shape. Note that the bounding boxes have been output as <code class="docutils literal notranslate"><span class="pre">bbox-0</span></code>,  <code class="docutils literal notranslate"><span class="pre">bbox-1</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-1</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-2</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-3</span></code> which correspond with the min_row, min_column, max_row, and max_column of each bounding box, respectively.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 	<span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]),</span>
 	<span class="s1">&#39;bbox-0&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span> <span class="mi">46</span><span class="p">,</span>  <span class="mi">55</span><span class="p">,</span>  <span class="mi">57</span><span class="p">,</span>  <span class="mi">60</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">122</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">129</span><span class="p">]),</span>
@@ -899,9 +899,9 @@ document.write(`
     <span class="k">return</span> <span class="n">circularity</span>
 </pre></div>
 </div>
-<p>We can then calculate the circularity of each region and save it as a property.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">properties</span><span class="p">[</span><span class="s1">&#39;circularity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span>
-    <span class="n">properties</span><span class="p">[</span><span class="s1">&#39;perimeter&#39;</span><span class="p">],</span> <span class="n">properties</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span>
+<p>We can then calculate the circularity of each region and save it as a feature.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;circularity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span>
+    <span class="n">features</span><span class="p">[</span><span class="s1">&#39;perimeter&#39;</span><span class="p">],</span> <span class="n">features</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -935,9 +935,9 @@ document.write(`
     <span class="k">return</span> <span class="n">bbox_rect</span>
 </pre></div>
 </div>
-<p>Finally, we can use an list comprension to pass the bounding box extents to <code class="docutils literal notranslate"><span class="pre">make_bbox()</span></code> and calculate the bounding box corners required by the <code class="docutils literal notranslate"><span class="pre">Shapes</span></code> layer.</p>
+<p>Finally, we can use an list comprehension to pass the bounding box extents to <code class="docutils literal notranslate"><span class="pre">make_bbox()</span></code> and calculate the bounding box corners required by the <code class="docutils literal notranslate"><span class="pre">Shapes</span></code> layer.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the bounding box rectangles</span>
-<span class="n">bbox_rects</span> <span class="o">=</span> <span class="n">make_bbox</span><span class="p">([</span><span class="n">properties</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;bbox-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
+<span class="n">bbox_rects</span> <span class="o">=</span> <span class="n">make_bbox</span><span class="p">([</span><span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;bbox-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
 </pre></div>
 </div>
 </section>
@@ -968,26 +968,26 @@ document.write(`
 </section>
 <section id="annotating-shapes-with-text">
 <h2>Annotating shapes with text<a class="headerlink" href="#annotating-shapes-with-text" title="Link to this heading">#</a></h2>
-<p>We can further annotate our analysis by using text to display properties of each segmentation. The code to create a shapes layer with text is pasted here and explained below.</p>
+<p>We can further annotate our analysis by using text to display features of each segmentation. The code to create a shapes layer with text is pasted here and explained below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">shapes_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">(</span>
         <span class="n">bbox_rects</span><span class="p">,</span>
         <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
         <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span>
-        <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span>
+        <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
         <span class="n">text</span><span class="o">=</span><span class="n">text_parameters</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bounding box&#39;</span>
     <span class="p">)</span>
 </pre></div>
 </div>
-<p>We will use <code class="docutils literal notranslate"><span class="pre">Shapes.properties</span></code> to store the annotations for each bounding box. The properties are definined as a dictionary where each key is the name of the property (i.e., label, circularity) and the values are arrays where each element contains the value for the corresponding shape (i.e., index matched to the Shape data). As a reminder, we created <code class="docutils literal notranslate"><span class="pre">labels</span></code> and <code class="docutils literal notranslate"><span class="pre">circularity</span></code> above and each is a list containing where each element is property value for the corresponding (i.e., index matched) shape.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the properties dictionary</span>
-<span class="n">properties</span> <span class="o">=</span> <span class="p">{</span>
+<p>We will use <code class="docutils literal notranslate"><span class="pre">Shapes.features</span></code> to store the annotations for each bounding box. The features are defined as a table where each column is the name of the feature (i.e., label, circularity) and the values are rows where each element contains the value for the corresponding shape (i.e., index matched to the Shape data). As a reminder, we created <code class="docutils literal notranslate"><span class="pre">labels</span></code> and <code class="docutils literal notranslate"><span class="pre">circularity</span></code> above and each is a list containing where each element is feature value for the corresponding (i.e., index matched) shape.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the features table</span>
+<span class="n">features</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">labels</span><span class="p">,</span>
     <span class="s1">&#39;circularity&#39;</span><span class="p">:</span> <span class="n">circularity</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Each bounding box can be annotated with text drawn from the layer <code class="docutils literal notranslate"><span class="pre">properties</span></code>. To specity the text and display properties of the text, we pass a dictionary with the text parameters (<code class="docutils literal notranslate"><span class="pre">text_parameters</span></code>). We define <code class="docutils literal notranslate"><span class="pre">text_parameters</span></code> as:</p>
+<p>Each bounding box can be annotated with text drawn from the layer <code class="docutils literal notranslate"><span class="pre">features</span></code>. To specify the text and display properties of the text, we pass a dictionary with the text parameters (<code class="docutils literal notranslate"><span class="pre">text_parameters</span></code>). We define <code class="docutils literal notranslate"><span class="pre">text_parameters</span></code> as:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text_parameters</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="s1">&#39;label: </span><span class="si">{label}</span><span class="se">\n</span><span class="s1">circ: </span><span class="si">{circularity:.2f}</span><span class="s1">&#39;</span><span class="p">,</span>
     <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
@@ -997,7 +997,7 @@ document.write(`
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">text</span></code> key specifies pattern for the text to be displayed. If <code class="docutils literal notranslate"><span class="pre">text</span></code> is set to the name of a <code class="docutils literal notranslate"><span class="pre">properties</span></code> key, the value for that property will be displayed. napari text also accepts f-string-like syntax, as used here. napari will substitute each pair of curly braces(<code class="docutils literal notranslate"><span class="pre">{}</span></code>) with the values from the property specified inside of the curley braces. For numbers, the precision can be specified in the same style as f-strings. Additionally, napari recognizes standard special characters such as <code class="docutils literal notranslate"><span class="pre">\n</span></code> for new line.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">string</span></code> key specifies pattern for the text to be displayed. If <code class="docutils literal notranslate"><span class="pre">string</span></code> is set to the name of a <code class="docutils literal notranslate"><span class="pre">feature</span></code> column, the value for that feature will be displayed. napari text also accepts f-string-like syntax, as used here. napari will substitute each pair of curly braces(<code class="docutils literal notranslate"><span class="pre">{}</span></code>) with the values from the feature specified inside of the curly braces. For numbers, the precision can be specified in the same style as f-strings. Additionally, napari recognizes standard special characters such as <code class="docutils literal notranslate"><span class="pre">\n</span></code> for new line.</p>
 <p>As an example, if a given object has a <code class="docutils literal notranslate"><span class="pre">label=1</span></code> and <code class="docutils literal notranslate"><span class="pre">circularity=0.8322940</span></code>, the resulting text string would be:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="p">:</span> <span class="mi">1</span>
 <span class="n">circ</span><span class="p">:</span> <span class="mf">0.83</span>
@@ -1005,8 +1005,8 @@ document.write(`
 </div>
 <p>We set the text to green (<code class="docutils literal notranslate"><span class="pre">'color':</span> <span class="pre">'green'</span></code>) with a font size of 12 (<code class="docutils literal notranslate"><span class="pre">'size':</span> <span class="pre">12</span></code>). We specify that the text will be anchored in the upper left hand corner of the bounding box (<code class="docutils literal notranslate"><span class="pre">'anchor':</span> <span class="pre">'upper_left'</span></code>). The valid anchors are: <code class="docutils literal notranslate"><span class="pre">'upper_right'</span></code>, <code class="docutils literal notranslate"><span class="pre">'upper_left'</span></code>, <code class="docutils literal notranslate"><span class="pre">'lower_right'</span></code>, <code class="docutils literal notranslate"><span class="pre">'lower_left'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'center'</span></code>. We then offset the text from the anchor in order to make sure it does not overlap with the bounding box edge (<code class="docutils literal notranslate"><span class="pre">'translation':</span> <span class="pre">[-3,</span> <span class="pre">0]</span></code>). The translation is relative to the anchor point. The first dimension is the vertical axis on the canvas (negative is “up”) and the second dimension is along the horizontal axis of the canvas.</p>
 <p>All together, the visualization code is:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the properties dictionary</span>
-<span class="n">properties</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the features table</span>
+<span class="n">features</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">labels</span><span class="p">,</span>
     <span class="s1">&#39;circularity&#39;</span><span class="p">:</span> <span class="n">circularity</span><span class="p">,</span>
 <span class="p">}</span>
@@ -1030,7 +1030,7 @@ document.write(`
     <span class="n">bbox_rects</span><span class="p">,</span>
     <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
     <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span>
-    <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span>
+    <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="n">text_parameters</span><span class="p">,</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bounding box&#39;</span>
 <span class="p">)</span>

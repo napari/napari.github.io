@@ -539,8 +539,8 @@ The following are all valid {attr}`napari.types.LayerDataTuple` examples:
 # an empty points layer
 (None, {}, 'points')
 
-# points with properties
-(np.random.rand(20, 2), {'properties': {'values': np.random.rand(20)}}, 'points')
+# points with features
+(np.random.rand(20, 2), {'features': {'values': np.random.rand(20)}}, 'points')
 ```
 
 An example of using a {attr}`~napari.types.LayerDataTuple` return annotation in
@@ -553,8 +553,8 @@ import napari.types
 @magicgui(call_button='Make Points')
 def make_points(n_points=40) -> napari.types.LayerDataTuple:
   data = 500 * np.random.rand(n_points, 2)
-  props = {'values': np.random.rand(n_points)}
-  return (data, {'properties': props}, 'points')
+  features = {'values': np.random.rand(n_points)}
+  return (data, {'features': features}, 'points')
 
 viewer = napari.Viewer()
 viewer.window.add_dock_widget(make_points)

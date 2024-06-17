@@ -42,8 +42,19 @@ and then using the weights in the kernel to add up the final fragment value.
    :class: sphx-glr-single-img
 
 
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    /opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/napari/view_layers.py:161: FutureWarning: Argument 'interpolation' is deprecated, please use 'interpolation2d' instead. The argument 'interpolation' was deprecated in 0.4.17 and it will be removed in 0.6.0.
+      added = method(*args, **kwargs)
 
 
+
+
+
+
+|
 
 .. code-block:: Python
 

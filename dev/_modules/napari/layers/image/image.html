@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=026c897f"></script>
+    <script src="../../../../_static/documentation_options.js?v=a3cb86ce"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1004,6 +1004,12 @@ document.write(`
 
     <span class="k">def</span> <span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update thumbnail with current image data and colormap.&quot;&quot;&quot;</span>
+        <span class="c1"># don&#39;t bother updating thumbnail if we don&#39;t have any data</span>
+        <span class="c1"># this also avoids possible dtype mismatch issues below</span>
+        <span class="c1"># for example np.clip may raise an OverflowError (in numpy 2.0)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">return</span>
+
         <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">thumbnail</span><span class="o">.</span><span class="n">raw</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>

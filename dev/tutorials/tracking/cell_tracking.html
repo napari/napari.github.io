@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../_static/documentation_options.js?v=026c897f"></script>
+    <script src="../../_static/documentation_options.js?v=a3cb86ce"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -802,8 +802,8 @@ We create it with the following code:</p>
 <span class="n">roots</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">root</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">full_graph</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer enables the vertices of the tracks to be colored by user specified properties. Here, we will create a property which represents the <code class="docutils literal notranslate"><span class="pre">root_id</span></code> of each tree, so that cells with a common ancestor are colored the same:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">properties</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;root_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">roots</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]}</span>
+<p>The <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer enables the vertices of the tracks to be colored by user specified features. Here, we will create a feature which represents the <code class="docutils literal notranslate"><span class="pre">root_id</span></code> of each tree, so that cells with a common ancestor are colored the same:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;root_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">roots</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]}</span>
 </pre></div>
 </div>
 </section>
@@ -823,7 +823,7 @@ We create it with the following code:</p>
 <p>We can now visualize the full, linked tracks in napari!</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">timelapse</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">SCALE</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Fluo-N3DH-CE&#39;</span><span class="p">)</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">SCALE</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;tracks&#39;</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">SCALE</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;tracks&#39;</span><span class="p">)</span>
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -864,14 +864,14 @@ We create it with the following code:</p>
     <span class="n">tracker</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
 
     <span class="c1"># get the tracks in a format for napari visualization</span>
-    <span class="n">data</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">graph</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">to_napari</span><span class="p">(</span><span class="n">ndim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">graph</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">to_napari</span><span class="p">(</span><span class="n">ndim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We set the configuration of the tracker using a configuration file using the <code class="docutils literal notranslate"><span class="pre">.configure_from_file()</span></code> method. An example configuration file can be found <a class="reference external" href="https://github.com/quantumjot/BayesianTracker/blob/main/models/cell_config.json">here</a>.</p>
 <p>Next, the objects are linked into tracks using the <code class="docutils literal notranslate"><span class="pre">.track_interactive()</span></code> method. The <code class="docutils literal notranslate"><span class="pre">step_size</span></code> argument specifies how many steps are taken before reporting the tracking statistics. The <code class="docutils literal notranslate"><span class="pre">.optimize()</span></code> method then performs a global optimization on the dataset and creates lineage trees automatically.</p>
-<p>Finally, the <code class="docutils literal notranslate"><span class="pre">.to_napari()</span></code> method returns the track vertices, track properties and graph in a format that can be directly visualized using the napari <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer:</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">.to_napari()</span></code> method returns the track vertices, track features and graph in a format that can be directly visualized using the napari <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">)</span>
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>

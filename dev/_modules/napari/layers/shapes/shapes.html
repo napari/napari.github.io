@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=026c897f"></script>
+    <script src="../../../../_static/documentation_options.js?v=a3cb86ce"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1908,7 +1908,7 @@ document.write(`
                 <span class="c1"># and update_color_mapping==False</span>
                 <span class="n">color_cycle_map</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle_map&#39;</span><span class="p">)</span>
                 <span class="n">color_cycle_keys</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">color_cycle_map</span><span class="p">]</span>
-                <span class="n">props_in_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">color_properties</span><span class="p">,</span> <span class="n">color_cycle_keys</span><span class="p">)</span>
+                <span class="n">props_in_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">color_properties</span><span class="p">,</span> <span class="n">color_cycle_keys</span><span class="p">)</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">props_in_map</span><span class="p">):</span>
                     <span class="n">props_to_add</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span>
                         <span class="n">color_properties</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">props_in_map</span><span class="p">)]</span>

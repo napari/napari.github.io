@@ -145,9 +145,9 @@ def root(node: int):
 roots = {k: root(k) for k in full_graph.keys()}
 ```
 
-The `Tracks` layer enables the vertices of the tracks to be colored by user specified properties. Here, we will create a property which represents the `root_id` of each tree, so that cells with a common ancestor are colored the same:
+The `Tracks` layer enables the vertices of the tracks to be colored by user specified features. Here, we will create a feature which represents the `root_id` of each tree, so that cells with a common ancestor are colored the same:
 ```python
-properties = {'root_id': [roots[idx] for idx in data[:, 0]]}
+features = {'root_id': [roots[idx] for idx in data[:, 0]]}
 ```
 
 ### Visualizing the tracks with napari
@@ -172,7 +172,7 @@ We can now visualize the full, linked tracks in napari!
 ```python
 viewer = napari.Viewer()
 viewer.add_image(timelapse, scale=SCALE, name='Fluo-N3DH-CE')
-viewer.add_tracks(data, properties=properties, graph=graph, scale=SCALE, name='tracks')
+viewer.add_tracks(data, features=features, graph=graph, scale=SCALE, name='tracks')
 napari.run()
 ```
 
@@ -223,18 +223,18 @@ with btrack.BayesianTracker() as tracker:
     tracker.optimize()
 
     # get the tracks in a format for napari visualization
-    data, properties, graph = tracker.to_napari(ndim=2)
+    data, features, graph = tracker.to_napari(ndim=2)
 ```
 
 We set the configuration of the tracker using a configuration file using the `.configure_from_file()` method. An example configuration file can be found [here](https://github.com/quantumjot/BayesianTracker/blob/main/models/cell_config.json).
 
 Next, the objects are linked into tracks using the `.track_interactive()` method. The `step_size` argument specifies how many steps are taken before reporting the tracking statistics. The `.optimize()` method then performs a global optimization on the dataset and creates lineage trees automatically.
 
-Finally, the `.to_napari()` method returns the track vertices, track properties and graph in a format that can be directly visualized using the napari `Tracks` layer:
+Finally, the `.to_napari()` method returns the track vertices, track features and graph in a format that can be directly visualized using the napari `Tracks` layer:
 
 ```python
 viewer = napari.Viewer()
-viewer.add_tracks(data, properties=properties, graph=graph)
+viewer.add_tracks(data, features=features, graph=graph)
 napari.run()
 ```
 

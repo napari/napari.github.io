@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../_static/documentation_options.js?v=a3cb86ce"></script>
+    <script src="../../_static/documentation_options.js?v=9fe8cdf3"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1045,7 +1045,10 @@ registered <a class="reference external" href="https://app-model.readthedocs.io/
 <a class="reference internal" href="../../api/napari.window.Window.html#napari.window.Window" title="napari._qt.qt_main_window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">Window</span></code></a> attributes. These are useful as the
 <code class="docutils literal notranslate"><span class="pre">QAction</span></code>s of the commands in these menus can be found via
 the <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/backends/qt/#app_model.backends.qt.QModelMenu" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QModelMenu</span></code></a>’s
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">findAction()</span></code> method.</p>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">findAction()</span></code> method. <code class="docutils literal notranslate"><span class="pre">QAction</span></code>s of submenu
+of a <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/backends/qt/#app_model.backends.qt.QModelMenu" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QModelMenu</span></code></a> currently cannot be found via
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">findAction()</span></code>. The utility function
+<code class="docutils literal notranslate"><span class="pre">napari._qt._qapp_model._tests.utils.get_submenu_action</span></code> can be used instead.</p>
 </section>
 </section>
 <section id="contexts">

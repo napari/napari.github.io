@@ -495,7 +495,7 @@ singleton `app` may keep a reference to an object, e.g., a
 since been cleaned up at the end of a previous test.
 Thus, we mock the `app` in a `_mock_app` fixture, and
 explicitly use it in {ref}`make_napari_viewer` as well as in all tests that
-use the `get_app` function. This way, a new instance of `app` is returned 
+use the `get_app` function. This way, a new instance of `app` is returned
 every time {func}`~napari._app_model.get_app`
 is used inside a test. This 'test' `app` is available for use throughout the test's
 duration and will get cleaned up at the end.
@@ -536,7 +536,10 @@ The {class}`~app_model.backends.qt.QModelMenu` of menu bar items are saved as
 {class}`~napari._qt.qt_main_window.Window` attributes. These are useful as the
 `QAction`s of the commands in these menus can be found via
 the {class}`~app_model.backends.qt.QModelMenu`'s
-{meth}`~app_model.backends.qt.QModelMenu.findAction` method.
+{meth}`~app_model.backends.qt.QModelMenu.findAction` method. `QAction`s of submenu
+of a {class}`~app_model.backends.qt.QModelMenu` currently cannot be found via
+{meth}`~app_model.backends.qt.QModelMenu.findAction`. The utility function
+`napari._qt._qapp_model._tests.utils.get_submenu_action` can be used instead.
 
 ## Contexts
 

@@ -1,0 +1,36 @@
+name: Copy unversioned pages
+
+on:
+  push:
+    branches:
+      - gh-pages
+    paths:
+      - 'dev/developers/**'
+      - 'dev/index.html'
+  workflow_dispatch:
+
+jobs:
+  copy-pages:
+    name: Copy unversioned pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone artifacts repo
+        uses: actions/checkout@v4
+
+      - name: Copy pages
+        run: |
+          ls -la
+          cp -Rv ./dev/developers/ ./stable/
+          cp -v ./dev/index.html ./stable/
+
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Copy unversioned files" -a
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages

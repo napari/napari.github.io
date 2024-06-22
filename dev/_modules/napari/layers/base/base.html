@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=9fe8cdf3"></script>
+    <script src="../../../../_static/documentation_options.js?v=ff1ad787"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -460,7 +460,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
-<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Generator</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cached_property</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
@@ -474,6 +474,7 @@ document.write(`
 
 <span class="kn">import</span> <span class="nn">magicgui</span> <span class="k">as</span> <span class="nn">mgui</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pint</span>
 <span class="kn">from</span> <span class="nn">npe2</span> <span class="kn">import</span> <span class="n">plugin_manager</span> <span class="k">as</span> <span class="n">pm</span>
 
 <span class="kn">from</span> <span class="nn">napari.layers.base._base_constants</span> <span class="kn">import</span> <span class="p">(</span>
@@ -583,6 +584,9 @@ document.write(`
 <span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
 <span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
 <span class="sd">        provided scale, rotate, and shear values.</span>
+<span class="sd">    axis_labels : tuple of str, optional</span>
+<span class="sd">        Dimension names of the layer data.</span>
+<span class="sd">        If not provided, axis_labels will be set to (..., &#39;axis -2&#39;, &#39;axis -1&#39;).</span>
 <span class="sd">    blending : str</span>
 <span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
 <span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
@@ -622,6 +626,9 @@ document.write(`
 <span class="sd">        ones along the main diagonal.</span>
 <span class="sd">    translate : tuple of float</span>
 <span class="sd">        Translation values for the layer.</span>
+<span class="sd">    units : tuple of str or pint.Unit, optional</span>
+<span class="sd">        Units of the layer data in world coordinates.</span>
+<span class="sd">        If not provided, the default units are assumed to be pixels.</span>
 <span class="sd">    visible : bool</span>
 <span class="sd">        Whether the layer visual is currently being displayed.</span>
 
@@ -633,6 +640,8 @@ document.write(`
 <span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
 <span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
 <span class="sd">        provided scale, rotate, and shear values.</span>
+<span class="sd">    axis_labels : tuple of str</span>
+<span class="sd">        Dimension names of the layer data.</span>
 <span class="sd">    blending : Blending</span>
 <span class="sd">        Determines how RGB and alpha values get mixed.</span>
 
@@ -720,6 +729,8 @@ document.write(`
 <span class="sd">        Array of thumbnail data for the layer.</span>
 <span class="sd">    visible : bool</span>
 <span class="sd">        Whether the layer visual is currently being displayed.</span>
+<span class="sd">    units: tuple of pint.Unit</span>
+<span class="sd">        Units of the layer data in world coordinates.</span>
 <span class="sd">    z_index : int</span>
 <span class="sd">        Depth of the layer visual relative to other visuals in the scenecanvas.</span>
 
@@ -764,6 +775,7 @@ document.write(`
         <span class="n">ndim</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">axis_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">blending</span><span class="o">=</span><span class="s1">&#39;translucent&#39;</span><span class="p">,</span>
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># this should move to future &quot;data source&quot; object.</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -777,6 +789,7 @@ document.write(`
         <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -817,7 +830,6 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="p">(</span><span class="s1">&#39;pan_zoom&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_projection_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_projectionclass</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">projection_mode</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_blocked</span> <span class="o">=</span> <span class="kc">False</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span> <span class="o">=</span> <span class="n">ndim</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">_SliceInput</span><span class="p">(</span>
@@ -853,10 +865,12 @@ document.write(`
                 <span class="n">CompositeAffine</span><span class="p">(</span>
                     <span class="n">scale</span><span class="p">,</span>
                     <span class="n">translate</span><span class="p">,</span>
+                    <span class="n">axis_labels</span><span class="o">=</span><span class="n">axis_labels</span><span class="p">,</span>
                     <span class="n">rotate</span><span class="o">=</span><span class="n">rotate</span><span class="p">,</span>
                     <span class="n">shear</span><span class="o">=</span><span class="n">shear</span><span class="p">,</span>
                     <span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">,</span>
                     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;data2physical&#39;</span><span class="p">,</span>
+                    <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="n">coerce_affine</span><span class="p">(</span><span class="n">affine</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;physical2world&#39;</span><span class="p">),</span>
                 <span class="n">Affine</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;world2grid&#39;</span><span class="p">),</span>
@@ -884,21 +898,33 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">EmitterGroup</span><span class="p">(</span>
             <span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-            <span class="n">refresh</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">set_data</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">blending</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">opacity</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">visible</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">scale</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">translate</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">rotate</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">shear</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">affine</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">axis_labels</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">data</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">thumbnail</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">affine</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">blending</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">cursor</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">cursor_size</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">editable</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">extent</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">loaded</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">mouse_pan</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">mouse_zoom</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">opacity</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">projection_mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">refresh</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">reload</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">rotate</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">scale</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">set_data</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">shear</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">status</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">thumbnail</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">translate</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">units</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">visible</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">interactive</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s1">&#39;layer.events.interactive is deprecated since 0.4.18 and will be removed in 0.6.0. Please use layer.events.mouse_pan and layer.events.mouse_zoom&#39;</span><span class="p">,</span>
@@ -906,18 +932,8 @@ document.write(`
                 <span class="p">),</span>
                 <span class="n">type_name</span><span class="o">=</span><span class="s1">&#39;interactive&#39;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">mouse_pan</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">mouse_zoom</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">cursor</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">cursor_size</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">editable</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">loaded</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">reload</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">extent</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">_extent_augmented</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">_overlays</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">projection_mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span>
@@ -1203,6 +1219,32 @@ document.write(`
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes side-effects on this layer related to changes of the editable state.&quot;&quot;&quot;</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">axis_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;tuple of axis labels for the layer.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">axis_labels</span>
+
+    <span class="nd">@axis_labels</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">axis_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_labels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">axis_labels</span>
+        <span class="c1"># mypy bug https://github.com/python/mypy/issues/3004</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">axis_labels</span> <span class="o">=</span> <span class="n">axis_labels</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">axis_labels</span> <span class="o">!=</span> <span class="n">prev</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">axis_labels</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">units</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pint</span><span class="o">.</span><span class="n">Unit</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;List of units for the layer.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+
+    <span class="nd">@units</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">pint</span><span class="o">.</span><span class="n">Unit</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span>
+        <span class="c1"># mypy bug https://github.com/python/mypy/issues/3004</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">units</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="o">!=</span> <span class="n">prev</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">units</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;array: Anisotropy factors to scale data into world coordinates.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span>
@@ -1446,20 +1488,22 @@ document.write(`
 <span class="sd">            Dictionary of attributes on base layer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">base_dict</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
-            <span class="s1">&#39;scale&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">),</span>
-            <span class="s1">&#39;translate&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">translate</span><span class="p">),</span>
-            <span class="s1">&#39;rotate&#39;</span><span class="p">:</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">],</span>
-            <span class="s1">&#39;shear&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shear</span><span class="p">),</span>
             <span class="s1">&#39;affine&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">affine</span><span class="o">.</span><span class="n">affine_matrix</span><span class="p">,</span>
-            <span class="s1">&#39;opacity&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span><span class="p">,</span>
+            <span class="s1">&#39;axis_labels&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis_labels</span><span class="p">,</span>
             <span class="s1">&#39;blending&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">blending</span><span class="p">,</span>
-            <span class="s1">&#39;visible&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">,</span>
             <span class="s1">&#39;experimental_clipping_planes&#39;</span><span class="p">:</span> <span class="p">[</span>
                 <span class="n">plane</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">plane</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">experimental_clipping_planes</span>
             <span class="p">],</span>
+            <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;opacity&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span><span class="p">,</span>
             <span class="s1">&#39;projection_mode&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection_mode</span><span class="p">,</span>
+            <span class="s1">&#39;rotate&#39;</span><span class="p">:</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">],</span>
+            <span class="s1">&#39;scale&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">),</span>
+            <span class="s1">&#39;shear&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shear</span><span class="p">),</span>
+            <span class="s1">&#39;translate&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">translate</span><span class="p">),</span>
+            <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">,</span>
+            <span class="s1">&#39;visible&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">base_dict</span>
 

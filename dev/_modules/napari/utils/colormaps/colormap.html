@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=9fe8cdf3"></script>
+    <script src="../../../../_static/documentation_options.js?v=ff1ad787"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1107,10 +1107,12 @@ document.write(`
             <span class="n">key_type</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="n">data_dtype</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
             <span class="n">value_type</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="n">target_type</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
         <span class="p">)</span>
+        <span class="n">iinfo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">data_dtype</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_mapping_and_color_dict</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">k</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">continue</span>
-            <span class="n">dkt</span><span class="p">[</span><span class="n">data_dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="n">target_type</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="c1"># ignore values outside the data dtype, since they will never need</span>
+            <span class="c1"># to be colormapped from that dtype.</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">iinfo</span><span class="o">.</span><span class="n">min</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="n">iinfo</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+                <span class="n">dkt</span><span class="p">[</span><span class="n">data_dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="n">target_type</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_cache_other</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">dkt</span>
 

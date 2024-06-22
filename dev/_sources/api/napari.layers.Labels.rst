@@ -102,6 +102,7 @@ napari.layers.Labels
    
       ~Labels.ModeCallable
       ~Labels.affine
+      ~Labels.axis_labels
       ~Labels.blending
       ~Labels.bounding_box
       ~Labels.brush_size
@@ -149,6 +150,7 @@ napari.layers.Labels
       ~Labels.source
       ~Labels.thumbnail
       ~Labels.translate
+      ~Labels.units
       ~Labels.visible
       
       

@@ -75,6 +75,7 @@ napari.layers.Vectors
    
       ~Vectors.ModeCallable
       ~Vectors.affine
+      ~Vectors.axis_labels
       ~Vectors.blending
       ~Vectors.bounding_box
       ~Vectors.class_keymap
@@ -114,6 +115,7 @@ napari.layers.Vectors
       ~Vectors.source
       ~Vectors.thumbnail
       ~Vectors.translate
+      ~Vectors.units
       ~Vectors.vector_style
       ~Vectors.visible
       

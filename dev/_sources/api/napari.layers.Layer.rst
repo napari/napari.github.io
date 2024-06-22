@@ -72,6 +72,7 @@ napari.layers.Layer
    
       ~Layer.ModeCallable
       ~Layer.affine
+      ~Layer.axis_labels
       ~Layer.blending
       ~Layer.bounding_box
       ~Layer.class_keymap
@@ -99,6 +100,7 @@ napari.layers.Layer
       ~Layer.source
       ~Layer.thumbnail
       ~Layer.translate
+      ~Layer.units
       ~Layer.visible
       
       

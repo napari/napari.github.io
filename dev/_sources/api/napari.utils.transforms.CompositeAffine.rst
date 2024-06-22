@@ -38,14 +38,17 @@ napari.utils.transforms.CompositeAffine
    .. autosummary::
    
       ~CompositeAffine.affine_matrix
+      ~CompositeAffine.axis_labels
       ~CompositeAffine.changed
       ~CompositeAffine.inverse
       ~CompositeAffine.linear_matrix
       ~CompositeAffine.ndim
+      ~CompositeAffine.physical_scale
       ~CompositeAffine.rotate
       ~CompositeAffine.scale
       ~CompositeAffine.shear
       ~CompositeAffine.translate
+      ~CompositeAffine.units
    
    
 

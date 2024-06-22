@@ -38,14 +38,17 @@ napari.utils.transforms.Affine
    .. autosummary::
    
       ~Affine.affine_matrix
+      ~Affine.axis_labels
       ~Affine.changed
       ~Affine.inverse
       ~Affine.linear_matrix
       ~Affine.ndim
+      ~Affine.physical_scale
       ~Affine.rotate
       ~Affine.scale
       ~Affine.shear
       ~Affine.translate
+      ~Affine.units
    
    
 

@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../../_static/documentation_options.js?v=9fe8cdf3"></script>
+    <script src="../../../_static/documentation_options.js?v=ff1ad787"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1198,6 +1198,7 @@ document.write(`
         <span class="o">*</span><span class="p">,</span>
         <span class="n">channel_axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">axis_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">attenuation</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
         <span class="n">blending</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -1222,6 +1223,7 @@ document.write(`
         <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Image</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Image</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one or more Image layers to the layer list.</span>
@@ -1250,6 +1252,9 @@ document.write(`
 <span class="sd">            the final column is a length N translation vector and a 1 or a</span>
 <span class="sd">            napari `Affine` transform object. Applied as an extra transform on</span>
 <span class="sd">            top of the provided scale, rotate, and shear values.</span>
+<span class="sd">        axis_labels : tuple of str</span>
+<span class="sd">            Dimension names of the layer data.</span>
+<span class="sd">            If not provided, axis_labels will be set to (..., &#39;axis -2&#39;, &#39;axis -1&#39;).</span>
 <span class="sd">        attenuation : float or list of float</span>
 <span class="sd">            Attenuation rate for attenuated maximum intensity projection.</span>
 <span class="sd">        blending : str or list of str</span>
@@ -1336,6 +1341,9 @@ document.write(`
 <span class="sd">            A vector of shear values for an upper triangular n-D shear matrix.</span>
 <span class="sd">        translate : tuple of float or list of tuple of float</span>
 <span class="sd">            Translation values for the layer.</span>
+<span class="sd">        units : tuple of str or pint.Unit, optional</span>
+<span class="sd">            Units of the layer data in world coordinates.</span>
+<span class="sd">            If not provided, the default units are assumed to be pixels.</span>
 <span class="sd">        visible : bool or list of bool</span>
 <span class="sd">            Whether the layer visual is currently being displayed.</span>
 
@@ -1358,6 +1366,7 @@ document.write(`
         <span class="c1"># doing this here for IDE/console autocompletion in add_image function.</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;rgb&#39;</span><span class="p">:</span> <span class="n">rgb</span><span class="p">,</span>
+            <span class="s1">&#39;axis_labels&#39;</span><span class="p">:</span> <span class="n">axis_labels</span><span class="p">,</span>
             <span class="s1">&#39;colormap&#39;</span><span class="p">:</span> <span class="n">colormap</span><span class="p">,</span>
             <span class="s1">&#39;contrast_limits&#39;</span><span class="p">:</span> <span class="n">contrast_limits</span><span class="p">,</span>
             <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="n">gamma</span><span class="p">,</span>
@@ -1383,6 +1392,7 @@ document.write(`
             <span class="s1">&#39;experimental_clipping_planes&#39;</span><span class="p">:</span> <span class="n">experimental_clipping_planes</span><span class="p">,</span>
             <span class="s1">&#39;custom_interpolation_kernel_2d&#39;</span><span class="p">:</span> <span class="n">custom_interpolation_kernel_2d</span><span class="p">,</span>
             <span class="s1">&#39;projection_mode&#39;</span><span class="p">:</span> <span class="n">projection_mode</span><span class="p">,</span>
+            <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="n">units</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="c1"># these arguments are *already* iterables in the single-channel case.</span>

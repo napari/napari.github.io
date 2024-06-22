@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../_static/documentation_options.js?v=9fe8cdf3"></script>
+    <script src="../_static/documentation_options.js?v=ff1ad787"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -574,7 +574,7 @@ document.write(`
 <h1>napari.layers.Tracks<a class="headerlink" href="#napari-layers-tracks" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="napari.layers.Tracks">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.layers.</span></span><span class="sig-name descname"><span class="pre">Tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'additive'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'track_id'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'turbo'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormaps_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_clipping_planes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/layers/tracks/tracks.html#Tracks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Tracks" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.layers.</span></span><span class="sig-name descname"><span class="pre">Tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'additive'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'track_id'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'turbo'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormaps_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_clipping_planes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/layers/tracks/tracks.html#Tracks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Tracks" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.base.base.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></a></p>
 <p>Tracks layer.</p>
 <dl class="field-list simple">
@@ -588,6 +588,8 @@ The first (N, N) entries correspond to a linear transform and
 the final column is a length N translation vector and a 1 or a napari
 <cite>Affine</cite> transform object. Applied as an extra transform on top of the
 provided scale, rotate, and shear values.</p></li>
+<li><p><strong>axis_labels</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Dimension names of the layer data.
+If not provided, axis_labels will be set to (…, ‘axis -2’, ‘axis -1’).</p></li>
 <li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
 alpha values of the layer visual get mixed. Allowed values are
 {‘opaque’, ‘translucent’, and ‘additive’}.</p></li>
@@ -630,6 +632,8 @@ ones along the main diagonal.</p></li>
 <li><p><strong>tail_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Length of the positive (backward in time) tails in units of time.</p></li>
 <li><p><strong>tail_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Width of the track tails in pixels.</p></li>
 <li><p><strong>translate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Translation values for the layer.</p></li>
+<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><em>pint.Unit</em><em>, </em><em>optional</em>) – Units of the layer data in world coordinates.
+If not provided, the default units are assumed to be pixels.</p></li>
 <li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
 </ul>
 </dd>
@@ -694,149 +698,155 @@ ones along the main diagonal.</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.affine" title="napari.layers.Tracks.affine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">affine</span></code></a></p></td>
 <td><p>Extra affine transform to go from physical to world coordinates.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.blending" title="napari.layers.Tracks.blending"><code class="xref py py-obj docutils literal notranslate"><span class="pre">blending</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.axis_labels" title="napari.layers.Tracks.axis_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">axis_labels</span></code></a></p></td>
+<td><p>tuple of axis labels for the layer.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.blending" title="napari.layers.Tracks.blending"><code class="xref py py-obj docutils literal notranslate"><span class="pre">blending</span></code></a></p></td>
 <td><p>Determines how RGB and alpha values get mixed.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">bounding_box</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">bounding_box</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">class_keymap</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">class_keymap</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">colomaps_dict</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">colomaps_dict</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">color_by</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">color_by</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">colormap</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">colormap</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">colormaps_dict</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">colormaps_dict</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.current_time" title="napari.layers.Tracks.current_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_time</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.current_time" title="napari.layers.Tracks.current_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_time</span></code></a></p></td>
 <td><p>current time according to the first dimension</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.cursor" title="napari.layers.Tracks.cursor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cursor</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.cursor" title="napari.layers.Tracks.cursor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cursor</span></code></a></p></td>
 <td><p>String identifying cursor displayed over canvas.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.cursor_size" title="napari.layers.Tracks.cursor_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cursor_size</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.cursor_size" title="napari.layers.Tracks.cursor_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cursor_size</span></code></a></p></td>
 <td><p>Size of cursor if custom.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.data" title="napari.layers.Tracks.data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.data" title="napari.layers.Tracks.data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></a></p></td>
 <td><p>Coordinates for N points in D+1 dimensions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.display_graph" title="napari.layers.Tracks.display_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_graph</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.display_graph" title="napari.layers.Tracks.display_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_graph</span></code></a></p></td>
 <td><p>display the graph edges</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.display_id" title="napari.layers.Tracks.display_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_id</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.display_id" title="napari.layers.Tracks.display_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_id</span></code></a></p></td>
 <td><p>display the track id</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.display_tail" title="napari.layers.Tracks.display_tail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_tail</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.display_tail" title="napari.layers.Tracks.display_tail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_tail</span></code></a></p></td>
 <td><p>display the track tail</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.editable" title="napari.layers.Tracks.editable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">editable</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.editable" title="napari.layers.Tracks.editable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">editable</span></code></a></p></td>
 <td><p>Whether the current layer data is editable from the viewer.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">experimental_clipping_planes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">experimental_clipping_planes</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.extent" title="napari.layers.Tracks.extent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extent</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.extent" title="napari.layers.Tracks.extent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extent</span></code></a></p></td>
 <td><p>Extent of layer in data and world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.features" title="napari.layers.Tracks.features"><code class="xref py py-obj docutils literal notranslate"><span class="pre">features</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.features" title="napari.layers.Tracks.features"><code class="xref py py-obj docutils literal notranslate"><span class="pre">features</span></code></a></p></td>
 <td><p>Dataframe-like features table.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.graph" title="napari.layers.Tracks.graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.graph" title="napari.layers.Tracks.graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph</span></code></a></p></td>
 <td><p>Graph representing associations between tracks.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.graph_connex" title="napari.layers.Tracks.graph_connex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_connex</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.graph_connex" title="napari.layers.Tracks.graph_connex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_connex</span></code></a></p></td>
 <td><p>vertex connections for drawing the graph</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.graph_times" title="napari.layers.Tracks.graph_times"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_times</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.graph_times" title="napari.layers.Tracks.graph_times"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_times</span></code></a></p></td>
 <td><p>time points associated with each graph vertex</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">head_length</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">head_length</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.help" title="napari.layers.Tracks.help"><code class="xref py py-obj docutils literal notranslate"><span class="pre">help</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.help" title="napari.layers.Tracks.help"><code class="xref py py-obj docutils literal notranslate"><span class="pre">help</span></code></a></p></td>
 <td><p>displayed in status bar bottom right.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">interactive</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">interactive</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">keymap</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">keymap</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.loaded" title="napari.layers.Tracks.loaded"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loaded</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.loaded" title="napari.layers.Tracks.loaded"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loaded</span></code></a></p></td>
 <td><p>True if this layer is fully loaded in memory, False otherwise.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.metadata" title="napari.layers.Tracks.metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metadata</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.metadata" title="napari.layers.Tracks.metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metadata</span></code></a></p></td>
 <td><p>Key/value map for user-stored data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.mode" title="napari.layers.Tracks.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mode</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.mode" title="napari.layers.Tracks.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mode</span></code></a></p></td>
 <td><p>Interactive mode</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.mouse_pan" title="napari.layers.Tracks.mouse_pan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mouse_pan</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.mouse_pan" title="napari.layers.Tracks.mouse_pan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mouse_pan</span></code></a></p></td>
 <td><p>Determine if canvas interactive panning is enabled with the mouse.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.mouse_zoom" title="napari.layers.Tracks.mouse_zoom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mouse_zoom</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.mouse_zoom" title="napari.layers.Tracks.mouse_zoom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mouse_zoom</span></code></a></p></td>
 <td><p>Determine if canvas interactive zooming is enabled with the mouse.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.name" title="napari.layers.Tracks.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.name" title="napari.layers.Tracks.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
 <td><p>Unique name of the layer.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.ndim" title="napari.layers.Tracks.ndim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.ndim" title="napari.layers.Tracks.ndim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></a></p></td>
 <td><p>Number of dimensions in the data.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.opacity" title="napari.layers.Tracks.opacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">opacity</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.opacity" title="napari.layers.Tracks.opacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">opacity</span></code></a></p></td>
 <td><p>Opacity value between 0.0 and 1.0.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.projection_mode" title="napari.layers.Tracks.projection_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">projection_mode</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.projection_mode" title="napari.layers.Tracks.projection_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">projection_mode</span></code></a></p></td>
 <td><p>Mode of projection of the thick slice onto the viewed dimensions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.properties" title="napari.layers.Tracks.properties"><code class="xref py py-obj docutils literal notranslate"><span class="pre">properties</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.properties" title="napari.layers.Tracks.properties"><code class="xref py py-obj docutils literal notranslate"><span class="pre">properties</span></code></a></p></td>
 <td><p>Properties for each track.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.properties_to_color_by" title="napari.layers.Tracks.properties_to_color_by"><code class="xref py py-obj docutils literal notranslate"><span class="pre">properties_to_color_by</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.properties_to_color_by" title="napari.layers.Tracks.properties_to_color_by"><code class="xref py py-obj docutils literal notranslate"><span class="pre">properties_to_color_by</span></code></a></p></td>
 <td><p>track properties that can be used for coloring etc...</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.rotate" title="napari.layers.Tracks.rotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.rotate" title="napari.layers.Tracks.rotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code></a></p></td>
 <td><p>Rotation matrix in world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.scale" title="napari.layers.Tracks.scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.scale" title="napari.layers.Tracks.scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale</span></code></a></p></td>
 <td><p>Anisotropy factors to scale data into world coordinates.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.shear" title="napari.layers.Tracks.shear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shear</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.shear" title="napari.layers.Tracks.shear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shear</span></code></a></p></td>
 <td><p>Shear matrix in world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.tail_length" title="napari.layers.Tracks.tail_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tail_length</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.tail_length" title="napari.layers.Tracks.tail_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tail_length</span></code></a></p></td>
 <td><p>Width for all vectors in pixels.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.tail_width" title="napari.layers.Tracks.tail_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tail_width</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.tail_width" title="napari.layers.Tracks.tail_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tail_width</span></code></a></p></td>
 <td><p>Width for all vectors in pixels.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.thumbnail" title="napari.layers.Tracks.thumbnail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thumbnail</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.thumbnail" title="napari.layers.Tracks.thumbnail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thumbnail</span></code></a></p></td>
 <td><p>Integer array of thumbnail for the layer</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.track_colors" title="napari.layers.Tracks.track_colors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track_colors</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.track_colors" title="napari.layers.Tracks.track_colors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track_colors</span></code></a></p></td>
 <td><p>return the vertex colors according to the currently selected property</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.track_connex" title="napari.layers.Tracks.track_connex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track_connex</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.track_connex" title="napari.layers.Tracks.track_connex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track_connex</span></code></a></p></td>
 <td><p>vertex connections for drawing track lines</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.track_labels" title="napari.layers.Tracks.track_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track_labels</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.track_labels" title="napari.layers.Tracks.track_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track_labels</span></code></a></p></td>
 <td><p>return track labels at the current time</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.track_times" title="napari.layers.Tracks.track_times"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track_times</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.track_times" title="napari.layers.Tracks.track_times"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track_times</span></code></a></p></td>
 <td><p>time points associated with each track vertex</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.translate" title="napari.layers.Tracks.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.translate" title="napari.layers.Tracks.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
 <td><p>Factors to shift the layer by in units of world coordinates.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.units" title="napari.layers.Tracks.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
+<td><p>List of units for the layer.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.use_fade" title="napari.layers.Tracks.use_fade"><code class="xref py py-obj docutils literal notranslate"><span class="pre">use_fade</span></code></a></p></td>
 <td><p>toggle whether we fade the tail of the track, depending on whether the time dimension is displayed</p></td>
@@ -857,6 +867,12 @@ ones along the main diagonal.</p></li>
 <dd class="field-odd"><p><a class="reference internal" href="napari.utils.transforms.Affine.html#napari.utils.transforms.Affine" title="napari.utils.transforms.Affine">napari.utils.transforms.Affine</a></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.layers.Tracks.axis_labels">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">axis_labels</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#napari.layers.Tracks.axis_labels" title="Link to this definition">#</a></dt>
+<dd><p>tuple of axis labels for the layer.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1523,6 +1539,12 @@ property</p>
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="napari.layers.Tracks.units">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Unit</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#napari.layers.Tracks.units" title="Link to this definition">#</a></dt>
+<dd><p>List of units for the layer.</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="napari.layers.Tracks.use_fade">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">use_fade</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.layers.Tracks.use_fade" title="Link to this definition">#</a></dt>
 <dd><p>toggle whether we fade the tail of the track, depending on whether
@@ -1611,6 +1633,7 @@ dimensions will be used.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks"><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.affine"><code class="docutils literal notranslate"><span class="pre">Tracks.affine</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.axis_labels"><code class="docutils literal notranslate"><span class="pre">Tracks.axis_labels</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.bind_key"><code class="docutils literal notranslate"><span class="pre">Tracks.bind_key()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.blending"><code class="docutils literal notranslate"><span class="pre">Tracks.blending</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.click_plane_from_click_data"><code class="docutils literal notranslate"><span class="pre">Tracks.click_plane_from_click_data()</span></code></a></li>
@@ -1658,6 +1681,7 @@ dimensions will be used.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.track_labels"><code class="docutils literal notranslate"><span class="pre">Tracks.track_labels</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.track_times"><code class="docutils literal notranslate"><span class="pre">Tracks.track_times</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.translate"><code class="docutils literal notranslate"><span class="pre">Tracks.translate</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.units"><code class="docutils literal notranslate"><span class="pre">Tracks.units</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.use_fade"><code class="docutils literal notranslate"><span class="pre">Tracks.use_fade</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.visible"><code class="docutils literal notranslate"><span class="pre">Tracks.visible</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.world_to_data"><code class="docutils literal notranslate"><span class="pre">Tracks.world_to_data()</span></code></a></li>

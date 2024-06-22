@@ -78,6 +78,7 @@ napari.layers.Surface
    
       ~Surface.ModeCallable
       ~Surface.affine
+      ~Surface.axis_labels
       ~Surface.blending
       ~Surface.bounding_box
       ~Surface.class_keymap
@@ -118,6 +119,7 @@ napari.layers.Surface
       ~Surface.texture
       ~Surface.thumbnail
       ~Surface.translate
+      ~Surface.units
       ~Surface.vertex_colors
       ~Surface.vertex_values
       ~Surface.vertices

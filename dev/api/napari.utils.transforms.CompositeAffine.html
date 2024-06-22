@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../_static/documentation_options.js?v=9fe8cdf3"></script>
+    <script src="../_static/documentation_options.js?v=ff1ad787"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -574,7 +574,7 @@ document.write(`
 <h1>napari.utils.transforms.CompositeAffine<a class="headerlink" href="#napari-utils-transforms-compositeaffine" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="napari.utils.transforms.CompositeAffine">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.utils.transforms.</span></span><span class="sig-name descname"><span class="pre">CompositeAffine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/transforms/transforms.html#CompositeAffine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.transforms.CompositeAffine" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.utils.transforms.</span></span><span class="sig-name descname"><span class="pre">CompositeAffine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/transforms/transforms.html#CompositeAffine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.transforms.CompositeAffine" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="napari.utils.transforms.Affine.html#napari.utils.transforms.Affine" title="napari.utils.transforms.transforms.Affine"><code class="xref py py-class docutils literal notranslate"><span class="pre">Affine</span></code></a></p>
 <p>n-dimensional affine transformation composed from more basic components.</p>
 <p>Composition is in the following order</p>
@@ -628,17 +628,23 @@ other parameters.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.transforms.CompositeAffine.affine_matrix" title="napari.utils.transforms.CompositeAffine.affine_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">affine_matrix</span></code></a></p></td>
 <td><p>Return the affine matrix for the transform.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">changed</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.transforms.CompositeAffine.axis_labels" title="napari.utils.transforms.CompositeAffine.axis_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">axis_labels</span></code></a></p></td>
+<td><p>tuple of axis labels for the layer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">changed</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.transforms.CompositeAffine.inverse" title="napari.utils.transforms.CompositeAffine.inverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inverse</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.transforms.CompositeAffine.inverse" title="napari.utils.transforms.CompositeAffine.inverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inverse</span></code></a></p></td>
 <td><p>Return the inverse transform.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.transforms.CompositeAffine.linear_matrix" title="napari.utils.transforms.CompositeAffine.linear_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear_matrix</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.transforms.CompositeAffine.linear_matrix" title="napari.utils.transforms.CompositeAffine.linear_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear_matrix</span></code></a></p></td>
 <td><p>Return the linear matrix of the transform.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.transforms.CompositeAffine.ndim" title="napari.utils.transforms.CompositeAffine.ndim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.transforms.CompositeAffine.ndim" title="napari.utils.transforms.CompositeAffine.ndim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></a></p></td>
 <td><p>Dimensionality of the transform.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.transforms.CompositeAffine.physical_scale" title="napari.utils.transforms.CompositeAffine.physical_scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">physical_scale</span></code></a></p></td>
+<td><p>Return the scale of the transform, with units.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.transforms.CompositeAffine.rotate" title="napari.utils.transforms.CompositeAffine.rotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code></a></p></td>
 <td><p>Return the rotation of the transform.</p></td>
@@ -652,6 +658,9 @@ other parameters.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.utils.transforms.CompositeAffine.translate" title="napari.utils.transforms.CompositeAffine.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
 <td><p>Return the translation of the transform.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.utils.transforms.CompositeAffine.units" title="napari.utils.transforms.CompositeAffine.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
+<td><p>List of units for the layer.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -660,6 +669,12 @@ other parameters.</p></li>
 <dt class="sig sig-object py" id="napari.utils.transforms.CompositeAffine.affine_matrix">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">affine_matrix</span></span><a class="headerlink" href="#napari.utils.transforms.CompositeAffine.affine_matrix" title="Link to this definition">#</a></dt>
 <dd><p>Return the affine matrix for the transform.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.utils.transforms.CompositeAffine.axis_labels">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">axis_labels</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#napari.utils.transforms.CompositeAffine.axis_labels" title="Link to this definition">#</a></dt>
+<dd><p>tuple of axis labels for the layer.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -703,6 +718,12 @@ expand_dims to be like an inverse to the set_slice method.</p>
 <dt class="sig sig-object py" id="napari.utils.transforms.CompositeAffine.ndim">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ndim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></em><a class="headerlink" href="#napari.utils.transforms.CompositeAffine.ndim" title="Link to this definition">#</a></dt>
 <dd><p>Dimensionality of the transform.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.utils.transforms.CompositeAffine.physical_scale">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">physical_scale</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Quantity</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#napari.utils.transforms.CompositeAffine.physical_scale" title="Link to this definition">#</a></dt>
+<dd><p>Return the scale of the transform, with units.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -766,6 +787,12 @@ expand_dims to be like an inverse to the set_slice method.</p>
 <dd><p>Return the translation of the transform.</p>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.utils.transforms.CompositeAffine.units">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Unit</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#napari.utils.transforms.CompositeAffine.units" title="Link to this definition">#</a></dt>
+<dd><p>List of units for the layer.</p>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -818,17 +845,20 @@ expand_dims to be like an inverse to the set_slice method.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine"><code class="docutils literal notranslate"><span class="pre">CompositeAffine</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine.affine_matrix"><code class="docutils literal notranslate"><span class="pre">CompositeAffine.affine_matrix</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine.axis_labels"><code class="docutils literal notranslate"><span class="pre">CompositeAffine.axis_labels</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine.compose"><code class="docutils literal notranslate"><span class="pre">CompositeAffine.compose()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine.expand_dims"><code class="docutils literal notranslate"><span class="pre">CompositeAffine.expand_dims()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine.inverse"><code class="docutils literal notranslate"><span class="pre">CompositeAffine.inverse</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine.linear_matrix"><code class="docutils literal notranslate"><span class="pre">CompositeAffine.linear_matrix</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine.ndim"><code class="docutils literal notranslate"><span class="pre">CompositeAffine.ndim</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine.physical_scale"><code class="docutils literal notranslate"><span class="pre">CompositeAffine.physical_scale</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine.replace_slice"><code class="docutils literal notranslate"><span class="pre">CompositeAffine.replace_slice()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine.rotate"><code class="docutils literal notranslate"><span class="pre">CompositeAffine.rotate</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine.scale"><code class="docutils literal notranslate"><span class="pre">CompositeAffine.scale</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine.set_slice"><code class="docutils literal notranslate"><span class="pre">CompositeAffine.set_slice()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine.shear"><code class="docutils literal notranslate"><span class="pre">CompositeAffine.shear</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine.translate"><code class="docutils literal notranslate"><span class="pre">CompositeAffine.translate</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils.transforms.CompositeAffine.units"><code class="docutils literal notranslate"><span class="pre">CompositeAffine.units</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -91,6 +91,7 @@ napari.layers.Points
       ~Points.ModeCallable
       ~Points.affine
       ~Points.antialiasing
+      ~Points.axis_labels
       ~Points.blending
       ~Points.border_color
       ~Points.border_color_cycle
@@ -158,6 +159,7 @@ napari.layers.Points
       ~Points.text
       ~Points.thumbnail
       ~Points.translate
+      ~Points.units
       ~Points.visible
       
       

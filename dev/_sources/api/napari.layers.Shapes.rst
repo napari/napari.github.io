@@ -120,6 +120,7 @@ napari.layers.Shapes
    
       ~Shapes.ModeCallable
       ~Shapes.affine
+      ~Shapes.axis_labels
       ~Shapes.blending
       ~Shapes.bounding_box
       ~Shapes.class_keymap
@@ -170,6 +171,7 @@ napari.layers.Shapes
       ~Shapes.text
       ~Shapes.thumbnail
       ~Shapes.translate
+      ~Shapes.units
       ~Shapes.visible
       ~Shapes.z_index
       

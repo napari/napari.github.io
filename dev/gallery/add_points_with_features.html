@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../_static/documentation_options.js?v=9fe8cdf3"></script>
+    <script src="../_static/documentation_options.js?v=ff1ad787"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -710,17 +710,17 @@ to download the full example code.</p>
 <span class="p">)</span>
 
 <span class="c1"># set the border_color mode to colormap</span>
-<a href="../api/napari.layers.Points.html#id4" title="napari.layers.Points.border_color_mode" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">border_color_mode</span></a> <span class="o">=</span> <span class="s1">&#39;colormap&#39;</span>
+<a href="../api/napari.layers.Points.html#id5" title="napari.layers.Points.border_color_mode" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">border_color_mode</span></a> <span class="o">=</span> <span class="s1">&#39;colormap&#39;</span>
 
 
 <span class="c1"># bind a function to toggle the good_point annotation of the selected points</span>
 <span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">toggle_point_annotation</span><span class="p">(</span><a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="p">):</span>
-    <span class="n">selected_points</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><a href="../api/napari.layers.Points.html#id25" title="napari.layers.Points.selected_data" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">selected_data</span></a><span class="p">)</span>
+    <span class="n">selected_points</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><a href="../api/napari.layers.Points.html#id26" title="napari.layers.Points.selected_data" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">selected_data</span></a><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_points</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">good_point</span> <span class="o">=</span> <a href="../api/napari.layers.Points.html#id21" title="napari.layers.Points.features" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">features</span></a><span class="p">[</span><span class="s1">&#39;good_point&#39;</span><span class="p">]</span>
+        <span class="n">good_point</span> <span class="o">=</span> <a href="../api/napari.layers.Points.html#id22" title="napari.layers.Points.features" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">features</span></a><span class="p">[</span><span class="s1">&#39;good_point&#39;</span><span class="p">]</span>
         <span class="n">good_point</span><span class="p">[</span><span class="n">selected_points</span><span class="p">]</span> <span class="o">=</span> <span class="o">~</span><span class="n">good_point</span><span class="p">[</span><span class="n">selected_points</span><span class="p">]</span>
-        <a href="../api/napari.layers.Points.html#id21" title="napari.layers.Points.features" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">features</span></a><span class="p">[</span><span class="s1">&#39;good_point&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">good_point</span>
+        <a href="../api/napari.layers.Points.html#id22" title="napari.layers.Points.features" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">features</span></a><span class="p">[</span><span class="s1">&#39;good_point&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">good_point</span>
 
         <span class="c1"># we need to manually refresh since we did not use the Points.features</span>
         <span class="c1"># setter to avoid changing the color map if all points get toggled to</span>

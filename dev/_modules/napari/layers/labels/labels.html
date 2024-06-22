@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=9fe8cdf3"></script>
+    <script src="../../../../_static/documentation_options.js?v=ff1ad787"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -538,6 +538,9 @@ document.write(`
 <span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
 <span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
 <span class="sd">        provided scale, rotate, and shear values.</span>
+<span class="sd">    axis_labels : tuple of str, optional</span>
+<span class="sd">        Dimension names of the layer data.</span>
+<span class="sd">        If not provided, axis_labels will be set to (..., &#39;axis -2&#39;, &#39;axis -1&#39;).</span>
 <span class="sd">    blending : str</span>
 <span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
 <span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
@@ -601,6 +604,9 @@ document.write(`
 <span class="sd">        ones along the main diagonal.</span>
 <span class="sd">    translate : tuple of float</span>
 <span class="sd">        Translation values for the layer.</span>
+<span class="sd">    units : tuple of str or pint.Unit, optional</span>
+<span class="sd">        Units of the layer data in world coordinates.</span>
+<span class="sd">        If not provided, the default units are assumed to be pixels.</span>
 <span class="sd">    visible : bool</span>
 <span class="sd">        Whether the layer visual is currently being displayed.</span>
 
@@ -612,6 +618,8 @@ document.write(`
 <span class="sd">        belongs to. The label 0 is rendered as transparent. Please note</span>
 <span class="sd">        multiscale rendering is only supported in 2D. In 3D, only</span>
 <span class="sd">        the lowest resolution scale is displayed.</span>
+<span class="sd">    axis_labels : tuple of str</span>
+<span class="sd">        Dimension names of the layer data.</span>
 <span class="sd">    multiscale : bool</span>
 <span class="sd">        Whether the data is a multiscale image or not. Multiscale data is</span>
 <span class="sd">        represented by a list of array like image data. The first image in the</span>
@@ -679,6 +687,8 @@ document.write(`
 <span class="sd">        Properties defining plane rendering in 3D.</span>
 <span class="sd">    experimental_clipping_planes : ClippingPlaneList</span>
 <span class="sd">        Clipping planes defined in data coordinates, used to clip the volume.</span>
+<span class="sd">    units: tuple of pint.Unit</span>
+<span class="sd">        Units of the layer data in world coordinates.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
@@ -733,6 +743,7 @@ document.write(`
         <span class="n">data</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">axis_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">blending</span><span class="o">=</span><span class="s1">&#39;translucent&#39;</span><span class="p">,</span>
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">colormap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -751,6 +762,7 @@ document.write(`
         <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -775,23 +787,25 @@ document.write(`
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">data</span><span class="p">,</span>
-            <span class="n">rendering</span><span class="o">=</span><span class="n">rendering</span><span class="p">,</span>
-            <span class="n">depiction</span><span class="o">=</span><span class="n">depiction</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-            <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
-            <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
-            <span class="n">translate</span><span class="o">=</span><span class="n">translate</span><span class="p">,</span>
-            <span class="n">rotate</span><span class="o">=</span><span class="n">rotate</span><span class="p">,</span>
-            <span class="n">shear</span><span class="o">=</span><span class="n">shear</span><span class="p">,</span>
             <span class="n">affine</span><span class="o">=</span><span class="n">affine</span><span class="p">,</span>
-            <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
+            <span class="n">axis_labels</span><span class="o">=</span><span class="n">axis_labels</span><span class="p">,</span>
             <span class="n">blending</span><span class="o">=</span><span class="n">blending</span><span class="p">,</span>
-            <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
-            <span class="n">multiscale</span><span class="o">=</span><span class="n">multiscale</span><span class="p">,</span>
             <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
-            <span class="n">plane</span><span class="o">=</span><span class="n">plane</span><span class="p">,</span>
+            <span class="n">depiction</span><span class="o">=</span><span class="n">depiction</span><span class="p">,</span>
             <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="n">experimental_clipping_planes</span><span class="p">,</span>
+            <span class="n">rendering</span><span class="o">=</span><span class="n">rendering</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
+            <span class="n">multiscale</span><span class="o">=</span><span class="n">multiscale</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+            <span class="n">shear</span><span class="o">=</span><span class="n">shear</span><span class="p">,</span>
+            <span class="n">plane</span><span class="o">=</span><span class="n">plane</span><span class="p">,</span>
+            <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
             <span class="n">projection_mode</span><span class="o">=</span><span class="n">projection_mode</span><span class="p">,</span>
+            <span class="n">rotate</span><span class="o">=</span><span class="n">rotate</span><span class="p">,</span>
+            <span class="n">translate</span><span class="o">=</span><span class="n">translate</span><span class="p">,</span>
+            <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span>
+            <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>

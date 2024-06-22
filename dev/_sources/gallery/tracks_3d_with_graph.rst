@@ -33,81 +33,8 @@ Tracks 3D with graph
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    Traceback (most recent call last):
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/app/backends/_qt.py", line 928, in paintGL
-        self._vispy_canvas.events.draw(region=None)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/util/event.py", line 453, in __call__
-        self._invoke_callback(cb, event)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/util/event.py", line 471, in _invoke_callback
-        _handle_exception(self.ignore_callback_errors,
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/util/event.py", line 469, in _invoke_callback
-        cb(event)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/scene/canvas.py", line 219, in on_draw
-        self._draw_scene()
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/scene/canvas.py", line 278, in _draw_scene
-        self.draw_visual(self.scene)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/scene/canvas.py", line 316, in draw_visual
-        node.draw()
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/scene/visuals.py", line 106, in draw
-        self._visual_superclass.draw(self)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/visuals/visual.py", line 668, in draw
-        v.draw()
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/scene/visuals.py", line 106, in draw
-        self._visual_superclass.draw(self)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/visuals/visual.py", line 668, in draw
-        v.draw()
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/visuals/visual.py", line 505, in draw
-        if self._prepare_draw(view=self) is False:
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/visuals/line/line.py", line 331, in _prepare_draw
-        self._pos_vbo.set_data(pos)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/gloo/buffer.py", line 189, in set_data
-        data = self._prepare_data(data, **kwargs)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/gloo/buffer.py", line 446, in _prepare_data
-        raise ValueError('Last dimension should be %s not %s'
-    ValueError: Last dimension should be 2 not 3
-    Traceback (most recent call last):
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/app/backends/_qt.py", line 928, in paintGL
-        self._vispy_canvas.events.draw(region=None)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/util/event.py", line 453, in __call__
-        self._invoke_callback(cb, event)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/util/event.py", line 471, in _invoke_callback
-        _handle_exception(self.ignore_callback_errors,
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/util/event.py", line 469, in _invoke_callback
-        cb(event)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/scene/canvas.py", line 219, in on_draw
-        self._draw_scene()
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/scene/canvas.py", line 278, in _draw_scene
-        self.draw_visual(self.scene)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/scene/canvas.py", line 316, in draw_visual
-        node.draw()
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/scene/visuals.py", line 106, in draw
-        self._visual_superclass.draw(self)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/visuals/visual.py", line 668, in draw
-        v.draw()
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/scene/visuals.py", line 106, in draw
-        self._visual_superclass.draw(self)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/visuals/visual.py", line 668, in draw
-        v.draw()
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/visuals/visual.py", line 505, in draw
-        if self._prepare_draw(view=self) is False:
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/visuals/line/line.py", line 331, in _prepare_draw
-        self._pos_vbo.set_data(pos)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/gloo/buffer.py", line 189, in set_data
-        data = self._prepare_data(data, **kwargs)
-      File "/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/vispy/gloo/buffer.py", line 446, in _prepare_data
-        raise ValueError('Last dimension should be %s not %s'
-    ValueError: Last dimension should be 2 not 3
 
 
-
-
-
-
-|
 
 .. code-block:: Python
 

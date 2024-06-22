@@ -79,6 +79,7 @@ napari.layers.Image
       ~Image.ModeCallable
       ~Image.affine
       ~Image.attenuation
+      ~Image.axis_labels
       ~Image.blending
       ~Image.bounding_box
       ~Image.class_keymap
@@ -124,6 +125,7 @@ napari.layers.Image
       ~Image.source
       ~Image.thumbnail
       ~Image.translate
+      ~Image.units
       ~Image.visible
       
       

@@ -72,6 +72,7 @@ napari.layers.Tracks
    
       ~Tracks.ModeCallable
       ~Tracks.affine
+      ~Tracks.axis_labels
       ~Tracks.blending
       ~Tracks.bounding_box
       ~Tracks.class_keymap
@@ -120,6 +121,7 @@ napari.layers.Tracks
       ~Tracks.track_labels
       ~Tracks.track_times
       ~Tracks.translate
+      ~Tracks.units
       ~Tracks.use_fade
       ~Tracks.visible
       

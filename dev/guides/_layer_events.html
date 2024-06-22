@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../_static/documentation_options.js?v=9fe8cdf3"></script>
+    <script src="../_static/documentation_options.js?v=ff1ad787"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -468,93 +468,23 @@ document.write(`
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.refresh</span></code></p></td>
-<td><p></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.set_data</span></code></p></td>
-<td><p></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.blending</span></code></p></td>
-<td><p>One of a list of preset blending modes that determines how RGB and alpha values of the layer visual get mixed. Allowed values are {‘opaque’, ‘translucent’, ‘translucent_no_depth’, ‘additive’, and ‘minimum’}.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.axis_labels</span></code></p></td>
+<td><p>Dimension names of the layer data. If not provided, axis_labels will be set to (…, ‘axis -2’, ‘axis -1’).</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.opacity</span></code></p></td>
-<td><p>Opacity of the layer visual, between 0.0 and 1.0.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.visible</span></code></p></td>
-<td><p>Whether the layer visual is currently being displayed.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.scale</span></code></p></td>
-<td><p>Scale factors for the layer.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.translate</span></code></p></td>
-<td><p>Translation values for the layer.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.rotate</span></code></p></td>
-<td><p>If a float convert into a 2D rotation matrix using that value as an angle. If 3-tuple convert into a 3D rotation matrix, using a yaw, pitch, roll convention. Otherwise assume an nD rotation. Angles are assumed to be in degrees. They can be converted from radians with np.degrees if needed.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.shear</span></code></p></td>
-<td><p>Either a vector of upper triangular values, or an nD shear matrix with ones along the main diagonal.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.affine</span></code></p></td>
-<td><p>(N+1, N+1) affine transformation matrix in homogeneous coordinates. The first (N, N) entries correspond to a linear transform and the final column is a length N translation vector and a 1 or a napari <code class="docutils literal notranslate"><span class="pre">Affine</span></code> transform object. Applied as an extra transform on top of the provided scale, rotate, and shear values.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.data</span></code></p></td>
 <td><p>Data that the layer is visualizing. Can be N-dimensional.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.name</span></code></p></td>
-<td><p>Name of the layer. If not provided then will be guessed using heuristics.</p></td>
-<td><p></p></td>
-</tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.thumbnail</span></code></p></td>
-<td><p>Array of thumbnail data for the layer.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.affine</span></code></p></td>
+<td><p>(N+1, N+1) affine transformation matrix in homogeneous coordinates. The first (N, N) entries correspond to a linear transform and the final column is a length N translation vector and a 1 or a napari <code class="docutils literal notranslate"><span class="pre">Affine</span></code> transform object. Applied as an extra transform on top of the provided scale, rotate, and shear values.</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.status</span></code></p></td>
-<td><p>Displayed in status bar bottom left.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.help</span></code></p></td>
-<td><p>Displayed in status bar bottom right.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.interactive</span></code></p></td>
-<td><p>Determine if canvas pan/zoom interactivity is enabled. This attribute is deprecated since 0.5.0 and should not be used. Use the mouse_pan and mouse_zoom attributes instead.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.mouse_pan</span></code></p></td>
-<td><p>Determine if canvas interactive panning is enabled with the mouse.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.mouse_zoom</span></code></p></td>
-<td><p>Determine if canvas interactive zooming is enabled with the mouse.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.blending</span></code></p></td>
+<td><p>One of a list of preset blending modes that determines how RGB and alpha values of the layer visual get mixed. Allowed values are {‘opaque’, ‘translucent’, ‘translucent_no_depth’, ‘additive’, and ‘minimum’}.</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
@@ -573,18 +503,108 @@ document.write(`
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.extent</span></code></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.help</span></code></p></td>
+<td><p>Displayed in status bar bottom right.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.loaded</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.reload</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.mode</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.extent</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.mouse_pan</span></code></p></td>
+<td><p>Determine if canvas interactive panning is enabled with the mouse.</p></td>
 <td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.mouse_zoom</span></code></p></td>
+<td><p>Determine if canvas interactive zooming is enabled with the mouse.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.name</span></code></p></td>
+<td><p>Name of the layer. If not provided then will be guessed using heuristics.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.opacity</span></code></p></td>
+<td><p>Opacity of the layer visual, between 0.0 and 1.0.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.projection_mode</span></code></p></td>
+<td><p>How data outside the viewed dimensions but inside the thick Dims slice will be projected onto the viewed dimensions. Must fit to cls._projectionclass.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.refresh</span></code></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.reload</span></code></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.rotate</span></code></p></td>
+<td><p>If a float convert into a 2D rotation matrix using that value as an angle. If 3-tuple convert into a 3D rotation matrix, using a yaw, pitch, roll convention. Otherwise assume an nD rotation. Angles are assumed to be in degrees. They can be converted from radians with np.degrees if needed.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.scale</span></code></p></td>
+<td><p>Scale factors for the layer.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.set_data</span></code></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.shear</span></code></p></td>
+<td><p>Either a vector of upper triangular values, or an nD shear matrix with ones along the main diagonal.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.status</span></code></p></td>
+<td><p>Displayed in status bar bottom left.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.thumbnail</span></code></p></td>
+<td><p>Array of thumbnail data for the layer.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.translate</span></code></p></td>
+<td><p>Translation values for the layer.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.units</span></code></p></td>
+<td><p>Units of the layer data in world coordinates. If not provided, the default units are assumed to be pixels.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.visible</span></code></p></td>
+<td><p>Whether the layer visual is currently being displayed.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.interactive</span></code></p></td>
+<td><p>Determine if canvas pan/zoom interactivity is enabled. This attribute is deprecated since 0.5.0 and should not be used. Use the mouse_pan and mouse_zoom attributes instead.</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
@@ -595,16 +615,6 @@ document.write(`
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events._overlays</span></code></p></td>
 <td><p></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.mode</span></code></p></td>
-<td><p></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.projection_mode</span></code></p></td>
-<td><p>How data outside the viewed dimensions but inside the thick Dims slice will be projected onto the viewed dimensions. Must fit to cls._projectionclass.</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>

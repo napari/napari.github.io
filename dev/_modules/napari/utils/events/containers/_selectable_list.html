@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../../../../_static/documentation_options.js?v=ff1ad787"></script>
+    <script src="../../../../../_static/documentation_options.js?v=bec28f95"></script>
     <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -597,13 +597,17 @@ document.write(`
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList.select_next">[docs]</a>
     <span class="k">def</span> <span class="nf">select_next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">shift</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Selects next item from list.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">_current</span><span class="p">:</span>
             <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">_current</span><span class="p">)</span> <span class="o">+</span> <span class="n">step</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">next_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">shift</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">next_layer</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">_current</span> <span class="o">=</span> <span class="n">next_layer</span>
+                    <span class="k">if</span> <span class="n">next_layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">_current</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">_current</span> <span class="o">=</span> <span class="n">next_layer</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">next_layer</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">_current</span> <span class="o">=</span> <span class="n">next_layer</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="n">next_layer</span>
         <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>

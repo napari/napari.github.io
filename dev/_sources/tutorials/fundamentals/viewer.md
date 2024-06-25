@@ -280,7 +280,7 @@ You can also set the axis labels programatically as follows:
 ```{code-cell} python
 # To set new axis labels
 viewer.dims.axis_labels = ("label_1", "label_2")
-``` 
+```
 
 It is also possible to mix data of different shapes and dimensionality in different layers. If a 2D and 4D dataset are both added to the viewer then the sliders will affect only the 4D dataset, the 2D dataset will remain the
 same. Effectively, the two datasets are broadcast together using [NumPy broadcasting rules](https://numpy.org/doc/stable/user/basics.broadcasting.html).
@@ -317,7 +317,7 @@ In this example there are three dimensions. In order to get or update the curren
 
 ```{code-cell} python
 # To get the current position returned as tuple of length 3
-viewer.dims.current_step 
+viewer.dims.current_step
 ```
 And to change the current position of the sliders use:
 ```{code-cell} python
@@ -421,26 +421,25 @@ viewer.camera.perspective = 45
 
 #### Roll dimensions
 
-The third button rolls the dimensions that are currently displayed in the viewer. 
-For example if you have a `ZYX` volume and are looking at the `YX` slice, this 
-will then show you the `ZY` slice. You can also right-click this button to pop-up 
-a widget that allows you to re-order the dimensions by drag-and-drop or lock a 
+The third button rolls the dimensions that are currently displayed in the viewer.
+For example if you have a `ZYX` volume and are looking at the `YX` slice, this
+will then show you the `ZY` slice. You can also right-click this button to pop-up
+a widget that allows you to re-order the dimensions by drag-and-drop or lock a
 dimension, by clicking on the padlock icon:
 
 ![image: roll dimensions widget with padlock icons](../assets/tutorials/dims_roll_lock_widget.png){ w=200px }
 
-Locking prevents a dimension from being rolled (reordered). This can be particularly 
-useful, for example, with a `3D+time` dataset where you may want to fix the time dimension, 
+Locking prevents a dimension from being rolled (reordered). This can be particularly
+useful, for example, with a `3D+time` dataset where you may want to fix the time dimension,
 while being able to roll through the spatial dimensions.
 
-
-The dimension order can also be checked programatically as follows:
+The dimension order can also be checked programmatically as follows:
 
 ```{code-cell} python
 # To get the current dimension order as tuple of int
 viewer.dims.order
 ```
-And then, changed programatically as follows:
+And then, changed programmatically as follows:
 ```{code-cell} python
 # To change the current dimension order
 viewer.dims.order = (2, 1, 0)
@@ -454,7 +453,7 @@ The fourth button transposes the displayed dimensions.
 
 #### Grid button
 
-Then there is a grid button that toggles grid mode. When clicked it displays each layer of the image in its own tile. You can right-click this button to adjust the way the tiles are presented, such as the grid dimensions, the order of the layers in the tiles, and whether layers are overlayed in the tiles.
+Then there is a grid button that toggles grid mode. When clicked it displays each layer of the image in its own tile. You can right-click this button to adjust the way the tiles are presented, such as the grid dimensions, the order of the layers in the tiles, and whether layers are overlaid in the tiles.
 
 #### Home button
 
@@ -472,7 +471,7 @@ The right side of the status bar contains some helpful tips depending on which l
 
 ## Right-click menu
  A context-sensitive menu is available when you right-click on any of the layers. The type of layer determines which options are available. Note that if you have multiple layers selected, the menu actions will affect all of the selected layers. The options that are not available for a layer are greyed out. The following options are available depending on which layer type you have selected:
-* **Toggle visibility** - invert the visbility state (hides or show) of selected layers: hidden layers will be shown, visibile layers will be hidden.
+* **Toggle visibility** - invert the visibility state (hides or show) of selected layers: hidden layers will be shown, visible layers will be hidden.
 * **Show All Selected Layers** - Set all selected layers to visible.
 * **Hide All Selected Layers** - Set all selected layers to hidden.
 * **Show All Unselected Layers** - Set all *unselected* layers to visible.

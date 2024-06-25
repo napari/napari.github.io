@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../../_static/documentation_options.js?v=ff1ad787"></script>
+    <script src="../../../_static/documentation_options.js?v=bec28f95"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -461,7 +461,7 @@ document.write(`
     <span class="kn">from</span> <span class="nn">lxml.html.clean</span> <span class="kn">import</span> <span class="n">Cleaner</span>
 
     <span class="n">lxml_unavailable</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">lxml_unavailable</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="kn">from</span> <span class="nn">napari.utils.io</span> <span class="kn">import</span> <span class="n">imsave_png</span>
@@ -533,9 +533,9 @@ document.write(`
         <span class="k">if</span> <span class="n">alt_text</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">lxml_unavailable</span><span class="p">:</span>
                 <span class="n">warn</span><span class="p">(</span>
-                    <span class="s1">&#39;The lxml library is not installed, and is required to &#39;</span>
-                    <span class="s1">&#39;sanitize alt text for napari screenshots. Alt-text &#39;</span>
-                    <span class="s1">&#39;will be stripped altogether without lxml.&#39;</span>
+                    <span class="s1">&#39;The lxml_html_clean library is not installed, and is &#39;</span>
+                    <span class="s1">&#39;required to sanitize alt text for napari screenshots. &#39;</span>
+                    <span class="s1">&#39;Alt Text will be stripped altogether.&#39;</span>
                 <span class="p">)</span>
                 <span class="k">return</span> <span class="kc">None</span>
             <span class="c1"># cleaner won&#39;t recognize escaped script tags, so always unescape</span>

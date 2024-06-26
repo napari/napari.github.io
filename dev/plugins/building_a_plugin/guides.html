@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../_static/documentation_options.js?v=bec28f95"></script>
+    <script src="../../_static/documentation_options.js?v=47a922bc"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -550,7 +550,7 @@ npe2</label><div class="sd-tab-content docutils">
 <span class="n">ReaderFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">PathOrPaths</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]]</span>
 
 
-<span class="k">def</span> <span class="nf">get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">PathOrPaths</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ReaderFunction</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s2">&quot;PathOrPaths&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;ReaderFunction&quot;</span><span class="p">]:</span>
     <span class="c1"># If we recognize the format, we return the actual reader function</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.xyz&quot;</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">xyz_file_reader</span>
@@ -558,7 +558,7 @@ npe2</label><div class="sd-tab-content docutils">
     <span class="k">return</span> <span class="kc">None</span>
 
 
-<span class="k">def</span> <span class="nf">xyz_file_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">PathOrPaths</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">xyz_file_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s2">&quot;PathOrPaths&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;LayerData&quot;</span><span class="p">]:</span>
     <span class="n">data</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># somehow read data from path</span>
     <span class="n">layer_attributes</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;etc...&quot;</span><span class="p">}</span>
     <span class="k">return</span> <span class="p">[(</span><span class="n">data</span><span class="p">,</span> <span class="n">layer_attributes</span><span class="p">)]</span>
@@ -776,8 +776,10 @@ napari-plugin-engine</label><div class="sd-tab-content docutils">
 </section>
 <section id="widgets">
 <span id="widgets-contribution-guide"></span><h2>Widgets<a class="headerlink" href="#widgets" title="Link to this heading">#</a></h2>
-<p>Widget plugins allow developers to contribute novel graphical
-elements (aka “widgets”) to the user interface.  These widgets can request
+<p>Widget plugin contributions allow developers to add novel graphical
+elements (aka “widgets”) to the user interface. For a full introduction to
+creating <code class="docutils literal notranslate"><span class="pre">napari</span></code> widgets see <a class="reference internal" href="../../howtos/extending/magicgui.html#creating-widgets"><span class="std std-ref">Creating widgets</span></a>.</p>
+<p>Widgets can request
 access to the viewer instance in which they are docked, enabling a broad
 range of functionality: essentially, anything that can be done with the
 napari <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> and <code class="docutils literal notranslate"><span class="pre">Layer</span></code> APIs can be accomplished with widgets.</p>
@@ -828,6 +830,16 @@ autogenerate a widget using <code class="docutils literal notranslate"><span cla
 hook specification.  In the new <code class="docutils literal notranslate"><span class="pre">npe2</span></code> pattern, one uses the <code class="docutils literal notranslate"><span class="pre">autogenerate</span></code>
 field in the <a class="reference internal" href="../technical_references/contributions.html#contributions-widgets"><span class="std std-ref">WidgetContribution</span></a>.</p></li>
 </ol>
+<p>For more examples see <a class="reference internal" href="../../howtos/extending/magicgui.html#creating-widgets"><span class="std std-ref">Creating widgets</span></a> and
+<a class="reference external" href="https://napari.org/stable/_tags/gui.html">GUI gallery examples</a> (only a subset
+involve widgets). Additionally,
+<a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a>
+has more robust widget examples that you can adapt to your needs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notice that <code class="docutils literal notranslate"><span class="pre">napari</span></code> type annotations are strings and not imported. This is to
+avoid including <code class="docutils literal notranslate"><span class="pre">napari</span></code> as a plugin dependency when not strictly required.</p>
+</div>
 <section id="widget-example">
 <h3>Widget example<a class="headerlink" href="#widget-example" title="Link to this heading">#</a></h3>
 <div class="sd-tab-set docutils">
@@ -967,7 +979,7 @@ or <strong>Sample Data Function</strong> that generates layer data on demand.</p
 npe2</label><div class="sd-tab-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
-<span class="k">def</span> <span class="nf">create_fractal</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">create_fractal</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;LayerData&quot;</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An example of a  Sample Data Function.</span>
 
 <span class="sd">    Note: Sample Data with URIs don&#39;t need python code.</span>

@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=47a922bc"></script>
+    <script src="../../../../_static/documentation_options.js?v=0a3d92aa"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -451,7 +451,7 @@ document.write(`
                   
   <h1>Source code for napari._qt.widgets.qt_viewer_buttons</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span><span class="p">,</span> <span class="n">wraps</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">from</span> <span class="nn">qtpy.QtCore</span> <span class="kn">import</span> <span class="n">QPoint</span><span class="p">,</span> <span class="n">Qt</span>
@@ -475,6 +475,20 @@ document.write(`
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">napari.viewer</span> <span class="kn">import</span> <span class="n">ViewerModel</span>
+
+
+<span class="k">def</span> <span class="nf">add_new_points</span><span class="p">(</span><span class="n">viewer</span><span class="p">):</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span>
+        <span class="n">ndim</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="n">scale</span><span class="o">=</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">step</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">add_new_shapes</span><span class="p">(</span><span class="n">viewer</span><span class="p">):</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">(</span>
+        <span class="n">ndim</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="n">scale</span><span class="o">=</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">step</span><span class="p">,</span>
+    <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">QtLayerButtons</span><span class="p">(</span><span class="n">QFrame</span><span class="p">):</span>
@@ -511,19 +525,13 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;new_points&#39;</span><span class="p">,</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;New points layer&#39;</span><span class="p">),</span>
-            <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span>
-                <span class="n">ndim</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                <span class="n">scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">step</span><span class="p">,</span>
-            <span class="p">),</span>
+            <span class="n">partial</span><span class="p">(</span><span class="n">add_new_points</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">),</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;new_shapes&#39;</span><span class="p">,</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;New shapes layer&#39;</span><span class="p">),</span>
-            <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">(</span>
-                <span class="n">ndim</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                <span class="n">scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">step</span><span class="p">,</span>
-            <span class="p">),</span>
+            <span class="n">partial</span><span class="p">(</span><span class="n">add_new_shapes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;new_labels&#39;</span><span class="p">,</span>

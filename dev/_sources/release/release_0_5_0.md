@@ -1,7 +1,7 @@
 # napari 0.5.0
 
-*Note: these release notes are still in draft while 0.5.0 is in alpha/release
-candidate testing.*
+⚠️ *Note: these release notes are still in draft while 0.5.0 is in alpha/release
+candidate testing.* ⚠️
 
 We're happy to announce the release of napari 0.5.0!
 napari is a fast, interactive, multi-dimensional image viewer for Python.

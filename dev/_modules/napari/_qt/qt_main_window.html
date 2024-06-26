@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../../_static/documentation_options.js?v=47a922bc"></script>
+    <script src="../../../_static/documentation_options.js?v=0a3d92aa"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -552,7 +552,12 @@ document.write(`
 
 
 <span class="n">MenuStr</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span>
-    <span class="s1">&#39;file_menu&#39;</span><span class="p">,</span> <span class="s1">&#39;view_menu&#39;</span><span class="p">,</span> <span class="s1">&#39;plugins_menu&#39;</span><span class="p">,</span> <span class="s1">&#39;window_menu&#39;</span><span class="p">,</span> <span class="s1">&#39;help_menu&#39;</span>
+    <span class="s1">&#39;file_menu&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;view_menu&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;layers_menu&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;plugins_menu&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;window_menu&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;help_menu&#39;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -1277,6 +1282,9 @@ document.write(`
     <span class="k">def</span> <span class="nf">_update_view_menu_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">&#39;view_menu&#39;</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_update_layers_menu_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">&#39;layers_menu&#39;</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_update_window_menu_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">&#39;window_menu&#39;</span><span class="p">)</span>
 
@@ -1357,6 +1365,16 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_view_menu_state</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view_menu</span><span class="p">)</span>
+        <span class="c1"># layers menu</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
+            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_LAYERS</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;&amp;Layers&#39;</span><span class="p">),</span>
+            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_layers_menu_state</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers_menu</span><span class="p">)</span>
         <span class="c1"># plugins menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plugins_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
             <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_PLUGINS</span><span class="p">,</span>

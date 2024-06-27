@@ -11,3 +11,7 @@ To ask questions and interact with the team, you can join our
 
 If you are interested in contributing, check out our
 [contributing guide](contributing).
+
+To read announcements, learn more about who is using napari and see what our
+community has to say, check out our blog, the
+[Island Dispatch](https://napari.org/island-dispatch).

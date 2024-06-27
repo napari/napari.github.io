@@ -204,6 +204,28 @@
   </a>
 </li>
 
+            <li class="nav-item dropdown pst-header-nav-item">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-external" href="https://napari.org/island-dispatch">
+    Island Dispatch
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-external" href="https://napari.org/napari-workshop-template">
+    workshop template
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
   </ul>
 </nav></div>
       
@@ -327,6 +349,20 @@ document.write(`
 <li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-external" href="https://napari-hub.org">
     napari hub
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-external" href="https://napari.org/island-dispatch">
+    Island Dispatch
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-external" href="https://napari.org/napari-workshop-template">
+    workshop template
   </a>
 </li>
 
@@ -794,7 +830,7 @@ the current release 0.5.0, using the command: <code class="docutils literal notr
 </section>
 <section id="choosing-a-different-qt-backend">
 <h3>Choosing a different Qt backend<a class="headerlink" href="#choosing-a-different-qt-backend" title="Link to this heading">#</a></h3>
-<p>napari needs a library called <a class="reference external" href="https://www.qt.io/">Qt</a> to run its user interface
+<p id="choosing-qt-backend">napari needs a library called <a class="reference external" href="https://www.qt.io/">Qt</a> to run its user interface
 (UI). In Python, there are two alternative libraries to run this, called
 <a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a> and
 <a class="reference external" href="https://doc.qt.io/qtforpython/">PySide2</a>. By default, we don’t choose for you,
@@ -815,11 +851,11 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </div>
 <div class="admonition note" id="note-m1">
 <p class="admonition-title">Note</p>
-<p>For arm64 macOS machines (Apple Silicon), pre-compiled PyQt5 or PySide2 packages
+<p>For arm64 macOS machines (Apple Silicon), pre-compiled PySide2 packages
 (<a class="reference external" href="https://realpython.com/python-wheels/">wheels</a>) are not available on
 <a class="reference external" href="https://pypi.org">PyPI</a>, the repository used by <code class="docutils literal notranslate"><span class="pre">pip</span></code>, so trying to
-<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari[all]</span></code> or either of the variants above will fail. However,
-you can install one of those libraries separately, for example from <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari[pyside2]</span></code> or similar variant above will fail. However,
+you can install <code class="docutils literal notranslate"><span class="pre">pyside2</span></code> separately, for example from <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>,
 and then use <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari</span></code>.</p>
 </div>
 <div class="admonition note">

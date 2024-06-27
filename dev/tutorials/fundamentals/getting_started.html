@@ -204,6 +204,28 @@
   </a>
 </li>
 
+            <li class="nav-item dropdown pst-header-nav-item">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-external" href="https://napari.org/island-dispatch">
+    Island Dispatch
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-external" href="https://napari.org/napari-workshop-template">
+    workshop template
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
   </ul>
 </nav></div>
       
@@ -327,6 +349,20 @@ document.write(`
 <li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-external" href="https://napari-hub.org">
     napari hub
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-external" href="https://napari.org/island-dispatch">
+    Island Dispatch
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-external" href="https://napari.org/napari-workshop-template">
+    workshop template
   </a>
 </li>
 
@@ -800,6 +836,50 @@ checkout the <a class="reference internal" href="viewer.html#viewer-tutorial"><s
 <a class="reference internal" href="../../guides/layers.html#layers-glance"><span class="std std-ref">layers at a glance</span></a></p></li>
 </ul>
 </section>
+<section id="solving-common-problems">
+<h2>Solving common problems<a class="headerlink" href="#solving-common-problems" title="Link to this heading">#</a></h2>
+<section id="napari-does-not-launch-with-no-qt-bindings-could-be-found">
+<h3>napari does not launch with <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">Qt</span> <span class="pre">bindings</span> <span class="pre">could</span> <span class="pre">be</span> <span class="pre">found</span></code><a class="headerlink" href="#napari-does-not-launch-with-no-qt-bindings-could-be-found" title="Link to this heading">#</a></h3>
+<p>If you try to start napari and see an error message containing following (or similar) text:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">ImportError</span><span class="p">:</span> <span class="n">No</span> <span class="n">Qt</span> <span class="n">bindings</span> <span class="n">could</span> <span class="n">be</span> <span class="n">found</span>
+</pre></div>
+</div>
+<p>First you need to validate if you have Qt bindings installed. You can do this by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>list
+</pre></div>
+</div>
+<p>And check if <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code>, <code class="docutils literal notranslate"><span class="pre">PySide2</span></code>, <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code> or <code class="docutils literal notranslate"><span class="pre">PySide6</span></code> are mentioned in the output as installed.</p>
+<p>If there is no such entry, please install one of them following the instructions
+in <a class="reference internal" href="installation.html#choosing-qt-backend"><span class="std std-ref">Choosing a different Qt backend</span></a></p>
+<p>If some backend is installed but napari still does not start, please try to start it from command line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"> </span>napari
+</pre></div>
+</div>
+<p>If napari is successfully launched after this command, it means that on your machine
+the LD_LIBRARY_PATH environment variable is set to a directory that contains
+a Qt dynamic dependency that is incompatible with the one that napari uses.
+As linkers first search in LD_LIBRARY_PATH directories, this may cause napari to crash.</p>
+<p>If you want to debug this issue for your specific use case, you
+should start with manually importing the <code class="docutils literal notranslate"><span class="pre">qt</span></code> package in Python.
+This will provide you with more information about problem.</p>
+<p>Such import may look like <strong>one</strong> of the following lines:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtWidgets</span>
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtWidgets</span>
+<span class="kn">from</span> <span class="nn">PySide2</span> <span class="kn">import</span> <span class="n">QtWidgets</span>
+<span class="kn">from</span> <span class="nn">PySide6</span> <span class="kn">import</span> <span class="n">QtWidgets</span>
+</pre></div>
+</div>
+<p>Such import may raise an error like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">ImportError</span><span class="p">:</span> <span class="o">.../</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">PyQt5</span><span class="o">/</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">abi3</span><span class="o">.</span><span class="n">so</span><span class="p">:</span> <span class="n">undefined</span> <span class="n">symbol</span><span class="p">:</span> <span class="n">_ZdlPvm</span><span class="p">,</span> <span class="n">version</span> <span class="n">Qt_5</span>
+</pre></div>
+</div>
+<p>Then when you identify which file is causing the problem you can use <code class="docutils literal notranslate"><span class="pre">ldd</span></code> command
+to check which libraries are used by this file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldd<span class="w"> </span>.../site-packages/PyQt5/QtWidgets.abi3.so
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
 
@@ -856,6 +936,10 @@ checkout the <a class="reference internal" href="viewer.html#viewer-tutorial"><s
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-common-problems">Solving common problems</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari-does-not-launch-with-no-qt-bindings-could-be-found">napari does not launch with <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">Qt</span> <span class="pre">bindings</span> <span class="pre">could</span> <span class="pre">be</span> <span class="pre">found</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

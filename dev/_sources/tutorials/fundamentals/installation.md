@@ -167,6 +167,8 @@ the current release {{ napari_version }}, using the command: `napari --version` 
 
 ### Choosing a different Qt backend
 
+(choosing-qt-backend)=
+
 napari needs a library called [Qt](https://www.qt.io/) to run its user interface
 (UI). In Python, there are two alternative libraries to run this, called
 [PyQt5](https://www.riverbankcomputing.com/software/pyqt/download5) and
@@ -193,11 +195,11 @@ python -m pip install "napari[pyside2]"  # for PySide2
 (note-m1)=
 ```{note}
 
-For arm64 macOS machines (Apple Silicon), pre-compiled PyQt5 or PySide2 packages
+For arm64 macOS machines (Apple Silicon), pre-compiled PySide2 packages
 ([wheels](https://realpython.com/python-wheels/)) are not available on
 [PyPI](https://pypi.org), the repository used by `pip`, so trying to
-`pip install napari[all]` or either of the variants above will fail. However,
-you can install one of those libraries separately, for example from `conda-forge`,
+`pip install napari[pyside2]` or similar variant above will fail. However,
+you can install `pyside2` separately, for example from `conda-forge`,
 and then use `pip install napari`.
 ```
 

@@ -172,3 +172,63 @@ To learn more about:
   checkout the [viewer tutorial](viewer-tutorial)
 * how to use the napari viewer with different types of napari layers, see
   [layers at a glance](layers-glance)
+
+
+## Solving common problems
+
+### napari does not launch with `No Qt bindings could be found`
+
+If you try to start napari and see an error message containing following (or similar) text:
+
+```
+ImportError: No Qt bindings could be found
+```
+
+First you need to validate if you have Qt bindings installed. You can do this by running:
+
+```bash
+pip list
+```
+
+And check if `PyQt5`, `PySide2`, `PyQt6` or `PySide6` are mentioned in the output as installed.
+
+If there is no such entry, please install one of them following the instructions
+in [Choosing a different Qt backend](choosing-qt-backend)
+
+If some backend is installed but napari still does not start, please try to start it from command line:
+
+```bash
+LD_LIBRARY_PATH="" napari
+```
+
+If napari is successfully launched after this command, it means that on your machine
+the LD_LIBRARY_PATH environment variable is set to a directory that contains 
+a Qt dynamic dependency that is incompatible with the one that napari uses. 
+As linkers first search in LD_LIBRARY_PATH directories, this may cause napari to crash. 
+
+
+If you want to debug this issue for your specific use case, you 
+should start with manually importing the `qt` package in Python.
+This will provide you with more information about problem. 
+
+Such import may look like **one** of the following lines:
+
+```python
+from PyQt5 import QtWidgets
+from PyQt6 import QtWidgets
+from PySide2 import QtWidgets
+from PySide6 import QtWidgets
+```
+
+Such import may raise an error like:
+
+```
+ImportError: .../site-packages/PyQt5/QtWidgets.abi3.so: undefined symbol: _ZdlPvm, version Qt_5
+````
+
+Then when you identify which file is causing the problem you can use `ldd` command
+to check which libraries are used by this file:
+
+```bash
+ldd .../site-packages/PyQt5/QtWidgets.abi3.so
+```

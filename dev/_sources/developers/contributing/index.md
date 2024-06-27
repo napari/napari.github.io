@@ -5,6 +5,10 @@ We welcome your contributions! Here you will find a guide to the contribution
 workflow and tips for contributing to napari. Do not hesitate to [contact](contact) us
 if you have any queries.
 
+```note
+To contribute to our blog, the [Island Dispatch](https://napari.org/island-dispatch), check out https://github.com/napari/island-dispatch.
+```
+
 ## Contributing workflow
 
 napari development occurs primarily on GitHub. If you are new to GitHub we recommend checking out the detailed [Github Docs](https://docs.github.com/en).

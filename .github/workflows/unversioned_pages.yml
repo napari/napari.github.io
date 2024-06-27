@@ -1,12 +1,12 @@
 name: Copy unversioned pages
 
 on:
-  # push:
-  #   branches:
-  #     - gh-pages
-  #   paths:
-  #     - 'dev/developers/**'
-  #     - 'dev/index.html'
+  push:
+    branches:
+      - gh-pages
+    paths:
+      - 'dev/developers/**'
+      - 'dev/index.html'
   workflow_dispatch:
 
 jobs:
@@ -25,14 +25,27 @@ jobs:
       - name: Copy pages
         run: |
           ls -la
+          rm -rf ./stable/developers
           cp -Rv ./dev/developers/ ./stable/
+          rm -rf ./stable/naps
+          cp -Rv ./dev/naps/ ./stable/
+          rm -rf ./stable/release
+          cp -Rv ./dev/release/ ./stable/
+          rm -rf ./stable/roadmaps
+          cp -Rv ./dev/roadmaps/ ./stable/
           cp -v ./dev/index.html ./stable/
+          find stable/developers -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
+          find stable/naps -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
+          find stable/release -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
+          find stable/roadmaps -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
+          sed -i 's+_static+../dev/_static+g' stable/index.html
 
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -m "Copy unversioned files" -a
+          git add .
+          git commit -m "Copy unversioned files" --allow-empty
 
       - name: Push changes
         uses: ad-m/github-push-action@master

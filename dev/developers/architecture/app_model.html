@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../_static/documentation_options.js?v=0a3d92aa"></script>
+    <script src="../../_static/documentation_options.js?v=bccdc763"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -56,7 +56,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.3';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5.0a4';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -436,6 +436,7 @@ document.write(`
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">napari’s application model</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="magicgui_type_reg.html"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</a></li>
+
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../naps/index.html">napari Advancement Proposals (NAPs)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -989,6 +990,14 @@ which gets called during initialization of <code class="docutils literal notrans
 They would be registered in the <code class="docutils literal notranslate"><span class="pre">app</span></code> <code class="docutils literal notranslate"><span class="pre">Store</span></code> during
 initialization of the napari <code class="docutils literal notranslate"><span class="pre">app</span></code>, in <code class="docutils literal notranslate"><span class="pre">NapariApplication</span></code>’s
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code>.</p>
+<p>Providers and processors allow us to mirror behaviour enabled by
+<a class="reference internal" href="magicgui_type_reg.html#magicgui-type-registration"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</span></a> for widgets. Providers
+allow generalization of <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> parameter annotation behaviour to all
+actions, while processors do this for return annotation behaviour.</p>
+<p>The intended users of providers/processors are end-users, plugins as well as <code class="docutils literal notranslate"><span class="pre">napari</span></code>
+internally, however it is currently only used internally.
+For a detailed discussion on this framework see
+<a class="reference external" href="https://github.com/napari/napari/issues/4532">issue 4532</a>.</p>
 </section>
 </section>
 <section id="app-model-testing">

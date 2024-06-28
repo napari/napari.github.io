@@ -12,6 +12,18 @@
 :Version effective: TBD
 ```
 
+`````{important} This NAP is partially implemented!
+Not all features discussed within this NAP have been implemented. Notably:
+
+- Plugin Submenus
+- Item Descriptions
+- Item Grouping & Ordering
+
+For a more
+complete list of what's left to do, see
+GitHub Issue [#7012](https://github.com/napari/napari/issues/7012).
+`````
+
 ## Abstract
 
 Since the initial release of `npe2` infrastructure has been in place for

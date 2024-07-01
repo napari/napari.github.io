@@ -336,7 +336,7 @@ These correspondences can be found in [`VispyCanvas.layer_to_visual`](https://gi
 
 The vispy layer instance has a reference to its corresponding layer.
 Updates to the layer's state and its current slice are handled using [napari's event system](connect-napari-event).
-Of particular interest here is the [`Layer.events.set_data` event](layer-events), which is connected to the abstract method
+Of particular interest here is the [`Layer.events.set_data` event](events_reference.md#layer-events), which is connected to the abstract method
 [`VispyBaseLayer._on_data_change`](https://github.com/napari/napari/blob/5e8dc098cb213c5f963524e619f223ad4fe90be8/napari/_vispy/layers/base.py#L74).
 This event is triggered when slicing is finished and the latest slice state can be read.
 

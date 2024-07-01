@@ -107,7 +107,7 @@ viewer.dims.point = (0, 0, 0)
 
 ```{code-cell} python
 :tags: [hide-input]
-nbscreenshot(viewer, alt_text="3D cell nuclei and membranes rendered as 2D slices in the napari viewer")
+nbscreenshot(viewer, alt_text="3D cell nuclei and membranes rendered as 2D slices at the zero-position in the napari viewer")
 ```
 
 again noting that the last two values are meaningless, but must be provided when using the API in this way.
@@ -150,7 +150,7 @@ This effectively smooths the rendered slice across that window, which is particu
 
 ```{code-cell} python
 :tags: [hide-input]
-nbscreenshot(viewer, alt_text="3D cell nuclei and membranes rendered as 2D slices in the napari viewer")
+nbscreenshot(viewer, alt_text="3D cell nuclei and membranes rendered as thick, mean-projected 2D slices in the napari viewer")
 ```
 
 Thick slicing is still a work in progress (see [issue #5957](https://github.com/napari/napari/issues/5957)),
@@ -182,21 +182,21 @@ As before, the mapping from the world dimensions to the 3D layer's dimensions is
 But the mapping from the world dimensions to the 2D layer's dimensions is a little trickier.
 In this case, the world's dimensions 1 and 2 map to the 2D layer's dimension 0 and 1 respectively.
 
-Using our example, we can see this in practice by replacing the membrane layer with its 2D mean projection over its first dimension
+Using our example, we can see this in practice by adding a 2D image layer that comes from a mean projection
+over the first dimension of the nuclei layer
 
 ```{code-cell} python
 import numpy as np
-from napari.layers import Image
 
-mean_data = np.mean(viewer.layers[0].data, axis=0)
-viewer.layers[0] = Image(mean_data, colormap=viewer.layers[0].colormap)
+mean_data = np.mean(viewer.layers[1].data, axis=0)
+viewer.add_image(mean_data, colormap=viewer.layers[1].colormap)
 world_dims = np.asarray(viewer.dims.order)
-layer0_dims = viewer.layers[0]._world_to_layer_dims(
-  world_dims=world_dims, ndim_world=3)
 layer1_dims = viewer.layers[1]._world_to_layer_dims(
   world_dims=world_dims, ndim_world=3)
-print(f'{layer0_dims=}')
+layer2_dims = viewer.layers[2]._world_to_layer_dims(
+  world_dims=world_dims, ndim_world=3)
 print(f'{layer1_dims=}')
+print(f'{layer2_dims=}')
 ```
 
 where `Layer._world_to_layer_dims` is a private method that is called as a part of slicing.
@@ -224,10 +224,10 @@ Using our example, we can see this in practice by transforming the coordinates a
 
 ```{code-cell} python
 point = viewer.dims.point
-layer0_point = viewer.layers[0].world_to_data(point)
 layer1_point = viewer.layers[1].world_to_data(point)
-print(f'{layer0_point=}')
+layer2_point = viewer.layers[2].world_to_data(point)
 print(f'{layer1_point=}')
+print(f'{layer2_point=}')
 ```
 
 These data coordinates are still continuous values that may not perfectly align with data array indices and may even fall outside of the valid range of the layer's data array.

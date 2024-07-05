@@ -89,6 +89,9 @@ napari.layers.Labels
       ~Labels.undo
    
    
+      ~Labels.update_transform_box_visibility
+   
+   
       ~Labels.world_to_data
    
    
@@ -150,6 +153,7 @@ napari.layers.Labels
       ~Labels.source
       ~Labels.thumbnail
       ~Labels.translate
+      ~Labels.unique_id
       ~Labels.units
       ~Labels.visible
       

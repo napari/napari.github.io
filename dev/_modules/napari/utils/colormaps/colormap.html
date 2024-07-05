@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=4b08d9d6"></script>
+    <script src="../../../../_static/documentation_options.js?v=c7937fbe"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -53,7 +53,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.3';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5.0a5';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -498,6 +498,7 @@ document.write(`
     <span class="n">cast</span><span class="p">,</span>
     <span class="n">overload</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Self</span>
@@ -920,7 +921,8 @@ document.write(`
 <span class="sd">        v : MutableMapping</span>
 <span class="sd">            A mapping from integers to colors. It *may* have None as a key,</span>
 <span class="sd">            which indicates the color to map items not in the dictionary.</span>
-<span class="sd">            Alternatively, it could be a defaultdict.</span>
+<span class="sd">            Alternatively, it could be a defaultdict. If neither is provided,</span>
+<span class="sd">            missing colors are not rendered (rendered as fully transparent).</span>
 <span class="sd">        values : dict[str, Any]</span>
 <span class="sd">            A dictionary mapping previously-validated attributes to their</span>
 <span class="sd">            validated values. Attributes are validated in the order in which</span>
@@ -932,9 +934,13 @@ document.write(`
 <span class="sd">            A properly-formatted dictionary mapping labels to RGBA arrays.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">defaultdict</span><span class="p">)</span> <span class="ow">and</span> <span class="kc">None</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s1">&#39;color_dict must contain None or be defaultdict instance&#39;</span>
+            <span class="n">warn</span><span class="p">(</span>
+                <span class="s1">&#39;color_dict did not provide a default color. &#39;</span>
+                <span class="s1">&#39;Missing keys will be transparent. &#39;</span>
+                <span class="s1">&#39;To provide a default color, use the key `None`, &#39;</span>
+                <span class="s1">&#39;or provide a defaultdict instance.&#39;</span>
             <span class="p">)</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">v</span><span class="p">,</span> <span class="kc">None</span><span class="p">:</span> <span class="s1">&#39;transparent&#39;</span><span class="p">}</span>
         <span class="n">res</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">label</span><span class="p">:</span> <span class="n">transform_color</span><span class="p">(</span><span class="n">color_str</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">color_str</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>

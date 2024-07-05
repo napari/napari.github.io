@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=4b08d9d6"></script>
+    <script src="../../../../_static/documentation_options.js?v=c7937fbe"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -53,7 +53,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.3';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5.0a5';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -493,10 +493,11 @@ document.write(`
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
-<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cached_property</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
@@ -549,6 +550,7 @@ document.write(`
     <span class="n">intersect_line_with_axis_aligned_bounding_box_3d</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.utils.key_bindings</span> <span class="kn">import</span> <span class="n">KeymapProvider</span>
+<span class="kn">from</span> <span class="nn">napari.utils.migrations</span> <span class="kn">import</span> <span class="n">_DeprecatingDict</span>
 <span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">StringEnum</span>
 <span class="kn">from</span> <span class="nn">napari.utils.mouse_bindings</span> <span class="kn">import</span> <span class="n">MousemapProvider</span>
 <span class="kn">from</span> <span class="nn">napari.utils.naming</span> <span class="kn">import</span> <span class="n">magic_name</span>
@@ -763,6 +765,9 @@ document.write(`
 <span class="sd">        Translation values for the layer.</span>
 <span class="sd">    thumbnail : (N, M, 4) array</span>
 <span class="sd">        Array of thumbnail data for the layer.</span>
+<span class="sd">    unique_id : Hashable</span>
+<span class="sd">        Unique id of the layer. Guaranteed to be unique across the lifetime</span>
+<span class="sd">        of a viewer.</span>
 <span class="sd">    visible : bool</span>
 <span class="sd">        Whether the layer visual is currently being displayed.</span>
 <span class="sd">    units: tuple of pint.Unit</span>
@@ -846,6 +851,7 @@ document.write(`
         <span class="c1"># Needs to be imported here to avoid circular import in _source</span>
         <span class="kn">from</span> <span class="nn">napari.layers._source</span> <span class="kn">import</span> <span class="n">current_source</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unique_id</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="o">=</span> <span class="n">current_source</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dask_optimized_slicing</span> <span class="o">=</span> <span class="n">configure_dask</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cache</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">metadata</span> <span class="ow">or</span> <span class="p">{})</span>
@@ -895,6 +901,9 @@ document.write(`
             <span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">ndim</span>
         <span class="k">if</span> <span class="n">translate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">translate</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ndim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initial_affine</span> <span class="o">=</span> <span class="n">coerce_affine</span><span class="p">(</span>
+            <span class="n">affine</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;physical2world&#39;</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">:</span> <span class="n">TransformChain</span><span class="p">[</span><span class="n">Affine</span><span class="p">]</span> <span class="o">=</span> <span class="n">TransformChain</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="n">Affine</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;tile2data&#39;</span><span class="p">),</span>
@@ -908,7 +917,7 @@ document.write(`
                     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;data2physical&#39;</span><span class="p">,</span>
                     <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span>
                 <span class="p">),</span>
-                <span class="n">coerce_affine</span><span class="p">(</span><span class="n">affine</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;physical2world&#39;</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_initial_affine</span><span class="p">,</span>
                 <span class="n">Affine</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;world2grid&#39;</span><span class="p">),</span>
             <span class="p">]</span>
         <span class="p">)</span>
@@ -1063,6 +1072,13 @@ document.write(`
 
         <span class="k">return</span> <span class="n">mode</span>
 
+    <span class="k">def</span> <span class="nf">update_transform_box_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visible</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;transform_box&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">:</span>
+            <span class="n">TRANSFORM</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">TRANSFORM</span>  <span class="c1"># type: ignore[attr-defined]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;transform_box&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="n">TRANSFORM</span> <span class="ow">and</span> <span class="n">visible</span>
+            <span class="p">)</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;str: Interactive mode</span>
@@ -1100,6 +1116,17 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">_projection_mode</span> <span class="o">=</span> <span class="n">mode</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">projection_mode</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">unique_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Hashable</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Unique ID of the layer.</span>
+
+<span class="sd">        This is guaranteed to be unique to this specific layer instance</span>
+<span class="sd">        over the lifetime of the program.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unique_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_unique_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unique_id</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_basename</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -1342,6 +1369,9 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extents_and_refresh</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">affine</span><span class="p">()</span>
 
+    <span class="k">def</span> <span class="nf">_reset_affine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">affine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_affine</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_translate_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;array: Factors to shift the layer by.&quot;&quot;&quot;</span>
@@ -1515,12 +1545,15 @@ document.write(`
     <span class="k">def</span> <span class="nf">_get_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-    <span class="k">def</span> <span class="nf">_get_base_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_get_base_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get dictionary of attributes on base layer.</span>
+
+<span class="sd">        This is useful for serialization and deserialization of the layer.</span>
+<span class="sd">        And similarly for plugins to pass state without direct dependencies on napari types.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        state : dict</span>
+<span class="sd">        dict of str to Any</span>
 <span class="sd">            Dictionary of attributes on base layer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">base_dict</span> <span class="o">=</span> <span class="p">{</span>
@@ -1544,7 +1577,7 @@ document.write(`
         <span class="k">return</span> <span class="n">base_dict</span>
 
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">_get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="nd">@property</span>
@@ -1554,6 +1587,10 @@ document.write(`
     <span class="k">def</span> <span class="nf">as_layer_data_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_state</span><span class="p">()</span>
         <span class="n">state</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="fm">__init__</span><span class="p">,</span> <span class="s1">&#39;_rename_argument&#39;</span><span class="p">):</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="n">_DeprecatingDict</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="n">_rename_argument</span><span class="p">:</span>
+                <span class="n">state</span><span class="o">.</span><span class="n">set_deprecated_from_rename</span><span class="p">(</span><span class="o">**</span><span class="n">element</span><span class="o">.</span><span class="n">_asdict</span><span class="p">())</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_type_string</span>
 
     <span class="nd">@property</span>

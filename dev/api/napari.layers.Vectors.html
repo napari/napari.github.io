@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../_static/documentation_options.js?v=4b08d9d6"></script>
+    <script src="../_static/documentation_options.js?v=c7937fbe"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -56,7 +56,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.3';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5.0a5';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -922,7 +922,10 @@ subsampled.</p>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_view_slice</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Vectors.world_to_data" title="napari.layers.Vectors.world_to_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">world_to_data</span></code></a>(position)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_transform_box_visibility</span></code>(visible)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Vectors.world_to_data" title="napari.layers.Vectors.world_to_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">world_to_data</span></code></a>(position)</p></td>
 <td><p>Convert from world coordinates to data coordinates.</p></td>
 </tr>
 </tbody>
@@ -1057,13 +1060,16 @@ subsampled.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Vectors.translate" title="napari.layers.Vectors.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
 <td><p>Factors to shift the layer by in units of world coordinates.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id12" title="napari.layers.Vectors.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Vectors.unique_id" title="napari.layers.Vectors.unique_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique_id</span></code></a></p></td>
+<td><p>Unique ID of the layer.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#id12" title="napari.layers.Vectors.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
 <td><p>List of units for the layer.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id13" title="napari.layers.Vectors.vector_style"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vector_style</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id13" title="napari.layers.Vectors.vector_style"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vector_style</span></code></a></p></td>
 <td><p>Determines how vectors are displayed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Vectors.visible" title="napari.layers.Vectors.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Vectors.visible" title="napari.layers.Vectors.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
 <td><p>Whether the visual is currently being displayed.</p></td>
 </tr>
 </tbody>
@@ -1768,6 +1774,14 @@ through to find the first one that can save the data.</p></li>
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="napari.layers.Vectors.unique_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unique_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Hashable" title="(in Python v3.12)"><span class="pre">Hashable</span></a></em><a class="headerlink" href="#napari.layers.Vectors.unique_id" title="Link to this definition">#</a></dt>
+<dd><p>Unique ID of the layer.</p>
+<p>This is guaranteed to be unique to this specific layer instance
+over the lifetime of the program.</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="id12">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Unit</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id12" title="Link to this definition">#</a></dt>
 <dd><p>List of units for the layer.</p>
@@ -1932,6 +1946,7 @@ dimensions will be used.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Vectors.shear"><code class="docutils literal notranslate"><span class="pre">Vectors.shear</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Vectors.thumbnail"><code class="docutils literal notranslate"><span class="pre">Vectors.thumbnail</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Vectors.translate"><code class="docutils literal notranslate"><span class="pre">Vectors.translate</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Vectors.unique_id"><code class="docutils literal notranslate"><span class="pre">Vectors.unique_id</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12"><code class="docutils literal notranslate"><span class="pre">Vectors.units</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><code class="docutils literal notranslate"><span class="pre">Vectors.vector_style</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Vectors.visible"><code class="docutils literal notranslate"><span class="pre">Vectors.visible</span></code></a></li>

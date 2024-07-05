@@ -59,6 +59,9 @@ napari.layers.Layer
       ~Layer.set_view_slice
    
    
+      ~Layer.update_transform_box_visibility
+   
+   
       ~Layer.world_to_data
    
    
@@ -100,6 +103,7 @@ napari.layers.Layer
       ~Layer.source
       ~Layer.thumbnail
       ~Layer.translate
+      ~Layer.unique_id
       ~Layer.units
       ~Layer.visible
       

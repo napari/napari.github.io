@@ -5,7 +5,7 @@ We welcome your contributions! Here you will find a guide to the contribution
 workflow and tips for contributing to napari. Do not hesitate to [contact](contact) us
 if you have any queries.
 
-```note
+```{note}
 To contribute to our blog, the [Island Dispatch](https://napari.org/island-dispatch), check out https://github.com/napari/island-dispatch.
 ```
 

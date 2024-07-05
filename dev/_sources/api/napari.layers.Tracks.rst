@@ -59,6 +59,9 @@ napari.layers.Tracks
       ~Tracks.set_view_slice
    
    
+      ~Tracks.update_transform_box_visibility
+   
+   
       ~Tracks.world_to_data
    
    
@@ -121,6 +124,7 @@ napari.layers.Tracks
       ~Tracks.track_labels
       ~Tracks.track_times
       ~Tracks.translate
+      ~Tracks.unique_id
       ~Tracks.units
       ~Tracks.use_fade
       ~Tracks.visible

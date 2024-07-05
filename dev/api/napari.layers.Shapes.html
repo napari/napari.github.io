@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../_static/documentation_options.js?v=4b08d9d6"></script>
+    <script src="../_static/documentation_options.js?v=c7937fbe"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -56,7 +56,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.3';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5.0a5';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -1087,7 +1087,10 @@ won’t update during interactive events</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.to_masks" title="napari.layers.Shapes.to_masks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_masks</span></code></a>([mask_shape])</p></td>
 <td><p>Return an array of binary masks, one for each shape.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.world_to_data" title="napari.layers.Shapes.world_to_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">world_to_data</span></code></a>(position)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_transform_box_visibility</span></code>(visible)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.world_to_data" title="napari.layers.Shapes.world_to_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">world_to_data</span></code></a>(position)</p></td>
 <td><p>Convert from world coordinates to data coordinates.</p></td>
 </tr>
 </tbody>
@@ -1255,13 +1258,16 @@ won’t update during interactive events</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.translate" title="napari.layers.Shapes.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
 <td><p>Factors to shift the layer by in units of world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id16" title="napari.layers.Shapes.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.unique_id" title="napari.layers.Shapes.unique_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique_id</span></code></a></p></td>
+<td><p>Unique ID of the layer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id16" title="napari.layers.Shapes.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
 <td><p>List of units for the layer.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.visible" title="napari.layers.Shapes.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.visible" title="napari.layers.Shapes.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
 <td><p>Whether the visual is currently being displayed.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id17" title="napari.layers.Shapes.z_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z_index</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id17" title="napari.layers.Shapes.z_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z_index</span></code></a></p></td>
 <td><p>z_index for each shape.</p></td>
 </tr>
 </tbody>
@@ -2445,6 +2451,14 @@ takes the max of all the vertices</p>
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="napari.layers.Shapes.unique_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unique_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Hashable" title="(in Python v3.12)"><span class="pre">Hashable</span></a></em><a class="headerlink" href="#napari.layers.Shapes.unique_id" title="Link to this definition">#</a></dt>
+<dd><p>Unique ID of the layer.</p>
+<p>This is guaranteed to be unique to this specific layer instance
+over the lifetime of the program.</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="id16">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Unit</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id16" title="Link to this definition">#</a></dt>
 <dd><p>List of units for the layer.</p>
@@ -2631,6 +2645,7 @@ dimensions will be used.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.to_labels"><code class="docutils literal notranslate"><span class="pre">Shapes.to_labels()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.to_masks"><code class="docutils literal notranslate"><span class="pre">Shapes.to_masks()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.translate"><code class="docutils literal notranslate"><span class="pre">Shapes.translate</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.unique_id"><code class="docutils literal notranslate"><span class="pre">Shapes.unique_id</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16"><code class="docutils literal notranslate"><span class="pre">Shapes.units</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.visible"><code class="docutils literal notranslate"><span class="pre">Shapes.visible</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.world_to_data"><code class="docutils literal notranslate"><span class="pre">Shapes.world_to_data()</span></code></a></li>

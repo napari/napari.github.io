@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../../_static/documentation_options.js?v=4b08d9d6"></script>
+    <script src="../../../_static/documentation_options.js?v=c7937fbe"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -53,7 +53,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.3';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5.0a5';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -659,6 +659,7 @@ document.write(`
 
         <span class="c1"># Ideally this would be in `NapariApplication` but that is outside of Qt</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_viewer_context</span> <span class="o">=</span> <span class="n">create_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_viewer_context</span><span class="p">[</span><span class="s1">&#39;is_set_trace_active&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_is_set_trace_active</span>
 
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
 
@@ -1332,7 +1333,6 @@ document.write(`
 
     <span class="k">def</span> <span class="nf">_update_debug_menu_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">viewer_ctx</span> <span class="o">=</span> <span class="n">get_context</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">)</span>
-        <span class="n">viewer_ctx</span><span class="p">[</span><span class="s1">&#39;is_set_trace_active&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_is_set_trace_active</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_debug_menu</span><span class="o">.</span><span class="n">update_from_context</span><span class="p">(</span><span class="n">viewer_ctx</span><span class="p">)</span>
 
     <span class="c1"># TODO: Remove once npe1 deprecated</span>

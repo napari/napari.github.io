@@ -77,6 +77,9 @@ napari.layers.Points
       ~Points.to_mask
    
    
+      ~Points.update_transform_box_visibility
+   
+   
       ~Points.world_to_data
    
    
@@ -159,6 +162,7 @@ napari.layers.Points
       ~Points.text
       ~Points.thumbnail
       ~Points.translate
+      ~Points.unique_id
       ~Points.units
       ~Points.visible
       

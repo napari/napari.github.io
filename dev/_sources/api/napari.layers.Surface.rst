@@ -65,6 +65,9 @@ napari.layers.Surface
       ~Surface.set_view_slice
    
    
+      ~Surface.update_transform_box_visibility
+   
+   
       ~Surface.world_to_data
    
    
@@ -119,6 +122,7 @@ napari.layers.Surface
       ~Surface.texture
       ~Surface.thumbnail
       ~Surface.translate
+      ~Surface.unique_id
       ~Surface.units
       ~Surface.vertex_colors
       ~Surface.vertex_values

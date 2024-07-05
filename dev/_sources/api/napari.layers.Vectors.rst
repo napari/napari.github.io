@@ -62,6 +62,9 @@ napari.layers.Vectors
       ~Vectors.set_view_slice
    
    
+      ~Vectors.update_transform_box_visibility
+   
+   
       ~Vectors.world_to_data
    
    
@@ -115,6 +118,7 @@ napari.layers.Vectors
       ~Vectors.source
       ~Vectors.thumbnail
       ~Vectors.translate
+      ~Vectors.unique_id
       ~Vectors.units
       ~Vectors.vector_style
       ~Vectors.visible

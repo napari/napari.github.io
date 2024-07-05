@@ -107,6 +107,9 @@ napari.layers.Shapes
       ~Shapes.to_masks
    
    
+      ~Shapes.update_transform_box_visibility
+   
+   
       ~Shapes.world_to_data
    
    
@@ -171,6 +174,7 @@ napari.layers.Shapes
       ~Shapes.text
       ~Shapes.thumbnail
       ~Shapes.translate
+      ~Shapes.unique_id
       ~Shapes.units
       ~Shapes.visible
       ~Shapes.z_index

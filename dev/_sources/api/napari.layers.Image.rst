@@ -65,6 +65,9 @@ napari.layers.Image
       ~Image.set_view_slice
    
    
+      ~Image.update_transform_box_visibility
+   
+   
       ~Image.world_to_data
    
    
@@ -125,6 +128,7 @@ napari.layers.Image
       ~Image.source
       ~Image.thumbnail
       ~Image.translate
+      ~Image.unique_id
       ~Image.units
       ~Image.visible
       

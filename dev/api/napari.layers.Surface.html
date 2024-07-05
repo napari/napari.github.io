@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../_static/documentation_options.js?v=4b08d9d6"></script>
+    <script src="../_static/documentation_options.js?v=c7937fbe"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -56,7 +56,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.3';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5.0a5';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -943,7 +943,10 @@ in the currently viewed slice.</p>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_view_slice</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Surface.world_to_data" title="napari.layers.Surface.world_to_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">world_to_data</span></code></a>(position)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_transform_box_visibility</span></code>(visible)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Surface.world_to_data" title="napari.layers.Surface.world_to_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">world_to_data</span></code></a>(position)</p></td>
 <td><p>Convert from world coordinates to data coordinates.</p></td>
 </tr>
 </tbody>
@@ -1081,22 +1084,25 @@ in the currently viewed slice.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Surface.translate" title="napari.layers.Surface.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
 <td><p>Factors to shift the layer by in units of world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id5" title="napari.layers.Surface.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Surface.unique_id" title="napari.layers.Surface.unique_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique_id</span></code></a></p></td>
+<td><p>Unique ID of the layer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id5" title="napari.layers.Surface.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
 <td><p>List of units for the layer.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">vertex_colors</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">vertex_colors</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Surface.vertex_values" title="napari.layers.Surface.vertex_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vertex_values</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Surface.vertex_values" title="napari.layers.Surface.vertex_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vertex_values</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Surface.vertices" title="napari.layers.Surface.vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vertices</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Surface.vertices" title="napari.layers.Surface.vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vertices</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Surface.visible" title="napari.layers.Surface.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Surface.visible" title="napari.layers.Surface.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
 <td><p>Whether the visual is currently being displayed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Surface.wireframe" title="napari.layers.Surface.wireframe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wireframe</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Surface.wireframe" title="napari.layers.Surface.wireframe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wireframe</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -1715,6 +1721,14 @@ through to find the first one that can save the data.</p></li>
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="napari.layers.Surface.unique_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unique_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Hashable" title="(in Python v3.12)"><span class="pre">Hashable</span></a></em><a class="headerlink" href="#napari.layers.Surface.unique_id" title="Link to this definition">#</a></dt>
+<dd><p>Unique ID of the layer.</p>
+<p>This is guaranteed to be unique to this specific layer instance
+over the lifetime of the program.</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="id5">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Unit</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id5" title="Link to this definition">#</a></dt>
 <dd><p>List of units for the layer.</p>
@@ -1855,6 +1869,7 @@ dimensions will be used.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Surface.shear"><code class="docutils literal notranslate"><span class="pre">Surface.shear</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Surface.thumbnail"><code class="docutils literal notranslate"><span class="pre">Surface.thumbnail</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Surface.translate"><code class="docutils literal notranslate"><span class="pre">Surface.translate</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Surface.unique_id"><code class="docutils literal notranslate"><span class="pre">Surface.unique_id</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><code class="docutils literal notranslate"><span class="pre">Surface.units</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Surface.visible"><code class="docutils literal notranslate"><span class="pre">Surface.visible</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Surface.world_to_data"><code class="docutils literal notranslate"><span class="pre">Surface.world_to_data()</span></code></a></li>

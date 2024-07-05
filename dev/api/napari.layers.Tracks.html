@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../_static/documentation_options.js?v=4b08d9d6"></script>
+    <script src="../_static/documentation_options.js?v=c7937fbe"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -56,7 +56,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.3';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5.0a5';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -719,7 +719,10 @@ If not provided, the default units are assumed to be pixels.</p></li>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_view_slice</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.world_to_data" title="napari.layers.Tracks.world_to_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">world_to_data</span></code></a>(position)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_transform_box_visibility</span></code>(visible)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.world_to_data" title="napari.layers.Tracks.world_to_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">world_to_data</span></code></a>(position)</p></td>
 <td><p>Convert from world coordinates to data coordinates.</p></td>
 </tr>
 </tbody>
@@ -881,13 +884,16 @@ If not provided, the default units are assumed to be pixels.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.translate" title="napari.layers.Tracks.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
 <td><p>Factors to shift the layer by in units of world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.units" title="napari.layers.Tracks.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.unique_id" title="napari.layers.Tracks.unique_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique_id</span></code></a></p></td>
+<td><p>Unique ID of the layer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.units" title="napari.layers.Tracks.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
 <td><p>List of units for the layer.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.use_fade" title="napari.layers.Tracks.use_fade"><code class="xref py py-obj docutils literal notranslate"><span class="pre">use_fade</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.use_fade" title="napari.layers.Tracks.use_fade"><code class="xref py py-obj docutils literal notranslate"><span class="pre">use_fade</span></code></a></p></td>
 <td><p>toggle whether we fade the tail of the track, depending on whether the time dimension is displayed</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Tracks.visible" title="napari.layers.Tracks.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Tracks.visible" title="napari.layers.Tracks.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
 <td><p>Whether the visual is currently being displayed.</p></td>
 </tr>
 </tbody>
@@ -1575,6 +1581,14 @@ property</p>
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="napari.layers.Tracks.unique_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unique_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Hashable" title="(in Python v3.12)"><span class="pre">Hashable</span></a></em><a class="headerlink" href="#napari.layers.Tracks.unique_id" title="Link to this definition">#</a></dt>
+<dd><p>Unique ID of the layer.</p>
+<p>This is guaranteed to be unique to this specific layer instance
+over the lifetime of the program.</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="napari.layers.Tracks.units">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Unit</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#napari.layers.Tracks.units" title="Link to this definition">#</a></dt>
 <dd><p>List of units for the layer.</p>
@@ -1717,6 +1731,7 @@ dimensions will be used.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.track_labels"><code class="docutils literal notranslate"><span class="pre">Tracks.track_labels</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.track_times"><code class="docutils literal notranslate"><span class="pre">Tracks.track_times</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.translate"><code class="docutils literal notranslate"><span class="pre">Tracks.translate</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.unique_id"><code class="docutils literal notranslate"><span class="pre">Tracks.unique_id</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.units"><code class="docutils literal notranslate"><span class="pre">Tracks.units</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.use_fade"><code class="docutils literal notranslate"><span class="pre">Tracks.use_fade</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Tracks.visible"><code class="docutils literal notranslate"><span class="pre">Tracks.visible</span></code></a></li>

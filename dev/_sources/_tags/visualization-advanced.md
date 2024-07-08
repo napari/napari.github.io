@@ -11,6 +11,7 @@ caption: With this tag
 ../gallery/add_vectors_color_by_angle.rst
 ../gallery/affine_transforms.rst
 ../gallery/dynamic-projections-dask.rst
+../gallery/export_figure.rst
 ../gallery/nD_multiscale_image.rst
 ../gallery/nD_multiscale_image_non_uniform.rst
 ../gallery/points-over-time.rst

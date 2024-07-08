@@ -62,6 +62,9 @@ napari.Viewer
       ~Viewer.enums_as_values
    
    
+      ~Viewer.export_figure
+   
+   
       ~Viewer.from_orm
    
    

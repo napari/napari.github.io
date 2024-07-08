@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../_static/documentation_options.js?v=c7937fbe"></script>
+    <script src="../_static/documentation_options.js?v=06d75d99"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -56,7 +56,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.3';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5.0a8';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -619,7 +619,9 @@ https://napari.org/</p>
 <p>napari 0.5.0 is the beginning of an architectural overhaul of napari. The
 architecture improvements, which are still ongoing, enable more responsive
 asynchronous loading when slicing layers or panning and zooming in multiscale
-2D layers (<a class="reference external" href="https://github.com/napari/napari/pull/5816">#5816</a>).</p>
+2D layers (<a class="reference external" href="https://github.com/napari/napari/pull/5816">#5816</a>). There’s
+several performance improvements, too, including faster points layer creation
+and updates (<a class="reference external" href="https://github.com/napari/napari/pull/6727">#6727</a>).</p>
 <p>Other architectural changes, refactoring napari on top of
 <a class="reference external" href="https://app-model.readthedocs.io/en/latest/">app-model</a>, have enabled us to
 (finally 😅) implement <a class="reference internal" href="../naps/6-contributable-menus.html#nap-6-contributable-menus"><span class="std std-ref">NAP-6</span></a>, which allows
@@ -641,16 +643,23 @@ ways to show/hide individual layers when exploring your data
 (<a class="reference external" href="https://github.com/napari/napari/pull/5574">#5574</a>)
 (<a class="reference external" href="https://github.com/napari/napari/pull/5618">#5618</a>), creating a layer from
 an image or URL in your clipboard
-(<a class="reference external" href="https://github.com/napari/napari/pull/6532">#6532</a>), copy/pasting spatial
-metadata (scale, translate, etc) between layers
-(<a class="reference external" href="https://github.com/napari/napari/pull/6864">#6864</a>) and more:
-Over 20 new features in all and over 100 bug fixes and improvements!</p>
-<p>Please see below for the full list of changes since 0.4.19.</p>
+(<a class="reference external" href="https://github.com/napari/napari/pull/6532">#6532</a>),
+a new way to export figure-quality renderings from the canvas
+(<a class="reference external" href="https://github.com/napari/napari/pull/6730">#6730</a>) (2D-only for now),
+and the ability to copy and paste spatial metadata (scale, translate, etc)
+between layers (<a class="reference external" href="https://github.com/napari/napari/pull/6864">#6864</a>).</p>
+<p>You’ll also note a new little button on layer controls, including images:</p>
+<a class="reference internal image-reference" href="../_images/transform-icon.svg"><img alt="transform layer icon" class="align-center" src="../_images/transform-icon.svg" width="150px" /></a>
+<p>This little button allows you to resize and rotate layers, enabling manual
+alignment (<a class="reference external" href="https://github.com/napari/napari/pull/6794">#6794</a>)!</p>
+<p>All in all, this release has over 20 new features and over 100 bug fixes and
+improvements. Please see below for the full list of changes since 0.4.19.</p>
 </section>
 <section id="new-features">
 <h2>New Features<a class="headerlink" href="#new-features" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Add layer slicer base class for async slicing (<a class="reference external" href="https://github.com/napari/napari/pull/5170">#5170</a>)</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">unique_id</span></code> attribute to Layer to uniquely identify layers (<a class="reference external" href="https://github.com/napari/napari/pull/5230">#5230</a>)</p></li>
 <li><p>Feature: add layer contextual menu to hide not-selected layers (<a class="reference external" href="https://github.com/napari/napari/pull/5574">#5574</a>)</p></li>
 <li><p>Feature: alt-click visibility eye to toggle show just that layer (hide others) (<a class="reference external" href="https://github.com/napari/napari/pull/5618">#5618</a>)</p></li>
 <li><p>Feature: Add action to set current label to background (with keybinding) (<a class="reference external" href="https://github.com/napari/napari/pull/5672">#5672</a>)</p></li>
@@ -668,11 +677,12 @@ Over 20 new features in all and over 100 bug fixes and improvements!</p>
 <li><p>Show <code class="docutils literal notranslate"><span class="pre">About</span> <span class="pre">napari</span></code> action on macOS application menu (<a class="reference external" href="https://github.com/napari/napari/pull/6666">#6666</a>)</p></li>
 <li><p>Add points/shapes highlight color setting to Appereance settings and preference page (<a class="reference external" href="https://github.com/napari/napari/pull/6689">#6689</a>)</p></li>
 <li><p>Include features index as key in FormatStringEncoding (<a class="reference external" href="https://github.com/napari/napari/pull/6703">#6703</a>)</p></li>
+<li><p>Better export of figure-quality renderings from the canvas (<a class="reference external" href="https://github.com/napari/napari/pull/6730">#6730</a>)</p></li>
+<li><p>Add transform mode button for layers (<a class="reference external" href="https://github.com/napari/napari/pull/6794">#6794</a>)</p></li>
 <li><p>Reset all dims to be rollable (<a class="reference external" href="https://github.com/napari/napari/pull/6797">#6797</a>)</p></li>
 <li><p>implement copying spatial information via clipboard (<a class="reference external" href="https://github.com/napari/napari/pull/6864">#6864</a>)</p></li>
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">axis_labels</span></code> and <code class="docutils literal notranslate"><span class="pre">units</span></code> to layers and transforms  (<a class="reference external" href="https://github.com/napari/napari/pull/6979">#6979</a>)</p></li>
 <li><p>Alpha implementation of NAP-6 (<a class="reference external" href="https://github.com/napari/napari/pull/7011">#7011</a>)</p></li>
-<li><p>Better export of figure-quality renderings from the canvas (<a class="reference external" href="https://github.com/napari/napari/pull/6730">#6730</a>)</p></li>
 </ul>
 </section>
 <section id="improvements">
@@ -702,9 +712,13 @@ Over 20 new features in all and over 100 bug fixes and improvements!</p>
 <li><p>“Shapes to Labels”, “(float)Image to Labels”: Don’t pop layer being converted, append new one (<a class="reference external" href="https://github.com/napari/napari/pull/6859">#6859</a>)</p></li>
 <li><p>[enh] Transform mode: shift to snap layer rotation to 45 deg (<a class="reference external" href="https://github.com/napari/napari/pull/6948">#6948</a>)</p></li>
 <li><p>[UX/UI] flip the default for the reader plugin dialog to <em>not</em> have the Remember box checked (<a class="reference external" href="https://github.com/napari/napari/pull/7016">#7016</a>)</p></li>
-<li><p>Extend “No Qt bindings found” error message with details about conda (<a class="reference external" href="https://github.com/napari/napari/pull/6095">#6095</a>)</p></li>
-<li><p>Add convenience input validation for Labels colormaps (<a class="reference external" href="https://github.com/napari/napari/pull/7025">#7025</a>)</p></li>
 <li><p>[UI/UX] Updated polygon button icon for Shapes &amp; Labels regular polygon tool (<a class="reference external" href="https://github.com/napari/napari/pull/7019">#7019</a>)</p></li>
+<li><p>[Enh] Labels polygon tool: use a setting for completion_radius, by default double-click always works. (<a class="reference external" href="https://github.com/napari/napari/pull/7023">#7023</a>)</p></li>
+<li><p>Add convenience input validation for Labels colormaps (<a class="reference external" href="https://github.com/napari/napari/pull/7025">#7025</a>)</p></li>
+<li><p>Add empty menu placeholder actions using functional context keys from #6965 (<a class="reference external" href="https://github.com/napari/napari/pull/7038">#7038</a>)</p></li>
+<li><p>[Shapes] for line tool, have _fixed_aspect (shift) enable 45 degree rotations if shift held first. (<a class="reference external" href="https://github.com/napari/napari/pull/7043">#7043</a>)</p></li>
+<li><p>Add partial and weakref for empty shapes layer context key (<a class="reference external" href="https://github.com/napari/napari/pull/7064">#7064</a>)</p></li>
+<li><p>Move <code class="docutils literal notranslate"><span class="pre">IO_Utilities</span></code> and <code class="docutils literal notranslate"><span class="pre">Acquire</span></code> submenus to their own group in the <code class="docutils literal notranslate"><span class="pre">File</span></code> menu (<a class="reference external" href="https://github.com/napari/napari/pull/7075">#7075</a>)</p></li>
 </ul>
 </section>
 <section id="performance">
@@ -753,6 +767,7 @@ Over 20 new features in all and over 100 bug fixes and improvements!</p>
 <li><p>Fix typing checks in PRs (<a class="reference external" href="https://github.com/napari/napari/pull/6230">#6230</a>)</p></li>
 <li><p>convert Color to string (<a class="reference external" href="https://github.com/napari/napari/pull/6243">#6243</a>)</p></li>
 <li><p>Fix link to artifacts in update dependecies comment (<a class="reference external" href="https://github.com/napari/napari/pull/6270">#6270</a>)</p></li>
+<li><p>Fix vispy pixel offset in 3D multi-scale image layers (<a class="reference external" href="https://github.com/napari/napari/pull/6319">#6319</a>)</p></li>
 <li><p>Fix setting shortcuts with modifier keys and only one modifier key as a shortcut on Windows/Linux (<a class="reference external" href="https://github.com/napari/napari/pull/6330">#6330</a>)</p></li>
 <li><p>Pass key event from Main window to our internal mechanism (<a class="reference external" href="https://github.com/napari/napari/pull/6419">#6419</a>)</p></li>
 <li><p>Restore old breakpointhook after console import in tests fixture (<a class="reference external" href="https://github.com/napari/napari/pull/6436">#6436</a>)</p></li>
@@ -799,18 +814,26 @@ Over 20 new features in all and over 100 bug fixes and improvements!</p>
 <li><p>Fix array data copy behavior for numpy 1 and 2 consistency (<a class="reference external" href="https://github.com/napari/napari/pull/6932">#6932</a>)</p></li>
 <li><p>[bugfix] Swap digit and <code class="docutils literal notranslate"><span class="pre">backspace</span></code> for Shapes &amp; Points <code class="docutils literal notranslate"><span class="pre">delete_selected</span></code> keybinds (<a class="reference external" href="https://github.com/napari/napari/pull/6933">#6933</a>)</p></li>
 <li><p>Fix callback for <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">-&gt;</span> <span class="pre">Open</span> <span class="pre">Folder...</span></code> action (<a class="reference external" href="https://github.com/napari/napari/pull/6935">#6935</a>)</p></li>
+<li><p>Add cachable context mapping (<a class="reference external" href="https://github.com/napari/napari/pull/6965">#6965</a>)</p></li>
 <li><p>fix <code class="docutils literal notranslate"><span class="pre">create_func</span></code> to respect <code class="docutils literal notranslate"><span class="pre">rename_argument</span></code> decorator (<a class="reference external" href="https://github.com/napari/napari/pull/6970">#6970</a>)</p></li>
 <li><p>Do not crash napari viewer if error happen on open file via cli (<a class="reference external" href="https://github.com/napari/napari/pull/6971">#6971</a>)</p></li>
 <li><p>Fix viewer scale bar color update (<a class="reference external" href="https://github.com/napari/napari/pull/6989">#6989</a>)</p></li>
 <li><p>Remove NumPy 2 pin, fix direct colormap with keys outside data dtype (<a class="reference external" href="https://github.com/napari/napari/pull/6998">#6998</a>)</p></li>
 <li><p>Fix switching from 2d to 3d with 2d points (<a class="reference external" href="https://github.com/napari/napari/pull/7004">#7004</a>)</p></li>
 <li><p>Fix importerror and message for lxml_html_clean (<a class="reference external" href="https://github.com/napari/napari/pull/7017">#7017</a>)</p></li>
+<li><p>Fix logic to keep settings and preference dialog widgets in sync (<code class="docutils literal notranslate"><span class="pre">dask</span></code>, <code class="docutils literal notranslate"><span class="pre">highlight</span></code>, <code class="docutils literal notranslate"><span class="pre">brush_size_on_mouse_move_modifiers</span></code>, <code class="docutils literal notranslate"><span class="pre">new_labels_dtype</span></code> settings errors) (<a class="reference external" href="https://github.com/napari/napari/pull/7027">#7027</a>)</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">dev</span></code> links for pre-release (<a class="reference external" href="https://github.com/napari/napari/pull/7031">#7031</a>)</p></li>
+<li><p>Fix numpy dtype check in guess_continuous (<a class="reference external" href="https://github.com/napari/napari/pull/7041">#7041</a>)</p></li>
+<li><p>[Shapes] for line tool, have _fixed_aspect (shift) enable 45 degree rotations if shift held first. (<a class="reference external" href="https://github.com/napari/napari/pull/7043">#7043</a>)</p></li>
+<li><p>Provide default colors automatically in DirectLabelsColormap (<a class="reference external" href="https://github.com/napari/napari/pull/7061">#7061</a>)</p></li>
+<li><p>Ensure out-of-bounds layers are loaded (<a class="reference external" href="https://github.com/napari/napari/pull/7077">#7077</a>)</p></li>
 </ul>
 </section>
 <section id="api-changes">
 <h2>API Changes<a class="headerlink" href="#api-changes" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Add .to_rgb_dict() to Theme class. (<a class="reference external" href="https://github.com/napari/napari/pull/4759">#4759</a>)</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">unique_id</span></code> attribute to Layer to uniquely identify layers (<a class="reference external" href="https://github.com/napari/napari/pull/5230">#5230</a>)</p></li>
 <li><p>Thick Slices (Dims  as nD-box instead of nD-point) (<a class="reference external" href="https://github.com/napari/napari/pull/5522">#5522</a>)</p></li>
 <li><p>Lock dimensions / axes while rolling (<a class="reference external" href="https://github.com/napari/napari/pull/5986">#5986</a>)</p></li>
 <li><p>Remove deprecated code from Labels layer (<a class="reference external" href="https://github.com/napari/napari/pull/6641">#6641</a>)</p></li>
@@ -824,6 +847,7 @@ Over 20 new features in all and over 100 bug fixes and improvements!</p>
 <li><p>Fix typing in _app_model (<a class="reference external" href="https://github.com/napari/napari/pull/6059">#6059</a>)</p></li>
 <li><p>Rename <code class="docutils literal notranslate"><span class="pre">edge_*</span></code> attributes and references to <code class="docutils literal notranslate"><span class="pre">border_*</span></code> on points layer (<a class="reference external" href="https://github.com/napari/napari/pull/6402">#6402</a>)</p></li>
 <li><p>Add deprecation message to CallDefault function partly resolves issue#6257 (<a class="reference external" href="https://github.com/napari/napari/pull/6901">#6901</a>)</p></li>
+<li><p>Issue warnings when accessing deprecated layer state (<a class="reference external" href="https://github.com/napari/napari/pull/6976">#6976</a>)</p></li>
 </ul>
 </section>
 <section id="build-tools">
@@ -843,6 +867,7 @@ Over 20 new features in all and over 100 bug fixes and improvements!</p>
 <li><p>ci(dependabot): bump actions/checkout from 2 to 4 (<a class="reference external" href="https://github.com/napari/napari/pull/6264">#6264</a>)</p></li>
 <li><p>ci(dependabot): bump docker/build-push-action from 4 to 5 (<a class="reference external" href="https://github.com/napari/napari/pull/6280">#6280</a>)</p></li>
 <li><p>ci(dependabot): bump docker/metadata-action from 4 to 5 (<a class="reference external" href="https://github.com/napari/napari/pull/6282">#6282</a>)</p></li>
+<li><p>Bump certifi from 2024.6.2 to 2024.7.4 in /resources (<a class="reference external" href="https://github.com/napari/napari/pull/7076">#7076</a>)</p></li>
 </ul>
 </section>
 <section id="documentation">
@@ -873,6 +898,8 @@ Over 20 new features in all and over 100 bug fixes and improvements!</p>
 <li><p>DOC Update menu action file docstrings (<a class="reference external" href="https://github.com/napari/napari/pull/6904">#6904</a>)</p></li>
 <li><p>Front-load core devs in citation.cff, sorted by commits (<a class="reference external" href="https://github.com/napari/napari/pull/6949">#6949</a>)</p></li>
 <li><p>Update CITATION.cff with contributors for 0.5.0 (<a class="reference external" href="https://github.com/napari/napari/pull/6958">#6958</a>)</p></li>
+<li><p>[Docs] Update README.md for stable/dev docs (<a class="reference external" href="https://github.com/napari/napari/pull/7040">#7040</a>)</p></li>
+<li><p>Update README.md to fix link to contribution docs (<a class="reference external" href="https://github.com/napari/napari/pull/7062">#7062</a>)</p></li>
 <li><p>Remove examples from docs repo and use main repo instead (<a class="reference external" href="https://github.com/napari/docs/pull/1">docs#1</a>)</p></li>
 <li><p>Add build_docs action to PRs (<a class="reference external" href="https://github.com/napari/docs/pull/6">docs#6</a>)</p></li>
 <li><p>Fix examples path in build_docs PR workflow (<a class="reference external" href="https://github.com/napari/docs/pull/8">docs#8</a>)</p></li>
@@ -968,8 +995,20 @@ Over 20 new features in all and over 100 bug fixes and improvements!</p>
 <li><p>Update where app-model actions/providers/processors live in codebase  (<a class="reference external" href="https://github.com/napari/docs/pull/416">docs#416</a>)</p></li>
 <li><p>Update conda section of install docs (<a class="reference external" href="https://github.com/napari/docs/pull/417">docs#417</a>)</p></li>
 <li><p>MacOS -&gt; macOS (<a class="reference external" href="https://github.com/napari/docs/pull/418">docs#418</a>)</p></li>
+<li><p>Update slicing/rendering docs (<a class="reference external" href="https://github.com/napari/docs/pull/424">docs#424</a>)</p></li>
 <li><p>Replace use of properties with features (<a class="reference external" href="https://github.com/napari/docs/pull/425">docs#425</a>)</p></li>
 <li><p>DOC Update finding submenu action in app-model (<a class="reference external" href="https://github.com/napari/docs/pull/426">docs#426</a>)</p></li>
+<li><p>Add links to blog and napari workshop template on navbar (<a class="reference external" href="https://github.com/napari/docs/pull/429">docs#429</a>)</p></li>
+<li><p>Draft release notes for 0.5.0 (<a class="reference external" href="https://github.com/napari/docs/pull/430">docs#430</a>)</p></li>
+<li><p>DOC Link <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type annotation to providers/processors (<a class="reference external" href="https://github.com/napari/docs/pull/431">docs#431</a>)</p></li>
+<li><p>DOC Add section on order of app-model init steps  (<a class="reference external" href="https://github.com/napari/docs/pull/432">docs#432</a>)</p></li>
+<li><p>Add troubleshooting about starting napari and <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> (<a class="reference external" href="https://github.com/napari/docs/pull/433">docs#433</a>)</p></li>
+<li><p>Add warnings around draft message (<a class="reference external" href="https://github.com/napari/docs/pull/434">docs#434</a>)</p></li>
+<li><p>NAP-6: Add admonition about implementation state (<a class="reference external" href="https://github.com/napari/docs/pull/435">docs#435</a>)</p></li>
+<li><p>Fix rendering explanation broken links (<a class="reference external" href="https://github.com/napari/docs/pull/437">docs#437</a>)</p></li>
+<li><p>Fix rendering example code (<a class="reference external" href="https://github.com/napari/docs/pull/441">docs#441</a>)</p></li>
+<li><p>[bugfix] Update contributing/index.md fix blog note (<a class="reference external" href="https://github.com/napari/docs/pull/443">docs#443</a>)</p></li>
+<li><p>Update napari 0.5.0 release notes (<a class="reference external" href="https://github.com/napari/docs/pull/444">docs#444</a>)</p></li>
 </ul>
 </section>
 <section id="other-pull-requests">
@@ -1059,7 +1098,7 @@ Over 20 new features in all and over 100 bug fixes and improvements!</p>
 <li><p>Mock QtConsole in tests (<a class="reference external" href="https://github.com/napari/napari/pull/5890">#5890</a>)</p></li>
 <li><p>Consistent types for vector inputs/outputs in base layer (<a class="reference external" href="https://github.com/napari/napari/pull/5892">#5892</a>)</p></li>
 <li><p>MAINT: Fix more typing and enable mypy on more files. (<a class="reference external" href="https://github.com/napari/napari/pull/5897">#5897</a>)</p></li>
-<li><p>Add <strong>all</strong> to qthreading and progress (<a class="reference external" href="https://github.com/napari/napari/pull/5898">#5898</a>)</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">__all__</span></code> to qthreading and progress (<a class="reference external" href="https://github.com/napari/napari/pull/5898">#5898</a>)</p></li>
 <li><p>Fix typing in translations (<a class="reference external" href="https://github.com/napari/napari/pull/5900">#5900</a>)</p></li>
 <li><p>ENH: Use dict to set <code class="docutils literal notranslate"><span class="pre">MenuID</span></code> in view actions (<a class="reference external" href="https://github.com/napari/napari/pull/5903">#5903</a>)</p></li>
 <li><p>[pre-commit.ci] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/5906">#5906</a>)</p></li>
@@ -1326,6 +1365,7 @@ Over 20 new features in all and over 100 bug fixes and improvements!</p>
 <li><p>remove error reporter code (<a class="reference external" href="https://github.com/napari/napari/pull/6923">#6923</a>)</p></li>
 <li><p>MNT: Fix layerlist context creation (<a class="reference external" href="https://github.com/napari/napari/pull/6926">#6926</a>)</p></li>
 <li><p>Automatically remove run-benchmarks label once benchmarks are executed (<a class="reference external" href="https://github.com/napari/napari/pull/6929">#6929</a>)</p></li>
+<li><p>[Maint] take pyqt6 out of experimental, restrict to &gt;6.5 (<a class="reference external" href="https://github.com/napari/napari/pull/6937">#6937</a>)</p></li>
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">superqt.utils.CodeSyntaxHighlight</span></code> instead of <code class="docutils literal notranslate"><span class="pre">napari._qt.code_syntax_highlight.Pylighter</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/6938">#6938</a>)</p></li>
 <li><p>[pre-commit.ci] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/6939">#6939</a>)</p></li>
 <li><p>Add a test for viewer.close_all. (<a class="reference external" href="https://github.com/napari/napari/pull/6942">#6942</a>)</p></li>
@@ -1350,6 +1390,20 @@ Over 20 new features in all and over 100 bug fixes and improvements!</p>
 <li><p>Make test log easier to read by removing <code class="docutils literal notranslate"><span class="pre">-v</span></code> from pytest call (<a class="reference external" href="https://github.com/napari/napari/pull/6996">#6996</a>)</p></li>
 <li><p>Add tests for viewer scale bar attributes (<code class="docutils literal notranslate"><span class="pre">colored</span></code> and <code class="docutils literal notranslate"><span class="pre">ticks</span></code>) (<a class="reference external" href="https://github.com/napari/napari/pull/7006">#7006</a>)</p></li>
 <li><p>Add tox-uv to test environment for speedup installation, fix codecov upload (<a class="reference external" href="https://github.com/napari/napari/pull/7013">#7013</a>)</p></li>
+<li><p>User <code class="docutils literal notranslate"><span class="pre">perf.perf_config</span></code> everywhere (<a class="reference external" href="https://github.com/napari/napari/pull/7022">#7022</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">coverage</span></code>, <code class="docutils literal notranslate"><span class="pre">dask</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">npe2</span></code>, <code class="docutils literal notranslate"><span class="pre">psutil</span></code>, <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code>, <code class="docutils literal notranslate"><span class="pre">tensorstore</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code>, <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/7026">#7026</a>)</p></li>
+<li><p>Block zarr 3.0.0a0 on pre tests (<a class="reference external" href="https://github.com/napari/napari/pull/7028">#7028</a>)</p></li>
+<li><p>Add test for layer context menu actions using <code class="docutils literal notranslate"><span class="pre">execute_command</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/7030">#7030</a>)</p></li>
+<li><p>Handle also alpha and beta releases in <code class="docutils literal notranslate"><span class="pre">make_release.yml</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/7032">#7032</a>)</p></li>
+<li><p>fix syntax bug in <code class="docutils literal notranslate"><span class="pre">make_release.yml</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/7033">#7033</a>)</p></li>
+<li><p>Delay public-only deprecation until 0.6.0 (<a class="reference external" href="https://github.com/napari/napari/pull/7046">#7046</a>)</p></li>
+<li><p>Block <code class="docutils literal notranslate"><span class="pre">Pympler==1.1</span></code> using constraints for benchmark tests (<a class="reference external" href="https://github.com/napari/napari/pull/7048">#7048</a>)</p></li>
+<li><p>Add some missing layer actions tests (split rgb, split and merge actions) (<a class="reference external" href="https://github.com/napari/napari/pull/7057">#7057</a>)</p></li>
+<li><p>Restore events to <code class="docutils literal notranslate"><span class="pre">QtViewer.canvas</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/7060">#7060</a>)</p></li>
+<li><p>Fix make_release workflow to properly handle alpha and beta releases (<a class="reference external" href="https://github.com/napari/napari/pull/7066">#7066</a>)</p></li>
+<li><p>Fix and simplify release workfow (<a class="reference external" href="https://github.com/napari/napari/pull/7078">#7078</a>)</p></li>
+<li><p>Fix release workflow, fix names of env variable (<a class="reference external" href="https://github.com/napari/napari/pull/7081">#7081</a>)</p></li>
+<li><p>Fix release workflow by fix path to release docs (<a class="reference external" href="https://github.com/napari/napari/pull/7082">#7082</a>)</p></li>
 <li><p>Update CircleCI config.yml to not overwrite requirements (<a class="reference external" href="https://github.com/napari/docs/pull/184">docs#184</a>)</p></li>
 <li><p>Update CI actions versions (<a class="reference external" href="https://github.com/napari/docs/pull/213">docs#213</a>)</p></li>
 <li><p>[Maintenance] Use permissions for labeler action (and set v4) (<a class="reference external" href="https://github.com/napari/docs/pull/247">docs#247</a>)</p></li>
@@ -1378,161 +1432,107 @@ Over 20 new features in all and over 100 bug fixes and improvements!</p>
 </ul>
 </section>
 <section id="authors-added-to-this-release-alphabetical">
-<h2>43 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>47 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=aeisenbarth">aeisenbarth</a> - &#64;aeisenbarth</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=AmirAflak">Amirreza Aflakparast</a> - &#64;AmirAflak</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=andy-sweet">andrew sweet</a> - &#64;andy-sweet</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=aganders3">Ashley Anderson</a> - &#64;aganders3</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=AmirAflak">Amirreza Aflakparast</a> - &#64;AmirAflak +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=andy-sweet">andrew sweet</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=andy-sweet">docs</a>)  - &#64;andy-sweet</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=aganders3">Ashley Anderson</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=aganders3">docs</a>)  - &#64;aganders3</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Chris-N-K">Christopher Nauroth-Kreß</a> - &#64;Chris-N-K</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dalthviz">Daniel Althviz Moré</a> - &#64;dalthviz</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DanGonite57">Daniel Zhang</a> - &#64;DanGonite57</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=palec87">David Paleček</a> - &#64;palec87</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=MarchisLost">David Pinto</a> - &#64;MarchisLost</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dstansby">David Stansby</a> - &#64;dstansby</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=AndrewAnnex">Dr. Andrew Annex</a> - &#64;AndrewAnnex</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> - &#64;DragaDoncila</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dalthviz">Daniel Althviz Moré</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=dalthviz">docs</a>)  - &#64;dalthviz</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DanGonite57">Daniel Zhang</a> - &#64;DanGonite57 +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=palec87">David Paleček</a> - &#64;palec87 +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=MarchisLost">David Pinto</a> - &#64;MarchisLost +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dstansby">David Stansby</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=dstansby">docs</a>)  - &#64;dstansby</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=AndrewAnnex">Dr. Andrew Annex</a> - &#64;AndrewAnnex +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">docs</a>)  - &#64;DragaDoncila</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=perlman">Eric Perlman</a> - &#64;perlman</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=GenevieveBuckley">Genevieve Buckley</a> - &#64;GenevieveBuckley</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=goanpeca">Gonzalo Peña-Castellanos</a> - &#64;goanpeca</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> - &#64;Czaki</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jaimergp">jaime rodriguez-guerra</a> - &#64;jaimergp</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jamesyan-git">James Ryan</a> - &#64;jamesyan-git</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=Czaki">docs</a>)  - &#64;Czaki</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jaimergp">jaime rodriguez-guerra</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=jaimergp">docs</a>)  - &#64;jaimergp</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jamesyan-git">James Ryan</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=jamesyan-git">docs</a>)  - &#64;jamesyan-git</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=imagejan">Jan Eglinger</a> - &#64;imagejan</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jo-mueller">Johannes Soltwedel</a> - &#64;jo-mueller</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jo-mueller">Johannes Soltwedel</a> - &#64;jo-mueller +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=JoOkuma">Jordão Bragantini</a> - &#64;JoOkuma</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=jni">docs</a>)  - &#64;jni</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jules-vanaret">Jules Vanaret</a> - &#64;jules-vanaret</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kabilar">Kabilar Gunalan</a> - &#64;kabilar</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kabilar">Kabilar Gunalan</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=kabilar">docs</a>)  - &#64;kabilar</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kcpevey">Kim Pevey</a> - &#64;kcpevey</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kne42">Kira Evans</a> - &#64;kne42</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ksofiyuk">Konstantin Sofiiuk</a> - &#64;ksofiyuk</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kephale">kyle i. s. harrington</a> - &#64;kephale</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> - &#64;brisvag</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=lucyleeow">Lucy Liu</a> - &#64;lucyleeow</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=brisvag">docs</a>)  - &#64;brisvag</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=lucyleeow">Lucy Liu</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=lucyleeow">docs</a>)  - &#64;lucyleeow</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=lukasz-migas">Lukasz Migas</a> - &#64;lukasz-migas</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Carreau">M Bussonnier</a> - &#64;Carreau</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=mstabrin">Markus Stabrin</a> - &#64;mstabrin</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=maweigert">Martin Weigert</a> - &#64;maweigert</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=melissawm">Melissa Weber Mendonça</a> - &#64;melissawm</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=melissawm">Melissa Weber Mendonça</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=melissawm">docs</a>)  - &#64;melissawm</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Nadalyn-CZI">nadalyn miller</a> - &#64;Nadalyn-CZI</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=odinsbane">odinsbane</a> - &#64;odinsbane</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=gatoniel">niklas netter</a> - &#64;gatoniel +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=odinsbane">odinsbane</a> - &#64;odinsbane +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ppwadhwa">pam wadhwa</a> - &#64;ppwadhwa</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=samcunliffe">Sam Cunliffe</a> - &#64;samcunliffe</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=stefanv">Stefan van der Walt</a> - &#64;stefanv</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=psobolewskiPhD">docs</a>)  - &#64;psobolewskiPhD</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=samcunliffe">Sam Cunliffe</a> - &#64;samcunliffe +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=seankmartin">Sean Martin</a> - &#64;seankmartin</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=stefanv">Stefan van der Walt</a> - &#64;stefanv +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - &#64;tlambert03</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=melonora">Wouter-Michiel Vierdag</a> - &#64;melonora</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=VasudhaJha">Vasudha Jha</a> - &#64;VasudhaJha +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=vreuter">Vince</a> - &#64;vreuter +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=melonora">Wouter-Michiel Vierdag</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=melonora">docs</a>)  - &#64;melonora</p></li>
 </ul>
 </section>
 <section id="reviewers-added-to-this-release-alphabetical">
-<h2>41 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>45 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=alisterburt">alister burt</a> - &#64;alisterburt</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=andy-sweet">andrew sweet</a> - &#64;andy-sweet</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=aganders3">Ashley Anderson</a> - &#64;aganders3</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dalthviz">Daniel Althviz Moré</a> - &#64;dalthviz</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=palec87">David Paleček</a> - &#64;palec87</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dstansby">David Stansby</a> - &#64;dstansby</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=AndrewAnnex">Dr. Andrew Annex</a> - &#64;AndrewAnnex</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> - &#64;DragaDoncila</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=alisterburt">alister burt</a> - &#64;alisterburt</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=andy-sweet">andrew sweet</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=andy-sweet">docs</a>)  - &#64;andy-sweet</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=aganders3">Ashley Anderson</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=aganders3">docs</a>)  - &#64;aganders3</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dalthviz">Daniel Althviz Moré</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=dalthviz">docs</a>)  - &#64;dalthviz</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=palec87">David Paleček</a> - &#64;palec87 +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dstansby">David Stansby</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=dstansby">docs</a>)  - &#64;dstansby</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=AndrewAnnex">Dr. Andrew Annex</a> - &#64;AndrewAnnex +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">docs</a>)  - &#64;DragaDoncila</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=perlman">Eric Perlman</a> - &#64;perlman</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=pganes">Ganes Pandey</a> - &#64;pganes</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=pganes">Ganes Pandey</a> - &#64;pganes</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=GenevieveBuckley">Genevieve Buckley</a> - &#64;GenevieveBuckley</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=goanpeca">Gonzalo Peña-Castellanos</a> - &#64;goanpeca</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> - &#64;Czaki</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jaimergp">jaime rodriguez-guerra</a> - &#64;jaimergp</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jamesyan-git">James Ryan</a> - &#64;jamesyan-git</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jo-mueller">Johannes Soltwedel</a> - &#64;jo-mueller</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=Czaki">docs</a>)  - &#64;Czaki</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jaimergp">jaime rodriguez-guerra</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=jaimergp">docs</a>)  - &#64;jaimergp</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jamesyan-git">James Ryan</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=jamesyan-git">docs</a>)  - &#64;jamesyan-git</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jo-mueller">Johannes Soltwedel</a> - &#64;jo-mueller +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=JoOkuma">Jordão Bragantini</a> - &#64;JoOkuma</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=jni">docs</a>)  - &#64;jni</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jules-vanaret">Jules Vanaret</a> - &#64;jules-vanaret</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kabilar">Kabilar Gunalan</a> - &#64;kabilar</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kandarpksk">Kandarp Khandwala</a> - &#64;kandarpksk</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kevinyamauchi">Kevin Yamauchi</a> - &#64;kevinyamauchi</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kabilar">Kabilar Gunalan</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=kabilar">docs</a>)  - &#64;kabilar</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=kandarpksk">Kandarp Khandwala</a> - &#64;kandarpksk</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=kevinyamauchi">Kevin Yamauchi</a> - &#64;kevinyamauchi</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kcpevey">Kim Pevey</a> - &#64;kcpevey</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kne42">Kira Evans</a> - &#64;kne42</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ksofiyuk">Konstantin Sofiiuk</a> - &#64;ksofiyuk</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kephale">kyle i. s. harrington</a> - &#64;kephale</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> - &#64;brisvag</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=lucyleeow">Lucy Liu</a> - &#64;lucyleeow</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=brisvag">docs</a>)  - &#64;brisvag</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=lucyleeow">Lucy Liu</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=lucyleeow">docs</a>)  - &#64;lucyleeow</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Carreau">M Bussonnier</a> - &#64;Carreau</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=mstabrin">Markus Stabrin</a> - &#64;mstabrin</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=maweigert">Martin Weigert</a> - &#64;maweigert</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=melissawm">Melissa Weber Mendonça</a> - &#64;melissawm</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=nclack">Nathan Clack</a> - &#64;nclack</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=sofroniewn">Nicholas Sofroniew</a> - &#64;sofroniewn</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=odinsbane">odinsbane</a> - &#64;odinsbane</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=melissawm">Melissa Weber Mendonça</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=melissawm">docs</a>)  - &#64;melissawm</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Nadalyn-CZI">nadalyn miller</a> - &#64;Nadalyn-CZI</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=nclack">Nathan Clack</a> - &#64;nclack</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=sofroniewn">Nicholas Sofroniew</a> - &#64;sofroniewn</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=gatoniel">niklas netter</a> - &#64;gatoniel +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=odinsbane">odinsbane</a> - &#64;odinsbane +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ppwadhwa">pam wadhwa</a> - &#64;ppwadhwa</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=stefanv">Stefan van der Walt</a> - &#64;stefanv</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=psobolewskiPhD">docs</a>)  - &#64;psobolewskiPhD</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=seankmartin">Sean Martin</a> - &#64;seankmartin</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=stefanv">Stefan van der Walt</a> - &#64;stefanv +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - &#64;tlambert03</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=melonora">Wouter-Michiel Vierdag</a> - &#64;melonora</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=liu-ziyang">Ziyang Liu</a> - &#64;liu-ziyang</p></li>
-</ul>
-</section>
-<section id="docs-authors-added-to-this-release-alphabetical">
-<h2>18 docs authors added to this release (alphabetical)<a class="headerlink" href="#docs-authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=andy-sweet">andrew sweet</a> - &#64;andy-sweet</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=aganders3">Ashley Anderson</a> - &#64;aganders3</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=dalthviz">Daniel Althviz Moré</a> - &#64;dalthviz</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=dstansby">David Stansby</a> - &#64;dstansby</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">Draga Doncila Pop</a> - &#64;DragaDoncila</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=Czaki">Grzegorz Bokota</a> - &#64;Czaki</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=jaimergp">jaime rodriguez-guerra</a> - &#64;jaimergp</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=jamesyan-git">James Ryan</a> - &#64;jamesyan-git</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=kabilar">Kabilar Gunalan</a> - &#64;kabilar</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=brisvag">Lorenzo Gaifas</a> - &#64;brisvag</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=lucyleeow">Lucy Liu</a> - &#64;lucyleeow</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=melissawm">Melissa Weber Mendonça</a> - &#64;melissawm</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=gatoniel">niklas netter</a> - &#64;gatoniel</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=seankmartin">Sean Martin</a> - &#64;seankmartin</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=vreuter">Vince</a> - &#64;vreuter</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=melonora">Wouter-Michiel Vierdag</a> - &#64;melonora</p></li>
-</ul>
-</section>
-<section id="docs-reviewers-added-to-this-release-alphabetical">
-<h2>19 docs reviewers added to this release (alphabetical)<a class="headerlink" href="#docs-reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=alisterburt">alister burt</a> - &#64;alisterburt</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=andy-sweet">andrew sweet</a> - &#64;andy-sweet</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=aganders3">Ashley Anderson</a> - &#64;aganders3</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=dalthviz">Daniel Althviz Moré</a> - &#64;dalthviz</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">Draga Doncila Pop</a> - &#64;DragaDoncila</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=GenevieveBuckley">Genevieve Buckley</a> - &#64;GenevieveBuckley</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=Czaki">Grzegorz Bokota</a> - &#64;Czaki</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=kevinyamauchi">Kevin Yamauchi</a> - &#64;kevinyamauchi</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=kephale">kyle i. s. harrington</a> - &#64;kephale</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=brisvag">Lorenzo Gaifas</a> - &#64;brisvag</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=lucyleeow">Lucy Liu</a> - &#64;lucyleeow</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=melissawm">Melissa Weber Mendonça</a> - &#64;melissawm</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=Nadalyn-CZI">nadalyn miller</a> - &#64;Nadalyn-CZI</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=gatoniel">niklas netter</a> - &#64;gatoniel</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=seankmartin">Sean Martin</a> - &#64;seankmartin</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=vreuter">Vince</a> - &#64;vreuter</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=melonora">Wouter-Michiel Vierdag</a> - &#64;melonora</p></li>
-</ul>
-</section>
-<section id="new-contributors">
-<h2>New Contributors<a class="headerlink" href="#new-contributors" title="Link to this heading">#</a></h2>
-<p>There are 11 new contributors for this release:</p>
-<ul class="simple">
-<li><p>Amirreza Aflakparast <a class="reference external" href="https://github.com/napari/napari/commits?author=AmirAflak">napari</a> - &#64;AmirAflak</p></li>
-<li><p>Daniel Zhang <a class="reference external" href="https://github.com/napari/napari/commits?author=DanGonite57">napari</a> - &#64;DanGonite57</p></li>
-<li><p>David Paleček <a class="reference external" href="https://github.com/napari/napari/commits?author=palec87">napari</a> - &#64;palec87</p></li>
-<li><p>David Pinto <a class="reference external" href="https://github.com/napari/napari/commits?author=MarchisLost">napari</a> - &#64;MarchisLost</p></li>
-<li><p>Dr. Andrew Annex <a class="reference external" href="https://github.com/napari/napari/commits?author=AndrewAnnex">napari</a> - &#64;AndrewAnnex</p></li>
-<li><p>Johannes Soltwedel <a class="reference external" href="https://github.com/napari/napari/commits?author=jo-mueller">napari</a> - &#64;jo-mueller</p></li>
-<li><p>niklas netter <a class="reference external" href="https://github.com/napari/docs/commits?author=gatoniel">docs</a> - &#64;gatoniel</p></li>
-<li><p>odinsbane <a class="reference external" href="https://github.com/napari/napari/commits?author=odinsbane">napari</a> - &#64;odinsbane</p></li>
-<li><p>Sam Cunliffe <a class="reference external" href="https://github.com/napari/napari/commits?author=samcunliffe">napari</a> - &#64;samcunliffe</p></li>
-<li><p>Stefan van der Walt <a class="reference external" href="https://github.com/napari/napari/commits?author=stefanv">napari</a> - &#64;stefanv</p></li>
-<li><p>Vince <a class="reference external" href="https://github.com/napari/docs/commits?author=vreuter">docs</a> - &#64;vreuter</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=vreuter">Vince</a> - &#64;vreuter +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=melonora">Wouter-Michiel Vierdag</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=melonora">docs</a>)  - &#64;melonora</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=liu-ziyang">Ziyang Liu</a> - &#64;liu-ziyang</p></li>
 </ul>
 </section>
 </section>
@@ -1593,11 +1593,8 @@ Over 20 new features in all and over 100 bug fixes and improvements!</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-tools">Build Tools</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-pull-requests">Other Pull Requests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">43 authors added to this release (alphabetical)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">41 reviewers added to this release (alphabetical)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docs-authors-added-to-this-release-alphabetical">18 docs authors added to this release (alphabetical)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docs-reviewers-added-to-this-release-alphabetical">19 docs reviewers added to this release (alphabetical)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-contributors">New Contributors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">47 authors added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">45 reviewers added to this release (alphabetical)</a></li>
 </ul>
   </nav></div>
 

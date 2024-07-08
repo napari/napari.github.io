@@ -35,6 +35,9 @@ napari.window.Window
       ~Window.close
    
    
+      ~Window.export_figure
+   
+   
       ~Window.geometry
    
    

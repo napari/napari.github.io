@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../_static/documentation_options.js?v=c7937fbe"></script>
+    <script src="../../_static/documentation_options.js?v=06d75d99"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -53,7 +53,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.3';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5.0a8';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -491,6 +491,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">weakref</span> <span class="kn">import</span> <span class="n">WeakSet</span>
 
 <span class="kn">import</span> <span class="nn">magicgui</span> <span class="k">as</span> <span class="nn">mgui</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">napari.components.viewer_model</span> <span class="kn">import</span> <span class="n">ViewerModel</span>
 <span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">_magicgui</span>
@@ -581,33 +582,89 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="Viewer.export_figure">
+<a class="viewcode-back" href="../../api/napari.Viewer.html#napari.Viewer.export_figure">[docs]</a>
+    <span class="k">def</span> <span class="nf">export_figure</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">scale_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">flash</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Export an image of the full extent of the displayed layer data.</span>
+
+<span class="sd">        This function finds a tight boundary around the data, resets the view</span>
+<span class="sd">        around that boundary, takes a screenshot for which each pixel is equal</span>
+<span class="sd">        to the pixel resolution of the data, then restores the previous zoom</span>
+<span class="sd">        and canvas sizes.</span>
+
+<span class="sd">        The pixel resolution can be upscaled or downscaled by the given</span>
+<span class="sd">        `scale_factor`. For example, an image with 800 x 600 pixels with</span>
+<span class="sd">        scale_factor 1 will be saved as 800 x 600, or 1200 x 900 with</span>
+<span class="sd">        scale_factor 1.5.</span>
+
+<span class="sd">        For anisotropic images, the resolution is set by the highest-resolution</span>
+<span class="sd">        dimension. For an anisotropic 800 x 600 image with scale set to</span>
+<span class="sd">        [0.25, 0.5], the screenshot will be 800 x 1200, or 1200 x 1800 with a</span>
+<span class="sd">        scale_factor of 1.5.</span>
+
+<span class="sd">        Upscaling will be done using the interpolation mode set on each layer.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        path : str, optional</span>
+<span class="sd">            Filename for saving screenshot image.</span>
+<span class="sd">        scale_factor : float</span>
+<span class="sd">            By default, the zoom will export approximately 1 pixel per</span>
+<span class="sd">            smallest-scale pixel on the viewer. For example, if a layer has</span>
+<span class="sd">            scale 0.004nm/pixel and another has scale 1µm/pixel, the exported</span>
+<span class="sd">            figure will have 0.004nm/pixel. Upscaling by 2 will produce a</span>
+<span class="sd">            figure with 0.002nm/pixel through the interpolation mode set on</span>
+<span class="sd">            each layer.</span>
+<span class="sd">        flash : bool</span>
+<span class="sd">            Flag to indicate whether flash animation should be shown after</span>
+<span class="sd">            the screenshot was captured. By default, True.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        image : array</span>
+<span class="sd">            Numpy array of type ubyte and shape (h, w, 4). Index [0, 0] is the</span>
+<span class="sd">            upper-left corner of the rendered region.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">export_figure</span><span class="p">(</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+            <span class="n">scale</span><span class="o">=</span><span class="n">scale_factor</span><span class="p">,</span>
+            <span class="n">flash</span><span class="o">=</span><span class="n">flash</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="Viewer.screenshot">
 <a class="viewcode-back" href="../../api/napari.Viewer.html#napari.Viewer.screenshot">[docs]</a>
     <span class="k">def</span> <span class="nf">screenshot</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">canvas_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">canvas_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">flash</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Take currently displayed screen and convert to an image array.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        path : str</span>
+<span class="sd">        path : str, optional</span>
 <span class="sd">            Filename for saving screenshot image.</span>
-<span class="sd">        size : tuple (int, int)</span>
-<span class="sd">            Size (resolution height x width) of the screenshot. By default, the currently displayed size.</span>
-<span class="sd">            Only used if `canvas_only` is True.</span>
-<span class="sd">        scale : float</span>
-<span class="sd">            Scale factor used to increase resolution of canvas for the screenshot. By default, the currently displayed resolution.</span>
-<span class="sd">            Only used if `canvas_only` is True.</span>
+<span class="sd">        size : tuple of two ints, optional</span>
+<span class="sd">            Size (resolution height x width) of the screenshot. By default, the currently</span>
+<span class="sd">            displayed size. Only used if `canvas_only` is True.</span>
+<span class="sd">        scale : float, optional</span>
+<span class="sd">            Scale factor used to increase resolution of canvas for the screenshot.</span>
+<span class="sd">            By default, the currently displayed resolution.Only used if `canvas_only` is</span>
+<span class="sd">            True.</span>
 <span class="sd">        canvas_only : bool</span>
-<span class="sd">            If True, screenshot shows only the image display canvas, and</span>
-<span class="sd">            if False include the napari viewer frame in the screenshot,</span>
-<span class="sd">            By default, True.</span>
+<span class="sd">            If True, screenshot shows only the image display canvas, and if False include</span>
+<span class="sd">            the napari viewer frame in the screenshot, By default, True.</span>
 <span class="sd">        flash : bool</span>
 <span class="sd">            Flag to indicate whether flash animation should be shown after</span>
 <span class="sd">            the screenshot was captured.</span>

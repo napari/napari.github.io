@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../_static/documentation_options.js?v=c7937fbe"></script>
+    <script src="../_static/documentation_options.js?v=06d75d99"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -56,7 +56,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.3';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5.0a8';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -694,22 +694,25 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.window.Window.close" title="napari.window.Window.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>()</p></td>
 <td><p>Close the viewer window and cleanup sub-widgets.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.window.Window.geometry" title="napari.window.Window.geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geometry</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.window.Window.export_figure" title="napari.window.Window.export_figure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_figure</span></code></a>([path, scale, flash])</p></td>
+<td><p>Export an image of the full extent of the displayed layer data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.window.Window.geometry" title="napari.window.Window.geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geometry</span></code></a>()</p></td>
 <td><p>Get the geometry of the widget</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.window.Window.remove_dock_widget" title="napari.window.Window.remove_dock_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_dock_widget</span></code></a>(widget[, menu])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.window.Window.remove_dock_widget" title="napari.window.Window.remove_dock_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_dock_widget</span></code></a>(widget[, menu])</p></td>
 <td><p>Removes specified dock widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.window.Window.resize" title="napari.window.Window.resize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resize</span></code></a>(width, height)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.window.Window.resize" title="napari.window.Window.resize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resize</span></code></a>(width, height)</p></td>
 <td><p>Resize the window.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.window.Window.screenshot" title="napari.window.Window.screenshot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">screenshot</span></code></a>([path, size, scale, flash, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.window.Window.screenshot" title="napari.window.Window.screenshot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">screenshot</span></code></a>([path, size, scale, flash, ...])</p></td>
 <td><p>Take currently displayed viewer and convert to an image array.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.window.Window.set_geometry" title="napari.window.Window.set_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_geometry</span></code></a>(left, top, width, height)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.window.Window.set_geometry" title="napari.window.Window.set_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_geometry</span></code></a>(left, top, width, height)</p></td>
 <td><p>Set the geometry of the widget</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.window.Window.show" title="napari.window.Window.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show</span></code></a>(*[, block])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.window.Window.show" title="napari.window.Window.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show</span></code></a>(*[, block])</p></td>
 <td><p>Resize, show, and bring forward the window.</p></td>
 </tr>
 </tbody>
@@ -845,6 +848,36 @@ By default, True.</p></li>
 <dt class="sig sig-object py" id="napari.window.Window.close">
 <span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_main_window.html#Window.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.window.Window.close" title="Link to this definition">#</a></dt>
 <dd><p>Close the viewer window and cleanup sub-widgets.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="napari.window.Window.export_figure">
+<span class="sig-name descname"><span class="pre">export_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.0)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="../_modules/napari/_qt/qt_main_window.html#Window.export_figure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.window.Window.export_figure" title="Link to this definition">#</a></dt>
+<dd><p>Export an image of the full extent of the displayed layer data.</p>
+<p>This function finds a tight boundary around the data, resets the view
+around that boundary (and, when scale=1, such that 1 captured pixel is
+equivalent to one data pixel), takes a screenshot, then restores the
+previous zoom and canvas sizes. Currently, only works when 2 dimensions
+are displayed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Filename for saving screenshot image.</p></li>
+<li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Scale factor used to increase resolution of canvas for the
+screenshot. By default, a scale of 1.</p></li>
+<li><p><strong>flash</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Flag to indicate whether flash animation should be shown after
+the screenshot was captured.
+By default, True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>image</strong> – Numpy array of type ubyte and shape (h, w, 4). Index [0, 0] is the
+upper-left corner of the rendered region.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1015,6 +1048,7 @@ upper-left corner of the rendered region.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.window.Window.add_plugin_dock_widget"><code class="docutils literal notranslate"><span class="pre">Window.add_plugin_dock_widget()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.window.Window.clipboard"><code class="docutils literal notranslate"><span class="pre">Window.clipboard()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.window.Window.close"><code class="docutils literal notranslate"><span class="pre">Window.close()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.window.Window.export_figure"><code class="docutils literal notranslate"><span class="pre">Window.export_figure()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.window.Window.geometry"><code class="docutils literal notranslate"><span class="pre">Window.geometry()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.window.Window.remove_dock_widget"><code class="docutils literal notranslate"><span class="pre">Window.remove_dock_widget()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.window.Window.resize"><code class="docutils literal notranslate"><span class="pre">Window.resize()</span></code></a></li>

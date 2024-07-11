@@ -619,12 +619,11 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="napari-0-5-0">
 <h1>napari 0.5.0<a class="headerlink" href="#napari-0-5-0" title="Link to this heading">#</a></h1>
-<p>⚠️ <em>Note: these release notes are still in draft while 0.5.0 is in alpha/release
-candidate testing.</em> ⚠️</p>
+<p><em>Thursday, Jul 11, 2024</em></p>
 <p>We’re happy to announce the release of napari 0.5.0!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
 It’s designed for exploring, annotating, and analyzing multi-dimensional
-images. It’s built on top of Qt (for the GUI), VisPy (for performant GPU-based
+images. It’s built on Qt (for the GUI), VisPy (for performant GPU-based
 rendering), and the scientific Python stack (NumPy, SciPy, and friends).</p>
 <p>For more information, examples, and documentation, please visit our website:
 https://napari.org/</p>
@@ -663,7 +662,7 @@ a new way to export figure-quality renderings from the canvas
 and the ability to copy and paste spatial metadata (scale, translate, etc)
 between layers (<a class="reference external" href="https://github.com/napari/napari/pull/6864">#6864</a>).</p>
 <p>You’ll also note a new little button on layer controls, including images:</p>
-<a class="reference internal image-reference" href="../_images/transform-icon.svg"><img alt="transform layer icon" class="align-center" src="../_images/transform-icon.svg" width="150px" /></a>
+<a class="reference internal image-reference" href="../_images/transform-icon.svg"><img alt="transform layer icon" class="align-center" src="../_images/transform-icon.svg" width="100px" /></a>
 <p>This little button allows you to resize and rotate layers, enabling manual
 alignment (<a class="reference external" href="https://github.com/napari/napari/pull/6794">#6794</a>)!</p>
 <p>All in all, this release has over 20 new features and over 100 bug fixes and
@@ -839,6 +838,7 @@ improvements. Please see below for the full list of changes since 0.4.19.</p>
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">dev</span></code> links for pre-release (<a class="reference external" href="https://github.com/napari/napari/pull/7031">#7031</a>)</p></li>
 <li><p>Fix numpy dtype check in guess_continuous (<a class="reference external" href="https://github.com/napari/napari/pull/7041">#7041</a>)</p></li>
 <li><p>[Shapes] for line tool, have _fixed_aspect (shift) enable 45 degree rotations if shift held first. (<a class="reference external" href="https://github.com/napari/napari/pull/7043">#7043</a>)</p></li>
+<li><p>Bump the settings schema version (<a class="reference external" href="https://github.com/napari/napari/pull/7053">#7053</a>)</p></li>
 <li><p>Provide default colors automatically in DirectLabelsColormap (<a class="reference external" href="https://github.com/napari/napari/pull/7061">#7061</a>)</p></li>
 <li><p>Ensure out-of-bounds layers are loaded (<a class="reference external" href="https://github.com/napari/napari/pull/7077">#7077</a>)</p></li>
 </ul>
@@ -963,6 +963,7 @@ improvements. Please see below for the full list of changes since 0.4.19.</p>
 <li><p>Add/improve documentation about napari’s software architecture (<a class="reference external" href="https://github.com/napari/docs/pull/304">docs#304</a>)</p></li>
 <li><p>Replace references to ‘edge’ attributes with ‘border’ in Points docs (<a class="reference external" href="https://github.com/napari/docs/pull/306">docs#306</a>)</p></li>
 <li><p>Add documentation for <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">from</span> <span class="pre">clipboard</span></code> feature (<a class="reference external" href="https://github.com/napari/docs/pull/307">docs#307</a>)</p></li>
+<li><p>Telemetry: Add sample code for collecting data and sample outputs (<a class="reference external" href="https://github.com/napari/docs/pull/309">docs#309</a>)</p></li>
 <li><p>NAP-6: Updates after discussion and review (<a class="reference external" href="https://github.com/napari/docs/pull/312">docs#312</a>)</p></li>
 <li><p>Use tabs for the install as Python package guide (<a class="reference external" href="https://github.com/napari/docs/pull/313">docs#313</a>)</p></li>
 <li><p>Fix execution of magicgui guide (<a class="reference external" href="https://github.com/napari/docs/pull/314">docs#314</a>)</p></li>
@@ -1009,9 +1010,12 @@ improvements. Please see below for the full list of changes since 0.4.19.</p>
 <li><p>Update where app-model actions/providers/processors live in codebase  (<a class="reference external" href="https://github.com/napari/docs/pull/416">docs#416</a>)</p></li>
 <li><p>Update conda section of install docs (<a class="reference external" href="https://github.com/napari/docs/pull/417">docs#417</a>)</p></li>
 <li><p>MacOS -&gt; macOS (<a class="reference external" href="https://github.com/napari/docs/pull/418">docs#418</a>)</p></li>
+<li><p>Add basic layer modes description, including transform button (<a class="reference external" href="https://github.com/napari/docs/pull/420">docs#420</a>)</p></li>
+<li><p>Add note about unversioned pages machinery to contributing guide (<a class="reference external" href="https://github.com/napari/docs/pull/421">docs#421</a>)</p></li>
 <li><p>Update slicing/rendering docs (<a class="reference external" href="https://github.com/napari/docs/pull/424">docs#424</a>)</p></li>
 <li><p>Replace use of properties with features (<a class="reference external" href="https://github.com/napari/docs/pull/425">docs#425</a>)</p></li>
 <li><p>DOC Update finding submenu action in app-model (<a class="reference external" href="https://github.com/napari/docs/pull/426">docs#426</a>)</p></li>
+<li><p>Replace cookiecutter references with napari-plugin-template (<a class="reference external" href="https://github.com/napari/docs/pull/427">docs#427</a>)</p></li>
 <li><p>Add links to blog and napari workshop template on navbar (<a class="reference external" href="https://github.com/napari/docs/pull/429">docs#429</a>)</p></li>
 <li><p>Draft release notes for 0.5.0 (<a class="reference external" href="https://github.com/napari/docs/pull/430">docs#430</a>)</p></li>
 <li><p>DOC Link <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type annotation to providers/processors (<a class="reference external" href="https://github.com/napari/docs/pull/431">docs#431</a>)</p></li>
@@ -1020,9 +1024,17 @@ improvements. Please see below for the full list of changes since 0.4.19.</p>
 <li><p>Add warnings around draft message (<a class="reference external" href="https://github.com/napari/docs/pull/434">docs#434</a>)</p></li>
 <li><p>NAP-6: Add admonition about implementation state (<a class="reference external" href="https://github.com/napari/docs/pull/435">docs#435</a>)</p></li>
 <li><p>Fix rendering explanation broken links (<a class="reference external" href="https://github.com/napari/docs/pull/437">docs#437</a>)</p></li>
+<li><p>Update labels.md for polygon tool stopping behavior (<a class="reference external" href="https://github.com/napari/docs/pull/438">docs#438</a>)</p></li>
 <li><p>Fix rendering example code (<a class="reference external" href="https://github.com/napari/docs/pull/441">docs#441</a>)</p></li>
+<li><p>Improve NAP-7 valid key sequence section (<a class="reference external" href="https://github.com/napari/docs/pull/442">docs#442</a>)</p></li>
 <li><p>[bugfix] Update contributing/index.md fix blog note (<a class="reference external" href="https://github.com/napari/docs/pull/443">docs#443</a>)</p></li>
 <li><p>Update napari 0.5.0 release notes (<a class="reference external" href="https://github.com/napari/docs/pull/444">docs#444</a>)</p></li>
+<li><p>Fix version match for version switcher (<a class="reference external" href="https://github.com/napari/docs/pull/445">docs#445</a>)</p></li>
+<li><p>Add preferred option to version_switcher.json (<a class="reference external" href="https://github.com/napari/docs/pull/446">docs#446</a>)</p></li>
+<li><p>Update contributing documentation guide (<a class="reference external" href="https://github.com/napari/docs/pull/447">docs#447</a>)</p></li>
+<li><p>Add Zulip link to More menu on navbar (<a class="reference external" href="https://github.com/napari/docs/pull/449">docs#449</a>)</p></li>
+<li><p>Add Lucy Liu to core devs team (<a class="reference external" href="https://github.com/napari/docs/pull/450">docs#450</a>)</p></li>
+<li><p>Final update to 0.5.0 release notes (<a class="reference external" href="https://github.com/napari/docs/pull/451">docs#451</a>)</p></li>
 </ul>
 </section>
 <section id="other-pull-requests">
@@ -1462,7 +1474,7 @@ improvements. Please see below for the full list of changes since 0.4.19.</p>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=AndrewAnnex">Dr. Andrew Annex</a> - &#64;AndrewAnnex +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">docs</a>)  - &#64;DragaDoncila</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=perlman">Eric Perlman</a> - &#64;perlman</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=GenevieveBuckley">Genevieve Buckley</a> - &#64;GenevieveBuckley</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=GenevieveBuckley">Genevieve Buckley</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=GenevieveBuckley">docs</a>)  - &#64;GenevieveBuckley</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=goanpeca">Gonzalo Peña-Castellanos</a> - &#64;goanpeca</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=Czaki">docs</a>)  - &#64;Czaki</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jaimergp">jaime rodriguez-guerra</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=jaimergp">docs</a>)  - &#64;jaimergp</p></li>
@@ -1485,7 +1497,7 @@ improvements. Please see below for the full list of changes since 0.4.19.</p>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=maweigert">Martin Weigert</a> - &#64;maweigert</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=melissawm">Melissa Weber Mendonça</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=melissawm">docs</a>)  - &#64;melissawm</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Nadalyn-CZI">nadalyn miller</a> - &#64;Nadalyn-CZI</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=gatoniel">niklas netter</a> - &#64;gatoniel +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=gatoniel">niklas breitenbach-netter</a> - &#64;gatoniel +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=odinsbane">odinsbane</a> - &#64;odinsbane +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ppwadhwa">pam wadhwa</a> - &#64;ppwadhwa</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=psobolewskiPhD">docs</a>)  - &#64;psobolewskiPhD</p></li>
@@ -1512,7 +1524,7 @@ improvements. Please see below for the full list of changes since 0.4.19.</p>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">docs</a>)  - &#64;DragaDoncila</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=perlman">Eric Perlman</a> - &#64;perlman</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=pganes">Ganes Pandey</a> - &#64;pganes</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=GenevieveBuckley">Genevieve Buckley</a> - &#64;GenevieveBuckley</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=GenevieveBuckley">Genevieve Buckley</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=GenevieveBuckley">docs</a>)  - &#64;GenevieveBuckley</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=goanpeca">Gonzalo Peña-Castellanos</a> - &#64;goanpeca</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=Czaki">docs</a>)  - &#64;Czaki</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jaimergp">jaime rodriguez-guerra</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=jaimergp">docs</a>)  - &#64;jaimergp</p></li>
@@ -1537,7 +1549,7 @@ improvements. Please see below for the full list of changes since 0.4.19.</p>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Nadalyn-CZI">nadalyn miller</a> - &#64;Nadalyn-CZI</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=nclack">Nathan Clack</a> - &#64;nclack</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=sofroniewn">Nicholas Sofroniew</a> - &#64;sofroniewn</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=gatoniel">niklas netter</a> - &#64;gatoniel +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=gatoniel">niklas breitenbach-netter</a> - &#64;gatoniel +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=odinsbane">odinsbane</a> - &#64;odinsbane +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ppwadhwa">pam wadhwa</a> - &#64;ppwadhwa</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=psobolewskiPhD">docs</a>)  - &#64;psobolewskiPhD</p></li>

@@ -92,33 +92,42 @@ napari.run()
 
 ## GUI controls for the `tracks` layer
 
-* Color by - there is a dropdown for this but at present the only choice is
-  `track_id`.
-* Colormap - choose a colormap from the dropdown. These are explained in
-  [the colormaps section](./surface.md#working-with-colormaps) of
-  _Using the surface layer_.
-* Blending - choose `opaque`, `translucent`, `translucent no depth`, `minimum`
-  or `additive` from the dropdown. Refer to the
-  [Blending layers](blending-layers) section of _Layers at a glance_ for an
-  explanation of each type of blending.
-* Opacity - click and hold the circle on the opacity slider bar and adjust it to
-  any value between 0.00 (clear) and 1.00 (completely opaque).
-* Tail width - adjusting the tail width gives the track the appearance of being
-  narrower or wider. At the minimum value, the track looks like a one-pixel
-  line.
-* Tail length - adjusting the tail length gives the track the appearance of
-  being shorter or longer. At the minimum value, it looks something like a
-  dotted line, at the maximum value it almost looks like an unbroken line.
-* Head length - Adjusting the head length gives the track the appearance of
-  being longer. If it is adjusted to the maximum value, the tracks look like
-  stripes. At the minimum value, the tracks flash across the canvas and
-  disappear before starting again.
-* Tail - check this box to see the tracks. If it is not checked, you will not be
-  able to see the tracks at all.
-* Show ID - check this box to display a previously assigned `track_id` label for
-  each track. Assigning values to `track_id` is explained in
-  [Tracks data](#tracks-data) below.
-* Graph - check this box to display a previously created graph.
+* **Buttons**
+  * Pan/zoom - ![image: Pan/zoom tool](../../images/pan-zoom-tool.png) is the default
+    mode of the layer and supports panning and zooming. Press the `1` key when the
+    layer is selected to use this mode.
+  * Transform - ![image: Transform](../../images/transform-tool.png) enables you to
+    rotate, scale, or translate the layer. Note: at present this feature is limited to 2D viewer display mode. To reset the transformation, you can
+    Option/Alt-click the transform button (a confirmation dialog will open to
+    confirm the reset). Press the `2` key when the layer is selected to use this mode.
+* **Controls**
+  * Color by - there is a dropdown for this but at present the only choice is
+    `track_id`.
+  * Colormap - choose a colormap from the dropdown. These are explained in
+    [the colormaps section](./surface.md#working-with-colormaps) of
+    _Using the surface layer_.
+  * Blending - choose `opaque`, `translucent`, `translucent no depth`, `minimum`
+    or `additive` from the dropdown. Refer to the
+    [Blending layers](blending-layers) section of _Layers at a glance_ for an
+    explanation of each type of blending.
+  * Opacity - click and hold the circle on the opacity slider bar and adjust it to
+    any value between 0.00 (clear) and 1.00 (completely opaque).
+  * Tail width - adjusting the tail width gives the track the appearance of being
+    narrower or wider. At the minimum value, the track looks like a one-pixel
+    line.
+  * Tail length - adjusting the tail length gives the track the appearance of
+    being shorter or longer. At the minimum value, it looks something like a
+    dotted line, at the maximum value it almost looks like an unbroken line.
+  * Head length - Adjusting the head length gives the track the appearance of
+    being longer. If it is adjusted to the maximum value, the tracks look like
+    stripes. At the minimum value, the tracks flash across the canvas and
+    disappear before starting again.
+  * Tail - check this box to see the tracks. If it is not checked, you will not be
+    able to see the tracks at all.
+  * Show ID - check this box to display a previously assigned `track_id` label for
+    each track. Assigning values to `track_id` is explained in
+    [Tracks data](#tracks-data) below.
+  * Graph - check this box to display a previously created graph.
 
 ## Tracks data
 
@@ -212,7 +221,7 @@ other high dimensional data.
 ## Changing track width
 
 We can specify the width of the tracks in pixels. The track width can be
-specified via the `tail_width` keyword argument in the `viewer.add_tracks()` and
+specified via the `tail_width` keyword argument in the {meth}`viewer.add_tracks<napari.Viewer.add_tracks>` and
 `napari.view_tracks()` methods. From a layer that has already been constructed,
 we can set the track width via the `layer.tail_width` property.
 
@@ -245,7 +254,7 @@ Additionally, we can adjust the width of the track in the GUI using the
 We can specify the length of the tails of the tracks in time units. The tail is
 the portion of the track displayed from previous time steps. The track tail
 length can be specified via the `tail_length` keyword argument in the
-`viewer.add_tracks()` and `napari.view_tracks()` methods. From a layer that has
+{meth}`viewer.add_tracks<napari.Viewer.add_tracks>` and `napari.view_tracks()` methods. From a layer that has
 already been constructed, we can set the track width via the `tail_length`
 property.
 
@@ -278,7 +287,7 @@ length" slider in the `tracks` layer controls.
 
 We can color the tracks by mapping colors to the track features defined in
 `Tracks.features`. If we define features and pass them via the `features`
-keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()`
+keyword argument in the {meth}`viewer.add_tracks<napari.Viewer.add_tracks>` and `napari.view_tracks()`
 methods, we can then select the feature we would like to color the tracks by in
 the "color by" dropdown menu in the `tracks` layer controls. We can additionally
 specify the colormap used to map the feature value to color via the "colormap"

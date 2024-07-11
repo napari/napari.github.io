@@ -25,18 +25,37 @@ For more information about layers, refer to [Layers at a glance](../../guides/la
 
 The GUI contains following tools in the `layer controls` panel for the `image`
 layer:
-* Opacity
-* Contrast Limits
-* Auto-contrast
-* Gamma
-* Colormap
-* Blending
-* Interpolation
+
+* Buttons
+    * Pan/zoom
+    * Transform
+* Controls
+    * Opacity
+    * Contrast Limits
+    * Auto-contrast
+    * Gamma
+    * Colormap
+    * Blending
+    * Interpolation
 
 Before we can use any of the GUI `layer controls`, we must load an image.
 1. Start napari.
 2. Click `File` > `Open Sample` > `napari builtins` > `Cells (3D+2Ch)` or any
 sample image of your choice.
+
+### Buttons
+
+* `Pan/zoom` ![image: Pan/zoom tool](../../images/pan-zoom-tool.png) is the default mode
+  of the layer and supports panning and zooming. Press the `1` key when the layer is selected
+  to use this mode.
+
+* `Transform` ![image: Transform](../../images/transform-tool.png) enables you to
+  rotate, scale, or translate the layer. Note: at present this feature is limited to 2D viewer display mode.
+  To reset the transformation,
+  you can Option/Alt-click the transform button (a confirmation dialog will open to
+  confirm the reset). Press the `2` key when the layer is selected to use this mode.
+
+### Controls
 
 The GUI controls may be adjusted as follows:
 

@@ -788,6 +788,19 @@ telescope:</p>
 <section id="gui-controls-for-the-tracks-layer">
 <h2>GUI controls for the <code class="docutils literal notranslate"><span class="pre">tracks</span></code> layer<a class="headerlink" href="#gui-controls-for-the-tracks-layer" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p><strong>Buttons</strong></p>
+<ul>
+<li><p>Pan/zoom - <img alt="image: Pan/zoom tool" src="../../_images/pan-zoom-tool.png" /> is the default
+mode of the layer and supports panning and zooming. Press the <code class="docutils literal notranslate"><span class="pre">1</span></code> key when the
+layer is selected to use this mode.</p></li>
+<li><p>Transform - <img alt="image: Transform" src="../../_images/transform-tool.png" /> enables you to
+rotate, scale, or translate the layer. Note: at present this feature is limited to 2D viewer display mode. To reset the transformation, you can
+Option/Alt-click the transform button (a confirmation dialog will open to
+confirm the reset). Press the <code class="docutils literal notranslate"><span class="pre">2</span></code> key when the layer is selected to use this mode.</p></li>
+</ul>
+</li>
+<li><p><strong>Controls</strong></p>
+<ul>
 <li><p>Color by - there is a dropdown for this but at present the only choice is
 <code class="docutils literal notranslate"><span class="pre">track_id</span></code>.</p></li>
 <li><p>Colormap - choose a colormap from the dropdown. These are explained in
@@ -815,6 +828,8 @@ able to see the tracks at all.</p></li>
 each track. Assigning values to <code class="docutils literal notranslate"><span class="pre">track_id</span></code> is explained in
 <a class="reference internal" href="#tracks-data">Tracks data</a> below.</p></li>
 <li><p>Graph - check this box to display a previously created graph.</p></li>
+</ul>
+</li>
 </ul>
 </section>
 <section id="tracks-data">
@@ -932,7 +947,7 @@ other high dimensional data.</p>
 <section id="changing-track-width">
 <h2>Changing track width<a class="headerlink" href="#changing-track-width" title="Link to this heading">#</a></h2>
 <p>We can specify the width of the tracks in pixels. The track width can be
-specified via the <code class="docutils literal notranslate"><span class="pre">tail_width</span></code> keyword argument in the <code class="docutils literal notranslate"><span class="pre">viewer.add_tracks()</span></code> and
+specified via the <code class="docutils literal notranslate"><span class="pre">tail_width</span></code> keyword argument in the <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_tracks" title="napari.Viewer.add_tracks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">viewer.add_tracks</span></code></a> and
 <code class="docutils literal notranslate"><span class="pre">napari.view_tracks()</span></code> methods. From a layer that has already been constructed,
 we can set the track width via the <code class="docutils literal notranslate"><span class="pre">layer.tail_width</span></code> property.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a tracks layer with a tail width of 5 pixels</span>
@@ -959,7 +974,7 @@ we can set the track width via the <code class="docutils literal notranslate"><s
 <p>We can specify the length of the tails of the tracks in time units. The tail is
 the portion of the track displayed from previous time steps. The track tail
 length can be specified via the <code class="docutils literal notranslate"><span class="pre">tail_length</span></code> keyword argument in the
-<code class="docutils literal notranslate"><span class="pre">viewer.add_tracks()</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.view_tracks()</span></code> methods. From a layer that has
+<a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_tracks" title="napari.Viewer.add_tracks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">viewer.add_tracks</span></code></a> and <code class="docutils literal notranslate"><span class="pre">napari.view_tracks()</span></code> methods. From a layer that has
 already been constructed, we can set the track width via the <code class="docutils literal notranslate"><span class="pre">tail_length</span></code>
 property.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a tracks layer with a tail length of 5 time units</span>
@@ -986,7 +1001,7 @@ length” slider in the <code class="docutils literal notranslate"><span class="
 <h2>Setting the track color with features<a class="headerlink" href="#setting-the-track-color-with-features" title="Link to this heading">#</a></h2>
 <p>We can color the tracks by mapping colors to the track features defined in
 <code class="docutils literal notranslate"><span class="pre">Tracks.features</span></code>. If we define features and pass them via the <code class="docutils literal notranslate"><span class="pre">features</span></code>
-keyword argument in the <code class="docutils literal notranslate"><span class="pre">viewer.add_tracks()</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.view_tracks()</span></code>
+keyword argument in the <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_tracks" title="napari.Viewer.add_tracks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">viewer.add_tracks</span></code></a> and <code class="docutils literal notranslate"><span class="pre">napari.view_tracks()</span></code>
 methods, we can then select the feature we would like to color the tracks by in
 the “color by” dropdown menu in the <code class="docutils literal notranslate"><span class="pre">tracks</span></code> layer controls. We can additionally
 specify the colormap used to map the feature value to color via the “colormap”

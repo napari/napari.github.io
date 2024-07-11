@@ -85,29 +85,38 @@ Before you can use the GUI to manipulate vectors, you must load a vector layer.
 Please refer to [A simple example](#a-simple-example) to add a `vectors` layer
 first, then explore the editing options the GUI provides.
 
-* Opacity - click and hold the circle on the opacity slider bar and adjust it to
-  any value between 0.00 (clear) and 1.00 (completely opaque).
-* Width - adjusting the width makes the vectors appear thicker or thinner. Use
-  the + and - buttons on either side of the width bar to adjust width or click
-  on the number in the middle of the bar and enter a value. The minimum value is
-  0.10.
-* Length - adjusting the length makes the vector longer or shorter. Use the +
-  and - buttons on either side of the length bar to adjust length or click on
-  the number in the middle of the bar and enter a value. The minimum value is
-  0.10.
-* Blending - `blending` has the options of `opaque`, `translucent`,
-  `translucent no depth`, `minimum`, or `additive` in the dropdown. Refer to the
-  [Blending layers](blending-layers) section of _Layers at a glance_ for an
-  explanation of each type of blending.
-* Edge color mode - select `direct`, `cycle`, or `colormap` from the dropdown.
-  * Direct (default mode) allows each vector to be set arbitrarily.
-  * Cycle allows the color to be set via a color cycle over an attribute.
-  * Colormap allows the color to be set via a color map over an attribute.
-* Edge color - click the thumbnail next to `edge color:` to select or create a
-  color from the pallette.
-* Out of slice - if this box is checked, `out of slice` is on or true. If this
-  box is not checked, `out of slice` is off or false. If it is on or true,
-  vectors slightly out of slice are rendered.
+* **Buttons**
+  * Pan/zoom - ![image: Pan/zoom tool](../../images/pan-zoom-tool.png) is the default
+    mode of the layer and supports panning and zooming. Press the `1` key when the
+    layer is selected to use this mode.
+  * Transform - ![image: Transform](../../images/transform-tool.png) enables you to
+    rotate, scale, or translate the layer. Note: at present this feature is limited to 2D viewer display mode. To reset the transformation, you can
+    Option/Alt-click the transform button (a confirmation dialog will open to
+    confirm the reset). Press the `2` key when the layer is selected to use this mode.
+* **Controls**
+  * Opacity - click and hold the circle on the opacity slider bar and adjust it to
+    any value between 0.00 (clear) and 1.00 (completely opaque).
+  * Width - adjusting the width makes the vectors appear thicker or thinner. Use
+    the + and - buttons on either side of the width bar to adjust width or click
+    on the number in the middle of the bar and enter a value. The minimum value is
+    0.10.
+  * Length - adjusting the length makes the vector longer or shorter. Use the +
+    and - buttons on either side of the length bar to adjust length or click on
+    the number in the middle of the bar and enter a value. The minimum value is
+    0.10.
+  * Blending - `blending` has the options of `opaque`, `translucent`,
+    `translucent no depth`, `minimum`, or `additive` in the dropdown. Refer to the
+    [Blending layers](blending-layers) section of _Layers at a glance_ for an
+    explanation of each type of blending.
+  * Edge color mode - select `direct`, `cycle`, or `colormap` from the dropdown.
+    * Direct (default mode) allows each vector to be set arbitrarily.
+    * Cycle allows the color to be set via a color cycle over an attribute.
+    * Colormap allows the color to be set via a color map over an attribute.
+  * Edge color - click the thumbnail next to `edge color:` to select or create a
+    color from the pallette.
+  * Out of slice - if this box is checked, `out of slice` is on or true. If this
+    box is not checked, `out of slice` is off or false. If it is on or true,
+    vectors slightly out of slice are rendered.
 
 ### Vector starting position  
 
@@ -158,8 +167,6 @@ Scale the length of all the vectors on a layer using the `layer.length` property
 Set the width of all the vectors in a layer using the `layer.width` property.
 
 Set the color of all the vectors in a layer using the `layer.edge_color` property.
-
-Pan and zoom are not available on the vectors layer.
 
 ## Vectors data
 

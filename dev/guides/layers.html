@@ -737,6 +737,29 @@ currently supported by napari, check out the
 <a class="reference internal" href="../howtos/layers/index.html#using-layers"><span class="std std-ref">Using layers how-to guides</span></a>. For a gentle
 introduction, check out the
 <a class="reference internal" href="../tutorials/fundamentals/viewer.html#layer-list"><span class="std std-ref">Layer list section in the napari viewer tutorial</span></a>.</p>
+<section id="layer-mode">
+<span id="id1"></span><h2>Layer mode<a class="headerlink" href="#layer-mode" title="Link to this heading">#</a></h2>
+<p>All our layers support a <code class="docutils literal notranslate"><span class="pre">mode</span></code> property that changes the way you interact
+with the layer from the viewer. These modes are accessible via the layer controls
+widget top buttons and via keyboard shortcuts (these shortcuts will vary depending on the layer type). Currently, there are two base modes:</p>
+<ul class="simple">
+<li><p>Pan and zoom
+<img alt="image: Pan/zoom" src="../_images/pan-zoom-tool.png" /></p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">pan_zoom</span></code> mode allows you to pan around and zoom in/out the layer. It’s
+the default mode selected. Note: zooming with the mouse-wheel should essentially always work!</p>
+<ul class="simple">
+<li><p>Transform
+<img alt="image: Transform" src="../_images/transform-tool.png" /></p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">transform</span></code> mode allows you to translate, rotate, and scale the layer
+graphically. Note: While you can transform 3D layers, at present this mode is only usable in 2D viewer display mode.
+To reset the transformation, you can Option/Alt-click the transform
+button over the layer controls (a confirmation dialog will open to confirm
+the reset).</p>
+<p>For a more detailed description of layer modes available check each
+<a class="reference internal" href="../howtos/layers/index.html#using-layers"><span class="std std-ref">layer how-to guide</span></a>.</p>
+</section>
 <section id="layer-visibility">
 <h2>Layer visibility<a class="headerlink" href="#layer-visibility" title="Link to this heading">#</a></h2>
 <p>All our layers support a visibility toggle that allows you to set the <code class="docutils literal notranslate"><span class="pre">visible</span></code>
@@ -748,7 +771,7 @@ button. Note that you can Option/Alt-click on the <code class="docutils literal 
 will be restored.</p>
 </section>
 <section id="layer-opacity">
-<span id="id1"></span><h2>Layer opacity<a class="headerlink" href="#layer-opacity" title="Link to this heading">#</a></h2>
+<span id="id2"></span><h2>Layer opacity<a class="headerlink" href="#layer-opacity" title="Link to this heading">#</a></h2>
 <p>All our layers support an opacity slider and <code class="docutils literal notranslate"><span class="pre">opacity</span></code> property that allow you
 to adjust the layer opacity between 0, fully invisible and 1, fully visible.</p>
 <div class="admonition note">
@@ -767,7 +790,7 @@ globally to all the vectors in the layer.</p></li>
 </div>
 </section>
 <section id="blending-layers">
-<span id="id2"></span><h2>Blending layers<a class="headerlink" href="#blending-layers" title="Link to this heading">#</a></h2>
+<span id="id3"></span><h2>Blending layers<a class="headerlink" href="#blending-layers" title="Link to this heading">#</a></h2>
 <p>All our layers support a number of different blending modes. These modes
 determine how the visuals for this layer get mixed with the visuals from the
 other layers.</p>
@@ -814,7 +837,7 @@ leads to a memory error.</p>
 </div>
 </section>
 <section id="layer-interpolation">
-<span id="id3"></span><h2>Layer interpolation<a class="headerlink" href="#layer-interpolation" title="Link to this heading">#</a></h2>
+<span id="id4"></span><h2>Layer interpolation<a class="headerlink" href="#layer-interpolation" title="Link to this heading">#</a></h2>
 <p>We support a variety of interpolation modes when viewing 2D slices. In the
 default mode <code class="docutils literal notranslate"><span class="pre">nearest</span></code> each pixel is represented as a small square of specified
 size. As you zoom in you will eventually see each pixel. In other modes
@@ -925,6 +948,7 @@ can use to store an arbitrary metadata dictionary on the layer.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-mode">Layer mode</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-visibility">Layer visibility</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-opacity">Layer opacity</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blending-layers">Blending layers</a></li>

@@ -54,6 +54,12 @@ through several CI workflows detailed below.
       `gh-pages` branch. Auto-deploys to `gh-pages` on every commit (which in
       turn happens on every commit to the `main` branches of either
       `napari/napari` or `napari/docs`).
+    - For every commit to the `gh-pages` branch of this repo, the
+      [`unversioned_pages.yml` action](https://github.com/napari/napari.github.io/blob/main/.github/workflows/unversioned_pages.yml)
+      is triggered and copies the latest contents of the index page and the dev
+      folder over the "stable" version of the documentation. This ensures that
+      both the landing page of the website and the developer documentation,
+      including the contributing guide, are always up to date.
 
 ## Notes
 

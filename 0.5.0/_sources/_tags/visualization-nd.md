@@ -1,3 +1,4 @@
+(sphx_tag_visualization-nd)=
 # My tags: visualization-nD
 
 ```{toctree}

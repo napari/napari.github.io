@@ -1,3 +1,4 @@
+(sphx_tag_visualization-basic)=
 # My tags: visualization-basic
 
 ```{toctree}

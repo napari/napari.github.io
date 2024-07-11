@@ -1,3 +1,4 @@
+(sphx_tag_analysis)=
 # My tags: analysis
 
 ```{toctree}

@@ -1,3 +1,4 @@
+(sphx_tag_interactivity)=
 # My tags: interactivity
 
 ```{toctree}

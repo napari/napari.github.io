@@ -1,3 +1,4 @@
+(sphx_tag_experimental)=
 # My tags: experimental
 
 ```{toctree}

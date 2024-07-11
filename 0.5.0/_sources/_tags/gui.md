@@ -1,3 +1,4 @@
+(sphx_tag_gui)=
 # My tags: gui
 
 ```{toctree}

@@ -1,3 +1,4 @@
+(sphx_tag_historical)=
 # My tags: historical
 
 ```{toctree}

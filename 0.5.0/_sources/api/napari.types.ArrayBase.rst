@@ -89,9 +89,6 @@ napari.types.ArrayBase
       ~ArrayBase.item
    
    
-      ~ArrayBase.itemset
-   
-   
       ~ArrayBase.max
    
    
@@ -101,9 +98,6 @@ napari.types.ArrayBase
       ~ArrayBase.min
    
    
-      ~ArrayBase.newbyteorder
-   
-   
       ~ArrayBase.nonzero
    
    
@@ -111,9 +105,6 @@ napari.types.ArrayBase
    
    
       ~ArrayBase.prod
-   
-   
-      ~ArrayBase.ptp
    
    
       ~ArrayBase.put
@@ -161,6 +152,9 @@ napari.types.ArrayBase
       ~ArrayBase.take
    
    
+      ~ArrayBase.to_device
+   
+   
       ~ArrayBase.tobytes
    
    
@@ -197,13 +191,18 @@ napari.types.ArrayBase
       ~ArrayBase.base
       ~ArrayBase.ctypes
       ~ArrayBase.data
+      ~ArrayBase.device
       ~ArrayBase.dtype
       ~ArrayBase.flags
       ~ArrayBase.flat
       ~ArrayBase.imag
+      ~ArrayBase.itemset
       ~ArrayBase.itemsize
+      ~ArrayBase.mT
       ~ArrayBase.nbytes
       ~ArrayBase.ndim
+      ~ArrayBase.newbyteorder
+      ~ArrayBase.ptp
       ~ArrayBase.real
       ~ArrayBase.shape
       ~ArrayBase.size

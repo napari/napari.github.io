@@ -765,7 +765,7 @@ make sure that you test all of the various ways that your code might be called.<
 <p>See <a class="reference internal" href="../testing_and_publishing/test.html#plugin-testing-tips"><span class="std std-ref">Tips for testing napari plugins</span></a>.</p>
 <section id="how-to-check-test-coverage">
 <span id="best-practices-test-coverage"></span><h3>How to check test coverage?<a class="headerlink" href="#how-to-check-test-coverage" title="Link to this heading">#</a></h3>
-<p>The <a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter
+<p>The <a class="reference external" href="https://github.com/napari/napari-plugin-template">napari plugin
 template</a> is already set
 up to report test coverage, but you can test locally as well, using
 <a class="reference external" href="https://github.com/pytest-dev/pytest-cov">pytest-cov</a></p>
@@ -779,8 +779,7 @@ lines that you <em>know</em> never need to be tested (like debugging code) you c
 <a class="reference external" href="https://coverage.readthedocs.io/en/6.4.4/excluding.html#excluding-code-from-coverage-py">exempt specific
 lines</a>
 from coverage with the comment <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">pragma:</span> <span class="pre">no</span> <span class="pre">cover</span></code></p></li>
-<li><p>In the cookiecutter, coverage tests from github actions will be uploaded to
-codecov.io</p></li>
+<li><p>In the napari plugin template, coverage tests from github actions will be uploaded to codecov.io</p></li>
 </ol>
 </section>
 </section>
@@ -856,9 +855,9 @@ and <a class="reference internal" href="../../api/napari.qt.html#napari.qt.get_s
 </section>
 <section id="do-not-package-your-tests-as-a-top-level-package">
 <h2>Do not package your tests as a top-level package<a class="headerlink" href="#do-not-package-your-tests-as-a-top-level-package" title="Link to this heading">#</a></h2>
-<p>If you are using the <a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">napari plugin cookiecutter template</a>,
+<p>If you are using the <a class="reference external" href="https://github.com/napari/napari-plugin-template">napari plugin template</a>,
 your tests are already packaged in the correct way. No further action required!</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># project structure suggested by the cookiecutter template</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># project structure suggested by the napari plugin template</span>
 src/
 <span class="w">  </span>my_package/
 <span class="w">    </span>_tests/
@@ -887,7 +886,7 @@ separate package that will be installed next to <code class="docutils literal no
 Most of the time, this is not wanted; e.g. do you want to do <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">tests</span></code>? Probably not!
 Additionally, this unwanted behavior might cause installation issues with other projects.</p>
 <p>Ideally, you could change your project structure to follow the recommended skeleton followed in
-the cookiecutter template. Howevever, if that’s unfeasible, you can fix this in the project metadata files.</p>
+the napari plugin template. Howevever, if that’s unfeasible, you can fix this in the project metadata files.</p>
 <p>You need to explicitly <em>exclude</em> the top-level <code class="docutils literal notranslate"><span class="pre">tests</span></code> directory from the packaged contents:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="c1"># pyproject.toml</span>
 <span class="p">...</span>

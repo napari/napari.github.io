@@ -4,8 +4,8 @@
 In this tutorial, we'll step through the fundamental concepts for building a
 **bare minimum** "hello napari" plugin from scratch.
 
-At the end, we'll point you to a "cookiecutter" template
-repository that helps automate the creation of new plugins, and adds a number
+At the end, we'll point you to a [napari plugin template
+repository][napari_plugin_template] that helps automate the creation of new plugins, and adds a number
 of conveniences for testing, maintaining, and deploying your plugin.
 
 ````{admonition} new plugin format!
@@ -275,10 +275,10 @@ Once napari starts, select `napari-hello: Hello World` from the
 
 % ![hello-example](../images/hello.png)
 
-## Get going quickly with cookiecutter
+## Get going quickly with the napari plugin template
 
 Now that you've learned all of the critical steps for creating a plugin,
-you can use our [cookiecutter template repository][cookiecutter]
+you can use our [napari plugin template repository][napari_plugin_template]
 to get up and running quickly with each new plugin.
 This will ask you a few questions about your new plugin, and
 autogenerate a package structure much like the one above. It additionally
@@ -286,8 +286,9 @@ includes conveniences like testing, continuous integration, version
 management, and deployment hooks.
 
 ```sh
-python -m pip install cookiecutter
-cookiecutter https://github.com/napari/cookiecutter-napari-plugin
+python -m pip install copier jinja2-time
+python -m pip install npe2
+copier copy --trust https://github.com/napari/napari-plugin-template new-plugin-name
 ```
 
 ## Next Steps
@@ -303,5 +304,5 @@ when you're ready to share your plugin, see [Testing and Publishing](plugin-test
 [miniconda]: https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html
 [python_env]: https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html#managing-python
 [editable_mode]: https://pip.pypa.io/en/stable/cli/pip_install/#editable-installs
-[cookiecutter]: https://github.com/napari/cookiecutter-napari-plugin
+[napari_plugin_template]: https://github.com/napari/napari-plugin-template
 [entry_points]: https://packaging.python.org/en/latest/specifications/entry-points/

@@ -34,7 +34,7 @@ their revision history is the historical record of the feature proposal
 The napari project has grown in scope beyond just the software living in the
 github.com/napari/napari repository. It includes several other software
 packages such as npe2 (napari plugin engine 2), superqt, and magicgui, tools
-for the community such as the cookiecutter napari plugin, a webpage, and a chat
+for the community such as the napari plugin template, a webpage, and a chat
 forum, among others.
 
 Additionally, napari sits at the center of a much broader community of users,

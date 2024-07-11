@@ -22,7 +22,7 @@ This lesson explains how to use and test a plugin's reader function, built-in fi
 The example plugin and all the tests discussed in this lesson are available in [this GitHub repository](https://github.com/DragaDoncila/plugin-tests).
 
 ## Introduction
-In this lesson, we discuss a napari plugin called [plugin_tests](https://github.com/DragaDoncila/plugin-tests/tree/main/src/plugin_tests), generated using the [cookiecutter](https://github.com/napari/cookiecutter-napari-plugin), which has a reader and a widget. The reader is the cookiecutter [NumPy `.npy` file](https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html#npy-format) reader, `napari_get_reader`. It checks whether a path ends in `.npy`. If it doesn't, it returns `None`, and if it does, it returns the `reader_function`, which loads the data.
+In this lesson, we discuss a napari plugin called [plugin_tests](https://github.com/DragaDoncila/plugin-tests/tree/main/src/plugin_tests), generated using the [napari plugin template](https://github.com/napari/napari-plugin-template), which has a reader and a widget. The reader is the template [NumPy `.npy` file](https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html#npy-format) reader, `napari_get_reader`. It checks whether a path ends in `.npy`. If it doesn't, it returns `None`, and if it does, it returns the `reader_function`, which loads the data.
 
 ![napari_get_reader](../../images/napari_plugins_1st_napari_get_reader.png)
 

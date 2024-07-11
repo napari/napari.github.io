@@ -389,7 +389,7 @@ non-compliant licensing schemes or bad packaging practices.
 
 * [ ] Add documentation about conda-forge in the release guide
 * [ ] Add documentation about conda-forge in the plugin developer guide
-* [ ] Ensure the cookiecutter template has some notion of conda packaging
+* [ ] Ensure the napari plugin template has some notion of conda packaging
 * [ ] Decide which packages need to be governed by the _napari pinnings_ metapackage
 
 ### Milestone 2: Building conda-based installers for napari

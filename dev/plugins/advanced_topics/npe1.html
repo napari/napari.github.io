@@ -734,20 +734,21 @@ functionality by simply installing your package along with napari:</p>
 significantly with the secod generation (<code class="docutils literal notranslate"><span class="pre">npe2</span></code>) plugin engine).</p>
 </section>
 </section>
-<section id="cookiecutter-template">
-<span id="plugin-cookiecutter-template"></span><h2>Cookiecutter template<a class="headerlink" href="#cookiecutter-template" title="Link to this heading">#</a></h2>
+<section id="napari-plugin-template">
+<span id="id1"></span><h2>napari plugin template<a class="headerlink" href="#napari-plugin-template" title="Link to this heading">#</a></h2>
 <p>To quickly generate a new napari plugin project, you may wish to use the
-<a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template. This uses
-the <a class="reference external" href="https://github.com/cookiecutter/cookiecutter">cookiecutter</a> command line
+<a class="reference external" href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a>. This uses
+the <a class="reference external" href="https://copier.readthedocs.io/en/stable/">copier</a> command line
 utility, which will ask you a few questions about your project and get you
 started with a ready-to-go package layout where you can begin implementing your
 plugin.</p>
-<p>Install cookiecutter and use the template as follows:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>cookiecutter
-cookiecutter<span class="w"> </span>https://github.com/napari/cookiecutter-napari-plugin
+<p>Install copier and use the template as follows:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>copier<span class="w"> </span>jinja2-time
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>npe2
+copier<span class="w"> </span>copy<span class="w"> </span>--trust<span class="w"> </span>https://github.com/napari/napari-plugin-template<span class="w"> </span>new-plugin-name
 </pre></div>
 </div>
-<p>See the <a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">readme</a> for details</p>
+<p>See the <a class="reference external" href="https://github.com/napari/napari-plugin-template">readme</a> for details</p>
 <hr class="docutils" />
 </section>
 <section id="hook-specification-reference">
@@ -1353,7 +1354,7 @@ support, please open an issue at our <a class="reference external" href="https:/
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-deploy-your-plugin">Step 4: Deploy your plugin</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cookiecutter-template">Cookiecutter template</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari-plugin-template">napari plugin template</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hook-specification-reference">Hook Specification Reference</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#io-hooks">IO hooks</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.plugins.hook_specifications.napari_provide_sample_data"><code class="docutils literal notranslate"><span class="pre">napari_provide_sample_data()</span></code></a></li>

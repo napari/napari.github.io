@@ -4,8 +4,8 @@
 ## Preparing for release
 
 To help users find your plugin, make sure to use the `Framework :: napari`
-[classifier] in your package's core metadata. (If you used the cookiecutter,
-this has already been done for you.)
+[classifier] in your package's core metadata. (If you used the napari plugin
+template, this has already been done for you.)
 
 Once your package is listed on [PyPI] (and includes the `Framework :: napari`
 [classifier]), it will also be visible on the [napari
@@ -37,7 +37,7 @@ PyPI][pypi-upload] after which it will be installable using `python -m pip insta
 <yourpackage>`, or (assuming you added the `Framework :: napari` classifier)
 in the builtin plugin installer dialog.
 
-If you used the {ref}`plugin-cookiecutter-template`, you can also
+If you used the {ref}`napari-plugin-template`, you can also
 [setup automated deployments][autodeploy] on GitHub for every tagged commit.
 
 ````{admonition} What about conda?
@@ -60,4 +60,4 @@ forum](https://forum.image.sc/tag/napari).
 [pypi-upload]: https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives
 [hubguide]: https://github.com/chanzuckerberg/napari-hub/blob/main/docs/customizing-plugin-listing.md
 [hub-guide-custom-viz]: https://github.com/chanzuckerberg/napari-hub/wiki/Customizing-your-plugin's-listing#visibility
-[autodeploy]: https://github.com/napari/cookiecutter-napari-plugin#set-up-automatic-deployments
+[autodeploy]: https://github.com/napari/napari-plugin-template#set-up-automatic-deployments

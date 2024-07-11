@@ -561,8 +561,8 @@ document.write(`
 <span id="id1"></span><h1>Your first plugin<a class="headerlink" href="#your-first-plugin" title="Link to this heading">#</a></h1>
 <p>In this tutorial, we’ll step through the fundamental concepts for building a
 <strong>bare minimum</strong> “hello napari” plugin from scratch.</p>
-<p>At the end, we’ll point you to a “cookiecutter” template
-repository that helps automate the creation of new plugins, and adds a number
+<p>At the end, we’ll point you to a <a class="reference external" href="https://github.com/napari/napari-plugin-template">napari plugin template
+repository</a> that helps automate the creation of new plugins, and adds a number
 of conveniences for testing, maintaining, and deploying your plugin.</p>
 <div class="important admonition">
 <p class="admonition-title">new plugin format!</p>
@@ -805,17 +805,18 @@ napari
 <p>Once napari starts, select <code class="docutils literal notranslate"><span class="pre">napari-hello:</span> <span class="pre">Hello</span> <span class="pre">World</span></code> from the
 <code class="docutils literal notranslate"><span class="pre">Plugins</span></code> menu, then click the <code class="docutils literal notranslate"><span class="pre">Run</span></code> button to see the message.</p>
 </section>
-<section id="get-going-quickly-with-cookiecutter">
-<h2>Get going quickly with cookiecutter<a class="headerlink" href="#get-going-quickly-with-cookiecutter" title="Link to this heading">#</a></h2>
+<section id="get-going-quickly-with-the-napari-plugin-template">
+<h2>Get going quickly with the napari plugin template<a class="headerlink" href="#get-going-quickly-with-the-napari-plugin-template" title="Link to this heading">#</a></h2>
 <p>Now that you’ve learned all of the critical steps for creating a plugin,
-you can use our <a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter template repository</a>
+you can use our <a class="reference external" href="https://github.com/napari/napari-plugin-template">napari plugin template repository</a>
 to get up and running quickly with each new plugin.
 This will ask you a few questions about your new plugin, and
 autogenerate a package structure much like the one above. It additionally
 includes conveniences like testing, continuous integration, version
 management, and deployment hooks.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>cookiecutter
-cookiecutter<span class="w"> </span>https://github.com/napari/cookiecutter-napari-plugin
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>copier<span class="w"> </span>jinja2-time
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>npe2
+copier<span class="w"> </span>copy<span class="w"> </span>--trust<span class="w"> </span>https://github.com/napari/napari-plugin-template<span class="w"> </span>new-plugin-name
 </pre></div>
 </div>
 </section>
@@ -891,7 +892,7 @@ when you’re ready to share your plugin, see <a class="reference internal" href
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-your-plugin-and-try-it-out">4. Install your plugin and try it out!</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-going-quickly-with-cookiecutter">Get going quickly with cookiecutter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-going-quickly-with-the-napari-plugin-template">Get going quickly with the napari plugin template</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
 </ul>
   </nav></div>

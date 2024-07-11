@@ -48,7 +48,7 @@ extensibility;
 More examples of widget use can be found in the
 ['GUI' gallery examples](https://napari.org/stable/_tags/gui.html) (note: not every
 example includes a widget). Additionally,
-[cookiecutter-napari-plugin](https://github.com/napari/cookiecutter-napari-plugin)
+[napari-plugin-template](https://github.com/napari/napari-plugin-template)
 has more robust widget examples that you can adapt to your needs.
 
 (adding_widgets)=

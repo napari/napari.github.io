@@ -4,6 +4,7 @@
 
 ```{eval-rst}
 :Author: "Kira Evans <mailto:contact@kne42.me>"
+:Author: "Lucy Liu <mailto:lucyleeow@protonmail.com>"
 :Created: 2023-07-03
 :Status: Draft
 :Type: Standards Track
@@ -40,7 +41,8 @@ a **base key** is a key that when pressed without a modifier key, produces one o
 - `pausebreak`, `capslock`, `insert`, `numlock`, `printscreen`
 - `numpad0-numpad9`, `numpad_decimal`, `numpad_multiply`, `numpad_divide`, `numpad_add`, `numpad_subtract`
 
-a **key combination** is a base key pressed with one or more modifier keys, e.g. `ctrl+c` or `ctrl+shift+z`
+a **key combination** is combination of one or more keys; a single modifier (e.g.,
+`ctrl`), a single base key (e.g., `c`) or a base key pressed with one or more modifier keys, e.g. `ctrl+c` or `ctrl+shift+z`
 
 a **key chord** consists of two parts, of which each can be either a base key or a key combination, e.g, `ctrl+x v`
 
@@ -50,21 +52,32 @@ a **key binding** binds a key sequence to a command with conditional activation
 
 ### Key binding validity: convenience vs. complexity
 
-Some users want to use traditional modifier keys as a base key in key binding for convenience purposes [^id2]. However, this can lead to conflicts since many key bindings may include the modifier key in their key sequence and thus cause confusion and cost extra engineering effort.
+Some users want to use traditional modifier keys as a 'base key' in key binding for convenience purposes [^id2]. However, this can lead to conflicts since many key bindings may include the modifier key in their key sequence and thus cause confusion and cost extra engineering effort.
 
-The proposed restrictions on what key sequences can be used in a key binding aim to allow for the simplest user need while cutting down on any unnecessary complexities:
+We propose that:
 
-- key combinations containing any modifier keys as a base key are invalid
-- key chords cannot contain a base key that is a modifier key (aka a single modifier)
+- key combinations can be any number of modifier keys plus a base key (e.g.,
+  `alt+shift+v`). For users only, one modifier key (e.g., `alt`) is also allowed.
+  Multiple modifier keys (e.g., `alt+shift`) are not allowed.
+- a key chord part cannot be an invalid key combination nor a single modifier.
+    - `alt t` is **invalid** because the first part is a single modifier (even though
+      it is a valid key combination)
+    - `ctrl+x alt` is **invalid** because the second part is a single modifier
+    - `ctrl+x alt+v` is **valid**
+    - `meta meta` is **invalid** because both parts are single modifiers
 
-Here are some examples:
-- `alt` is **valid** as a base key because it contains no other modifiers and no other parts
-- `alt+meta` is **invalid** because it is a key combination comprised of only modifiers
-- `alt+t` is **valid** as a key combination
-- `alt t` is **invalid** because it is a key chord whose first part is a single modifier
-- `ctrl+x alt` is **invalid** because it is a key chord whose second part is a single modifier
-- `ctrl+x alt+v` is **valid** as a key chord
-- `meta meta` is **invalid** because it is a key chord comprised of only single modifier parts
+The proposal restricts modifier keys being used without a base key, except in the case
+of a single modifier key used in isolation, which is allowed for users.
+We decided to allow this as the use cases were compelling,
+for example binding `shift` to make a labels layer invisible during press and visible
+on release.
+Napari and plugins will not be able to use single modifier keybindings but we are
+open to reconsideration of this for plugins, given demand.
+Ultimately we felt this compromise would provide enough user flexibility while
+cutting down on any unnecessary complexities.
+
+Detail on how potential conflicts are dealt with can be found in
+[](#indirect-conflicts).
 
 ## Detailed Description
 
@@ -169,9 +182,23 @@ A. The provided key sequence is a single modifier that is a modifier in another 
 
 B. The provided key sequence is a base key or key combination that is the first part of another key binding's key chord. For example, a key combination of `ctrl+l` would conflict with the key chord of `ctrl+l p`.
 
-In case (A), the corresponding command will not be triggered immediately, but will be delayed by user-defined miliseconds (e.g. 200ms), after which the press logic for the command will execute. If another key binding is triggered, this action will be canceled. If the base key is released early, the press logic will execute immediately and the delayed action will be canceled, along with the release logic being executed immediately afterwards.
+There are three potential strategies to deal with this:
 
-In case (B), the corresponding command will never be triggered so long as it indirectly conflicts with another key binding. In this sense, multi-part key bindings will always take priority over single-part key bindings.
+* Delay - wait for potential subsequent key presses before executing the command.
+    - this is used for case (A) type conflicts
+    - delay defaults to 200ms but is user configurable
+    - after the delay, the press logic for the command will execute
+    - if another key binding is triggered during delay, this action will be canceled
+    - if the base key `ctrl` is released early, the press logic will execute
+      immediately and the delay will cease, and the release logic will be executed immediately afterwards
+* Execute longest key sequence only - for indirectly conflicting key sequences
+  we only ever execute the longer key sequence.
+    - this is used for case (B) type conflicts
+    - the command for `ctrl+l` will never be triggered so long as it indirectly
+      conflicts with another key binding
+    - multi-part key bindings will always take priority over single-part key bindings
+* On release only - only allow the key to be bindable to 'on-release'
+    - Decided against as this would not allow both 'on-press' and 'on-release' actions.
 
 ### Finding a match
 

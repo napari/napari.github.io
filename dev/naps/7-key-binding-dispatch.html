@@ -623,14 +623,17 @@ document.write(`
 <dt class="field-odd">Author<span class="colon">:</span></dt>
 <dd class="field-odd"><p>“Kira Evans &lt;<a class="reference external" href="mailto:contact&#37;&#52;&#48;kne42&#46;me">mailto:contact<span>&#64;</span>kne42<span>&#46;</span>me</a>&gt;”</p>
 </dd>
-<dt class="field-even">Created<span class="colon">:</span></dt>
-<dd class="field-even"><p>2023-07-03</p>
+<dt class="field-even">Author<span class="colon">:</span></dt>
+<dd class="field-even"><p>“Lucy Liu &lt;<a class="reference external" href="mailto:lucyleeow&#37;&#52;&#48;protonmail&#46;com">mailto:lucyleeow<span>&#64;</span>protonmail<span>&#46;</span>com</a>&gt;”</p>
 </dd>
-<dt class="field-odd">Status<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Draft</p>
+<dt class="field-odd">Created<span class="colon">:</span></dt>
+<dd class="field-odd"><p>2023-07-03</p>
 </dd>
-<dt class="field-even">Type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Standards Track</p>
+<dt class="field-even">Status<span class="colon">:</span></dt>
+<dd class="field-even"><p>Draft</p>
+</dd>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Standards Track</p>
 </dd>
 </dl>
 <section id="abstract">
@@ -660,29 +663,41 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">pausebreak</span></code>, <code class="docutils literal notranslate"><span class="pre">capslock</span></code>, <code class="docutils literal notranslate"><span class="pre">insert</span></code>, <code class="docutils literal notranslate"><span class="pre">numlock</span></code>, <code class="docutils literal notranslate"><span class="pre">printscreen</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">numpad0-numpad9</span></code>, <code class="docutils literal notranslate"><span class="pre">numpad_decimal</span></code>, <code class="docutils literal notranslate"><span class="pre">numpad_multiply</span></code>, <code class="docutils literal notranslate"><span class="pre">numpad_divide</span></code>, <code class="docutils literal notranslate"><span class="pre">numpad_add</span></code>, <code class="docutils literal notranslate"><span class="pre">numpad_subtract</span></code></p></li>
 </ul>
-<p>a <strong>key combination</strong> is a base key pressed with one or more modifier keys, e.g. <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> or <code class="docutils literal notranslate"><span class="pre">ctrl+shift+z</span></code></p>
+<p>a <strong>key combination</strong> is combination of one or more keys; a single modifier (e.g.,
+<code class="docutils literal notranslate"><span class="pre">ctrl</span></code>), a single base key (e.g., <code class="docutils literal notranslate"><span class="pre">c</span></code>) or a base key pressed with one or more modifier keys, e.g. <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> or <code class="docutils literal notranslate"><span class="pre">ctrl+shift+z</span></code></p>
 <p>a <strong>key chord</strong> consists of two parts, of which each can be either a base key or a key combination, e.g, <code class="docutils literal notranslate"><span class="pre">ctrl+x</span> <span class="pre">v</span></code></p>
 <p>a <strong>key sequence</strong> refers to a series of inputs by the user which can be a base key, key combination, or key chord</p>
 <p>a <strong>key binding</strong> binds a key sequence to a command with conditional activation</p>
 </section>
 <section id="key-binding-validity-convenience-vs-complexity">
 <h3>Key binding validity: convenience vs. complexity<a class="headerlink" href="#key-binding-validity-convenience-vs-complexity" title="Link to this heading">#</a></h3>
-<p>Some users want to use traditional modifier keys as a base key in key binding for convenience purposes <a class="footnote-reference brackets" href="#id8" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. However, this can lead to conflicts since many key bindings may include the modifier key in their key sequence and thus cause confusion and cost extra engineering effort.</p>
-<p>The proposed restrictions on what key sequences can be used in a key binding aim to allow for the simplest user need while cutting down on any unnecessary complexities:</p>
+<p>Some users want to use traditional modifier keys as a ‘base key’ in key binding for convenience purposes <a class="footnote-reference brackets" href="#id8" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. However, this can lead to conflicts since many key bindings may include the modifier key in their key sequence and thus cause confusion and cost extra engineering effort.</p>
+<p>We propose that:</p>
 <ul class="simple">
-<li><p>key combinations containing any modifier keys as a base key are invalid</p></li>
-<li><p>key chords cannot contain a base key that is a modifier key (aka a single modifier)</p></li>
+<li><p>key combinations can be any number of modifier keys plus a base key (e.g.,
+<code class="docutils literal notranslate"><span class="pre">alt+shift+v</span></code>). For users only, one modifier key (e.g., <code class="docutils literal notranslate"><span class="pre">alt</span></code>) is also allowed.
+Multiple modifier keys (e.g., <code class="docutils literal notranslate"><span class="pre">alt+shift</span></code>) are not allowed.</p></li>
+<li><p>a key chord part cannot be an invalid key combination nor a single modifier.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">alt</span> <span class="pre">t</span></code> is <strong>invalid</strong> because the first part is a single modifier (even though
+it is a valid key combination)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ctrl+x</span> <span class="pre">alt</span></code> is <strong>invalid</strong> because the second part is a single modifier</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ctrl+x</span> <span class="pre">alt+v</span></code> is <strong>valid</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">meta</span> <span class="pre">meta</span></code> is <strong>invalid</strong> because both parts are single modifiers</p></li>
 </ul>
-<p>Here are some examples:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">alt</span></code> is <strong>valid</strong> as a base key because it contains no other modifiers and no other parts</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">alt+meta</span></code> is <strong>invalid</strong> because it is a key combination comprised of only modifiers</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">alt+t</span></code> is <strong>valid</strong> as a key combination</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">alt</span> <span class="pre">t</span></code> is <strong>invalid</strong> because it is a key chord whose first part is a single modifier</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ctrl+x</span> <span class="pre">alt</span></code> is <strong>invalid</strong> because it is a key chord whose second part is a single modifier</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ctrl+x</span> <span class="pre">alt+v</span></code> is <strong>valid</strong> as a key chord</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">meta</span> <span class="pre">meta</span></code> is <strong>invalid</strong> because it is a key chord comprised of only single modifier parts</p></li>
+</li>
 </ul>
+<p>The proposal restricts modifier keys being used without a base key, except in the case
+of a single modifier key used in isolation, which is allowed for users.
+We decided to allow this as the use cases were compelling,
+for example binding <code class="docutils literal notranslate"><span class="pre">shift</span></code> to make a labels layer invisible during press and visible
+on release.
+Napari and plugins will not be able to use single modifier keybindings but we are
+open to reconsideration of this for plugins, given demand.
+Ultimately we felt this compromise would provide enough user flexibility while
+cutting down on any unnecessary complexities.</p>
+<p>Detail on how potential conflicts are dealt with can be found in
+<a class="reference internal" href="#indirect-conflicts"><span class="std std-ref">Indirect conflicts</span></a>.</p>
 </section>
 </section>
 <section id="detailed-description">
@@ -779,8 +794,33 @@ document.write(`
 <p>There are two ways indirect conflicts can exist:</p>
 <p>A. The provided key sequence is a single modifier that is a modifier in another key binding’s key combination or is a modifier in the first key combination of a key binding’s key chord. For example, a base key of <code class="docutils literal notranslate"><span class="pre">ctrl</span></code> would conflict with the key combination of <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> and the key chord of <code class="docutils literal notranslate"><span class="pre">ctrl+x</span> <span class="pre">m</span></code>.</p>
 <p>B. The provided key sequence is a base key or key combination that is the first part of another key binding’s key chord. For example, a key combination of <code class="docutils literal notranslate"><span class="pre">ctrl+l</span></code> would conflict with the key chord of <code class="docutils literal notranslate"><span class="pre">ctrl+l</span> <span class="pre">p</span></code>.</p>
-<p>In case (A), the corresponding command will not be triggered immediately, but will be delayed by user-defined miliseconds (e.g. 200ms), after which the press logic for the command will execute. If another key binding is triggered, this action will be canceled. If the base key is released early, the press logic will execute immediately and the delayed action will be canceled, along with the release logic being executed immediately afterwards.</p>
-<p>In case (B), the corresponding command will never be triggered so long as it indirectly conflicts with another key binding. In this sense, multi-part key bindings will always take priority over single-part key bindings.</p>
+<p>There are three potential strategies to deal with this:</p>
+<ul class="simple">
+<li><p>Delay - wait for potential subsequent key presses before executing the command.</p>
+<ul>
+<li><p>this is used for case (A) type conflicts</p></li>
+<li><p>delay defaults to 200ms but is user configurable</p></li>
+<li><p>after the delay, the press logic for the command will execute</p></li>
+<li><p>if another key binding is triggered during delay, this action will be canceled</p></li>
+<li><p>if the base key <code class="docutils literal notranslate"><span class="pre">ctrl</span></code> is released early, the press logic will execute
+immediately and the delay will cease, and the release logic will be executed immediately afterwards</p></li>
+</ul>
+</li>
+<li><p>Execute longest key sequence only - for indirectly conflicting key sequences
+we only ever execute the longer key sequence.</p>
+<ul>
+<li><p>this is used for case (B) type conflicts</p></li>
+<li><p>the command for <code class="docutils literal notranslate"><span class="pre">ctrl+l</span></code> will never be triggered so long as it indirectly
+conflicts with another key binding</p></li>
+<li><p>multi-part key bindings will always take priority over single-part key bindings</p></li>
+</ul>
+</li>
+<li><p>On release only - only allow the key to be bindable to ‘on-release’</p>
+<ul>
+<li><p>Decided against as this would not allow both ‘on-press’ and ‘on-release’ actions.</p></li>
+</ul>
+</li>
+</ul>
 </section>
 <section id="finding-a-match">
 <h3>Finding a match<a class="headerlink" href="#finding-a-match" title="Link to this heading">#</a></h3>

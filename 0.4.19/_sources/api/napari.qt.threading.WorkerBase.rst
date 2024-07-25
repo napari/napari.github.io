@@ -1,0 +1,59 @@
+napari.qt.threading.WorkerBase
+==============================
+
+.. currentmodule:: napari.qt.threading
+
+.. autoclass:: WorkerBase
+   :members:
+   :show-inheritance:
+   :inherited-members:
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+   
+   
+      ~WorkerBase.autoDelete
+   
+   
+      ~WorkerBase.await_workers
+   
+   
+      ~WorkerBase.quit
+   
+   
+      ~WorkerBase.run
+   
+   
+      ~WorkerBase.setAutoDelete
+   
+   
+      ~WorkerBase.start
+   
+   
+      ~WorkerBase.work
+   
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~WorkerBase.abort_requested
+      ~WorkerBase.is_running
+      
+      
+      
+      
+      
+   
+   
+
+   .. rubric:: Details

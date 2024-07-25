@@ -1,0 +1,1673 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link type="image/svg+xml" href="../../dev/_static/favicon/logo-silhouette-dark-light.svg" rel="icon">
+    <link sizes="any" href="../../dev/_static/favicon/logo-silhouette-192.png" rel="icon" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../dev/_static/favicon/logo-noborder-180.png" type="image/png">
+    <title>napari 0.4.19 &#8212; napari</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../dev/_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../dev/_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../dev/_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../dev/_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../dev/_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../dev/_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../dev/_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../dev/_static/pygments.css?v=8f9ffe49" />
+    <link rel="stylesheet" type="text/css" href="../../dev/_static/css/napari-sphinx-theme.css?v=5b765ca9" />
+    <link rel="stylesheet" type="text/css" href="../../dev/_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../dev/_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../dev/_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../dev/_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../dev/_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../dev/_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../dev/_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../../dev/_static/custom.css?v=6a8a2890" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../dev/_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../dev/_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../dev/_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../dev/_static/documentation_options.js?v=002b6000"></script>
+    <script src="../../dev/_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../dev/_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../dev/_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../dev/_static/copybutton.js?v=f281be69"></script>
+    <script src="../../dev/_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="napari.org" defer="defer" src="https://plausible.io/js/plausible.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'release/release_0_4_19';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/../dev/_static/version_switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="napari 0.4.18" href="release_0_4_18.html" />
+    <link rel="prev" title="napari 0.5.0" href="release_0_5_0.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="search"
+         aria-label="search"
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+  <aside class="bd-header-announcement d-print-none d-none" aria-label="Announcement" data-pst-announcement-url="https://napari.org/dev/../dev/_static/announcement.html"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../dev/_static/logo.png" class="logo__image only-light" alt="napari - Home"/>
+    <script>document.write(`<img src="../../dev/_static/logo.png" class="logo__image only-dark" alt="napari - Home"/>`);</script>
+  
+  
+</a></div>
+    
+      <div class="navbar-item"><!-- A small template snippet for theme testing -->
+<a class="navbar-brand" href="../index.html">
+  napari
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../usage.html">
+    Usage
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../plugins/index.html">
+    Plugins
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../community/index.html">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://napari-hub.org">
+    napari hub
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://napari.org/island-dispatch">
+    Island Dispatch
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://napari.zulipchat.com">
+    Community chat
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://napari.org/napari-workshop-template">
+    workshop template
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../usage.html">
+    Usage
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../plugins/index.html">
+    Plugins
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../community/index.html">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://napari-hub.org">
+    napari hub
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://napari.org/island-dispatch">
+    Island Dispatch
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://napari.zulipchat.com">
+    Community chat
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://napari.org/napari-workshop-template">
+    workshop template
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="search"
+         aria-label="search"
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links" aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developers/contributing/index.html">Contributing guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developers/contributing/dev_install.html">Setting up a development installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/contributing/testing.html">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/contributing/translations.html">Translations</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../developers/contributing/performance/index.html">Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../developers/contributing/performance/profiling.html">Profiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developers/contributing/performance/benchmarks.html">Benchmarks</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../developers/contributing/documentation/index.html">Contributing Documentation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../developers/contributing/documentation/docs_template.html">Docs template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developers/contributing/documentation/docs_deployment.html">Documentation and website deployment</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developers/coredev/core_dev_guide.html">Core Developer guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developers/coredev/maintenance.html">Maintenance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/coredev/release.html">Release guide</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../developers/coredev/packaging.html">Packaging</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developers/architecture/index.html">napari architecture guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developers/architecture/dir_organization.html">napari directory organization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/architecture/napari_models.html">napari models and events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/architecture/app_model.html">napari’s application model</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../developers/architecture/magicgui_type_reg.html"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../naps/index.html">napari Advancement Proposals (NAPs)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../naps/0-nap-process.html">NAP 0 — Purpose and Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../naps/1-institutional-funding-partners.html">NAP-1 — Institutional and Funding Partners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../naps/2-conda-based-packaging.html">NAP-2 — Distributing napari with conda-based packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../naps/3-spaces.html">NAP-3 — Spaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../naps/4-async-slicing.html">NAP-4 — Asynchronous slicing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../naps/5-new-logo.html">NAP-5 — New logo (2022)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../naps/6-contributable-menus.html">NAP-6 — Contributable Menus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../naps/7-key-binding-dispatch.html">NAP-7 — Key Binding Dispatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../naps/8-telemetry.html">NAP-8 — Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../naps/9-multiple-canvases.html">NAP-9 — Multiple Canvases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../naps/template.html">NAP-X — Template and Instructions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Release notes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="release_0_5_1.html">napari 0.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_5_0.html">napari 0.5.0</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">napari 0.4.19</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_18.html">napari 0.4.18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_17.html">napari 0.4.17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_16.html">napari 0.4.16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_15.html">napari 0.4.15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_14.html">napari 0.4.14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_13.html">napari 0.4.13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_12.html">napari 0.4.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_11.html">napari 0.4.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_10.html">napari 0.4.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_9.html">napari 0.4.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_8.html">napari 0.4.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_7.html">napari 0.4.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_6.html">napari 0.4.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_5.html">napari 0.4.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_4.html">napari 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_3.html">napari 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_1.html">napari 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_0.html">napari 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_8.html">napari 0.3.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_7.html">napari 0.3.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_6.html">napari 0.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_5.html">napari 0.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_4.html">napari 0.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_3.html">napari 0.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_2.html">napari 0.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_1.html">napari 0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_0.html">napari 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_12.html">napari 0.2.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_11.html">napari 0.2.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_10.html">napari 0.2.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_9.html">napari 0.2.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_8.html">napari 0.2.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_7.html">napari 0.2.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_6.html">napari 0.2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_5.html">napari 0.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_4.html">napari 0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_3.html">napari 0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_1.html">napari 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_0.html">napari 0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_1_5.html">napari 0.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_1_3.html">napari 0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_1_0.html">napari 0.1.0</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../roadmaps/index.html">Roadmaps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../roadmaps/0_4.html">Roadmap 0.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../roadmaps/0_3_retrospective.html">Roadmap 0.3 Retrospective</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../roadmaps/0_3.html">Roadmap 0.3</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../developers/index.html" class="nav-link">Contributing</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Release notes</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">napari 0.4.19</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="napari-0-4-19">
+<h1>napari 0.4.19<a class="headerlink" href="#napari-0-4-19" title="Link to this heading">#</a></h1>
+<p>We’re happy to announce the release of napari 0.4.19!
+napari is a fast, interactive, multi-dimensional image viewer for Python.
+It’s designed for browsing, annotating, and analyzing large multi-dimensional
+images. It’s built on top of Qt (for the GUI), vispy (for performant GPU-based
+rendering), and the scientific Python stack (numpy, scipy).</p>
+<p>For more information, examples, and documentation, please visit our website:
+https://napari.org/stable/</p>
+<section id="highlights">
+<h2>Highlights<a class="headerlink" href="#highlights" title="Link to this heading">#</a></h2>
+<p>This release mostly contains a lot of bug fixes and performance improvements.
+But look out for 0.5.0, coming to a software repository near you — we expect to
+release a lot of new features then!</p>
+<section id="big-improvements-to-the-labels-layer">
+<h3>BIG improvements to the Labels layer<a class="headerlink" href="#big-improvements-to-the-labels-layer" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://github.com/napari/napari/pull/3308">#3308</a> closed <em>many</em> long-standing
+bugs in the handling of colors in the Labels layer: the color swatch in the
+Labels controls now always matches the color on the canvas, direct color
+mapping with thousands of colors works fine, and shuffling colors (when two
+touching labels coincidentally had the same color) is now much more likely to
+map them to different colors. 🎨🚀🚀🚀</p>
+<p>Unfortunately, the fix turned out to have rather
+terrible consequences for the rendering performance of 3D Labels, and each time
+we fixed one thing something else reappeared in a game of bug fix whack-a-mole
+that any programmer would recognize. A great many
+fixes later (
+<a class="reference external" href="https://github.com/napari/napari/pull/6411">#6411</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6439">#6439</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6459">#6459</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6460">#6460</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6461">#6461</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6467">#6467</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6479">#6479</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6520">#6520</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6540">#6540</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6571">#6571</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6580">#6580</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6596">#6596</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6602">#6602</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6607">#6607</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6616">#6616</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6618">#6618</a>
+) — thank you for your patience! 😅 — Labels are faster than ever
+<em>and</em> color accurate. <em>But</em>, to get the best performance, if you can use
+8- or 16-bit integers as your data type, you should do so, and if not, you
+should install <em>numba</em>, a just-in-time compiler for numerical code in Python.
+(Ultimately, the data sent to the GPU will be 8- or 16-bit, so if you use a
+larger data type, you will pay some conversion cost.)</p>
+<p>These improvements in color handling are accompanied by updates to the Labels
+API. You can now easily set a specific color cycle for Labels data. For
+example, to use the famous <a class="reference external" href="https://onlinelibrary.wiley.com/doi/10.1002/col.20327">Glasbey look-up table/color
+cycle</a>, you can combine
+the <a class="reference external" href="https://pypi.org/project/glasbey/"><code class="docutils literal notranslate"><span class="pre">glasbey</span></code></a> Python package with the new
+<code class="docutils literal notranslate"><span class="pre">CyclicLabelColormap</span></code> API:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glasbey</span>
+<span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="n">CyclicLabelColormap</span>
+<span class="c1"># ...</span>
+<span class="n">labels_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span>
+    <span class="n">segmentation</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="n">CyclicLabelColormap</span><span class="p">(</span><span class="n">glasbey</span><span class="o">.</span><span class="n">create_palette</span><span class="p">(</span><span class="mi">256</span><span class="p">))</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="#deprecations">“Deprecations” section below</a> for more information on
+the new API. (<a class="reference external" href="https://github.com/napari/napari/pull/6542">#6542</a>)</p>
+</section>
+<section id="more-on-colormaps">
+<h3>More on colormaps!<a class="headerlink" href="#more-on-colormaps" title="Link to this heading">#</a></h3>
+<p>Yes, this is the colors update! 🌈</p>
+<p>Making image layers with linear colormaps using custom colors is easier than
+ever! You can just do <code class="docutils literal notranslate"><span class="pre">viewer.add_image(data,</span> <span class="pre">color='turquoise')</span></code> to get a
+black-to-turquoise linear colormap for that image. For the full list of colors
+available, see the
+<a class="reference external" href="https://github.com/vispy/vispy/blob/269ed1ac4d8126421fd5a7eb06a2996d63f46b17/vispy/color/_color_dict.py#L181">VisPy color dict</a>
+(<a class="reference external" href="https://github.com/napari/napari/pull/6102">#6102</a>). You can also pass in an
+RGB hex color prefixed with <code class="docutils literal notranslate"><span class="pre">#</span></code>, as in
+<code class="docutils literal notranslate"><span class="pre">napari.imshow(data,</span> <span class="pre">colormap=</span></code>#88ff1a<code class="docutils literal notranslate"><span class="pre">)</span></code>.</p>
+<p>(For an amusing side note, though, check out the <a class="reference internal" href="#api-changes">API Changes</a>
+note related to this PR. 😅)</p>
+</section>
+<section id="some-technical-stuff">
+<h3>Some technical stuff<a class="headerlink" href="#some-technical-stuff" title="Link to this heading">#</a></h3>
+<p>If you were worried about those pesky “public access to <code class="docutils literal notranslate"><span class="pre">qt_viewer</span></code> will be
+removed” warnings, fret not! Its removal has been postponed until at least
+0.6.0! We want to spend more time working with the community to ensure your
+use case is supported before pulling out the rug. 🤝 If you are using the
+<code class="docutils literal notranslate"><span class="pre">qt_viewer</span></code> because we don’t have another public API to do what you need,
+please <a class="reference external" href="https://github.com/napari/napari/issues/new">raise an issue</a> so we can
+make sure your use case is supported before we remove it.
+(<a class="reference external" href="https://github.com/napari/napari/pull/6283">#6283</a>)</p>
+<p>Finally, although we still use pydantic 1.0 objects internally, napari
+installs correctly with both pydantic v1 and pydantic v2. If you wanted to
+upgrade your napari library or plugin to use Pydantic 2, now you can!</p>
+<p>Note though, for 0.4.19, the napari bundled app still ships with Pydantic 1.x.
+However, we will bundle v2 starting with 0.5.0, so if you use Pydantic
+internally, now is a good time to check that you are compatible either v2 or
+both v1 and v2
+(<a class="reference external" href="https://github.com/napari/napari/pull/6358">#6358</a>).</p>
+</section>
+<section id="onwards">
+<h3>Onwards!<a class="headerlink" href="#onwards" title="Link to this heading">#</a></h3>
+<p>As always, napari is developed by the community, for the community. We want to
+hear from you and help you get your napari visualization and/or plugin use done
+faster! And if napari is missing something you need, we can help you add it! So
+please remember to ask <a class="reference external" href="https://forum.image.sc/tag/napari">questions on
+image.sc</a>, join our <a class="reference external" href="https://napari.zulipchat.com/">Zulip chat
+room</a>, come to our <a class="reference external" href="https://napari.org/stable/community/meeting_schedule.html">community
+meetings</a>, or <a class="reference external" href="https://fosstodon.org/&#64;napari">tag
+us on Mastodon</a>!</p>
+<p>Read on for the full list of changes that went into this release.</p>
+</section>
+</section>
+<section id="new-features">
+<h2>New Features<a class="headerlink" href="#new-features" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Add show_debug notification (<a class="reference external" href="https://github.com/napari/napari/pull/5101">napari/napari#5101</a>)</p></li>
+<li><p>Automatic recognition of hex colour strings in layer data (<a class="reference external" href="https://github.com/napari/napari/pull/6102">napari/napari#6102</a>)</p></li>
+</ul>
+</section>
+<section id="improvements">
+<h2>Improvements<a class="headerlink" href="#improvements" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Bump vispy to 0.13 (<a class="reference external" href="https://github.com/napari/napari/pull/6025">napari/napari#6025</a>)</p></li>
+<li><p>Extend “No Qt bindings found” error message with details about conda (<a class="reference external" href="https://github.com/napari/napari/pull/6095">napari/napari#6095</a>)</p></li>
+<li><p>Implement direct color calculation in shaders for Labels auto color mode (<a class="reference external" href="https://github.com/napari/napari/pull/6179">napari/napari#6179</a>)</p></li>
+<li><p>Update “toggle ndview” text (<a class="reference external" href="https://github.com/napari/napari/pull/6192">napari/napari#6192</a>)</p></li>
+<li><p>Add collision check when set colors for labels layer (<a class="reference external" href="https://github.com/napari/napari/pull/6193">napari/napari#6193</a>)</p></li>
+<li><p>Add numpy as <code class="docutils literal notranslate"><span class="pre">np</span></code> to console predefined variables (<a class="reference external" href="https://github.com/napari/napari/pull/6314">napari/napari#6314</a>)</p></li>
+<li><p>Pydantic 2 compatibility using <code class="docutils literal notranslate"><span class="pre">pydantic.v1</span></code>  (<a class="reference external" href="https://github.com/napari/napari/pull/6358">napari/napari#6358</a>)</p></li>
+</ul>
+</section>
+<section id="performance">
+<h2>Performance<a class="headerlink" href="#performance" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Use a shader for low discrepancy label conversion (<a class="reference external" href="https://github.com/napari/napari/pull/3308">napari/napari#3308</a>)</p></li>
+<li><p>Fix lagging 3d view for big data in auto color mode (<a class="reference external" href="https://github.com/napari/napari/pull/6411">napari/napari#6411</a>)</p></li>
+<li><p>Fix cycle in _update_draw/_set_highlight for Points and Shapes (high CPU background usage) (<a class="reference external" href="https://github.com/napari/napari/pull/6425">napari/napari#6425</a>)</p></li>
+<li><p>Update performance and reduce memory usage for big Labels layer in direct color mode (<a class="reference external" href="https://github.com/napari/napari/pull/6439">napari/napari#6439</a>)</p></li>
+<li><p>Add _data_to_texture method to LabelColormap and remove caching of (u)int8 and (uint16) (<a class="reference external" href="https://github.com/napari/napari/pull/6602">napari/napari#6602</a>)</p></li>
+</ul>
+</section>
+<section id="bug-fixes">
+<h2>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Use a shader for low discrepancy label conversion (<a class="reference external" href="https://github.com/napari/napari/pull/3308">napari/napari#3308</a>)</p></li>
+<li><p>Workaround Qt bug on Windows with fullscreen mode in some screen resolutions/scaling configurations (<a class="reference external" href="https://github.com/napari/napari/pull/5401">napari/napari#5401</a>)</p></li>
+<li><p>Fix point selection highlight (<a class="reference external" href="https://github.com/napari/napari/pull/5737">napari/napari#5737</a>)</p></li>
+<li><p>Fix shapes interactivity with scale != 1 (selection, rotate/resize) (<a class="reference external" href="https://github.com/napari/napari/pull/5802">napari/napari#5802</a>)</p></li>
+<li><p>Fix taskbar icon grouping in Windows bundle (add <code class="docutils literal notranslate"><span class="pre">app_user_model_id</span></code> to bundle shortcut) (<a class="reference external" href="https://github.com/napari/napari/pull/6056">napari/napari#6056</a>)</p></li>
+<li><p>Add basic tests for the <code class="docutils literal notranslate"><span class="pre">ScreenshotDialog</span></code> widget and fixes (<a class="reference external" href="https://github.com/napari/napari/pull/6057">napari/napari#6057</a>)</p></li>
+<li><p>Install napari from repository in docker image (<a class="reference external" href="https://github.com/napari/napari/pull/6097">napari/napari#6097</a>)</p></li>
+<li><p>Fix automatic selection of points when setting data (<a class="reference external" href="https://github.com/napari/napari/pull/6098">napari/napari#6098</a>)</p></li>
+<li><p>Fix exception raised on empty pattern in search plugin in preferences (<a class="reference external" href="https://github.com/napari/napari/pull/6107">napari/napari#6107</a>)</p></li>
+<li><p>Ensure visual is updated when painting into zarr array (<a class="reference external" href="https://github.com/napari/napari/pull/6112">napari/napari#6112</a>)</p></li>
+<li><p>Emit event from Points data setter (<a class="reference external" href="https://github.com/napari/napari/pull/6117">napari/napari#6117</a>)</p></li>
+<li><p>Emit event from Shapes data setter (<a class="reference external" href="https://github.com/napari/napari/pull/6134">napari/napari#6134</a>)</p></li>
+<li><p>Fix oblique button by chekcing if action is generator (<a class="reference external" href="https://github.com/napari/napari/pull/6145">napari/napari#6145</a>)</p></li>
+<li><p>Fix bug in <code class="docutils literal notranslate"><span class="pre">examples/multiple_viewer_widget.py</span></code> copy layer logic (<a class="reference external" href="https://github.com/napari/napari/pull/6162">napari/napari#6162</a>)</p></li>
+<li><p>Fix split logic in shortcut editor (<a class="reference external" href="https://github.com/napari/napari/pull/6163">napari/napari#6163</a>)</p></li>
+<li><p>Layer data events before and after (<a class="reference external" href="https://github.com/napari/napari/pull/6178">napari/napari#6178</a>)</p></li>
+<li><p>Implement direct color calculation in shaders for Labels auto color mode (<a class="reference external" href="https://github.com/napari/napari/pull/6179">napari/napari#6179</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">QLabeledRangeSlider</span></code> style rule to prevent labels from being cut off (<a class="reference external" href="https://github.com/napari/napari/pull/6180">napari/napari#6180</a>)</p></li>
+<li><p>Update color texture build to reduce collisions, and fix collision handling (<a class="reference external" href="https://github.com/napari/napari/pull/6182">napari/napari#6182</a>)</p></li>
+<li><p>Prevent layer controls buttons changing layout while taking screenshots with flash effect on (<a class="reference external" href="https://github.com/napari/napari/pull/6194">napari/napari#6194</a>)</p></li>
+<li><p>Vispy 0.14 (<a class="reference external" href="https://github.com/napari/napari/pull/6214">napari/napari#6214</a>)</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">ShapeList.outline</span></code> validations for <code class="docutils literal notranslate"><span class="pre">int</span></code>/list like argument and add a test (<a class="reference external" href="https://github.com/napari/napari/pull/6215">napari/napari#6215</a>)</p></li>
+<li><p>Ensure pandas Series is initialized with a list as data (<a class="reference external" href="https://github.com/napari/napari/pull/6226">napari/napari#6226</a>)</p></li>
+<li><p>Fix Python 3.11 StrEnum Compatibility (<a class="reference external" href="https://github.com/napari/napari/pull/6242">napari/napari#6242</a>)</p></li>
+<li><p>FIX add <code class="docutils literal notranslate"><span class="pre">changing</span></code> event to <code class="docutils literal notranslate"><span class="pre">EventedDict</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/6268">napari/napari#6268</a>)</p></li>
+<li><p>Restore default color support for direct color mode in Labels layer (<a class="reference external" href="https://github.com/napari/napari/pull/6311">napari/napari#6311</a>)</p></li>
+<li><p>Bugfix: Account for multiscale for labels in 3d (<a class="reference external" href="https://github.com/napari/napari/pull/6317">napari/napari#6317</a>)</p></li>
+<li><p>Update example scripts (magicgui with threads) (<a class="reference external" href="https://github.com/napari/napari/pull/6353">napari/napari#6353</a>)</p></li>
+<li><p>Exclude the loaded property when linking two layers (<a class="reference external" href="https://github.com/napari/napari/pull/6377">napari/napari#6377</a>)</p></li>
+<li><p>Fix problem with transform box of multiscale image  (<a class="reference external" href="https://github.com/napari/napari/pull/6390">napari/napari#6390</a>)</p></li>
+<li><p>Fix cycle in _update_draw/_set_highlight for Points and Shapes (high CPU background usage) (<a class="reference external" href="https://github.com/napari/napari/pull/6425">napari/napari#6425</a>)</p></li>
+<li><p>Do not run macos process renaming if debugger is loaded (<a class="reference external" href="https://github.com/napari/napari/pull/6437">napari/napari#6437</a>)</p></li>
+<li><p>Fix bounding box transforms when multiscale layer corner goes below zero (<a class="reference external" href="https://github.com/napari/napari/pull/6438">napari/napari#6438</a>)</p></li>
+<li><p>Update performance and reduce memory usage for big Labels layer in direct color mode (<a class="reference external" href="https://github.com/napari/napari/pull/6439">napari/napari#6439</a>)</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">breakpoint()</span></code> function after console import (<a class="reference external" href="https://github.com/napari/napari/pull/6443">napari/napari#6443</a>)</p></li>
+<li><p>fix problem with alligned overlay (<a class="reference external" href="https://github.com/napari/napari/pull/6445">napari/napari#6445</a>)</p></li>
+<li><p>Fix guess_continuous to not assign continuous for string categories (<a class="reference external" href="https://github.com/napari/napari/pull/6452">napari/napari#6452</a>)</p></li>
+<li><p>Fix casting uint32 to vispy dtype for image layers (<a class="reference external" href="https://github.com/napari/napari/pull/6456">napari/napari#6456</a>)</p></li>
+<li><p>Fix thumbnail for auto color mode in labels (<a class="reference external" href="https://github.com/napari/napari/pull/6459">napari/napari#6459</a>)</p></li>
+<li><p>Fix label color shuffling by also updating colormap size (<a class="reference external" href="https://github.com/napari/napari/pull/6460">napari/napari#6460</a>)</p></li>
+<li><p>Fix direct colormap (<a class="reference external" href="https://github.com/napari/napari/pull/6461">napari/napari#6461</a>)</p></li>
+<li><p>Use views rather than CPU-based hashing for 8- and 16-bit Labels data (<a class="reference external" href="https://github.com/napari/napari/pull/6467">napari/napari#6467</a>)</p></li>
+<li><p>remove main window from instances list only if close event is accepted (<a class="reference external" href="https://github.com/napari/napari/pull/6468">napari/napari#6468</a>)</p></li>
+<li><p>Update allowed selected_label range when data dtype changes (<a class="reference external" href="https://github.com/napari/napari/pull/6479">napari/napari#6479</a>)</p></li>
+<li><p>Run test suite with optional dependencies and fix tests when <code class="docutils literal notranslate"><span class="pre">triangle</span></code> is installed (<a class="reference external" href="https://github.com/napari/napari/pull/6488">napari/napari#6488</a>)</p></li>
+<li><p>Do not use native dialog for reset shortcuts (<a class="reference external" href="https://github.com/napari/napari/pull/6493">napari/napari#6493</a>)</p></li>
+<li><p>Pass key event from Main window to our internal mechanism v0.4.19 (<a class="reference external" href="https://github.com/napari/napari/pull/6507">napari/napari#6507</a>)</p></li>
+<li><p>Fix problem with invalidate cache  (<a class="reference external" href="https://github.com/napari/napari/pull/6520">napari/napari#6520</a>)</p></li>
+<li><p>Reset single step and decimals on reset range slider in popup (<a class="reference external" href="https://github.com/napari/napari/pull/6523">napari/napari#6523</a>)</p></li>
+<li><p>Fix label direct mode for installation without numba (<a class="reference external" href="https://github.com/napari/napari/pull/6571">napari/napari#6571</a>)</p></li>
+<li><p>Fix labels mapping cache by filling it with background, not 0 (<a class="reference external" href="https://github.com/napari/napari/pull/6580">napari/napari#6580</a>)</p></li>
+<li><p>Initialize ndim value for Points layer using data shape if available (<a class="reference external" href="https://github.com/napari/napari/pull/6593">napari/napari#6593</a>)</p></li>
+<li><p>Fix wrong working interpolation of labels in 3d (<a class="reference external" href="https://github.com/napari/napari/pull/6596">napari/napari#6596</a>)</p></li>
+<li><p>Fix points <code class="docutils literal notranslate"><span class="pre">changed</span></code> event emission (<a class="reference external" href="https://github.com/napari/napari/pull/6611">napari/napari#6611</a>)</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">Labels.data_setitem</span></code> setting of view by taking dims order into account (<a class="reference external" href="https://github.com/napari/napari/pull/6616">napari/napari#6616</a>)</p></li>
+<li><p>Fixing data_setitem function of label layer (<a class="reference external" href="https://github.com/napari/napari/pull/6618">napari/napari#6618</a>)</p></li>
+<li><p>Fix points selection (<a class="reference external" href="https://github.com/napari/napari/pull/6621">napari/napari#6621</a>)</p></li>
+<li><p>Select only linked layers already present in layer list (<a class="reference external" href="https://github.com/napari/napari/pull/6622">napari/napari#6622</a>)</p></li>
+<li><p>Bug fixes to multiple issues with linked layers (<a class="reference external" href="https://github.com/napari/napari/pull/6623">napari/napari#6623</a>)</p></li>
+<li><p>Fix rendering of vertexes of shape layers with small scale (<a class="reference external" href="https://github.com/napari/napari/pull/6628">napari/napari#6628</a>)</p></li>
+</ul>
+</section>
+<section id="api-changes">
+<h2>API Changes<a class="headerlink" href="#api-changes" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://github.com/napari/napari/pull/6102">#6102</a> added the ability to set
+linear colormaps from black to a named color by using <code class="docutils literal notranslate"><span class="pre">colormap=&quot;color-name&quot;</span></code>
+syntax. It turns out that “orange” is both the name of a
+white-to-orange colormap in VisPy, and one of the color names in the color
+dictionary, therefore implicitly a <em>black-to-orange</em> colormap! We decided to use
+the new, color-name behavior in this update. So if you are wondering why your
+<code class="docutils literal notranslate"><span class="pre">imshow(data,</span> <span class="pre">colormap='orange')</span></code> calls look different — this is why.</p>
+<p>In <a class="reference external" href="https://github.com/napari/napari/pull/6178">#6178</a>, the “action” type of
+events emitted when editing Shapes or Points was changed to be more granular.
+The types are no longer “add”, “remove”, and “change”, but “adding”, “added”,
+“removing”, “removed”, “changing”, and “changed”. This gives listeners more
+control over when to take action in response to an event.</p>
+</section>
+<section id="deprecations">
+<h2>Deprecations<a class="headerlink" href="#deprecations" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://github.com/napari/napari/pull/6542">#6542</a> made a number of
+deprecations to the Labels API to simplify it. Rather than having color-related
+properties strewn all over the layer, color control is moved strictly to the
+layer’s <code class="docutils literal notranslate"><span class="pre">colormap</span></code>. Here is the full list of deprecated attributes and their
+replacements:</p>
+<ul class="simple">
+<li><p>num_colors: <code class="docutils literal notranslate"><span class="pre">layer.num_colors</span></code> becomes <code class="docutils literal notranslate"><span class="pre">len(layer.colormap)</span></code>.
+<code class="docutils literal notranslate"><span class="pre">layer.num_colors</span> <span class="pre">=</span> <span class="pre">n</span></code> becomes <code class="docutils literal notranslate"><span class="pre">layer.colormap</span> <span class="pre">=</span> <span class="pre">label_colormap(n)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">napari.utils.colormaps.LabelColormap</span></code> is deprecated and has been renamed to
+<code class="docutils literal notranslate"><span class="pre">napari.utils.colormaps.CyclicLabelColormap</span></code>.</p></li>
+<li><p>color: <code class="docutils literal notranslate"><span class="pre">layer.color</span></code> becomes <code class="docutils literal notranslate"><span class="pre">layer.colormap.color_dict</span></code>.
+<code class="docutils literal notranslate"><span class="pre">layer.color</span> <span class="pre">=</span> <span class="pre">color_dict</span></code> becomes
+<code class="docutils literal notranslate"><span class="pre">layer.colormap</span> <span class="pre">=</span> <span class="pre">DirectLabelColormap(color_dict)</span></code>.</p></li>
+<li><p>_background_label: <code class="docutils literal notranslate"><span class="pre">layer._background_label</span></code> is now at
+<code class="docutils literal notranslate"><span class="pre">layer.colormap.background_value</span></code>.</p></li>
+<li><p>color_mode: <code class="docutils literal notranslate"><span class="pre">layer.color_mode</span></code> is set by setting the colormap using the
+corresponding colormap type (<code class="docutils literal notranslate"><span class="pre">CyclicLabelColormap</span></code> or <code class="docutils literal notranslate"><span class="pre">DirectLabelColormap</span></code>;
+these classes can be imported from <code class="docutils literal notranslate"><span class="pre">napari.utils.colormaps</span></code>.).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">seed</span></code>: was only used for shifting labels around in [0, 1]. It is
+superseded by <code class="docutils literal notranslate"><span class="pre">layer.new_colormap()</span></code> which was implemented in
+<a class="reference external" href="https://github.com/napari/napari/pull/6460">#6460</a>.</p></li>
+</ul>
+</section>
+<section id="build-tools">
+<h2>Build Tools<a class="headerlink" href="#build-tools" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Vispy 0.14 (<a class="reference external" href="https://github.com/napari/napari/pull/6214">napari/napari#6214</a>)</p></li>
+</ul>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Add HIP workshop to documentation/workshops (<a class="reference external" href="https://github.com/napari/napari/pull/5117">napari/napari#5117</a>)</p></li>
+<li><p>Update README.md for conda install change (<a class="reference external" href="https://github.com/napari/napari/pull/6123">napari/napari#6123</a>)</p></li>
+<li><p>Cherry-pick docs for 0.4.19 release  (<a class="reference external" href="https://github.com/napari/napari/pull/6384">napari/napari#6384</a>)</p></li>
+<li><p>Add 0.4.19 release notes (<a class="reference external" href="https://github.com/napari/napari/pull/6376">napari/napari#6376</a>)</p></li>
+<li><p>Update docs contribution guide for two-repo setup (<a class="reference external" href="https://github.com/napari/docs/pull/5">napari/docs#5</a>)</p></li>
+<li><p>Improve makefile (<a class="reference external" href="https://github.com/napari/docs/pull/41">napari/docs#41</a>)</p></li>
+<li><p>add foundation grant onboarding workshop (<a class="reference external" href="https://github.com/napari/docs/pull/55">napari/docs#55</a>)</p></li>
+<li><p>Add ‘html-live’ make action to support live reload workflows (<a class="reference external" href="https://github.com/napari/docs/pull/75">napari/docs#75</a>)</p></li>
+<li><p>Fixes formatting for the contributing documentation section (<a class="reference external" href="https://github.com/napari/docs/pull/79">napari/docs#79</a>)</p></li>
+<li><p>Move napari workshop template link to top of page (<a class="reference external" href="https://github.com/napari/docs/pull/90">napari/docs#90</a>)</p></li>
+<li><p>Explain how to add new examples to the gallery (<a class="reference external" href="https://github.com/napari/docs/pull/137">napari/docs#137</a>)</p></li>
+<li><p>Add instructions on how to use docs-xvfb (<a class="reference external" href="https://github.com/napari/docs/pull/138">napari/docs#138</a>)</p></li>
+<li><p>Update annotate_points.md (<a class="reference external" href="https://github.com/napari/docs/pull/145">napari/docs#145</a>)</p></li>
+<li><p>Add more information to the documentation contribution guide (<a class="reference external" href="https://github.com/napari/docs/pull/157">napari/docs#157</a>)</p></li>
+<li><p>Add instructions to build napari docs on Windows (<a class="reference external" href="https://github.com/napari/docs/pull/158">napari/docs#158</a>)</p></li>
+<li><p>Add information about constraint usage to install older napari release (<a class="reference external" href="https://github.com/napari/docs/pull/193">napari/docs#193</a>)</p></li>
+<li><p>Fix typo of points instead of shapes (<a class="reference external" href="https://github.com/napari/docs/pull/195">napari/docs#195</a>)</p></li>
+<li><p>Improve titles of fundamentals tutorials (<a class="reference external" href="https://github.com/napari/docs/pull/196">napari/docs#196</a>)</p></li>
+<li><p>NAP 7: Key Binding Dispatch (<a class="reference external" href="https://github.com/napari/docs/pull/200">napari/docs#200</a>)</p></li>
+<li><p>Update installation instructions for the new conda-forge packages and other changes in our packaging infra (<a class="reference external" href="https://github.com/napari/docs/pull/202">napari/docs#202</a>)</p></li>
+<li><p>make Talley emeritus SC (<a class="reference external" href="https://github.com/napari/docs/pull/204">napari/docs#204</a>)</p></li>
+<li><p>Use napari_scraper instead of qtgallery (<a class="reference external" href="https://github.com/napari/docs/pull/207">napari/docs#207</a>)</p></li>
+<li><p>Move contributing resources to top-level navbar (<a class="reference external" href="https://github.com/napari/docs/pull/208">napari/docs#208</a>)</p></li>
+<li><p>Add roadmap board link to Roadmaps page (<a class="reference external" href="https://github.com/napari/docs/pull/212">napari/docs#212</a>)</p></li>
+<li><p>Fix getting started in napari linking to the unittest getting started page (<a class="reference external" href="https://github.com/napari/docs/pull/217">napari/docs#217</a>)</p></li>
+<li><p>Update core developer list (<a class="reference external" href="https://github.com/napari/docs/pull/219">napari/docs#219</a>)</p></li>
+<li><p>Add note on milestones for PRs (<a class="reference external" href="https://github.com/napari/docs/pull/221">napari/docs#221</a>)</p></li>
+<li><p>Add nap for telemetry (<a class="reference external" href="https://github.com/napari/docs/pull/226">napari/docs#226</a>)</p></li>
+<li><p>Fix titles on Getting Started section of user guide (<a class="reference external" href="https://github.com/napari/docs/pull/228">napari/docs#228</a>)</p></li>
+<li><p>Update Kyle’s tag on the core devs page (<a class="reference external" href="https://github.com/napari/docs/pull/232">napari/docs#232</a>)</p></li>
+<li><p>DOC Minor fixes to nap 6 doc (<a class="reference external" href="https://github.com/napari/docs/pull/233">napari/docs#233</a>)</p></li>
+<li><p>Update ndisplay title (<a class="reference external" href="https://github.com/napari/docs/pull/235">napari/docs#235</a>)</p></li>
+<li><p>Remove sub-sub section heading from rendering guide (<a class="reference external" href="https://github.com/napari/docs/pull/236">napari/docs#236</a>)</p></li>
+<li><p>Update selection instructions in Points tutorial for Shift-A keybinding (<a class="reference external" href="https://github.com/napari/docs/pull/238">napari/docs#238</a>)</p></li>
+<li><p>fix outdated dimension sliders documentation (<a class="reference external" href="https://github.com/napari/docs/pull/241">napari/docs#241</a>)</p></li>
+<li><p>Update napari-workshops.md (<a class="reference external" href="https://github.com/napari/docs/pull/243">napari/docs#243</a>)</p></li>
+<li><p>Add NAP for multicanvas (<a class="reference external" href="https://github.com/napari/docs/pull/249">napari/docs#249</a>)</p></li>
+<li><p>[Fix error] Image layers can’t have converted data type using contextual menu, only Labels (<a class="reference external" href="https://github.com/napari/docs/pull/252">napari/docs#252</a>)</p></li>
+<li><p>Installation guide: Mention slow first launch time (<a class="reference external" href="https://github.com/napari/docs/pull/253">napari/docs#253</a>)</p></li>
+<li><p>Update to use napari-sphinx-theme 0.3.0 (<a class="reference external" href="https://github.com/napari/docs/pull/267">napari/docs#267</a>)</p></li>
+<li><p>[NAP-8] delete :orphan: (<a class="reference external" href="https://github.com/napari/docs/pull/269">napari/docs#269</a>)</p></li>
+<li><p>add link to video from EMBO workshop (<a class="reference external" href="https://github.com/napari/docs/pull/273">napari/docs#273</a>)</p></li>
+<li><p>Improve flow of install page (<a class="reference external" href="https://github.com/napari/docs/pull/274">napari/docs#274</a>)</p></li>
+<li><p>Add Kyle to steering council, make Talley emeritus (<a class="reference external" href="https://github.com/napari/docs/pull/322">napari/docs#322</a>)</p></li>
+<li><p>move self to emeritus (<a class="reference external" href="https://github.com/napari/docs/pull/323">napari/docs#323</a>)</p></li>
+<li><p>Update working groups leads (<a class="reference external" href="https://github.com/napari/docs/pull/327">napari/docs#327</a>)</p></li>
+<li><p>Close calendar event popover when clicking outside it (<a class="reference external" href="https://github.com/napari/docs/pull/337">napari/docs#337</a>)</p></li>
+<li><p>Move Nick and Loic to emeritus, sort emeritus core devs (<a class="reference external" href="https://github.com/napari/docs/pull/339">napari/docs#339</a>)</p></li>
+<li><p>Update conf.py to display the announcement banner (<a class="reference external" href="https://github.com/napari/docs/pull/342">napari/docs#342</a>)</p></li>
+<li><p>Rename <code class="docutils literal notranslate"><span class="pre">myModal</span></code> to <code class="docutils literal notranslate"><span class="pre">eventDetailBackground</span></code> in meetings schedule (<a class="reference external" href="https://github.com/napari/docs/pull/343">napari/docs#343</a>)</p></li>
+<li><p>add melissa to core devs (<a class="reference external" href="https://github.com/napari/docs/pull/345">napari/docs#345</a>)</p></li>
+</ul>
+</section>
+<section id="other-pull-requests">
+<h2>Other Pull Requests<a class="headerlink" href="#other-pull-requests" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>test: [Automatic] Constraints upgrades: <code class="docutils literal notranslate"><span class="pre">certifi</span></code>, <code class="docutils literal notranslate"><span class="pre">dask</span></code>, <code class="docutils literal notranslate"><span class="pre">fsspec</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">imageio</span></code>, <code class="docutils literal notranslate"><span class="pre">ipython</span></code>, <code class="docutils literal notranslate"><span class="pre">pint</span></code>, <code class="docutils literal notranslate"><span class="pre">qtconsole</span></code>, <code class="docutils literal notranslate"><span class="pre">rich</span></code>, <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/5788">napari/napari#5788</a>)</p></li>
+<li><p>test: [Automatic] Constraints upgrades: <code class="docutils literal notranslate"><span class="pre">dask</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">torch</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/5835">napari/napari#5835</a>)</p></li>
+<li><p>[Auto] Constraints upgrades: ipykernel, lit, setuptools, xarray (<a class="reference external" href="https://github.com/napari/napari/pull/5857">napari/napari#5857</a>)</p></li>
+<li><p>Clean up shapes mouse test for clarity (<a class="reference external" href="https://github.com/napari/napari/pull/5917">napari/napari#5917</a>)</p></li>
+<li><p>test: [Automatic] Constraints upgrades: <code class="docutils literal notranslate"><span class="pre">app-model</span></code>, <code class="docutils literal notranslate"><span class="pre">certifi</span></code>, <code class="docutils literal notranslate"><span class="pre">dask</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">jsonschema</span></code>, <code class="docutils literal notranslate"><span class="pre">npe2</span></code>, <code class="docutils literal notranslate"><span class="pre">pydantic</span></code>, <code class="docutils literal notranslate"><span class="pre">pyqt6</span></code>, <code class="docutils literal notranslate"><span class="pre">pyyaml</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code>, <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, <code class="docutils literal notranslate"><span class="pre">zarr</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/6007">napari/napari#6007</a>)</p></li>
+<li><p>test: [Automatic] Constraints upgrades: <code class="docutils literal notranslate"><span class="pre">rich</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/6105">napari/napari#6105</a>)</p></li>
+<li><p>[Automatic] Constraints upgrades: <code class="docutils literal notranslate"><span class="pre">dask</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">jsonschema</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">pygments</span></code>, <code class="docutils literal notranslate"><span class="pre">rich</span></code>, <code class="docutils literal notranslate"><span class="pre">superqt</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/6124">napari/napari#6124</a>)</p></li>
+<li><p>[pre-commit.ci] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/6128">napari/napari#6128</a>)</p></li>
+<li><p>Fix headless test (<a class="reference external" href="https://github.com/napari/napari/pull/6161">napari/napari#6161</a>)</p></li>
+<li><p>Stop using temporary directory for store array for paint test (<a class="reference external" href="https://github.com/napari/napari/pull/6191">napari/napari#6191</a>)</p></li>
+<li><p>Use class name for object that does not have qt name (<a class="reference external" href="https://github.com/napari/napari/pull/6222">napari/napari#6222</a>)</p></li>
+<li><p>Fix labeler by adding permissions (<a class="reference external" href="https://github.com/napari/napari/pull/6289">napari/napari#6289</a>)</p></li>
+<li><p>Update pre-commit and constraints and minor fixes for 0.4.19 release (<a class="reference external" href="https://github.com/napari/napari/pull/6340">napari/napari#6340</a>)</p></li>
+<li><p>Ensure conda workflow runs with proper permissions (<a class="reference external" href="https://github.com/napari/napari/pull/6378">napari/napari#6378</a>)</p></li>
+<li><p>Remove sphinx dependency from defaults dependecies (<a class="reference external" href="https://github.com/napari/napari/pull/6380">napari/napari#6380</a>)</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">test_link_layers_with_images_then_loaded_not_linked</span></code> test (<a class="reference external" href="https://github.com/napari/napari/pull/6385">napari/napari#6385</a>)</p></li>
+<li><p>Do not repeat warnings in GUI (<a class="reference external" href="https://github.com/napari/napari/pull/6396">napari/napari#6396</a>)</p></li>
+<li><p>Fix drawing timer (<a class="reference external" href="https://github.com/napari/napari/pull/6400">napari/napari#6400</a>)</p></li>
+<li><p>Reraise warnings in proxy (<a class="reference external" href="https://github.com/napari/napari/pull/6408">napari/napari#6408</a>)</p></li>
+<li><p>Bump napari console to ensure users get latest bug fixes (<a class="reference external" href="https://github.com/napari/napari/pull/6442">napari/napari#6442</a>)</p></li>
+<li><p>[maint] update Dockerfile with current installation of Xpra (<a class="reference external" href="https://github.com/napari/napari/pull/6463">napari/napari#6463</a>)</p></li>
+<li><p>[Maint, v0.4.19] Use python 3.11 for manifest check (<a class="reference external" href="https://github.com/napari/napari/pull/6497">napari/napari#6497</a>)</p></li>
+<li><p>Add copy operator to fix memory benchmarks (<a class="reference external" href="https://github.com/napari/napari/pull/6530">napari/napari#6530</a>)</p></li>
+<li><p>Check in LabelColormap that fewer than 2**16 colors are requested (<a class="reference external" href="https://github.com/napari/napari/pull/6540">napari/napari#6540</a>)</p></li>
+<li><p>[Maint] Update build_docs workflow to match napari/docs (<a class="reference external" href="https://github.com/napari/napari/pull/6547">napari/napari#6547</a>)</p></li>
+<li><p>Moving IntensityVisualizationMixin from _ImageBase to Image (<a class="reference external" href="https://github.com/napari/napari/pull/6548">napari/napari#6548</a>)</p></li>
+<li><p>test: [Automatic] Constraints upgrades: <code class="docutils literal notranslate"><span class="pre">app-model</span></code>, <code class="docutils literal notranslate"><span class="pre">babel</span></code>, <code class="docutils literal notranslate"><span class="pre">certifi</span></code>, <code class="docutils literal notranslate"><span class="pre">dask</span></code>, <code class="docutils literal notranslate"><span class="pre">fsspec</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">imageio</span></code>, <code class="docutils literal notranslate"><span class="pre">ipython</span></code>, <code class="docutils literal notranslate"><span class="pre">jsonschema</span></code>, <code class="docutils literal notranslate"><span class="pre">lxml</span></code>, <code class="docutils literal notranslate"><span class="pre">magicgui</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, <code class="docutils literal notranslate"><span class="pre">numba</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">pillow</span></code>, <code class="docutils literal notranslate"><span class="pre">pint</span></code>, <code class="docutils literal notranslate"><span class="pre">psutil</span></code>, <code class="docutils literal notranslate"><span class="pre">psygnal</span></code>, <code class="docutils literal notranslate"><span class="pre">pydantic</span></code>, <code class="docutils literal notranslate"><span class="pre">pygments</span></code>, <code class="docutils literal notranslate"><span class="pre">pyqt6</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest-qt</span></code>, <code class="docutils literal notranslate"><span class="pre">qtconsole</span></code>, <code class="docutils literal notranslate"><span class="pre">rich</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>, <code class="docutils literal notranslate"><span class="pre">tensorstore</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code>, <code class="docutils literal notranslate"><span class="pre">torch</span></code>, <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code>, <code class="docutils literal notranslate"><span class="pre">wrapt</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/6559">napari/napari#6559</a>)</p></li>
+<li><p>Do not require triangle on macos arm (<a class="reference external" href="https://github.com/napari/napari/pull/6603">napari/napari#6603</a>)</p></li>
+<li><p>No-cache fast painting (<a class="reference external" href="https://github.com/napari/napari/pull/6607">napari/napari#6607</a>)</p></li>
+<li><p>test: [Automatic] Constraints upgrades: <code class="docutils literal notranslate"><span class="pre">dask</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">ipython</span></code>, <code class="docutils literal notranslate"><span class="pre">jsonschema</span></code>, <code class="docutils literal notranslate"><span class="pre">lxml</span></code>, <code class="docutils literal notranslate"><span class="pre">npe2</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">pillow</span></code>, <code class="docutils literal notranslate"><span class="pre">psutil</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>, <code class="docutils literal notranslate"><span class="pre">tensorstore</span></code>, <code class="docutils literal notranslate"><span class="pre">toolz</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/6608">napari/napari#6608</a>)</p></li>
+<li><p>Ignore pandas pyarrow warning (<a class="reference external" href="https://github.com/napari/napari/pull/6609">napari/napari#6609</a>)</p></li>
+<li><p>test: [Automatic] Constraints upgrades: <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">pydantic</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/6630">napari/napari#6630</a>)</p></li>
+<li><p>Update docs to suggest python 3.10 install (<a class="reference external" href="https://github.com/napari/docs/pull/246">napari/docs#246</a>)</p></li>
+</ul>
+</section>
+<section id="authors-added-to-this-release-alphabetical">
+<h2>20 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=akuten1298">akuten1298</a> - &#64;akuten1298</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=andy-sweet">Andrew Sweet</a> - &#64;andy-sweet</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=aganders3">Ashley Anderson</a> - &#64;aganders3</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dalthviz">Daniel Althviz Moré</a> - &#64;dalthviz</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dstansby">David Stansby</a> - &#64;dstansby</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=zindy">Egor Zindy</a> - &#64;zindy</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=elena-pascal">Elena Pascal</a> - &#64;elena-pascal</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=perlman">Eric Perlman</a> - &#64;perlman</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=GenevieveBuckley">Genevieve Buckley</a> - &#64;GenevieveBuckley</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> - &#64;Czaki</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jaimergp">Jaime Rodríguez-Guerra</a> - &#64;jaimergp</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kne42">Kira Evans</a> - &#64;kne42</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=leopold-franz">Leopold Franz</a> - &#64;leopold-franz</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> - &#64;brisvag</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=lucyleeow">Lucy Liu</a> - &#64;lucyleeow</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=haesleinhuepf">Robert Haase</a> - &#64;haesleinhuepf</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=seankmartin">Sean Martin</a> - &#64;seankmartin</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=melonora">Wouter-Michiel Vierdag</a> - &#64;melonora</p></li>
+</ul>
+</section>
+<section id="reviewers-added-to-this-release-alphabetical">
+<h2>17 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=alisterburt">Alister Burt</a> - &#64;alisterburt</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=andy-sweet">Andrew Sweet</a> - &#64;andy-sweet</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=aganders3">Ashley Anderson</a> - &#64;aganders3</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dalthviz">Daniel Althviz Moré</a> - &#64;dalthviz</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> - &#64;DragaDoncila</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=zindy">Egor Zindy</a> - &#64;zindy</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=GenevieveBuckley">Genevieve Buckley</a> - &#64;GenevieveBuckley</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=goanpeca">Gonzalo Peña-Castellanos</a> - &#64;goanpeca</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> - &#64;Czaki</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jaimergp">Jaime Rodríguez-Guerra</a> - &#64;jaimergp</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kne42">Kira Evans</a> - &#64;kne42</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> - &#64;brisvag</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Carreau">Matthias Bussonnier</a> - &#64;Carreau</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=melissawm">Melissa Weber Mendonça</a> - &#64;melissawm</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=melonora">Wouter-Michiel Vierdag</a> - &#64;melonora</p></li>
+</ul>
+</section>
+<section id="docs-authors-added-to-this-release-alphabetical">
+<h2>18 docs authors added to this release (alphabetical)<a class="headerlink" href="#docs-authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=alisterburt">Alister Burt</a> - &#64;alisterburt</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=aganders3">Ashley Anderson</a> - &#64;aganders3</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=chili-chiu">chili-chiu</a> - &#64;chili-chiu</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=constantinpape">Constantin Pape</a> - &#64;constantinpape</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=dstansby">David Stansby</a> - &#64;dstansby</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=dgmccart">dgmccart</a> - &#64;dgmccart</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=Czaki">Grzegorz Bokota</a> - &#64;Czaki</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=jaimergp">Jaime Rodríguez-Guerra</a> - &#64;jaimergp</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=kevinyamauchi">Kevin Yamauchi</a> - &#64;kevinyamauchi</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=kne42">Kira Evans</a> - &#64;kne42</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=lucyleeow">Lucy Liu</a> - &#64;lucyleeow</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=melissawm">Melissa Weber Mendonça</a> - &#64;melissawm</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=haesleinhuepf">Robert Haase</a> - &#64;haesleinhuepf</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=seankmartin">Sean Martin</a> - &#64;seankmartin</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=tlambert03">Talley Lambert</a> - &#64;tlambert03</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=melonora">Wouter-Michiel Vierdag</a> - &#64;melonora</p></li>
+</ul>
+</section>
+<section id="docs-reviewers-added-to-this-release-alphabetical">
+<h2>18 docs reviewers added to this release (alphabetical)<a class="headerlink" href="#docs-reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=andy-sweet">Andrew Sweet</a> - &#64;andy-sweet</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=aganders3">Ashley Anderson</a> - &#64;aganders3</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=constantinpape">Constantin Pape</a> - &#64;constantinpape</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=dstansby">David Stansby</a> - &#64;dstansby</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">Draga Doncila Pop</a> - &#64;DragaDoncila</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=soupault">Egor Panfilov</a> - &#64;soupault</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=GenevieveBuckley">Genevieve Buckley</a> - &#64;GenevieveBuckley</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=Czaki">Grzegorz Bokota</a> - &#64;Czaki</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=jaimergp">Jaime Rodríguez-Guerra</a> - &#64;jaimergp</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=kne42">Kira Evans</a> - &#64;kne42</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=brisvag">Lorenzo Gaifas</a> - &#64;brisvag</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=lucyleeow">Lucy Liu</a> - &#64;lucyleeow</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=Carreau">Matthias Bussonnier</a> - &#64;Carreau</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=melissawm">Melissa Weber Mendonça</a> - &#64;melissawm</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=seankmartin">Sean Martin</a> - &#64;seankmartin</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=melonora">Wouter-Michiel Vierdag</a> - &#64;melonora</p></li>
+</ul>
+</section>
+<section id="new-contributors">
+<h2>New Contributors<a class="headerlink" href="#new-contributors" title="Link to this heading">#</a></h2>
+<p>There are 5 new contributors for this release:</p>
+<ul class="simple">
+<li><p>akuten1298 <a class="reference external" href="https://github.com/napari/napari/commits?author=akuten1298">napari</a> - &#64;akuten1298</p></li>
+<li><p>dgmccart <a class="reference external" href="https://github.com/napari/docs/commits?author=dgmccart">docs</a> - &#64;dgmccart</p></li>
+<li><p>Egor Zindy <a class="reference external" href="https://github.com/napari/napari/commits?author=zindy">napari</a> - &#64;zindy</p></li>
+<li><p>Elena Pascal <a class="reference external" href="https://github.com/napari/napari/commits?author=elena-pascal">napari</a> - &#64;elena-pascal</p></li>
+<li><p>Leopold Franz <a class="reference external" href="https://github.com/napari/napari/commits?author=leopold-franz">napari</a> - &#64;leopold-franz</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="release_0_5_0.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">napari 0.5.0</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="release_0_4_18.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">napari 0.4.18</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highlights">Highlights</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#big-improvements-to-the-labels-layer">BIG improvements to the Labels layer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#more-on-colormaps">More on colormaps!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-technical-stuff">Some technical stuff</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#onwards">Onwards!</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-features">New Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#improvements">Improvements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bug-fixes">Bug Fixes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-changes">API Changes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deprecations">Deprecations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-tools">Build Tools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-pull-requests">Other Pull Requests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">20 authors added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">17 reviewers added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docs-authors-added-to-this-release-alphabetical">18 docs authors added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docs-reviewers-added-to-this-release-alphabetical">18 docs reviewers added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-contributors">New Contributors</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../dev/_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../dev/_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="napari-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><a class="footer-icon__hover-blue" href="https://napari.org" title="napari.org" target="_blank" rel="noreferrer">
+  <svg
+  width="30"
+  height="30"
+  viewBox="0 0 30 30"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M27.8387 0H2.16127C0.967636 0 0 0.967636 0 2.16127V27.8387C0 29.0324 0.967636 30 2.16127 30H27.8387C29.0324 30 30 29.0324 30 27.8387V2.16127C30 0.967636 29.0324 0 27.8387 0Z"
+    fill="#26283D"
+  ></path>
+  <path
+    d="M27.7779 1.03139H2.22356C1.56514 1.03139 1.03139 1.56514 1.03139 2.22357V27.7779C1.03139 28.4363 1.56514 28.9701 2.22356 28.9701H27.7779C28.4363 28.9701 28.9701 28.4363 28.9701 27.7779V2.22357C28.9701 1.56514 28.4363 1.03139 27.7779 1.03139Z"
+    fill="url(#paint0_radial)"
+  ></path>
+  <path
+    d="M17.4655 27.3361C17.099 27.3361 16.7542 27.3201 16.4124 27.2897C16.0096 27.2645 15.61 27.202 15.2187 27.1028C14.4296 26.8759 13.6918 26.4986 13.0459 25.9918C12.1394 25.2971 11.3826 24.4265 10.8209 23.4322C10.5949 23.0338 10.3863 22.4775 9.83293 20.9899C9.71125 20.661 9.61999 20.4104 9.54321 20.2091C9.36359 19.7209 9.3042 19.5558 9.15789 19.2385C8.96705 18.7853 8.73274 18.3516 8.45823 17.9435C8.12277 17.4768 7.73384 17.0509 7.29937 16.6745C7.13279 16.5297 7.05601 16.4616 6.91405 16.3515C6.73732 16.2067 6.49396 16.0183 6.02752 15.6098C5.2395 14.9174 4.94254 14.5958 4.66876 14.2453C4.25597 13.7417 3.92726 13.1748 3.69532 12.5664C3.49242 12.0272 3.37416 11.4599 3.34476 10.8846C3.32978 10.3829 3.38289 9.88145 3.50265 9.39401C3.69467 8.45513 4.01235 7.54642 4.44713 6.69241C4.7481 6.05734 5.13833 5.46858 5.60599 4.94398C6.16001 4.34736 6.8007 3.83754 7.50652 3.43167C7.8302 3.24114 8.16941 3.07832 8.52052 2.94495C9.04221 2.75721 9.59283 2.66258 10.1473 2.66537C10.6436 2.66652 11.1376 2.73375 11.6161 2.86528C12.5756 3.10049 13.433 3.64024 14.0599 4.40366C14.7204 5.22066 14.987 6.2477 15.2028 7.63978C15.2578 8.00193 15.2796 8.18879 15.2984 8.35248C15.31 8.46547 15.323 8.57846 15.352 8.77836C15.5273 9.97199 15.6142 10.5167 15.8141 10.9324C16.1038 11.5408 16.6572 11.8957 17.0208 12.1304C17.9131 12.7098 18.8344 12.788 19.4442 12.8416C19.6847 12.8633 19.9585 12.8749 20.2569 12.8749C20.703 12.8749 21.0739 12.8503 21.2115 12.8402C21.4853 12.8199 21.7141 12.7938 21.9358 12.7677C22.272 12.7223 22.6106 12.6972 22.9498 12.6924C23.3746 12.6921 23.7976 12.7491 24.2071 12.8619C25.0966 13.067 25.8989 13.547 26.5002 14.2337C27.1101 14.958 27.2738 15.6721 27.4795 16.5804C27.6193 17.187 27.707 17.8044 27.7417 18.4259C27.7764 19.1313 27.8242 20.0946 27.4925 21.2303C27.1727 22.2747 26.6228 23.234 25.8831 24.0377C25.1073 24.908 24.1734 25.6233 23.1309 26.1453C22.5393 26.4354 21.9207 26.6669 21.2839 26.8363C20.4006 27.0835 19.4935 27.2365 18.578 27.2926C18.1912 27.3216 17.8175 27.3361 17.4655 27.3361Z"
+    fill="#26283D"
+  ></path>
+  <path
+    d="M17.4655 26.2265C17.1323 26.2265 16.8194 26.2134 16.5109 26.1859C16.1688 26.1658 15.8293 26.1139 15.4969 26.0309C14.8468 25.8412 14.2394 25.5279 13.7079 25.1082C12.924 24.5046 12.2698 23.7494 11.7842 22.8875C11.6016 22.5645 11.3873 21.9908 10.8701 20.6031C10.7484 20.2786 10.6586 20.0323 10.5804 19.8295C10.4008 19.3385 10.3269 19.1342 10.1618 18.7764C9.94359 18.2639 9.6768 17.7735 9.36504 17.3119C8.98218 16.7792 8.53831 16.293 8.04249 15.8633C7.84694 15.6852 7.74264 15.6026 7.59778 15.4882C7.41961 15.3433 7.19942 15.1738 6.75471 14.7842C6.03042 14.1497 5.76968 13.8672 5.53791 13.5703C5.19569 13.1552 4.92274 12.6875 4.7296 12.1854C4.41134 11.3736 4.36059 10.4814 4.58474 9.63882C4.75558 8.79295 5.04066 7.97424 5.43216 7.20521C5.68904 6.6581 6.02321 6.15074 6.42443 5.69869C6.89941 5.18449 7.44931 4.74497 8.05553 4.39498C8.32534 4.23625 8.6078 4.1001 8.90005 3.98793C9.29948 3.84394 9.72125 3.77185 10.1458 3.77499C10.5448 3.77727 10.9417 3.83182 11.3264 3.93723C12.0597 4.10871 12.7166 4.51577 13.1965 5.09609C13.6311 5.6422 13.8846 6.37663 14.1062 7.80492C14.1584 8.14389 14.1772 8.31048 14.1946 8.47127C14.2076 8.5944 14.2221 8.71753 14.254 8.93481C14.4336 10.1531 14.5321 10.8252 14.8146 11.4104C15.2492 12.2984 15.9734 12.7735 16.4182 13.056C17.5394 13.7803 18.6692 13.8817 19.3443 13.9425C19.6166 13.9672 19.9237 13.9788 20.2554 13.9788C20.7393 13.9788 21.142 13.9527 21.2941 13.9411C21.5838 13.9194 21.8387 13.8904 22.0604 13.8643C22.3529 13.8246 22.6474 13.8019 22.9425 13.7962C23.2691 13.7958 23.5942 13.8401 23.9087 13.9281C24.2796 14.028 25.0502 14.238 25.647 14.9421C26.0816 15.4592 26.2062 16.001 26.393 16.8252C26.5186 17.3689 26.5976 17.9223 26.6292 18.4795C26.661 19.14 26.7016 19.9614 26.422 20.9174C26.1469 21.8088 25.6746 22.6267 25.0401 23.3105C24.3582 24.0719 23.5378 24.6968 22.6224 25.1516C22.0928 25.4117 21.5387 25.6184 20.9681 25.7687C20.1555 25.9947 19.3214 26.1345 18.4795 26.1859C18.1333 26.2192 17.7929 26.2265 17.4655 26.2265Z"
+    fill="#A59678"
+  ></path>
+  <path
+    d="M9.21149 4.83535C10.0328 4.53405 10.8513 4.74409 11.0946 4.80783C11.6453 4.93454 12.1384 5.24019 12.4969 5.67697C12.8199 6.07533 13.0212 6.69098 13.2211 7.95558C13.3124 8.5437 13.295 8.56978 13.366 9.07823C13.5529 10.3472 13.6644 11.1062 14.0077 11.816C14.548 12.9314 15.4563 13.521 15.9329 13.8267C17.2366 14.6726 18.5403 14.7885 19.2646 14.8537C19.9624 14.9053 20.663 14.9053 21.3607 14.8537C22.4718 14.7711 22.9121 14.6045 23.6712 14.8117C24.0058 14.9015 24.549 15.0579 24.9546 15.536C25.2443 15.8851 25.337 16.2603 25.5109 17.0324C25.625 17.5246 25.6967 18.0257 25.7253 18.5302C25.7571 19.169 25.7904 19.86 25.5543 20.6697C25.3157 21.4363 24.906 22.1387 24.3563 22.7238C23.7531 23.3969 23.027 23.9485 22.2168 24.3491C21.736 24.5834 21.2327 24.7683 20.7146 24.901C19.9602 25.1106 19.1857 25.2397 18.4042 25.2863C17.7992 25.3373 17.1911 25.3373 16.5862 25.2863C16.2975 25.2698 16.0109 25.2267 15.7301 25.1574C15.1926 24.9997 14.6912 24.7384 14.254 24.3882C13.5654 23.8599 12.9908 23.1976 12.5649 22.4413C12.4201 22.1806 12.1811 21.5476 11.7088 20.2801C11.2916 19.1603 11.2323 18.943 10.9845 18.3969C10.7451 17.8345 10.451 17.297 10.1067 16.7919C9.68854 16.2019 9.20233 15.6632 8.65814 15.1869C8.19314 14.7639 8.16417 14.8044 7.35442 14.0961C6.64751 13.4761 6.43168 13.2342 6.25205 13.0053C5.96697 12.6629 5.73947 12.2764 5.57846 11.8609C5.45202 11.5217 5.37825 11.1651 5.35973 10.8035C5.35202 10.4734 5.39004 10.1439 5.47272 9.82425C5.62675 9.05475 5.88556 8.31001 6.24191 7.61082C6.46342 7.13752 6.75173 6.69847 7.09802 6.3071C7.32105 6.06667 7.56328 5.84479 7.82231 5.64366C8.03967 5.47474 8.26863 5.3213 8.50748 5.18446C8.73275 5.05002 8.96813 4.93329 9.21149 4.83535V4.83535Z"
+    fill="url(#paint1_linear)"
+  ></path>
+  <defs>
+    <radialGradient
+      id="paint0_radial"
+      cx="0"
+      cy="0"
+      r="1"
+      gradientUnits="userSpaceOnUse"
+      gradientTransform="translate(15 15) scale(28.521)"
+    >
+      <stop stop-color="#746B7F"></stop>
+      <stop offset="0.12" stop-color="#615B6F"></stop>
+      <stop offset="0.26" stop-color="#514C60"></stop>
+      <stop offset="0.37" stop-color="#4B475B"></stop>
+      <stop offset="0.44" stop-color="#4F4B5F"></stop>
+      <stop offset="0.51" stop-color="#5A566C"></stop>
+      <stop offset="0.59" stop-color="#6D6881"></stop>
+      <stop offset="0.67" stop-color="#87829E"></stop>
+      <stop offset="0.74" stop-color="#A9A2C3"></stop>
+      <stop offset="0.78" stop-color="#BCB5D9"></stop>
+    </radialGradient>
+    <linearGradient
+      id="paint1_linear"
+      x1="5.54949"
+      y1="7.79624"
+      x2="23.9884"
+      y2="23.7393"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop offset="0.05" stop-color="#448491"></stop>
+      <stop offset="0.15" stop-color="#4A7986"></stop>
+      <stop offset="0.33" stop-color="#506E7B"></stop>
+      <stop offset="0.52" stop-color="#526A77"></stop>
+      <stop offset="0.6" stop-color="#56707C"></stop>
+      <stop offset="0.7" stop-color="#607F8B"></stop>
+      <stop offset="0.82" stop-color="#7099A3"></stop>
+      <stop offset="0.94" stop-color="#87BDC4"></stop>
+      <stop offset="1" stop-color="#94D1D6"></stop>
+    </linearGradient>
+  </defs>
+</svg>
+  <span>napari</span>
+</a>
+
+<a class="footer-icon__hover-blue" href="https://napari-hub.org" title="napari hub" target="_blank" rel="noreferrer">
+  <svg
+  class="footer-icon__regular"
+  width="487"
+  height="512"
+  viewBox="0 0 487 512"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <title>Visit napari hub</title>
+  <circle
+    cx="243.036"
+    cy="256"
+    r="85.3333"
+    fill="white"
+    stroke="white"
+    stroke-width="56.8889"
+  ></circle>
+  <circle cx="243.036" cy="42.6667" r="42.6667" fill="white"></circle>
+  <circle cx="243.036" cy="469.333" r="42.6667" fill="white"></circle>
+  <path
+    d="M243.036 28.4444L243.036 142.222"
+    stroke="white"
+    stroke-width="56.8889"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  ></path>
+  <path
+    d="M243.036 369.778L243.036 483.556"
+    stroke="white"
+    stroke-width="56.8889"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  ></path>
+  <circle
+    cx="58.2838"
+    cy="149.333"
+    r="42.6667"
+    transform="rotate(-60 58.2838 149.333)"
+    fill="white"
+  ></circle>
+  <circle
+    cx="427.788"
+    cy="362.667"
+    r="42.6667"
+    transform="rotate(-60 427.788 362.667)"
+    fill="white"
+  ></circle>
+  <path
+    d="M45.967 142.222L144.501 199.111"
+    stroke="white"
+    stroke-width="56.8889"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  ></path>
+  <path
+    d="M341.57 312.889L440.105 369.778"
+    stroke="white"
+    stroke-width="56.8889"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  ></path>
+  <circle
+    cx="58.2838"
+    cy="362.667"
+    r="42.6667"
+    transform="rotate(-120 58.2838 362.667)"
+    fill="white"
+  ></circle>
+  <circle
+    cx="427.788"
+    cy="149.333"
+    r="42.6667"
+    transform="rotate(-120 427.788 149.333)"
+    fill="white"
+  ></circle>
+  <path
+    d="M45.967 369.778L144.501 312.889"
+    stroke="white"
+    stroke-width="56.8889"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  ></path>
+  <path
+    d="M341.57 199.111L440.105 142.222"
+    stroke="white"
+    stroke-width="56.8889"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  ></path>
+</svg>
+  <svg
+  class="footer-icon__light-blue"
+  width="17"
+  height="17"
+  viewBox="0 0 17 17"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g clip-path="url(#clip0_307_186)">
+    <circle
+      cx="8.50002"
+      cy="8.49935"
+      r="2.83333"
+      fill="#D2EFFF"
+      stroke="#D2EFFF"
+      stroke-width="1.86421"
+    />
+    <circle cx="8.50004" cy="1.41667" r="1.41667" fill="#D2EFFF" />
+    <circle cx="8.50004" cy="15.5846" r="1.41667" fill="#D2EFFF" />
+    <path
+      d="M8.50006 0.943359L8.50006 4.72114"
+      stroke="#D2EFFF"
+      stroke-width="1.86421"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M8.50006 12.2773L8.50006 16.0551"
+      stroke="#D2EFFF"
+      stroke-width="1.86421"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <circle
+      cx="2.36574"
+      cy="4.95803"
+      r="1.41667"
+      transform="rotate(-60 2.36574 4.95803)"
+      fill="#D2EFFF"
+    />
+    <circle
+      cx="14.6344"
+      cy="12.0401"
+      r="1.41667"
+      transform="rotate(-60 14.6344 12.0401)"
+      fill="#D2EFFF"
+    />
+    <path
+      d="M1.95673 4.72266L5.22838 6.61155"
+      stroke="#D2EFFF"
+      stroke-width="1.86421"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M11.7717 10.3887L15.0434 12.2776"
+      stroke="#D2EFFF"
+      stroke-width="1.86421"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <circle
+      cx="2.3657"
+      cy="12.0433"
+      r="1.41667"
+      transform="rotate(-120 2.3657 12.0433)"
+      fill="#D2EFFF"
+    />
+    <circle
+      cx="14.6345"
+      cy="4.95933"
+      r="1.41667"
+      transform="rotate(-120 14.6345 4.95933)"
+      fill="#D2EFFF"
+    />
+    <path
+      d="M1.95673 12.2773L5.22838 10.3885"
+      stroke="#D2EFFF"
+      stroke-width="1.86421"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M11.7717 6.61133L15.0434 4.72244"
+      stroke="#D2EFFF"
+      stroke-width="1.86421"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
+  <defs>
+    <clipPath id="clip0_307_186">
+      <rect width="17" height="17" fill="white" />
+    </clipPath>
+  </defs>
+</svg>
+  <span>Plugins</span>
+</a>
+
+<a class="footer-icon__hover-blue" href="https://github.com/napari/napari" title="GitHub" target="_blank" rel="noreferrer">
+  <svg
+  class="footer-icon__regular"
+  width="14"
+  height="14"
+  viewBox="0 0 14 14"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <title>Visit GitHub repository</title>
+  <path
+    d="M7 0.173252C3.1325 0.173252 0 3.3075 0 7.17325C0 10.2667 2.0055 12.8899 4.78625 13.8145C5.13625 13.8804 5.26458 13.664 5.26458 13.4779C5.26458 13.3117 5.25875 12.8713 5.25583 12.2879C3.30867 12.7103 2.898 11.3488 2.898 11.3488C2.5795 10.5408 2.11925 10.325 2.11925 10.325C1.48517 9.891 2.16825 9.89975 2.16825 9.89975C2.87117 9.94875 3.24042 10.6208 3.24042 10.6208C3.86458 11.6912 4.879 11.382 5.27917 11.2029C5.34217 10.7503 5.52242 10.4417 5.7225 10.2667C4.16792 10.0917 2.534 9.48967 2.534 6.8075C2.534 6.04334 2.80525 5.41917 3.25442 4.92917C3.17567 4.75242 2.93942 4.04075 3.31567 3.0765C3.31567 3.0765 3.90192 2.88867 5.24067 3.794C5.80067 3.63825 6.39567 3.56125 6.99067 3.55775C7.58567 3.56125 8.18067 3.63825 8.74067 3.794C10.0707 2.88867 10.6569 3.0765 10.6569 3.0765C11.0332 4.04075 10.7969 4.75242 10.7269 4.92917C11.1732 5.41917 11.4444 6.04334 11.4444 6.8075C11.4444 9.49667 9.80817 10.0888 8.25067 10.2608C8.49567 10.4708 8.72317 10.9002 8.72317 11.5558C8.72317 12.4927 8.71442 13.2452 8.71442 13.4727C8.71442 13.6564 8.83692 13.8752 9.19567 13.8052C11.9962 12.887 14 10.262 14 7.17325C14 3.3075 10.8657 0.173252 7 0.173252Z"
+    fill="white"
+  ></path>
+</svg>
+  <svg
+  class="footer-icon__light-blue"
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M8 0C3.58 0 0 3.582 0 8C0 11.5353 2.292 14.5333 5.47 15.59C5.87 15.6653 6.01667 15.418 6.01667 15.2053C6.01667 15.0153 6.01 14.512 6.00667 13.8453C3.78133 14.328 3.312 12.772 3.312 12.772C2.948 11.8487 2.422 11.602 2.422 11.602C1.69733 11.106 2.478 11.116 2.478 11.116C3.28133 11.172 3.70333 11.94 3.70333 11.94C4.41667 13.1633 5.576 12.81 6.03333 12.6053C6.10533 12.088 6.31133 11.7353 6.54 11.5353C4.76333 11.3353 2.896 10.6473 2.896 7.582C2.896 6.70867 3.206 5.99533 3.71933 5.43533C3.62933 5.23333 3.35933 4.42 3.78933 3.318C3.78933 3.318 4.45933 3.10333 5.98933 4.138C6.62933 3.96 7.30933 3.872 7.98933 3.868C8.66933 3.872 9.34933 3.96 9.98933 4.138C11.5093 3.10333 12.1793 3.318 12.1793 3.318C12.6093 4.42 12.3393 5.23333 12.2593 5.43533C12.7693 5.99533 13.0793 6.70867 13.0793 7.582C13.0793 10.6553 11.2093 11.332 9.42933 11.5287C9.70933 11.7687 9.96933 12.2593 9.96933 13.0087C9.96933 14.0793 9.95933 14.9393 9.95933 15.1993C9.95933 15.4093 10.0993 15.6593 10.5093 15.5793C13.71 14.53 16 11.53 16 8C16 3.582 12.418 0 8 0"
+    fill="#D2EFFF"
+  />
+</svg>
+  <span>Code</span>
+</a>
+
+<a class="footer-icon__hover-blue" href="https://fosstodon.org/@napari" title="Mastodon" target="_blank" rel="noreferrer">
+  <svg
+  class="footer-icon__regular"
+  width="74"
+  height="79"
+  viewBox="0 0 74 79"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+
+  <title>Visit Mastodon page</title>
+  <path
+    d="M73.7014 17.9592C72.5616 9.62034 65.1774 3.04876 56.424 1.77536C54.9472 1.56019 49.3517 0.7771 36.3901 0.7771H36.2933C23.3281 0.7771 20.5465 1.56019 19.0697 1.77536C10.56 3.01348 2.78877 8.91838 0.903306 17.356C-0.00357857 21.5113 -0.100361 26.1181 0.068112 30.3439C0.308275 36.404 0.354874 42.4535 0.91406 48.489C1.30064 52.498 1.97502 56.4751 2.93215 60.3905C4.72441 67.6217 11.9795 73.6395 19.0876 76.0945C26.6979 78.6548 34.8821 79.0799 42.724 77.3221C43.5866 77.1245 44.4398 76.8953 45.2833 76.6342C47.1867 76.0381 49.4199 75.3714 51.0616 74.2003C51.0841 74.1839 51.1026 74.1627 51.1156 74.1382C51.1286 74.1138 51.1359 74.0868 51.1368 74.0592V68.2108C51.1364 68.185 51.1302 68.1596 51.1185 68.1365C51.1069 68.1134 51.0902 68.0932 51.0695 68.0773C51.0489 68.0614 51.0249 68.0503 50.9994 68.0447C50.9738 68.0391 50.9473 68.0392 50.9218 68.045C45.8976 69.226 40.7491 69.818 35.5836 69.8087C26.694 69.8087 24.3031 65.6569 23.6184 63.9285C23.0681 62.4347 22.7186 60.8764 22.5789 59.2934C22.5775 59.2669 22.5825 59.2403 22.5934 59.216C22.6043 59.1916 22.621 59.1702 22.6419 59.1533C22.6629 59.1365 22.6876 59.1248 22.714 59.1191C22.7404 59.1134 22.7678 59.1139 22.794 59.1206C27.7345 60.2936 32.799 60.8856 37.8813 60.8843C39.1036 60.8843 40.3223 60.8843 41.5447 60.8526C46.6562 60.7115 52.0437 60.454 57.0728 59.4874C57.1983 59.4628 57.3237 59.4416 57.4313 59.4098C65.3638 57.9107 72.9128 53.2051 73.6799 41.2895C73.7086 40.8204 73.7803 36.3758 73.7803 35.889C73.7839 34.2347 74.3216 24.1533 73.7014 17.9592ZM61.4925 47.6918H53.1514V27.5855C53.1514 23.3526 51.3591 21.1938 47.7136 21.1938C43.7061 21.1938 41.6988 23.7476 41.6988 28.7919V39.7974H33.4078V28.7919C33.4078 23.7476 31.3969 21.1938 27.3894 21.1938C23.7654 21.1938 21.9552 23.3526 21.9516 27.5855V47.6918H13.6176V26.9752C13.6176 22.7423 14.7157 19.3795 16.9118 16.8868C19.1772 14.4 22.1488 13.1231 25.8373 13.1231C30.1064 13.1231 33.3325 14.7386 35.4832 17.9662L37.5587 21.3949L39.6377 17.9662C41.7884 14.7386 45.0145 13.1231 49.2765 13.1231C52.9614 13.1231 55.9329 14.4 58.2055 16.8868C60.4017 19.3772 61.4997 22.74 61.4997 26.9752L61.4925 47.6918Z"
+    fill="white"
+  ></path>
+</svg>
+  <svg
+  class="footer-icon__light-blue"
+  width="74"
+  height="79"
+  viewBox="0 0 74 79"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="m 73.64677,18.147319 c -1.1398,-8.33886 -8.524,-14.91044 -17.2774,-16.18384 -1.4768,-0.21517 -7.0723,-0.99825999 -20.0339,-0.99825999 h -0.0968 c -12.9652,0 -15.7468,0.78308999 -17.2236,0.99825999 -8.5097,1.23812 -16.2809303,7.14302 -18.16639429,15.58064 -0.906885,4.1553 -1.003667,8.7621 -0.835194,12.9879 0.240163,6.0601 0.286762,12.1096 0.845948,18.1451 0.38657999,4.009 1.06095999,7.9861 2.01808999,11.9015 1.79226,7.2312 9.0473503,13.249 16.1554503,15.704 7.6103,2.5603 15.7945,2.9854 23.6364,1.2276 0.8626,-0.1976 1.7158,-0.4268 2.5593,-0.6879 1.9034,-0.5961 4.1366,-1.2628 5.7783,-2.4339 0.0225,-0.0164 0.041,-0.0376 0.054,-0.0621 0.013,-0.0244 0.0203,-0.0514 0.0212,-0.079 v -5.8484 c -4e-4,-0.0258 -0.0066,-0.0512 -0.0183,-0.0743 -0.0116,-0.0231 -0.0283,-0.0433 -0.049,-0.0592 -0.0206,-0.0159 -0.0446,-0.027 -0.0701,-0.0326 -0.0256,-0.0056 -0.0521,-0.0055 -0.0776,3e-4 -5.0242,1.181 -10.1727,1.773 -15.3382,1.7637 -8.8896,0 -11.2805,-4.1518 -11.9652,-5.8802 -0.5503,-1.4938 -0.8998,-3.0521 -1.0395,-4.6351 -0.0014,-0.0265 0.0036,-0.0531 0.0145,-0.0774 0.0109,-0.0244 0.0276,-0.0458 0.0485,-0.0627 0.021,-0.0168 0.0457,-0.0285 0.0721,-0.0342 0.0264,-0.0057 0.0538,-0.0052 0.08,0.0015 4.9405,1.173 10.005,1.765 15.0873,1.7637 1.2223,0 2.441,0 3.6634,-0.0317 5.1115,-0.1411 10.499,-0.3986 15.5281,-1.3652 0.1255,-0.0246 0.2509,-0.0458 0.3585,-0.0776 7.9325,-1.4991 15.4815,-6.2047 16.2486,-18.1203 0.0287,-0.4691 0.1004,-4.9137 0.1004,-5.4005 0.0036,-1.6543 0.5413,-11.7357 -0.0789,-17.9298 z m -12.2089,29.7326 h -8.3411 v -20.1063 c 0,-4.2329 -1.7923,-6.3917 -5.4378,-6.3917 -4.0075,0 -6.0148,2.5538 -6.0148,7.5981 v 11.0055 h -8.291 v -11.0055 c 0,-5.0443 -2.0109,-7.5981 -6.0184,-7.5981 -3.624,0 -5.4342,2.1588 -5.4378,6.3917 v 20.1063 h -8.334 v -20.7166 c 0,-4.2329 1.0981,-7.5957 3.2942,-10.0884 2.2654,-2.4868 5.237,-3.7637 8.9255,-3.7637 4.2691,0 7.4952,1.6155 9.6459,4.8431 l 2.0755,3.4287 2.079,-3.4287 c 2.1507,-3.2276 5.3768,-4.8431 9.6388,-4.8431 3.6849,0 6.6564,1.2769 8.929,3.7637 2.1962,2.4904 3.2942,5.8532 3.2942,10.0884 z"
+    fill="#D2EFFF"
+  ></path>
+</svg>
+  <span>Mastodon</span>
+</a>
+
+<a class="footer-icon__hover-blue" href="https://twitter.com/napari_imaging" title="Twitter" target="_blank" rel="noreferrer">
+  <svg
+  class="footer-icon__regular"
+  width="15"
+  height="13"
+  viewBox="0 0 15 13"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <title>Visit Twitter page</title>
+  <path
+    d="M13.4581 3.44478C13.4676 3.57802 13.4676 3.7113 13.4676 3.84454C13.4676 7.9086 10.3744 12.5914 4.72082 12.5914C2.97906 12.5914 1.36105 12.0869 7.62939e-06 11.2113C0.247478 11.2398 0.485398 11.2494 0.742391 11.2494C2.17955 11.2494 3.50254 10.764 4.55901 9.93591C3.20749 9.90735 2.07487 9.0222 1.68464 7.80392C1.87501 7.83246 2.06535 7.8515 2.26524 7.8515C2.54125 7.8515 2.81728 7.81341 3.07425 7.74682C1.66562 7.46127 0.609119 6.22397 0.609119 4.72968V4.69163C1.01837 4.92006 1.49429 5.06282 1.9987 5.08183C1.17065 4.52979 0.628162 3.58755 0.628162 2.52155C0.628162 1.9505 0.780418 1.42702 1.04693 0.970164C2.56026 2.83564 4.83502 4.05389 7.38575 4.18717C7.33817 3.95874 7.30961 3.72082 7.30961 3.48287C7.30961 1.78869 8.68017 0.40863 10.3838 0.40863C11.269 0.40863 12.0685 0.779822 12.63 1.37944C13.3248 1.2462 13.9911 0.989207 14.5812 0.637058C14.3527 1.35091 13.8673 1.95052 13.2297 2.33121C13.8483 2.26462 14.4479 2.09326 14.9999 1.85534C14.5812 2.46445 14.0577 3.00694 13.4581 3.44478Z"
+    fill="white"
+  ></path>
+</svg>
+  <svg
+  class="footer-icon__light-blue"
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M15.9687 3.04705C15.3697 3.31079 14.7351 3.48488 14.0853 3.56372C14.7694 3.15255 15.2816 2.50775 15.5273 1.74838C14.8933 2.11838 14.1907 2.38772 13.4427 2.53772C12.9492 2.01 12.2952 1.66 11.5824 1.54205C10.8696 1.4241 10.1378 1.54482 9.50062 1.88544C8.86345 2.22607 8.35657 2.76755 8.0587 3.4258C7.76083 4.08405 7.68864 4.82223 7.85333 5.52572C5.12667 5.39705 2.71133 4.08705 1.09333 2.10838C0.799196 2.60826 0.645776 3.1784 0.649333 3.75838C0.649333 4.89838 1.22933 5.90038 2.108 6.48905C1.58724 6.47247 1.07798 6.33167 0.622667 6.07838V6.11838C0.622371 6.87598 0.884179 7.61034 1.36367 8.19689C1.84316 8.78343 2.51081 9.18603 3.25333 9.33638C2.7722 9.4653 2.26828 9.48467 1.77867 9.39305C1.98941 10.0451 2.39844 10.615 2.94868 11.0234C3.49891 11.4318 4.1629 11.6582 4.848 11.671C3.68769 12.5817 2.25498 13.0759 0.78 13.0744C0.52 13.0744 0.260667 13.0591 0 13.0297C1.50381 13.9926 3.25234 14.5037 5.038 14.5024C11.0733 14.5024 14.37 9.50505 14.37 5.17905C14.37 5.03905 14.37 4.89905 14.36 4.75905C15.004 4.29563 15.5595 3.72026 16 3.06038L15.9687 3.04705Z"
+    fill="#D2EFFF"
+  />
+</svg>
+  <span>Twitter</span>
+</a>
+
+<a class="footer-icon__hover-blue" href="https://forum.image.sc/tag/napari" title="image.sc" target="_blank" rel="noreferrer">
+  <svg
+  class="footer-icon__regular"
+  width="20"
+  height="20"
+  viewBox="0 0 20 20"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <title>Visit image.sc forum</title>
+  <path
+    d="M12.9987 4.65361V2.01143C12.9987 2.00512 12.9936 2 12.9873 2H6.95296C6.94665 2 6.94153 2.00512 6.94153 2.01143V8.04571C6.94153 8.05203 6.94665 8.05714 6.95296 8.05714H10.9701"
+    stroke="white"
+    stroke-width="2.34286"
+  ></path>
+  <path
+    d="M6.94153 15.3464V17.9886C6.94153 17.9949 6.94665 18 6.95296 18H12.9873C12.9936 18 12.9987 17.9949 12.9987 17.9886V11.9543C12.9987 11.948 12.9936 11.9429 12.9873 11.9429H8.9701"
+    stroke="white"
+    stroke-width="2.34286"
+  ></path>
+  <path
+    d="M16.1145 9.9496L18.4027 8.62852C18.4082 8.62536 18.4101 8.61837 18.4069 8.6129L15.3898 3.38706C15.3866 3.38159 15.3796 3.37972 15.3742 3.38288L10.1483 6.40002C10.1429 6.40317 10.141 6.41016 10.1441 6.41563L12.1527 9.89458"
+    stroke="white"
+    stroke-width="2.34286"
+  ></path>
+  <path
+    d="M3.82577 10.0503L1.53758 11.3714C1.53211 11.3745 1.53024 11.3815 1.5334 11.387L4.55054 16.6128C4.5537 16.6183 4.56069 16.6202 4.56615 16.617L9.792 13.5999C9.79746 13.5967 9.79934 13.5897 9.79618 13.5842L7.78761 10.1053"
+    stroke="white"
+    stroke-width="2.34286"
+  ></path>
+  <path
+    d="M13.086 15.2962L15.3742 16.6173C15.3796 16.6205 15.3866 16.6186 15.3898 16.6131L18.4069 11.3873C18.4101 11.3818 18.4082 11.3748 18.4027 11.3717L13.1769 8.35456C13.1714 8.35141 13.1644 8.35328 13.1613 8.35875L11.1527 11.8377"
+    stroke="white"
+    stroke-width="2.34286"
+  ></path>
+  <path
+    d="M6.85434 4.70397L4.56614 3.38288C4.56068 3.37973 4.55369 3.3816 4.55053 3.38707L1.53339 8.61291C1.53023 8.61838 1.53211 8.62537 1.53757 8.62852L6.76342 11.6457C6.76888 11.6488 6.77587 11.647 6.77903 11.6415L8.7876 8.16254"
+    stroke="white"
+    stroke-width="2.34286"
+  ></path>
+</svg>
+  <svg
+  class="footer-icon__light-blue"
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M10.3989 3.72445V1.61071C10.3989 1.60566 10.3948 1.60156 10.3898 1.60156H5.56237C5.55732 1.60156 5.55322 1.60566 5.55322 1.61071V6.43813C5.55322 6.44319 5.55732 6.44727 5.56237 6.44727H8.77605"
+    stroke="#D2EFFF"
+    stroke-width="1.87535"
+  />
+  <path
+    d="M5.55322 12.2794V14.3932C5.55322 14.3982 5.55732 14.4023 5.56237 14.4023H10.3898C10.3948 14.4023 10.3989 14.3982 10.3989 14.3932V9.56576C10.3989 9.56072 10.3948 9.55664 10.3898 9.55664H7.17608"
+    stroke="#D2EFFF"
+    stroke-width="1.87535"
+  />
+  <path
+    d="M12.8916 7.96164L14.7221 6.90477C14.7265 6.90224 14.728 6.89665 14.7255 6.89228L12.3118 2.7116C12.3092 2.70723 12.3036 2.70573 12.2993 2.70826L8.1186 5.12197C8.11428 5.12449 8.11276 5.13008 8.11524 5.13446L9.72212 7.91762"
+    stroke="#D2EFFF"
+    stroke-width="1.87535"
+  />
+  <path
+    d="M3.06062 8.04297L1.23007 9.09985C1.22569 9.10233 1.2242 9.10793 1.22672 9.11233L3.64044 13.293C3.64296 13.2974 3.64856 13.2989 3.65292 13.2963L7.8336 10.8826C7.83797 10.8801 7.83948 10.8745 7.83695 10.8701L6.23009 8.08697"
+    stroke="#D2EFFF"
+    stroke-width="1.87535"
+  />
+  <path
+    d="M10.4688 12.2401L12.2994 13.297C12.3037 13.2996 12.3093 13.298 12.3119 13.2936L14.7255 9.11299C14.7281 9.10859 14.7266 9.10299 14.7222 9.10051L10.5415 6.68677C10.5371 6.68425 10.5315 6.68575 10.5291 6.69012L8.92218 9.47331"
+    stroke="#D2EFFF"
+    stroke-width="1.87535"
+  />
+  <path
+    d="M5.48348 3.76513L3.65292 2.70825C3.64855 2.70573 3.64296 2.70723 3.64043 2.71161L1.22672 6.89228C1.22419 6.89665 1.2257 6.90225 1.23007 6.90477L5.41075 9.3185C5.41511 9.32098 5.42071 9.31954 5.42323 9.31514L7.03009 6.53198"
+    stroke="#D2EFFF"
+    stroke-width="1.87535"
+  />
+</svg>
+  <span>Forum</span>
+</a>
+
+<a class="footer-icon__hover-blue" href="https://napari.zulipchat.com" title="Zulip" target="_blank" rel="noreferrer">
+  <svg
+  class="footer-icon__regular"
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <title>Visit Zulip chatroom</title>
+  <g clip-path="url(#clip0)">
+    <path
+      d="M15.178 2.39267C15.178 3.19867 14.816 3.91467 14.2647 4.34867L8.90869 9.13133C8.80935 9.21667 8.68002 9.07933 8.75202 8.96467L10.716 5.03133C10.7714 4.92133 10.7 4.786 10.5867 4.786H2.96802C1.78802 4.786 0.822021 3.70933 0.822021 2.39267C0.822021 1.07733 1.78802 3.09431e-07 2.96802 3.09431e-07H13.032C14.212 -0.000666357 15.178 1.076 15.178 2.39267ZM2.96802 16H13.032C14.212 16 15.178 14.9227 15.178 13.6067C15.178 12.2907 14.212 11.2133 13.032 11.2133H5.41335C5.30002 11.2133 5.22869 11.0787 5.28402 10.9687L7.24802 7.03533C7.32002 6.92067 7.19069 6.78333 7.09135 6.86867L1.73602 11.6507C1.18402 12.084 0.822688 12.8007 0.822688 13.6067C0.822688 14.9227 1.78802 16 2.96802 16Z"
+      fill="white"
+    ></path>
+  </g>
+  <defs>
+    <clipPath id="clip0">
+      <rect width="16" height="16" fill="white"></rect>
+    </clipPath>
+  </defs>
+</svg>
+  <svg
+  class="footer-icon__light-blue"
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g clip-path="url(#clip0_307_219)">
+    <path
+      d="M15.178 2.39267C15.178 3.19867 14.816 3.91467 14.2647 4.34867L8.90866 9.13133C8.80932 9.21667 8.67999 9.07933 8.75199 8.96467L10.716 5.03133C10.7713 4.92133 10.7 4.786 10.5867 4.786H2.96799C1.78799 4.786 0.821991 3.70933 0.821991 2.39267C0.821991 1.07733 1.78799 3.09431e-07 2.96799 3.09431e-07H13.032C14.212 -0.000666357 15.178 1.076 15.178 2.39267V2.39267ZM2.96799 16H13.032C14.212 16 15.178 14.9227 15.178 13.6067C15.178 12.2907 14.212 11.2133 13.032 11.2133H5.41332C5.29999 11.2133 5.22866 11.0787 5.28399 10.9687L7.24799 7.03533C7.31999 6.92067 7.19066 6.78333 7.09132 6.86867L1.73599 11.6507C1.18399 12.084 0.822658 12.8007 0.822658 13.6067C0.822658 14.9227 1.78799 16 2.96799 16V16Z"
+      fill="#D2EFFF"
+    />
+  </g>
+  <defs>
+    <clipPath id="clip0_307_219">
+      <rect width="16" height="16" fill="white" />
+    </clipPath>
+  </defs>
+</svg>
+  <span>Chat</span>
+</a></div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><div class="napari-copyright">
+  <p class="copyright">
+        Copyright 2024, The napari team<br>
+  </p>
+
+  <div class="sphinx-version">
+    <div class="sphinx-link">
+      <span>Created using</span>
+      <a href="http://sphinx-doc.org/">Sphinx</a>
+    </div>
+
+    
+      <span>7.4.7</span>
+    
+  </div>
+</div></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

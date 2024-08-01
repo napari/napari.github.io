@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=8f0dfe29"></script>
+    <script src="../../../../_static/documentation_options.js?v=7dc53606"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -527,6 +527,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">napari.layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_multiscale</span>
 <span class="kn">from</span> <span class="nn">napari.layers.image._slice</span> <span class="kn">import</span> <span class="n">_ImageSliceResponse</span>
 <span class="kn">from</span> <span class="nn">napari.layers.labels._labels_constants</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">IsoCategoricalGradientMode</span><span class="p">,</span>
     <span class="n">LabelColorMode</span><span class="p">,</span>
     <span class="n">LabelsRendering</span><span class="p">,</span>
     <span class="n">Mode</span><span class="p">,</span>
@@ -610,6 +611,12 @@ document.write(`
 <span class="sd">    features : dict[str, array-like] or DataFrame</span>
 <span class="sd">        Features table where each row corresponds to a label and each column</span>
 <span class="sd">        is a feature. The first row corresponds to the background label.</span>
+<span class="sd">    iso_gradient_mode : str</span>
+<span class="sd">        Method for calulating the gradient (used to get the surface normal) in the</span>
+<span class="sd">        &#39;iso_categorical&#39; rendering mode. Must be one of {&#39;fast&#39;, &#39;smooth&#39;}.</span>
+<span class="sd">        &#39;fast&#39; uses a simple finite difference gradient in x, y, and z. &#39;smooth&#39; uses an</span>
+<span class="sd">        isotropic Sobel gradient, which is smoother but more computationally expensive.</span>
+<span class="sd">        The default value is &#39;fast&#39;.</span>
 <span class="sd">    metadata : dict</span>
 <span class="sd">        Layer metadata.</span>
 <span class="sd">    multiscale : bool</span>
@@ -799,6 +806,7 @@ document.write(`
         <span class="n">depiction</span><span class="o">=</span><span class="s1">&#39;volume&#39;</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">iso_gradient_mode</span><span class="o">=</span><span class="n">IsoCategoricalGradientMode</span><span class="o">.</span><span class="n">FAST</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
         <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">multiscale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -864,6 +872,7 @@ document.write(`
             <span class="n">contiguous</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">contour</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">features</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">iso_gradient_mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">labels_update</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">n_edit_dimensions</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">paint</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -887,6 +896,8 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_n_edit_dimensions</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_contiguous</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_brush_size</span> <span class="o">=</span> <span class="mi">10</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_iso_gradient_mode</span> <span class="o">=</span> <span class="n">IsoCategoricalGradientMode</span><span class="o">.</span><span class="n">FAST</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_label</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_label</span>
@@ -931,6 +942,27 @@ document.write(`
     <span class="k">def</span> <span class="nf">rendering</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rendering</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_rendering</span> <span class="o">=</span> <span class="n">LabelsRendering</span><span class="p">(</span><span class="n">rendering</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">rendering</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">iso_gradient_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return current gradient mode for isosurface rendering.</span>
+
+<span class="sd">        Selects the finite-difference gradient method for the isosurface shader. Options include:</span>
+<span class="sd">            * ``fast``: use a simple finite difference gradient along each axis</span>
+<span class="sd">            * ``smooth``: use an isotropic Sobel gradient, smoother but more</span>
+<span class="sd">              computationally expensive</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            The current gradient mode</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iso_gradient_mode</span><span class="p">)</span>
+
+    <span class="nd">@iso_gradient_mode</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">iso_gradient_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_iso_gradient_mode</span> <span class="o">=</span> <span class="n">IsoCategoricalGradientMode</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">iso_gradient_mode</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">contiguous</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1108,17 +1140,13 @@ document.write(`
 <span class="sd">        bool</span>
 <span class="sd">            True if color contains only default colors, otherwise False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="p">{</span><span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">}</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">(</span><span class="n">color</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
-            <span class="k">return</span> <span class="kc">False</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span>
-            <span class="n">color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="p">):</span>
-            <span class="k">return</span> <span class="kc">False</span>
-
-        <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">{</span><span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">}</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">color</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span>
+                <span class="n">color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_ensure_int_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Ensure data is integer by converting from bool if required, raising an error otherwise.&quot;&quot;&quot;</span>
@@ -1159,6 +1187,7 @@ document.write(`
                 <span class="s1">&#39;multiscale&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span><span class="p">,</span>
                 <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
                 <span class="s1">&#39;rendering&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">rendering</span><span class="p">,</span>
+                <span class="s1">&#39;iso_gradient_mode&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">iso_gradient_mode</span><span class="p">,</span>
                 <span class="s1">&#39;depiction&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">depiction</span><span class="p">,</span>
                 <span class="s1">&#39;plane&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">plane</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
                 <span class="s1">&#39;experimental_clipping_planes&#39;</span><span class="p">:</span> <span class="p">[</span>

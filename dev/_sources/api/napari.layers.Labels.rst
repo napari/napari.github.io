@@ -129,6 +129,7 @@ napari.layers.Labels
       ~Labels.features
       ~Labels.help
       ~Labels.interactive
+      ~Labels.iso_gradient_mode
       ~Labels.keymap
       ~Labels.level_shapes
       ~Labels.loaded

@@ -25,7 +25,7 @@ View 3D labels.
 
 .. tags:: visualization-nD
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-45
+.. GENERATED FROM PYTHON SOURCE LINES 9-47
 
 
 
@@ -73,6 +73,8 @@ View 3D labels.
     # )
 
     labels_layer = viewer.add_labels(segmented)
+
+    viewer.dims.ndisplay = 3
 
     if __name__ == '__main__':
         napari.run()

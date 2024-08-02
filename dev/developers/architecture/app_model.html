@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=7dc53606"></script>
+    <script src="../../_static/documentation_options.js?v=fcaa61a1"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -759,9 +759,16 @@ menu item, or a keybinding).</p>
 <p>Inline (lambda) and nested functions should be avoided for command callbacks to
 prevent memory leakage.</p>
 </div>
-<p>All commands have a string id (e.g. ‘<code class="docutils literal notranslate"><span class="pre">napari:layer:duplicate</span></code>’). These are
-currently <code class="docutils literal notranslate"><span class="pre">CommandID</span></code> enums but we are considering changing to using
-plain strings to simplify decalaration of <code class="docutils literal notranslate"><span class="pre">Action</span></code>s.</p>
+<p>All commands have a string ID (e.g. ‘<code class="docutils literal notranslate"><span class="pre">napari.window.file.open_files_dialog</span></code>’).
+The string is arbitrary, and the only real requirement is that the same command ID
+string cannot be used twice. However, to help readability and usability, we use
+the following naming conventions:</p>
+<ul class="simple">
+<li><p>use <code class="docutils literal notranslate"><span class="pre">.</span></code> to separate words</p></li>
+<li><p>start with <code class="docutils literal notranslate"><span class="pre">napari</span></code> for builtin commands or the plugin name for plugin commands</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">napari.window</span></code> prefix indicates the <code class="docutils literal notranslate"><span class="pre">napari</span></code> command is part of a GUI menu</p></li>
+<li><p>the final word should be the name of the function callback</p></li>
+</ul>
 <p><a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.CommandRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.CommandRule</span></code></a> class (of which <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.Action" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a>
 is a subclass) includes many fields to detail various aspects of commands.
 See <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.CommandRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.CommandRule</span></code></a> for details on every field.

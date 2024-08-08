@@ -1,19 +1,23 @@
 #!/usr/bin/env bash -x
 
-# This script is run from within the .github/workflows directory and so
-# all paths are relative.
+# This script is usually run from within the .github/workflows directory and so
+# all paths are relative. The ROOTDIR variable can be set via command line.
+if [ -z "$1" ]; then
+    ROOTDIR="../../"
+else
+    ROOTDIR="$1"
+fi
 
-echo "Finding duplicate videos..."
-
-SRCDIR="../../dev/_static/images"
+SRCDIR="${ROOTDIR}dev/_static/images"
+echo "Finding duplicate videos from ${ROOTDIR}"
 
 # Find all folders with version numbers of the type m.m.m
-mapfile -t folders < <(find ../../ -maxdepth 1 -type d -name "[0-9]*.[0-9]*.[0-9]*" -exec basename {} \;)
+mapfile -t folders < <(find "${ROOTDIR}" -maxdepth 1 -type d -name "[0-9]*.[0-9]*.[0-9]*" -exec basename {} \;)
 
 echo "Folders with version numbers: ${folders[@]}"
 
 for folder in "${folders[@]}"; do
-    DUPDIR="../../${folder}/_static/images"
+    DUPDIR="${ROOTDIR}${folder}/_static/images"
     echo "In ${DUPDIR}..."
     # Store the hashes in arrays of two strings: the file path and the hash
     mapfile -t dev < <(find "${SRCDIR}" -type f -name "*.webm" -exec sha256sum {} \; | awk '{print $2 " " $1}')

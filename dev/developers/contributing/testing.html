@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=6a8a2890" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=7dc53606"></script>
+    <script src="../../_static/documentation_options.js?v=4c94d8de"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -838,6 +838,62 @@ fixture is available globally and to all tests in the same environment that <cod
 is in (see <a class="reference internal" href="#test-organization"><span class="std std-ref">Test organization</span></a> for details). Thus, there is no need to import it,
 you simply include <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> as a test function parameter, as shown in the
 <strong>Examples</strong> section below:</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="napari.utils._testsupport.make_napari_viewer">
+<span class="sig-prename descclassname"><span class="pre">napari.utils._testsupport.</span></span><span class="sig-name descname"><span class="pre">make_napari_viewer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/utils/_testsupport.html#make_napari_viewer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils._testsupport.make_napari_viewer" title="Link to this definition">#</a></dt>
+<dd><p>A pytest fixture function that creates a napari viewer for use in testing.</p>
+<p>This fixture will take care of creating a viewer and cleaning up at the end of the
+test. When using this function, it is <strong>not</strong> necessary to use a <cite>qtbot</cite> fixture,
+nor should you do any additional cleanup (such as using <cite>qtbot.addWidget</cite> or
+calling <cite>viewer.close()</cite>) at the end of the test. Duplicate cleanup may cause
+an error.</p>
+<p>To use this fixture as a function in your tests:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>def test_something_with_a_viewer(make_napari_viewer):</dt><dd><p># <cite>make_napari_viewer</cite> takes any keyword arguments that napari.Viewer() takes
+viewer = make_napari_viewer()</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>It accepts all the same arguments as <cite>napari.Viewer</cite>, notably <cite>show</cite>
+which should be set to <cite>True</cite> for tests that require the <cite>Viewer</cite> to be visible
+(e.g., tests that check aspects of the Qt window or layer rendering).
+It also accepts the following test-related parameters:</p>
+<dl class="simple">
+<dt>ViewerClass<span class="classifier">Type[napari.Viewer], optional</span></dt><dd><p>Override the viewer class being used.  By default, will
+use napari.viewer.Viewer</p>
+</dd>
+<dt>strict_qt<span class="classifier">bool or str, optional</span></dt><dd><p>If True, a check will be performed after test cleanup to make sure that
+no top level widgets were created and <em>not</em> cleaned up during the
+test.  If the string “raise” is provided, an AssertionError will be
+raised.  Otherwise a warning is emitted.
+By default, this is False unless the test is being performed within
+the napari package.
+This can be made globally true by setting the ‘NAPARI_STRICT_QT’
+environment variable.</p>
+</dd>
+<dt>block_plugin_discovery<span class="classifier">bool, optional</span></dt><dd><p>Block discovery of non-builtin plugins.  Note: plugins can still be
+manually registered by using the ‘napari_plugin_manager’ fixture and
+the <cite>napari_plugin_manager.register()</cite> method. By default, True.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">test_adding_shapes</span><span class="p">(</span><span class="n">make_napari_viewer</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">viewer</span> <span class="o">=</span> <span class="n">make_napari_viewer</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">test_something_with_plugins</span><span class="p">(</span><span class="n">make_napari_viewer</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">viewer</span> <span class="o">=</span> <span class="n">make_napari_viewer</span><span class="p">(</span><span class="n">block_plugin_discovery</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">test_something_with_strict_qt_tests</span><span class="p">(</span><span class="n">make_napari_viewer</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">viewer</span> <span class="o">=</span> <span class="n">make_napari_viewer</span><span class="p">(</span><span class="n">strict_qt</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </section>
 <section id="skipping-tests-that-show-gui-elements-or-need-window-focus">
 <h4>Skipping tests that show GUI elements or need window focus<a class="headerlink" href="#skipping-tests-that-show-gui-elements-or-need-window-focus" title="Link to this heading">#</a></h4>
@@ -954,7 +1010,10 @@ so certain tests have been disabled from windows in CI, see
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#property-based-testing-with-hypothesis">Property-based testing with Hypothesis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-with-qt-and-napari-viewer">Testing with <code class="docutils literal notranslate"><span class="pre">Qt</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#qtbot">qtbot</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#make-napari-viewer"><code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#make-napari-viewer"><code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils._testsupport.make_napari_viewer"><code class="docutils literal notranslate"><span class="pre">make_napari_viewer()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#skipping-tests-that-show-gui-elements-or-need-window-focus">Skipping tests that show GUI elements or need window focus</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-qwidget-visibility">Testing <code class="docutils literal notranslate"><span class="pre">QWidget</span></code> visibility</a></li>
 </ul>

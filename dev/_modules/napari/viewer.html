@@ -35,7 +35,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=6a8a2890" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=7dc53606"></script>
+    <script src="../../_static/documentation_options.js?v=4c94d8de"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -506,6 +506,7 @@ document.write(`
 
 <span class="kn">from</span> <span class="nn">napari.components.viewer_model</span> <span class="kn">import</span> <span class="n">ViewerModel</span>
 <span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">_magicgui</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events.event_utils</span> <span class="kn">import</span> <span class="n">disconnect_events</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="c1"># helpful for IDE support</span>
@@ -709,6 +710,9 @@ document.write(`
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Close the viewer window.&quot;&quot;&quot;</span>
         <span class="c1"># Shutdown the slicer first to avoid processing any more tasks.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+        <span class="c1"># Disconnect changes to dims before removing layers one-by-one</span>
+        <span class="c1"># to avoid any unnecessary slicing.</span>
+        <span class="n">disconnect_events</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="c1"># Remove all the layers from the viewer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="c1"># Close the main window</span>
@@ -722,7 +726,7 @@ document.write(`
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">close_all</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Class metod, Close all existing viewer instances.</span>
+<span class="sd">        Class method, Close all existing viewer instances.</span>
 
 <span class="sd">        This is mostly exposed to avoid leaking of viewers when running tests.</span>
 <span class="sd">        As having many non-closed viewer can adversely affect performances.</span>

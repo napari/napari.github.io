@@ -18,11 +18,11 @@ jupyter:
 napari can be installed as a bundled app on [MacOS](#how-to-install-the-macos-bundle), [Windows](#how-to-install-the-windows-bundle), and [Linux](#how-to-install-the-linux-bundle) with a simple one click download and guided installation process. This installation method is best if you mainly want to use napari as a standalone GUI app. However, certain plugins may not be supported.
 
 ```{note}
-If you want to use napari from Python to programmatically interact with the app, please follow the [Python package installation guide](installation.md#install-as-python-package-recommended). This installation method is recommended to take full advantage of napari's features and to access additional plugins. 
+If you want to use napari from Python to programmatically interact with the app, please follow the [Python package installation guide](installation.md#install-as-python-package-recommended). This installation method is recommended to take full advantage of napari's features and to access additional plugins.
 ```
 
-```{note} 
-If you want to contribute code back into napari, please follow the [development installation instructions in the contributing guide](developers/contributing.md).
+```{note}
+If you want to contribute code back into napari, please follow the [development installation instructions in the contributing guide](napari-contributing).
 ```
 
 To start, visit the [latest napari release page](https://github.com/napari/napari/releases/latest) and go to the 'Assets' tab and download the file that corresponds to your operating system:
@@ -35,13 +35,13 @@ To start, visit the [latest napari release page](https://github.com/napari/napar
 
 ![Cropped screenshot of the GitHub Releases page for napari version 0.4.15. The expanded assets tab shows a number of installers available for different operating systems and architectures. Yellow rectangles highlight the files that correspond to the conda-based installers described in this tutorial.](../assets/tutorials/installation/bundle_02.png)
 
-```{note} 
+```{note}
 If you are interested in an earlier version of napari, you may access those files by scrolling below the latest release on the [napari release page](https://github.com/napari/napari/releases). The instructions below will work for napari versions 0.4.15 and above.
 ```
 
 ## Prerequisites
 
-This installation method does not have any prerequisites. 
+This installation method does not have any prerequisites.
 
 ### How to install the macOS bundle
 
@@ -77,15 +77,15 @@ After finishing with no errors, a new page with the text "The installation was s
 
 ![Cropped screenshot of the final page of the PKG installer, Summary, reporting "The installation was successful" with a green check mark icon. A blue Close button is available.](../assets/tutorials/installation/bundle_11.png)
 
-Click Close to finish. You can now get started using napari! Use Launchpad to open the application. 
+Click Close to finish. You can now get started using napari! Use Launchpad to open the application.
 
 ![Montage of two cropped screenshots. On the left, the macOS finder icon and the Launchpad icon, highlighted with a red circle. On the right, the opened launchpad UI showing a 4x4 grid of applications icon, with napari appearing in the bottom right corner.](../assets/tutorials/installation/bundle_13.png)
 
-```{note} 
+```{note}
 The first time you open napari you must use the Launchpad, but in subsequent uses, the napari application should show up in Spotlight search (<kbd>⌘</kbd> + <kbd>spacebar</kbd>). The application shortcut will also be available in Finder, under 🏠 [User directory] > Applications.
 ```
 
-napari comes installed with sample images from scikit-image. Use the dropdown menu File > Open Sample > napari to open a sample image, or open one of your own images using File > Open or dragging and dropping your image onto the canvas. 
+napari comes installed with sample images from scikit-image. Use the dropdown menu File > Open Sample > napari to open a sample image, or open one of your own images using File > Open or dragging and dropping your image onto the canvas.
 
 Next check out our [tutorial on the viewer](viewer.md) or explore any of the pages under the [Usage tab](../../usage.md).
 
@@ -96,10 +96,10 @@ Once you have downloaded the Windows executable file, you will have a file with 
 ![Montage of the napari EXE installer icon with an arrow pointing to the Welcome page of the napari EXE installer on Windows.](../assets/tutorials/installation/bundle_17.png)
 
 Click Next to continue and go to the License page. Read the contents and, if you agree, continue by clicking 'I Agree'.
- 
+
 ![Cropped screenshot of the License Agreement page of the napari EXE installer. A scrollable text area displays the legal text. Three buttons are available: Back, I Agree, and Cancel.](../assets/tutorials/installation/bundle_18.png)
 
-The recommended installation method is to install napari just for the current user ("Just Me"): 
+The recommended installation method is to install napari just for the current user ("Just Me"):
 
 ![Cropped screenshot of the Setup Instalation Type page of the napari EXE installer. Two options are available: Just Me (recommended), and All Users (requires admin privileges). At the bottom, three buttons Back, Next and Cancel are displayed.](../assets/tutorials/installation/bundle_19.png)
 
@@ -115,9 +115,9 @@ Once installation is complete, you will see the page below. Click 'Finish' to cl
 
 ![Cropped screenshot of the final page of the napari EXE installer. It reports that the installation has finished successfully and that the dialog can be closed by clicking on the Finish button at the bottom.](../assets/tutorials/installation/bundle_24.png)
 
-You can now get started using napari! A shortcut to launch napari can be found in the Windows Start menu. 
+You can now get started using napari! A shortcut to launch napari can be found in the Windows Start menu.
 
-napari comes installed with sample images from scikit-image. Use the dropdown menu File > Open Sample > napari to open a sample image, or open one of your own images using File > Open or dragging and dropping your image onto the canvas. 
+napari comes installed with sample images from scikit-image. Use the dropdown menu File > Open Sample > napari to open a sample image, or open one of your own images using File > Open or dragging and dropping your image onto the canvas.
 
 Next check out our [tutorial on the viewer](viewer.md) or explore any of the pages under the [Usage tab](../../usage.md).
 
@@ -137,7 +137,7 @@ Read through the agreement shown below. You must agree to the terms by typing ou
 
 ![Cropped screenshot of the default Ubuntu terminal displaying the last paragraphs of a BSD-3 Clause License text, plus a prompt asking 'Do you accept the license terms?', to which the user must respond 'yes' or 'no'.](../assets/tutorials/installation/bundle_31.png)
 
-Next you will be shown the default location for the installation. You may confirm this location by pressing <kbd>Enter</kbd>. Alternatively, specify a different location by typing out its absolute path. If it does not exist, it will be created. The terminal will then begin the installation process. 
+Next you will be shown the default location for the installation. You may confirm this location by pressing <kbd>Enter</kbd>. Alternatively, specify a different location by typing out its absolute path. If it does not exist, it will be created. The terminal will then begin the installation process.
 
 ![Montage of two instances of the default Ubuntu terminal showing the default installation path, followed by the first extraction steps of the installation process.](../assets/tutorials/installation/bundle_32.png)
 
@@ -151,6 +151,6 @@ You can now get started using napari! A shortcut to launch napari should appear 
 
 ![Full screenshot of the Ubuntu search menu, with the query 'napari', displaying some results which include the application icon for the installed napari.](../assets/tutorials/installation/bundle_35.png)
 
-napari comes installed with sample images from scikit-image. Use the dropdown menu File > Open Sample > napari to open a sample image, or open one of your own images using File > Open or dragging and dropping your image onto the canvas. 
+napari comes installed with sample images from scikit-image. Use the dropdown menu File > Open Sample > napari to open a sample image, or open one of your own images using File > Open or dragging and dropping your image onto the canvas.
 
 Next check out our [tutorial on the viewer](viewer.md) or explore any of the pages under the [Usage tab](../../usage.md).

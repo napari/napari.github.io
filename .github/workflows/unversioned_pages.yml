@@ -32,11 +32,14 @@ jobs:
           rm -rf ./stable/roadmaps
           cp -Rv ./dev/roadmaps/ ./stable/
           cp -v ./dev/index.html ./stable/
-          find stable/developers -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
-          find stable/naps -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
-          find stable/release -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
-          find stable/roadmaps -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
+          find stable/developers/ -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
+          find stable/naps/ -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
+          find stable/release/ -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
+          find stable/roadmaps/ -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
           sed -i 's+_static+../dev/_static+g' stable/index.html
+          STABLE=$(basename $(readlink -f ./stable))
+          find stable/ -type f -exec sed -i "s+DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';+DOCUMENTATION_OPTIONS.theme_switcher_version_match = '${STABLE}';+g" {} +
+
       
       - name: Replace duplicate videos with symlinks
         run: |

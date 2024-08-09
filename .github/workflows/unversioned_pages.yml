@@ -40,11 +40,6 @@ jobs:
           STABLE=$(basename $(readlink -f ./stable))
           find stable/ -type f -exec sed -i "s+DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';+DOCUMENTATION_OPTIONS.theme_switcher_version_match = '${STABLE}';+g" {} +
 
-      
-      - name: Replace duplicate videos with symlinks
-        run: |
-          bash duplicate_videos.sh
-
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"

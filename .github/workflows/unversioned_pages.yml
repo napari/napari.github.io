@@ -37,6 +37,10 @@ jobs:
           find stable/release -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
           find stable/roadmaps -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
           sed -i 's+_static+../dev/_static+g' stable/index.html
+      
+      - name: Replace duplicate videos with symlinks
+        run: |
+          bash duplicate_videos.sh
 
       - name: Commit files
         run: |

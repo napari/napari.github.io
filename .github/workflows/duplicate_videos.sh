@@ -1,9 +1,10 @@
 #!/usr/bin/env bash -x
 
-# This script is usually run from within the .github/workflows directory and so
-# all paths are relative. The ROOTDIR variable can be set via command line.
+# This script is usually run from the repo root by the unversioned_pages.yml
+# action. All paths are relative to ROOTDIR. The ROOTDIR variable can be set
+# via command line.
 if [ -z "$1" ]; then
-    ROOTDIR="../../"
+    ROOTDIR="./"
 else
     ROOTDIR="$1"
 fi

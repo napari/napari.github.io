@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=71d6646f"></script>
+    <script src="../../../_static/documentation_options.js?v=48fba36f"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -707,6 +707,26 @@ of time since building napari can be a time consuming task:</p>
 </pre></div>
 </div>
 </section>
+<section id="debugging-a-benchmark">
+<h2>Debugging a benchmark<a class="headerlink" href="#debugging-a-benchmark" title="Link to this heading">#</a></h2>
+<p>To run a benchmark in a debugger, you can use the command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pdb<span class="w"> </span>napari/benchmarks/benchmark_file.py<span class="w"> </span>BenchmarkClass.benchmark_method
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pdb<span class="w"> </span>-m<span class="w"> </span>napari.benchmarks<span class="w"> </span>benchmark_file.BenchmarkClass.benchmark_method
+</pre></div>
+</div>
+<p>For example, to debug the <code class="docutils literal notranslate"><span class="pre">time_set_view_slice</span></code> method in the <code class="docutils literal notranslate"><span class="pre">Image2DSuite</span></code>
+benchmark, you can run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pdb<span class="w"> </span>napari/benchmarks/benchmark_image_layer.py<span class="w"> </span>Image2DSuite.time_set_view_slice
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pdb<span class="w"> </span>-m<span class="w"> </span>napari.benchmarks<span class="w"> </span>benchmark_image_layer.Image2DSuite.time_set_view_slice
+</pre></div>
+</div>
+</section>
 <section id="comparing-results-to-main">
 <h2>Comparing results to main<a class="headerlink" href="#comparing-results-to-main" title="Link to this heading">#</a></h2>
 <p>Often, the goal of a PR is to compare the results of the modifications in terms
@@ -832,6 +852,7 @@ Every time you want the benchmark CI to run in a PR, you’ll need to remove and
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-a-benchmark">Writing a benchmark</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-the-benchmarks-locally">Testing the benchmarks locally</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-your-benchmark">Running your benchmark</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-a-benchmark">Debugging a benchmark</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-results-to-main">Comparing results to main</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#profiling">Profiling</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-benchmarks-on-ci">Running benchmarks on CI</a><ul class="nav section-nav flex-column">

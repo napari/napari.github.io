@@ -102,6 +102,31 @@ of time since building napari can be a time consuming task:
 asv run -E existing -b ViewImageSuite
 ```
 
+## Debugging a benchmark
+
+To run a benchmark in a debugger, you can use the command:
+
+```bash
+python -m pdb napari/benchmarks/benchmark_file.py BenchmarkClass.benchmark_method
+```
+or 
+```bash
+python -m pdb -m napari.benchmarks benchmark_file.BenchmarkClass.benchmark_method
+```
+
+For example, to debug the ``time_set_view_slice`` method in the ``Image2DSuite``
+benchmark, you can run:
+
+```bash
+python -m pdb napari/benchmarks/benchmark_image_layer.py Image2DSuite.time_set_view_slice
+```
+or 
+
+```bash
+python -m pdb -m napari.benchmarks benchmark_image_layer.Image2DSuite.time_set_view_slice
+```
+
+
 ## Comparing results to main
 
 Often, the goal of a PR is to compare the results of the modifications in terms

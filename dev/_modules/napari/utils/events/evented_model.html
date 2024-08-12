@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=947f0e78"></script>
+    <script src="../../../../_static/documentation_options.js?v=02f096fa"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -821,7 +821,7 @@ document.write(`
             <span class="k">return</span>
         <span class="n">to_emit</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_primary_changes</span><span class="p">:</span>
-            <span class="c1"># primary changes should contains only fields that are changed directly by assigment</span>
+            <span class="c1"># primary changes should contains only fields that are changed directly by assignment</span>
             <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">old_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
@@ -882,7 +882,7 @@ document.write(`
         <span class="c1"># set value using original setter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_super_setattr_</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-    <span class="c1"># expose the private EmitterGroup publically</span>
+    <span class="c1"># expose the private EmitterGroup publicly</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EmitterGroup</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events</span>

@@ -55,7 +55,7 @@ Show points based on feature
             )
 
 
-    # create a simple widget with magicgui which provides a slider that controls the visilibility
+    # create a simple widget with magicgui which provides a slider that controls the visibility
     # of individual points based on their "confidence" value
     @magicgui(
         auto_call=True,

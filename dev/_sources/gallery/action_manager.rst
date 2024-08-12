@@ -42,9 +42,9 @@ Action manager
     application, not part of the napari viewer model. If your use case
     requires access to qt_viewer, please open an issue to discuss.
       layer_buttons = viewer.window.qt_viewer.layerButtons
-    calling <function bind_button at 0x7fc460519c60>
-    calling <function bind_shortcut at 0x7fc46051af80>
-    calling <function register_action at 0x7fc460519990>
+    calling <function bind_button at 0x7f57d44591b0>
+    calling <function bind_shortcut at 0x7f57d44596c0>
+    calling <function register_action at 0x7f57d4459510>
 
 
 
@@ -107,7 +107,7 @@ Action manager
         # we give an action name to the action for configuration purposes as we need
         # it to be storable in json.
 
-        # By convention (may be enforce later), we do give an action name which is iprefixed
+        # By convention (may be enforced later), we do give an action name which is prefixed
         # by the name of the package it is defined in, here napari,
         action_manager.register_action(
             name='napari:rotate45',

@@ -1,9 +1,6 @@
 # napari 0.5.2
 
-⚠️ *Note: these release notes are still in draft while 0.5.2 is in release
-candidate testing.* ⚠️
-
-*Monday, Aug 12, 2024*
+*Tuesday, Aug 13, 2024*
 
 We’re happy to announce the release of napari 0.5.2!
 
@@ -54,6 +51,7 @@ See below for the full list of changes!
 - Fix docs CI ([docs#472](https://github.com/napari/docs/pull/472))
 - Add October and July workshops from 2023 ([docs#473](https://github.com/napari/docs/pull/473))
 - Add 0.5.2 release notes ([docs#476](https://github.com/napari/docs/pull/476))
+- Remove warning and update date on 0.5.2 release notes ([docs#478](https://github.com/napari/docs/pull/478))
 
 ## Other Pull Requests
 
@@ -96,7 +94,6 @@ See below for the full list of changes!
 - [Lucy Liu](https://github.com/napari/napari/commits?author=lucyleeow) ([docs](https://github.com/napari/docs/commits?author=lucyleeow))  - @lucyleeow
 - [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) ([docs](https://github.com/napari/docs/commits?author=melissawm))  - @melissawm
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
-
 
 ## 13 reviewers added to this release (alphabetical)
 

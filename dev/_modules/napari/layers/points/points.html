@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=1c10e645"></script>
+    <script src="../../../../_static/documentation_options.js?v=0846f430"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -2518,7 +2518,6 @@ document.write(`
             <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_drag_box</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_drag_box_stored</span><span class="p">)</span>
         <span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
             <span class="k">return</span>
-        <span class="n">prev_stored</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_stored</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_stored</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_value_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_drag_box_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_drag_box</span><span class="p">)</span>
@@ -2565,8 +2564,7 @@ document.write(`
             <span class="n">pos</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_box</span> <span class="o">=</span> <span class="n">pos</span>
-        <span class="k">if</span> <span class="n">prev_stored</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_stored</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">highlight</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">highlight</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update thumbnail with current points and colors.&quot;&quot;&quot;</span>

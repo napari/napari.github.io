@@ -116,6 +116,9 @@ napari.Viewer
       ~Viewer.update_forward_refs
    
    
+      ~Viewer.update_status_from_cursor
+   
+   
       ~Viewer.validate
    
    

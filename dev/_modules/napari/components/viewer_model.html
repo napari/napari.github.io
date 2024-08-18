@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=1c10e645"></script>
+    <script src="../../../_static/documentation_options.js?v=0846f430"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -775,9 +775,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_step</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">margin_left</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">margin_right</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_status_bar_from_cursor</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_status_from_cursor</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">inserted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_add_layer</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_remove_layer</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">reordered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_grid_change</span><span class="p">)</span>
@@ -1005,7 +1003,7 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">cursor_size</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">mouse_pan</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_zoom</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">mouse_zoom</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_status_bar_from_cursor</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_status_from_cursor</span><span class="p">()</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">rounded_division</span><span class="p">(</span><span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">precision</span><span class="p">):</span>
@@ -1060,33 +1058,44 @@ document.write(`
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set layer slicer to force synchronous if async is disabled.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">_force_sync</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
 
-    <span class="k">def</span> <span class="nf">_update_status_bar_from_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the status bar based on the current cursor position.</span>
-
-<span class="sd">        This is generally used as a callback when cursor.position is updated.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Update status and help bar based on active layer</span>
+    <span class="k">def</span> <span class="nf">_calc_status_from_cursor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_over_canvas</span><span class="p">:</span>
-            <span class="k">return</span>
+            <span class="k">return</span> <span class="kc">None</span>
         <span class="n">active</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span>
         <span class="k">if</span> <span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">get_status</span><span class="p">(</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">get_status</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">,</span>
                 <span class="n">view_direction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">_view_direction</span><span class="p">,</span>
                 <span class="n">dims_displayed</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">),</span>
                 <span class="n">world</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">help</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">_get_tooltip_text</span><span class="p">(</span>
+                <span class="n">tooltip_text</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">_get_tooltip_text</span><span class="p">(</span>
                     <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">),</span>
                     <span class="n">view_direction</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">_view_direction</span><span class="p">),</span>
                     <span class="n">dims_displayed</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">),</span>
                     <span class="n">world</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Ready&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tooltip_text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+            <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">tooltip_text</span>
+
+        <span class="k">return</span> <span class="s1">&#39;Ready&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>
+
+<div class="viewcode-block" id="ViewerModel.update_status_from_cursor">
+<a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.update_status_from_cursor">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_status_from_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the status and tooltip from the cursor position.&quot;&quot;&quot;</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_status_from_cursor</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">status</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">active</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">help</span></div>
+
 
     <span class="k">def</span> <span class="nf">_on_grid_change</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Arrange the current layers is a 2D grid.&quot;&quot;&quot;</span>

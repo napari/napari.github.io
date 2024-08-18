@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=1c10e645"></script>
+    <script src="../../../_static/documentation_options.js?v=0846f430"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -543,7 +543,6 @@ document.write(`
     <span class="n">QToolTip</span><span class="p">,</span>
     <span class="n">QWidget</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">superqt.utils</span> <span class="kn">import</span> <span class="n">QSignalThrottler</span>
 
 <span class="kn">from</span> <span class="nn">napari._app_model.constants</span> <span class="kn">import</span> <span class="n">MenuId</span>
 <span class="kn">from</span> <span class="nn">napari._app_model.context</span> <span class="kn">import</span> <span class="n">create_context</span><span class="p">,</span> <span class="n">get_context</span>
@@ -565,6 +564,7 @@ document.write(`
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari._qt.qt_resources</span> <span class="kn">import</span> <span class="n">get_stylesheet</span>
 <span class="kn">from</span> <span class="nn">napari._qt.qt_viewer</span> <span class="kn">import</span> <span class="n">QtViewer</span>
+<span class="kn">from</span> <span class="nn">napari._qt.threads.status_checker</span> <span class="kn">import</span> <span class="n">StatusChecker</span>
 <span class="kn">from</span> <span class="nn">napari._qt.utils</span> <span class="kn">import</span> <span class="n">QImg2array</span><span class="p">,</span> <span class="n">qbytearray_to_str</span><span class="p">,</span> <span class="n">str_to_qbytearray</span>
 <span class="kn">from</span> <span class="nn">napari._qt.widgets.qt_viewer_dock_widget</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">_SHORTCUT_DEPRECATION_STRING</span><span class="p">,</span>
@@ -579,6 +579,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
 <span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">perf</span>
 <span class="kn">from</span> <span class="nn">napari.utils._proxies</span> <span class="kn">import</span> <span class="n">PublicOnlyProxy</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">napari.utils.io</span> <span class="kn">import</span> <span class="n">imsave</span>
 <span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">in_ipython</span><span class="p">,</span>
@@ -694,21 +695,41 @@ document.write(`
         <span class="c1"># were defined somewhere in the `_qt` module and imported in init_qactions</span>
         <span class="n">init_qactions</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">status_throttler</span> <span class="o">=</span> <span class="n">QSignalThrottler</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">status_throttler</span><span class="o">.</span><span class="n">setTimeout</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_throttle_cursor_to_status_connection</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_throttle_cursor_to_status_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;Viewer&#39;</span><span class="p">):</span>
-        <span class="c1"># In the GUI we expect lots of changes to the cursor position, so</span>
-        <span class="c1"># replace the direct connection with a throttled one.</span>
         <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">IndexError</span><span class="p">):</span>
             <span class="n">viewer</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span>
-                <span class="n">viewer</span><span class="o">.</span><span class="n">_update_status_bar_from_cursor</span>
+                <span class="n">viewer</span><span class="o">.</span><span class="n">update_status_from_cursor</span>
             <span class="p">)</span>
-        <span class="n">viewer</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">status_throttler</span><span class="o">.</span><span class="n">throttle</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">status_throttler</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="n">viewer</span><span class="o">.</span><span class="n">_update_status_bar_from_cursor</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span> <span class="o">=</span> <span class="n">StatusChecker</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">status_and_tooltip_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_status_and_tooltip</span>
         <span class="p">)</span>
+        <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">update_status_based_on_layer</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">viewer</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">trigger_status_update</span>
+        <span class="p">)</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">update_status_based_on_layer</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_status_thread</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_toggle_status_thread</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">set_status_and_tooltip</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">status_and_tooltip</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">status_and_tooltip</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">status_and_tooltip</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">status_and_tooltip</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">active</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span>
+        <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">help</span>
 
     <span class="k">def</span> <span class="nf">statusBar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ViewerStatusBar&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span>
@@ -946,8 +967,6 @@ document.write(`
 
     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quit_app</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">confirm_need</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Override to handle closing app or just the window.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">status_throttler</span><span class="p">,</span> <span class="s1">&#39;_timer&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">status_throttler</span><span class="o">.</span><span class="n">_timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">quit_app</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="n">confirm_need_local</span> <span class="o">=</span> <span class="n">confirm_need</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_close_dialog</span><span class="p">[</span><span class="n">quit_app</span><span class="p">]</span>
@@ -1071,6 +1090,9 @@ document.write(`
         <span class="p">):</span>
             <span class="n">event</span><span class="o">.</span><span class="n">ignore</span><span class="p">()</span>
             <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ev</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ev</span><span class="o">.</span><span class="n">isRunning</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_ev</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>

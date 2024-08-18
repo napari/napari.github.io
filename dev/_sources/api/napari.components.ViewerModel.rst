@@ -98,6 +98,9 @@ napari.components.ViewerModel
       ~ViewerModel.update_forward_refs
    
    
+      ~ViewerModel.update_status_from_cursor
+   
+   
       ~ViewerModel.validate
    
    

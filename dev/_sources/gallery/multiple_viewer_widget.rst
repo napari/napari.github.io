@@ -30,7 +30,7 @@ current dims point (`viewer.dims.point`).
 
 .. tags:: gui
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-466
+.. GENERATED FROM PYTHON SOURCE LINES 14-474
 
 
 
@@ -393,12 +393,20 @@ current dims point (`viewer.dims.point`).
 
             if isinstance(event.value, Labels):
                 event.value.events.set_data.connect(self._set_data_refresh)
+                event.value.events.labels_update.connect(self._set_data_refresh)
                 self.viewer_model1.layers[
                     event.value.name
                 ].events.set_data.connect(self._set_data_refresh)
                 self.viewer_model2.layers[
                     event.value.name
                 ].events.set_data.connect(self._set_data_refresh)
+                event.value.events.labels_update.connect(self._set_data_refresh)
+                self.viewer_model1.layers[
+                    event.value.name
+                ].events.labels_update.connect(self._set_data_refresh)
+                self.viewer_model2.layers[
+                    event.value.name
+                ].events.labels_update.connect(self._set_data_refresh)
             if event.value.name != '.cross':
                 self.viewer_model1.layers[event.value.name].events.data.connect(
                     self._sync_data

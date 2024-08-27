@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=3789c5eb"></script>
+    <script src="../_static/documentation_options.js?v=41f6fbe1"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1072,12 +1072,20 @@ current dims point (<cite>viewer.dims.point</cite>).</p>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <a href="../api/napari.layers.Labels.html#napari.layers.Labels" title="napari.layers.Labels" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class"><span class="n">Labels</span></a><span class="p">):</span>
             <span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_data_refresh</span><span class="p">)</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">labels_update</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_data_refresh</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewer_model1</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span>
                 <span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span>
             <span class="p">]</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_data_refresh</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewer_model2</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span>
                 <span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span>
             <span class="p">]</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_data_refresh</span><span class="p">)</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">labels_update</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_data_refresh</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">viewer_model1</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">labels_update</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_data_refresh</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">viewer_model2</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">labels_update</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_data_refresh</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;.cross&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewer_model1</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_sync_data</span>

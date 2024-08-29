@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=7043f4b6"></script>
+    <script src="../_static/documentation_options.js?v=32e8772d"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -620,7 +620,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="tracks_2d.html">Tracks 2D</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-nd.html">visualization-nD (20)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-nd.html">visualization-nD (21)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="add-points-3d.html">Add points 3D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="add_3D_image.html">Add 3D image</a></li>
 <li class="toctree-l4"><a class="reference internal" href="add_points_on_nD_shapes.html">Add points on nD shapes</a></li>
@@ -639,6 +639,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="nD_surface.html">nD surface</a></li>
 <li class="toctree-l4"><a class="reference internal" href="nD_vectors.html">nD vectors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="nD_vectors_image.html">nD vectors image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="surface_multi_texture.html">Surface with multiple textures</a></li>
 <li class="toctree-l4"><a class="reference internal" href="surface_texture_and_colors.html">Surface with texture and vertex_colors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="swap_dims.html">Swap dims</a></li>
 </ul>
@@ -729,7 +730,6 @@ to download the full example code.</p>
 <span class="kn">from</span> <span class="nn">skimage.segmentation</span> <span class="kn">import</span> <span class="n">clear_border</span>
 
 <span class="kn">import</span> <span class="nn">napari</span>
-<span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <a href="../api/napari.utils.DirectLabelColormap.html#napari.utils.DirectLabelColormap" title="napari.utils.DirectLabelColormap" class="sphx-glr-backref-module-napari-utils sphx-glr-backref-type-py-class"><span class="n">DirectLabelColormap</span></a>
 
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">image</span></a> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">coins</span><span class="p">()[</span><span class="mi">50</span><span class="p">:</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">:</span><span class="o">-</span><span class="mi">50</span><span class="p">]</span>
 
@@ -764,14 +764,17 @@ to download the full example code.</p>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">colors</span></a> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span>
           <span class="kc">None</span><span class="p">:</span> <span class="s1">&#39;magenta&#39;</span><span class="p">}</span>
 <span class="c1"># Here we provide a dict with color mappings for a subset of labels;</span>
-<span class="c1"># we also provide a default color (`None` key) which will be used by all other labels</span>
+<span class="c1"># when passed to `add_labels`, using the `colormap` kwarg, it will be</span>
+<span class="c1"># internally converted to a `napari.utils.colormaps.DirectLabelColormap`</span>
+<span class="c1"># Note: we also provide a default color (`None` key) which will be used</span>
+<span class="c1"># by all other labels</span>
 
 <span class="c1"># add the labels</span>
 <a href="../api/napari.layers.Labels.html#napari.layers.Labels" title="napari.layers.Labels" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_labels" title="napari.Viewer.add_labels" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span></a><span class="p">(</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_image</span></a><span class="p">,</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;segmentation&#39;</span><span class="p">,</span>
     <span class="n">features</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_features</span></a><span class="p">,</span>
-    <span class="n">colormap</span><span class="o">=</span><a href="../api/napari.utils.DirectLabelColormap.html#napari.utils.DirectLabelColormap" title="napari.utils.DirectLabelColormap" class="sphx-glr-backref-module-napari-utils sphx-glr-backref-type-py-class"><span class="n">DirectLabelColormap</span></a><span class="p">(</span><span class="n">color_dict</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">colors</span></a><span class="p">),</span>
+    <span class="n">colormap</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">colors</span></a><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>

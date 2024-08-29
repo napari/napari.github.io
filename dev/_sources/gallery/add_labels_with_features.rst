@@ -25,7 +25,7 @@ Display a labels layer with various features
 
 .. tags:: layers, analysis
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-66
+.. GENERATED FROM PYTHON SOURCE LINES 9-68
 
 
 
@@ -50,7 +50,6 @@ Display a labels layer with various features
     from skimage.segmentation import clear_border
 
     import napari
-    from napari.utils.colormaps import DirectLabelColormap
 
     image = data.coins()[50:-50, 50:-50]
 
@@ -85,14 +84,17 @@ Display a labels layer with various features
     colors = {1: 'white', 2: 'blue', 3: 'green', 4: 'red', 5: 'yellow',
               None: 'magenta'}
     # Here we provide a dict with color mappings for a subset of labels;
-    # we also provide a default color (`None` key) which will be used by all other labels
+    # when passed to `add_labels`, using the `colormap` kwarg, it will be
+    # internally converted to a `napari.utils.colormaps.DirectLabelColormap`
+    # Note: we also provide a default color (`None` key) which will be used
+    # by all other labels
 
     # add the labels
     label_layer = viewer.add_labels(
         label_image,
         name='segmentation',
         features=label_features,
-        colormap=DirectLabelColormap(color_dict=colors),
+        colormap=colors,
     )
 
     if __name__ == '__main__':

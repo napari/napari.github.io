@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=9efdcecf"></script>
+    <script src="../../_static/documentation_options.js?v=b7ac835f"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -798,34 +798,51 @@ loop or a <a class="reference internal" href="../../api/napari.Viewer.html#napar
 you create during testing need to be cleaned up at the end of each test. We thus
 recommend that you use the following fixtures when needing a widget or
 <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Viewer</span></code></a> in a test.</p>
-<section id="qtbot">
-<h4>qtbot<a class="headerlink" href="#qtbot" title="Link to this heading">#</a></h4>
-<p>If you need a <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> to be running for your test, you can use the
+<section id="qapp-and-qtbot">
+<h4>qapp and qtbot<a class="headerlink" href="#qapp-and-qtbot" title="Link to this heading">#</a></h4>
+<p>If you need to use any Qt related code in your test, you need to ensure that
+a <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> is created. To to this we suggest you use the
+<a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/reference.html#module-pytestqt.plugin"><code class="docutils literal notranslate"><span class="pre">qapp</span></code></a>
+fixture from <a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/index.html"><code class="docutils literal notranslate"><span class="pre">pytest-qt</span></code></a>,
+a napari testing dependency.</p>
+<p>If you need to instantiate a Qt GUI object (e.g., a widget) for your test, we recommend
+that you use the
 <a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot"><code class="docutils literal notranslate"><span class="pre">qtbot</span></code></a>
-fixture from <code class="docutils literal notranslate"><span class="pre">pytest-qt</span></code>, a napari testing dependency.</p>
+fixture. <code class="docutils literal notranslate"><span class="pre">qtbot</span></code>, which itself depends on <code class="docutils literal notranslate"><span class="pre">qapp</span></code> , allows you to test user input
+(e.g., mouse clicks) by sending events to Qt objects.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Fixtures in pytest can be a little mysterious, since it’s not always
-clear where they are coming from.  In this case using the <code class="docutils literal notranslate"><span class="pre">pytest-qt</span></code> <code class="docutils literal notranslate"><span class="pre">qtbot</span></code>fixture
-looks like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># just by putting `qtbot` in the list of arguments</span>
-<span class="c1"># pytest-qt will start up an event loop for you</span>
-<span class="k">def</span> <span class="nf">test_something</span><span class="p">(</span><span class="n">qtbot</span><span class="p">):</span>
+clear where they are coming from.  The <code class="docutils literal notranslate"><span class="pre">pytest-qt</span></code> <code class="docutils literal notranslate"><span class="pre">qapp</span></code> and <code class="docutils literal notranslate"><span class="pre">qtbot</span></code> fixtures
+can be used in two ways; by adding them to the list of arguments of your test function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_something</span><span class="p">(</span><span class="n">qtbot</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>or by using pytest’s <code class="docutils literal notranslate"><span class="pre">usefixtures</span></code>, which avoids adding an unused argument to your
+test function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">usefixtures</span><span class="p">(</span><span class="s1">&#39;qtbot&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_something</span><span class="p">():</span>
     <span class="o">...</span>
 </pre></div>
 </div>
 <br/>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">qtbot</span></code> provides a convenient
-<a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.addWidget"><code class="docutils literal notranslate"><span class="pre">addWidget</span></code></a>
-method that will ensure that the widget gets closed at the end of the test.
-It <em>also</em> provides a whole bunch of other
-convenient methods for interacting with your GUI tests (clicking, waiting
-signals, etc…).  See the <a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot"><code class="docutils literal notranslate"><span class="pre">qtbot</span></code> docs</a> for details.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the qtbot provides convenience methods like addWidget</span>
-<span class="k">def</span> <span class="nf">test_something_else</span><span class="p">(</span><span class="n">qtbot</span><span class="p">):</span>
-    <span class="n">widget</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
-    <span class="n">qtbot</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>  <span class="c1"># tell qtbot to clean this widget later</span>
+<p><code class="docutils literal notranslate"><span class="pre">qtbot</span></code> also provides a convenient
+<a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.addWidget"><code class="docutils literal notranslate"><span class="pre">add_widget</span></code>/<code class="docutils literal notranslate"><span class="pre">addWidget</span></code></a>
+method that will ensure that the widget gets closed and properly cleaned at the end
+of the test. This can prevents segfaults when running several tests. The
+<a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.waitUntil"><code class="docutils literal notranslate"><span class="pre">wait_until</span></code>/<code class="docutils literal notranslate"><span class="pre">waitUntil</span></code></a>
+method is also useful to wait for a desired condition. The example below
+adds a <code class="docutils literal notranslate"><span class="pre">QtDims</span></code> widget, plays the <code class="docutils literal notranslate"><span class="pre">Dims</span></code> and checks that the <code class="docutils literal notranslate"><span class="pre">QtDim</span></code> widget
+is playing before we make any assertions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_something_else</span><span class="p">(</span><span class="n">qtbot</span><span class="p">):</span>
+    <span class="n">dims</span> <span class="o">=</span> <span class="n">Dims</span><span class="p">(</span><span class="n">ndim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">view</span> <span class="o">=</span> <span class="n">QtDims</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
+    <span class="n">qtbot</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
+    <span class="c1"># Loop to prevent finishing before the assertions in this test.</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">loop_mode</span><span class="o">=</span><span class="s1">&#39;loop&#39;</span><span class="p">)</span>
+    <span class="n">qtbot</span><span class="o">.</span><span class="n">waitUntil</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">view</span><span class="o">.</span><span class="n">is_playing</span><span class="p">)</span>
     <span class="o">...</span>
 </pre></div>
 </div>
@@ -1010,7 +1027,7 @@ so certain tests have been disabled from windows in CI, see
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-tests">Writing tests</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#property-based-testing-with-hypothesis">Property-based testing with Hypothesis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-with-qt-and-napari-viewer">Testing with <code class="docutils literal notranslate"><span class="pre">Qt</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#qtbot">qtbot</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#qapp-and-qtbot">qapp and qtbot</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#make-napari-viewer"><code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.utils._testsupport.make_napari_viewer"><code class="docutils literal notranslate"><span class="pre">make_napari_viewer()</span></code></a></li>
 </ul>

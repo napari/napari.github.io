@@ -205,38 +205,57 @@ you create during testing need to be cleaned up at the end of each test. We thus
 recommend that you use the following fixtures when needing a widget or
 {class}`~napari.Viewer` in a test.
 
-#### qtbot
+#### qapp and qtbot
 
-If you need a `QApplication` to be running for your test, you can use the
+If you need to use any Qt related code in your test, you need to ensure that
+a `QApplication` is created. To to this we suggest you use the
+[`qapp`](https://pytest-qt.readthedocs.io/en/latest/reference.html#module-pytestqt.plugin)
+fixture from [`pytest-qt`](https://pytest-qt.readthedocs.io/en/latest/index.html),
+a napari testing dependency.
+
+If you need to instantiate a Qt GUI object (e.g., a widget) for your test, we recommend
+that you use the
 [`qtbot`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot)
-fixture from `pytest-qt`, a napari testing dependency.
+fixture. `qtbot`, which itself depends on `qapp` , allows you to test user input
+(e.g., mouse clicks) by sending events to Qt objects.
 
 ````{note}
 Fixtures in pytest can be a little mysterious, since it's not always
-clear where they are coming from.  In this case using the `pytest-qt` `qtbot`fixture
-looks like this:
+clear where they are coming from.  The `pytest-qt` `qapp` and `qtbot` fixtures
+can be used in two ways; by adding them to the list of arguments of your test function:
 
 ```python
-# just by putting `qtbot` in the list of arguments
-# pytest-qt will start up an event loop for you
 def test_something(qtbot):
+    ...
+```
+or by using pytest's `usefixtures`, which avoids adding an unused argument to your
+test function:
+
+```python
+@pytest.mark.usefixtures('qtbot')
+def test_something():
     ...
 ```
 <br/>
 ````
 
-`qtbot` provides a convenient
-[`addWidget`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.addWidget)
-method that will ensure that the widget gets closed at the end of the test.
-It *also* provides a whole bunch of other
-convenient methods for interacting with your GUI tests (clicking, waiting
-signals, etc...).  See the [`qtbot` docs](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot) for details.
+`qtbot` also provides a convenient
+[`add_widget`/`addWidget`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.addWidget)
+method that will ensure that the widget gets closed and properly cleaned at the end
+of the test. This can prevents segfaults when running several tests. The
+[`wait_until`/`waitUntil`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.waitUntil)
+method is also useful to wait for a desired condition. The example below
+adds a `QtDims` widget, plays the `Dims` and checks that the `QtDim` widget
+is playing before we make any assertions.
 
 ```python
-# the qtbot provides convenience methods like addWidget
 def test_something_else(qtbot):
-    widget = QWidget()
-    qtbot.addWidget(widget)  # tell qtbot to clean this widget later
+    dims = Dims(ndim=3, ndisplay=2, range=((0, 10, 1), (0, 20, 1), (0, 30, 1)))
+    view = QtDims(dims)
+    qtbot.addWidget(view)
+    # Loop to prevent finishing before the assertions in this test.
+    view.play(loop_mode='loop')
+    qtbot.waitUntil(lambda: view.is_playing)
     ...
 ```
 

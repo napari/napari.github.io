@@ -115,6 +115,24 @@ on the `stdout` if any test fails.
   pytest tools/ --tb=short
   ```
 
+## Update constraints files
+
+`napari` uses a set of constraints files to prevent test failures due to dependency updates. This also allows for reproducible builds (see [](dev-installation)).
+These constraints files need to be updated at least weekly on Monday, and may also be triggered manually by a maintainer. You can find these files at
+[resources/constraints](https://github.com/napari/napari/tree/main/resources/constraints).
+
+To get updated constraints for a PR, use `@napari-bot update constraints` in a PR comment, then follow the instruction added by the bot to the conversation.
+
+````{admonition} Example
+To update the docs constraints file, assuming you have the `napari/napari` repo and `napari/docs` repo cloned next to each other, you can install [uv](https://astral.sh/blog/uv) and run the following command from the root of the `napari` repo:
+
+```bash
+uv pip compile --python-version 3.11 --upgrade --output-file resources/constraints/constraints_py3.11_docs.txt pyproject.toml resources/constraints/version_denylist.txt resources/constraints/version_denylist_examples.txt ../docs/requirements.txt resources/constraints/pydantic_le_2.txt --extra pyqt5 --extra pyqt6 --extra pyside2 --extra pyside6_experimental --extra testing --extra testing_extra --extra optional
+```
+````
+
+To see other examples, check out the [upgrade test constraints action](https://github.com/napari/napari/blob/main/.github/workflows/upgrade_test_constraints.yml).
+
 ## Tagging the new release candidate
 
 First we will generate a release candidate, which will contain the letters `rc`.

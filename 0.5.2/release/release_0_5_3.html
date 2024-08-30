@@ -10,7 +10,7 @@
     <link type="image/svg+xml" href="../../dev/_static/favicon/logo-silhouette-dark-light.svg" rel="icon">
     <link sizes="any" href="../../dev/_static/favicon/logo-silhouette-192.png" rel="icon" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="../../dev/_static/favicon/logo-noborder-180.png" type="image/png">
-    <title>napari 0.3.2 &#8212; napari</title>
+    <title>napari 0.5.3 &#8212; napari</title>
   
   
   
@@ -53,7 +53,7 @@
     <script src="../../dev/_static/copybutton.js?v=f281be69"></script>
     <script src="../../dev/_static/design-tabs.js?v=f930bc37"></script>
     <script data-domain="napari.org" defer="defer" src="https://plausible.io/js/plausible.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'release/release_0_3_2';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'release/release_0_5_3';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/../dev/_static/version_switcher.json';
@@ -62,8 +62,8 @@
         </script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="napari 0.3.1" href="release_0_3_1.html" />
-    <link rel="prev" title="napari 0.3.3" href="release_0_3_3.html" />
+    <link rel="next" title="napari 0.5.2" href="release_0_5_2.html" />
+    <link rel="prev" title="Release notes" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -501,7 +501,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Release notes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="release_0_5_3.html">napari 0.5.3</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">napari 0.5.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_5_2.html">napari 0.5.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_5_1.html">napari 0.5.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_5_0.html">napari 0.5.0</a></li>
@@ -531,7 +531,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="release_0_3_5.html">napari 0.3.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_3_4.html">napari 0.3.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_3_3.html">napari 0.3.3</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">napari 0.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_2.html">napari 0.3.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_3_1.html">napari 0.3.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_3_0.html">napari 0.3.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_2_12.html">napari 0.2.12</a></li>
@@ -600,7 +600,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="index.html" class="nav-link">Release notes</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">napari 0.3.2</li>
+    <li class="breadcrumb-item active" aria-current="page">napari 0.5.3</li>
   </ul>
 </nav>
 </div>
@@ -617,89 +617,128 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="napari-0-3-2">
-<h1>napari 0.3.2<a class="headerlink" href="#napari-0-3-2" title="Link to this heading">#</a></h1>
-<p>We’re happy to announce the release of napari 0.3.2!
-napari is a fast, interactive, multi-dimensional image viewer for Python.
-It’s designed for browsing, annotating, and analyzing large multi-dimensional
-images. It’s built on top of Qt (for the GUI), vispy (for performant GPU-based
-rendering), and the scientific Python stack (numpy, scipy).</p>
-<p>For more information, examples, and documentation, please visit our website:
-https://github.com/napari/napari</p>
-<section id="new-features">
-<h2>New Features<a class="headerlink" href="#new-features" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>General multithreading API and &#64;thread_worker decorator (#1210)</p></li>
-<li><p>Rich jupyter display for napari screenshots (#1269)</p></li>
-<li><p>Allow add_dock_widget to accept a list of widgets (#1296)</p></li>
+  <section class="tex2jax_ignore mathjax_ignore" id="napari-0-5-3">
+<h1>napari 0.5.3<a class="headerlink" href="#napari-0-5-3" title="Link to this heading">#</a></h1>
+<p><em>Thursday, Aug 29, 2024</em></p>
+<p>We’re happy to announce the release of napari 0.5.3!</p>
+<p>napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for exploring, annotating, and analyzing multi-dimensional images. It’s built on Qt (for the GUI), VisPy (for performant GPU-based rendering), and the scientific Python stack (NumPy, SciPy, and friends).</p>
+<p>For more information, examples, and documentation, please visit our website: https://napari.org/</p>
+<section id="highlights">
+<h2>Highlights<a class="headerlink" href="#highlights" title="Link to this heading">#</a></h2>
+<p>This is primarily a bug-fix release, including fixes for a couple of nasty
+regressions in 0.5.0 (<a class="reference external" href="https://github.com/napari/napari/pull/7184">#7184</a>) and
+0.5.2 (<a class="reference external" href="https://github.com/napari/napari/pull/7201">#7201</a>). However, we also
+have a couple of <em>excellent</em> user-facing improvements:</p>
+<ul>
+<li><p>In <a class="reference external" href="https://github.com/napari/napari/pull/7090">#7090</a>, new contributor <a class="reference external" href="https://github.com/beanli161514">Bean
+Li</a> fixed a <em>very</em> long-standing issue in
+napari: 3D picking didn’t work when using a perspective projection (rather
+than the default orthogonal projection. The result is glorious:</p>
+<p><img alt="animated gif showing picking of points in 3D filaments using a perspective projection camera" src="https://private-user-images.githubusercontent.com/68546131/348254048-58036c3c-5776-4f13-bb49-562334b53834.gif?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjQ5NTU3OTcsIm5iZiI6MTcyNDk1NTQ5NywicGF0aCI6Ii82ODU0NjEzMS8zNDgyNTQwNDgtNTgwMzZjM2MtNTc3Ni00ZjEzLWJiNDktNTYyMzM0YjUzODM0LmdpZj9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA4MjklMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwODI5VDE4MTgxN1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTU2N2JjYmY2NmFkNTFiMWJjZDM5NzcyZGFlNDI5MGI2NDRjY2JiNmUyNjY0MmJmZmEyZDI0ZmIzMDhkYTg4ZDgmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.HcFhx2vhFut1H3C2Bw_uYf8UIqcNRUgGUXZ58mYGUMU" /></p>
+<p>There’s still a lot of work to be done in perspective projection (dragging
+planes, for example, still doesn’t work), but this is an exciting first step,
+and we are thrilled that it came from a new community member! Thanks
+<a class="reference external" href="https://github.com/beanli161514">&#64;beanli161514</a>!</p>
+</li>
+<li><p>In <a class="reference external" href="https://github.com/napari/napari/pull/7146">#7146</a>, napari team member
+<a class="reference external" href="https://github.com/Czaki">Grzegorz Bokota</a> fixed a long-standing issue in
+napari: Layer.get_status used to be computed on the main thread, which meant
+that layers for which this involved heavy computation (such as large Labels
+layers, or Shapes layers or 3D surface layers with lots of polygons) would
+slow down the viewer refresh rate. Grzegorz’s changes move the computation to
+a separate thread, which will dramatically improve performance in many
+situations. 🚀🚀🚀</p></li>
 </ul>
+<p>Thanks as always to all our contributors, and read on for the full list of
+changes!</p>
 </section>
 <section id="improvements">
 <h2>Improvements<a class="headerlink" href="#improvements" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Make Qt component non private module (#1122)</p></li>
-<li><p>Docs on threading and the event loop (#1258)</p></li>
-<li><p>Add option to disable overwrite of labels during painting (#1264)</p></li>
-<li><p>Move dask utils from misc.py to new dask_utils.py (#1265)</p></li>
-<li><p>Have layer tooltip display the layer name (#1271)</p></li>
-<li><p>Support viewer annotation in magicgui (#1279)</p></li>
-<li><p>Blue colored active layer (#1284)</p></li>
+<li><p>[enh] Add a keybinding for rotating layer and alt-click on Transpose button (<a class="reference external" href="https://github.com/napari/napari/pull/7052">#7052</a>)</p></li>
+<li><p>enable 3D picking with perspective camera (<a class="reference external" href="https://github.com/napari/napari/pull/7090">#7090</a>)</p></li>
+<li><p>[UX/UI] Update layer controls tooltips (<a class="reference external" href="https://github.com/napari/napari/pull/7153">#7153</a>)</p></li>
+<li><p>Update labels_with_features example for #7025 (<a class="reference external" href="https://github.com/napari/napari/pull/7199">#7199</a>)</p></li>
+</ul>
+</section>
+<section id="performance">
+<h2>Performance<a class="headerlink" href="#performance" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Fix missing extent cache invalidation (<a class="reference external" href="https://github.com/napari/napari/pull/7015">#7015</a>)</p></li>
+<li><p>Calculate status in a separate thread (<a class="reference external" href="https://github.com/napari/napari/pull/7146">#7146</a>)</p></li>
+<li><p>If a shape is convex, use faster fan triangulation (<a class="reference external" href="https://github.com/napari/napari/pull/7214">#7214</a>)</p></li>
+<li><p>Speed up highlighting in the Shapes layer (<a class="reference external" href="https://github.com/napari/napari/pull/7223">#7223</a>)</p></li>
 </ul>
 </section>
 <section id="bug-fixes">
 <h2>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Automatically set high DPI scaling in Qt (#820)</p></li>
-<li><p>Use napari logo as taskbar icon on windows when run as python script (#1208)</p></li>
-<li><p>Remove scipy.stats import (#1250)</p></li>
-<li><p>Unify <code class="docutils literal notranslate"><span class="pre">_get_exent()</span></code> return tuple formatting for all layer types (#1255)</p></li>
-<li><p>Anti-aliasing on splash screen logo (#1260)</p></li>
-<li><p>Remove dupe import (#1263)</p></li>
-<li><p>Fix missing docstring <code class="docutils literal notranslate"><span class="pre">create_dask_cache</span></code> (#1266)</p></li>
-<li><p>Fix adding points with new properties  (#1274)</p></li>
-<li><p>Fix error when binding multiple connections (#1293)</p></li>
-<li><p>Add tests for <code class="docutils literal notranslate"><span class="pre">qt.threading</span></code> (#1294)</p></li>
-<li><p>Close bytesIO in <code class="docutils literal notranslate"><span class="pre">NotebookScreenshot._repr_png_</span></code> (#1295)</p></li>
-<li><p>Fix shift-click for selecting shapes (#1297)</p></li>
+<li><p>Fix missing extent cache invalidation (<a class="reference external" href="https://github.com/napari/napari/pull/7015">#7015</a>)</p></li>
+<li><p>enable 3D picking with perspective camera (<a class="reference external" href="https://github.com/napari/napari/pull/7090">#7090</a>)</p></li>
+<li><p>Implement shortcuts widget <code class="docutils literal notranslate"><span class="pre">setValue</span></code> to handle shortcuts settings updates (<a class="reference external" href="https://github.com/napari/napari/pull/7180">#7180</a>)</p></li>
+<li><p>Fix bug preventing from change symbol for points initialized with single value (<a class="reference external" href="https://github.com/napari/napari/pull/7184">#7184</a>)</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">napari.benchmarks.util</span></code> to sdist and wheel to fix balls example data (<a class="reference external" href="https://github.com/napari/napari/pull/7186">#7186</a>)</p></li>
+<li><p>Bugfix: Revert “Emit highlight event only if selection changed (#7162)” (<a class="reference external" href="https://github.com/napari/napari/pull/7201">#7201</a>)</p></li>
+<li><p>Use new DOI for surface example (<a class="reference external" href="https://github.com/napari/napari/pull/7222">#7222</a>)</p></li>
 </ul>
 </section>
-<section id="build-tools">
-<h2>Build Tools<a class="headerlink" href="#build-tools" title="Link to this heading">#</a></h2>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Add pooch to requirements/test.txt (#1249)</p></li>
-<li><p>Prefer rcc binary at front of path (#1261)</p></li>
-<li><p>Pin napari-svg to 0.1.2 (#1275)</p></li>
-<li><p>Add PyYAML as dependency (#1291)</p></li>
+<li><p>Use new DOI for surface example (<a class="reference external" href="https://github.com/napari/napari/pull/7222">#7222</a>)</p></li>
+<li><p>Add 0.5.3 release notes (<a class="reference external" href="https://github.com/napari/docs/pull/485">docs#485</a>)</p></li>
+<li><p>Add short guide on updating constraints files (<a class="reference external" href="https://github.com/napari/docs/pull/460">docs#460</a>)</p></li>
+<li><p>Add 0.5.2 to the version switcher (<a class="reference external" href="https://github.com/napari/docs/pull/479">docs#479</a>)</p></li>
+<li><p>Minor improvement to <code class="docutils literal notranslate"><span class="pre">qtbot</span></code> testing section (<a class="reference external" href="https://github.com/napari/docs/pull/481">docs#481</a>)</p></li>
+<li><p>Improve informations on community page (<a class="reference external" href="https://github.com/napari/docs/pull/482">docs#482</a>)</p></li>
+</ul>
+</section>
+<section id="other-pull-requests">
+<h2>Other Pull Requests<a class="headerlink" href="#other-pull-requests" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Fix/add some typing to napari.layers.tracks (<a class="reference external" href="https://github.com/napari/napari/pull/7014">#7014</a>)</p></li>
+<li><p>Call workflow providing target directory name (<a class="reference external" href="https://github.com/napari/napari/pull/7181">#7181</a>)</p></li>
+<li><p>Improve error message in <code class="docutils literal notranslate"><span class="pre">combine_widgets</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/7194">#7194</a>)</p></li>
+<li><p>[Maint] Remove some pytest skipif for python &lt;3.9 (<a class="reference external" href="https://github.com/napari/napari/pull/7203">#7203</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">dask</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">imageio</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/7206">#7206</a>)</p></li>
+<li><p>[pre-commit.ci] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/7207">#7207</a>)</p></li>
+<li><p>[pre-commit.ci] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/7216">#7216</a>)</p></li>
+<li><p>Fix example by connect missing event (<a class="reference external" href="https://github.com/napari/napari/pull/7218">#7218</a>)</p></li>
+<li><p>Improve deploy workflow by use deploy directory from workflow dispatch input  (<a class="reference external" href="https://github.com/napari/docs/pull/477">docs#477</a>)</p></li>
 </ul>
 </section>
 <section id="authors-added-to-this-release-alphabetical">
 <h2>9 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=cwood1967">Chris Wood</a> - &#64;cwood1967</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=GenevieveBuckley">Genevieve Buckley</a> - &#64;GenevieveBuckley</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> - &#64;Czaki</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=gcadenazzi">Guido Cadenazzi</a> - &#64;gcadenazzi</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kevinyamauchi">Kevin Yamauchi</a> - &#64;kevinyamauchi</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=sofroniewn">Nicholas Sofroniew</a> - &#64;sofroniewn</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=pwinston">Philip Winston</a> - &#64;pwinston</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - &#64;tlambert03</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ziyangczi">ziyangczi</a> - &#64;ziyangczi</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=beanli161514">BeanLi</a> - &#64;beanli161514 +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dalthviz">Daniel Althviz Moré</a> - &#64;dalthviz</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dstansby">David Stansby</a> - &#64;dstansby</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=Czaki">docs</a>)  - &#64;Czaki</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=jni">docs</a>)  - &#64;jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> - &#64;brisvag</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=lucyleeow">Lucy Liu</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=lucyleeow">docs</a>)  - &#64;lucyleeow</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=melissawm">Melissa Weber Mendonça</a> - &#64;melissawm</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
 </ul>
 </section>
 <section id="reviewers-added-to-this-release-alphabetical">
-<h2>11 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>13 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=cwood1967">Chris Wood</a> - &#64;cwood1967</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=GenevieveBuckley">Genevieve Buckley</a> - &#64;GenevieveBuckley</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> - &#64;Czaki</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=guiwitz">Guillaume Witz</a> - &#64;guiwitz</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kevinyamauchi">Kevin Yamauchi</a> - &#64;kevinyamauchi</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kne42">Kira Evans</a> - &#64;kne42</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=hmaarrfk">Mark Harfouche</a> - &#64;hmaarrfk</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=sofroniewn">Nicholas Sofroniew</a> - &#64;sofroniewn</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - &#64;tlambert03</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ziyangczi">ziyangczi</a> - &#64;ziyangczi</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=beanli161514">BeanLi</a> - &#64;beanli161514 +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dalthviz">Daniel Althviz Moré</a> - &#64;dalthviz</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dstansby">David Stansby</a> - &#64;dstansby</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">Draga Doncila Pop</a> - &#64;DragaDoncila</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=GenevieveBuckley">Genevieve Buckley</a> - &#64;GenevieveBuckley</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=Czaki">docs</a>)  - &#64;Czaki</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=jni">docs</a>)  - &#64;jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=kevinyamauchi">Kevin Yamauchi</a> - &#64;kevinyamauchi</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> - &#64;brisvag</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=lucyleeow">Lucy Liu</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=lucyleeow">docs</a>)  - &#64;lucyleeow</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=melissawm">Melissa Weber Mendonça</a> - &#64;melissawm</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=melonora">Wouter-Michiel Vierdag</a> - &#64;melonora</p></li>
 </ul>
 </section>
 </section>
@@ -715,20 +754,20 @@ https://github.com/napari/napari</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="release_0_3_3.html"
+       href="index.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">napari 0.3.3</p>
+        <p class="prev-next-title">Release notes</p>
       </div>
     </a>
     <a class="right-next"
-       href="release_0_3_1.html"
+       href="release_0_5_2.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">napari 0.3.1</p>
+        <p class="prev-next-title">napari 0.5.2</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -750,12 +789,14 @@ https://github.com/napari/napari</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-features">New Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highlights">Highlights</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#improvements">Improvements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bug-fixes">Bug Fixes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-tools">Build Tools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-pull-requests">Other Pull Requests</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">9 authors added to this release (alphabetical)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">11 reviewers added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">13 reviewers added to this release (alphabetical)</a></li>
 </ul>
   </nav></div>
 

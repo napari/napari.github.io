@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=115fa0b5"></script>
+    <script src="../_static/documentation_options.js?v=e69abe00"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -57,7 +57,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5.3rc0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5.3rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -619,7 +619,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="napari-0-5-3">
 <h1>napari 0.5.3<a class="headerlink" href="#napari-0-5-3" title="Link to this heading">#</a></h1>
-<p><em>Thursday, Aug 29, 2024</em></p>
+<p><em>Friday, Aug 30, 2024</em></p>
 <p>We’re happy to announce the release of napari 0.5.3!</p>
 <p>napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for exploring, annotating, and analyzing multi-dimensional images. It’s built on Qt (for the GUI), VisPy (for performant GPU-based rendering), and the scientific Python stack (NumPy, SciPy, and friends).</p>
 <p>For more information, examples, and documentation, please visit our website: https://napari.org/</p>
@@ -634,7 +634,7 @@ have a couple of <em>excellent</em> user-facing improvements:</p>
 Li</a> fixed a <em>very</em> long-standing issue in
 napari: 3D picking didn’t work when using a perspective projection (rather
 than the default orthogonal projection. The result is glorious:</p>
-<p><img alt="animated gif showing picking of points in 3D filaments using a perspective projection camera" src="https://private-user-images.githubusercontent.com/68546131/348254048-58036c3c-5776-4f13-bb49-562334b53834.gif?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjQ5NTU3OTcsIm5iZiI6MTcyNDk1NTQ5NywicGF0aCI6Ii82ODU0NjEzMS8zNDgyNTQwNDgtNTgwMzZjM2MtNTc3Ni00ZjEzLWJiNDktNTYyMzM0YjUzODM0LmdpZj9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA4MjklMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwODI5VDE4MTgxN1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTU2N2JjYmY2NmFkNTFiMWJjZDM5NzcyZGFlNDI5MGI2NDRjY2JiNmUyNjY0MmJmZmEyZDI0ZmIzMDhkYTg4ZDgmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.HcFhx2vhFut1H3C2Bw_uYf8UIqcNRUgGUXZ58mYGUMU" /></p>
+<p><img alt="animated gif showing picking of points in 3D filaments using a perspective projection camera" src="https://github.com/user-attachments/assets/58036c3c-5776-4f13-bb49-562334b53834" /></p>
 <p>There’s still a lot of work to be done in perspective projection (dragging
 planes, for example, still doesn’t work), but this is an exciting first step,
 and we are thrilled that it came from a new community member! Thanks
@@ -680,6 +680,7 @@ changes!</p>
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">napari.benchmarks.util</span></code> to sdist and wheel to fix balls example data (<a class="reference external" href="https://github.com/napari/napari/pull/7186">#7186</a>)</p></li>
 <li><p>Bugfix: Revert “Emit highlight event only if selection changed (#7162)” (<a class="reference external" href="https://github.com/napari/napari/pull/7201">#7201</a>)</p></li>
 <li><p>Use new DOI for surface example (<a class="reference external" href="https://github.com/napari/napari/pull/7222">#7222</a>)</p></li>
+<li><p>Fix convex polygon detection (<a class="reference external" href="https://github.com/napari/napari/pull/7228">#7228</a>)</p></li>
 </ul>
 </section>
 <section id="documentation">
@@ -687,6 +688,7 @@ changes!</p>
 <ul class="simple">
 <li><p>Use new DOI for surface example (<a class="reference external" href="https://github.com/napari/napari/pull/7222">#7222</a>)</p></li>
 <li><p>Add 0.5.3 release notes (<a class="reference external" href="https://github.com/napari/docs/pull/485">docs#485</a>)</p></li>
+<li><p>Update 0.5.3 release notes with new bugfix (<a class="reference external" href="https://github.com/napari/docs/pull/487">docs#487</a>)</p></li>
 <li><p>Add short guide on updating constraints files (<a class="reference external" href="https://github.com/napari/docs/pull/460">docs#460</a>)</p></li>
 <li><p>Add 0.5.2 to the version switcher (<a class="reference external" href="https://github.com/napari/docs/pull/479">docs#479</a>)</p></li>
 <li><p>Minor improvement to <code class="docutils literal notranslate"><span class="pre">qtbot</span></code> testing section (<a class="reference external" href="https://github.com/napari/docs/pull/481">docs#481</a>)</p></li>

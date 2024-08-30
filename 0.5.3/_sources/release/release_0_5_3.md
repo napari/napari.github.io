@@ -1,6 +1,6 @@
 # napari 0.5.3
 
-*Thursday, Aug 29, 2024*
+*Friday, Aug 30, 2024*
 
 We’re happy to announce the release of napari 0.5.3!
 
@@ -20,7 +20,7 @@ have a couple of *excellent* user-facing improvements:
   napari: 3D picking didn't work when using a perspective projection (rather
   than the default orthogonal projection. The result is glorious:
 
-  ![animated gif showing picking of points in 3D filaments using a perspective projection camera](https://private-user-images.githubusercontent.com/68546131/348254048-58036c3c-5776-4f13-bb49-562334b53834.gif?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjQ5NTU3OTcsIm5iZiI6MTcyNDk1NTQ5NywicGF0aCI6Ii82ODU0NjEzMS8zNDgyNTQwNDgtNTgwMzZjM2MtNTc3Ni00ZjEzLWJiNDktNTYyMzM0YjUzODM0LmdpZj9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA4MjklMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwODI5VDE4MTgxN1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTU2N2JjYmY2NmFkNTFiMWJjZDM5NzcyZGFlNDI5MGI2NDRjY2JiNmUyNjY0MmJmZmEyZDI0ZmIzMDhkYTg4ZDgmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.HcFhx2vhFut1H3C2Bw_uYf8UIqcNRUgGUXZ58mYGUMU)
+  ![animated gif showing picking of points in 3D filaments using a perspective projection camera](https://github.com/user-attachments/assets/58036c3c-5776-4f13-bb49-562334b53834)
 
   There's still a lot of work to be done in perspective projection (dragging
   planes, for example, still doesn't work), but this is an exciting first step,
@@ -62,11 +62,13 @@ changes!
 - Add `napari.benchmarks.util` to sdist and wheel to fix balls example data ([#7186](https://github.com/napari/napari/pull/7186))
 - Bugfix: Revert "Emit highlight event only if selection changed (#7162)" ([#7201](https://github.com/napari/napari/pull/7201))
 - Use new DOI for surface example ([#7222](https://github.com/napari/napari/pull/7222))
+-  Fix convex polygon detection ([#7228](https://github.com/napari/napari/pull/7228))
 
 ## Documentation
 
 - Use new DOI for surface example ([#7222](https://github.com/napari/napari/pull/7222))
 - Add 0.5.3 release notes ([docs#485](https://github.com/napari/docs/pull/485))
+- Update 0.5.3 release notes with new bugfix ([docs#487](https://github.com/napari/docs/pull/487))
 - Add short guide on updating constraints files ([docs#460](https://github.com/napari/docs/pull/460))
 - Add 0.5.2 to the version switcher ([docs#479](https://github.com/napari/docs/pull/479))
 - Minor improvement to `qtbot` testing section ([docs#481](https://github.com/napari/docs/pull/481))

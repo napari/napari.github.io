@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=aa557900"></script>
+    <script src="../../../_static/documentation_options.js?v=f8e7eaea"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -531,7 +531,7 @@ document.write(`
     <span class="n">Qt</span><span class="p">,</span>
     <span class="n">Slot</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">qtpy.QtGui</span> <span class="kn">import</span> <span class="n">QIcon</span>
+<span class="kn">from</span> <span class="nn">qtpy.QtGui</span> <span class="kn">import</span> <span class="n">QHideEvent</span><span class="p">,</span> <span class="n">QIcon</span><span class="p">,</span> <span class="n">QShowEvent</span>
 <span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">QApplication</span><span class="p">,</span>
     <span class="n">QDialog</span><span class="p">,</span>
@@ -704,8 +704,6 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">status_and_tooltip_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_status_and_tooltip</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">update_status_based_on_layer</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="n">viewer</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">trigger_status_update</span>
         <span class="p">)</span>
@@ -718,6 +716,17 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">showEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QShowEvent</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Override to handle window state changes.&quot;&quot;&quot;</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">update_status_based_on_layer</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">showEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">hideEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QHideEvent</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">hideEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">set_status_and_tooltip</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">status_and_tooltip</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]</span>

@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=2d9eab4d"></script>
+    <script src="../../../_static/documentation_options.js?v=ddb477a9"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -503,7 +503,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">lru_cache</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
@@ -1969,7 +1969,7 @@ document.write(`
     <span class="k">def</span> <span class="nf">_add_layer_from_data</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">data</span><span class="p">,</span>
-        <span class="n">meta</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">meta</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Layer</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add arbitrary layer data to the viewer.</span>
@@ -2113,12 +2113,12 @@ document.write(`
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FullLayerData</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Merge data returned from plugins with options specified by user.</span>
 
-<span class="sd">    If ``data == (_data, _meta, _type)``.  Then:</span>
+<span class="sd">    If ``data == (data_, meta_, type_)``.  Then:</span>
 
-<span class="sd">    - ``kwargs`` will be used to update ``_meta``</span>
-<span class="sd">    - ``layer_type`` will replace ``_type`` and, if provided, ``_meta`` keys</span>
+<span class="sd">    - ``kwargs`` will be used to update ``meta_``</span>
+<span class="sd">    - ``layer_type`` will replace ``type_`` and, if provided, ``meta_`` keys</span>
 <span class="sd">        will be pruned to layer_type-appropriate kwargs</span>
-<span class="sd">    - ``fallback_name`` is used if ``not _meta.get(&#39;name&#39;)``</span>
+<span class="sd">    - ``fallback_name`` is used if ``not meta_.get(&#39;name&#39;)``</span>
 
 <span class="sd">    .. note:</span>
 
@@ -2145,13 +2145,16 @@ document.write(`
 <span class="sd">    FullLayerData</span>
 <span class="sd">        Fully qualified LayerData tuple with user-provided overrides.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_data</span><span class="p">,</span> <span class="n">_meta</span><span class="p">,</span> <span class="n">_type</span> <span class="o">=</span> <span class="n">_normalize_layer_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">data_</span><span class="p">,</span> <span class="n">meta_</span><span class="p">,</span> <span class="n">type_</span> <span class="o">=</span> <span class="n">_normalize_layer_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">layer_type</span><span class="p">:</span>
         <span class="c1"># the user has explicitly requested this be a certain layer type</span>
         <span class="c1"># strip any kwargs from the plugin that are no longer relevant</span>
-        <span class="n">_meta</span> <span class="o">=</span> <span class="n">prune_kwargs</span><span class="p">(</span><span class="n">_meta</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">)</span>
-        <span class="n">_type</span> <span class="o">=</span> <span class="n">layer_type</span>
+        <span class="n">meta_</span> <span class="o">=</span> <span class="n">prune_kwargs</span><span class="p">(</span><span class="n">meta_</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">)</span>
+        <span class="n">type_</span> <span class="o">=</span> <span class="n">layer_type</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">meta_</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">meta_</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">meta_</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
         <span class="c1"># if user provided kwargs, use to override any meta dict values that</span>
@@ -2160,14 +2163,14 @@ document.write(`
         <span class="c1"># both layer_type and additional keyword arguments to viewer.open(),</span>
         <span class="c1"># it is their responsibility to make sure the kwargs match the</span>
         <span class="c1"># layer_type.</span>
-        <span class="n">_meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">prune_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">_type</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">layer_type</span> <span class="k">else</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">meta_</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">prune_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">type_</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">layer_type</span> <span class="k">else</span> <span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">fallback_name</span><span class="p">:</span>
-        <span class="n">_meta</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fallback_name</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">_data</span><span class="p">,</span> <span class="n">_meta</span><span class="p">,</span> <span class="n">_type</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">meta_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">fallback_name</span><span class="p">:</span>
+        <span class="n">meta_</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fallback_name</span>
+    <span class="k">return</span> <span class="n">data_</span><span class="p">,</span> <span class="n">meta_</span><span class="p">,</span> <span class="n">type_</span>
 
 
-<span class="k">def</span> <span class="nf">prune_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">layer_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">prune_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">layer_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return copy of ``kwargs`` with only keys valid for ``add_&lt;layer_type&gt;``</span>
 
 <span class="sd">    Parameters</span>

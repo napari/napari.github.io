@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=2d9eab4d"></script>
+    <script src="../../../_static/documentation_options.js?v=ddb477a9"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -576,8 +576,8 @@ document.write(`
 
     <span class="n">res</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">plugin</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="n">stack</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">_ld</span><span class="p">,</span> <span class="n">hookimpl</span> <span class="o">=</span> <span class="n">res</span>
-        <span class="k">return</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">_is_null_layer_sentinel</span><span class="p">(</span><span class="n">_ld</span><span class="p">)</span> <span class="k">else</span> <span class="n">_ld</span><span class="p">,</span> <span class="n">hookimpl</span>
+        <span class="n">ld_</span><span class="p">,</span> <span class="n">hookimpl</span> <span class="o">=</span> <span class="n">res</span>
+        <span class="k">return</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">_is_null_layer_sentinel</span><span class="p">(</span><span class="n">ld_</span><span class="p">)</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">ld_</span><span class="p">),</span> <span class="n">hookimpl</span>
 
     <span class="n">hook_caller</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">hook</span><span class="o">.</span><span class="n">napari_get_reader</span>
     <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">abspath_or_url</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">must_exist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">]</span>

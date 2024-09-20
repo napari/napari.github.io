@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=ddb477a9"></script>
+    <script src="../../../_static/documentation_options.js?v=7c049a52"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -560,9 +560,27 @@ document.write(`
 <span class="n">_IPYTHON_WAS_HERE_FIRST</span> <span class="o">=</span> <span class="s1">&#39;IPython&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
 
 
+<span class="c1"># TODO: Remove in napari 0.6.0</span>
 <div class="viewcode-block" id="get_app">
 <a class="viewcode-back" href="../../../api/napari.qt.html#napari.get_app">[docs]</a>
-<span class="k">def</span> <span class="nf">get_app</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">get_app</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QApplication</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get or create the Qt QApplication. Now deprecated, use `get_qapp`.&quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span>
+        <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+            <span class="s1">&#39;`QApplication` instance access through `get_app` is deprecated and will be removed in 0.6.0.</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="s1">&#39;Please use `get_qapp` instead.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
+        <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">get_qapp</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_qapp">
+<a class="viewcode-back" href="../../../api/napari.qt.html#napari.get_qapp">[docs]</a>
+<span class="k">def</span> <span class="nf">get_qapp</span><span class="p">(</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">app_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">app_version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>

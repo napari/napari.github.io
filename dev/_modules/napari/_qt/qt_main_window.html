@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=ddb477a9"></script>
+    <script src="../../../_static/documentation_options.js?v=7c049a52"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -559,7 +559,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">napari._qt.dialogs.qt_notification</span> <span class="kn">import</span> <span class="n">NapariQtNotification</span>
 <span class="kn">from</span> <span class="nn">napari._qt.qt_event_loop</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">NAPARI_ICON_PATH</span><span class="p">,</span>
-    <span class="n">get_app</span><span class="p">,</span>
+    <span class="n">get_qapp</span><span class="p">,</span>
     <span class="n">quit_app</span> <span class="k">as</span> <span class="n">quit_app_</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari._qt.qt_resources</span> <span class="kn">import</span> <span class="n">get_stylesheet</span>
@@ -1183,7 +1183,7 @@ document.write(`
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;Viewer&#39;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># create QApplication if it doesn&#39;t already exist</span>
-        <span class="n">qapp</span> <span class="o">=</span> <span class="n">get_app</span><span class="p">()</span>
+        <span class="n">qapp</span> <span class="o">=</span> <span class="n">get_qapp</span><span class="p">()</span>
 
         <span class="c1"># Dictionary holding dock widgets</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dock_widgets</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">QtViewerDockWidget</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
@@ -2037,7 +2037,7 @@ document.write(`
         <span class="c1"># B) it is not the first time a QMainWindow is being created</span>
 
         <span class="c1"># `app_name` will be &quot;napari&quot; iff the application was instantiated in</span>
-        <span class="c1"># get_app(). isActiveWindow() will be True if it is the second time a</span>
+        <span class="c1"># get_qapp(). isActiveWindow() will be True if it is the second time a</span>
         <span class="c1"># _qt_window has been created.</span>
         <span class="c1"># See #721, #732, #735, #795, #1594</span>
         <span class="n">app_name</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">applicationName</span><span class="p">()</span>

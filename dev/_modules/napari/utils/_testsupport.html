@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=ddb477a9"></script>
+    <script src="../../../_static/documentation_options.js?v=7c049a52"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -639,13 +639,13 @@ document.write(`
 
 
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
-<span class="k">def</span> <span class="nf">mock_app</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">mock_app_model</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Mock clean &#39;test_app&#39; `NapariApplication` instance.</span>
 
-<span class="sd">    This fixture must be used whenever `napari._app_model.get_app()` is called to</span>
+<span class="sd">    This fixture must be used whenever `napari._app_model.get_app_model()` is called to</span>
 <span class="sd">    return a &#39;test_app&#39; `NapariApplication` instead of the &#39;napari&#39;</span>
 <span class="sd">    `NapariApplication`. The `make_napari_viewer` fixture is already equipped with</span>
-<span class="sd">    a `mock_app`.</span>
+<span class="sd">    a `mock_app_model`.</span>
 
 <span class="sd">    Note that `NapariApplication` registers app-model actions.</span>
 <span class="sd">    If this is not desired, please create a clean</span>
@@ -667,7 +667,7 @@ document.write(`
 
     <span class="n">app</span> <span class="o">=</span> <span class="n">NapariApplication</span><span class="p">(</span><span class="s1">&#39;test_app&#39;</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">injection_store</span><span class="o">.</span><span class="n">namespace</span> <span class="o">=</span> <span class="n">_napari_names</span>
-    <span class="k">with</span> <span class="n">patch</span><span class="o">.</span><span class="n">object</span><span class="p">(</span><span class="n">NapariApplication</span><span class="p">,</span> <span class="s1">&#39;get_app&#39;</span><span class="p">,</span> <span class="n">return_value</span><span class="o">=</span><span class="n">app</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">patch</span><span class="o">.</span><span class="n">object</span><span class="p">(</span><span class="n">NapariApplication</span><span class="p">,</span> <span class="s1">&#39;get_app_model&#39;</span><span class="p">,</span> <span class="n">return_value</span><span class="o">=</span><span class="n">app</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">app</span>
         <span class="k">finally</span><span class="p">:</span>
@@ -680,7 +680,7 @@ document.write(`
 <span class="k">def</span> <span class="nf">make_napari_viewer</span><span class="p">(</span>
     <span class="n">qtbot</span><span class="p">,</span>
     <span class="n">request</span><span class="p">:</span> <span class="s1">&#39;FixtureRequest&#39;</span><span class="p">,</span>
-    <span class="n">mock_app</span><span class="p">,</span>
+    <span class="n">mock_app_model</span><span class="p">,</span>
     <span class="n">napari_plugin_manager</span><span class="p">,</span>
     <span class="n">monkeypatch</span><span class="p">,</span>
 <span class="p">):</span>

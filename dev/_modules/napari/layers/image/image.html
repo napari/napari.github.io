@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=201c1533"></script>
+    <script src="../../../../_static/documentation_options.js?v=25c5f93a"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -764,15 +764,14 @@ document.write(`
     <span class="p">):</span>
         <span class="c1"># Determine if rgb</span>
         <span class="n">data_shape</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;shape&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
-        <span class="n">rgb_guess</span> <span class="o">=</span> <span class="n">guess_rgb</span><span class="p">(</span><span class="n">data_shape</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">rgb</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">rgb_guess</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">rgb</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">guess_rgb</span><span class="p">(</span><span class="n">data_shape</span><span class="p">,</span> <span class="n">min_side_len</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s2">&quot;&#39;rgb&#39; was set to True but data does not have suitable dimensions.&quot;</span>
                 <span class="p">)</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">rgb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">rgb</span> <span class="o">=</span> <span class="n">rgb_guess</span>
+            <span class="n">rgb</span> <span class="o">=</span> <span class="n">guess_rgb</span><span class="p">(</span><span class="n">data_shape</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span> <span class="o">=</span> <span class="n">rgb</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>

@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=02c3981b"></script>
+    <script src="../../../_static/documentation_options.js?v=5cfba006"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -769,6 +769,7 @@ document.write(`
     <span class="n">init_qactions</span><span class="o">.</span><span class="n">cache_clear</span><span class="p">()</span>
 
     <span class="n">viewers</span><span class="p">:</span> <span class="n">WeakSet</span><span class="p">[</span><span class="n">Viewer</span><span class="p">]</span> <span class="o">=</span> <span class="n">WeakSet</span><span class="p">()</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">_viewer_weak_set</span> <span class="o">=</span> <span class="n">viewers</span>
 
     <span class="c1"># may be overridden by using the parameter `strict_qt`</span>
     <span class="n">_strict</span> <span class="o">=</span> <span class="kc">False</span>
@@ -860,8 +861,10 @@ document.write(`
     <span class="k">if</span> <span class="n">_strict</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">&#39;last_value&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="n">prior_exception</span><span class="p">:</span>
         <span class="n">QApplication</span><span class="o">.</span><span class="n">processEvents</span><span class="p">()</span>
         <span class="n">leak</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">QApplication</span><span class="o">.</span><span class="n">topLevelWidgets</span><span class="p">())</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">initial</span><span class="p">)</span>
+        <span class="n">leak</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">leak</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;handled_widget&#39;</span><span class="p">)</span>
         <span class="c1"># still not sure how to clean up some of the remaining vispy</span>
         <span class="c1"># vispy.app.backends._qt.CanvasBackendDesktop widgets...</span>
+        <span class="c1"># observed in `test_sys_info.py`</span>
         <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">!=</span> <span class="s1">&#39;CanvasBackendDesktop&#39;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">leak</span><span class="p">):</span>
             <span class="c1"># just a warning... but this can be converted to test errors</span>
             <span class="c1"># in pytest with `-W error`</span>

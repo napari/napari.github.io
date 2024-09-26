@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../../../dev/_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../dev/_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../dev/_static/documentation_options.js?v=ea254872"></script>
+    <script src="../../../dev/_static/documentation_options.js?v=973ca5fd"></script>
     <script src="../../../dev/_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../dev/_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../dev/_static/clipboard.min.js?v=a7894cd8"></script>
@@ -622,6 +622,29 @@ to this page might be appropriate.</p></li>
 </ol>
 <p>To validate if the token is working, you can run the “Upgrade test constraints” workflow manually. Ensure that there will be some packages to update.</p>
 </section>
+<section id="update-translation-strings">
+<h2>Update translation strings<a class="headerlink" href="#update-translation-strings" title="Link to this heading">#</a></h2>
+<p>Currently, translations are unmaintained, but this may change in the future as napari matures.</p>
+<p>As new code is included in the codebase, some of the strings that need to be translated might
+not yet be using the <code class="docutils literal notranslate"><span class="pre">trans</span></code> methods. To help keep the codebase up to date in terms
+of translations we added a test script that
+<a class="reference external" href="https://github.com/napari/napari/actions/workflows/test_translations.yml">runs daily on CI</a>
+and can be also run locally to ensure that a release includes the most up to date translatable
+strings.</p>
+<p>The test script is available on the <code class="docutils literal notranslate"><span class="pre">/tools/validate_strings.py</span></code> file and it relies on an additional
+file <code class="docutils literal notranslate"><span class="pre">/tools/strings_list.py</span></code> to include strings to skip safely from translation.</p>
+<p>The test checks:</p>
+<ol class="arabic simple">
+<li><p><strong>Untranslated strings</strong>: not using the <code class="docutils literal notranslate"><span class="pre">trans</span></code> methods.</p></li>
+<li><p><strong>Outdated skip strings</strong>: should no longer be included in the <code class="docutils literal notranslate"><span class="pre">/tools/strings_list.py</span></code> file.</p></li>
+<li><p><strong>Translation usage errors</strong>: where translation strings may be missing interpolation variables.</p></li>
+</ol>
+<p>You can execute tests locally from the repository root, and follow the instructions printed
+on the <code class="docutils literal notranslate"><span class="pre">stdout</span></code> if any test fails.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>tools/<span class="w"> </span>--tb<span class="o">=</span>short
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -672,6 +695,7 @@ to this page might be appropriate.</p></li>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refreshing-tokens-for-the-auto-upgrade-of-test-constraints-and-vendored-packages">Refreshing tokens for the auto upgrade of test constraints and vendored packages.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refreshing-the-token">Refreshing the token</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#update-translation-strings">Update translation strings</a></li>
 </ul>
   </nav></div>
 

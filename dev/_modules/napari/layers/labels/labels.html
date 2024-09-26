@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=ea254872"></script>
+    <script src="../../../../_static/documentation_options.js?v=973ca5fd"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -507,7 +507,6 @@ document.write(`
     <span class="n">ClassVar</span><span class="p">,</span>
     <span class="n">Optional</span><span class="p">,</span>
     <span class="n">Union</span><span class="p">,</span>
-    <span class="n">cast</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -559,7 +558,6 @@ document.write(`
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps.colormap_utils</span> <span class="kn">import</span> <span class="n">shuffle_and_extend_colormap</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
-<span class="kn">from</span> <span class="nn">napari.utils.geometry</span> <span class="kn">import</span> <span class="n">clamp_point_to_bounding_box</span>
 <span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">StringEnum</span><span class="p">,</span> <span class="n">_is_array_type</span>
 <span class="kn">from</span> <span class="nn">napari.utils.naming</span> <span class="kn">import</span> <span class="n">magic_name</span>
 <span class="kn">from</span> <span class="nn">napari.utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_coords_status</span>
@@ -1165,7 +1163,7 @@ document.write(`
                     <span class="p">)</span>
                 <span class="p">)</span>
             <span class="k">if</span> <span class="n">data_level</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>
-                <span class="n">int_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_level</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">))</span>
+                <span class="n">int_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_level</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">int_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_level</span><span class="p">)</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">int_data</span>
@@ -1488,108 +1486,6 @@ document.write(`
             <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">col</span></div>
 
-
-    <span class="k">def</span> <span class="nf">_get_value_ray</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">start_point</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
-        <span class="n">end_point</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
-        <span class="n">dims_displayed</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the first non-background value encountered along a ray.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        start_point : np.ndarray</span>
-<span class="sd">            (n,) array containing the start point of the ray in data coordinates.</span>
-<span class="sd">        end_point : np.ndarray</span>
-<span class="sd">            (n,) array containing the end point of the ray in data coordinates.</span>
-<span class="sd">        dims_displayed : List[int]</span>
-<span class="sd">            The indices of the dimensions currently displayed in the viewer.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        value : Optional[int]</span>
-<span class="sd">            The first non-zero value encountered along the ray. If none</span>
-<span class="sd">            was encountered or the viewer is in 2D mode, None is returned.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">start_point</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">end_point</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="c1"># only use get_value_ray on 3D for now</span>
-            <span class="c1"># we use dims_displayed because the image slice</span>
-            <span class="c1"># has its dimensions  in th same order as the vispy</span>
-            <span class="c1"># Volume</span>
-            <span class="c1"># Account for downsampling in the case of multiscale</span>
-            <span class="c1"># -1 means lowest resolution here.</span>
-            <span class="n">start_point</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">start_point</span><span class="p">[</span><span class="n">dims_displayed</span><span class="p">]</span>
-                <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">downsample_factors</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">dims_displayed</span><span class="p">]</span>
-            <span class="p">)</span>
-            <span class="n">end_point</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">end_point</span><span class="p">[</span><span class="n">dims_displayed</span><span class="p">]</span>
-                <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">downsample_factors</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">dims_displayed</span><span class="p">]</span>
-            <span class="p">)</span>
-            <span class="n">start_point</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">start_point</span><span class="p">)</span>
-            <span class="n">end_point</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">end_point</span><span class="p">)</span>
-            <span class="n">sample_ray</span> <span class="o">=</span> <span class="n">end_point</span> <span class="o">-</span> <span class="n">start_point</span>
-            <span class="n">length_sample_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">sample_ray</span><span class="p">)</span>
-            <span class="n">n_points</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">length_sample_vector</span><span class="p">)</span>
-            <span class="n">sample_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
-                <span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span><span class="p">,</span> <span class="n">n_points</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span>
-            <span class="p">)</span>
-            <span class="n">im_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">raw</span>
-            <span class="c1"># ensure the bounding box is for the proper multiscale level</span>
-            <span class="n">bounding_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_bounding_box_at_level</span><span class="p">(</span>
-                <span class="n">dims_displayed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_level</span>
-            <span class="p">)</span>
-            <span class="c1"># the display bounding box is returned as a closed interval</span>
-            <span class="c1"># (i.e. the endpoint is included) by the method, but we need</span>
-            <span class="c1"># open intervals in the code that follows, so we add 1.</span>
-            <span class="n">bounding_box</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-
-            <span class="n">clamped</span> <span class="o">=</span> <span class="n">clamp_point_to_bounding_box</span><span class="p">(</span>
-                <span class="n">sample_points</span><span class="p">,</span>
-                <span class="n">bounding_box</span><span class="p">,</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-            <span class="n">values</span> <span class="o">=</span> <span class="n">im_slice</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">clamped</span><span class="o">.</span><span class="n">T</span><span class="p">)]</span>
-            <span class="n">nonzero_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nonzero_indices</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
-                <span class="c1"># if a nonzero value was found, return the first one</span>
-                <span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="n">nonzero_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-
-        <span class="k">return</span> <span class="kc">None</span>
-
-    <span class="k">def</span> <span class="nf">_get_value_3d</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">start_point</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
-        <span class="n">end_point</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
-        <span class="n">dims_displayed</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the first non-background value encountered along a ray.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        start_point : np.ndarray</span>
-<span class="sd">            (n,) array containing the start point of the ray in data coordinates.</span>
-<span class="sd">        end_point : np.ndarray</span>
-<span class="sd">            (n,) array containing the end point of the ray in data coordinates.</span>
-<span class="sd">        dims_displayed : List[int]</span>
-<span class="sd">            The indices of the dimensions currently displayed in the viewer.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        value : int</span>
-<span class="sd">            The first non-zero value encountered along the ray. If a</span>
-<span class="sd">            non-zero value is not encountered, returns 0 (the background value).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_get_value_ray</span><span class="p">(</span>
-                <span class="n">start_point</span><span class="o">=</span><span class="n">start_point</span><span class="p">,</span>
-                <span class="n">end_point</span><span class="o">=</span><span class="n">end_point</span><span class="p">,</span>
-                <span class="n">dims_displayed</span><span class="o">=</span><span class="n">dims_displayed</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="ow">or</span> <span class="mi">0</span>
-        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_reset_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_undo_history</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_history_limit</span><span class="p">)</span>
@@ -2067,6 +1963,12 @@ document.write(`
         <span class="k">if</span> <span class="n">refresh</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_partial_labels_refresh</span><span class="p">()</span></div>
 
+
+    <span class="k">def</span> <span class="nf">_calculate_value_from_ray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="n">non_bg</span> <span class="o">=</span> <span class="n">values</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">non_bg</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">non_bg</span><span class="p">))]</span>
 
 <div class="viewcode-block" id="Labels.get_status">
 <a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.get_status">[docs]</a>

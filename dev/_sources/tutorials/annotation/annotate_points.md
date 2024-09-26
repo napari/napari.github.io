@@ -435,7 +435,7 @@ Once we are happy with the annotations, we can save them to a CSV file using the
 To do so, first, select the "Points" layer in the layer list and then click "Save Selected layer(s)"  in the "File" menu or press control+S (cmd+S on Mac OS)  to bring up the file save dialog.
 From here you can enter the file path and save the annotation coordinates as a CSV.
 
-![Viewer with green box around a points layer in layer list. Label in green says "1. Select Points layer in the layer list". Dialog in the middle of the viewer has options to add save file name and choose save location, with Cancel and Save buttons in the bottom right.](../assets/tutorials/points_save_dialog.png)
+![Viewer with green box around a points layer in layer list. Label in green says "1. Select Points layer in the layer list". Dialog in the middle of the viewer has options to add save file name and choose save location, with Cancel and Save buttons in the bottom right.](../../_static/images/points_save_dialog.png)
 
 Alternatively, we can use the `points_layer.save()` method to save the coordinates from the points layer to a CSV file.
 We can enter the command either in the script (e.g., bind a save function to a hot key) or the napari terminal.

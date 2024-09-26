@@ -71,14 +71,14 @@ layer:
 ### Buttons
 
 * **Deleting points**
-  ![image: Delete points tool](../../images/point-deleting-tool.png)
+  ![image: Delete points tool](../../_static/images/point-deleting-tool.png)
 
   Points can be deleted after they have been selected. First select the point or
   points to delete, then click on the `delete` button in the `layer controls`
   panel or press the delete key on your keyboard.
 
 * **Adding points**
-  ![image: Add points tool](../../images/point-adding-tool.png)
+  ![image: Add points tool](../../_static/images/point-adding-tool.png)
 
   New points can be added using the point adding tool, shown above, from the
   layer controls panel. Points can then be added by clicking in the canvas.
@@ -102,7 +102,7 @@ layer:
   select all points in a layer and the *deselect* points from a slice.
 
 * **Selecting points**
-  ![image: Select points tool](../../images/point-selecting-tool.png)
+  ![image: Select points tool](../../_static/images/point-selecting-tool.png)
 
   Select a point using the tool (shown above) and then clicking on that point.
   You can select multiple points by continuing to shift+click on additional
@@ -117,7 +117,7 @@ layer:
   to move around the `points` layer as you create your selection.
 
 * **Pan/zoom**
-  ![image: Pan/zoom tool](../../images/pan-zoom-tool.png)
+  ![image: Pan/zoom tool](../../_static/images/pan-zoom-tool.png)
 
   The default mode of the points layer supports panning and zooming, as in the
   image layer. This mode is represented by the magnifying glass in the layers
@@ -127,7 +127,7 @@ layer:
   pan and zoom mode by pressing the `4` key when the points layer is selected.
 
 * **Transform**
-  ![image: Transform](../../images/transform-tool.png)
+  ![image: Transform](../../_static/images/transform-tool.png)
 
   Use this tool to rotate, scale, or translate the layer. 
   Note: at present this feature is limited to 2D viewer display mode. To reset the transformation,
@@ -197,8 +197,8 @@ layer:
 
   All layers can be rendered in both 2D and 3D. The `Toggle ndisplay` button at
   the bottom of the left panel toggles between these 2 modes.
-  When in 2D, the button looks like this: ![image: 2D/3D button](../../images/3D-button.png), ready to switch to 3D mode.
-  When in 3D, the button looks like this: ![image: 2D/3D button](../../images/2D-button.png), ready to switch to 2D mode.
+  When in 2D, the button looks like this: ![image: 2D/3D button](../../_static/images/3D-button.png), ready to switch to 3D mode.
+  When in 3D, the button looks like this: ![image: 2D/3D button](../../_static/images/2D-button.png), ready to switch to 2D mode.
   You can also switch modes by pressing `Ctrl+y`.
 
   Note that when entering 3D rendering mode the GUI `Add point`,

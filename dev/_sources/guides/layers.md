@@ -36,13 +36,13 @@ with the layer from the viewer. These modes are accessible via the layer control
 widget top buttons and via keyboard shortcuts (these shortcuts will vary depending on the layer type). Currently, there are two base modes:
 
 * Pan and zoom
-![image: Pan/zoom](../images/pan-zoom-tool.png)
+![image: Pan/zoom](../_static/images/pan-zoom-tool.png)
 
 The `pan_zoom` mode allows you to pan around and zoom in/out the layer. It's
 the default mode selected. Note: zooming with the mouse-wheel should essentially always work!
 
 * Transform
-![image: Transform](../images/transform-tool.png)
+![image: Transform](../_static/images/transform-tool.png)
 
 The `transform` mode allows you to translate, rotate, and scale the layer
 graphically. Note: While you can transform 3D layers, at present this mode is only usable in 2D viewer display mode.
@@ -106,7 +106,7 @@ other layers.
 
 For example, the image below shows an image with the blending set to `additive`.
 
-![napari viewer with an image of a cell. Layer controls are open in the left sidebar with the blending set to additive.](./images/blending.png)
+![napari viewer with an image of a cell. Layer controls are open in the left sidebar with the blending set to additive.](../_static/images/blending.png)
 
 ## 3D rendering of images
 
@@ -154,7 +154,7 @@ distances from the camera according to a maximum intensity projection to create
 the 2D image that is then displayed on the screen. This mode works well for many
 biological images such as these cells growing in culture:
 
-![napari viewer with an image of cells in a culture. Layer controls are open in the left sidebar and rendering set to mip.](./images/rendering.png)
+![napari viewer with an image of cells in a culture. Layer controls are open in the left sidebar and rendering set to mip.](../_static/images/rendering.png)
 
 When viewing 2D slices the rendering mode has no effect.
 

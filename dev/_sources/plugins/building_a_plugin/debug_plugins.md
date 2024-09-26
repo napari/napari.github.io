@@ -35,7 +35,7 @@ To quickly get started with debugging your plugin, you can do the following:
 4. Run the created napari launch script in debug mode. For example, in VSCode, you can do this by opening the script in the editor, [selecting your napari virtual environment as the python interpreter](https://code.visualstudio.com/docs/python/environments) and then clicking the `Run and Debug` button in the left hand toolbar, selecting `Python: File` as the run configuration.
 5. At a breakpoint or exception (in VSCode, tick the `Raised Exceptions` box in the bottom left under the `Breakpoints` menu to see exceptions) you can then step through the code, inspect variables, and see the state of the napari viewer and your plugin. When you are done done debugging hit the continue button and napari will resume normal execution. See the image below for an example of a napari plugin debugging session in VSCode paused on a breakpoint.
 
-![debugging_in_vscode](../../images/vs_code_debug.png)
+![debugging_in_vscode](../../_static/images/vs_code_debug.png)
 
 ## Debugging plugin start-up issues
 

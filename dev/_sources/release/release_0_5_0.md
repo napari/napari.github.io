@@ -51,7 +51,7 @@ between layers ([#6864](https://github.com/napari/napari/pull/6864)).
 
 You'll also note a new little button on layer controls, including images:
 
-```{image} ../images/transform-icon.svg
+```{image} ../_static/images/transform-icon.svg
 :alt: transform layer icon
 :width: 100px
 :align: center

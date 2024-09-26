@@ -21,18 +21,18 @@ The token should be named `GHA_TOKEN` and the required permissions are:
  * **read and write** to pull requests
  * **read and write** to code
 
- ![screenshot of token permissions in GitHub UI](../../images/update_token_permissions.png)
+ ![screenshot of token permissions in GitHub UI](../../_static/images/update_token_permissions.png)
 
  At the moment of writing this document, there is a difference in names between the summary of the token and the list of permissions.
  The **code** permission is called **Contents** in the Edit view of the token.
 
-![screenshot of token permissions](../../images/edit_token_permissions.png)
+![screenshot of token permissions](../../_static/images/edit_token_permissions.png)
 
 ## Refreshing the token
 
 To create a new token, go to the personal settings page and select _Developer settings_ at the bottom of the left menu. On the visible screen, expand the _Personal access tokens_ section and click the _Fine-grained token_ link.
 
-![View on list of fine-grained tokens](../../images/fine_grained_token.png)
+![View on list of fine-grained tokens](../../_static/images/fine_grained_token.png)
 
 Then click the _Generate new token_ button in the upper right corner.
 
@@ -47,11 +47,11 @@ Fill the form:
 4. Select **napari** to be the resource owner
 5. Select _Only selected repositories_ and then select **napari/napari** repository
 
-![screenshot of the token creation form](../../images/token_permission_form.png)
+![screenshot of the token creation form](../../_static/images/token_permission_form.png)
 
 6. Select the required permissions for repository metadata, pull requests, and code (contents)
 
-![screenshot of the token creation form](../../images/token_permission_selection.png)
+![screenshot of the token creation form](../../_static/images/token_permission_selection.png)
 
 7. Click the _Generate token_ button
 8. Copy token
@@ -59,7 +59,7 @@ Fill the form:
 10. Expand the _Secrets and variables_ section and select _Actions_
 11. Click the edit button for the `GHA_TOKEN` secret
 
-![screenshot of the token creation form](../../images/secrets_section.png)
+![screenshot of the token creation form](../../_static/images/secrets_section.png)
 
 12. Paste a new token to the value field
 

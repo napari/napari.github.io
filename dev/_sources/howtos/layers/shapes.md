@@ -141,24 +141,24 @@ are used. i.e. You can't remove a vertex before you have created a shape.
 ### Buttons
 
 * **Remove vertex**
-  ![image: Remove vertex](../../images/shape_vertex_delete.png)
+  ![image: Remove vertex](../../_static/images/shape_vertex_delete.png)
 
   To remove a vertex, click this button and then click the vertex you want to
   remove.
 
 * **Insert vertex (Add vertex)**
-  ![image: Insert vertex](../../images/shape-vertex-insert.png)
+  ![image: Insert vertex](../../_static/images/shape-vertex-insert.png)
 
   Click this button and then click where you want to insert (add) a vertex.
 
 * **Delete selected shape**
-  ![image: Delete shape](../../images/shape-delete-shape.png)
+  ![image: Delete shape](../../_static/images/shape-delete-shape.png)
 
   Select the vertex to delete using the `select vertices` tool (below), then
   click this button, or hit the delete key on your keyboard.
 
 * **Select vertices**
-  ![image: Select vertices](../../images/shape-vertices-select.png)
+  ![image: Select vertices](../../_static/images/shape-vertices-select.png)
 
   Use this tool to select the vertex or vertices you want to move or delete. To
   select more than one vertex, select one, hold down the shift key and select
@@ -166,13 +166,13 @@ are used. i.e. You can't remove a vertex before you have created a shape.
   location.
 
 * **Select shapes**
-  ![image: Select shapes](../../images/shape-select-shape.png)
+  ![image: Select shapes](../../_static/images/shape-select-shape.png)
 
   Use this tool to select the shape or shapes you want to delete. To select more
   than one shape, select one, hold down the shift key and select the rest.
 
 * **Pan/zoom**
-  ![image: Pan/zoom](../../images/pan-zoom-tool.png)
+  ![image: Pan/zoom](../../_static/images/pan-zoom-tool.png)
 
   Use this tool to pan around the layer or zoom in. Pan functionality
   is disabled when using the adding and editing tools; however, zoom using the mouse-wheel will typically continue to work. To activate the tool,
@@ -181,26 +181,26 @@ are used. i.e. You can't remove a vertex before you have created a shape.
   layer as you edit it.
 
 * **Transform**
-  ![image: Transform](../../images/transform-tool.png)
+  ![image: Transform](../../_static/images/transform-tool.png)
 
   Use this tool to rotate, scale, or translate the layer. Note: at present this feature is limited to 2D viewer display mode. To activate the tool,
   you can press `7`. To reset the transformation, you can Option/Alt-click the
   transform button (a confirmation dialog will open to confirm the reset).
 
 * **Move to back**
-  ![image: Move to back](../../images/shape-move-to-back.png)
+  ![image: Move to back](../../_static/images/shape-move-to-back.png)
 
   Using the `select shapes` tool, select the shape to move behind other shapes
   and then click this button.
 
 * **Move to front**
-  ![image: Move to front](../../images/shape-move-to-front.png)
+  ![image: Move to front](../../_static/images/shape-move-to-front.png)
 
   Using the `select shapes` tool, select the shape to move in front of other
   shapes and then click this button.
 
 * **Add ellipses**
-  ![image: Add ellipses](../../images/shape-add-ellipses.png)
+  ![image: Add ellipses](../../_static/images/shape-add-ellipses.png)
 
   Use this tool to draw ovals or circles. Click the tool or press `e` (the
   default keybinding for this tool); next, click the point where you want the
@@ -210,7 +210,7 @@ are used. i.e. You can't remove a vertex before you have created a shape.
   on that click.
 
 * **Add rectangles**
-  ![image: Add rectangles](../../images/shape-add-rectangles.png)
+  ![image: Add rectangles](../../_static/images/shape-add-rectangles.png)
 
   Select `Add rectangles` from the layer controls panel or by pressing the `r`
   key when the `shapes` layer is selected. Click and drag the rectangle to the
@@ -219,7 +219,7 @@ are used. i.e. You can't remove a vertex before you have created a shape.
   centered on that click.
  
 * **Add polygons**
-  ![image: Add polygons](../../images/shape-add-polygons.png)
+  ![image: Add polygons](../../_static/images/shape-add-polygons.png)
 
   The `Add polygon` tool can be selected from the layer controls panel or by
   pressing the `p` key when the shapes layer is selected. When adding a polygon,
@@ -228,7 +228,7 @@ are used. i.e. You can't remove a vertex before you have created a shape.
   position and completes the polygon. You can then add another polygon.
 
 * **Add polygons lasso**
-  ![image: Add polygons lasso](../../images/shape-add-lasso.png)
+  ![image: Add polygons lasso](../../_static/images/shape-add-lasso.png)
 
   `Polygons` can also be created with the polygon lasso creation tool, which can
   be found in the layer control panel or by pressing `shift+p`. The tool can be
@@ -273,7 +273,7 @@ are used. i.e. You can't remove a vertex before you have created a shape.
   :::
 
 * **Add lines**
-  ![image: Add lines](../../images/shape-add-lines.png)
+  ![image: Add lines](../../_static/images/shape-add-lines.png)
 
   Select the `Add lines` tool from the layer controls panel or by pressing the
   `l` key when the shapes layer is selected. `Lines` consist of two vertices
@@ -283,7 +283,7 @@ are used. i.e. You can't remove a vertex before you have created a shape.
   of the second endpoint. Add other lines as needed.
 
 * **Add path**
-  ![image: Add path](../../images/shape-add-path.png)
+  ![image: Add path](../../_static/images/shape-add-path.png)
 
   Select the `Add path` tool from the layer controls panel or by pressing the
   `t` key when the shapes layer is selected. Click where you want the path to
@@ -331,8 +331,8 @@ are used. i.e. You can't remove a vertex before you have created a shape.
 
   All layers can be rendered in both 2D and 3D. The `Toggle ndisplay` button at
   the bottom of the left panel toggles between these 2 modes.
-  When in 2D, the button looks like this: ![image: 2D/3D button](../../images/3D-button.png), ready to switch to 3D mode.
-  When in 3D, the button looks like this: ![image: 2D/3D button](../../images/2D-button.png), ready to switch to 2D mode.
+  When in 2D, the button looks like this: ![image: 2D/3D button](../../_static/images/3D-button.png), ready to switch to 3D mode.
+  When in 3D, the button looks like this: ![image: 2D/3D button](../../_static/images/2D-button.png), ready to switch to 2D mode.
 
   You can also switch modes by pressing `ctrl+y`.
 
@@ -597,7 +597,7 @@ For paths that are defined by coordinates spanning more than two dimensions, it
 is possible to visualize them as 3D cylinders, see [](../../gallery/3D_paths)
 for examples.
 
-![image: 3D paths](../../images/3D_paths.png)
+![image: 3D paths](../../_static/images/3D_paths.png)
 
 ```{note}
 Right now, it is not possible to display 3D cuboids or 3D spheroids, but we will

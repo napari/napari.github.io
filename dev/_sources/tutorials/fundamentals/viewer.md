@@ -100,7 +100,7 @@ The viewer is organized into a few key areas which are explained in the next sec
 
 The image below has the areas of the viewer labeled:
 
-![image: viewer layout](../assets/tutorials/Viewer-with-arrows.png)
+![image: viewer layout](../../_static/images/Viewer-with-arrows.png)
 
 We'll go through each of these in the next sections.
 
@@ -347,7 +347,7 @@ Below the **layer list** is a row containing these buttons:
 * Grid display
 * Home
 
-![image: Viewer buttons](../assets/tutorials/viewer-buttons.png)
+![image: Viewer buttons](../../_static/images/viewer-buttons.png)
 
 Each one is explained below.
 
@@ -362,7 +362,7 @@ The console (when available) appears at the bottom of the viewer as shown below:
 
 +++
 
-![image: console within napari](../assets/tutorials/console.png)
+![image: console within napari](../../_static/images/console.png)
 
 +++
 
@@ -389,7 +389,7 @@ viewer.add_labels(labeled, name='blob ID')
 then, by clicking the 2D/3D button, you can switch to viewing the 3D rendering. Note that the icon will change to
 the following, to indicate 3D mode:
 
-![image: 3D_button](../assets/tutorials/3D_button.png)
+![image: 3D_button](../../_static/images/3D-button.png)
 
 This mode can be entered programmatically using:
 ```python
@@ -427,7 +427,7 @@ will then show you the `ZY` slice. You can also right-click this button to pop-u
 a widget that allows you to re-order the dimensions by drag-and-drop or lock a
 dimension, by clicking on the padlock icon:
 
-![image: roll dimensions widget with padlock icons](../assets/tutorials/dims_roll_lock_widget.png){ w=200px }
+![image: roll dimensions widget with padlock icons](../../_static/images/dims_roll_lock_widget.png){ w=200px }
 
 Locking prevents a dimension from being rolled (reordered). This can be particularly
 useful, for example, with a `3D+time` dataset where you may want to fix the time dimension,

@@ -109,7 +109,7 @@ For demo purpose, we will use a sample image that comes with napari.
 
 (1) Open napari IPython console
 
-![IPython console](../../images/IPython.png)
+![IPython console](../../_static/images/IPython.png)
 
 (2) Type
 
@@ -206,7 +206,7 @@ viewer.close_all()
 ### Next steps
 - napari provides the flexibility to handle multi-dimensional data. Try opening 3D or higher dimensional images, and switch to 3D view.
 
-![ndisplay](../../images/ndisplay.png)
+![ndisplay](../../_static/images/ndisplay.png)
 
 - Test some [examples](https://github.com/napari/napari/tree/main/examples) to see how to add different layer types and add your own widgets to napari.
 

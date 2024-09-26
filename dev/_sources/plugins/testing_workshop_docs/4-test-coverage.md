@@ -66,13 +66,13 @@ There is a large folder (`htmlcov`) in the directory where the tests were run (`
 
 If we open the `index.html` file from the list of files in the left panel (to the left of line 32) in a browser, we can see the coverage report.
 
-![htmlcov directory](../../images/test_coverage_htmlcov_directory.png)
+![htmlcov directory](../../_static/images/test_coverage_htmlcov_directory.png)
 
-![Coverage Report](../../images/coverage_report.png)
+![Coverage Report](../../_static/images/coverage_report.png)
 
 We are interested in `_reader.py`. The file containing the reader code has 86% coverage (see below). Clicking ok on the `2 missing` box below highlights the lines that were never run at all. They are highlighted in red (lines 22 and 26):
 
-![Lines not run highlighted in red](../../images/lines_not_run_highlighted_in_red.png)
+![Lines not run highlighted in red](../../_static/images/lines_not_run_highlighted_in_red.png)
 
 Because we never provided a list of paths, we don't know what will happen in that case. We also never ran code that tests not returning a reader. In other words, we never tested the failed cases. We can and should add those tests. The first one is `test_get_reader_pass`. We'll call it with a file that doesn't end in `.npy` and assert that it returned `None`. Then we'll create a second test to call with a list of paths.
 
@@ -96,7 +96,7 @@ If we re-run `pytest`, the coverage report is also updated and coverage should i
 
 The coverage report goes to the same folder, `htmlcov`, so we should be able to refresh the page without opening the file again. We've now got 100% coverage of `_reader.py` now. See below.
 
-![second coverage report](../../images/second_coverage_report.png)
+![second coverage report](../../_static/images/second_coverage_report.png)
 
 There could be other, more complicated cases that we have not tested, but at the very least, we are executing all lines of code.
 

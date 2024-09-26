@@ -17,7 +17,7 @@ directly from within napari:
 Firstly, from the “Plugins” menu, select “Install/Uninstall Plugins...”.
 Then, in the plugin installer menu that opens, you can either:
 
-![napari viewer's Plugins menu with Install/Uninstall Plugins as the first item.](/images/plugin-menu.png)
+![napari viewer's Plugins menu with Install/Uninstall Plugins as the first item.](../../_static/images/plugin-menu.png)
 
 1. Install plugins from the list: you can scroll through the list of “Available Plugins”, or
    filter plugins using the text box at the top of the dialog. From the list,
@@ -33,7 +33,7 @@ Then, in the plugin installer menu that opens, you can either:
     the “Install” button next to the input bar. This method allows for more flexibility
     in the plugins you can install, but it is also a bit more advanced.
 
-   ![napari viewer's Plugin dialog. At the bottom of the dialog, there is a place to install by name, URL, or dropping in a file.](/images/plugin-install-dialog.png)
+   ![napari viewer's Plugin dialog. At the bottom of the dialog, there is a place to install by name, URL, or dropping in a file.](../../_static/images/plugin-install-dialog.png)
 
    ```{admonition} Example
    If you want to install `napari-svg` directly from the development branch on the [github repository](https://github.com/napari/napari-svg), enter `git+https://github.com/napari/napari-svg.git` in the text field.

@@ -76,7 +76,7 @@ layer:
 
   Use this tool to manually erase a label on the `labels layer`. Other layers
   will not be affected. The label eraser tool looks like this:
-  ![image: eraser tool](../../images/labels-layer-eraser.png)
+  ![image: eraser tool](../../_static/images/labels-layer-eraser.png)
 
 * **Paintbrush**
 
@@ -260,7 +260,7 @@ mode by pressing the `6` key when the `labels layer` is selected.
 
 ### Transform mode
 
-This mode is represented by ![image: Transform](../../images/transform-tool.png) in the
+This mode is represented by ![image: Transform](../../_static/images/transform-tool.png) in the
 `layer controls` panel. It enables you to rotate, scale, or translate the layer.
 Note: at present this feature is limited to 2D viewer display mode.
 To reset the transformation, you can Option/Alt-click the transform button (a
@@ -512,8 +512,8 @@ where the data is represented as a multiscale image is not editable.
 
 All layers can be rendered in both 2D and 3D. One of the viewer buttons at the
 bottom of the left panel can toggle between these 2 modes.
-When in 2D, the button looks like this: ![image: 2D/3D button](../../images/3D-button.png), ready to switch to 3D mode.
-When in 3D, the button looks like this: ![image: 2D/3D button](../../images/2D-button.png), ready to switch to 2D mode.
+When in 2D, the button looks like this: ![image: 2D/3D button](../../_static/images/3D-button.png), ready to switch to 3D mode.
+When in 3D, the button looks like this: ![image: 2D/3D button](../../_static/images/2D-button.png), ready to switch to 2D mode.
 
 The number of dimensions sliders will be 2 or 3 less than the total number of
 dimensions of the layer, allowing you to browse volumetric timeseries data and

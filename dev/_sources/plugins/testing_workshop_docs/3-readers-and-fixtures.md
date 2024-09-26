@@ -24,12 +24,12 @@ The example plugin and all the tests discussed in this lesson are available in [
 ## Introduction
 In this lesson, we discuss a napari plugin called [plugin_tests](https://github.com/DragaDoncila/plugin-tests/tree/main/src/plugin_tests), generated using the [napari plugin template](https://github.com/napari/napari-plugin-template), which has a reader and a widget. The reader is the template [NumPy `.npy` file](https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html#npy-format) reader, `napari_get_reader`. It checks whether a path ends in `.npy`. If it doesn't, it returns `None`, and if it does, it returns the `reader_function`, which loads the data.
 
-![napari_get_reader](../../images/napari_plugins_1st_napari_get_reader.png)
+![napari_get_reader](../../_static/images/napari_plugins_1st_napari_get_reader.png)
 
 ## Reader
 The `napari_get_reader` function is the first thing to test. In the top-level directory under `src`, we have the `plugin_tests` module. Inside `plugin_tests` is the `_tests` directory. This is a typical structure when writing tests. There is also a `test_reader.py` file, which is empty. We will populate it with tests.
 
-![reader_function](../../images/napari_plugins_2nd_reader_function.png)
+![reader_function](../../_static/images/napari_plugins_2nd_reader_function.png)
 
 We are focused on testing the `napari_get_reader` function. Sometimes it returns `None`; sometimes it returns the `reader_function`. We want to ensure that if we pass in a path that ends with `.npy`, it gives us back a function we can call.  We import `numpy` and `napari_get_reader`. `numpy` will be used later.
 
@@ -64,7 +64,7 @@ def test_get_reader_returns_callable(tmp_path):
 
 Running the command `pytest .` in the root directory of the plugin, we discover all the functions recognized as tests. It should recognize `test_reader.py` because it's a test file, prefixed with the word test. `test_reader.py` was found and passed the test.
 
-![pytest passed](../../images/napari_plugins_3rd_pytest_passed.png)
+![pytest passed](../../_static/images/napari_plugins_3rd_pytest_passed.png)
 
 If the file did not end in `.npy` the test would fail because what was returned wasn't callable. This code has been modified to produce an error:
 ```python
@@ -83,7 +83,7 @@ def test_get_reader_returns_callable(tmp_path):
 ```
 Once we run `pytest` we can see that it traced back that the callable of `reader` is `False` and it has filled in the fact that `reader` at the time of the assertion was `None`. This is useful in debugging.
 
-![test_get_reader_returns_callable Failed](../../images/napari_plugins_4th_test_get_reader_returns_callable-failed.png)
+![test_get_reader_returns_callable Failed](../../_static/images/napari_plugins_4th_test_get_reader_returns_callable-failed.png)
 
 ## Custom fixtures and round-trip tests
 Next, we test to see if this function reads the data. This is a round-trip test. We will create a fixture to write the data to make things easier for ourselves. This fixture will be called [test_reader_round_trip](https://github.com/DragaDoncila/plugin-tests/blob/effb32d6e3b191ad83e69813b26ae8695210f5ad/src/plugin_tests/_tests/test_reader.py#L39).
@@ -144,7 +144,7 @@ def test_reader_round_trip(write_im_to_file):
 ```
 We run our tests again, and now two are collected, both passing.
 
-![pytest - tests passed](../../images/napari_plugins_5th_tests_passed.png)
+![pytest - tests passed](../../_static/images/napari_plugins_5th_tests_passed.png)
 
 
 ## Enclosed testing

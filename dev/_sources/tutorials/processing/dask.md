@@ -91,7 +91,7 @@ stack.shape  # (nfiles, nz, ny, nx)
 stack
 ```
 
-![HTML representation of a Dask array as seen in Jupyter notebook. The image is split into two main regions: a table showing the bytes, shape, count and data type attributes of the array and of each chunk, and a visual representation of the shape of the chunks that make up the array (a rectangle of 1200x1) and each individual chunk (a 65*256*256 cube).](../assets/tutorials/dask_repr.png)
+![HTML representation of a Dask array as seen in Jupyter notebook. The image is split into two main regions: a table showing the bytes, shape, count and data type attributes of the array and of each chunk, and a visual representation of the shape of the chunks that make up the array (a rectangle of 1200x1) and each individual chunk (a 65*256*256 cube).](../../_static/images/dask_repr.png)
 
 *No data has been read from disk yet!*
 

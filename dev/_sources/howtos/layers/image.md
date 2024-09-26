@@ -45,11 +45,11 @@ sample image of your choice.
 
 ### Buttons
 
-* `Pan/zoom` ![image: Pan/zoom tool](../../images/pan-zoom-tool.png) is the default mode
+* `Pan/zoom` ![image: Pan/zoom tool](../../_static/images/pan-zoom-tool.png) is the default mode
   of the layer and supports panning and zooming. Press the `1` key when the layer is selected
   to use this mode.
 
-* `Transform` ![image: Transform](../../images/transform-tool.png) enables you to
+* `Transform` ![image: Transform](../../_static/images/transform-tool.png) enables you to
   rotate, scale, or translate the layer. Note: at present this feature is limited to 2D viewer display mode.
   To reset the transformation,
   you can Option/Alt-click the transform button (a confirmation dialog will open to

@@ -93,10 +93,10 @@ napari.run()
 ## GUI controls for the `tracks` layer
 
 * **Buttons**
-  * Pan/zoom - ![image: Pan/zoom tool](../../images/pan-zoom-tool.png) is the default
+  * Pan/zoom - ![image: Pan/zoom tool](../../_static/images/pan-zoom-tool.png) is the default
     mode of the layer and supports panning and zooming. Press the `1` key when the
     layer is selected to use this mode.
-  * Transform - ![image: Transform](../../images/transform-tool.png) enables you to
+  * Transform - ![image: Transform](../../_static/images/transform-tool.png) enables you to
     rotate, scale, or translate the layer. Note: at present this feature is limited to 2D viewer display mode. To reset the transformation, you can
     Option/Alt-click the transform button (a confirmation dialog will open to
     confirm the reset). Press the `2` key when the layer is selected to use this mode.
@@ -211,8 +211,8 @@ properties of the tracks (e.g., the track color).
 
 All layers can be rendered in both 2D and 3D. One of the viewer buttons at the
 bottom of the left panel can toggle between these 2 modes.
-When in 2D, the button looks like this: ![image: 2D/3D button](../../images/3D-button.png), ready to switch to 3D mode.
-When in 3D, the button looks like this: ![image: 2D/3D button](../../images/2D-button.png), ready to switch to 2D mode.
+When in 2D, the button looks like this: ![image: 2D/3D button](../../_static/images/3D-button.png), ready to switch to 3D mode.
+When in 3D, the button looks like this: ![image: 2D/3D button](../../_static/images/2D-button.png), ready to switch to 2D mode.
 
 The number of dimensions sliders will be 2 or 3 less than the total number of
 dimensions of the layer, allowing you to browse volumetric timeseries data and

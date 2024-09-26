@@ -153,7 +153,7 @@ napari
 
 An empty napari viewer should appear as follows:
 
-![macOS desktop with a napari viewer window without any image opened in the foreground, and a terminal in the background with the appropriate conda environment activated (if applicable) and the command to open napari entered.](../assets/tutorials/launch_cli_empty.png)
+![macOS desktop with a napari viewer window without any image opened in the foreground, and a terminal in the background with the appropriate conda environment activated (if applicable) and the command to open napari entered.](../../_static/images/launch_cli_empty.png)
 
 ````{note}
 On some platforms, particularly macOS and Windows, there may be a ~30 second

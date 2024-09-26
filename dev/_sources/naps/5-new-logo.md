@@ -29,7 +29,7 @@ A few months later, Jeremy Freeman, then director of Computational Biology at
 CZI, and a bit of a design nerd, traced the island and gave us our current,
 stylised version of that image.
 
-![napari-logo-2](../images/logo.png)
+![napari-logo-2](../_static/images/logo.png)
 
 Being, the shape is very irregular — no one knows what it is — and the
 gradients, the border around the logo, and the slightly rounded corners on a
@@ -55,7 +55,7 @@ smaller again by $\phi$ than the smaller circle, and one larger again than the
 bigger circle. In this way, the island is defined by four circles of increasing
 radius, with each increase a factor of $\phi$:
 
-![napari-logo-3-with-guides](../images/napari-logo-3-with-guides.png)
+![napari-logo-3-with-guides](../_static/images/napari-logo-3-with-guides.png)
 
 Additionally, the background of the logo is a
 [squircle](https://www.johndcook.com/blog/2018/02/13/squircle-curvature/) of
@@ -73,11 +73,11 @@ background in biology would appreciate!
 
 Here is the proposed logo together with the old one:
 
-![napari-logo-comparison](../images/napari-logo-old-new.png)
+![napari-logo-comparison](../_static/images/napari-logo-old-new.png)
 
 The new logo at 100% scale:
 
-![napari-logo-3](../images/napari-logo-3.png)
+![napari-logo-3](../_static/images/napari-logo-3.png)
 
 ## Related Work
 

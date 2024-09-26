@@ -103,7 +103,7 @@ Get started with napari.
 :link: community
 :link-type: ref
 
-Forums, web chat, video chat, and more! Join us!
+Forums, web chat, video chat, where to ask questions and more! Join us!
 :::
 
 :::{grid-item-card} Governance

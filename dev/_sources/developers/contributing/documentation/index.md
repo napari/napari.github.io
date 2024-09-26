@@ -397,22 +397,22 @@ you will only be able to preview the documentation on CircleCI.
 Simply click on **Details** next to the `Check the rendered docs here!` at the bottom
 of your pull request:
 
-![CircleCI check is highlighted](images/circleci-link.png)
+![CircleCI check is highlighted](../../../_static/images/circleci-link.png)
 
 #### Download documentation artifact
 
 1. Click on **Details** next to
    `Build & Deploy PR Docs / Build & Upload Artifact (pull_request)`:
 
-![The "Build & Deploy PR Docs / Build & Upload Artifact" check is highlighted](images/doc-ci-1.png)
+![The "Build & Deploy PR Docs / Build & Upload Artifact" check is highlighted](../../../_static/images/doc-ci-1.png)
 
 2. Click on **Summary** on the top left corner:
 
-![Summary link in the "Build & Deploy PR Docs / Build & Uplod Artifact" GitHub Action page](images/doc-ci-2.png)
+![Summary link in the "Build & Deploy PR Docs / Build & Uplod Artifact" GitHub Action page](../../../_static/images/doc-ci-2.png)
 
 3. Scroll down to **Artifacts** and click on **html** to download the built documentation:
 
-!["html" link in the Artifacts section of the "Build & Deploy PR Docs / Build & Uplod Artifact" GitHub Action page is highlighted](images/doc-ci-3.png)
+!["html" link in the Artifacts section of the "Build & Deploy PR Docs / Build & Uplod Artifact" GitHub Action page is highlighted](../../../_static/images/doc-ci-3.png)
 
 4. Extract the compressed archive and open the `html/index.html` file on your preferred browser.
    You can also use Python's `http.server` module to open a local server on

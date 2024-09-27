@@ -593,7 +593,7 @@ reusable by any Python GUI application).</p>
 is the top level object that stores information about the commands, keybindings
 and menus that make up the application.
 It is a subclass of <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/#app_model.Application" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.Application</span></code></a> and is a global application
-singleton. It can be retrieved with <code class="docutils literal notranslate"><span class="pre">napari._app_model.get_app</span></code>.</p>
+singleton. It can be retrieved with <code class="docutils literal notranslate"><span class="pre">napari._app_model.get_app_model</span></code>.</p>
 <p>Currently, the primary purpose of the <code class="docutils literal notranslate"><span class="pre">app</span></code> is to compose the following
 <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries" title="(in App Model v0.0.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app_model.registries</span></code></a> into a single name-spaced object:</p>
 <ul class="simple">
@@ -661,10 +661,10 @@ is essentially a shortcut for registering objects with the following registries;
 currently only be registered once though this MAY change in the future if a need arises.</p>
 <p>The code below shows how to register the <code class="docutils literal notranslate"><span class="pre">action</span></code> defined above with the napari
 singleton <code class="docutils literal notranslate"><span class="pre">app</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari._app_model</span> <span class="kn">import</span> <span class="n">get_app</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari._app_model</span> <span class="kn">import</span> <span class="n">get_app_model</span>
 
 
-<span class="n">get_app</span><span class="p">()</span><span class="o">.</span><span class="n">register_action</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+<span class="n">get_app_model</span><span class="p">()</span><span class="o">.</span><span class="n">register_action</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -916,7 +916,7 @@ instead of command execution time.</p>
 <p>Internally, napari registers a provider that returns the first Points layer of the
 current viewer, if one present (returning <code class="docutils literal notranslate"><span class="pre">None</span></code> if not). It is
 registered in the <code class="docutils literal notranslate"><span class="pre">app.injection_store</span></code> via <code class="docutils literal notranslate"><span class="pre">app.injection_store.register_provider</span></code>. Processors can be registered in the same way.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari._app_model</span> <span class="kn">import</span> <span class="n">get_app</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari._app_model</span> <span class="kn">import</span> <span class="n">get_app_model</span>
 
 <span class="c1"># return annotation indicates what this provider provides</span>
 <span class="k">def</span> <span class="nf">provide_points</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;Points&#39;</span><span class="p">]:</span>
@@ -930,14 +930,14 @@ registered in the <code class="docutils literal notranslate"><span class="pre">a
             <span class="kc">None</span>
         <span class="p">)</span>
 
-<span class="n">get_app</span><span class="p">()</span><span class="o">.</span><span class="n">injection_store</span><span class="o">.</span><span class="n">register_provider</span><span class="p">(</span><span class="n">provide_points</span><span class="p">)</span>
+<span class="n">get_app_model</span><span class="p">()</span><span class="o">.</span><span class="n">injection_store</span><span class="o">.</span><span class="n">register_provider</span><span class="p">(</span><span class="n">provide_points</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This allows both internal and external functions to be injected with these
 provided objects, and therefore called <em>without</em> parameters in certain cases.
 This is particularly important in a GUI context, where a user can’t always be
 providing arguments:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">injected_func</span> <span class="o">=</span> <span class="n">get_app</span><span class="p">()</span><span class="o">.</span><span class="n">injection_store</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="n">process_points</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">injected_func</span> <span class="o">=</span> <span class="n">get_app_model</span><span class="p">()</span><span class="o">.</span><span class="n">injection_store</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="n">process_points</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Note: injection doesn’t <em>inherently</em> mean that it’s always safe to call an
@@ -1015,10 +1015,10 @@ For a detailed discussion on this framework see
 <li><p>Initialize <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer" title="napari.viewer.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Viewer</span></code></a>, which calls
 <code class="docutils literal notranslate"><span class="pre">napari.plugins._initialize_plugins</span></code>, which registers discovered plugins
 and all their actions (non-Qt first, followed immedidately by Qt actions).
-This also results in the first call to <code class="docutils literal notranslate"><span class="pre">napari._app_model.get_app</span></code>.</p>
+This also results in the first call to <code class="docutils literal notranslate"><span class="pre">napari._app_model.get_app_model</span></code>.</p>
 <p>i. Instantiation of the <code class="docutils literal notranslate"><span class="pre">app-model</span></code> app results in registration of all non-GUI
 internal <code class="docutils literal notranslate"><span class="pre">napari</span></code> actions (and associated submenus). Note that the
-<code class="docutils literal notranslate"><span class="pre">napari._app_model.get_app</span></code> call creates the <code class="docutils literal notranslate"><span class="pre">app</span></code> only when <em>first</em>
+<code class="docutils literal notranslate"><span class="pre">napari._app_model.get_app_model</span></code> call creates the <code class="docutils literal notranslate"><span class="pre">app</span></code> only when <em>first</em>
 called. It simply returns the existing app on all subsequent calls.</p>
 </li>
 <li><p><a class="reference internal" href="../../api/napari.window.Window.html#napari.window.Window" title="napari._qt.qt_main_window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">Window</span></code></a> instantiation, followed by
@@ -1042,8 +1042,8 @@ singleton <code class="docutils literal notranslate"><span class="pre">app</span
 since been cleaned up at the end of a previous test.
 Thus, we mock the <code class="docutils literal notranslate"><span class="pre">app</span></code> in a <code class="docutils literal notranslate"><span class="pre">_mock_app</span></code> fixture, and
 explicitly use it in <a class="reference internal" href="../contributing/testing.html#make-napari-viewer"><span class="std std-ref">make_napari_viewer</span></a> as well as in all tests that
-use the <code class="docutils literal notranslate"><span class="pre">get_app</span></code> function. This way, a new instance of <code class="docutils literal notranslate"><span class="pre">app</span></code> is returned
-every time <code class="docutils literal notranslate"><span class="pre">napari._app_model.get_app</span></code>
+use the <code class="docutils literal notranslate"><span class="pre">get_app_model</span></code> function. This way, a new instance of <code class="docutils literal notranslate"><span class="pre">app</span></code> is returned
+every time <code class="docutils literal notranslate"><span class="pre">napari._app_model.get_app_model</span></code>
 is used inside a test. This ‘test’ <code class="docutils literal notranslate"><span class="pre">app</span></code> is available for use throughout the test’s
 duration and will get cleaned up at the end.</p>
 <div class="admonition note">

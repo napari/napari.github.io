@@ -139,7 +139,7 @@ If you would like to create your own widgets in napari see {ref}`creating-widget
 ### napari's `QApplication`
 
 In napari, the initial step of creating the `QApplication` is handled by
-{func}`napari.qt.get_app`.  (Note however, that napari will do this for you
+{func}`napari.qt.get_qapp`.  (Note however, that napari will do this for you
 automatically behind the scenes when you create a viewer with
 {class}`napari.Viewer()`)
 

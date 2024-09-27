@@ -28,7 +28,7 @@ The {class}`~napari._app_model._app.NapariApplication` (`app`)
 is the top level object that stores information about the commands, keybindings
 and menus that make up the application.
 It is a subclass of {class}`app_model.Application` and is a global application
-singleton. It can be retrieved with `napari._app_model.get_app`.
+singleton. It can be retrieved with `napari._app_model.get_app_model`.
 
 Currently, the primary purpose of the `app` is to compose the following
 {mod}`app_model.registries` into a single name-spaced object:
@@ -106,10 +106,10 @@ The code below shows how to register the `action` defined above with the napari
 singleton `app`:
 
 ```python
-from napari._app_model import get_app
+from napari._app_model import get_app_model
 
 
-get_app().register_action(action)
+get_app_model().register_action(action)
 ```
 
 ````{note}
@@ -395,7 +395,7 @@ current viewer, if one present (returning `None` if not). It is
 registered in the `app.injection_store` via `app.injection_store.register_provider`. Processors can be registered in the same way.
 
 ```python
-from napari._app_model import get_app
+from napari._app_model import get_app_model
 
 # return annotation indicates what this provider provides
 def provide_points() -> Optional['Points']:
@@ -409,7 +409,7 @@ def provide_points() -> Optional['Points']:
             None
         )
 
-get_app().injection_store.register_provider(provide_points)
+get_app_model().injection_store.register_provider(provide_points)
 ```
 
 This allows both internal and external functions to be injected with these
@@ -418,7 +418,7 @@ This is particularly important in a GUI context, where a user can't always be
 providing arguments:
 
 ```python
->>> injected_func = get_app().injection_store.inject(process_points)
+>>> injected_func = get_app_model().injection_store.inject(process_points)
 ```
 
 Note: injection doesn't *inherently* mean that it's always safe to call an
@@ -502,11 +502,11 @@ On `napari` start up, `app-model` initialization occurs in the following order:
 1. Initialize {class}`~napari.viewer.Viewer`, which calls
    `napari.plugins._initialize_plugins`, which registers discovered plugins
    and all their actions (non-Qt first, followed immedidately by Qt actions).
-   This also results in the first call to `napari._app_model.get_app`.
+   This also results in the first call to `napari._app_model.get_app_model`.
 
    i. Instantiation of the `app-model` app results in registration of all non-GUI
       internal `napari` actions (and associated submenus). Note that the
-      `napari._app_model.get_app` call creates the `app` only when *first*
+      `napari._app_model.get_app_model` call creates the `app` only when *first*
       called. It simply returns the existing app on all subsequent calls.
 
 2. {class}`~napari._qt.qt_main_window.Window` instantiation, followed by
@@ -532,8 +532,8 @@ singleton `app` may keep a reference to an object, e.g., a
 since been cleaned up at the end of a previous test.
 Thus, we mock the `app` in a `_mock_app` fixture, and
 explicitly use it in {ref}`make_napari_viewer` as well as in all tests that
-use the `get_app` function. This way, a new instance of `app` is returned
-every time `napari._app_model.get_app`
+use the `get_app_model` function. This way, a new instance of `app` is returned
+every time `napari._app_model.get_app_model`
 is used inside a test. This 'test' `app` is available for use throughout the test's
 duration and will get cleaned up at the end.
 

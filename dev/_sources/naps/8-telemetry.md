@@ -190,7 +190,7 @@ from npe2 import plugin_manager
 from napari.utils.info import _sys_name
 from napari.plugins.npe2api import plugin_summaries
 from napari.plugins.utils import normalized_name
-from napari._app_model import get_app
+from napari._app_model import get_app_model
 
 
 def get_computer_identifier():
@@ -353,7 +353,7 @@ def get_full_information():
     data_collector = DataSizeTypeCollector.get_collector(
         Path(appdirs.user_config_dir("napari")) / "data_size_info.json"
     )
-    # app_model = get_app() - there is a need to add a collection of data to app_model
+    # app_model = get_app_model() - there is a need to add a collection of data to app_model
     return {
         **middle_info,
         "data_size_info": data_collector.data,

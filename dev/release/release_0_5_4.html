@@ -46,7 +46,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9914bdb4"></script>
+    <script src="../_static/documentation_options.js?v=b4871027"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -766,7 +766,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="napari-0-5-4">
 <h1>napari 0.5.4<a class="headerlink" href="#napari-0-5-4" title="Link to this heading">#</a></h1>
-<p><em>Friday, Sep 27, 2024</em></p>
+<p><em>Monday, Sep 30, 2024</em></p>
 <p>We’re happy to announce the release of napari 0.5.4!</p>
 <p>napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for exploring, annotating, and analyzing multi-dimensional images. It’s built on Qt (for the GUI), VisPy (for performant GPU-based rendering), and the scientific Python stack (NumPy, SciPy, and friends).</p>
 <p>For more information, examples, and documentation, please visit our website: https://napari.org/</p>
@@ -827,9 +827,11 @@ other in the UI (<a class="reference external" href="https://github.com/napari/n
 <li><p>Accept any Mapping as output of a plugin widget (<a class="reference external" href="https://github.com/napari/napari/pull/7250">#7250</a>)</p></li>
 <li><p>Eliminate nearly all Qt widget leaks by using qtbot (<a class="reference external" href="https://github.com/napari/napari/pull/7251">#7251</a>)</p></li>
 <li><p>Enforce minimum side length when guessing if image is RGB (<a class="reference external" href="https://github.com/napari/napari/pull/7273">#7273</a>)</p></li>
+<li><p>Remove skip conditions for PySide2/6 over plugins menu tests and bump <code class="docutils literal notranslate"><span class="pre">napari-plugin-manager</span></code> minimum version (&gt;=0.1.3) (<a class="reference external" href="https://github.com/napari/napari/pull/7293">#7293</a>)</p></li>
 <li><p>Fix color shuffling for bool labels (<a class="reference external" href="https://github.com/napari/napari/pull/7294">#7294</a>)</p></li>
 <li><p>Fix cursor dimensionality race condition (<a class="reference external" href="https://github.com/napari/napari/pull/7295">#7295</a>)</p></li>
 <li><p>Fix overflow error in shuffle colormap for signed integer labels (<a class="reference external" href="https://github.com/napari/napari/pull/7296">#7296</a>)</p></li>
+<li><p>When calculating view directions, check ndim, not just ndisplay (<a class="reference external" href="https://github.com/napari/napari/pull/7301">#7301</a>)</p></li>
 </ul>
 </section>
 <section id="documentation">
@@ -846,6 +848,7 @@ other in the UI (<a class="reference external" href="https://github.com/napari/n
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">get_qapp</span></code> or <code class="docutils literal notranslate"><span class="pre">get_app_model</span></code> instead of <code class="docutils literal notranslate"><span class="pre">get_app</span></code> (<a class="reference external" href="https://github.com/napari/docs/pull/495">docs#495</a>)</p></li>
 <li><p>Add 0.5.4 release notes (<a class="reference external" href="https://github.com/napari/docs/pull/496">docs#496</a>)</p></li>
 <li><p>Add note about questions in landing page (<a class="reference external" href="https://github.com/napari/docs/pull/498">docs#498</a>)</p></li>
+<li><p>Add further fixes to release notes ([docs#499](Add further fixes to release notes))</p></li>
 </ul>
 </section>
 <section id="other-pull-requests">

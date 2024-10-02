@@ -1,6 +1,6 @@
 # napari 0.5.4
 
-*Friday, Sep 27, 2024*
+*Monday, Sep 30, 2024*
 
 We’re happy to announce the release of napari 0.5.4!
 
@@ -60,9 +60,11 @@ Read on for all the changes in this version!
 - Accept any Mapping as output of a plugin widget ([#7250](https://github.com/napari/napari/pull/7250))
 - Eliminate nearly all Qt widget leaks by using qtbot ([#7251](https://github.com/napari/napari/pull/7251))
 - Enforce minimum side length when guessing if image is RGB ([#7273](https://github.com/napari/napari/pull/7273))
+- Remove skip conditions for PySide2/6 over plugins menu tests and bump `napari-plugin-manager` minimum version (>=0.1.3) ([#7293](https://github.com/napari/napari/pull/7293))
 - Fix color shuffling for bool labels ([#7294](https://github.com/napari/napari/pull/7294))
 - Fix cursor dimensionality race condition ([#7295](https://github.com/napari/napari/pull/7295))
 - Fix overflow error in shuffle colormap for signed integer labels ([#7296](https://github.com/napari/napari/pull/7296))
+- When calculating view directions, check ndim, not just ndisplay ([#7301](https://github.com/napari/napari/pull/7301))
 
 ## Documentation
 
@@ -77,6 +79,7 @@ Read on for all the changes in this version!
 - Use `get_qapp` or `get_app_model` instead of `get_app` ([docs#495](https://github.com/napari/docs/pull/495))
 - Add 0.5.4 release notes ([docs#496](https://github.com/napari/docs/pull/496))
 - Add note about questions in landing page ([docs#498](https://github.com/napari/docs/pull/498))
+- Add further fixes to release notes ([docs#499](Add further fixes to release notes))
 
 ## Other Pull Requests
 

@@ -43,7 +43,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=b4871027"></script>
+    <script src="../../../_static/documentation_options.js?v=72f6d328"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -997,13 +997,16 @@ document.write(`
         <span class="k">if</span> <span class="n">active_layer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
                 <span class="n">layer</span><span class="o">.</span><span class="n">update_transform_box_visibility</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">layer</span><span class="o">.</span><span class="n">update_highlight_visibility</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">CursorStyle</span><span class="o">.</span><span class="n">STANDARD</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">active_layer</span><span class="o">.</span><span class="n">update_transform_box_visibility</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">active_layer</span><span class="o">.</span><span class="n">update_highlight_visibility</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">layer</span> <span class="o">!=</span> <span class="n">active_layer</span><span class="p">:</span>
                     <span class="n">layer</span><span class="o">.</span><span class="n">update_transform_box_visibility</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="n">layer</span><span class="o">.</span><span class="n">update_highlight_visibility</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">help</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">cursor</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">cursor_size</span>

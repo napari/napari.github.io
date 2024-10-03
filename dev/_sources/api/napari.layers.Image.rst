@@ -65,6 +65,9 @@ napari.layers.Image
       ~Image.set_view_slice
    
    
+      ~Image.update_highlight_visibility
+   
+   
       ~Image.update_transform_box_visibility
    
    

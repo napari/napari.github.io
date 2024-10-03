@@ -89,6 +89,9 @@ napari.layers.Labels
       ~Labels.undo
    
    
+      ~Labels.update_highlight_visibility
+   
+   
       ~Labels.update_transform_box_visibility
    
    

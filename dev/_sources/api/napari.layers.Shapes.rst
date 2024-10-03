@@ -107,6 +107,9 @@ napari.layers.Shapes
       ~Shapes.to_masks
    
    
+      ~Shapes.update_highlight_visibility
+   
+   
       ~Shapes.update_transform_box_visibility
    
    

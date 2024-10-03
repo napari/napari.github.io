@@ -77,6 +77,9 @@ napari.layers.Points
       ~Points.to_mask
    
    
+      ~Points.update_highlight_visibility
+   
+   
       ~Points.update_transform_box_visibility
    
    

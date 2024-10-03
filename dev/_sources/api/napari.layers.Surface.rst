@@ -65,6 +65,9 @@ napari.layers.Surface
       ~Surface.set_view_slice
    
    
+      ~Surface.update_highlight_visibility
+   
+   
       ~Surface.update_transform_box_visibility
    
    

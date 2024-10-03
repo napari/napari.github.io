@@ -62,6 +62,9 @@ napari.layers.Vectors
       ~Vectors.set_view_slice
    
    
+      ~Vectors.update_highlight_visibility
+   
+   
       ~Vectors.update_transform_box_visibility
    
    

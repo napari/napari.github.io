@@ -59,6 +59,9 @@ napari.layers.Layer
       ~Layer.set_view_slice
    
    
+      ~Layer.update_highlight_visibility
+   
+   
       ~Layer.update_transform_box_visibility
    
    

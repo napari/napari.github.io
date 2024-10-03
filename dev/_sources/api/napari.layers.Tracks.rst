@@ -59,6 +59,9 @@ napari.layers.Tracks
       ~Tracks.set_view_slice
    
    
+      ~Tracks.update_highlight_visibility
+   
+   
       ~Tracks.update_transform_box_visibility
    
    

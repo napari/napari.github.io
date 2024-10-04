@@ -1,0 +1,38 @@
+name: Create stable symlink
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_directory:
+        description: 'The target directory to symlink to'
+        required: true
+
+jobs:
+  symlink-stable:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone artifacts repo
+        uses: actions/checkout@v4
+        with:
+          ref: "gh-pages"
+
+      - name: Create symlink
+        run: |
+          echo "Creating symlink to ${{ github.event.inputs.target_directory }}"
+          rm stable
+          ln -s ${{ github.event.inputs.target_directory }} stable
+          ls -la stable
+        shell: bash
+
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Create stable symlink" --allow-empty
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages

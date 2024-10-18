@@ -732,6 +732,9 @@ Constructor will perform a conda solve here to retrieve the needed dependencies.
 We only want the shortcuts provided by <code class="docutils literal notranslate"><span class="pre">napari-menu</span></code>, and not any that could come from the (many) dependencies of napari.</p></li>
 </ul>
 <p>Then, depending on the operating systems and the installer format, we customize the configuration a bit more.</p>
+<p>The bundled Python version in the installers follows the Python version installed in the CI
+<code class="docutils literal notranslate"><span class="pre">make_bundle_conda.yml</span></code> workflow at <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code>. Update the CI matrix configuration to bump
+the bundled Python. We use the oldest version supported by the <a class="reference external" href="https://scientific-python.org/specs/spec-0000/">SPEC-0</a> recommendations.</p>
 <section id="default-installation-path">
 <h3>Default installation path<a class="headerlink" href="#default-installation-path" title="Link to this heading">#</a></h3>
 <p>This depends on each OS. Our general strategy is to put the general installation under

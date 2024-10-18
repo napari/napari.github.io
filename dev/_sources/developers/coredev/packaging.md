@@ -173,6 +173,10 @@ The main OS-agnostic keys are:
 
 Then, depending on the operating systems and the installer format, we customize the configuration a bit more.
 
+The bundled Python version in the installers follows the Python version installed in the CI
+`make_bundle_conda.yml` workflow at `napari/packaging`. Update the CI matrix configuration to bump
+the bundled Python. We use the oldest version supported by the [SPEC-0][SPEC0] recommendations.
+
 #### Default installation path
 
 This depends on each OS. Our general strategy is to put the general installation under
@@ -259,3 +263,4 @@ Generating a `conda`-based installer requires several components in place:
 [21]: https://anaconda.org/conda-forge/napari
 [22]: https://github.com/conda/constructor/blob/764ba8a/constructor/nsis/_nsis.py
 [nap-2]: https://napari.org/dev/naps/2-conda-based-packaging.html
+[SPEC0]: https://scientific-python.org/specs/spec-0000/

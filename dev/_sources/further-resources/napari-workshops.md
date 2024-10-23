@@ -42,11 +42,11 @@ or contact the core developers on [zulip chat](https://napari.zulipchat.com/logi
 
 * September 2022, Helmholtz Imaging Summer Academy
   * [Image analysis with Python and Napari](https://biapol.github.io/HIP_Introduction_to_Napari_and_image_processing_with_Python_2022/intro.html)
-  * [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7102242.svg)](https://doi.org/10.5281/zenodo.7102242)
+  * [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7102242.svg)](https://zenodo.org/records/7102242)
 
 * July 2022, SciPy 2022
   * [watch it here](https://www.youtube.com/watch?v=vismuuc4y1I&list=PLYx7XA2nY5Gfxu98P_HL1MnFb_BSkpxLV&index=10)
-  * [Workshop materials available here](https://alisterburt.github.io/napari-workshops/SciPy-0722/intro.html)
+  * [Workshop materials available here](http://alisterburt.com/napari-workshops/SciPy-0722/intro.html)
 
 * January to May 2022, [accelerator grantee plugin workshop](https://chanzuckerberg.github.io/napari-plugin-accel-workshops/)
 
@@ -63,7 +63,7 @@ or contact the core developers on [zulip chat](https://napari.zulipchat.com/logi
   * [Slide available here](https://docs.google.com/presentation/d/1sqd_CYckEwmgQO6y9VffwnmT0RSlRYIAUBixRTMYcig/view)
 
 * August 2021, [NDCN](https://chanzuckerberg.com/science/programs-resources/neurodegeneration-challenge/) Workshop / September 2021 [ZIDAS](https://www.zidas.org/) Workshop
-  * [Read the workshop materials online](https://alisterburt.github.io/napari-workshops/home.html)
+  * [Read the workshop materials online](http://alisterburt.com/napari-workshops/home.html)
   * [Workshop materials available here](https://github.com/alisterburt/napari-workshops)
 
 * June 2021, Bioimage analysis fundamentals in Python workshop at [SciPy 2021](https://www.scipy2021.scipy.org/)

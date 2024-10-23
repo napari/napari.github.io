@@ -33,11 +33,11 @@ Current napari architecture supports a single canvas (viewbox) per viewer (windo
 The ability to view n-D data from multiple perspectives (or different data from the *same* perspective -- for example side-by-side segmentations) is a common feature request, and has proved useful in many other tools for data exploration and analysis. Here is a sampling of issues requesting support and discussing potential implementations:
 
 * [#5348](https://github.com/napari/napari/issues/5348) Multicanvas viewer
-* [#2338](https:////github.com/napari/napari/issues/2338) Multicanvas API Thoughts
-* [#760](https:////github.com/napari/napari/issues/760) Linked multicanvas support
-* [#662](https:////github.com/napari/napari/issues/662) Linked 2D views
-* [#561](https:////github.com/napari/napari/issues/561) multicanvas grid display for layers in Napari
-* [#1478](https:////github.com/napari/napari/issues/1478) Orthogonal viewer plugin
+* [#2338](https://github.com/napari/napari/issues/2338) Multicanvas API Thoughts
+* [#760](https://github.com/napari/napari/issues/760) Linked multicanvas support
+* [#662](https://github.com/napari/napari/issues/662) Linked 2D views
+* [#561](https://github.com/napari/napari/issues/561) multicanvas grid display for layers in Napari
+* [#1478](https://github.com/napari/napari/issues/1478) Orthogonal viewer plugin
 
 Several plugins and examples have been created to address these limitations, for example:
 * [napari-3d-ortho-viewer](https://github.com/gatoniel/napari-3d-ortho-viewer/tree/main)

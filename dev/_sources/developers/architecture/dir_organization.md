@@ -73,7 +73,7 @@ is named `_qapp_model` inside `_qt/`).
   canvas (the canvas is a vispy object onto which you can draw 'visuals').
 * `benchmarks/` - benchmarking code, mostly for checking the performance of layers.
   It is is executed in CI and is run every Sunday. See
-  [`.github/workflows/benchmarks.yml`](https://github.com/napari/napari/tree/main/.github/workflows/benchmarks.yml)
+  [`.github/workflows/benchmarks.yml`](https://github.com/napari/napari/blob/main/.github/workflows/benchmarks.yml)
   for CI workflow details. The benchmarks can also be run locally.
 * `components/` - code that defines all components of the napari viewer, including the
   layerlist, dimensions and camera.

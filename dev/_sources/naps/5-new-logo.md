@@ -161,7 +161,7 @@ for the logo, regardless of where this NAP lands.
 It's been suggested that the squircle shape might make it harder to tile a
 laptop together with other stickers, or align the edges. However, I think the
 tiling issue is a red herring because a quick look at the [NumFOCUS sticker
-table](https://twitter.com/NumFOCUS/status/1547651122654916609) shows that most
+table](https://x.com/NumFOCUS/status/1547651122654916609) shows that most
 related projects have irregularly-shaped stickers anyway. Additionally, I think
 that the squircle provides both a long enough straight edge (almost 1/3 of each
 side is exactly straight) to align things, but the smooth curvature makes

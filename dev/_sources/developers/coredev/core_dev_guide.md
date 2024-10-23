@@ -180,7 +180,7 @@ As a core member, you should be familiar with the following napari guides:
 ### Social resources
 
 - [#napari on image.sc](https://forum.image.sc/tag/napari).
-- [#napari](https://twitter.com/search?q=%23napari&f=live) and [@napari_imaging](https://twitter.com/napari_imaging) on twitter.
+- [#napari](https://x.com/search?q=%23napari&f=live) and [@napari_imaging](https://x.com/napari_imaging) on twitter.
 - [napari zulip](https://napari.zulipchat.com/) community chat channel.
 
 You are not required to monitor the social resources.

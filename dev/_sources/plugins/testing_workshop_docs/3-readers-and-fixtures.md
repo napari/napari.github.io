@@ -96,7 +96,7 @@ We will have access to what `write_func` returns once it’s been called inside 
 
 The benefit of creating this fixture is that whenever we want to write our own test data we don't have to copy three lines of code, we can just use the fixture. This is useful in testing data with different structures like integers or a specific layer type. Those arguments could be passed to further customize your fixture.
 
-We still want to make sure we get a reader when we call `napari_get_reader` with the file. We call that `reader` function with the file we created to see if it returns what we expect. Based on the [reader spec](https://napari.org/stable/plugins/contributions.html#contributions-readers), it should return a layer data list. Here is the full test, with the fixture:
+We still want to make sure we get a reader when we call `napari_get_reader` with the file. We call that `reader` function with the file we created to see if it returns what we expect. Based on the [reader spec](plugin-readers-guide), it should return a layer data list. Here is the full test, with the fixture:
 ```python
 @pytest.fixture
 def write_im_to_file(tmp_path):

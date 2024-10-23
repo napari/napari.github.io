@@ -17,7 +17,7 @@ The first step to make changes to napari is to
 set up a [napari development installation](dev-installation).
 
 You can then use git to save your changes and open a
-[pull-request](https://docs.github.com/en/get-started/quickstart/contributing-to-projects#making-a-pull-request) (PR) via the following steps:
+[pull-request](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project) (PR) via the following steps:
 
 1. Make and save your changes:
 
@@ -46,7 +46,7 @@ To set it, use `git config --global user.email your-address@example.com`.
 2. Share your changes:
 
 To push the local changes in your new feature branch to your
-[forked](https://docs.github.com/en/get-started/quickstart/contributing-to-projects#forking-a-repository) repository:
+[forked](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project#forking-a-repository) repository:
 
 ```sh
 git push -u origin your-branch-name
@@ -63,7 +63,7 @@ git remote -vv
 ```
 
 You can then make a
-[PR](https://docs.github.com/en/get-started/quickstart/contributing-to-projects#making-a-pull-request) to `napari`'s `main` branch.
+[PR](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project#making-a-pull-request) to `napari`'s `main` branch.
 
 ## napari contribution guides
 

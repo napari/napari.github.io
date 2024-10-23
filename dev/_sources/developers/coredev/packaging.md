@@ -255,7 +255,7 @@ Generating a `conda`-based installer requires several components in place:
 [4]: https://github.com/pypa/gh-action-pypi-publish
 [6]: https://github.com/conda/constructor
 [7]: https://conda.github.io/constructor/construct-yaml/
-[8]: https://conda-forge.org/docs/maintainer/updating_pkgs.html#rerendering-feedstocks
+[8]: https://conda-forge.org/docs/maintainer/updating_pkgs/#rerendering-feedstocks
 [16]: https://github.com/conda-forge/napari-feedstock/pulls?q=is%3Apr+sort%3Aupdated-desc+is%3Aclosed
 [17]: https://anaconda.org/napari
 [19]: https://nsis.sourceforge.io/Main_Page

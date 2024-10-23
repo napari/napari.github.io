@@ -62,7 +62,7 @@ package name, url, or local file (#2319).
 
 ## API Changes
 - The ViewerModel is now a Pydantic BaseModel and so subclassing the Viewer might require
-reading some of the [Pydantic BaseModel documentation](https://pydantic-docs.helpmanual.io/usage/models/).
+reading some of the [Pydantic BaseModel documentation](https://docs.pydantic.dev/latest/usage/models/).
 Otherwise the API of the ViewerModel is unchanged.
 - Because `Labels` no longer inherit from `Image` (#2307), magicgui function
   parameters annotated as `napari.layers.Image` will no longer include

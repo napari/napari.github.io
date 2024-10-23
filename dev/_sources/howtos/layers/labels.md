@@ -476,7 +476,7 @@ and [zarr arrays](https://zarr.readthedocs.io/en/stable/api/core.html). A
 Because the `labels` layer subclasses the `image` layer, it inherits the great
 properties of the `image` layer, like supporting lazy loading and multiscale
 images for big data layers. For more information about both these concepts see
-the details in the [image layer guide](image-layer).
+the details in the [image layer guide](layers-image).
 
 ## Creating a new labels layer
 

@@ -564,7 +564,7 @@ document.write(`
                   
   <section id="setting-up-a-development-installation">
 <span id="dev-installation"></span><h1>Setting up a development installation<a class="headerlink" href="#setting-up-a-development-installation" title="Link to this heading">#</a></h1>
-<p>In order to make changes to <code class="docutils literal notranslate"><span class="pre">napari</span></code>, you will need to <a class="reference external" href="https://docs.github.com/en/get-started/quickstart/contributing-to-projects#forking-a-repository">fork</a> the
+<p>In order to make changes to <code class="docutils literal notranslate"><span class="pre">napari</span></code>, you will need to <a class="reference external" href="https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project">fork</a> the
 <a class="reference external" href="https://github.com/napari/napari">repository</a>. If you are not familiar with <code class="docutils literal notranslate"><span class="pre">git</span></code>, we recommend reading up on <a class="reference external" href="https://docs.github.com/en/get-started/using-git/about-git#basic-git-commands">this guide</a>.</p>
 <ol class="arabic">
 <li><p>Clone the forked repository to your local machine and change directories:</p>
@@ -583,7 +583,7 @@ document.write(`
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
 Using <code class="docutils literal notranslate"><span class="pre">conda</span></code></label><div class="sd-tab-content docutils">
-<p>After <a class="reference external" href="https://www.anaconda.com/products/distribution">installing <code class="docutils literal notranslate"><span class="pre">conda</span></code></a>, create an environment called <code class="docutils literal notranslate"><span class="pre">napari-env</span></code> with Python 3.10 and activate it.</p>
+<p>After <a class="reference external" href="https://www.anaconda.com/download">installing <code class="docutils literal notranslate"><span class="pre">conda</span></code></a>, create an environment called <code class="docutils literal notranslate"><span class="pre">napari-env</span></code> with Python 3.10 and activate it.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-y<span class="w"> </span>-n<span class="w"> </span>napari-env<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10
 conda<span class="w"> </span>activate<span class="w"> </span>napari-env
 </pre></div>
@@ -632,7 +632,7 @@ by following the directions on the
 </li>
 <li><p>We use <a class="reference external" href="https://pre-commit.com"><code class="docutils literal notranslate"><span class="pre">pre-commit</span></code></a> to format code with
 <a class="reference external" href="https://github.com/psf/black"><code class="docutils literal notranslate"><span class="pre">black</span></code></a> and lint with
-<a class="reference external" href="https://github.com/charliermarsh/ruff"><code class="docutils literal notranslate"><span class="pre">ruff</span></code></a> automatically prior to each commit.
+<a class="reference external" href="https://github.com/astral-sh/ruff"><code class="docutils literal notranslate"><span class="pre">ruff</span></code></a> automatically prior to each commit.
 To minimize test errors when submitting pull requests, please install <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code>
 in your environment as follows:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pre-commit<span class="w"> </span>install
@@ -643,7 +643,7 @@ configuration</a>, which includes the settings
 <code class="docutils literal notranslate"><span class="pre">skip-string-normalization</span> <span class="pre">=</span> <span class="pre">true</span></code> and <code class="docutils literal notranslate"><span class="pre">max-line-length</span> <span class="pre">=</span> <span class="pre">79</span></code>. To learn more,
 see <a class="reference external" href="https://black.readthedocs.io/en/stable/"><code class="docutils literal notranslate"><span class="pre">black</span></code>’s documentation</a>.</p>
 <p>Code will also be linted to enforce the stylistic and logistical rules specified
-in our <a class="reference external" href="https://github.com/napari/napari/blob/main/setup.cfg"><code class="docutils literal notranslate"><span class="pre">flake8</span></code> configuration</a>, which currently ignores
+in our <a class="reference external" href="https://github.com/napari/napari/blob/main/pyproject.toml"><code class="docutils literal notranslate"><span class="pre">flake8</span></code> configuration</a>, which currently ignores
 <a class="reference external" href="https://lintlyci.github.io/Flake8Rules/rules/E203.html">E203</a>,
 <a class="reference external" href="https://lintlyci.github.io/Flake8Rules/rules/E501.html">E501</a>,
 <a class="reference external" href="https://lintlyci.github.io/Flake8Rules/rules/W503.html">W503</a> and

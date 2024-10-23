@@ -779,7 +779,7 @@ document.write(`
 </ol>
 <section id="cell-tracking-challenge-data">
 <h2>1. Cell tracking challenge data<a class="headerlink" href="#cell-tracking-challenge-data" title="Link to this heading">#</a></h2>
-<p>The first example of track visualization uses data from the <a class="reference external" href="http://celltrackingchallenge.net/3d-datasets/">cell tracking challenge</a>. We will use the <em>C. elegans</em> developing embryo <a class="reference external" href="https://data.celltrackingchallenge.net/training-datasets/Fluo-N3DH-CE.zip">dataset</a> which consists of 3D+t volumetric imaging data, manually annotated tracks and cell lineage information.</p>
+<p>The first example of track visualization uses data from the <a class="reference external" href="https://celltrackingchallenge.net/3d-datasets/">cell tracking challenge</a>. We will use the <em>C. elegans</em> developing embryo <a class="reference external" href="https://data.celltrackingchallenge.net/training-datasets/Fluo-N3DH-CE.zip">dataset</a> which consists of 3D+t volumetric imaging data, manually annotated tracks and cell lineage information.</p>
 <p>A full description of the data format can be found <a class="reference external" href="https://public.celltrackingchallenge.net/documents/Naming%20and%20file%20content%20conventions.pdf">here</a>.</p>
 <section id="extracting-the-tracks-from-the-dataset">
 <h3>Extracting the tracks from the dataset<a class="headerlink" href="#extracting-the-tracks-from-the-dataset" title="Link to this heading">#</a></h3>
@@ -942,11 +942,11 @@ We create it with the following code:</p>
 <hr class="docutils" />
 <section id="using-btrack-to-track-cells">
 <h2>2. Using <code class="docutils literal notranslate"><span class="pre">btrack</span></code> to track cells<a class="headerlink" href="#using-btrack-to-track-cells" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">btrack</span></code> library can be used for cell tracking. It provides a convenient <code class="docutils literal notranslate"><span class="pre">to_napari()</span></code> function to enable rapid visualization of the tracking results. You can learn more about the <code class="docutils literal notranslate"><span class="pre">btrack</span></code> library <a class="reference external" href="https://github.com/quantumjot/BayesianTracker">here</a>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">btrack</span></code> library can be used for cell tracking. It provides a convenient <code class="docutils literal notranslate"><span class="pre">to_napari()</span></code> function to enable rapid visualization of the tracking results. You can learn more about the <code class="docutils literal notranslate"><span class="pre">btrack</span></code> library <a class="reference external" href="https://github.com/quantumjot/btrack">here</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">btrack</span>
 </pre></div>
 </div>
-<p>We start by loading a file containing the centroids of all the found cells in each frame of the source movie. Note that this file only contains the locations of cells in the movie, there are no tracks yet. We can use the <code class="docutils literal notranslate"><span class="pre">btrack</span></code> library to load this file as a list of <code class="docutils literal notranslate"><span class="pre">objects</span></code> that contain information about each found cell, including the TZYX position.  The example dataset can be downloaded <a class="reference external" href="https://github.com/quantumjot/BayesianTracker/blob/0f8bbd937535193bde20e3ebe91a323f6bb915e9/examples/napari_example.csv">here</a>.</p>
+<p>We start by loading a file containing the centroids of all the found cells in each frame of the source movie. Note that this file only contains the locations of cells in the movie, there are no tracks yet. We can use the <code class="docutils literal notranslate"><span class="pre">btrack</span></code> library to load this file as a list of <code class="docutils literal notranslate"><span class="pre">objects</span></code> that contain information about each found cell, including the TZYX position.  The example dataset can be downloaded <a class="reference external" href="https://github.com/quantumjot/btrack/blob/0f8bbd937535193bde20e3ebe91a323f6bb915e9/examples/napari_example.csv">here</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">objects</span> <span class="o">=</span> <span class="n">btrack</span><span class="o">.</span><span class="n">dataio</span><span class="o">.</span><span class="n">import_CSV</span><span class="p">(</span><span class="s1">&#39;napari_example.csv&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -968,7 +968,7 @@ We create it with the following code:</p>
     <span class="n">data</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">graph</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">to_napari</span><span class="p">(</span><span class="n">ndim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We set the configuration of the tracker using a configuration file using the <code class="docutils literal notranslate"><span class="pre">.configure_from_file()</span></code> method. An example configuration file can be found <a class="reference external" href="https://github.com/quantumjot/BayesianTracker/blob/main/models/cell_config.json">here</a>.</p>
+<p>We set the configuration of the tracker using a configuration file using the <code class="docutils literal notranslate"><span class="pre">.configure_from_file()</span></code> method. An example configuration file can be found <a class="reference external" href="https://github.com/quantumjot/btrack/blob/main/models/cell_config.json">here</a>.</p>
 <p>Next, the objects are linked into tracks using the <code class="docutils literal notranslate"><span class="pre">.track_interactive()</span></code> method. The <code class="docutils literal notranslate"><span class="pre">step_size</span></code> argument specifies how many steps are taken before reporting the tracking statistics. The <code class="docutils literal notranslate"><span class="pre">.optimize()</span></code> method then performs a global optimization on the dataset and creates lineage trees automatically.</p>
 <p>Finally, the <code class="docutils literal notranslate"><span class="pre">.to_napari()</span></code> method returns the track vertices, track features and graph in a format that can be directly visualized using the napari <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
@@ -977,7 +977,7 @@ We create it with the following code:</p>
 </pre></div>
 </div>
 <p><img alt="napari viewer with three layers: an image layer with cells, a points layer with detected cells and a tracks layer with the btrack results. The dimension slider under the canvas is close to the end of the stack, showing the tracks corresponding to each point colored by generation." src="../../_images/tracks_btrack.png" /></p>
-<p>A notebook for this example can be found in the btrack examples directory (<a class="reference external" href="https://github.com/quantumjot/BayesianTracker/blob/caa56fa82330e4b16b5d28150f9b60ed963165c7/examples/napari_btrack.ipynb"><code class="docutils literal notranslate"><span class="pre">napari_btrack.ipynb</span></code></a>)</p>
+<p>A notebook for this example can be found in the btrack examples directory (<a class="reference external" href="https://github.com/quantumjot/btrack/blob/caa56fa82330e4b16b5d28150f9b60ed963165c7/examples/napari_btrack.ipynb"><code class="docutils literal notranslate"><span class="pre">napari_btrack.ipynb</span></code></a>)</p>
 </section>
 <section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
@@ -993,7 +993,7 @@ We create it with the following code:</p>
 </ul>
 <p>For a more advanced example of visualizing cell tracking data with napari, please see the Arboretum plugin for napari:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/quantumjot/BayesianTracker">btrack</a></p></li>
+<li><p><a class="reference external" href="https://github.com/quantumjot/btrack">btrack</a></p></li>
 <li><p><a class="reference external" href="https://github.com/lowe-lab-ucl/arboretum">arboretum</a></p></li>
 </ul>
 </section>

@@ -11,6 +11,7 @@ kernelspec:
   name: python3
 ---
 
+(layers-surface)=
 # Using the `surface` layer
 
 In this document, you will learn about the `napari` `surface` layer, including
@@ -164,7 +165,7 @@ object. You can list all the available colormaps using `layer.colormaps`.
 It is also possible to create your own colormaps using vispy's
 `vispy.color.Colormap` object, see it's full
 [documentation here](https://vispy.org/api/vispy.color.colormap.html#vispy.color.colormap.Colormap).
-For more detail see the [image layer guide](image-layer).
+For more detail see the [image layer guide](layers-image).
 
 ## Adjusting contrast limits
 
@@ -172,5 +173,5 @@ The vertex values of the `surface` layer get mapped through its colormap accordi
 to values called `contrast limits`. These are a 2-tuple of values defining how
 what values get applied the minimum and maximum of the colormap and follow the
 same principles as the `contrast_limits` described in the
-[image layer guide](image-layer). They are also accessible through the same keyword
+[image layer guide](layers-image). They are also accessible through the same keyword
 arguments, properties, and GUI layer controls as in the image layer.

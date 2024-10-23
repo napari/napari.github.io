@@ -47,7 +47,7 @@ You can read a full history of the project’s founding and early development in
 
 Over time, napari has grown to over 80 direct contributors. Talley Lambert, from Harvard Medical School, began contributing around the time of Juan's blog post, and has been a critical driver of napari's development ever since. We have core developers located in three continents and three biweekly community calls spread across the day to try to accommodate users and contributors in any time zone.
 
-Read more about napari’s [mission and values](https://napari.org/community/mission_and_values.html), how to get started as a [contributor](https://napari.org/developers/contributing.html) or join us in our [zulip chat](https://napari.zulipchat.com/login/) for a more synchronous conversation. You can also follow us on [twitter](https://twitter.com/napari_imaging).
+Read more about napari’s [mission and values](https://napari.org/stable/community/mission_and_values.html), how to get started as a [contributor](https://napari.org/stable/developers/contributing.html) or join us in our [zulip chat](https://napari.zulipchat.com/login/) for a more synchronous conversation. You can also follow us on [twitter](https://x.com/napari_imaging).
 
 ## Institutional and funding Partners
 

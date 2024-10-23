@@ -20,7 +20,7 @@ We picked out a few highlights, but keep reading below for the full list of chan
 We added a new blending mode, `minimum`, in #4875, along with some inverted colormaps by @cleterrier.
 The new mode and colormaps enable visualizing data as color intensities on a white background.
 This is particularly nice when using the Light theme.
-For more inspiration see [#invertedLUT on Twitter](https://twitter.com/hashtag/invertedLUT)
+For more inspiration see [#invertedLUT on Twitter](https://x.com/hashtag/invertedLUT)
 and the built-in napari example [examples/minimum_blending.py](https://github.com/napari/napari/blob/main/examples/minimum_blending.py).
 
 ### Option to edit second shortcut in preferences

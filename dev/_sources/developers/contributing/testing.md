@@ -323,7 +323,7 @@ you patch or replace parts of the code being tested with "fake" behavior or
 return values, so that you can test how a given function would perform *if* it
 were to receive some value from the upstream code.  For a few examples of using
 mocks when testing napari, search the codebase for
-[`unittest.mock`](https://github.com/napari/napari/search?q=%22unittest.mock%22&type=Code)
+[`unittest.mock`](https://github.com/search?q=repo%3Anapari%2Fnapari+%22unittest.mock%22&type=Code)
 
 ## Known issues
 

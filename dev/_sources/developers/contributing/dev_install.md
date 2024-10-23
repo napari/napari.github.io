@@ -1,7 +1,7 @@
 (dev-installation)=
 ## Setting up a development installation
 
-In order to make changes to `napari`, you will need to [fork](https://docs.github.com/en/get-started/quickstart/contributing-to-projects#forking-a-repository) the
+In order to make changes to `napari`, you will need to [fork](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project) the
 [repository](https://github.com/napari/napari). If you are not familiar with `git`, we recommend reading up on [this guide](https://docs.github.com/en/get-started/using-git/about-git#basic-git-commands).
 
 1. Clone the forked repository to your local machine and change directories:
@@ -22,7 +22,7 @@ In order to make changes to `napari`, you will need to [fork](https://docs.githu
     ::::{tab-set}
 
     :::{tab-item} Using `conda`
-    After [installing `conda`](https://www.anaconda.com/products/distribution), create an environment called `napari-env` with Python {{ python_version }} and activate it.
+    After [installing `conda`](https://www.anaconda.com/download), create an environment called `napari-env` with Python {{ python_version }} and activate it.
 
     {{ conda_create_env }}
     :::
@@ -74,7 +74,7 @@ In order to make changes to `napari`, you will need to [fork](https://docs.githu
 
 5. We use [`pre-commit`](https://pre-commit.com) to format code with
    [`black`](https://github.com/psf/black) and lint with
-   [`ruff`](https://github.com/charliermarsh/ruff) automatically prior to each commit.
+   [`ruff`](https://github.com/astral-sh/ruff) automatically prior to each commit.
    To minimize test errors when submitting pull requests, please install `pre-commit`
    in your environment as follows:
 
@@ -88,7 +88,7 @@ In order to make changes to `napari`, you will need to [fork](https://docs.githu
    see [`black`'s documentation](https://black.readthedocs.io/en/stable/).
 
    Code will also be linted to enforce the stylistic and logistical rules specified
-   in our [`flake8` configuration](https://github.com/napari/napari/blob/main/setup.cfg), which currently ignores
+   in our [`flake8` configuration](https://github.com/napari/napari/blob/main/pyproject.toml), which currently ignores
    [E203](https://lintlyci.github.io/Flake8Rules/rules/E203.html),
    [E501](https://lintlyci.github.io/Flake8Rules/rules/E501.html),
    [W503](https://lintlyci.github.io/Flake8Rules/rules/W503.html) and

@@ -36,7 +36,7 @@ Answer:
 Question: How can we find the different signals/slots we can connect callbacks to as the user interacts with the core napari interface e.g. creating/editing/deleting a `points` or `shapes` layer?
 
 Answer:
-[https://napari.org/guides/stable/events_reference.html](https://napari.org/stable/guides/events_reference.html)
+[Events reference](events-reference)
 
 Granted, this is a work in progress.
 
@@ -61,7 +61,7 @@ Question: How do you make a process cancellable to interrupt a method that is ru
 
 Answer:
 * In single-threaded python, use `Ctrl-C`
-* In multithreaded python, there are many different patterns. Consider using a [generator-based thread worker](https://napari.org/stable/guides/threading.html#generators-for-the-win).
+* In multithreaded python, there are many different patterns. Consider using a [generator-based thread worker](generators-for-the-win).
 
 ## Are there testing environments in napari?
 Answer: Napari does not create or otherwise manage environments.
@@ -71,12 +71,12 @@ Answer:
 * The primary difference is in how plugins are discovered:
     - npe1 used decorators, requiring module import.
     - npe2 uses static manifests (`napari.yaml`), describing contributions without requiring import.
-    - See also the [Your First Plugin tutorial](https://napari.org/stable/plugins/first_plugin.html)
+    - See also the [Your First Plugin tutorial](your-first-plugin)
 
 Additional resources:
-* [Contributions Reference](https://napari.org/stable/plugins/contributions.html)
-* [Guides for each type of contribution](https://napari.org/stable/plugins/guides.html)
-* [Migration guide](https://napari.org/stable/plugins/npe2_migration_guide.html)
+* [Contributions Reference](contributions-ref)
+* [Guides for each type of contribution](plugin-contribution-guides)
+* [Migration guide](npe2-migration-guide)
 
 ## What is the optimal setup to quickly iterate in widget development?
 Answer:

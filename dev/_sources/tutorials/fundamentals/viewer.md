@@ -76,7 +76,7 @@ nbscreenshot(viewer, alt_text="photograph of an astronaut in napari viewer")
 viewer.close()
 ```
 
- {func}`imshow<napari.imshow>` and the {meth}`add_image<napari.components.ViewerModel.add_image>` methods accept any numpy-array like object as input, including n-dimensional arrays. For more information on adding images to the viewer see the [image layer guide](image-layer).
+ {func}`imshow<napari.imshow>` and the {meth}`add_image<napari.components.ViewerModel.add_image>` methods accept any numpy-array like object as input, including n-dimensional arrays. For more information on adding images to the viewer see the [image layer guide](layers-image).
 
 Now we will continue exploring the rest of the viewer.
 

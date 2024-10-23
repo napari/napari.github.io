@@ -57,7 +57,7 @@ forum](https://forum.image.sc/tag/napari).
 
 [classifier]: https://pypi.org/classifiers/
 [pypi]: https://pypi.org/
-[pypi-upload]: https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives
+[pypi-upload]: https://packaging.python.org/en/latest/tutorials/packaging-projects/#uploading-the-distribution-archives
 [hubguide]: https://github.com/chanzuckerberg/napari-hub/blob/main/docs/customizing-plugin-listing.md
 [hub-guide-custom-viz]: https://github.com/chanzuckerberg/napari-hub/wiki/Customizing-your-plugin's-listing#visibility
 [autodeploy]: https://github.com/napari/napari-plugin-template#set-up-automatic-deployments

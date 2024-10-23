@@ -37,7 +37,7 @@ If users install this third-party package, they will be presented with a
 dialog asking whether to opt-in to report errors to select napari core
 developers, which will help us prioritise and fix bugs that we might otherwise
 miss. See the project's
-[README](https://github.com/tlambert03/napari-error-reporter/#readme) for
+[README](https://github.com/tlambert03/napari-error-reporter/) for
 details.
 
 Finally, we have made some updates to how our application works. We now provide

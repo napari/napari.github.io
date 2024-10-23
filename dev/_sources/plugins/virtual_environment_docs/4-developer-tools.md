@@ -25,7 +25,7 @@ These _check_ your code.
 These _auto-modify_ your code.
 * [black](https://github.com/psf/black)
   Forces code to follow specific style, indentations, etc...
-* [autoflake](https://github.com/myint/autoflake)
+* [autoflake](https://github.com/PyCQA/autoflake)
   Auto-fixes some flake8 failures.
 * [isort](https://github.com/PyCQA/isort)
   Auto-sorts and formats your imports.

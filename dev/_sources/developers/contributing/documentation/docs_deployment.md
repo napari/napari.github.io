@@ -55,7 +55,7 @@ through several CI workflows detailed below.
       turn happens on every commit to the `main` branches of either
       `napari/napari` or `napari/docs`).
     - For every commit to the `gh-pages` branch of this repo, the
-      [`unversioned_pages.yml` action](https://github.com/napari/napari.github.io/blob/main/.github/workflows/unversioned_pages.yml)
+      [`unversioned_pages.yml` action](https://github.com/napari/napari.github.io/blob/gh-pages/.github/workflows/unversioned_pages.yml)
       is triggered and copies the latest contents of the index page and the dev
       folder over the "stable" version of the documentation. This ensures that
       both the landing page of the website and the developer documentation,

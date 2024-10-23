@@ -76,4 +76,4 @@ As noted above, we'll be beginning to actively work on the plugin infrastructure
 
 ## Acknowledgements
 
-We share a lot of our mission and values with the `scikit-image` project with whom we share founding members, and acknowledge the influence of their [mission and values statement](https://scikit-image.org/docs/dev/values.html) on this document.
+We share a lot of our mission and values with the `scikit-image` project with whom we share founding members, and acknowledge the influence of their [mission and values statement](https://scikit-image.org/docs/stable/about/values.html) on this document.

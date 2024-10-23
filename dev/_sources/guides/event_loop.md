@@ -19,9 +19,9 @@ connect events to "callback" functions, which essentially specifies; "If this ev
 happens, then call this function". Next you start the event loop and hope you
 connected everything correctly!  Indeed, much of the napari source code is
 dedicated to creating and handling events: search the codebase for
-[`.emit(`](https://github.com/napari/napari/search?q=%22.emit%28%22&type=code)
+[`.emit(`](https://github.com/search?q=repo%3Anapari%2Fnapari+%22.emit%28%22&type=code)
 and
-[`.connect(`](https://github.com/napari/napari/search?q=%22.connect%28%22&type=code)
+[`.connect(`](https://github.com/search?q=repo%3Anapari%2Fnapari+%22.connect%28%22&type=code)
 to find examples of creating and handling internal events, respectively.
 
 It is not necessary to have a deep understanding of event loops to use

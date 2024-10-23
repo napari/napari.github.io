@@ -10,7 +10,7 @@ kernelspec:
   language: python
   name: python3
 ---
-
+(layers-points)=
 # Using the `points` layer
 
 ```{Admonition} DEPRECATED ATTRIBUTES

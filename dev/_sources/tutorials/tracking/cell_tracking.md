@@ -8,7 +8,7 @@ This application note covers two examples:
 
 ## 1. Cell tracking challenge data
 
-The first example of track visualization uses data from the [cell tracking challenge](http://celltrackingchallenge.net/3d-datasets/). We will use the *C. elegans* developing embryo [dataset](https://data.celltrackingchallenge.net/training-datasets/Fluo-N3DH-CE.zip) which consists of 3D+t volumetric imaging data, manually annotated tracks and cell lineage information.
+The first example of track visualization uses data from the [cell tracking challenge](https://celltrackingchallenge.net/3d-datasets/). We will use the *C. elegans* developing embryo [dataset](https://data.celltrackingchallenge.net/training-datasets/Fluo-N3DH-CE.zip) which consists of 3D+t volumetric imaging data, manually annotated tracks and cell lineage information.
 
 A full description of the data format can be found [here](https://public.celltrackingchallenge.net/documents/Naming%20and%20file%20content%20conventions.pdf).
 
@@ -193,13 +193,13 @@ napari.run()
 
 ## 2. Using `btrack` to track cells
 
-The `btrack` library can be used for cell tracking. It provides a convenient `to_napari()` function to enable rapid visualization of the tracking results. You can learn more about the `btrack` library [here](https://github.com/quantumjot/BayesianTracker).
+The `btrack` library can be used for cell tracking. It provides a convenient `to_napari()` function to enable rapid visualization of the tracking results. You can learn more about the `btrack` library [here](https://github.com/quantumjot/btrack).
 
 ```python
 import btrack
 ```
 
-We start by loading a file containing the centroids of all the found cells in each frame of the source movie. Note that this file only contains the locations of cells in the movie, there are no tracks yet. We can use the `btrack` library to load this file as a list of `objects` that contain information about each found cell, including the TZYX position.  The example dataset can be downloaded [here](https://github.com/quantumjot/BayesianTracker/blob/0f8bbd937535193bde20e3ebe91a323f6bb915e9/examples/napari_example.csv).
+We start by loading a file containing the centroids of all the found cells in each frame of the source movie. Note that this file only contains the locations of cells in the movie, there are no tracks yet. We can use the `btrack` library to load this file as a list of `objects` that contain information about each found cell, including the TZYX position.  The example dataset can be downloaded [here](https://github.com/quantumjot/btrack/blob/0f8bbd937535193bde20e3ebe91a323f6bb915e9/examples/napari_example.csv).
 
 ```python
 objects = btrack.dataio.import_CSV('napari_example.csv')
@@ -226,7 +226,7 @@ with btrack.BayesianTracker() as tracker:
     data, features, graph = tracker.to_napari(ndim=2)
 ```
 
-We set the configuration of the tracker using a configuration file using the `.configure_from_file()` method. An example configuration file can be found [here](https://github.com/quantumjot/BayesianTracker/blob/main/models/cell_config.json).
+We set the configuration of the tracker using a configuration file using the `.configure_from_file()` method. An example configuration file can be found [here](https://github.com/quantumjot/btrack/blob/main/models/cell_config.json).
 
 Next, the objects are linked into tracks using the `.track_interactive()` method. The `step_size` argument specifies how many steps are taken before reporting the tracking statistics. The `.optimize()` method then performs a global optimization on the dataset and creates lineage trees automatically.
 
@@ -240,7 +240,7 @@ napari.run()
 
 ![napari viewer with three layers: an image layer with cells, a points layer with detected cells and a tracks layer with the btrack results. The dimension slider under the canvas is close to the end of the stack, showing the tracks corresponding to each point colored by generation.](../../_static/images/tracks_btrack.png)
 
-A notebook for this example can be found in the btrack examples directory ([`napari_btrack.ipynb`](https://github.com/quantumjot/BayesianTracker/blob/caa56fa82330e4b16b5d28150f9b60ed963165c7/examples/napari_btrack.ipynb))
+A notebook for this example can be found in the btrack examples directory ([`napari_btrack.ipynb`](https://github.com/quantumjot/btrack/blob/caa56fa82330e4b16b5d28150f9b60ed963165c7/examples/napari_btrack.ipynb))
 
 ## Summary
 In this application note, we have used napari to track and visualize single cells.
@@ -253,5 +253,5 @@ References for cell tracking challenge:
 + http://dx.doi.org/10.1038/nmeth.4473
 
 For a more advanced example of visualizing cell tracking data with napari, please see the Arboretum plugin for napari:
-+ [btrack](https://github.com/quantumjot/BayesianTracker)
++ [btrack](https://github.com/quantumjot/btrack)
 + [arboretum](https://github.com/lowe-lab-ucl/arboretum)

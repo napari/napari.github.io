@@ -302,7 +302,7 @@ Review the [Best Practices](best-practices) when developing plugins and,
 when you're ready to share your plugin, see [Testing and Publishing](plugin-test-deploy).
 
 [miniconda]: https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html
-[python_env]: https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html#managing-python
+[python_env]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-python.html
 [editable_mode]: https://pip.pypa.io/en/stable/cli/pip_install/#editable-installs
 [napari_plugin_template]: https://github.com/napari/napari-plugin-template
 [entry_points]: https://packaging.python.org/en/latest/specifications/entry-points/

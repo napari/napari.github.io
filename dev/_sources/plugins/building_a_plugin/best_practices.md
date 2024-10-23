@@ -92,7 +92,7 @@ will run into difficulties installing your plugin:
   There's no one right way, but more often than not, if a package uses C
   extensions, the `setup()` function in their `setup.py` file will use the
   [`ext_modules`
-  argument](https://docs.python.org/3/distutils/setupscript.html#describing-extension-modules).
+  argument](https://docs.python.org/3.11/distutils/setupscript.html#describing-extension-modules).
   (for example, [see here in
   pytorch](https://github.com/pytorch/pytorch/blob/master/setup.py#L914))
 

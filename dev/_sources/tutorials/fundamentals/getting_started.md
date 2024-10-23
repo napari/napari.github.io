@@ -154,7 +154,7 @@ You can also launch `napari` from a Jupyter notebook. The
 [examples gallery](../../gallery), as mentioned above, can also be downloaded as
 `.ipynb` which can be run from a Jupyter notebook.
 
-Below, we launch the [notebook example](https://github.com/napari/napari/tree/main/examples/notebook.ipynb) from a Jupyter notebook.
+Below, we launch the [notebook example](https://github.com/napari/napari/blob/main/examples/notebook.ipynb) from a Jupyter notebook.
 
 ![image: napari launched from a Jupyter notebook](../../_static/images/launch_jupyter.png)
 

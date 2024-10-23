@@ -907,7 +907,7 @@ document.write(`
 </div>
 <section id="segmentation">
 <h2>Segmentation<a class="headerlink" href="#segmentation" title="Link to this heading">#</a></h2>
-<p>We start by defining a function to perform segmentation of an image based on intensity. Based on the <a class="reference external" href="https://scikit-image.org/docs/stable/auto_examples/applications/plot_thresholding.html">skimage segmentation example</a>, we determine the threshold intensity that separates the foreground and background pixels using <a class="reference external" href="https://en.wikipedia.org/wiki/Otsu%27s_method">Otsu’s method</a>. We then perform some cleanup and generate a label image where each discrete region is given a unique integer index.</p>
+<p>We start by defining a function to perform segmentation of an image based on intensity. Based on the <a class="reference external" href="https://scikit-image.org/docs/stable/auto_examples/applications/plot_thresholding_guide.html">skimage segmentation example</a>, we determine the threshold intensity that separates the foreground and background pixels using <a class="reference external" href="https://en.wikipedia.org/wiki/Otsu%27s_method">Otsu’s method</a>. We then perform some cleanup and generate a label image where each discrete region is given a unique integer index.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">segment</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Segment an image using an intensity threshold</span>
 <span class="sd">    determined via Otsu&#39;s method.</span>
@@ -954,7 +954,7 @@ document.write(`
 </section>
 <section id="analyzing-the-segmentation">
 <h2>Analyzing the segmentation<a class="headerlink" href="#analyzing-the-segmentation" title="Link to this heading">#</a></h2>
-<p>Next, we use <a class="reference external" href="https://scikit-image.org/docs/dev/api/skimage.measure.html#regionprops-table"><code class="docutils literal notranslate"><span class="pre">regionprops_table</span></code></a> from skimage to quantify some parameters of each detection object (e.g., area and perimeter).</p>
+<p>Next, we use <a class="reference external" href="https://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.regionprops_table"><code class="docutils literal notranslate"><span class="pre">regionprops_table</span></code></a> from skimage to quantify some parameters of each detection object (e.g., area and perimeter).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the features dictionary</span>
 <span class="n">features</span> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span>
     <span class="n">label_image</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;bbox&#39;</span><span class="p">,</span> <span class="s1">&#39;perimeter&#39;</span><span class="p">,</span> <span class="s1">&#39;area&#39;</span><span class="p">)</span>

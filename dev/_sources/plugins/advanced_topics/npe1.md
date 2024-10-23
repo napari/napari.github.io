@@ -176,7 +176,7 @@ specification in the same module or class, without needing a separate entry poin
 
 Packages and modules installed in the same environment as `napari` may make
 themselves "discoverable" to napari using package metadata, as outlined in the
-[Python Packaging Authority guide](https://packaging.python.org/guides/creating-and-discovering-plugins/#using-package-metadata).
+[Python Packaging Authority guide](https://packaging.python.org/en/latest/guides/creating-and-discovering-plugins/#using-package-metadata).
 
 By providing an `entry_points` argument with the key `napari.plugin` to
 `setup()` in `setup.py`, plugins can register themselves for discovery.

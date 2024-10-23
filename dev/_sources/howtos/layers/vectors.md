@@ -11,6 +11,7 @@ kernelspec:
   name: python3
 ---
 
+(layers-vectors)=
 # Using the `vectors` layer
 
 In this document, you will learn about the `napari` `vectors` layer, including

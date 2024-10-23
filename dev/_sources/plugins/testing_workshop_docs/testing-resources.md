@@ -14,6 +14,6 @@ Important: Instances of this class should be accessed only by using a qtbot fixt
 
 * [codecov](https://about.codecov.io/) - As long as your code has tests and your coverage tool can output coverage results you can use Codecov.
 
-* [GitHub workflow docs](https://docs.github.com/en/actions/quickstart) - You need only a GitHub repository to create and run a GitHub Actions workflow.
+* [GitHub workflow docs](https://docs.github.com/en/actions/writing-workflows/quickstart) - You need only a GitHub repository to create and run a GitHub Actions workflow.
 
-* [Slides from workshop presentation](https://docs.google.com/presentation/d/1RFja0o6cZ8lAalAve8heuJ-Lrb4nOSUnfdpOSEhqqNo/) - These are the actual slides that were used during the testing workshop.
+* [Slides from workshop presentation](https://docs.google.com/presentation/d/1RFja0o6cZ8lAalAve8heuJ-Lrb4nOSUnfdpOSEhqqNo) - These are the actual slides that were used during the testing workshop.

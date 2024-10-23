@@ -607,13 +607,13 @@ CC0+BY [^cc0by].
 
 [^napari-releases-json]: <https://api.github.com/repos/napari/napari/releases>
 
-[^mne-constructor]: <https://twitter.com/mne_news/status/1506212014993162247>
+[^mne-constructor]: <https://x.com/mne_news/status/1506212014993162247>
 
 [^appimage-crash]: <https://github.com/napari/napari/issues/3487>
 
 [^appimage-crash2]: <https://github.com/napari/napari/issues/3816>
 
-[^napari-packaging-docs]: <https://napari.org/stable/developers/packaging.html>
+[^napari-packaging-docs]: <napari-packaging>
 
 [^napari-hub-api]: https://api.napari-hub.org/plugins
 
@@ -625,7 +625,7 @@ CC0+BY [^cc0by].
 
 [^briefcase-python]: https://github.com/beeware?q=Python+support&type=all&language=&sort=
 
-[^pypi-parallelism-abi]: https://twitter.com/ralfgommers/status/1517410559972589569
+[^pypi-parallelism-abi]: https://x.com/ralfgommers/status/1517410559972589569
 
 [^release-guide]: https://napari.org/stable/developers/release.html
 

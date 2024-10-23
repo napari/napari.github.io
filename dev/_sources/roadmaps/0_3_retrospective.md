@@ -77,11 +77,11 @@ Once the above goals are met, we will develop napari's capabilities for image pr
 
 ## Provide accessible documentation, tutorials, and demos
 
-- Improve our website [napari.org](https://napari.org) to provide easy access to all napari related materials, including the [**four types of documentation**](https://www.divio.com/blog/documentation/): learning-oriented tutorials, goal-oriented how-to-guides or galleries, understanding-oriented explanations (including developer resources), and a comprehensive API reference. See [#764](https://github.com/napari/napari/issues/764) and the [`documentation` label](https://github.com/napari/napari/labels/documentation) on the napari repository for more details.
+- Improve our website [napari.org](https://napari.org) to provide easy access to all napari related materials, including the [**four types of documentation**](https://docs.divio.com/documentation-system/): learning-oriented tutorials, goal-oriented how-to-guides or galleries, understanding-oriented explanations (including developer resources), and a comprehensive API reference. See [#764](https://github.com/napari/napari/issues/764) and the [`documentation` label](https://github.com/napari/napari/labels/documentation) on the napari repository for more details.
 
     > We have begun the design work for this but have not begun the implementation yet. This work will be moved to our 0.4 series of releases.
 
-- Add a **napari human interface guide** for plugin developers, akin to [Apple's Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/guidelines/overview/). We want such a guide to promote best practices and ensure that plugins provide a consistent user experience.
+- Add a **napari human interface guide** for plugin developers, akin to [Apple's Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines). We want such a guide to promote best practices and ensure that plugins provide a consistent user experience.
 
     > We have not done this work yet, and this work will be moved to our 0.4 series of releases.
 

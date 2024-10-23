@@ -171,8 +171,8 @@ the current release {{ napari_version }}, using the command: `napari --version` 
 
 napari needs a library called [Qt](https://www.qt.io/) to run its user interface
 (UI). In Python, there are two alternative libraries to run this, called
-[PyQt5](https://www.riverbankcomputing.com/software/pyqt/download5) and
-[PySide2](https://doc.qt.io/qtforpython/). By default, we don't choose for you,
+[PyQt5](https://www.riverbankcomputing.com/software/pyqt/download) and
+[PySide2](https://doc.qt.io/qtforpython-6/). By default, we don't choose for you,
 and simply running `python -m pip install napari` will not install either. You *might*
 already have one of them installed in your environment, thanks to other
 scientific packages such as Spyder or matplotlib. If neither is available,
@@ -253,6 +253,6 @@ guidelines](napari-contributing)
 - if you are running into issues or bugs, please open a [new issue](https://github.com/napari/napari/issues/new/choose) on our [issue
 tracker](https://github.com/napari/napari/issues)
 - if you want help using napari, we are a community partner on the [imagesc
-forum](https://forum.image.sc/tags/napari) and all usage support requests should
+forum](https://forum.image.sc/tag/napari) and all usage support requests should
 be posted on the forum with the tag `napari`. We look forward to interacting
 with you there!

@@ -11,6 +11,7 @@ kernelspec:
   name: python3
 ---
 
+(layers-shapes)=
 # Using the `shapes` layer
 
 In this document, you will learn about the `napari` `shapes` layer, including

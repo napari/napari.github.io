@@ -152,6 +152,7 @@ def error_prone_function():
     ...
 ```
 
+(generators-for-the-win)=
 ## Generators for the win!
 
 ````{admonition} quick reminder

@@ -39,6 +39,7 @@ jobs:
           sed -i 's+_static+../dev/_static+g' stable/index.html
           STABLE=$(basename $(readlink -f ./stable))
           find stable/ -type f -exec sed -i "s+DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';+DOCUMENTATION_OPTIONS.theme_switcher_version_match = '${STABLE}';+g" {} +
+          # closes napari/docs#545 ensures that docs copied from dev don't show the unstable version warning
           find stable/ -type f -exec perl -0777 -i -pe "s/DOCUMENTATION_OPTIONS.show_version_warning_banner =\s*true;/DOCUMENTATION_OPTIONS.show_version_warning_banner = false;/sg" {} +
 
       - name: Commit files

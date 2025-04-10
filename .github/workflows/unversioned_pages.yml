@@ -23,6 +23,8 @@ jobs:
       - name: Copy pages
         run: |
           ls -la
+          rm -rf ./stable/community
+          cp -Rv ./dev/community/ ./stable/
           rm -rf ./stable/developers
           cp -Rv ./dev/developers/ ./stable/
           rm -rf ./stable/naps
@@ -32,6 +34,7 @@ jobs:
           rm -rf ./stable/roadmaps
           cp -Rv ./dev/roadmaps/ ./stable/
           cp -v ./dev/index.html ./stable/
+          find stable/community/ -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
           find stable/developers/ -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
           find stable/naps/ -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
           find stable/release/ -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +

@@ -1,4 +1,6 @@
 name: Copy unversioned pages
+# Unversioned pages are pages with general content that shouldn't change from
+# version to version. Examples:
 
 on:
   push:
@@ -23,6 +25,9 @@ jobs:
       - name: Copy pages
         run: |
           ls -la
+          echo "Unversioned folders: community, developers, naps, release, roadmaps"
+          echo "Remove existing `stable` unversioned folders and"
+          echo "copy `dev` unversioned folders to `stable`"
           rm -rf ./stable/community
           cp -Rv ./dev/community/ ./stable/
           rm -rf ./stable/developers
@@ -33,15 +38,22 @@ jobs:
           cp -Rv ./dev/release/ ./stable/
           rm -rf ./stable/roadmaps
           cp -Rv ./dev/roadmaps/ ./stable/
+          echo "Copy dev/index.html to stable folder"
           cp -v ./dev/index.html ./stable/
+          echo "In stable unversioned folder, find all regular files."
+          echo "If /_static is in file, substitute /../dev/_static by editing in place." 
           find stable/community/ -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
           find stable/developers/ -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
           find stable/naps/ -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
           find stable/release/ -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
           find stable/roadmaps/ -type f -exec sed -i 's+/_static+/../dev/_static+g' {} +
+          echo "Find _static and replace with ../dev/_static in the stable/index.html file."
           sed -i 's+_static+../dev/_static+g' stable/index.html
+          echo "Set STABLE environmment variable to the version found in the symlinked stable directory"
           STABLE=$(basename $(readlink -f ./stable))
+          echo "Updates the theme switcher version from 'dev' to stable numeric version '0.6.3' in all files of the stable directory."
           find stable/ -type f -exec sed -i "s+DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';+DOCUMENTATION_OPTIONS.theme_switcher_version_match = '${STABLE}';+g" {} +
+          echo "For all files in 'stable' directory, set show_version_warning_banner to false"
           # closes napari/docs#545 ensures that docs copied from dev don't show the unstable version warning
           find stable/ -type f -exec perl -0777 -i -pe "s/DOCUMENTATION_OPTIONS.show_version_warning_banner =\s*true;/DOCUMENTATION_OPTIONS.show_version_warning_banner = false;/sg" {} +
 

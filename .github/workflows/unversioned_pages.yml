@@ -51,7 +51,7 @@ jobs:
           sed -i 's+_static+../dev/_static+g' stable/index.html
           echo "Set STABLE environmment variable to the version found in the symlinked stable directory"
           STABLE=$(basename $(readlink -f ./stable))
-          echo "Updates the theme switcher version from 'dev' to stable numeric version '0.6.3' in all files of the stable directory."
+          echo "Updates the theme switcher version from 'dev' to stable numeric version (e.g. '0.6.3') in all files of the stable directory."
           find stable/ -type f -exec sed -i "s+DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';+DOCUMENTATION_OPTIONS.theme_switcher_version_match = '${STABLE}';+g" {} +
           echo "For all files in 'stable' directory, set show_version_warning_banner to false"
           # closes napari/docs#545 ensures that docs copied from dev don't show the unstable version warning

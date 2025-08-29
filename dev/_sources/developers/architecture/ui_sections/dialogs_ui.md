@@ -243,55 +243,55 @@ graph LR
 napari/
 ├─_vendor/
 │ └─qt_json_builder/
-│   ├─qt_jsonschema_form/
-│   │ ├─defaults.py
-│   │ ├─form.py
-│   │ ├─signal.py
-│   │ ├─utils.py
-│   │ ├─widgets.py
-│   │ └─__init__.py
-│   └─__init__.py
+│   ├─__init__.py
+│   └─qt_jsonschema_form/
+│     ├─signal.py
+│     ├─utils.py
+│     ├─form.py
+│     ├─widgets.py
+│     ├─__init__.py
+│     └─defaults.py
 └─_qt/
-  ├─widgets/
-  │ ├─qt_plugin_sorter.py
-  │ ├─qt_dims.py
-  │ ├─qt_extension2reader.py
-  │ ├─qt_font_size.py
-  │ ├─qt_command_palette.py
-  │ ├─qt_color_swatch.py
-  │ ├─qt_spinbox.py
-  │ ├─qt_scrollbar.py
-  │ ├─qt_tooltip.py
-  │ ├─qt_progress_bar.py
-  │ ├─qt_highlight_preview.py
-  │ ├─qt_logger.py
-  │ ├─qt_viewer_status_bar.py
-  │ ├─qt_dims_slider.py
-  │ └─qt_dims_sorter.py
   ├─qt_main_window.py
-  ├─dialogs/
-  │ ├─shimmed_plugin_dialog.py
-  │ ├─qt_notification.py
-  │ ├─qt_activity_dialog.py
-  │ ├─screenshot_dialog.py
-  │ ├─qt_reader_dialog.py
-  │ ├─confirm_close_dialog.py
-  │ ├─qt_modal.py
-  │ ├─preferences_dialog.py
-  │ ├─qt_about.py
-  │ └─qt_plugin_report.py
   ├─utils.py
   ├─_qplugins/
   │ └─_qnpe2.py
+  ├─dialogs/
+  │ ├─qt_plugin_report.py
+  │ ├─qt_modal.py
+  │ ├─screenshot_dialog.py
+  │ ├─shimmed_plugin_dialog.py
+  │ ├─qt_reader_dialog.py
+  │ ├─preferences_dialog.py
+  │ ├─qt_activity_dialog.py
+  │ ├─qt_about.py
+  │ ├─confirm_close_dialog.py
+  │ └─qt_notification.py
   ├─qt_viewer.py
+  ├─widgets/
+  │ ├─qt_logger.py
+  │ ├─qt_progress_bar.py
+  │ ├─qt_color_swatch.py
+  │ ├─qt_dims.py
+  │ ├─qt_plugin_sorter.py
+  │ ├─qt_dims_slider.py
+  │ ├─qt_extension2reader.py
+  │ ├─qt_highlight_preview.py
+  │ ├─qt_viewer_status_bar.py
+  │ ├─qt_command_palette.py
+  │ ├─qt_spinbox.py
+  │ ├─qt_scrollbar.py
+  │ ├─qt_font_size.py
+  │ ├─qt_tooltip.py
+  │ └─qt_dims_sorter.py
   └─_qapp_model/
-    ├─qactions/
-    │ ├─_plugins.py
-    │ ├─_debug.py
-    │ ├─_help.py
-    │ ├─_file.py
-    │ └─__init__.py
     ├─_menus.py
+    ├─qactions/
+    │ ├─_help.py
+    │ ├─__init__.py
+    │ ├─_file.py
+    │ ├─_debug.py
+    │ └─_plugins.py
     └─injection/
       ├─_qprocessors.py
       └─_qproviders.py

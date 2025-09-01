@@ -110,7 +110,7 @@ see :ref:`sphx_glr_gallery_image_border.py`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 15.127 seconds)
+   **Total running time of the script:** (0 minutes 13.554 seconds)
 
 
 .. _sphx_glr_download_gallery_layer_bounding_box.py:

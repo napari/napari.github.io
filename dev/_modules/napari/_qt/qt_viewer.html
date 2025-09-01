@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=2537194e"></script>
+    <script src="../../../_static/documentation_options.js?v=710365fe"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1004,6 +1004,9 @@ window.addEventListener("load", load);
             <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
                 <span class="n">console</span> <span class="o">=</span> <span class="n">QtConsole</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span> <span class="n">style_sheet</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">styleSheet</span><span class="p">())</span>
+                <span class="c1"># Override actions shortcuts that collide with default napari shortcuts</span>
+                <span class="c1"># See napari/napari#8183</span>
+                <span class="n">console</span><span class="o">.</span><span class="n">print_action</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
                 <span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
                     <span class="p">{</span><span class="s1">&#39;napari&#39;</span><span class="p">:</span> <span class="n">napari</span><span class="p">,</span> <span class="s1">&#39;action_manager&#39;</span><span class="p">:</span> <span class="n">action_manager</span><span class="p">}</span>
                 <span class="p">)</span>

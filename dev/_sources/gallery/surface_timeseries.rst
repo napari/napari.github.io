@@ -45,21 +45,23 @@ Display a surface timeseries using data from nilearn
     /home/runner/nilearn_data/nki_enhanced_surface
     [fetch_surf_nki_enhanced] Downloading data from 
     https://www.nitrc.org/frs/download.php/8470/pheno_nki_nilearn.csv ...
-    [fetch_surf_nki_enhanced]  ...done. (0 seconds, 0 min)
+    [fetch_surf_nki_enhanced]  ...done. (1 seconds, 0 min)
 
     [fetch_surf_nki_enhanced] Downloading data from 
     https://www.nitrc.org/frs/download.php/8261/A00028185_rh_preprocessed_fsaverage5
     _fwhm6.gii ...
-    [fetch_surf_nki_enhanced] Downloaded 22831104 of 42412120 bytes (53.8%%,    0.9s
+    [fetch_surf_nki_enhanced] Downloaded 16097280 of 42412120 bytes (38.0%%,    1.6s
     remaining)
-    [fetch_surf_nki_enhanced]  ...done. (2 seconds, 0 min)
+    [fetch_surf_nki_enhanced] Downloaded 33792000 of 42412120 bytes (79.7%%,    0.5s
+    remaining)
+    [fetch_surf_nki_enhanced]  ...done. (3 seconds, 0 min)
 
     [fetch_surf_nki_enhanced] Downloading data from 
     https://www.nitrc.org/frs/download.php/8260/A00028185_lh_preprocessed_fsaverage5
     _fwhm6.gii ...
-    [fetch_surf_nki_enhanced] Downloaded 10240000 of 42402060 bytes (24.1%%,    3.2s
+    [fetch_surf_nki_enhanced] Downloaded 16367616 of 42402060 bytes (38.6%%,    1.6s
     remaining)
-    [fetch_surf_nki_enhanced] Downloaded 37994496 of 42402060 bytes (89.6%%,    0.2s
+    [fetch_surf_nki_enhanced] Downloaded 34324480 of 42402060 bytes (81.0%%,    0.5s
     remaining)
     [fetch_surf_nki_enhanced]  ...done. (3 seconds, 0 min)
 

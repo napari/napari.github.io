@@ -47,7 +47,7 @@ see :ref:`sphx_glr_gallery_image_border.py`.
 
  .. code-block:: none
 
-    Downloading file 'data/cells3d.tif' from 'https://gitlab.com/scikit-image/data/-/raw/2cdc5ce89b334d28f06a58c9f0ca21aa6992a5ba/cells3d.tif' to '/home/runner/.cache/scikit-image/0.25.2'.
+    Downloading file 'data/cells3d.tif' from 'https://gitlab.com/scikit-image/data/-/raw/2cdc5ce89b334d28f06a58c9f0ca21aa6992a5ba/cells3d.tif' to '/home/runner/work/docs/docs/.cache/scikit-image/0.25.2'.
 
 
 
@@ -110,7 +110,7 @@ see :ref:`sphx_glr_gallery_image_border.py`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 14.229 seconds)
+   **Total running time of the script:** (0 minutes 12.732 seconds)
 
 
 .. _sphx_glr_download_gallery_layer_bounding_box.py:

@@ -9,16 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <link type="image/svg+xml" href="../_static/favicon/logo-silhouette-dark-light.svg" rel="icon">
     <link sizes="any" href="../_static/favicon/logo-silhouette-192.png" rel="icon" type="image/png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/logo-noborder-180.png" type="image/png"><meta property="og:title" content="Release notes" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/logo-noborder-180.png" type="image/png"><meta property="og:title" content="Release Notes" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/release/index.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Release notes for napari versions." />
+<meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: September 16, 2025 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.6.4 (August 2025) Run scripts with napari from the command line As a ..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="Release notes for napari versions." />
+<meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: September 16, 2025 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.6.4 (August 2025) Run scripts with napari from the command line As a ..." />
 
-    <title>Release notes &#8212; napari</title>
+    <title>Release Notes &#8212; napari</title>
   
   
   
@@ -252,6 +252,10 @@
   
   
 
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
   
 </div>
 
@@ -624,7 +628,7 @@
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Release notes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Release Notes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="release_0_6_4.html">napari 0.6.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_6_3.html">napari 0.6.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_6_2.html">napari 0.6.2</a></li>
@@ -698,9 +702,7 @@
           <a class="reference internal" href="../troubleshooting.html">Troubleshooting</a>
       </li>
       <li class="toctree-l1">
-          
           <a class="reference internal" href="#">Release notes</a>
-          
       </li>
       <li class="toctree-l1">
           <a class="reference internal" href="../roadmaps/active_roadmap.html">Roadmap</a>
@@ -751,7 +753,7 @@
     
     <li class="breadcrumb-item"><a href="../usage.html" class="nav-link">Usage</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Release notes</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Release Notes</span></li>
   </ul>
 </nav>
 </div>
@@ -769,8 +771,429 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="release-notes">
-<h1>Release notes<a class="headerlink" href="#release-notes" title="Link to this heading">#</a></h1>
-<p>Release notes for napari versions.</p>
+<span id="id1"></span><h1>Release Notes<a class="headerlink" href="#release-notes" title="Link to this heading">#</a></h1>
+<p>Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.</p>
+<p><em>Last updated: September 16, 2025</em></p>
+<section id="recent-releases-last-3-months">
+<h2>Recent Releases (Last 3 Months)<a class="headerlink" href="#recent-releases-last-3-months" title="Link to this heading">#</a></h2>
+<p>Latest features and improvements:</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">napari 0.6.4 (August 2025)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="rubric" id="run-scripts-with-napari-from-the-command-line">Run scripts with napari from the command line</p>
+<p class="sd-card-text">As a follow-up to the ability to drag-n-drop scripts into the napari window from 0.6.3, you can now run scripts directly from the command line using the <code class="docutils literal notranslate"><span class="pre">napari</span></code> command and the path to the script (<a class="reference external" href="https://github.com/napari/napari/pull/8185">#8185</a> and <a class="reference external" href="https://github.com/napari/napari/pull/8187">#8187</a>).
+To open a local napari and run a local script, enter: <code class="docutils literal notranslate"><span class="pre">napari</span> <span class="pre">examples/magic_immage_arithmetic.py</span></code>.
+You can also run scripts from a remote location (<a class="reference external" href="https://github.com/napari/napari/pull/8208">#8208</a>), including Github, Gist, Gitlab, and the napari gallery.
+To run a remote script, for example, enter: <code class="docutils literal notranslate"><span class="pre">napari</span> <span class="pre">https://github.com/napari/napari/blob/main/examples/grid_mode.py</span></code>.
+If you have <code class="docutils literal notranslate"><span class="pre">uv</span></code> you can even run a script without installing napari by using <code class="docutils literal notranslate"><span class="pre">uvx</span> <span class="pre">--with</span> <span class="pre">&quot;napari[gallery,all]&quot;</span> <span class="pre">napari</span> <span class="pre">https://napari.org/stable/_downloads/55f878f7d41dc4c7c2e28483653273cb/affine_coffee_cup.py</span></code>, serving as a clever way to trial napari or share your script. As always with remote connections, only use this feature with scripts you trust.</p>
+<p class="rubric" id="toggling-the-napari-console-now-places-focus-on-the-console">Toggling the napari console now places focus on the console</p>
+<p class="sd-card-text">Toggling the napari console (with the keyboard (<code class="docutils literal notranslate"><span class="pre">Cmd/Ctrl+Shift+C</span></code>), GUI, or command palette) will now transfer focus on the console, allowing you to immediately start typing commands without needing to click into the console first (<a class="reference external" href="https://github.com/napari/napari/pull/8182">#8182</a>). We have found this to be a very useful feature for a keyboard-centric workflow combining the power of the command palette and console together.</p>
+<p class="sd-card-text"><a class="reference internal" href="release_0_6_4.html"><span class="doc std std-doc">View full release notes →</span></a></p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">napari 0.6.3 (July 2025)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="rubric" id="a-zoom-with-a-view">A Zoom with a View 🔍</p>
+<p class="sd-card-text">Pardon the play on words, but you can now zoom directly to a region of interest in the viewer by holding <code class="docutils literal notranslate"><span class="pre">Alt</span></code> and dragging with the mouse <a class="reference external" href="https://github.com/napari/napari/pull/8004">(#8004)</a>. The camera will pan and zoom to fit the selected region, making it much easier to focus on specific areas of your data. This feature works in both 2D and 3D views.</p>
+<p class="sd-card-text"><img alt="GIF Displaying Alt-Drag Zoom Box Behavior" src="https://github.com/user-attachments/assets/f32ea020-28e2-4059-90b9-491bdd4a962b" /></p>
+<p class="rubric" id="fine-tuning-thick-slicing-from-the-gui">Fine Tuning Thick Slicing from the GUI 📏</p>
+<p class="sd-card-text">Thick slicing controls are now available in the GUI <a class="reference external" href="https://github.com/napari/napari/pull/6146">(#6146)</a>! This allows you to project multiple slices together using different modes (sum, mean, max, and min) for better visualization of your multidimensional data. You can access the thickness controls by right-clicking on the dimension sliders to open a popup to change the margins either symmetrically or asymmetrical and projection mode settings are now available per layer in the layer controls widget.</p>
+<p class="sd-card-text"><img alt="GIF Displaying Thick Slicing GUI Controls" src="https://github.com/user-attachments/assets/f61636d6-8540-4c33-9abc-1e065c5f9d38" /></p>
+<p class="rubric" id="run-scripts-by-dragging-and-dropping-into-the-viewer">Run Scripts by Dragging and Dropping into the Viewer 🖱️</p>
+<p class="sd-card-text">Scripts can now be run by dragging and dropping them into the viewer <a class="reference external" href="https://github.com/napari/napari/pull/8135">(#8135)</a>! This is particularly useful for running <a class="reference external" href="https://napari.org/stable/gallery.html#gallery">napari examples</a> without having to use the command line; you can even run these scripts from the bundled install! This works by adding a <code class="docutils literal notranslate"><span class="pre">.py</span></code> reader to napari’s builtins.</p>
+<p class="sd-card-text"><img alt="Image Depicting a User dragging a script into the viewer" src="https://github.com/user-attachments/assets/af4edaa3-fd77-4697-85ea-4f2eb662f5ec" /></p>
+<p class="rubric" id="windows-access-denied-fixed">Windows: Access ~~Denied~~ Fixed 🪟</p>
+<p class="sd-card-text">A critical Windows-specific bug that caused Access Violation errors has been resolved <a class="reference external" href="https://github.com/napari/napari/pull/8122">(#8122)</a>! This longstanding issue would cause napari to stop displaying layers due to various events and often occurred at seemingly non-reproducible times, and required a full restart of napari. The fix ensures proper cleanup and syncing of GPU resources, also reducing memory usage on all platforms. If you were an effected user, you may recall it as <code class="docutils literal notranslate"><span class="pre">Access</span> <span class="pre">Violation</span></code>, <code class="docutils literal notranslate"><span class="pre">0x000000000000001C</span></code> if triggered without a plugin, or <code class="docutils literal notranslate"><span class="pre">0x000000000000034C</span></code> if triggered with a plugin.</p>
+<p class="rubric" id="improved-pyside6-support">Improved PySide6 Support 🛠️</p>
+<p class="sd-card-text">Napari now has improved support for PySide6 <a class="reference external" href="https://github.com/napari/napari/pull/7887">(#7887)</a>. We encourage plugin developers to test against PySide6, as a fully supported backend going forward. Additionally, this change will enable us to drop PySide2 along side Python 3.10, in the near future. If you are a plugin developer or otherwise depend on napari and PySide2, please reach out on Zulip or Github.</p>
+<p class="sd-card-text"><a class="reference internal" href="release_0_6_3.html"><span class="doc std std-doc">View full release notes →</span></a></p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">napari 0.6.2 (July 2025)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="rubric" id="the-amazing-new-grid-mode">The amazing new Grid mode! 🗺️</p>
+<p class="sd-card-text">The visualization of Grid mode has been redone from the ground up! This new Grid mode <a class="reference external" href="https://github.com/napari/napari/pull/7870">(#7870)</a> now puts each layer into its own view (a VisPy Viewbox) with cameras linked together. Now, you can pan and zoom one view, and all other views in the grid will follow along. Layers are no longer awkwardly transformed into the same world space and displayed in a grid, only to make comparing the details of each a challenge.</p>
+<p class="sd-card-text">Grid based exploration is now fluid, fast, and intuitive, especially when working with large images and 3D+ data! The mouse can even be used over one View, while updating the data, such as a label or shape annotation, in the selected layer of a different view. The usual napari overlays can now also be added to each grid, instead of just the canvas (eg. <code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.gridded</span> <span class="pre">=</span> <span class="pre">True</span></code>).</p>
+<p class="sd-card-text">Grid mode spacing now works proportionally to the layer extents (i.e. [0,1), as in 0.6.0) or as a pixel value [1,1500) and will automatically adjust if needed.</p>
+<p class="sd-card-text"><img alt="grid mode" src="https://github.com/user-attachments/assets/fbcb216c-666b-43a6-bf25-aad82d5e9d92" /></p>
+<p class="sd-card-text">To coincide with this new Grid mode, we have chosen to reverse the ordering of layers in the grid <a class="reference external" href="https://github.com/napari/napari/pull/8053">(#8053)</a>. The first layer added to the viewer will now be at the top left of the grid, and the last layer added will be at the bottom right; new layers will be added to the bottom right of the grid. If you prefer the previous behavior, you can set the Grid Stride to <code class="docutils literal notranslate"><span class="pre">-1</span></code> in the Preferences dialog.</p>
+<p class="sd-card-text"><img alt="Stride preference" src="https://github.com/user-attachments/assets/528aebca-d623-4f9a-97f4-691329d2a2a7" /></p>
+<p class="rubric" id="the-features-table-widget-is-now-a-napari-builtin">The Features Table Widget is now a napari builtin! 📊</p>
+<p class="sd-card-text">The features table from <a class="reference external" href="https://github.com/kevinyamauchi/napari-properties-viewer">napari-properties-viewer</a> is now a builtin widget in napari <a class="reference external" href="https://github.com/napari/napari/pull/7877">(#7877)</a> <em>and</em> greatly improved! This widget allows you to view and edit the properties of Points, Shapes, and Labels layers in a table widget.</p>
+<p class="sd-card-text">The widget can be opened from the <code class="docutils literal notranslate"><span class="pre">Layers</span></code> menu -&gt; <code class="docutils literal notranslate"><span class="pre">Visualize</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Features</span> <span class="pre">table</span> <span class="pre">widget</span> <span class="pre">(napari</span> <span class="pre">builtins)</span></code> or from the command palette.  You can also save the properties table to a CSV file. Check out the <a class="reference external" href="https://napari.org/dev/gallery/features_table_widget.html">Features table widget</a> example to learn more.</p>
+<p class="sd-card-text"><img alt="Features table widget in napari" src="https://github.com/user-attachments/assets/2c218f05-6510-4192-b5c8-fb6d135e4863" /></p>
+<p class="rubric" id="community-developments">Community developments! 📅</p>
+<p class="sd-card-text">We are excited to share our new <a class="reference external" href="https://napari.org/stable/roadmaps/active_roadmap.html">active roadmap</a> which is a living document that will be updated as we continue to develop napari. This document is intended to help the community understand the priorities of the napari team and to help us all work together to make napari better.</p>
+<p class="sd-card-text">We are also now including all napari related events in the <a class="reference external" href="https://napari.org/stable/community/meeting_schedule.html">community calendar</a> and as an <a class="reference external" href="https://forum.image.sc/t/napari-community-meetings-and-events/113689">image.sc post</a>, including conferences, tutorials, sprints, virtual seminars, and more. If you have an event you would like to add, please reach out to us!</p>
+<p class="rubric" id="some-great-features-for-contributors">Some great features for contributors! 🛠️</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>Contributing documentation is now a much smoother experience!</strong> By default, new documentation will build in around 3 minutes, instead of the previous 20 minutes. This speed is thanks to new, slimmer <code class="docutils literal notranslate"><span class="pre">make</span></code> commands (<code class="docutils literal notranslate"><span class="pre">slimfast</span></code> by default) that can also be triggered in PRs with a bot (eg. <code class="docutils literal notranslate"><span class="pre">&#64;napari-bot</span> <span class="pre">make</span> <span class="pre">docs</span></code>). Read our updated <a class="reference external" href="https://napari.org/dev/developers/contributing/documentation/index.html">docs contribution guide</a> and reach out for help.</p></li>
+<li><p class="sd-card-text"><strong>The organization of the napari repo has been updated by moving into a <code class="docutils literal notranslate"><span class="pre">src/</span></code> directory <a class="reference external" href="https://github.com/napari/napari/pull/7952">(#7952)</a>.</strong> This is modern best practice in Python projects (and what has long been standard in our <a class="reference external" href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a>) to avoid issues with relative imports and <em>should</em> now always result in importing the napari version installed in the current environment. For developers, especially of pull requests prior to this release, you may have many merge conflicts to resolve. Please ping the napari team if you would like help resolving these conflicts.</p></li>
+<li><p class="sd-card-text"><strong>There is now public API to access widgets docked in the viewer <a class="reference external" href="https://github.com/napari/napari/pull/7965">(#7965)</a>.</strong> Check out the new documentation on the napari website to learn more about using this API to <a class="reference external" href="https://napari.org/dev/plugins/advanced_topics/widget_communication.html">communicate between widgets</a>. If you previously used <code class="docutils literal notranslate"><span class="pre">viewer.window._dock_widgets</span></code>, you should now use <code class="docutils literal notranslate"><span class="pre">viewer.window.dock_widgets</span></code>.</p></li>
+</ol>
+<p class="sd-card-text"><a class="reference internal" href="release_0_6_2.html"><span class="doc std std-doc">View full release notes →</span></a></p>
+</div>
+</details></section>
+<section id="releases-from-3-6-months-ago">
+<h2>Releases from 3-6 Months Ago<a class="headerlink" href="#releases-from-3-6-months-ago" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">napari 0.6.1 (May 2025)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="rubric" id="the-hilo-colormap">The HiLo👋 Colormap!</p>
+<p class="sd-card-text">Introducing the HiLo colormap to napari! 🎨 This much-loved colormap (LUT) is like grayscale, except it displays values at or above the maximum contrast limit as red 🔴 and values at or below the minimum contrast limit as blue 🔵. In the scientific imaging world, the HiLo colormap is often used to assess overexposed (saturated) ☀️ and underexposed (dark) 🌑 regions in images.
+Enjoy this animation of the HiLo colormap in action! 👇
+<img alt="HiLo colormap animation" src="https://github.com/user-attachments/assets/b77e98b4-3f9c-437a-b169-2444544ee454" /></p>
+<p class="sd-card-text">The HiLo colormap is now available as a result of the dependency bump to VisPy 0.15.0 <a class="reference external" href="https://github.com/napari/napari/pull/7846">(#7846)</a>, which will soon unlock even more great new features in the coming napari releases.</p>
+<p class="rubric" id="the-dims-widget-shines-brighter">The <code class="docutils literal notranslate"><span class="pre">dims</span></code> widget shines brighter! ✨</p>
+<p class="sd-card-text">Have you ever tried to use the <code class="docutils literal notranslate"><span class="pre">dims</span></code> pop-up widget (accessed by right clicking on the third viewer button) and found it to not work as expected? As part of our bugfixes <a class="reference external" href="https://github.com/napari/napari/pull/7937">#7937</a> , the <code class="docutils literal notranslate"><span class="pre">dims</span></code> widget will continue to interact as expected. The widget is now available in 3D view!
+❓Did you know that the <code class="docutils literal notranslate"><span class="pre">dims</span></code> widget allows you to rename the axis labels of your data?
+<img alt="dims popup widget" src="https://github.com/user-attachments/assets/3b38462b-8fe2-47b2-be02-66a714d18d8f" /></p>
+<p class="sd-card-text"><a class="reference internal" href="release_0_6_1.html"><span class="doc std std-doc">View full release notes →</span></a></p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">napari 0.6.0 (May 2025)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="rubric" id="summary">Summary</p>
+<ul class="simple">
+<li><p class="sd-card-text">Updated viewer handedness ✋</p></li>
+<li><p class="sd-card-text">Command palette 🎨</p></li>
+<li><p class="sd-card-text">Display polygons with holes ⛳️</p></li>
+<li><p class="sd-card-text">Transition to npe2 plugin engine by default 🔌</p></li>
+<li><p class="sd-card-text">Many other GUI improvements 🖥️</p></li>
+</ul>
+<p class="rubric" id="updated-viewer-handedness">Updated viewer handedness ✋</p>
+<p class="sd-card-text">So. Funny story. 😅</p>
+<p class="sd-card-text">For (checks notes) 5 years or so, napari has had a 3D view, and for those 5
+years, for almost all datasets, that view has been a <em>mirror image</em> of the 3D
+object they were trying to represent. Any biologists among you might have
+noticed that loading 3D molecular coordinates of DNA would result in a
+left-handed helix, while anatomists among you might have been surprised by how
+many of your samples suffered from <a class="reference external" href="https://en.wikipedia.org/wiki/Situs_inversus">situs inversus
+totalis</a>!</p>
+<p class="sd-card-text">By and large, many things that people care about work exactly the same in the
+mirror world — volume measurements, forces, tracking, speed, … — so this bug
+has gone mostly unnoticed, or noticed and shrugged off and unfixed for all this
+time. But it’s important for some things!  Your heart is on the left side of
+your body, but the right side of your mirror image’s. This can be critical, for
+example, when using software to plan surgery! Thankfully, we are not aware of
+any cases of napari being used in this way. 😅</p>
+<p class="sd-card-text">napari uses zyx coordinates instead of xyz because it is the most natural way
+to work with NumPy arrays and the rest of the scientific Python imaging
+ecosystem. Flipping the axes in this way also changes the <em>handedness</em> of the
+space, <em>unless</em> you also flip the direction of one of the dimensions. The
+simplest way to illustrate this is <a class="reference external" href="https://grabcad.com/library/anatomic-shoe-sole-euro-right-41-1">this 3D model of a right
+shoe</a>, which looks
+like this in previous versions of napari:</p>
+<p class="sd-card-text"><img alt="right shoe rendered as a left shoe in napari" src="https://github.com/user-attachments/assets/c9190e2c-f35a-44d1-95d5-f9877dd4c843" /></p>
+<p class="sd-card-text">and in 0.6.0, thanks to <a class="reference external" href="https://github.com/napari/napari/pull/7554">#7554</a>:</p>
+<p class="sd-card-text"><img alt="right shoe correctly rendered as a right shoe in napari" src="https://github.com/user-attachments/assets/e187f5e7-8e4a-4526-bae9-80a9bec6fea3" /></p>
+<p class="sd-card-text">Most users won’t notice. But if you were among the users that noticed and you
+implemented workarounds in your code (such as setting the z-scale to a negative
+number), now is a good time to undo the workarounds for newer versions of
+napari! If you run into any issues please get in touch <a class="reference external" href="https://github.com/napari/napari">on GitHub
+issues</a> or on our <a class="reference external" href="https://napari.zulipchat.com">Zulip chat room</a>!</p>
+<p class="sd-card-text">On the user space, we now offer several options to orient the axes any way you
+like:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>Through the camera API:</strong> the <code class="docutils literal notranslate"><span class="pre">Viewer.camera</span></code> instance gains two new
+attributes: <code class="docutils literal notranslate"><span class="pre">orientation</span></code>, and <code class="docutils literal notranslate"><span class="pre">orientation2d</span></code>, which is just the last two
+dimensions of <code class="docutils literal notranslate"><span class="pre">orientation</span></code>. You can set the direction that the <em>depth</em>,
+<em>vertical</em>, and <em>horizontal</em> axes point to, respectively in that order, as
+follows (<a class="reference external" href="https://github.com/napari/napari/pull/7663">#7663</a>):</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 2D</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation2d</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">)</span>
+<span class="c1"># 3D</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;away&#39;</span><span class="p">,</span> <span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">See an example of this in action in
+<a class="reference internal" href="../gallery/xarray-latlon-timeseries.html#sphx-glr-gallery-xarray-latlon-timeseries-py"><span class="std std-ref">Displaying xarray data in napari</span></a>.</p>
+<ol class="arabic simple" start="2">
+<li><p class="sd-card-text"><strong>Through the UI:</strong> By right clicking on the dimension toggle in the viewer,
+and setting the axis orientations using the drop-down menus
+(<a class="reference external" href="https://github.com/napari/napari/pull/7686">#7686</a>), which in 3D will
+further indicate whether the resulting coordinate frame is <a class="reference external" href="https://en.wikipedia.org/wiki/Right-hand_rule">right-handed or
+left-handed</a>
+(<a class="reference external" href="https://github.com/napari/napari/pull/7770">#7770</a>):</p></li>
+</ol>
+<p class="sd-card-text"><img alt="axis orientation dialog" src="https://github.com/user-attachments/assets/f73898ec-9156-4f73-ab7f-ee2a7cc17fe1" /></p>
+<ol class="arabic simple" start="3">
+<li><p class="sd-card-text"><strong>Through the startup settings:</strong> If you want to use a specific axis
+orientation consistently, you can set the default orientation on startup by
+changing the relevant settings
+(<a class="reference external" href="https://github.com/napari/napari/pull/7787">#7787</a>:</p></li>
+</ol>
+<p class="sd-card-text"><img alt="napari settings panel with axis orientation options highlighted" src="https://github.com/user-attachments/assets/f5032320-8b03-4ff7-9cb7-8b182ab232af" /></p>
+<p class="sd-card-text">To restore the orientation from napari 0.5.6 and earlier, change the Depth
+axis setting to “away” (i.e. depth axis points away from you).</p>
+<p class="rubric" id="command-palette">Command palette 🎨</p>
+<p class="sd-card-text">Tired of mousing around? Thanks to
+<a class="reference external" href="https://github.com/napari/napari/pull/5483">#5483</a>, napari gains a command
+palette! Press <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl/Command</kbd>+<kbd class="kbd docutils literal notranslate">Shift</kbd>+<kbd class="kbd docutils literal notranslate">P</kbd></kbd> and start typing the name of the
+action you want to use, and press <kbd class="kbd docutils literal notranslate">Enter</kbd> when you’ve highlighted it. It
+even works with plugins! This is the culmination of many months of work porting
+napari’s actions to Talley Lambert’s
+<a class="reference external" href="https://github.com/pyapp-kit/app-model">app-model</a>. 🥳</p>
+<p class="sd-card-text"><img alt="command palette example" src="https://github.com/user-attachments/assets/a412c3d1-8d29-43a2-87a4-391f2ccec57e" /></p>
+<p class="sd-card-text">There’s still lots of work to be done here, but in the meantime, give it a try!
+We on the team have found it very hard to go back to using napari without the
+palette!</p>
+<p class="rubric" id="feature-improvements-to-shapes-layers">Feature improvements to Shapes layers ⛳️</p>
+<p class="sd-card-text">⚠️  <em>When using numba for triangulation, some shapes will still not be drawn
+correctly, due to a bug in VisPy. We recommend installing <code class="docutils literal notranslate"><span class="pre">bermuda</span></code>, our new
+fast triangulation package, for the best performance.</em> ⚠️</p>
+<p class="sd-card-text">Finally, napari Shapes layers can now display polygons with holes in them,
+which starts to open it up for use with mapping data, among other things!
+(<a class="reference external" href="https://github.com/napari/napari/pull/7566">#7566</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/6654">#6654</a>]) Implementing this feature
+also eliminated a lot of bugs in our polygon drawing code, which could cause
+crashes. If you’ve had issues with Shapes layers before, now might be a good
+time to give them another try!</p>
+<p class="sd-card-text">As part of this work, napari gained the ability to select between different
+backends for triangulation, which means breaking up polygons into collections
+of triangles, which is what GPUs are good at drawing.
+(<a class="reference external" href="https://github.com/napari/napari/pull/7747">#7747</a>) To use the new backends,
+install the relevant package (for example, <code class="docutils literal notranslate"><span class="pre">bermuda</span></code>,
+<code class="docutils literal notranslate"><span class="pre">partsegcore-compiled-backend</span></code>, or <code class="docutils literal notranslate"><span class="pre">numba</span></code>), then go to Settings &gt; Experimental
+&gt; triangulation backend. (If you use <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code>, you will have bermuda
+installed and it will be used automatically, as the default option is “fastest
+available”.)</p>
+<p class="rubric" id="transition-to-npe2-plugin-engine">Transition to npe2 plugin engine 🔌</p>
+<p class="sd-card-text">npe2 was introduced over four years ago, with napari 0.4.12. npe2 has paved the
+way for new plugin functionality, such as <a class="reference internal" href="../naps/6-contributable-menus.html#nap-6-contributable-menus"><span class="std std-ref">adding menu
+items</span></a> and the command palette. We are now beginning
+the process of deprecating npe1 (napari-plugin-engine) plugins, which we need
+to do to continue to improve npe2 functionality, for example in file readers,
+which is currently very entangled with npe1 code.</p>
+<p class="sd-card-text">To aid this migration, npe1 plugins will now be automatically converted to npe2
+by default. This may break some features if the plugins relied on import-time
+behavior. (<a class="reference external" href="https://github.com/napari/napari/pull/7627">#7627</a>)</p>
+<p class="sd-card-text">During the 0.6.x series, if some plugin functionality is broken by the
+automatic conversion, you can turn off this conversion in the plugin
+preferences. However, the option to not convert npe1 plugins will be
+removed in 0.7.0, and npe1 plugins will <em>only</em> work through automatic
+conversion. We anticipate 0.7.0 will be released in the second half of 2025.</p>
+<p class="sd-card-text">If you encounter conversion issues in a plugin you rely on, please contact the
+plugin authors to encourage them to migrate their plugin to the npe2 system.</p>
+<p class="sd-card-text">For more details on this change and how it affects plugins, see the <a class="reference internal" href="../plugins/advanced_topics/adapted_plugin_guide.html#adapted-plugin-guide"><span class="std std-ref">detailed
+guide</span></a>. If you are a plugin author and your plugin is not
+yet npe2-compatible, please see our <a class="reference internal" href="../plugins/advanced_topics/npe2_migration_guide.html#npe2-migration-guide"><span class="std std-ref">npe2 migration
+guide</span></a>, and, if you encounter any issues, get in touch in
+our <a class="reference external" href="https://napari.zulipchat.com/#narrow/channel/309872-plugins">Plugins Zulip chat
+channel</a> or by
+coming to one of our <a class="reference internal" href="../community/meeting_schedule.html#meeting-schedule"><span class="std std-ref">community meetings</span></a>.</p>
+<p class="rubric" id="gui-improvements">GUI improvements 🖥️</p>
+<p class="sd-card-text">You’ll notice the main napari GUI is subtly (or not so subtly) different in
+0.6.0. Here are some of the improvements:</p>
+<ul class="simple">
+<li><p class="sd-card-text">Buttons now have an indicator to show whether they contain an extra menu when
+right-clicking. (<a class="reference external" href="https://github.com/napari/napari/pull/7556">#7556</a>)</p></li>
+<li><p class="sd-card-text">The button to change between 2D and 3D views much more clearly shows
+what it does. (<a class="reference external" href="https://github.com/napari/napari/pull/7608">#7608</a>)</p></li>
+<li><p class="sd-card-text">… And it has an extra menu with lots of options to control the camera!
+(<a class="reference external" href="https://github.com/napari/napari/pull/7626">#7626</a>)</p></li>
+<li><p class="sd-card-text">You can now add a bit of spacing between layers in grid mode (and control it
+in the grid mode right-click menu!)
+(<a class="reference external" href="https://github.com/napari/napari/pull/7597">#7597</a>)</p></li>
+<li><p class="sd-card-text">The colormap indicator in image layers is now a button, allowing you to
+create a linear colormap with any color!
+(<a class="reference external" href="https://github.com/napari/napari/pull/7600">#7600</a>)</p></li>
+<li><p class="sd-card-text">If you select multiple layers in the layer list, you can now see the status
+display of all the selected layers in the status bar
+(<a class="reference external" href="https://github.com/napari/napari/pull/7673">#7673</a>)</p></li>
+<li><p class="sd-card-text">If you switch from 2D to 3D view and back again, your 3D viewing angle will
+be preserved (<a class="reference external" href="https://github.com/napari/napari/pull/7765">#7765</a>)</p></li>
+<li><p class="sd-card-text">Notice some weird behavior? Our new log handler and viewer might help! Access
+it with Help &gt; Show logs. (<a class="reference external" href="https://github.com/napari/napari/pull/6900">#6900</a>)</p></li>
+</ul>
+<p class="rubric" id="other-stuff">Other stuff</p>
+<p class="sd-card-text">For developers: napari now depends on Python 3.10+
+(<a class="reference external" href="https://github.com/napari/napari/pull/7603">#7603</a> and Pydantic v2.2
+(<a class="reference external" href="https://github.com/napari/napari/pull/7589">#7589</a>).</p>
+<p class="sd-card-text">We’ve supported both pydantic 1 and 2 since 0.4.19, but we’re now ready to take
+advantage of performance and API improvements in Pydantic 2. If your library
+depends on Pydantic 1.x, now would be a good time to upgrade, or it will not be
+compatible with napari going forward.</p>
+<p class="sd-card-text">If you were dreading 0.6.0 because you were relying on <code class="docutils literal notranslate"><span class="pre">_qt_viewer</span></code> features,
+worry not: we have again postponed that deprecation while we add the required
+APIs. 😅 (<a class="reference external" href="https://github.com/napari/napari/pull/7730">#7730</a>)</p>
+<p class="sd-card-text">Also, if you’ve been wanting to contribute that doc fix but found the process
+daunting, it’s now easier than ever, because our default documentation preview
+build is now much faster! You can propose changes from the GitHub UI and see
+the rendered results in only two minutes!
+(<a class="reference external" href="https://github.com/napari/docs/pull/669">napari/docs#669</a>)</p>
+<p class="sd-card-text"><a class="reference internal" href="release_0_6_0.html"><span class="doc std std-doc">View full release notes →</span></a></p>
+</div>
+</details></section>
+<section id="releases-from-6-12-months-ago">
+<h2>Releases from 6-12 Months Ago<a class="headerlink" href="#releases-from-6-12-months-ago" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">napari 0.5.6 (January 2025)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="rubric" id="faster-shapes">Faster shapes 🚀</p>
+<p class="sd-card-text">For its whole history, napari has been a pure Python package. As we go deeper
+into its performance bottlenecks, though, we’re finding that we need some
+compiled code. This is a big change to the napari installation story, though,
+so we are rolling it out slowly. But if you’ve been waiting forever to load
+your shapes data, this release has some enhancements for you (&gt;2x speedup)!
+(<a class="reference external" href="https://github.com/napari/napari/pull/7346">#7346</a>)</p>
+<p class="sd-card-text">To use this speedup, you’ll need to:</p>
+<ul class="simple">
+<li><p class="sd-card-text">install napari core developer Grzegorz Bokota’s collection of performant
+algorithms,
+<a class="reference external" href="https://pypi.org/project/PartSegCore-compiled-backend/">PartSegCore-compiled-backend</a>.
+You can install it automatically by pip installing <code class="docutils literal notranslate"><span class="pre">&quot;napari[optional,pyqt]&quot;</span></code>
+(or a GUI backend of your choice among pyqt, pyqt6, pyside, pyside6) or
+<code class="docutils literal notranslate"><span class="pre">&quot;napari[all]&quot;</span></code>.</p></li>
+<li><p class="sd-card-text"><em>and</em>, in the napari advanced settings, tick the “Use C++ code to speed up
+creation and updates of Shapes layers” box.</p></li>
+</ul>
+<p class="sd-card-text">Please give it a try and let us know if you encounter any issues! This is the
+beginning of a new era of performance improvements in napari, to help it live
+up to its promise of a <em>fast</em> viewer for n-dimensional data in Python!</p>
+<p class="rubric" id="new-path-drawing-tool">New path drawing tool</p>
+<p class="sd-card-text">Drawing paths is easier and smoother with the open-line equilavent of the
+lasso tool. If you want to draw a curve through your data, whether with a
+mouse or a tablet+stylus, it is now much easier to freehand rather than
+clicking on individual points. Try it out!
+(<a class="reference external" href="https://github.com/napari/napari/pull/7099">#7099</a>)</p>
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="https://github.com/user-attachments/assets/978584f7-f707-4085-840f-a2f8fee12e21" type="video/mp4" />
+    <img src="https://github.com/user-attachments/assets/20892add-2382-490b-8ad8-6efc023395a7"
+      title="Your browser does not support the video tag"
+      alt="video of new path-drawing tool used to delineate a blood vessel"
+    >
+  </video>
+</figure><p class="rubric" id="other-improvements">Other improvements</p>
+<p class="sd-card-text">Often, the important information in a layer name is at the <em>end</em> of the name
+rather than the beginning. We’ve improved the eliding (…) of long names by
+placing the ellipsis in the <em>middle</em> of the name rather than the end
+(<a class="reference external" href="https://github.com/napari/napari/pull/7461">#7461</a>).</p>
+<p class="sd-card-text">The default value of “flash” has been changed to <code class="docutils literal notranslate"><span class="pre">False</span></code> in
+<code class="docutils literal notranslate"><span class="pre">viewer.screenshot</span></code>, so that taking many screenshots in a script will not
+result in rapid flickering
+(<a class="reference external" href="https://github.com/napari/napari/pull/7476">#7476</a>). This is part of a
+broader accessibility initiative by recent contributor <a class="reference external" href="https://github.com/TimMonko">Tim
+Monko</a> to improve napari for light-sensitive
+users (<a class="reference external" href="https://github.com/napari/napari/issues/7433">#7433</a>, and we are so
+grateful! 🙏</p>
+<p class="sd-card-text">Read on for the full list of changes since 0.5.5.</p>
+<p class="sd-card-text"><a class="reference internal" href="release_0_5_6.html"><span class="doc std std-doc">View full release notes →</span></a></p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">napari 0.5.5 (December 2024)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">This release continues the 0.5 tradition of churning out the bug fixes and
+enhancements, with 24 pull requests total in that category. If you are a user
+of oblique plane rendering, you’ll appreciate
+<a class="reference external" href="https://github.com/napari/napari/pull/7422">#7422</a>, which fixes the plane
+calculation when data is anisotropic.</p>
+<p class="sd-card-text">And, did you have a hole in your heart where high-quality 3D labels rendering
+should have been? Check out
+<a class="reference external" href="https://github.com/napari/napari/pull/7431">#7431</a>, in which <a class="reference external" href="https://github.com/aganders3">Ashley
+Anderson</a> has (again) improved the quality of 3D
+labels by filling the (apparent, but fictional) holes in labels at the borders
+of a volume. Before/after gif:</p>
+<p class="sd-card-text"><img alt="movie showing before and after of labels rendering at the borders of avolume" src="https://github.com/user-attachments/assets/728505be-d212-417b-a29e-7228761ffed3" /></p>
+<p class="sd-card-text">Additionally, <a class="reference external" href="https://github.com/Czaki">Grzegorz Bokota</a> has again sped up
+launch time for Shapes layers by porting all the edge triangulation code to
+numba (<a class="reference external" href="https://github.com/napari/napari/pull/7268">#7268</a>). As part of that
+work he also created a fantastic developer example explaining how the edge
+triangulation works, which you can find at
+<a class="reference external" href="https://github.com/napari/napari/blob/b2edccd6e40e04467ccfeec0257c2160783f7187/examples/dev/triangle_edge.py">examples/dev/triangle_edge.py</a>.
+Give it a read and a play if you want to peek under the hood of the Shapes
+layer!</p>
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/triangle-edge.webm" type="video/webm" />
+    <source src="../_static/images/triangle-edge.mp4" type="video/mp4" />
+    <img src="../_static/images/triangle-edge.png"
+      title="Your browser does not support the video tag"
+      alt="napari viewer showing a shapes layer and associated layers depicting the triangulation of the elements of the Shapes layer."
+    >
+  </video>
+</figure><p class="sd-card-text">Did you miss a napari error or warning while reading these notes? We don’t
+blame you! Those missed notifications will be a thing of the past with
+<a class="reference external" href="https://github.com/napari/napari/pull/7220">#7220</a>, which will keep
+notifications open if the napari window is not in focus. Whew!</p>
+<p class="sd-card-text">Finally, for the zarrventurous among you, napari 0.5.5 is ready for zarr v3,
+coming soon to a PyPI near you!
+(<a class="reference external" href="https://github.com/napari/napari/pull/7215">#7215</a>) If you are using or
+testing the zarr 3.0.0 betas, try them with napari! We hope you’ll be
+pleasantly surprised. 😊</p>
+<p class="sd-card-text">As always, we thank all the contributors to this napari release and all the
+previous ones! We welcome <a class="reference external" href="https://github.com/willingc">Carol Willing</a> and
+<a class="reference external" href="https://github.com/TimMonko">Tim Monko</a> to the list of contributors. Read on
+for all the changes in this version!</p>
+<p class="sd-card-text">Read on for all the changes in this version!</p>
+<p class="sd-card-text"><a class="reference internal" href="release_0_5_5.html"><span class="doc std std-doc">View full release notes →</span></a></p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">napari 0.5.4 (September 2024)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Another release with a lot of bug fixes, but also some (more!) improvements to
+Shapes layer performance (<a class="reference external" href="https://github.com/napari/napari/pull/7144">#7144</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/7256">#7256</a>), and a few nice
+usability/quality of life features!</p>
+<ul class="simple">
+<li><p class="sd-card-text">you can now follow the value under the cursor around in images in 3D view as
+well as 2D (<a class="reference external" href="https://github.com/napari/napari/pull/7126">#7126</a>)</p></li>
+<li><p class="sd-card-text">Use standard keyboard shortcuts to zoom in and out (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Command/Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">=</kbd></kbd>,
+<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Command/Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">-</kbd></kbd>) and to zoom-to-fit (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Command/Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">0</kbd></kbd>)
+(<a class="reference external" href="https://github.com/napari/napari/pull/7200">#7200</a>)</p></li>
+<li><p class="sd-card-text">you can now save tiff files larger than 4GB
+(<a class="reference external" href="https://github.com/napari/napari/pull/7242">#7242</a>)</p></li>
+</ul>
+<p class="sd-card-text">Finally, we’re starting some work on tweaking the UI to make it more
+self-consistent, with the ultimate goal of adding functionality such as showing
+common controls when multiple layers are selected, so that, for example, you
+can select multiple layers and adjust all their opacity settings together. As
+the first step for this, the <em>layer blending</em> controls have been moved directly
+under the opacity control, so that all per-layer controls are next to each
+other in the UI (<a class="reference external" href="https://github.com/napari/napari/pull/7202">#7202</a>)</p>
+<p class="sd-card-text">Read on for all the changes in this version!</p>
+<p class="sd-card-text"><a class="reference internal" href="release_0_5_4.html"><span class="doc std std-doc">View full release notes →</span></a></p>
+</div>
+</details></section>
+<section id="older-releases">
+<h2>Older Releases<a class="headerlink" href="#older-releases" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong><a class="reference internal" href="release_0_5_3.html"><span class="doc std std-doc">napari 0.5.3</span></a></strong> (August 2024) - This is primarily a bug-fix release, including fixes for a couple of nasty regressions in 0.5.0 (<a class="reference external" href="https://github.com/napari/napari/pull/7184">#7184</a>) …</p></li>
+<li><p><strong><a class="reference internal" href="release_0_5_2.html"><span class="doc std std-doc">napari 0.5.2</span></a></strong> (August 2024) - This is primarily a bug-fix release, but we snuck a couple of new features in there, including smoother, prettier, better rendering of Labels volumes …</p></li>
+<li><p><strong><a class="reference internal" href="release_0_5_1.html"><span class="doc std std-doc">napari 0.5.1</span></a></strong> (July 2024) - napari 0.5.1 is a bugfix release hot on the heels of <a class="reference internal" href="release_0_5_0.html"><span class="doc std std-doc">napari 0.5.0</span></a>. It fixes a critical bug with creating viewers</p></li>
+<li><p><strong><a class="reference internal" href="release_0_5_0.html"><span class="doc std std-doc">napari 0.5.0</span></a></strong> (July 2024) - napari 0.5.0 is the beginning of an architectural overhaul of napari. The architecture improvements, which are still ongoing, enable more responsive</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_19.html"><span class="doc std std-doc">napari 0.4.19</span></a></strong> - This release mostly contains a lot of bug fixes and performance improvements. But look out for 0.5.0, coming to a software repository near you — we ex…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_18.html"><span class="doc std std-doc">napari 0.4.18</span></a></strong> - - Drawing polygons in the Shapes layer can now be done much faster with   the new lasso tool ([napari/napari/#5555](<a class="github reference external" href="https://github.com/napari/napari/p">napari/napari</a>…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_17.html"><span class="doc std std-doc">napari 0.4.17</span></a></strong> - This release is focused on documentation improvements and bug fixes, with few changes to napari’s API. We picked out a few highlights, but keep readin…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_16.html"><span class="doc std std-doc">napari 0.4.16</span></a></strong> - - Added sphinx-gallery (#4288) - Add NAP process for major proposals (#4299)</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_15.html"><span class="doc std std-doc">napari 0.4.15</span></a></strong> - This release is focused on documentation improvements and bug fixes, with few changes to napari’s API. The napari documentation is now entirely contai…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_14.html"><span class="doc std std-doc">napari 0.4.14</span></a></strong> - - Enable shapes layer (right click) &gt; convert to labels (#3978) - Out-of-slice rendering for Vectors (#2902)</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_13.html"><span class="doc std std-doc">napari 0.4.13</span></a></strong> - - Spherical Points (#3430) - Point selection in 3d (#3508)</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_12.html"><span class="doc std std-doc">napari 0.4.12</span></a></strong> - This is a bug fix release with many minor improvements and bug fixes. The user experience for users of dask arrays might be significantly improved by …</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_11.html"><span class="doc std std-doc">napari 0.4.11</span></a></strong> - This release introduces ways to interact with data in 3D (#3037). Features like label picking (#3074) and label painting/erasing (#3108) now work in 3…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_10.html"><span class="doc std std-doc">napari 0.4.10</span></a></strong> - This is a fairly small release, that follows on quickly from 0.4.9 to fix a regression in our ability to save layer data (fixed in #2876). It also con…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_9.html"><span class="doc std std-doc">napari 0.4.9</span></a></strong> - This release adds a couple nice new features like additional shading modes for our surface layer (#2972) and the ability to copy a screenshot directly…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_8.html"><span class="doc std std-doc">napari 0.4.8</span></a></strong> - This release adds a new plugin type (i.e. a hook specification) for plugins to provide sample data (#2483). No more demos with <code class="docutils literal notranslate"><span class="pre">np.random</span></code>! 🎉 We’ve ad…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_7.html"><span class="doc std std-doc">napari 0.4.7</span></a></strong> - After nearly a year of planning, thanks to help from the fine folks at <a class="reference external" href="https://labs.quansight.org/">Quansight</a>, napari now has a preferences dialog!</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_6.html"><span class="doc std std-doc">napari 0.4.6</span></a></strong> - This release is the first that adds support for persistent settings in napari (#2212). Right now we just store the current theme and window geometry b…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_5.html"><span class="doc std std-doc">napari 0.4.5</span></a></strong> - This release is our first release using Jupyter Book to build our documentation (#2187) which can be seen at <a class="reference external" href="https://napari.org/docs/dev/">https://napari.org/docs/dev/</a>, or</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_4.html"><span class="doc std std-doc">napari 0.4.4</span></a></strong> - This release is a quick follow on from our <code class="docutils literal notranslate"><span class="pre">0.4.3</span></code> release and contains some nice improvements to the GUI and analysis function hookspecs we experimen…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_3.html"><span class="doc std std-doc">napari 0.4.3</span></a></strong> - In this release we’ve added two new analysis and GUI focused [hook specifications](<a class="github reference external" href="https://github.com/napari/napari/blob/87961d0554b2bb1574553e23bf223">napari/napari</a>…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_2.html"><span class="doc std std-doc">napari 0.4.2</span></a></strong> - This is an emergency patch release to fix a regression in <code class="docutils literal notranslate"><span class="pre">0.4.1</span></code> that broke magicgui generated dockwidgets which accepted layers as input (#1962). Th…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_1.html"><span class="doc std std-doc">napari 0.4.1</span></a></strong> - This release follows our recent 0.4.0 release with a number of bug fixes and small improvements. We fixed a regression that caused the status bar to a…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_4_0.html"><span class="doc std std-doc">napari 0.4.0</span></a></strong> - napari 0.4.0 is the culmination of months of improvements to our data models. It finally brings the data from all layers into a consistent, global coo…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_3_8.html"><span class="doc std std-doc">napari 0.3.8</span></a></strong> - This release is mainly a bug fix release, with a number of small improvements including around our contrast limits updates (#1622) and points coloring…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_3_7.html"><span class="doc std std-doc">napari 0.3.7</span></a></strong> - With this release, we are launching an experimental standalone app (#1289). You can find it on our [GitHub releases</p></li>
+<li><p><strong><a class="reference internal" href="release_0_3_6.html"><span class="doc std std-doc">napari 0.3.6</span></a></strong> - This release contains the long awaited addition of text to both the points and shapes layers (#1374). Checkout our <code class="docutils literal notranslate"><span class="pre">examples/*_with_text.py</span></code> for simpl…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_3_5.html"><span class="doc std std-doc">napari 0.3.5</span></a></strong> - This release contains a number of bug fixes on various platforms. For those interested in napari performance, we have added a new performance monitori…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_3_0.html"><span class="doc std std-doc">napari 0.3.0</span></a></strong> - ### Community and governance</p></li>
+<li><p><strong><a class="reference internal" href="release_0_2_11.html"><span class="doc std std-doc">napari 0.2.11</span></a></strong> - - Point face color and edge color are now settable as a property in a columnar   data table, mapped using a colormap (continuous values) or a color cy…</p></li>
+<li><p><strong><a class="reference internal" href="release_0_2_9.html"><span class="doc std std-doc">napari 0.2.9</span></a></strong> - - better support for surface timeseries (#831) - contrast limits slider popup on right click (#837)</p></li>
+<li><p><strong><a class="reference internal" href="release_0_2_7.html"><span class="doc std std-doc">napari 0.2.7</span></a></strong> - - Play button for animating axes now in the GUI - Threshold slider for much improved isosurface rendering</p></li>
+</ul>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -809,6 +1232,27 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recent-releases-last-3-months">Recent Releases (Last 3 Months)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#releases-from-3-6-months-ago">Releases from 3-6 Months Ago</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#releases-from-6-12-months-ago">Releases from 6-12 Months Ago</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#older-releases">Older Releases</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

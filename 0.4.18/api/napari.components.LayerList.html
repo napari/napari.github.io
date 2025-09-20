@@ -48,9 +48,11 @@
     
 
   </head>
-  <body>
+  <body style="padding-top: 0;">
     
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+    <div class="container-fluid" id="banner" aria-label="Version warning" style="background-color: #e0c7ff"><div class="sidebar-message" style="text-align: center;">This is documentation for <strong>an old version (0.4.15)</strong>.<a class="btn text-wrap font-weight-bold ms-3 my-1 align-baseline pst-button-link-to-stable-version" href="https://napari.org/stable/">Switch to stable version</a></div><a class="ms-3 my-1 align-baseline"></a></div>
+
+    <nav class="navbar navbar-light navbar-expand-lg bg-light bd-navbar" id="navbar-main" style="position: relative;"><div class="container-xl">
 
   <div id="navbar-start">
     
@@ -733,22 +735,22 @@ and/or removed from the set.</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.get_extent" title="napari.components.LayerList.get_extent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_extent</span></code></a>(layers)</p></td>
 <td><p>Return extent for a given layer list.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.index" title="napari.components.LayerList.index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code></a>(value[, start, stop])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.index" title="napari.components.LayerList.index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code></a>(value[, start, stop])</p></td>
 <td><p>Return first index of value.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.insert" title="napari.components.LayerList.insert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert</span></code></a>(index, value)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.insert" title="napari.components.LayerList.insert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert</span></code></a>(index, value)</p></td>
 <td><p>Insert <code class="docutils literal notranslate"><span class="pre">value</span></code> before index.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">link_layers</span></code>([layers, attributes])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">link_layers</span></code>([layers, attributes])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.move" title="napari.components.LayerList.move"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move</span></code></a>(src_index[, dest_index])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.move" title="napari.components.LayerList.move"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move</span></code></a>(src_index[, dest_index])</p></td>
 <td><p>Insert object at <code class="docutils literal notranslate"><span class="pre">src_index</span></code> before <code class="docutils literal notranslate"><span class="pre">dest_index</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.move_multiple" title="napari.components.LayerList.move_multiple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_multiple</span></code></a>(sources[, dest_index])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.move_multiple" title="napari.components.LayerList.move_multiple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_multiple</span></code></a>(sources[, dest_index])</p></td>
 <td><p>Move a batch of <cite>sources</cite> indices, to a single destination.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.move_selected" title="napari.components.LayerList.move_selected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_selected</span></code></a>(index, insert)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.move_selected" title="napari.components.LayerList.move_selected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_selected</span></code></a>(index, insert)</p></td>
 <td><p>Reorder list by moving the item at index and inserting it at the insert index.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.pop" title="napari.components.LayerList.pop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></a>([index])</p></td>
@@ -763,13 +765,13 @@ and/or removed from the set.</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.reverse" title="napari.components.LayerList.reverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reverse</span></code></a>()</p></td>
 <td><p>Reverse list <em>IN PLACE</em>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.save" title="napari.components.LayerList.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(path, *[, selected, plugin, _writer])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.save" title="napari.components.LayerList.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(path, *[, selected, plugin, _writer])</p></td>
 <td><p>Save all or only selected layers to a path using writer plugins.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.select_all" title="napari.components.LayerList.select_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_all</span></code></a>()</p></td>
 <td><p>Select all items in the list.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.select_next" title="napari.components.LayerList.select_next"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_next</span></code></a>([step, shift])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.select_next" title="napari.components.LayerList.select_next"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_next</span></code></a>([step, shift])</p></td>
 <td><p>Selects next item from list.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.select_previous" title="napari.components.LayerList.select_previous"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_previous</span></code></a>([shift])</p></td>
@@ -778,7 +780,7 @@ and/or removed from the set.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.toggle_selected_visibility" title="napari.components.LayerList.toggle_selected_visibility"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toggle_selected_visibility</span></code></a>()</p></td>
 <td><p>Toggle visibility of selected layers</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unlink_layers</span></code>([layers, attributes])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unlink_layers</span></code>([layers, attributes])</p></td>
 <td><p></p></td>
 </tr>
 </tbody>

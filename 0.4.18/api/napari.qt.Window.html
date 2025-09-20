@@ -48,9 +48,11 @@
     
 
   </head>
-  <body>
+  <body style="padding-top: 0;">
     
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+    <div class="container-fluid" id="banner" aria-label="Version warning" style="background-color: #e0c7ff"><div class="sidebar-message" style="text-align: center;">This is documentation for <strong>an old version (0.4.15)</strong>.<a class="btn text-wrap font-weight-bold ms-3 my-1 align-baseline pst-button-link-to-stable-version" href="https://napari.org/stable/">Switch to stable version</a></div><a class="ms-3 my-1 align-baseline"></a></div>
+
+    <nav class="navbar navbar-light navbar-expand-lg bg-light bd-navbar" id="navbar-main" style="position: relative;"><div class="container-xl">
 
   <div id="navbar-start">
     
@@ -756,16 +758,16 @@ function checkPageExistsAndRedirect(event) {
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.Window.activate" title="napari.qt.Window.activate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activate</span></code></a>()</p></td>
 <td><p>Make the viewer the currently active window.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.Window.add_dock_widget" title="napari.qt.Window.add_dock_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_dock_widget</span></code></a>(widget, *[, name, area, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.Window.add_dock_widget" title="napari.qt.Window.add_dock_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_dock_widget</span></code></a>(widget, *[, name, area, ...])</p></td>
 <td><p>Convenience method to add a QDockWidget to the main window.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.Window.add_function_widget" title="napari.qt.Window.add_function_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_function_widget</span></code></a>(function, *[, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.Window.add_function_widget" title="napari.qt.Window.add_function_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_function_widget</span></code></a>(function, *[, ...])</p></td>
 <td><p>Turn a function into a dock widget via magicgui.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.Window.add_plugin_dock_widget" title="napari.qt.Window.add_plugin_dock_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_plugin_dock_widget</span></code></a>(plugin_name[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.Window.add_plugin_dock_widget" title="napari.qt.Window.add_plugin_dock_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_plugin_dock_widget</span></code></a>(plugin_name[, ...])</p></td>
 <td><p>Add plugin dock widget if not already added.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.Window.clipboard" title="napari.qt.Window.clipboard"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clipboard</span></code></a>([flash, canvas_only])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.Window.clipboard" title="napari.qt.Window.clipboard"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clipboard</span></code></a>([flash, canvas_only])</p></td>
 <td><p>Copy screenshot of current viewer to the clipboard.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.Window.close" title="napari.qt.Window.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>()</p></td>
@@ -774,19 +776,19 @@ function checkPageExistsAndRedirect(event) {
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.Window.geometry" title="napari.qt.Window.geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geometry</span></code></a>()</p></td>
 <td><p>Get the geometry of the widget</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.Window.remove_dock_widget" title="napari.qt.Window.remove_dock_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_dock_widget</span></code></a>(widget[, menu])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.Window.remove_dock_widget" title="napari.qt.Window.remove_dock_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_dock_widget</span></code></a>(widget[, menu])</p></td>
 <td><p>Removes specified dock widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.Window.resize" title="napari.qt.Window.resize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resize</span></code></a>(width, height)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.Window.resize" title="napari.qt.Window.resize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resize</span></code></a>(width, height)</p></td>
 <td><p>Resize the window.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.Window.screenshot" title="napari.qt.Window.screenshot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">screenshot</span></code></a>([path, size, scale, flash, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.Window.screenshot" title="napari.qt.Window.screenshot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">screenshot</span></code></a>([path, size, scale, flash, ...])</p></td>
 <td><p>Take currently displayed viewer and convert to an image array.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.Window.set_geometry" title="napari.qt.Window.set_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_geometry</span></code></a>(left, top, width, height)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.Window.set_geometry" title="napari.qt.Window.set_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_geometry</span></code></a>(left, top, width, height)</p></td>
 <td><p>Set the geometry of the widget</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.Window.show" title="napari.qt.Window.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show</span></code></a>(*[, block])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.Window.show" title="napari.qt.Window.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show</span></code></a>(*[, block])</p></td>
 <td><p>Resize, show, and bring forward the window.</p></td>
 </tr>
 </tbody>

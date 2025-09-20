@@ -46,10 +46,10 @@
   </head>
   <body>
     
-    <div class="container-fluid" id="banner"></div>
+    <div class="container-fluid" id="banner" aria-label="Version warning" style="background-color: #e0c7ff"><div class="sidebar-message" style="text-align: center;">This is documentation for <strong>an old version (0.4.17)</strong>.<a class="btn text-wrap font-weight-bold ms-3 my-1 align-baseline pst-button-link-to-stable-version" href="https://napari.org/stable/">Switch to stable version</a></div><a class="ms-3 my-1 align-baseline"></a></div>
 
     
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+    <nav class="navbar navbar-light navbar-expand-lg bg-light bd-navbar" id="navbar-main" style="position: relative;"><div class="container-xl">
 
   <div id="navbar-start">
     
@@ -69,7 +69,7 @@
   </button>
 
   
-  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse" style="line-height: 1.4rem;">
     <div id="navbar-center" class="mr-auto">
       
       <div class="navbar-center-item">
@@ -747,22 +747,22 @@ bar in the terminal.</p>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code>()</p></td>
 <td><p>Close progress object and emit event.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">display</span></code>([msg, pos])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">display</span></code>([msg, pos])</p></td>
 <td><p>Update the display and emit eta event.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">external_write_mode</span></code>([file, nolock])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">external_write_mode</span></code>([file, nolock])</p></td>
 <td><p>Disable tqdm within context and refresh tqdm when exits.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_interval</span></code>(t)</p></td>
 <td><p>Formats a number of seconds as a clock time, [H:]MM:SS</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_meter</span></code>(n, total, elapsed[, ncols, ...])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_meter</span></code>(n, total, elapsed[, ncols, ...])</p></td>
 <td><p>Return a string-based progress bar given some parameters</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_num</span></code>(n)</p></td>
 <td><p>Intelligent scientific notation (.3g).</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_sizeof</span></code>(num[, suffix, divisor])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_sizeof</span></code>(num[, suffix, divisor])</p></td>
 <td><p>Formats a number (greater than unity) with SI Order of Magnitude prefixes.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_lock</span></code>()</p></td>
@@ -777,7 +777,7 @@ bar in the terminal.</p>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas</span></code>(**tqdm_kwargs)</p></td>
 <td><p>Registers the current <cite>tqdm</cite> class with</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">refresh</span></code>([nolock, lock_args])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">refresh</span></code>([nolock, lock_args])</p></td>
 <td><p>Force refresh the display of this bar.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code>([total])</p></td>
@@ -786,16 +786,16 @@ bar in the terminal.</p>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_description</span></code>(desc)</p></td>
 <td><p>Update progress description and emit description event.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_description_str</span></code>([desc, refresh])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_description_str</span></code>([desc, refresh])</p></td>
 <td><p>Set/modify description without ': ' appended.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_lock</span></code>(lock)</p></td>
 <td><p>Set the global lock.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_postfix</span></code>([ordered_dict, refresh])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_postfix</span></code>([ordered_dict, refresh])</p></td>
 <td><p>Set/modify postfix (additional stats) with automatic formatting based on datatype.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_postfix_str</span></code>([s, refresh])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_postfix_str</span></code>([s, refresh])</p></td>
 <td><p>Postfix without dictionary expansion, similar to prefix handling.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">status_printer</span></code>(file)</p></td>
@@ -807,10 +807,10 @@ bar in the terminal.</p>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code>([n])</p></td>
 <td><p>Update progress value by n and emit value event</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">wrapattr</span></code>(stream, method[, total, bytes])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">wrapattr</span></code>(stream, method[, total, bytes])</p></td>
 <td><p>stream  : file-like object. method  : str, &quot;read&quot; or &quot;write&quot;. The result of <cite>read()</cite> and     the first argument of <cite>write()</cite> should have a <cite>len()</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">write</span></code>(s[, file, end, nolock])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">write</span></code>(s[, file, end, nolock])</p></td>
 <td><p>Print a message via tqdm (without overlap with bars).</p></td>
 </tr>
 </tbody>
@@ -1676,5 +1676,7 @@ method  : str, “read” or “write”. The result of <cite>read()</cite> and<
     </div>
   
 </footer>
+  </body>
+</html>
   </body>
 </html>

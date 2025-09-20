@@ -53,10 +53,10 @@
   </head>
   <body>
     
-    <div class="container-fluid" id="banner"></div>
+    <div class="container-fluid" id="banner" aria-label="Version warning" style="background-color: #e0c7ff"><div class="sidebar-message" style="text-align: center;">This is documentation for <strong>an old version (0.4.16)</strong>.<a class="btn text-wrap font-weight-bold ms-3 my-1 align-baseline pst-button-link-to-stable-version" href="https://napari.org/stable/">Switch to stable version</a></div><a class="ms-3 my-1 align-baseline"></a></div>
 
     
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+    <nav class="navbar navbar-light navbar-expand-lg bg-light bd-navbar" id="navbar-main" style="position: relative;"><div class="container-xl">
 
   <div id="navbar-start">
     
@@ -76,7 +76,7 @@
   </button>
 
   
-  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse" style="line-height: 1.4rem;">
     <div id="navbar-center" class="mr-auto">
       
       <div class="navbar-center-item">
@@ -783,16 +783,16 @@ function checkPageExistsAndRedirect(event) {
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.add_hookcall_monitoring" title="napari.plugins.NapariPluginManager.add_hookcall_monitoring"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_hookcall_monitoring</span></code></a>(before, after)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.add_hookcall_monitoring" title="napari.plugins.NapariPluginManager.add_hookcall_monitoring"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_hookcall_monitoring</span></code></a>(before, after)</p></td>
 <td><p>Add before/after tracing functions for all hooks.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.add_hookspecs" title="napari.plugins.NapariPluginManager.add_hookspecs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_hookspecs</span></code></a>(namespace)</p></td>
 <td><p>Add new hook specifications defined in the given <code class="docutils literal notranslate"><span class="pre">namespace</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.assign_reader_to_extensions" title="napari.plugins.NapariPluginManager.assign_reader_to_extensions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assign_reader_to_extensions</span></code></a>(reader, extensions)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.assign_reader_to_extensions" title="napari.plugins.NapariPluginManager.assign_reader_to_extensions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assign_reader_to_extensions</span></code></a>(reader, extensions)</p></td>
 <td><p>Assign a specific reader plugin to <cite>extensions</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.assign_writer_to_extensions" title="napari.plugins.NapariPluginManager.assign_writer_to_extensions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assign_writer_to_extensions</span></code></a>(writer, extensions)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.assign_writer_to_extensions" title="napari.plugins.NapariPluginManager.assign_writer_to_extensions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assign_writer_to_extensions</span></code></a>(writer, extensions)</p></td>
 <td><p>Assign a specific writer plugin to <cite>extensions</cite>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.available_samples" title="napari.plugins.NapariPluginManager.available_samples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">available_samples</span></code></a>()</p></td>
@@ -804,7 +804,7 @@ function checkPageExistsAndRedirect(event) {
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.check_pending" title="napari.plugins.NapariPluginManager.check_pending"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_pending</span></code></a>()</p></td>
 <td><p>Make sure all hooks have a specification, or are optional.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.discover" title="napari.plugins.NapariPluginManager.discover"><code class="xref py py-obj docutils literal notranslate"><span class="pre">discover</span></code></a>([path, entry_point, prefix, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.discover" title="napari.plugins.NapariPluginManager.discover"><code class="xref py py-obj docutils literal notranslate"><span class="pre">discover</span></code></a>([path, entry_point, prefix, ...])</p></td>
 <td><p>Discover and load plugins.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">discover_sample_data</span></code>()</p></td>
@@ -822,13 +822,13 @@ function checkPageExistsAndRedirect(event) {
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.enable_tracing" title="napari.plugins.NapariPluginManager.enable_tracing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enable_tracing</span></code></a>()</p></td>
 <td><p>Enable tracing of hook calls and return an undo function.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.get_errors" title="napari.plugins.NapariPluginManager.get_errors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_errors</span></code></a>([plugin, error_type])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.get_errors" title="napari.plugins.NapariPluginManager.get_errors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_errors</span></code></a>([plugin, error_type])</p></td>
 <td><p>Return a list of PluginErrors associated with <code class="docutils literal notranslate"><span class="pre">plugin</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.get_hookcallers" title="napari.plugins.NapariPluginManager.get_hookcallers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hookcallers</span></code></a>(plugin)</p></td>
 <td><p>get all hook callers for the specified plugin.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.get_metadata" title="napari.plugins.NapariPluginManager.get_metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_metadata</span></code></a>(plugin, *values)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.get_metadata" title="napari.plugins.NapariPluginManager.get_metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_metadata</span></code></a>(plugin, *values)</p></td>
 <td><p>Return metadata values for a given plugin</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.get_name" title="napari.plugins.NapariPluginManager.get_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_name</span></code></a>(plugin)</p></td>
@@ -840,7 +840,7 @@ function checkPageExistsAndRedirect(event) {
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.get_standard_metadata" title="napari.plugins.NapariPluginManager.get_standard_metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_standard_metadata</span></code></a>(plugin)</p></td>
 <td><p>Return a standard metadata dict for <code class="docutils literal notranslate"><span class="pre">plugin</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.get_widget" title="napari.plugins.NapariPluginManager.get_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_widget</span></code></a>(plugin_name[, widget_name])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.get_widget" title="napari.plugins.NapariPluginManager.get_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_widget</span></code></a>(plugin_name[, widget_name])</p></td>
 <td><p>Get widget <cite>widget_name</cite> provided by plugin <cite>plugin_name</cite>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.get_writer_for_extension" title="napari.plugins.NapariPluginManager.get_writer_for_extension"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_writer_for_extension</span></code></a>(extension)</p></td>
@@ -852,7 +852,7 @@ function checkPageExistsAndRedirect(event) {
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.is_registered" title="napari.plugins.NapariPluginManager.is_registered"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_registered</span></code></a>(obj)</p></td>
 <td><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the plugin is already registered.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.iter_available" title="napari.plugins.NapariPluginManager.iter_available"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iter_available</span></code></a>([path, entry_point, prefix])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.iter_available" title="napari.plugins.NapariPluginManager.iter_available"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iter_available</span></code></a>([path, entry_point, prefix])</p></td>
 <td><p>Iterate over available plugins.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">iter_widgets</span></code>()</p></td>
@@ -867,22 +867,22 @@ function checkPageExistsAndRedirect(event) {
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.prune" title="napari.plugins.NapariPluginManager.prune"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prune</span></code></a>()</p></td>
 <td><p>Unregister modules that can no longer be imported.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.register" title="napari.plugins.NapariPluginManager.register"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register</span></code></a>(namespace[, name])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.register" title="napari.plugins.NapariPluginManager.register"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register</span></code></a>(namespace[, name])</p></td>
 <td><p>Register a plugin and return its canonical name or <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_dock_widget</span></code>(args, hookimpl)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_dock_widget</span></code>(args, hookimpl)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_function_widget</span></code>(args, hookimpl)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_function_widget</span></code>(args, hookimpl)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.register_sample_data" title="napari.plugins.NapariPluginManager.register_sample_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_sample_data</span></code></a>(data, hookimpl)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.register_sample_data" title="napari.plugins.NapariPluginManager.register_sample_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_sample_data</span></code></a>(data, hookimpl)</p></td>
 <td><p>Register sample data dict returned by <cite>napari_provide_sample_data</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.register_theme_colors" title="napari.plugins.NapariPluginManager.register_theme_colors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_theme_colors</span></code></a>(data, hookimpl)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.register_theme_colors" title="napari.plugins.NapariPluginManager.register_theme_colors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_theme_colors</span></code></a>(data, hookimpl)</p></td>
 <td><p>Register theme data dict returned by <cite>napari_experimental_provide_theme</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.set_blocked" title="napari.plugins.NapariPluginManager.set_blocked"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_blocked</span></code></a>(plugin_name[, blocked])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.set_blocked" title="napari.plugins.NapariPluginManager.set_blocked"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_blocked</span></code></a>(plugin_name[, blocked])</p></td>
 <td><p>Block registrations of <code class="docutils literal notranslate"><span class="pre">plugin_name</span></code>, unregister if registered.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.plugins.NapariPluginManager.set_call_order" title="napari.plugins.NapariPluginManager.set_call_order"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_call_order</span></code></a>(new_order)</p></td>

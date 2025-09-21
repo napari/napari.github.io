@@ -12,4 +12,5 @@ caption: With this tag
 ../gallery/fourier_transform_playground.rst
 ../gallery/inherit_viewer_style.rst
 ../gallery/interactive_scripting.rst
+../gallery/mouse_drag_image_warping.rst
 ```

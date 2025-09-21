@@ -12,7 +12,7 @@ experimental (10) <experimental>
 features-table (5) <features-table>
 gui (16) <gui>
 historical (4) <historical>
-interactivity (6) <interactivity>
+interactivity (7) <interactivity>
 layers (8) <layers>
 visualization-advanced (22) <visualization-advanced>
 visualization-basic (25) <visualization-basic>

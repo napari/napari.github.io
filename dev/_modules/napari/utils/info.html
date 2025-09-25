@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=bed85b6a"></script>
+    <script src="../../../_static/documentation_options.js?v=9081c10f"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -476,10 +476,12 @@ window.addEventListener("load", load);
 <span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">textwrap</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">importlib.metadata</span><span class="w"> </span><span class="kn">import</span> <span class="n">PackageNotFoundError</span><span class="p">,</span> <span class="n">version</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span>
 
 <span class="n">OS_RELEASE_PATH</span> <span class="o">=</span> <span class="s1">&#39;/etc/os-release&#39;</span>
 
@@ -615,6 +617,29 @@ window.addEventListener("load", load);
         <span class="k">return</span> <span class="s1">&#39;&lt;br&gt;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&lt;br&gt;&#39;</span>
     <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Failed to load plugin information: &lt;br&gt; </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">startup_script</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get information about the startup script if executed.&quot;&quot;&quot;</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._startup_script</span><span class="w"> </span><span class="kn">import</span> <span class="n">startup_script_status_info</span>
+
+    <span class="k">if</span> <span class="n">startup_script_status_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">script_path</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">startup_script</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">script_path</span><span class="o">.</span><span class="n">samefile</span><span class="p">(</span><span class="n">Path</span><span class="p">()):</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;br&gt;&lt;b&gt;Startup script:&lt;/b&gt;&lt;br&gt; - script path: </span><span class="si">{</span><span class="n">script_path</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="n">code_html</span> <span class="o">=</span> <span class="n">startup_script_status_info</span><span class="o">.</span><span class="n">script_code</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;br&gt;&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    &lt;br&gt;&lt;b&gt;Startup script:&lt;/b&gt;&lt;br&gt;</span>
+<span class="s2">     - load time: </span><span class="si">{</span><span class="n">startup_script_status_info</span><span class="o">.</span><span class="n">startup_time</span><span class="si">}</span><span class="s2">&lt;br&gt;</span>
+<span class="s2">     - script path: </span><span class="si">{</span><span class="n">startup_script_status_info</span><span class="o">.</span><span class="n">script_path</span><span class="si">}</span><span class="s2">&lt;br&gt;</span>
+<span class="s2">     - script code: </span><span class="si">{</span><span class="n">code_html</span><span class="si">}</span><span class="s2">&lt;br&gt;</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="sys_info">
@@ -766,6 +791,7 @@ window.addEventListener("load", load);
 
     <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&lt;br&gt;&lt;b&gt;Plugins:&lt;/b&gt;&lt;br&gt;&#39;</span>
     <span class="n">text</span> <span class="o">+=</span> <span class="n">get_plugin_list</span><span class="p">()</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="n">startup_script</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">as_html</span><span class="p">:</span>
         <span class="n">text</span> <span class="o">=</span> <span class="p">(</span>

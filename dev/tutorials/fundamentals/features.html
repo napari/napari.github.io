@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=bed85b6a"></script>
+    <script src="../../_static/documentation_options.js?v=9081c10f"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -630,6 +630,7 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../release/index.html">Release Notes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_6_5.html">napari 0.6.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_6_4.html">napari 0.6.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_6_3.html">napari 0.6.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_6_2.html">napari 0.6.2</a></li>
@@ -820,6 +821,21 @@ To see it in action, see the <a class="reference internal" href="../../gallery/f
 <p>Images and other data files are not the only thing that napari can read! You can also run any python script in napari by <a class="reference external" href="https://github.com/napari/napari/blob/main/examples/drag_and_drop_python_code.py">drag’n’dropping</a> the script onto the viewer. When a script is opened with napari the first viewer instance created by the script will be replaced with the current existing viewer.</p>
 <p>This feature is especially useful for quickly testing or distributing code snippets without needing to leave the viewer or touch the console.</p>
 </section>
+<section id="startup-script">
+<h2>Startup script<a class="headerlink" href="#startup-script" title="Link to this heading">#</a></h2>
+<p>Since napari 0.6.5 it is possible to provide a script that will be run every time napari starts.
+This can be done by providing a script path in Settings » Application » Startup script.
+This can be useful, for example, for adding a
+<a class="reference external" href="https://github.com/napari/napari/blob/main/examples/dev/settings_startup_script.py">custom colormap</a>
+or loading a specific plugin every time napari starts.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature is intended only for users. Plugin are not allowed to modify this setting.</p>
+</div>
+<p>As with other settings, the value of this field can be overridden by setting the
+<code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_STARTUP_SCRIPT</span></code> environment variable to the path of the script to run at startup.
+Setting it to an empty string will disable the startup script.</p>
+</section>
 </section>
 
 
@@ -873,6 +889,7 @@ To see it in action, see the <a class="reference internal" href="../../gallery/f
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measure-distances-and-areas">Measure distances and areas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features-table-widget">Features table widget</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-python-scripts-with-napari">Running python scripts with napari</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#startup-script">Startup script</a></li>
 </ul>
   </nav></div>
 

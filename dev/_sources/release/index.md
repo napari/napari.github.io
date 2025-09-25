@@ -4,12 +4,26 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: September 22, 2025*
+*Last updated: September 25, 2025*
 
 
 ## Recent Releases (Last 3 Months)
 
 Latest features and improvements:
+
+````{dropdown} napari 0.6.5 (September 2025)
+:open:
+
+- Add colormap overlay ([#7832](https://github.com/napari/napari/pull/7832))
+- add option to define startup script in settings ([#8188](https://github.com/napari/napari/pull/8188))
+- Multilayer features table ([#8189](https://github.com/napari/napari/pull/8189))
+- Add a tasks manager status for plugins actions and napari processes ([#8211](https://github.com/napari/napari/pull/8211))
+- Migrate non-user extras to dependency-groups ([#8227](https://github.com/napari/napari/pull/8227))
+- Auto generate release index with highlights and timeline ([docs#838](https://github.com/napari/docs/pull/838))
+
+[View full release notes →](release_0_6_5)
+
+````
 
 ````{dropdown} napari 0.6.4 (August 2025)
 :open:

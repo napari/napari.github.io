@@ -1,4 +1,5 @@
 ---
+html_theme.sidebar_secondary.remove: true
 theme:
   metaDescription: napari is a fast multi-dimensional image viewer for Python. It can help you **explore** any image-like data, be it 2D, 3D, or even higher-dimensional. It can also help you **overlay** downstream or **associated data**, such as point coordinates or segmentations, which you can use to **annotate** and **proofread** your image data.
   quickLinks:
@@ -130,3 +131,43 @@ napari is extensible! Find plugins, or develop your own!
 :::
 
 ::::
+
+## funding
+
+If you like napari and want to support our [mission](mission-and-values),
+please consider a [donation](https://numfocus.org/donate-to-napari) to our
+efforts.
+
+napari is a fiscally sponsored project of [NumFOCUS], a US-based non-profit
+supporting open science and open source scientific software.
+
+We gratefully acknowledge funding support from the [Chan Zuckerberg
+Initiative][CZI] (CZI) and [NumFOCUS].
+
+::::{grid} 1 1 3 3
+
+:::{grid-item-card}
+:text-align: center
+:class-body: d-flex align-items-center justify-content-center
+
+[![CZI logo](_static/images/czi-logo.png)](https://chanzuckerberg.com)
+:::
+
+:::{grid-item-card}
+:text-align: center
+:class-body: d-flex align-items-center justify-content-center
+
+[![NumFOCUS logo](_static/images/nf-logo.png)](https://numfocus.org)
+:::
+
+:::{grid-item-card} ADD YOUR LOGO HERE
+:text-align: center
+:class-body: d-flex align-items-center justify-content-center
+:link: funding
+:link-type: ref
+:::
+  
+::::
+
+[NumFOCUS]: https://numfocus.org
+[CZI]: https://chanzuckerberg.com

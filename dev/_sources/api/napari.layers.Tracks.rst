@@ -76,6 +76,7 @@ napari.layers.Tracks
 
    .. autosummary::
    
+      ~Tracks.ModeCallable
       ~Tracks.affine
       ~Tracks.axis_labels
       ~Tracks.blending

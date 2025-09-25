@@ -82,6 +82,7 @@ napari.layers.Surface
 
    .. autosummary::
    
+      ~Surface.ModeCallable
       ~Surface.affine
       ~Surface.axis_labels
       ~Surface.blending

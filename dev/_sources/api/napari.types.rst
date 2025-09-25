@@ -16,11 +16,7 @@
       :toctree:
    
       ArrayBase
-      FullLayerData
-      ReaderFunction
       SampleDict
-      WidgetCallable
-      WriterFunction
    
    
 

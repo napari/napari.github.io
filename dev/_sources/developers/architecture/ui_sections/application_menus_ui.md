@@ -94,6 +94,7 @@ graph LR
 	click napari._qt.qt_viewer "https://github.com/napari/napari/tree/main/napari/_qt/qt_viewer.py" _blank
 	napari._qt.qthreading(napari._qt.qthreading)
 	napari._qt.qthreading --> napari._qt._qapp_model.injection._qprocessors
+	napari._qt.qthreading --> napari.viewer
 	click napari._qt.qthreading "https://github.com/napari/napari/tree/main/napari/_qt/qthreading.py" _blank
 	napari._qt.widgets.qt_command_palette(napari._qt.widgets.qt_command_palette)
 	napari._qt.widgets.qt_command_palette --> napari._qt.qt_main_window

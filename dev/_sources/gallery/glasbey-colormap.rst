@@ -61,6 +61,13 @@ colormap.
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/colorspacious/comparison.py:11: SyntaxWarning: invalid escape sequence '\D'
+      """Computes the :math:`\Delta E` distance between pairs of colors.
+
 
 
 
@@ -171,7 +178,7 @@ in two viewers to show both colormaps.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 13.893 seconds)
+   **Total running time of the script:** (0 minutes 14.980 seconds)
 
 
 .. _sphx_glr_download_gallery_glasbey-colormap.py:

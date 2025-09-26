@@ -94,7 +94,7 @@ napari
 +++
 
 :::{tip}
-Starting with release 0.6.0, you can use the [command palette](command-palette) to launch any command. :art:
+Starting with release 0.6.0, you can use the [command palette](command-palette) to launch any command. 🎨
 :::
 
 ### Open an image

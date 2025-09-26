@@ -60,32 +60,32 @@ In order to make changes to `napari`, you will need to [fork](https://docs.githu
 
     For PyQt5, the default Qt backend, use:
     ```sh
-    pip install -e ".[pyqt,dev]"  # (quotes only needed for zsh shell)
+    pip install -e ".[pyqt]" --group dev  # (quotes only needed for zsh shell)
     ```
 
     To use PySide2 instead of the PyQt5, use:
     ```sh
-    pip install -e ".[pyside,dev]"  # (quotes only needed for zsh shell)
+    pip install -e ".[pyside]" --group dev  # (quotes only needed for zsh shell)
     ```
 
-    For PyOt6, use:
+    For PyQt6, use:
     ```sh
-    pip install -e ".[pyqt6,dev]"  # (quotes only needed for zsh shell)
+    pip install -e ".[pyqt6]" --group dev  # (quotes only needed for zsh shell)
     ```
     
     If you wish to install the developer tools only, use the following. Choose
     this option if you wish to install your Qt backend separately, such as if you already have
     a Qt backend installed or if you use an experimental backend like PySide6:
     ```sh
-    pip install -e ".[dev]"  # (quotes only needed for zsh shell)
+    pip install -e . --group dev  # (quotes only needed for zsh shell)
     ```
 
     Note that in this last case you will need to install your Qt backend separately.
 
     ```{note}
-    In all of the above cases, you may wish to include the `optional` dependency group,
-    in addition to `dev`, by using `pip install -e ".[dev, optional]"`, for example.
-    The `optional` dependency group includes `numba` and other performance packages that are
+    In all of the above cases, you may wish to include the `optional` extra (optional dependency),
+    in addition to `dev`, by using `pip install -e ".[optional]" --group dev`, for example.
+    The `optional` extra (optional dependency) includes `numba` and other performance packages that are
     included with the typical end-user `napari[all]` installation.
     ```
 

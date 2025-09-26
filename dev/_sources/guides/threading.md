@@ -308,6 +308,12 @@ to force quit your program.
 
 So whenever possible, sprinkle your long-running functions with `yield`.
 
+```{note}
+Starting with napari 0.6.5 workers get registered as a running task and a confirmation
+dialog will be shown if they are still running when closing the napari GUI via
+its close button.
+```
+
 ## Full two-way communication
 
 So far we've mostly been *receiving* results from the threaded function, but we

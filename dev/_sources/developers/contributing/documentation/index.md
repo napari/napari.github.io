@@ -208,12 +208,12 @@ You will need:
 - a from-source, editable installation of napari with the optional `docs` dependencies and a Qt backend. From the `napari/napari` repository directory run, for example:
 
   ```bash
-  python -m pip install -e ".[pyqt, docs]"
+  python -m pip install -e ".[pyqt]" --group docs
   ```
   This will use the default Qt backend. For other options, see [the napari installation guide](../../../tutorials/fundamentals/installation.md#choosing-a-different-qt-backend).
 
   ````{note}
-  You can combine the documentation dependencies with [a development installation of napari](dev-installation) by having both `dev` and `docs` in the dependencies, e.g. `[pyqt, dev, docs]`.
+  You can combine the documentation dependencies with [a development installation of napari](dev-installation) by selecting the Qt extra and both dependency groups, e.g. installing with `.[pyqt]` and adding `--group dev --group docs`.
   ````
 
 Once the installation is complete, you can proceed to the directory where you cloned the `napari/docs` repository:

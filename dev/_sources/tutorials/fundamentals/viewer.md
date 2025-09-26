@@ -30,7 +30,7 @@ As discussed in the [getting started](launch) tutorial, the napari viewer can be
 open an interactive viewer) and run them.
 
 :::{tip}
-Starting with release 0.6.0, you can use the [command palette](command-palette) to launch any command. :art:
+Starting with release 0.6.0, you can use the [command palette](command-palette) to launch any command via {kbd}`Command/Ctrl+Shift+P`. :art:
 :::
 
 **Note:** There is also an IPython console available in napari, when napari is launched from the terminal, from a Python script, or when you use the napari bundled app. You can open it with the IPython console button (far left viewer button) or with the menu option **Window** > **console**. You can use this console to programmatically interact with an open viewer using the API methods illustrated in this tutorial.

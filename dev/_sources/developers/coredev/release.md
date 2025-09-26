@@ -70,7 +70,7 @@ At this point the release manager should ideally be the only person merging PRs 
 
 ## Release procedures
 
-Additional `release` dependencies (`python -m pip install -e .[release]`, from the `napari/napari` root folder) are required to complete the release process.
+Additional `release` dependencies (`python -m pip install -e . --group release`, from the `napari/napari` root folder) are required to complete the release process.
 
 > [`MANIFEST.in`](https://github.com/napari/napari/blob/main/MANIFEST.in) determines which non-Python files are included.
 > Make sure to check that all necessary ones are listed before beginning the release process.

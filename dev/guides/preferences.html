@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/guides/preferences.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Starting with version 0.4.6, napari provides persistent settings. Settings are managed by getting the global settings object and modifying settings: Reset to defaults via CLI: To reset all napari settings to the default values: The preferences dialog: Starting with version 0.4.6, napari provides ..." />
+<meta property="og:description" content="napari settings: napari provides persistent settings that are stored on a per environment basis. This means that if you have multiple Python environments, each with a napari installation (e.g. different versions), the napari in each environment will have its own set of stored preferences. So, for..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="Starting with version 0.4.6, napari provides persistent settings. Settings are managed by getting the global settings object and modifying settings: Reset to defaults via CLI: To reset all napari settings to the default values: The preferences dialog: Starting with version 0.4.6, napari provides ..." />
+<meta name="description" content="napari settings: napari provides persistent settings that are stored on a per environment basis. This means that if you have multiple Python environments, each with a napari installation (e.g. different versions), the napari in each environment will have its own set of stored preferences. So, for..." />
 
     <title>Preferences &#8212; napari</title>
   
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=72faaaae"></script>
+    <script src="../_static/documentation_options.js?v=a08e68e4"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -777,7 +777,35 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="preferences">
 <span id="napari-preferences"></span><h1>Preferences<a class="headerlink" href="#preferences" title="Link to this heading">#</a></h1>
-<p>Starting with version 0.4.6, napari provides persistent settings.</p>
+<section id="napari-settings">
+<h2>napari settings<a class="headerlink" href="#napari-settings" title="Link to this heading">#</a></h2>
+<p>napari provides persistent settings that are stored on a <em>per environment basis</em>.
+This means that if you have multiple Python environments, each with a napari installation (e.g.
+different versions), the napari in each environment will have its own set of stored preferences.
+So, for example, you could have an environment where napari always uses the Light theme and another one
+where napari always uses the Dark theme.</p>
+<p>A wide range of settings are available, organized into sections, and described in more detail below.</p>
+<section id="where-settings-are-stored">
+<h3>Where settings are stored<a class="headerlink" href="#where-settings-are-stored" title="Link to this heading">#</a></h3>
+<p>Settings are stored in a <code class="docutils literal notranslate"><span class="pre">settings.yaml</span></code> file and napari uses <a class="reference external" href="https://github.com/ActiveState/appdirs"><code class="docutils literal notranslate"><span class="pre">appdirs</span></code></a>
+to determine the save location: the platform-specific user configuration directory.
+You can check where a napari installation has stored settings by looking for “Settings path” in the output of:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>napari<span class="w"> </span>--info
+</pre></div>
+</div>
+</section>
+</section>
+<section id="resetting-settings-to-defaults-using-the-command-line-cli">
+<h2>Resetting settings to defaults using the command line (CLI)<a class="headerlink" href="#resetting-settings-to-defaults-using-the-command-line-cli" title="Link to this heading">#</a></h2>
+<p>Sometimes, for example due to a version change, an issue with the stored settings can prevent
+napari from launching or cause other issues. In those cases, it can be useful to reset the settings
+to the defaults from the command line. To reset all napari settings to the default values:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>napari<span class="w"> </span>--reset
+</pre></div>
+</div>
+</section>
+<section id="programmatic-access-to-the-settings">
+<h2>Programmatic access to the settings<a class="headerlink" href="#programmatic-access-to-the-settings" title="Link to this heading">#</a></h2>
 <p>Settings are managed by getting the global settings object and modifying settings:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span>
 
@@ -786,593 +814,607 @@
 <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="s1">&#39;dark&#39;</span>
 </pre></div>
 </div>
-<section id="reset-to-defaults-via-cli">
-<h2>Reset to defaults via CLI<a class="headerlink" href="#reset-to-defaults-via-cli" title="Link to this heading">#</a></h2>
-<p>To reset all napari settings to the default values:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>napari<span class="w"> </span>--reset
-</pre></div>
-</div>
+<p>You can get more information about individual settings, their types, and default values in each of the
+settings section descriptions below.</p>
 </section>
 <section id="the-preferences-dialog">
-<h2>The preferences dialog<a class="headerlink" href="#the-preferences-dialog" title="Link to this heading">#</a></h2>
-<p>Starting with version 0.4.6, napari provides a preferences dialog to manage
-some of the provided options.</p>
-<section id="application">
-<h3>Application<a class="headerlink" href="#application" title="Link to this heading">#</a></h3>
-<p><img alt="application" src="../_images/preferences-application.png" /></p>
+<h2>The Preferences dialog<a class="headerlink" href="#the-preferences-dialog" title="Link to this heading">#</a></h2>
+<p>napari provides a Preferences dialog to manage the settings using a graphical user interface (GUI).
+Importantly, this dialog also allows you to customize napari keyboard shortcuts (keybindings).</p>
+<p>On Windows and Linux, the Preferences dialog can be accessed in the <strong>File</strong> menu. On macOS, it can be
+accessed in the <strong>napari</strong> menu.</p>
+<p>The settings are grouped by sections that are accessible in a list on the left side of the dialog.</p>
 </section>
-<section id="appearance">
-<h3>Appearance<a class="headerlink" href="#appearance" title="Link to this heading">#</a></h3>
-<p><img alt="appearance" src="../_images/preferences-appearance.png" /></p>
-</section>
-<section id="plugins">
-<h3>Plugins<a class="headerlink" href="#plugins" title="Link to this heading">#</a></h3>
-<p><img alt="plugins" src="../_images/preferences-plugins.png" /></p>
-</section>
-<section id="shortcuts">
-<h3>Shortcuts<a class="headerlink" href="#shortcuts" title="Link to this heading">#</a></h3>
-<p><img alt="shortcuts" src="../_images/preferences-shortcuts.png" /></p>
-</section>
-<section id="experimental">
-<h3>Experimental<a class="headerlink" href="#experimental" title="Link to this heading">#</a></h3>
-<p><img alt="experimental" src="../_images/preferences-experimental.png" /></p>
-</section>
-<section id="reset-to-defaults-via-ui">
-<h3>Reset to defaults via UI<a class="headerlink" href="#reset-to-defaults-via-ui" title="Link to this heading">#</a></h3>
-<p>To reset the preferences click on the <code class="docutils literal notranslate"><span class="pre">Restore</span> <span class="pre">defaults</span></code> button and continue
-by clicking on <code class="docutils literal notranslate"><span class="pre">Restore</span></code>.</p>
-<p><img alt="" src="../_images/preferences-reset.png" /></p>
-</section>
-</section>
-<section id="sections">
-<h2>Sections<a class="headerlink" href="#sections" title="Link to this heading">#</a></h2>
-<p>The settings are grouped by sections and napari core provides the following:</p>
-<section id="id1">
-<h3>APPLICATION<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="application-settings">
+<h2>Application Settings<a class="headerlink" href="#application-settings" title="Link to this heading">#</a></h2>
 <p>Main application settings.</p>
-<section id="brush-size-on-mouse-move-modifiers">
-<h4>Brush size on mouse move modifiers<a class="headerlink" href="#brush-size-on-mouse-move-modifiers" title="Link to this heading">#</a></h4>
-<p><em>Modifiers to activate changing the brush size by moving the mouse.</em></p>
+<p><img alt="application" src="../_images/preferences-application.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">More details on the individual Application settings</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="rubric" id="brush-size-on-mouse-move-modifiers">Brush size on mouse move modifiers</p>
+<p class="sd-card-text"><em>Modifiers to activate changing the brush size by moving the mouse.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.brush_size_on_mouse_move_modifiers</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">BrushSizeOnMouseModifiers</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;BrushSizeOnMouseModifiers.ALT:</span> <span class="pre">'Alt'&gt;</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.brush_size_on_mouse_move_modifiers</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_BRUSH_SIZE_ON_MOUSE_MOVE_MODIFIERS</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">BrushSizeOnMouseModifiers</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;BrushSizeOnMouseModifiers.ALT:</span> <span class="pre">'Alt'&gt;</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="confirm-window-or-application-closing">
-<h4>Confirm window or application closing<a class="headerlink" href="#confirm-window-or-application-closing" title="Link to this heading">#</a></h4>
-<p><em>Ask for confirmation before closing a napari window or application (all napari windows).</em></p>
+<p class="rubric" id="confirm-window-or-application-closing">Confirm window or application closing</p>
+<p class="sd-card-text"><em>Ask for confirmation before closing a napari window or application (all napari windows).</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.confirm_close_window</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.confirm_close_window</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_CONFIRM_CLOSE_WINDOW</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="console-notification-level">
-<h4>Console notification level<a class="headerlink" href="#console-notification-level" title="Link to this heading">#</a></h4>
-<p><em>Select the notification level for the console.</em></p>
+<p class="rubric" id="console-notification-level">Console notification level</p>
+<p class="sd-card-text"><em>Select the notification level for the console.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.console_notification_level</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">NotificationSeverity</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;NotificationSeverity.NONE:</span> <span class="pre">'none'&gt;</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.console_notification_level</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_CONSOLE_NOTIFICATION_LEVEL</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">NotificationSeverity</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;NotificationSeverity.NONE:</span> <span class="pre">'none'&gt;</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="dask-cache">
-<h4>Dask cache<a class="headerlink" href="#dask-cache" title="Link to this heading">#</a></h4>
-<p><em>Settings for dask cache (does not work with distributed arrays)</em></p>
+<p class="rubric" id="dask-cache">Dask cache</p>
+<p class="sd-card-text"><em>Settings for dask cache (does not work with distributed arrays)</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.dask</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">DaskSettings</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">DaskSettings(enabled=True,</span> <span class="pre">cache=4.193144832)</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.dask</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_DASK</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">DaskSettings</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">DaskSettings(enabled=True,</span> <span class="pre">cache=4.193143808)</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="depth-axis-orientation">
-<h4>Depth Axis Orientation<a class="headerlink" href="#depth-axis-orientation" title="Link to this heading">#</a></h4>
-<p><em>Orientation of the depth axis in 3D view.
+<p class="rubric" id="depth-axis-orientation">Depth Axis Orientation</p>
+<p class="sd-card-text"><em>Orientation of the depth axis in 3D view.
 Default is “Towards”; &lt;0.6.0 was “Away”.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.depth_axis_orientation</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">DepthAxisOrientation</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;DepthAxisOrientation.TOWARDS:</span> <span class="pre">'towards'&gt;</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.depth_axis_orientation</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_DEPTH_AXIS_ORIENTATION</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">DepthAxisOrientation</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;DepthAxisOrientation.TOWARDS:</span> <span class="pre">'towards'&gt;</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="first-time">
-<h4>First time<a class="headerlink" href="#first-time" title="Link to this heading">#</a></h4>
-<p><em>Indicate if napari is running for the first time. This setting is managed by the application.</em></p>
+<p class="rubric" id="grid-height">Grid Height</p>
+<p class="sd-card-text"><em>Number of rows in the grid.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.first_time</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.grid_height</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_GRID_HEIGHT</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">ConstrainedIntValue</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="grid-height">
-<h4>Grid Height<a class="headerlink" href="#grid-height" title="Link to this heading">#</a></h4>
-<p><em>Number of rows in the grid.</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.grid_height</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">ConstrainedIntValue</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
-</ul>
-</section>
-<section id="grid-spacing">
-<h4>Grid Spacing<a class="headerlink" href="#grid-spacing" title="Link to this heading">#</a></h4>
-<p><em>The amount of spacing inbetween grid viewboxes.
+<p class="rubric" id="grid-spacing">Grid Spacing</p>
+<p class="sd-card-text"><em>The amount of spacing inbetween grid viewboxes.
 If between 0 and 1, it is interpreted as a proportion of the size of the viewboxes.
 If equal or greater than 1, it is interpreted as screen pixels.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.grid_spacing</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">ConstrainedFloatValue</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.grid_spacing</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_GRID_SPACING</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">ConstrainedFloatValue</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="grid-stride">
-<h4>Grid Stride<a class="headerlink" href="#grid-stride" title="Link to this heading">#</a></h4>
-<p><em>Number of layers to place in each grid viewbox before moving on to the next viewbox.
+<p class="rubric" id="grid-stride">Grid Stride</p>
+<p class="sd-card-text"><em>Number of layers to place in each grid viewbox before moving on to the next viewbox.
 A negative stride will cause the order in which the layers are placed in the grid to be reversed.
 0 is not a valid entry.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.grid_stride</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">ConstrainedIntValue</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">1</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.grid_stride</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_GRID_STRIDE</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">ConstrainedIntValue</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">1</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="grid-width">
-<h4>Grid Width<a class="headerlink" href="#grid-width" title="Link to this heading">#</a></h4>
-<p><em>Number of columns in the grid.</em></p>
+<p class="rubric" id="grid-width">Grid Width</p>
+<p class="sd-card-text"><em>Number of columns in the grid.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.grid_width</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">ConstrainedIntValue</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.grid_width</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_GRID_WIDTH</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">ConstrainedIntValue</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="gui-notification-level">
-<h4>GUI notification level<a class="headerlink" href="#gui-notification-level" title="Link to this heading">#</a></h4>
-<p><em>Select the notification level for the user interface.</em></p>
+<p class="rubric" id="gui-notification-level">GUI notification level</p>
+<p class="sd-card-text"><em>Select the notification level for the user interface.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.gui_notification_level</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">NotificationSeverity</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;NotificationSeverity.INFO:</span> <span class="pre">'info'&gt;</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.gui_notification_level</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_GUI_NOTIFICATION_LEVEL</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">NotificationSeverity</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;NotificationSeverity.INFO:</span> <span class="pre">'info'&gt;</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="delay-to-treat-button-as-hold-in-seconds">
-<h4>Delay to treat button as hold in seconds<a class="headerlink" href="#delay-to-treat-button-as-hold-in-seconds" title="Link to this heading">#</a></h4>
-<p><em>This affects certain actions where a short press and a long press have different behaviors, such as changing the mode of a layer permanently or only during the long press.</em></p>
+<p class="rubric" id="delay-to-treat-button-as-hold-in-seconds">Delay to treat button as hold in seconds</p>
+<p class="sd-card-text"><em>This affects certain actions where a short press and a long press have different behaviors, such as changing the mode of a layer permanently or only during the long press.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.hold_button_delay</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">float</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">0.5</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.hold_button_delay</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_HOLD_BUTTON_DELAY</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">float</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">0.5</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="horizontal-axis-orientation">
-<h4>Horizontal Axis Orientation<a class="headerlink" href="#horizontal-axis-orientation" title="Link to this heading">#</a></h4>
-<p><em>Orientation of the horizontal axis in 2D and 3D view.
+<p class="rubric" id="horizontal-axis-orientation">Horizontal Axis Orientation</p>
+<p class="sd-card-text"><em>Orientation of the horizontal axis in 2D and 3D view.
 Default is “Right”.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.horizontal_axis_orientation</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">HorizontalAxisOrientation</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;HorizontalAxisOrientation.RIGHT:</span> <span class="pre">'right'&gt;</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.horizontal_axis_orientation</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_HORIZONTAL_AXIS_ORIENTATION</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">HorizontalAxisOrientation</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;HorizontalAxisOrientation.RIGHT:</span> <span class="pre">'right'&gt;</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="ipython-interactive">
-<h4>IPython interactive<a class="headerlink" href="#ipython-interactive" title="Link to this heading">#</a></h4>
-<p><em>Toggle the use of interactive <code class="docutils literal notranslate"><span class="pre">%gui</span> <span class="pre">qt</span></code> event loop when creating napari Viewers in IPython.</em></p>
+<p class="rubric" id="language">Language</p>
+<p class="sd-card-text"><em>Select the display language for the user interface.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.ipy_interactive</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.language</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_LANGUAGE</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">Language</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">'en'</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="language">
-<h4>Language<a class="headerlink" href="#language" title="Link to this heading">#</a></h4>
-<p><em>Select the display language for the user interface.</em></p>
+<p class="rubric" id="new-labels-data-type">New labels data type</p>
+<p class="sd-card-text"><em>data type for labels layers created with the “new labels” button.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.language</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Language</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">'en'</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.new_labels_dtype</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_NEW_LABELS_DTYPE</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">LabelDTypes</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;LabelDTypes.uint8:</span> <span class="pre">'uint8'&gt;</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="new-labels-data-type">
-<h4>New labels data type<a class="headerlink" href="#new-labels-data-type" title="Link to this heading">#</a></h4>
-<p><em>data type for labels layers created with the “new labels” button.</em></p>
+<p class="rubric" id="playback-frames-per-second">Playback frames per second</p>
+<p class="sd-card-text"><em>Playback speed in frames per second.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.new_labels_dtype</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">LabelDTypes</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;LabelDTypes.uint8:</span> <span class="pre">'uint8'&gt;</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.playback_fps</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_PLAYBACK_FPS</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">int</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="opened-folders-history">
-<h4>Opened folders history<a class="headerlink" href="#opened-folders-history" title="Link to this heading">#</a></h4>
-<p><em>Last saved list of opened folders. This setting is managed by the application.</em></p>
+<p class="rubric" id="playback-loop-mode">Playback loop mode</p>
+<p class="sd-card-text"><em>Loop mode for playback.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.open_history</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">List[str]</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">[]</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.playback_mode</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_PLAYBACK_MODE</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">LoopMode</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;LoopMode.LOOP:</span> <span class="pre">'loop'&gt;</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="playback-frames-per-second">
-<h4>Playback frames per second<a class="headerlink" href="#playback-frames-per-second" title="Link to this heading">#</a></h4>
-<p><em>Playback speed in frames per second.</em></p>
+<p class="rubric" id="save-window-geometry">Save window geometry</p>
+<p class="sd-card-text"><em>Toggle saving the main window size and position.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.playback_fps</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">int</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.save_window_geometry</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_SAVE_WINDOW_GEOMETRY</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="playback-loop-mode">
-<h4>Playback loop mode<a class="headerlink" href="#playback-loop-mode" title="Link to this heading">#</a></h4>
-<p><em>Loop mode for playback.</em></p>
+<p class="rubric" id="save-window-state">Save window state</p>
+<p class="sd-card-text"><em>Toggle saving the main window state of widgets.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.playback_mode</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">LoopMode</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;LoopMode.LOOP:</span> <span class="pre">'loop'&gt;</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.save_window_state</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_SAVE_WINDOW_STATE</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="plugin-widget-positions">
-<h4>Plugin widget positions<a class="headerlink" href="#plugin-widget-positions" title="Link to this heading">#</a></h4>
-<p><em>Per-widget last saved position of plugin dock widgets. This setting is managed by the application.</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.plugin_widget_positions</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Mapping[str,</span> <span class="pre">str]</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</small></p></li>
-</ul>
-</section>
-<section id="preferences-size">
-<h4>Preferences size<a class="headerlink" href="#preferences-size" title="Link to this heading">#</a></h4>
-<p><em>Last saved width and height for the preferences dialog. This setting is managed by the application.</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.preferences_size</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Optional[Tuple[int,</span> <span class="pre">int]]</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>.</small></p></li>
-</ul>
-</section>
-<section id="saved-folders-history">
-<h4>Saved folders history<a class="headerlink" href="#saved-folders-history" title="Link to this heading">#</a></h4>
-<p><em>Last saved list of saved folders. This setting is managed by the application.</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.save_history</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">List[str]</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">[]</span></code>.</small></p></li>
-</ul>
-</section>
-<section id="save-window-geometry">
-<h4>Save window geometry<a class="headerlink" href="#save-window-geometry" title="Link to this heading">#</a></h4>
-<p><em>Toggle saving the main window size and position.</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.save_window_geometry</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
-</ul>
-</section>
-<section id="save-window-state">
-<h4>Save window state<a class="headerlink" href="#save-window-state" title="Link to this heading">#</a></h4>
-<p><em>Toggle saving the main window state of widgets.</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.save_window_state</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
-</ul>
-</section>
-<section id="full-path-to-a-startup-script">
-<h4>Full path to a startup script<a class="headerlink" href="#full-path-to-a-startup-script" title="Link to this heading">#</a></h4>
-<p><em>Path to a Python script that will be executed on napari startup.
+<p class="rubric" id="full-path-to-a-startup-script">Full path to a startup script</p>
+<p class="sd-card-text"><em>Path to a Python script that will be executed on napari startup.
 This can be used to customize the behavior of napari or load specific plugins automatically.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.startup_script</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Path</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">PosixPath('.')</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.startup_script</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_STARTUP_SCRIPT</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">Path</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">PosixPath('.')</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="vertical-axis-orientation">
-<h4>Vertical Axis Orientation<a class="headerlink" href="#vertical-axis-orientation" title="Link to this heading">#</a></h4>
-<p><em>Orientation of the vertical axis in 2D and 3D view.
+<p class="rubric" id="vertical-axis-orientation">Vertical Axis Orientation</p>
+<p class="sd-card-text"><em>Orientation of the vertical axis in 2D and 3D view.
 Default is “Down”.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.vertical_axis_orientation</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">VerticalAxisOrientation</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;VerticalAxisOrientation.DOWN:</span> <span class="pre">'down'&gt;</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.vertical_axis_orientation</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_VERTICAL_AXIS_ORIENTATION</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">VerticalAxisOrientation</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;VerticalAxisOrientation.DOWN:</span> <span class="pre">'down'&gt;</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="window-fullscreen">
-<h4>Window fullscreen<a class="headerlink" href="#window-fullscreen" title="Link to this heading">#</a></h4>
-<p><em>Last saved fullscreen state for the main window. This setting is managed by the application.</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.window_fullscreen</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
-</ul>
-</section>
-<section id="window-maximized-state">
-<h4>Window maximized state<a class="headerlink" href="#window-maximized-state" title="Link to this heading">#</a></h4>
-<p><em>Last saved maximized state for the main window. This setting is managed by the application.</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.window_maximized</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
-</ul>
-</section>
-<section id="window-position">
-<h4>Window position<a class="headerlink" href="#window-position" title="Link to this heading">#</a></h4>
-<p><em>Last saved x and y coordinates for the main window. This setting is managed by the application.</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.window_position</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Optional[Tuple[int,</span> <span class="pre">int]]</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>.</small></p></li>
-</ul>
-</section>
-<section id="window-size">
-<h4>Window size<a class="headerlink" href="#window-size" title="Link to this heading">#</a></h4>
-<p><em>Last saved width and height for the main window. This setting is managed by the application.</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.window_size</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Optional[Tuple[int,</span> <span class="pre">int]]</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>.</small></p></li>
-</ul>
-</section>
-<section id="window-state">
-<h4>Window state<a class="headerlink" href="#window-state" title="Link to this heading">#</a></h4>
-<p><em>Last saved state of dockwidgets and toolbars for the main window. This setting is managed by the application.</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.window_state</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>.</small></p></li>
-</ul>
-</section>
-<section id="show-status-bar">
-<h4>Show status bar<a class="headerlink" href="#show-status-bar" title="Link to this heading">#</a></h4>
-<p><em>Toggle diplaying the status bar for the main window.</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.window_statusbar</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</small></p></li>
-</ul>
-</section>
-</section>
-<section id="id2">
-<h3>APPEARANCE<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+</div>
+</details></section>
+<section id="appearance-settings">
+<h2>Appearance Settings<a class="headerlink" href="#appearance-settings" title="Link to this heading">#</a></h2>
 <p>User interface appearance settings.</p>
-<section id="font-size">
-<h4>Font size<a class="headerlink" href="#font-size" title="Link to this heading">#</a></h4>
-<p><em>Select the user interface font size.</em></p>
+<p><img alt="appearance" src="../_images/preferences-appearance.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">More details on the individual Appearance settings</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="rubric" id="font-size">Font size</p>
+<p class="sd-card-text"><em>Select the user interface font size.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.appearance.font_size</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">ConstrainedIntValue</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">9</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.appearance.font_size</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPEARANCE_FONT_SIZE</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">ConstrainedIntValue</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">9</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="highlight">
-<h4>Highlight<a class="headerlink" href="#highlight" title="Link to this heading">#</a></h4>
-<p><em>Select the highlight color and thickness to use when hovering over shapes/points.</em></p>
+<p class="rubric" id="highlight">Highlight</p>
+<p class="sd-card-text"><em>Select the highlight color and thickness to use when hovering over shapes/points.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.appearance.highlight</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">HighlightSettings</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">HighlightSettings(highlight_thickness=1,</span> <span class="pre">highlight_color=[0.0,</span> <span class="pre">0.6,</span> <span class="pre">1.0,</span> <span class="pre">1.0])</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.appearance.highlight</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPEARANCE_HIGHLIGHT</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">HighlightSettings</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">HighlightSettings(highlight_thickness=1,</span> <span class="pre">highlight_color=[0.0,</span> <span class="pre">0.6,</span> <span class="pre">1.0,</span> <span class="pre">1.0])</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="show-layer-tooltips">
-<h4>Show layer tooltips<a class="headerlink" href="#show-layer-tooltips" title="Link to this heading">#</a></h4>
-<p><em>Toggle to display a tooltip on mouse hover.</em></p>
+<p class="rubric" id="show-layer-tooltips">Show layer tooltips</p>
+<p class="sd-card-text"><em>Toggle to display a tooltip on mouse hover.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.appearance.layer_tooltip_visibility</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.appearance.layer_tooltip_visibility</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPEARANCE_LAYER_TOOLTIP_VISIBILITY</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="theme">
-<h4>Theme<a class="headerlink" href="#theme" title="Link to this heading">#</a></h4>
-<p><em>Select the user interface theme.</em></p>
+<p class="rubric" id="theme">Theme</p>
+<p class="sd-card-text"><em>Select the user interface theme.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.appearance.theme</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Theme</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">'dark'</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.appearance.theme</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPEARANCE_THEME</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">Theme</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">'dark'</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="update-status-based-on-layer">
-<h4>Update status based on layer<a class="headerlink" href="#update-status-based-on-layer" title="Link to this heading">#</a></h4>
-<p><em>Calculate status bar based on current active layer and mouse position.</em></p>
+<p class="rubric" id="update-status-based-on-layer">Update status based on layer</p>
+<p class="sd-card-text"><em>Calculate status bar based on current active layer and mouse position.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.appearance.update_status_based_on_layer</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.appearance.update_status_based_on_layer</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPEARANCE_UPDATE_STATUS_BASED_ON_LAYER</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</small></p></li>
 </ul>
-</section>
-</section>
-<section id="id3">
-<h3>PLUGINS<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+</div>
+</details></section>
+<section id="plugins-settings">
+<h2>Plugins Settings<a class="headerlink" href="#plugins-settings" title="Link to this heading">#</a></h2>
 <p>Plugins settings.</p>
-<section id="shimmed-plugins-already-warned">
-<h4>Shimmed plugins already warned<a class="headerlink" href="#shimmed-plugins-already-warned" title="Link to this heading">#</a></h4>
-<p><em>Set of installed shimmed plugins that have already been warned about.</em></p>
+<p><img alt="plugins" src="../_images/preferences-plugins.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">More details on the individual Plugins settings</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="rubric" id="plugin-sort-order">Plugin sort order</p>
+<p class="sd-card-text"><em>Sort plugins for each action in the order to be called.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.already_warned_shimmed_plugins</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Set[str]</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">set()</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.call_order</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_PLUGINS_CALL_ORDER</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">Mapping[str,</span> <span class="pre">list[napari.settings._plugins.PluginHookOption]]</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="plugin-sort-order">
-<h4>Plugin sort order<a class="headerlink" href="#plugin-sort-order" title="Link to this heading">#</a></h4>
-<p><em>Sort plugins for each action in the order to be called.</em></p>
+<p class="rubric" id="file-extension-readers">File extension readers</p>
+<p class="sd-card-text"><em>Assign file extensions to specific reader plugins</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.call_order</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Mapping[str,</span> <span class="pre">list[napari.settings._plugins.PluginHookOption]]</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.extension2reader</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_PLUGINS_EXTENSION2READER</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">Mapping[str,</span> <span class="pre">str]</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="disabled-plugins">
-<h4>Disabled plugins<a class="headerlink" href="#disabled-plugins" title="Link to this heading">#</a></h4>
-<p><em>Plugins to disable on application start.</em></p>
+<p class="rubric" id="only-warn-for-new-adapted-plugins">Only warn for new adapted plugins</p>
+<p class="sd-card-text"><em>Only warn about newly installed adapted plugins. Leave unchecked to receive warning with each startup.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.disabled_plugins</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Set[str]</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">set()</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.only_new_shimmed_plugins_warning</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_PLUGINS_ONLY_NEW_SHIMMED_PLUGINS_WARNING</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="file-extension-readers">
-<h4>File extension readers<a class="headerlink" href="#file-extension-readers" title="Link to this heading">#</a></h4>
-<p><em>Assign file extensions to specific reader plugins</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.extension2reader</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Mapping[str,</span> <span class="pre">str]</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
-</ul>
-</section>
-<section id="writer-plugin-extension-association">
-<h4>Writer plugin extension association.<a class="headerlink" href="#writer-plugin-extension-association" title="Link to this heading">#</a></h4>
-<p><em>Assign file extensions to specific writer plugins</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.extension2writer</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Mapping[str,</span> <span class="pre">str]</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</small></p></li>
-</ul>
-</section>
-<section id="only-warn-for-new-adapted-plugins">
-<h4>Only warn for new adapted plugins<a class="headerlink" href="#only-warn-for-new-adapted-plugins" title="Link to this heading">#</a></h4>
-<p><em>Only warn about newly installed adapted plugins. Leave unchecked to receive warning with each startup.</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.only_new_shimmed_plugins_warning</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
-</ul>
-</section>
-<section id="use-npe2-adaptor">
-<h4>Use npe2 adaptor<a class="headerlink" href="#use-npe2-adaptor" title="Link to this heading">#</a></h4>
-<p><em>Use npe2-adaptor for first generation plugins.
+<p class="rubric" id="use-npe2-adaptor">Use npe2 adaptor</p>
+<p class="sd-card-text"><em>Use npe2-adaptor for first generation plugins.
 When an npe1 plugin is found, this option will
 import its contributions and create/cache
 a ‘shim’ npe2 manifest that allows it to be treated
 like an npe2 plugin (with delayed imports, etc…)</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.use_npe2_adaptor</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.use_npe2_adaptor</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_PLUGINS_USE_NPE2_ADAPTOR</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</small></p></li>
 </ul>
-</section>
-</section>
-<section id="id4">
-<h3>SHORTCUTS<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+</div>
+</details></section>
+<section id="shortcuts-settings">
+<h2>Shortcuts Settings<a class="headerlink" href="#shortcuts-settings" title="Link to this heading">#</a></h2>
 <p>Shortcut settings.</p>
-<section id="id5">
-<h4>shortcuts<a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
-<p><em>Set keyboard shortcuts for actions.</em></p>
+<p><img alt="shortcuts" src="../_images/preferences-shortcuts.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">More details on the individual Shortcuts settings</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="rubric" id="shortcuts">shortcuts</p>
+<p class="sd-card-text"><em>Set keyboard shortcuts for actions.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.shortcuts.shortcuts</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Mapping[str,</span> <span class="pre">list[app_model.types._keys._keybindings.KeyBinding]]</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">{'napari:toggle_console_visibility':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278b680:</span> <span class="pre">Ctrl+Shift+C&gt;],</span> <span class="pre">'napari:toggle_ndisplay':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278b710:</span> <span class="pre">Ctrl+Y&gt;],</span> <span class="pre">'napari:toggle_theme':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278b8f0:</span> <span class="pre">Ctrl+Shift+T&gt;],</span> <span class="pre">'napari:reset_view':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278b9b0:</span> <span class="pre">Ctrl+R&gt;],</span> <span class="pre">'napari:delete_selected_layers':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278ba10:</span> <span class="pre">Ctrl+Delete&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278ba70:</span> <span class="pre">Ctrl+Backspace&gt;],</span> <span class="pre">'napari:show_shortcuts':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278bad0:</span> <span class="pre">Ctrl+Alt+/&gt;],</span> <span class="pre">'napari:increment_dims_left':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278bb30:</span> <span class="pre">Left&gt;],</span> <span class="pre">'napari:increment_dims_right':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278bb90:</span> <span class="pre">Right&gt;],</span> <span class="pre">'napari:focus_axes_up':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278bbf0:</span> <span class="pre">Alt+Up&gt;],</span> <span class="pre">'napari:focus_axes_down':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278bc50:</span> <span class="pre">Alt+Down&gt;],</span> <span class="pre">'napari:roll_axes':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278bcb0:</span> <span class="pre">Ctrl+E&gt;],</span> <span class="pre">'napari:transpose_axes':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278bd10:</span> <span class="pre">Ctrl+T&gt;],</span> <span class="pre">'napari:rotate_layers':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278bd70:</span> <span class="pre">Ctrl+Alt+T&gt;],</span> <span class="pre">'napari:toggle_grid':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278bdd0:</span> <span class="pre">Ctrl+G&gt;],</span> <span class="pre">'napari:toggle_selected_visibility':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278be30:</span> <span class="pre">V&gt;],</span> <span class="pre">'napari:toggle_unselected_visibility':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278be90:</span> <span class="pre">Shift+V&gt;],</span> <span class="pre">'napari:select_layer_above':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278bef0:</span> <span class="pre">Ctrl+Up&gt;],</span> <span class="pre">'napari:select_layer_below':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278bf50:</span> <span class="pre">Ctrl+Down&gt;],</span> <span class="pre">'napari:show_only_layer_above':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278bfb0:</span> <span class="pre">Shift+Alt+Up&gt;],</span> <span class="pre">'napari:show_only_layer_below':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c050:</span> <span class="pre">Shift+Alt+Down&gt;],</span> <span class="pre">'napari:hold_for_pan_zoom':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c0b0:</span> <span class="pre">Space&gt;],</span> <span class="pre">'napari:activate_labels_erase_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c110:</span> <span class="pre">1&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c170:</span> <span class="pre">E&gt;],</span> <span class="pre">'napari:activate_labels_paint_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c1d0:</span> <span class="pre">2&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c230:</span> <span class="pre">P&gt;],</span> <span class="pre">'napari:activate_labels_polygon_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c290:</span> <span class="pre">3&gt;],</span> <span class="pre">'napari:activate_labels_fill_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c2f0:</span> <span class="pre">4&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c350:</span> <span class="pre">F&gt;],</span> <span class="pre">'napari:activate_labels_picker_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c3b0:</span> <span class="pre">5&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c410:</span> <span class="pre">L&gt;],</span> <span class="pre">'napari:activate_labels_pan_zoom_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c470:</span> <span class="pre">6&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c4d0:</span> <span class="pre">Z&gt;],</span> <span class="pre">'napari:activate_labels_transform_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c530:</span> <span class="pre">7&gt;],</span> <span class="pre">'napari:new_label':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c590:</span> <span class="pre">M&gt;],</span> <span class="pre">'napari:swap_selected_and_background_labels':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c5f0:</span> <span class="pre">X&gt;],</span> <span class="pre">'napari:decrease_label_id':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c650:</span> <span class="pre">-&gt;],</span> <span class="pre">'napari:increase_label_id':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c6b0:</span> <span class="pre">=&gt;],</span> <span class="pre">'napari:decrease_brush_size':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c710:</span> <span class="pre">[&gt;],</span> <span class="pre">'napari:increase_brush_size':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c770:</span> <span class="pre">]&gt;],</span> <span class="pre">'napari:toggle_preserve_labels':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c7d0:</span> <span class="pre">B&gt;],</span> <span class="pre">'napari:reset_polygon':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c830:</span> <span class="pre">Escape&gt;],</span> <span class="pre">'napari:complete_polygon':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c890:</span> <span class="pre">Enter&gt;],</span> <span class="pre">'napari:activate_points_add_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c8f0:</span> <span class="pre">2&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c950:</span> <span class="pre">P&gt;],</span> <span class="pre">'napari:activate_points_select_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278c9b0:</span> <span class="pre">3&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278ca10:</span> <span class="pre">S&gt;],</span> <span class="pre">'napari:activate_points_pan_zoom_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278ca70:</span> <span class="pre">4&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278cad0:</span> <span class="pre">Z&gt;],</span> <span class="pre">'napari:activate_points_transform_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278cb30:</span> <span class="pre">5&gt;],</span> <span class="pre">'napari:select_all_in_slice':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278cb90:</span> <span class="pre">A&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278cbf0:</span> <span class="pre">Ctrl+A&gt;],</span> <span class="pre">'napari:select_all_data':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278cc50:</span> <span class="pre">Shift+A&gt;],</span> <span class="pre">'napari:delete_selected_points':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278ccb0:</span> <span class="pre">1&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278cd10:</span> <span class="pre">Delete&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278cd70:</span> <span class="pre">Backspace&gt;],</span> <span class="pre">'napari:activate_add_rectangle_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278cdd0:</span> <span class="pre">R&gt;],</span> <span class="pre">'napari:activate_add_ellipse_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278ce30:</span> <span class="pre">E&gt;],</span> <span class="pre">'napari:activate_add_line_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278ce90:</span> <span class="pre">L&gt;],</span> <span class="pre">'napari:activate_add_path_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278cef0:</span> <span class="pre">T&gt;],</span> <span class="pre">'napari:activate_add_polyline_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278cf50:</span> <span class="pre">Shift+L&gt;],</span> <span class="pre">'napari:activate_add_polygon_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278cfb0:</span> <span class="pre">P&gt;],</span> <span class="pre">'napari:activate_add_polygon_lasso_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d010:</span> <span class="pre">Shift+P&gt;],</span> <span class="pre">'napari:activate_direct_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d070:</span> <span class="pre">4&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d0d0:</span> <span class="pre">D&gt;],</span> <span class="pre">'napari:activate_select_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d130:</span> <span class="pre">5&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d190:</span> <span class="pre">S&gt;],</span> <span class="pre">'napari:activate_shapes_pan_zoom_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d1f0:</span> <span class="pre">6&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d250:</span> <span class="pre">Z&gt;],</span> <span class="pre">'napari:activate_shapes_transform_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d2b0:</span> <span class="pre">7&gt;],</span> <span class="pre">'napari:activate_vertex_insert_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d310:</span> <span class="pre">2&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d370:</span> <span class="pre">I&gt;],</span> <span class="pre">'napari:activate_vertex_remove_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d3d0:</span> <span class="pre">1&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d430:</span> <span class="pre">X&gt;],</span> <span class="pre">'napari:copy_selected_shapes':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d490:</span> <span class="pre">Ctrl+C&gt;],</span> <span class="pre">'napari:paste_shape':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d4f0:</span> <span class="pre">Ctrl+V&gt;],</span> <span class="pre">'napari:move_shapes_selection_to_front':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d550:</span> <span class="pre">F&gt;],</span> <span class="pre">'napari:move_shapes_selection_to_back':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d5b0:</span> <span class="pre">B&gt;],</span> <span class="pre">'napari:select_all_shapes':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d610:</span> <span class="pre">A&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d670:</span> <span class="pre">Ctrl+A&gt;],</span> <span class="pre">'napari:delete_selected_shapes':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d6d0:</span> <span class="pre">3&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d730:</span> <span class="pre">Delete&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d790:</span> <span class="pre">Backspace&gt;],</span> <span class="pre">'napari:finish_drawing_shape':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d7f0:</span> <span class="pre">Enter&gt;,</span> <span class="pre">&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d850:</span> <span class="pre">Escape&gt;],</span> <span class="pre">'napari:orient_plane_normal_along_x':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d8b0:</span> <span class="pre">X&gt;],</span> <span class="pre">'napari:orient_plane_normal_along_y':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d910:</span> <span class="pre">Y&gt;],</span> <span class="pre">'napari:orient_plane_normal_along_z':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d970:</span> <span class="pre">Z&gt;],</span> <span class="pre">'napari:orient_plane_normal_along_view_direction':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278d9d0:</span> <span class="pre">O&gt;],</span> <span class="pre">'napari:activate_image_pan_zoom_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278da30:</span> <span class="pre">1&gt;],</span> <span class="pre">'napari:activate_image_transform_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278da90:</span> <span class="pre">2&gt;],</span> <span class="pre">'napari:activate_vectors_pan_zoom_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278daf0:</span> <span class="pre">1&gt;],</span> <span class="pre">'napari:activate_vectors_transform_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278db50:</span> <span class="pre">2&gt;],</span> <span class="pre">'napari:activate_tracks_pan_zoom_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278dbb0:</span> <span class="pre">1&gt;],</span> <span class="pre">'napari:activate_tracks_transform_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278dc10:</span> <span class="pre">2&gt;],</span> <span class="pre">'napari:activate_surface_pan_zoom_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278dc70:</span> <span class="pre">1&gt;],</span> <span class="pre">'napari:activate_surface_transform_mode':</span> <span class="pre">[&lt;KeyBinding</span> <span class="pre">at</span> <span class="pre">0x7f009278dcd0:</span> <span class="pre">2&gt;]}</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.shortcuts.shortcuts</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_SHORTCUTS_SHORTCUTS</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">Mapping[str,</span> <span class="pre">list[app_model.types._keys._keybindings.KeyBinding]]</span></code></small></p></li>
 </ul>
-</section>
-</section>
-<section id="id6">
-<h3>EXPERIMENTAL<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p class="sd-card-text"><strong>Default Shortcuts</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p class="sd-card-text">Action</p></th>
+<th class="head"><p class="sd-card-text">Shortcut</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text">napari:toggle_console_visibility</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179040: Ctrl+Shift+C&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:toggle_ndisplay</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179160: Ctrl+Y&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:toggle_theme</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e1791f0: Ctrl+Shift+T&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:reset_view</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e1792b0: Ctrl+R&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:delete_selected_layers</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179310: Ctrl+Delete&gt;, &lt;KeyBinding at 0x7faf6e179370: Ctrl+Backspace&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:show_shortcuts</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e1793d0: Ctrl+Alt+/&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:increment_dims_left</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179430: Left&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:increment_dims_right</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179490: Right&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:focus_axes_up</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e1794f0: Alt+Up&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:focus_axes_down</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179550: Alt+Down&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:roll_axes</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e1795b0: Ctrl+E&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:transpose_axes</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179610: Ctrl+T&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:rotate_layers</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179670: Ctrl+Alt+T&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:toggle_grid</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e1796d0: Ctrl+G&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:toggle_selected_visibility</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179730: V&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:toggle_unselected_visibility</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179790: Shift+V&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:select_layer_above</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e1797f0: Ctrl+Up&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:select_layer_below</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179850: Ctrl+Down&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:show_only_layer_above</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e1798b0: Shift+Alt+Up&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:show_only_layer_below</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179910: Shift+Alt+Down&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:hold_for_pan_zoom</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179970: Space&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_labels_erase_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e1799d0: 1&gt;, &lt;KeyBinding at 0x7faf6e179a30: E&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_labels_paint_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179a90: 2&gt;, &lt;KeyBinding at 0x7faf6e179af0: P&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_labels_polygon_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179b50: 3&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_labels_fill_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179bb0: 4&gt;, &lt;KeyBinding at 0x7faf6e179c10: F&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_labels_picker_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179c70: 5&gt;, &lt;KeyBinding at 0x7faf6e179cd0: L&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_labels_pan_zoom_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179d30: 6&gt;, &lt;KeyBinding at 0x7faf6e179d90: Z&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_labels_transform_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179df0: 7&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:new_label</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179e50: M&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:swap_selected_and_background_labels</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179eb0: X&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:decrease_label_id</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179f10: -&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:increase_label_id</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179f70: =&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:decrease_brush_size</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e179fd0: [&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:increase_brush_size</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a030: ]&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:toggle_preserve_labels</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a090: B&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:reset_polygon</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a0f0: Escape&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:complete_polygon</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a150: Enter&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_points_add_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a1b0: 2&gt;, &lt;KeyBinding at 0x7faf6e17a210: P&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_points_select_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a270: 3&gt;, &lt;KeyBinding at 0x7faf6e17a2d0: S&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_points_pan_zoom_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a330: 4&gt;, &lt;KeyBinding at 0x7faf6e17a390: Z&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_points_transform_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a3f0: 5&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:select_all_in_slice</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a450: A&gt;, &lt;KeyBinding at 0x7faf6e17a4b0: Ctrl+A&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:select_all_data</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a510: Shift+A&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:delete_selected_points</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a570: 1&gt;, &lt;KeyBinding at 0x7faf6e17a5d0: Delete&gt;, &lt;KeyBinding at 0x7faf6e17a630: Backspace&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_add_rectangle_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a690: R&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_add_ellipse_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a6f0: E&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_add_line_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a750: L&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_add_path_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a7b0: T&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_add_polyline_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a810: Shift+L&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_add_polygon_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a870: P&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_add_polygon_lasso_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a8d0: Shift+P&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_direct_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a930: 4&gt;, &lt;KeyBinding at 0x7faf6e17a990: D&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_select_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17a9f0: 5&gt;, &lt;KeyBinding at 0x7faf6e17aa50: S&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_shapes_pan_zoom_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17aab0: 6&gt;, &lt;KeyBinding at 0x7faf6e17ab10: Z&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_shapes_transform_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17ab70: 7&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_vertex_insert_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17abd0: 2&gt;, &lt;KeyBinding at 0x7faf6e17ac30: I&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_vertex_remove_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17ac90: 1&gt;, &lt;KeyBinding at 0x7faf6e17acf0: X&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:copy_selected_shapes</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17ad50: Ctrl+C&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:paste_shape</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17adb0: Ctrl+V&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:move_shapes_selection_to_front</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17ae10: F&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:move_shapes_selection_to_back</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17ae70: B&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:select_all_shapes</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17aed0: A&gt;, &lt;KeyBinding at 0x7faf6e17af30: Ctrl+A&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:delete_selected_shapes</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17af90: 3&gt;, &lt;KeyBinding at 0x7faf6e17aff0: Delete&gt;, &lt;KeyBinding at 0x7faf6e17b050: Backspace&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:finish_drawing_shape</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17b0b0: Enter&gt;, &lt;KeyBinding at 0x7faf6e17b110: Escape&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:orient_plane_normal_along_x</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17b170: X&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:orient_plane_normal_along_y</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17b1d0: Y&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:orient_plane_normal_along_z</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17b230: Z&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:orient_plane_normal_along_view_direction</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17b290: O&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_image_pan_zoom_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17b2f0: 1&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_image_transform_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17b350: 2&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_vectors_pan_zoom_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17b3b0: 1&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_vectors_transform_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17b410: 2&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_tracks_pan_zoom_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17b470: 1&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_tracks_transform_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17b4d0: 2&gt;]</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_surface_pan_zoom_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17b530: 1&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_surface_transform_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7faf6e17b590: 2&gt;]</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</details></section>
+<section id="experimental-settings">
+<h2>Experimental Settings<a class="headerlink" href="#experimental-settings" title="Link to this heading">#</a></h2>
 <p>Experimental settings.</p>
-<section id="render-images-asynchronously">
-<h4>Render Images Asynchronously<a class="headerlink" href="#render-images-asynchronously" title="Link to this heading">#</a></h4>
-<p><em>Asynchronous loading of image data.
+<p><img alt="experimental" src="../_images/preferences-experimental.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">More details on the individual Experimental settings</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="rubric" id="render-images-asynchronously">Render Images Asynchronously</p>
+<p class="sd-card-text"><em>Asynchronous loading of image data.
 This setting partially loads data while viewing.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.experimental.async_</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.experimental.async_</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_EXPERIMENTAL_ASYNC_</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="enable-autoswapping-rendering-buffers">
-<h4>Enable autoswapping rendering buffers.<a class="headerlink" href="#enable-autoswapping-rendering-buffers" title="Link to this heading">#</a></h4>
-<p><em>Autoswapping rendering buffers improves quality by reducing tearing artifacts, while sacrificing some performance.</em></p>
+<p class="rubric" id="enable-autoswapping-rendering-buffers">Enable autoswapping rendering buffers.</p>
+<p class="sd-card-text"><em>Autoswapping rendering buffers improves quality by reducing tearing artifacts, while sacrificing some performance.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.experimental.autoswap_buffers</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.experimental.autoswap_buffers</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_EXPERIMENTAL_AUTOSWAP_BUFFERS</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="colormap-backend-to-use-for-labels-layer">
-<h4>Colormap backend to use for Labels layer<a class="headerlink" href="#colormap-backend-to-use-for-labels-layer" title="Link to this heading">#</a></h4>
-<p>*Color mapping backend to use for Labels layer.
+<p class="rubric" id="colormap-backend-to-use-for-labels-layer">Colormap backend to use for Labels layer</p>
+<p class="sd-card-text">*Color mapping backend to use for Labels layer.
 ‘partsegcore’ requires the optional ‘partsegcore-compiled-backend’ package.
 ‘numba’ requires the optional ‘numba’ package.
 ‘pure python’ uses only NumPy and Python.
 The ‘fastest available’ backend will select the fastest installed backend.
 *</p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.experimental.colormap_backend</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">ColormapBackend</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">fastest_available</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.experimental.colormap_backend</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_EXPERIMENTAL_COLORMAP_BACKEND</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">ColormapBackend</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">fastest_available</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="unused-option-use-triangulation-backend-instead">
-<h4>Unused option. Use “triangulation backend” instead.<a class="headerlink" href="#unused-option-use-triangulation-backend-instead" title="Link to this heading">#</a></h4>
-<p><em>This option was removed in napari 0.6.0. Use
-“triangulation backend” instead.</em></p>
+<p class="rubric" id="double-click-labels-polygon-completion-radius-1-to-always-complete">Double-click Labels polygon completion radius (-1 to always complete)</p>
+<p class="sd-card-text"><em>Max radius in pixels from first vertex for double-click to complete a polygon; set -1 to always complete.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.experimental.compiled_triangulation</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.experimental.completion_radius</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_EXPERIMENTAL_COMPLETION_RADIUS</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">int</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="double-click-labels-polygon-completion-radius-1-to-always-complete">
-<h4>Double-click Labels polygon completion radius (-1 to always complete)<a class="headerlink" href="#double-click-labels-polygon-completion-radius-1-to-always-complete" title="Link to this heading">#</a></h4>
-<p><em>Max radius in pixels from first vertex for double-click to complete a polygon; set -1 to always complete.</em></p>
+<p class="rubric" id="minimum-distance-threshold-of-shapes-lasso-and-path-tool">Minimum distance threshold of shapes lasso and path tool</p>
+<p class="sd-card-text"><em>Value determines how many screen pixels one has to move before another vertex can be added to the polygonor path.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.experimental.completion_radius</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">int</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.experimental.lasso_vertex_distance</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_EXPERIMENTAL_LASSO_VERTEX_DISTANCE</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">ConstrainedIntValue</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="minimum-distance-threshold-of-shapes-lasso-and-path-tool">
-<h4>Minimum distance threshold of shapes lasso and path tool<a class="headerlink" href="#minimum-distance-threshold-of-shapes-lasso-and-path-tool" title="Link to this heading">#</a></h4>
-<p><em>Value determines how many screen pixels one has to move before another vertex can be added to the polygonor path.</em></p>
-<ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.experimental.lasso_vertex_distance</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">ConstrainedIntValue</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
-</ul>
-</section>
-<section id="shapes-polygon-lasso-and-path-rdp-epsilon">
-<h4>Shapes polygon lasso and path RDP epsilon<a class="headerlink" href="#shapes-polygon-lasso-and-path-rdp-epsilon" title="Link to this heading">#</a></h4>
-<p><em>Setting this higher removes more points from polygons or paths.
+<p class="rubric" id="shapes-polygon-lasso-and-path-rdp-epsilon">Shapes polygon lasso and path RDP epsilon</p>
+<p class="sd-card-text"><em>Setting this higher removes more points from polygons or paths.
 Setting this to 0 keeps all vertices of a given polygon or path.</em></p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.experimental.rdp_epsilon</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">ConstrainedFloatValue</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">0.5</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.experimental.rdp_epsilon</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_EXPERIMENTAL_RDP_EPSILON</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">ConstrainedFloatValue</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">0.5</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="triangulation-backend-to-use-for-shapes-layer">
-<h4>Triangulation backend to use for Shapes layer<a class="headerlink" href="#triangulation-backend-to-use-for-shapes-layer" title="Link to this heading">#</a></h4>
-<p>*Triangulation backend to use for Shapes layer.
+<p class="rubric" id="triangulation-backend-to-use-for-shapes-layer">Triangulation backend to use for Shapes layer</p>
+<p class="sd-card-text">*Triangulation backend to use for Shapes layer.
 The ‘bermuda’ requires the optional ‘bermuda’ package.
 The ‘partsegcore’ requires the optional ‘partsegcore-compiled-backend’ package.
 The ‘triangle’ requires the optional ‘triangle’ package.
@@ -1381,14 +1423,48 @@ The ‘pure python’ backend uses the default Python triangulation from vispy.
 The ‘fastest available’ backend will select the fastest available backend.
 *</p>
 <ul class="simple">
-<li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.experimental.triangulation_backend</span></code>.</small></p></li>
-<li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">TriangulationBackend</span></code>.</small></p></li>
-<li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">fastest_available</span></code>.</small></p></li>
-<li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
+<li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.experimental.triangulation_backend</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_EXPERIMENTAL_TRIANGULATION_BACKEND</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">TriangulationBackend</span></code></small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">fastest_available</span></code>.</small></p></li>
 </ul>
-<p><strong>Support for plugin specific settings will be provided in an upcoming release.</strong></p>
+</div>
+</details></section>
+<section id="reset-settings-to-defaults-using-the-preferences-dialog">
+<h2>Reset settings to defaults using the Preferences dialog<a class="headerlink" href="#reset-settings-to-defaults-using-the-preferences-dialog" title="Link to this heading">#</a></h2>
+<p>To reset the preferences click on the <code class="docutils literal notranslate"><span class="pre">Restore</span> <span class="pre">defaults</span></code> button and continue
+by clicking on <code class="docutils literal notranslate"><span class="pre">Restore</span> <span class="pre">Defaults</span></code>.</p>
+<p><img alt="" src="../_images/preferences-reset.png" /></p>
 </section>
-</section>
+<section id="overriding-settings">
+<h2>Overriding settings<a class="headerlink" href="#overriding-settings" title="Link to this heading">#</a></h2>
+<p>napari settings can also be overridden by using <em>environment variables</em>.
+The variable names follow a pattern: they start with <code class="docutils literal notranslate"><span class="pre">NAPARI</span></code>,
+followed by the Preference section name, yielding, for example, <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION</span></code>, followed by the setting
+name, yielding, for example, <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_CONFIRM_CLOSE_WINDOW</span></code>.
+(This specific setting controls whether napari will prompt you to confirm closing the application.)
+You can also find the environmentvariable names for each setting in the descriptions for each of the Preference sections above.</p>
+<p>You can override settings for a single napari session by setting environment variables at launch:</p>
+<p>On Mac and Linux:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NAPARI_APPLICATION_CONFIRM_CLOSE_WINDOW</span><span class="o">=</span><span class="kc">False</span> <span class="n">napari</span>
+</pre></div>
+</div>
+<p>On Windows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="n">NAPARI_APPLICATION_CONFIRM_CLOSE_WINDOW</span><span class="o">=</span><span class="kc">False</span> <span class="o">&amp;&amp;</span> <span class="n">napari</span>
+</pre></div>
+</div>
+<p>Or programatically in a script/notebook:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;NAPARI_APPLICATION_CONFIRM_CLOSE_WINDOW&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;False&#39;</span>
+</pre></div>
+</div>
+<p>Or, depending on your shell, you can persist environment variables for a shell session
+using the <code class="docutils literal notranslate"><span class="pre">export</span></code> command (e.g. <code class="docutils literal notranslate"><span class="pre">bash</span></code>, <code class="docutils literal notranslate"><span class="pre">zsh</span></code>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">NAPARI_APPLICATION_CONFIRM_CLOSE_WINDOW</span><span class="o">=</span>False
+</pre></div>
+</div>
+<p>Or, to persist between shell sessions, add the above command to your
+shell configuration file e.g <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code>.</p>
 </section>
 </section>
 
@@ -1439,87 +1515,20 @@ The ‘fastest available’ backend will select the fastest available backend.
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reset-to-defaults-via-cli">Reset to defaults via CLI</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-preferences-dialog">The preferences dialog</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application">Application</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#appearance">Appearance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plugins">Plugins</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shortcuts">Shortcuts</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#experimental">Experimental</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reset-to-defaults-via-ui">Reset to defaults via UI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari-settings">napari settings</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-settings-are-stored">Where settings are stored</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sections">Sections</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">APPLICATION</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#brush-size-on-mouse-move-modifiers">Brush size on mouse move modifiers</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#confirm-window-or-application-closing">Confirm window or application closing</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#console-notification-level">Console notification level</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dask-cache">Dask cache</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#depth-axis-orientation">Depth Axis Orientation</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#first-time">First time</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-height">Grid Height</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-spacing">Grid Spacing</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-stride">Grid Stride</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-width">Grid Width</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gui-notification-level">GUI notification level</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#delay-to-treat-button-as-hold-in-seconds">Delay to treat button as hold in seconds</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#horizontal-axis-orientation">Horizontal Axis Orientation</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ipython-interactive">IPython interactive</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#language">Language</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#new-labels-data-type">New labels data type</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#opened-folders-history">Opened folders history</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#playback-frames-per-second">Playback frames per second</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#playback-loop-mode">Playback loop mode</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plugin-widget-positions">Plugin widget positions</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#preferences-size">Preferences size</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#saved-folders-history">Saved folders history</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-window-geometry">Save window geometry</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-window-state">Save window state</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#full-path-to-a-startup-script">Full path to a startup script</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#vertical-axis-orientation">Vertical Axis Orientation</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#window-fullscreen">Window fullscreen</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#window-maximized-state">Window maximized state</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#window-position">Window position</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#window-size">Window size</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#window-state">Window state</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#show-status-bar">Show status bar</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">APPEARANCE</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#font-size">Font size</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#highlight">Highlight</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#show-layer-tooltips">Show layer tooltips</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theme">Theme</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#update-status-based-on-layer">Update status based on layer</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">PLUGINS</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#shimmed-plugins-already-warned">Shimmed plugins already warned</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plugin-sort-order">Plugin sort order</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#disabled-plugins">Disabled plugins</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#file-extension-readers">File extension readers</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#writer-plugin-extension-association">Writer plugin extension association.</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#only-warn-for-new-adapted-plugins">Only warn for new adapted plugins</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#use-npe2-adaptor">Use npe2 adaptor</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">SHORTCUTS</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">shortcuts</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">EXPERIMENTAL</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#render-images-asynchronously">Render Images Asynchronously</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#enable-autoswapping-rendering-buffers">Enable autoswapping rendering buffers.</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#colormap-backend-to-use-for-labels-layer">Colormap backend to use for Labels layer</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unused-option-use-triangulation-backend-instead">Unused option. Use “triangulation backend” instead.</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#double-click-labels-polygon-completion-radius-1-to-always-complete">Double-click Labels polygon completion radius (-1 to always complete)</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#minimum-distance-threshold-of-shapes-lasso-and-path-tool">Minimum distance threshold of shapes lasso and path tool</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#shapes-polygon-lasso-and-path-rdp-epsilon">Shapes polygon lasso and path RDP epsilon</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#triangulation-backend-to-use-for-shapes-layer">Triangulation backend to use for Shapes layer</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resetting-settings-to-defaults-using-the-command-line-cli">Resetting settings to defaults using the command line (CLI)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#programmatic-access-to-the-settings">Programmatic access to the settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-preferences-dialog">The Preferences dialog</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-settings">Application Settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appearance-settings">Appearance Settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plugins-settings">Plugins Settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shortcuts-settings">Shortcuts Settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experimental-settings">Experimental Settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reset-settings-to-defaults-using-the-preferences-dialog">Reset settings to defaults using the Preferences dialog</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overriding-settings">Overriding settings</a></li>
 </ul>
   </nav></div>
 

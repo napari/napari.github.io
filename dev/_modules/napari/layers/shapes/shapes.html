@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=72faaaae"></script>
+    <script src="../../../../_static/documentation_options.js?v=a08e68e4"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -820,6 +820,7 @@ window.addEventListener("load", load);
 <span class="sd">        won&#39;t update during interactive events</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">_mode</span><span class="p">:</span> <span class="n">Mode</span>
     <span class="n">_modeclass</span> <span class="o">=</span> <span class="n">Mode</span>
     <span class="n">_colors</span> <span class="o">=</span> <span class="n">get_color_names</span><span class="p">()</span>
     <span class="n">_vertex_size</span> <span class="o">=</span> <span class="mi">10</span>
@@ -3392,7 +3393,7 @@ window.addEventListener("load", load);
             <span class="n">box</span><span class="p">[</span><span class="n">Box</span><span class="o">.</span><span class="n">HANDLE</span><span class="p">]</span> <span class="o">=</span> <span class="n">box</span><span class="p">[</span><span class="n">Box</span><span class="o">.</span><span class="n">TOP_CENTER</span><span class="p">]</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">handle_vec</span> <span class="o">/</span> <span class="n">cur_len</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_box</span> <span class="o">=</span> <span class="n">box</span> <span class="o">+</span> <span class="n">center</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Value of the data at a position in data coordinates.</span>
 
 <span class="sd">        Parameters</span>
@@ -3410,7 +3411,7 @@ window.addEventListener("load", load);
 <span class="sd">            if no vertex is found.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_moving</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moving_value</span>

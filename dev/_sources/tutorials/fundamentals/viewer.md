@@ -122,9 +122,11 @@ The main menu consists of the **File**, **View**, **Layers**, **Plugins**, **Win
 
 * **File** has the options to open files, folders, and samples, save layers and screenshots, copy screenshots to clipboard and, in the Windows and Linux versions, preferences. Additionally, you can make a new `Image` layer from an image (or URL to an image) copied to your Clipboard (keybinding {kbd}`Command/Ctrl+N`). The `New Layer` submenu allows you to create new, blank, `Labels`, `Points` or `Shapes` layers, identical to those created by the buttons above the layer list. Plugins can also contribute custom new layer creators to this menu.
 
-    All the options on the **File** menu are relatively self-explanatory except **Preferences** on the Windows and Linux versions of napari. **Preferences** allows you to personalize napari to some degree. To learn more about the **Preferences** menu, see our [Preferences guide for developers](napari-preferences).
-
-    **Note:** In macOS, **Preferences** is under the napari menu.
+  :::{tip}
+  **Preferences** opens a dialog that allows you to personalize napari settings, including keyboard shortcuts
+  (keybindings). To learn more about this, see our [guide to napari Preferences](napari-preferences).
+  **Note:** On macOS, the **Preferences** menu item is under the `napari` menu.
+  :::
 
 * **View** allows you to toggle full screen, the menu bar, play, display axes, the scale bar, tooltips, and the activity dock.
 * **Layers** contains actions and commands designed to act on existing layers, or generate new ones. The menu is mostly
@@ -274,7 +276,7 @@ viewer.add_points()
 
 Once added, either in the GUI or via the console, these layers become accessible in the layers list section of the GUI and at `viewer.layers`. For example, an empty Points layer created using the code snippet above can be accessed using `viewer.layers['Points']`.
 
-Layers can be deleted by selecting them and clicking on the `delete` button with the trash icon (or using the keybinding as set in the Preferences).
+Layers can be deleted by selecting them and clicking on the `delete` button with the trash icon (or using the keybinding as set in the [**Preferences** dialog](napari-preferences)).
 
 In the console a layer at index `i` can be removed by:
 
@@ -620,7 +622,7 @@ nbscreenshot(viewer, alt_text="A napari viewer changed to light theme")
 viewer.theme = 'dark'
 ```
 
-You can also change the theme using the "Toggle theme" keyboard shortcut, by default {kbd}`Command/Control+Shift+T`. Note that changing the theme using this shortcut will only change the *current* viewer theme. If you wish to make the change permanent for all viewers, make sure to also change your settings in the **Appearance** tab of the **Preferences** menu.
+You can also change the theme using the "Toggle theme" keyboard shortcut, by default {kbd}`Command/Control+Shift+T`. Note that changing the theme using this shortcut will only change the *current* viewer theme. If you wish to make the change permanent for all viewers, make sure to also change your settings in the **Appearance** tab of the [**Preferences** dialog](napari-preferences).
 
 Adding your own custom theme isn't too hard but it requires creating your own color `palette` and rebuilding the icons. It's also possible for [plugins to contribute a theme](contributions-themes). If people want more themes, we're happy to add them or you can look at our [contributing guidelines](napari-contributing) for more information about building the icons and add one yourself!
 
@@ -628,7 +630,8 @@ Adding your own custom theme isn't too hard but it requires creating your own co
 
 ## Custom keybinding
 
-napari provides a number of built-in keyboard shortcuts, which you can access and change in **Preferences**>**Shortcuts**.
+napari provides a number of built-in keyboard shortcuts, which you can access and change in the **Shortcuts** section
+of the [**Preferences** dialog](napari-preferences).
 
 **Note:** **Preferences** is under the **File** menu on Windows and Linux, and under **napari** on macOS.)
 

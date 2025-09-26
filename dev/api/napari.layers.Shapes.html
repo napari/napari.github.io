@@ -55,7 +55,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=467f820a"></script>
+    <script src="../_static/documentation_options.js?v=72faaaae"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1053,28 +1053,31 @@ won’t update during interactive events</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.refresh_text" title="napari.layers.Shapes.refresh_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">refresh_text</span></code></a>()</p></td>
 <td><p>Refresh the text values.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.remove_selected" title="napari.layers.Shapes.remove_selected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_selected</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.remove" title="napari.layers.Shapes.remove"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code></a>(indices)</p></td>
+<td><p>Remove any shapes at the given indices.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.remove_selected" title="napari.layers.Shapes.remove_selected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_selected</span></code></a>()</p></td>
 <td><p>Remove any selected shapes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.save" title="napari.layers.Shapes.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(path[, plugin])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.save" title="napari.layers.Shapes.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(path[, plugin])</p></td>
 <td><p>Save this layer to <code class="docutils literal notranslate"><span class="pre">path</span></code> with default (or specified) plugin.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_view_slice</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_view_slice</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.to_labels" title="napari.layers.Shapes.to_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_labels</span></code></a>([labels_shape])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.to_labels" title="napari.layers.Shapes.to_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_labels</span></code></a>([labels_shape])</p></td>
 <td><p>Return an integer labels image.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.to_masks" title="napari.layers.Shapes.to_masks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_masks</span></code></a>([mask_shape])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.to_masks" title="napari.layers.Shapes.to_masks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_masks</span></code></a>([mask_shape])</p></td>
 <td><p>Return an array of binary masks, one for each shape.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_highlight_visibility</span></code>(visible)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_highlight_visibility</span></code>(visible)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_transform_box_visibility</span></code>(visible)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_transform_box_visibility</span></code>(visible)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.world_to_data" title="napari.layers.Shapes.world_to_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">world_to_data</span></code></a>(position)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.world_to_data" title="napari.layers.Shapes.world_to_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">world_to_data</span></code></a>(position)</p></td>
 <td><p>Convert from world coordinates to data coordinates.</p></td>
 </tr>
 </tbody>
@@ -2281,6 +2284,17 @@ Default value is False.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="napari.layers.Shapes.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/napari/layers/shapes/shapes.html#Shapes.remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Shapes.remove" title="Link to this definition">#</a></dt>
+<dd><p>Remove any shapes at the given indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>indices</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>]</em>) – List of indices of shapes to remove from the layer.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="napari.layers.Shapes.remove_selected">
 <span class="sig-name descname"><span class="pre">remove_selected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/napari/layers/shapes/shapes.html#Shapes.remove_selected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Shapes.remove_selected" title="Link to this definition">#</a></dt>
 <dd><p>Remove any selected shapes.</p>
@@ -2631,6 +2645,7 @@ dimensions will be used.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.refresh"><code class="docutils literal notranslate"><span class="pre">Shapes.refresh()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.refresh_colors"><code class="docutils literal notranslate"><span class="pre">Shapes.refresh_colors()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.refresh_text"><code class="docutils literal notranslate"><span class="pre">Shapes.refresh_text()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.remove"><code class="docutils literal notranslate"><span class="pre">Shapes.remove()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.remove_selected"><code class="docutils literal notranslate"><span class="pre">Shapes.remove_selected()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.rotate"><code class="docutils literal notranslate"><span class="pre">Shapes.rotate</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.save"><code class="docutils literal notranslate"><span class="pre">Shapes.save()</span></code></a></li>

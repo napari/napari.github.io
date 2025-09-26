@@ -65,6 +65,9 @@ napari.layers.Points
       ~Points.refresh_text
    
    
+      ~Points.remove
+   
+   
       ~Points.remove_selected
    
    

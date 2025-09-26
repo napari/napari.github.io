@@ -92,6 +92,9 @@ napari.layers.Shapes
       ~Shapes.refresh_text
    
    
+      ~Shapes.remove
+   
+   
       ~Shapes.remove_selected
    
    

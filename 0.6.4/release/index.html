@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/release/index.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: September 26, 2025 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.6.5 (September 2025) Add colormap overlay (#7832), add option to defi..." />
+<meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: September 27, 2025 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.6.5 (September 2025) Define a startup script for custom launch behavi..." />
 <meta property="og:image" content="https://napari.org/dev/../dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: September 26, 2025 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.6.5 (September 2025) Add colormap overlay (#7832), add option to defi..." />
+<meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: September 27, 2025 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.6.5 (September 2025) Define a startup script for custom launch behavi..." />
 
     <title>Release Notes &#8212; napari</title>
   
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../dev/_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../dev/_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../dev/_static/documentation_options.js?v=e9370114"></script>
+    <script src="../../dev/_static/documentation_options.js?v=5c66cc95"></script>
     <script src="../../dev/_static/doctools.js?v=9a2dae69"></script>
     <script src="../../dev/_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../dev/_static/clipboard.min.js?v=a7894cd8"></script>
@@ -793,19 +793,48 @@
   <section class="tex2jax_ignore mathjax_ignore" id="release-notes">
 <span id="id1"></span><h1>Release Notes<a class="headerlink" href="#release-notes" title="Link to this heading">#</a></h1>
 <p>Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.</p>
-<p><em>Last updated: September 26, 2025</em></p>
+<p><em>Last updated: September 27, 2025</em></p>
 <section id="recent-releases-last-3-months">
 <h2>Recent Releases (Last 3 Months)<a class="headerlink" href="#recent-releases-last-3-months" title="Link to this heading">#</a></h2>
 <p>Latest features and improvements:</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">napari 0.6.5 (September 2025)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="rubric" id="define-a-startup-script-for-custom-launch-behaviour">Define a startup script for custom launch behaviour</p>
+<p class="sd-card-text">Do you have a code snippet that you always find yourself running after you launch napari? No more! You can now put this code in a script and set its path in the new <code class="docutils literal notranslate"><span class="pre">startup</span> <span class="pre">script</span></code> setting (<a class="reference external" href="https://github.com/napari/napari/pull/8188">#8188</a>), and it will be executed every time napari opens. It’s just a python script, so sky’s the limit :) We found it particularly useful for adding custom colormaps, setting up the scale bar <em>just right</em>, or automatically launching our favourite plugin on startup.</p>
+<p class="sd-card-text"><img alt="Screenshot of the application settings menu highlighting the field for the startup script path" src="https://github.com/user-attachments/assets/7b0e5e5c-252b-45a0-ae76-aac88e488cbc" /></p>
+<p class="rubric" id="automatically-tiled-overlays-and-colorbar-overlay">Automatically tiled overlays and ColorBar overlay</p>
+<p class="sd-card-text">Canvas overlays such as <code class="docutils literal notranslate"><span class="pre">scale_bar</span></code>, <code class="docutils literal notranslate"><span class="pre">text_overlay</span></code>, and <code class="docutils literal notranslate"><span class="pre">colorbar</span></code> overlay are now automatically tiling (<a class="reference external" href="https://github.com/napari/napari/pull/7836">#7836</a>), preventing annoying overlap and making them easier to use without having to manage positioning. Wait, <code class="docutils literal notranslate"><span class="pre">colorbar</span></code> overlay you said? You heard it right! This is a new overlay (<a class="reference external" href="https://github.com/napari/napari/pull/7832">#7832</a>)that shows a color bar legend, and it works with any layer which uses a colormap. All of this works seamlessly with multiple overlays and even grid mode:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
+
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+
+<span class="c1"># enable grid with stride 2 to get layers split two-by-two</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># set the scale bar to gridded mode so it appears in each grid box</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">gridded</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">layers</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">open_sample</span><span class="p">(</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span> <span class="s1">&#39;lily&#39;</span><span class="p">)</span>
+
+<span class="c1"># enable color bars</span>
+<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
+    <span class="n">layer</span><span class="o">.</span><span class="n">colorbar</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p class="sd-card-text"><img alt="Image depicting the napari viewer in grid mode with scale bars and color bars enabled" src="https://github.com/user-attachments/assets/622b2d36-11a7-4c55-9550-c82ddebc2fda" /></p>
+<p class="rubric" id="task-manager-will-now-try-to-prevent-losing-unfinished-work">Task manager will now try to prevent losing unfinished work</p>
+<p class="sd-card-text">We added a new task manager (<a class="reference external" href="https://github.com/napari/napari/pull/8211">#8211</a>) which automatically registers any running <code class="docutils literal notranslate"><span class="pre">thread_worker</span></code>, showing a confirmation dialog if you attempt to close napari while a task is running.</p>
+<p class="rubric" id="new-remove-and-pop-methods-for-points-and-shapes">New <code class="docutils literal notranslate"><span class="pre">remove()</span></code> and <code class="docutils literal notranslate"><span class="pre">pop()</span></code> methods for Points and Shapes</p>
+<p class="sd-card-text">Points and Shapes can now be easily removed, not just added :P (<a class="reference external" href="https://github.com/napari/napari/pull/8031">#8031</a> and <a class="reference external" href="https://github.com/napari/napari/pull/8072">#8072</a>).</p>
+<p class="rubric" id="a-new-and-updated-guide-on-napari-preferences">A new and updated guide on napari Preferences</p>
+<p class="sd-card-text">Our documentation on the napari Preferences has received a major overhaul! <a class="reference external" href="https://napari.org/stable/guides/preferences.html#preferences">Check it out here</a>!</p>
+<p class="sd-card-text">TODO: does this link work?</p>
 <ul class="simple">
-<li><p class="sd-card-text">Add colormap overlay (<a class="reference external" href="https://github.com/napari/napari/pull/7832">#7832</a>)</p></li>
-<li><p class="sd-card-text">add option to define startup script in settings (<a class="reference external" href="https://github.com/napari/napari/pull/8188">#8188</a>)</p></li>
-<li><p class="sd-card-text">Multilayer features table (<a class="reference external" href="https://github.com/napari/napari/pull/8189">#8189</a>)</p></li>
-<li><p class="sd-card-text">Add a tasks manager status for plugins actions and napari processes (<a class="reference external" href="https://github.com/napari/napari/pull/8211">#8211</a>)</p></li>
 <li><p class="sd-card-text">Migrate non-user extras to dependency-groups (<a class="reference external" href="https://github.com/napari/napari/pull/8227">#8227</a>)</p></li>
+<li><p class="sd-card-text">[maint] Drop alpha mentions (<a class="reference external" href="https://github.com/napari/napari/pull/8288">#8288</a>)</p></li>
 <li><p class="sd-card-text">Auto generate release index with highlights and timeline (<a class="reference external" href="https://github.com/napari/docs/pull/838">docs#838</a>)</p></li>
 </ul>
 <p class="sd-card-text"><a class="reference internal" href="release_0_6_5.html"><span class="doc std std-doc">View full release notes →</span></a></p>

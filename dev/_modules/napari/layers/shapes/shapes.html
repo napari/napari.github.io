@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=e9370114"></script>
+    <script src="../../../../_static/documentation_options.js?v=5c66cc95"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -3352,6 +3352,68 @@ window.addEventListener("load", load);
     <span class="k">def</span><span class="w"> </span><span class="nf">remove_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove any selected shapes.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Shapes.get_shape_info">
+<a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.get_shape_info">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_shape_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieve all available information for the shape at the given index.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        index : int</span>
+<span class="sd">            Index of the shape.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        info : dict</span>
+<span class="sd">            A dictionary containing all relevant details of the shape.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s1">&#39;shape_type&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s1">&#39;edge_width&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s1">&#39;edge_color&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s1">&#39;face_color&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s1">&#39;z_index&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="p">}</span>
+
+        <span class="n">info</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+            <span class="s1">&#39;shape_type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape_type</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+            <span class="s1">&#39;edge_width&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+            <span class="s1">&#39;edge_color&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+            <span class="s1">&#39;face_color&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+            <span class="s1">&#39;z_index&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_index</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+            <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">info</span></div>
+
+
+<div class="viewcode-block" id="Shapes.pop">
+<a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.pop">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove and return the shape at the given index.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        index : int</span>
+<span class="sd">            Index of the shape to remove and return. Defaults to -1, which</span>
+<span class="sd">            removes the last shape.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict[str, Any]</span>
+<span class="sd">            Dictionary containing the removed shape&#39;s data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_shape_info</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">([</span><span class="n">index</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">info</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_rotate_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>

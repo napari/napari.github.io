@@ -88,6 +88,7 @@ napari.layers.Surface
       ~Surface.blending
       ~Surface.bounding_box
       ~Surface.class_keymap
+      ~Surface.colorbar
       ~Surface.colormap
       ~Surface.colormaps
       ~Surface.contrast_limits

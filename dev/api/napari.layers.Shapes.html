@@ -55,7 +55,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=e9370114"></script>
+    <script src="../_static/documentation_options.js?v=5c66cc95"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1041,23 +1041,29 @@ won’t update during interactive events</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.get_ray_intersections" title="napari.layers.Shapes.get_ray_intersections"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ray_intersections</span></code></a>(position, ...[, world])</p></td>
 <td><p>Get the start and end point for the ray extending from a point through the data bounding box.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_source_str</span></code>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.get_shape_info" title="napari.layers.Shapes.get_shape_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_shape_info</span></code></a>(index)</p></td>
+<td><p>Retrieve all available information for the shape at the given index.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_source_str</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.get_status" title="napari.layers.Shapes.get_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_status</span></code></a>([position, view_direction, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.get_status" title="napari.layers.Shapes.get_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_status</span></code></a>([position, view_direction, ...])</p></td>
 <td><p>Status message information of the data at a coordinate position.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.get_value" title="napari.layers.Shapes.get_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_value</span></code></a>(position, *[, view_direction, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.get_value" title="napari.layers.Shapes.get_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_value</span></code></a>(position, *[, view_direction, ...])</p></td>
 <td><p>Value of the data at a position.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.interaction_box" title="napari.layers.Shapes.interaction_box"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interaction_box</span></code></a>(index)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.interaction_box" title="napari.layers.Shapes.interaction_box"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interaction_box</span></code></a>(index)</p></td>
 <td><p>Create the interaction box around a shape or list of shapes.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.move_to_back" title="napari.layers.Shapes.move_to_back"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_to_back</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.move_to_back" title="napari.layers.Shapes.move_to_back"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_to_back</span></code></a>()</p></td>
 <td><p>Moves selected objects to be displayed behind all others.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.move_to_front" title="napari.layers.Shapes.move_to_front"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_to_front</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.move_to_front" title="napari.layers.Shapes.move_to_front"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_to_front</span></code></a>()</p></td>
 <td><p>Moves selected objects to be displayed in front of all others.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.pop" title="napari.layers.Shapes.pop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></a>([index])</p></td>
+<td><p>Remove and return the shape at the given index.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.projected_distance_from_mouse_drag" title="napari.layers.Shapes.projected_distance_from_mouse_drag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">projected_distance_from_mouse_drag</span></code></a>(...)</p></td>
 <td><p>Calculate the length of the projection of a line between two mouse clicks onto a vector (or array of vectors) in data coordinates.</p></td>
@@ -2019,6 +2025,23 @@ None is returned.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="napari.layers.Shapes.get_shape_info">
+<span class="sig-name descname"><span class="pre">get_shape_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/layers/shapes/shapes.html#Shapes.get_shape_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Shapes.get_shape_info" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve all available information for the shape at the given index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Index of the shape.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>info</strong> – A dictionary containing all relevant details of the shape.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="napari.layers.Shapes.get_status">
 <span class="sig-name descname"><span class="pre">get_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">npt.ArrayLike</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">npt.ArrayLike</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims_displayed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#napari.layers.Shapes.get_status" title="Link to this definition">#</a></dt>
 <dd><p>Status message information of the data at a coordinate position.</p>
@@ -2217,6 +2240,24 @@ added.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="napari.layers.Shapes.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/layers/shapes/shapes.html#Shapes.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Shapes.pop" title="Link to this definition">#</a></dt>
+<dd><p>Remove and return the shape at the given index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Index of the shape to remove and return. Defaults to -1, which
+removes the last shape.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary containing the removed shape’s data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, Any]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2642,6 +2683,7 @@ dimensions will be used.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><code class="docutils literal notranslate"><span class="pre">Shapes.features</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.get_index_and_intersection"><code class="docutils literal notranslate"><span class="pre">Shapes.get_index_and_intersection()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.get_ray_intersections"><code class="docutils literal notranslate"><span class="pre">Shapes.get_ray_intersections()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.get_shape_info"><code class="docutils literal notranslate"><span class="pre">Shapes.get_shape_info()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.get_status"><code class="docutils literal notranslate"><span class="pre">Shapes.get_status()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.get_value"><code class="docutils literal notranslate"><span class="pre">Shapes.get_value()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.help"><code class="docutils literal notranslate"><span class="pre">Shapes.help</span></code></a></li>
@@ -2657,6 +2699,7 @@ dimensions will be used.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.ndim"><code class="docutils literal notranslate"><span class="pre">Shapes.ndim</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11"><code class="docutils literal notranslate"><span class="pre">Shapes.nshapes</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.opacity"><code class="docutils literal notranslate"><span class="pre">Shapes.opacity</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.pop"><code class="docutils literal notranslate"><span class="pre">Shapes.pop()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.projected_distance_from_mouse_drag"><code class="docutils literal notranslate"><span class="pre">Shapes.projected_distance_from_mouse_drag()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Shapes.projection_mode"><code class="docutils literal notranslate"><span class="pre">Shapes.projection_mode</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12"><code class="docutils literal notranslate"><span class="pre">Shapes.properties</span></code></a></li>

@@ -38,6 +38,9 @@ napari.layers.Points
       ~Points.data_to_world
    
    
+      ~Points.get_point_info
+   
+   
       ~Points.get_ray_intersections
    
    
@@ -51,6 +54,9 @@ napari.layers.Points
    
    
       ~Points.interaction_box
+   
+   
+      ~Points.pop
    
    
       ~Points.projected_distance_from_mouse_drag

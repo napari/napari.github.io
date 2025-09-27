@@ -62,6 +62,9 @@ napari.layers.Shapes
       ~Shapes.get_ray_intersections
    
    
+      ~Shapes.get_shape_info
+   
+   
       ~Shapes.get_source_str
    
    
@@ -78,6 +81,9 @@ napari.layers.Shapes
    
    
       ~Shapes.move_to_front
+   
+   
+      ~Shapes.pop
    
    
       ~Shapes.projected_distance_from_mouse_drag

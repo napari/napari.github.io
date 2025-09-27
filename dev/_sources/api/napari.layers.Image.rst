@@ -89,6 +89,7 @@ napari.layers.Image
       ~Image.blending
       ~Image.bounding_box
       ~Image.class_keymap
+      ~Image.colorbar
       ~Image.colormap
       ~Image.colormaps
       ~Image.contrast_limits

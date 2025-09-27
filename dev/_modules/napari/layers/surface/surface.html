@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=e9370114"></script>
+    <script src="../../../../_static/documentation_options.js?v=5c66cc95"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -507,6 +507,7 @@ window.addEventListener("load", load);
     <span class="n">nd_line_segment_to_displayed_data_ray</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.layer_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">_FeatureTable</span><span class="p">,</span> <span class="n">calc_data_range</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._dtype</span><span class="w"> </span><span class="kn">import</span> <span class="n">normalize_dtype</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps</span><span class="w"> </span><span class="kn">import</span> <span class="n">AVAILABLE_COLORMAPS</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.event_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">connect_no_arg</span>
@@ -831,7 +832,7 @@ window.addEventListener("load", load);
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertex_values</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="k">return</span> <span class="n">normalize_dtype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex_values</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

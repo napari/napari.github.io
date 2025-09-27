@@ -136,6 +136,7 @@ graph LR
 	napari.components.overlays --> napari.components.overlays.base
 	napari.components.overlays --> napari.components.overlays.bounding_box
 	napari.components.overlays --> napari.components.overlays.brush_circle
+	napari.components.overlays --> napari.components.overlays.colorbar
 	napari.components.overlays --> napari.components.overlays.interaction_box
 	napari.components.overlays --> napari.components.overlays.labels_polygon
 	napari.components.overlays --> napari.components.overlays.scale_bar
@@ -155,6 +156,10 @@ graph LR
 	napari.components.overlays.brush_circle(napari.components.overlays.brush_circle)
 	napari.components.overlays.brush_circle --> napari.components.overlays.base
 	click napari.components.overlays.brush_circle "https://github.com/napari/napari/tree/main/napari/components/overlays/brush_circle.py" _blank
+	napari.components.overlays.colorbar(napari.components.overlays.colorbar)
+	napari.components.overlays.colorbar --> napari.components._viewer_constants
+	napari.components.overlays.colorbar --> napari.components.overlays.base
+	click napari.components.overlays.colorbar "https://github.com/napari/napari/tree/main/napari/components/overlays/colorbar.py" _blank
 	napari.components.overlays.interaction_box(napari.components.overlays.interaction_box)
 	napari.components.overlays.interaction_box --> napari.components.overlays.base
 	napari.components.overlays.interaction_box --> napari.layers
@@ -252,6 +257,7 @@ graph LR
 		 napari.components.overlays.base
 		 napari.components.overlays.bounding_box
 		 napari.components.overlays.brush_circle
+		 napari.components.overlays.colorbar
 		 napari.components.overlays.interaction_box
 		 napari.components.overlays.labels_polygon
 		 napari.components.overlays.scale_bar
@@ -326,6 +332,7 @@ napari/
   │ ├─brush_circle.py
   │ ├─text.py
   │ ├─__init__.py
+  │ ├─colorbar.py
   │ └─base.py
   ├─layerlist.py
   ├─_layer_slicer.py

@@ -213,6 +213,11 @@ by the changes. Threading is used to smoothly animate the waves.
 
 
 
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** (0 minutes 10.405 seconds)
+
+
 .. _sphx_glr_download_gallery_fourier_transform_playground.py:
 
 .. only:: html

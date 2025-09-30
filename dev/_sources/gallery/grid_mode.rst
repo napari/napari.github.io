@@ -72,6 +72,11 @@ scale_bar can also be shown in a gridded manner.
         napari.run()
 
 
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** (0 minutes 11.444 seconds)
+
+
 .. _sphx_glr_download_gallery_grid_mode.py:
 
 .. only:: html

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=293917c7"></script>
+    <script src="../../../../_static/documentation_options.js?v=e9238086"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -558,6 +558,9 @@ window.addEventListener("load", load);
 <span class="sd">        See examples/tracks_3d_with_graph.py</span>
 <span class="sd">    head_length : float</span>
 <span class="sd">        Length of the positive (forward in time) tails in units of time.</span>
+<span class="sd">    hide_completed_tracks : bool</span>
+<span class="sd">        If True, tracks that have completed before the current time point are not</span>
+<span class="sd">        displayed, regardless of the value of `tail_length`.</span>
 <span class="sd">    metadata : dict</span>
 <span class="sd">        Layer metadata.</span>
 <span class="sd">    name : str</span>
@@ -613,6 +616,7 @@ window.addEventListener("load", load);
         <span class="n">features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">graph</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">head_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">hide_completed_tracks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
@@ -666,6 +670,7 @@ window.addEventListener("load", load);
             <span class="n">properties</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">rebuild_tracks</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">rebuild_graph</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">hide_completed_tracks</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># track manager deals with data slicing, graph building and properties</span>
@@ -687,6 +692,7 @@ window.addEventListener("load", load);
         <span class="bp">self</span><span class="o">.</span><span class="n">tail_width</span> <span class="o">=</span> <span class="n">tail_width</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tail_length</span> <span class="o">=</span> <span class="n">tail_length</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">head_length</span> <span class="o">=</span> <span class="n">head_length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hide_completed_tracks</span> <span class="o">=</span> <span class="n">hide_completed_tracks</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_id</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_tail</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_graph</span> <span class="o">=</span> <span class="kc">True</span>
@@ -749,6 +755,7 @@ window.addEventListener("load", load);
                 <span class="s1">&#39;tail_length&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tail_length</span><span class="p">,</span>
                 <span class="s1">&#39;head_length&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_length</span><span class="p">,</span>
                 <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">,</span>
+                <span class="s1">&#39;hide_completed_tracks&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">hide_completed_tracks</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span>
@@ -971,6 +978,18 @@ window.addEventListener("load", load);
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">tail_width</span><span class="p">()</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hide_completed_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: If True, tracks that have completed before the current time</span>
+<span class="sd">        point are not displayed, regardless of the value of `tail_length`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hide_completed_tracks</span>
+
+    <span class="nd">@hide_completed_tracks</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hide_completed_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hide_completed_tracks</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hide_completed_tracks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">hide_completed_tracks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">hide_completed_tracks</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">tail_length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;float: Width for all vectors in pixels.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail_length</span>
@@ -1102,6 +1121,9 @@ window.addEventListener("load", load);
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">track_connex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;vertex connections for drawing track lines&quot;&quot;&quot;</span>
+        <span class="c1"># Update manager state before getting track_connex</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">hide_completed_tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hide_completed_tracks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">current_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_time</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">track_connex</span>
 
     <span class="nd">@property</span>

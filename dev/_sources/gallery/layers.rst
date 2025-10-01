@@ -65,7 +65,7 @@ using the layers swap method and remove one
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 10.398 seconds)
+   **Total running time of the script:** (0 minutes 10.487 seconds)
 
 
 .. _sphx_glr_download_gallery_layers.py:

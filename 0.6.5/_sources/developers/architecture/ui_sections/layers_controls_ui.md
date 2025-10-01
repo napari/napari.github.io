@@ -191,6 +191,7 @@ graph LR
 	napari._qt.layer_controls.widgets._tracks --> napari._qt.layer_controls.widgets._tracks.qt_colormap_control
 	napari._qt.layer_controls.widgets._tracks --> napari._qt.layer_controls.widgets._tracks.qt_graph_checkbox
 	napari._qt.layer_controls.widgets._tracks --> napari._qt.layer_controls.widgets._tracks.qt_head_slider
+	napari._qt.layer_controls.widgets._tracks --> napari._qt.layer_controls.widgets._tracks.qt_hide_completed_tracks_checkbox
 	napari._qt.layer_controls.widgets._tracks --> napari._qt.layer_controls.widgets._tracks.qt_id_checkbox
 	napari._qt.layer_controls.widgets._tracks --> napari._qt.layer_controls.widgets._tracks.qt_tail_control
 	click napari._qt.layer_controls.widgets._tracks "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/_tracks/__init__.py" _blank
@@ -210,6 +211,10 @@ graph LR
 	napari._qt.layer_controls.widgets._tracks.qt_head_slider --> napari._qt.layer_controls.widgets.qt_widget_controls_base
 	napari._qt.layer_controls.widgets._tracks.qt_head_slider --> napari.layers
 	click napari._qt.layer_controls.widgets._tracks.qt_head_slider "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/_tracks/qt_head_slider.py" _blank
+	napari._qt.layer_controls.widgets._tracks.qt_hide_completed_tracks_checkbox(napari._qt.layer_controls.widgets._tracks.qt_hide_completed_tracks_checkbox)
+	napari._qt.layer_controls.widgets._tracks.qt_hide_completed_tracks_checkbox --> napari._qt.layer_controls.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.widgets._tracks.qt_hide_completed_tracks_checkbox --> napari.layers
+	click napari._qt.layer_controls.widgets._tracks.qt_hide_completed_tracks_checkbox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/_tracks/qt_hide_completed_tracks_checkbox.py" _blank
 	napari._qt.layer_controls.widgets._tracks.qt_id_checkbox(napari._qt.layer_controls.widgets._tracks.qt_id_checkbox)
 	napari._qt.layer_controls.widgets._tracks.qt_id_checkbox --> napari._qt.layer_controls.widgets.qt_widget_controls_base
 	napari._qt.layer_controls.widgets._tracks.qt_id_checkbox --> napari.layers
@@ -379,6 +384,7 @@ graph LR
 		 napari._qt.layer_controls.widgets._tracks.qt_colormap_control
 		 napari._qt.layer_controls.widgets._tracks.qt_graph_checkbox
 		 napari._qt.layer_controls.widgets._tracks.qt_head_slider
+		 napari._qt.layer_controls.widgets._tracks.qt_hide_completed_tracks_checkbox
 		 napari._qt.layer_controls.widgets._tracks.qt_id_checkbox
 		 napari._qt.layer_controls.widgets._tracks.qt_tail_control
 	end
@@ -437,6 +443,7 @@ napari/
 │ │ │ │ ├─qt_line_dimension_spinbox.py
 │ │ │ │ └─__init__.py
 │ │ │ ├─_tracks/
+│ │ │ │ ├─qt_hide_completed_tracks_checkbox.py
 │ │ │ │ ├─qt_id_checkbox.py
 │ │ │ │ ├─qt_head_slider.py
 │ │ │ │ ├─qt_color_properties_combobox.py

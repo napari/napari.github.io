@@ -101,6 +101,7 @@ napari.layers.Tracks
       ~Tracks.graph_times
       ~Tracks.head_length
       ~Tracks.help
+      ~Tracks.hide_completed_tracks
       ~Tracks.keymap
       ~Tracks.loaded
       ~Tracks.metadata

@@ -553,6 +553,24 @@ On the left side of the status bar there is a message about the position of the 
 
 The right side of the status bar contains some helpful tips depending on which layer and tools are currently selected.
 
+(viewer-overlays)=
+## Viewer overlays
+
+Overlays provide additional information about the render state and the data, displayed on the canvas itself.
+In napari there are two main types: canvas overlays - which are locked in position on the screen and hover over the rendered canvas - and scene overlays - which are located somewhere in world coordinates and follow the camera and dims just like layers. Canvas overlays can be positioned in various locations on the canvas (e.g: `top_left`, `bottom_center`), and will automatically tile if multiple are present at the same location.
+
+The viewer gives access to a few such overlays:
+
+- Scale bar (canvas overlay, accessible via `viewer.scale_bar`): you may set its unit, length, and other parameters.
+- Axes (scene overlay, accessible via `viewer.axes`): displays basis axes at the origin.
+- Text Overlay (canvas overlay, accessible via `viewer.text_overlay`): displays arbitrary text on the canvas.
+
+These overlays can also be accessed via graphical interface through the **View** menu and their respective submenus.
+
+:::{tip}
+Similarly to the viewer, layers [also have some overlays](layer-overlays) that can be used to display layer-specific information!
+:::
+
 ## Right-click menu
 
 A context-sensitive menu is available when you right-click on any of the layers. The type of layer determines which options are available. Note that if you have multiple layers selected, the menu actions will affect all of the selected layers. The options that are not available for a layer are greyed out. The following options are available depending on which layer type you have selected:

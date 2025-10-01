@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=6caffc09"></script>
+    <script src="../_static/documentation_options.js?v=4936c161"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -894,8 +894,17 @@ with color on a white background.</p></li>
 <p>For example, the image below shows an image with the blending set to <code class="docutils literal notranslate"><span class="pre">additive</span></code>.</p>
 <p><img alt="napari viewer with an image of a cell. Layer controls are open in the left sidebar with the blending set to additive." src="../_images/blending.png" /></p>
 </section>
-<section id="d-rendering-of-images">
-<h2>3D rendering of images<a class="headerlink" href="#d-rendering-of-images" title="Link to this heading">#</a></h2>
+<section id="layer-overlays">
+<span id="id4"></span><h2>Layer overlays<a class="headerlink" href="#layer-overlays" title="Link to this heading">#</a></h2>
+<p>Following the same pattern as <a class="reference internal" href="../tutorials/fundamentals/viewer.html#viewer-overlays"><span class="std std-ref">viewer overlays</span></a>, layers offer some extra visualisations as overlays:</p>
+<ul class="simple">
+<li><p>Bounding box (scene overlay, accessible via <code class="docutils literal notranslate"><span class="pre">layer.bounding_box</span></code>): displays a bounding box around the data</p></li>
+<li><p>Color bar (canvas overlay, accessible via <code class="docutils literal notranslate"><span class="pre">layer.colorbar</span></code> on layers with a <code class="docutils literal notranslate"><span class="pre">colormap</span></code> attribute): displays a colorbar legend with tickmarks, automatically synced with contrast limits</p></li>
+</ul>
+<p>These overlays can be also toggled from the graphical interface by right-clicking on selected layers in the layerlist, and clicking their respective menu entry under <strong>Visualisation</strong>.</p>
+</section>
+<section id="d-rendering">
+<h2>3D rendering<a class="headerlink" href="#d-rendering" title="Link to this heading">#</a></h2>
 <p>All our layers can be rendered in both 2D and 3D mode, and one of our viewer
 buttons can toggle between each mode. The number of dimensions sliders will be 2
 or 3 less than the total number of dimensions of the layer, allowing you to
@@ -917,7 +926,7 @@ leads to a memory error.</p>
 </div>
 </section>
 <section id="layer-interpolation">
-<span id="id4"></span><h2>Layer interpolation<a class="headerlink" href="#layer-interpolation" title="Link to this heading">#</a></h2>
+<span id="id5"></span><h2>Layer interpolation<a class="headerlink" href="#layer-interpolation" title="Link to this heading">#</a></h2>
 <p>We support a variety of interpolation modes when viewing 2D slices. In the
 default mode <code class="docutils literal notranslate"><span class="pre">nearest</span></code> each pixel is represented as a small square of specified
 size. As you zoom in you will eventually see each pixel. In other modes
@@ -1033,7 +1042,8 @@ can use to store an arbitrary metadata dictionary on the layer.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-visibility">Layer visibility</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-opacity">Layer opacity</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blending-layers">Blending layers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-rendering-of-images">3D rendering of images</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-overlays">Layer overlays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-rendering">3D rendering</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-interpolation">Layer interpolation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-rendering">Layer rendering</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#naming-layers">Naming layers</a></li>

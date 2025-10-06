@@ -245,7 +245,7 @@ For a more complete description of the napari packaging infrastructure, see {ref
 
 ### New releases
 
-Once the PyPI release is available, the `conda-forge` bots will submit a PR to `conda-forge/napari-feedstock` within about twelves hours. The release manager may not have push/merge rights to the feedstock, so ask a recipe maintainer for assistance. Merging the bot PR to `main` will trigger the `conda-forge` release.
+Once the PyPI release is available, the `conda-forge` bots will submit a PR to `conda-forge/napari-feedstock` within about twelves hours. Alternatively, to speed up the process, you may open an issue with title [`@conda-forge-admin, please update version`](https://github.com/conda-forge/napari-feedstock/issues/new?template=2-bot-commands.yml) to manually trigger the bot. The release manager may not have push/merge rights to the feedstock, so ask a recipe maintainer for assistance. Merging the bot PR to `main` will trigger the `conda-forge` release.
 Accounting for the build times and the CDN sync, this means that the `conda-forge` packages will be available 30-60 mins after the PR is merged.
 
 Before merging, please pay special attention to these aspects:

@@ -171,7 +171,7 @@ To include the napari viewer in the screenshot, use `viewer.screenshot(canvas_on
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 10.323 seconds)
+   **Total running time of the script:** (0 minutes 10.399 seconds)
 
 
 .. _sphx_glr_download_gallery_to_screenshot.py:

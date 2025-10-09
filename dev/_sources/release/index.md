@@ -11,6 +11,15 @@ Each section shows the highlights from recent releases. Click on the version lin
 
 Latest features and improvements:
 
+````{dropdown} napari 0.6.6 (October 2025)
+:open:
+
+This a small bugfix release, following up the changes in 0.6.5.
+
+[View full release notes →](release_0_6_6)
+
+````
+
 ````{dropdown} napari 0.6.5 (October 2025)
 :open:
 

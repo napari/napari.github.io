@@ -67,7 +67,7 @@ class ViewImageSuite:
 
     def time_view_image(self):
         """Time to view an image."""
-        self.viewer = napari.view_image(self.data)
+        self.viewer, _ = napari.imshow(self.data)
 ```
 
 Here, the creation of the image is completed in the ``setup`` method, and not

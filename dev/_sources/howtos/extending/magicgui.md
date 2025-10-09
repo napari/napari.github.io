@@ -143,7 +143,7 @@ def threshold_magic_widget(
     return img_as_float(img_layer.data) > threshold
 
 # Create the viewer and add an image
-viewer = napari.view_image(data.camera())
+viewer, _ = napari.imshow(data.camera())
 # Add widget to viewer
 viewer.window.add_dock_widget(threshold_magic_widget)
 ```
@@ -303,7 +303,7 @@ from napari.layers import Image
 def my_widget(image: Image):
     ...
 
-viewer = napari.view_image(np.random.rand(64, 64), name="My Image")
+viewer, _ = napari.imshow(np.random.rand(64, 64), name="My Image")
 viewer.window.add_dock_widget(my_widget)
 ```
 *Note the widget on the right side with "My Image" as the currently selected option*
@@ -508,7 +508,7 @@ def threshold(image: ImageData, threshold: int = 75) -> LabelsData:
     """Threshold an image and return a mask."""
     return (image > threshold).astype(int)
 
-viewer = napari.view_image(np.random.randint(0, 100, (64, 64)))
+viewer, _ = napari.imshow(np.random.randint(0, 100, (64, 64)))
 viewer.window.add_dock_widget(threshold)
 threshold()  # "call the widget" to call the function, so it shows in the
              # screenshot below.

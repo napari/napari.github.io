@@ -39,9 +39,7 @@ class/type.
 
 ## A simple example
 
-You can create a new viewer and add a set of tracks in one go using {func}`napari.view_tracks`,
-or if you already have an existing viewer, you can add tracks to it using {meth}`viewer.add_tracks<napari.Viewer.add_tracks>`.
-The API of both methods is the same.
+You can create a new viewer with `napari.Viewer()` and add a set of tracks using using {meth}`viewer.add_tracks<napari.Viewer.add_tracks>`.
 
 In this example, we will overlay some tracks on an image from the Hubble space
 telescope:
@@ -70,7 +68,7 @@ tracks_data = [
     [3, 4, 636, 1000]
 ]
 
-viewer = napari.view_image(hubble_image, name='image')
+viewer, _ = napari.imshow(hubble_image, name='image')
 viewer.add_tracks(tracks_data, name='tracks')
 
 napari.run()
@@ -164,7 +162,8 @@ tracks_data = [
     [1, 1, 10, 8, 7]
 ]
 
-viewer = napari.view_tracks(tracks_data)
+viewer = napari.Viewer()
+viewer.add_tracks(tracks_data)
 napari.run()
 ```
 
@@ -220,13 +219,14 @@ other high dimensional data.
 ## Changing track width
 
 We can specify the width of the tracks in pixels. The track width can be
-specified via the `tail_width` keyword argument in the {meth}`viewer.add_tracks<napari.Viewer.add_tracks>` and
-`napari.view_tracks()` methods. From a layer that has already been constructed,
+specified via the `tail_width` keyword argument in the {meth}`viewer.add_tracks<napari.Viewer.add_tracks>` method.
+From a layer that has already been constructed,
 we can set the track width via the `layer.tail_width` property.
 
 ```python
 # create a tracks layer with a tail width of 5 pixels
-viewer = napari.view_tracks(data, tail_width=5, name="my_tracks")
+viewer = napari.Viewer()
+viewer.add_tracks(data, tail_width=5, name="my_tracks")
 
 # update the tail width to 3 pixels
 viewer.layers["my_tracks"].tail_width = 3
@@ -253,13 +253,14 @@ Additionally, we can adjust the width of the track in the GUI using the
 We can specify the length of the tails of the tracks in time units. The tail is
 the portion of the track displayed from previous time steps. The track tail
 length can be specified via the `tail_length` keyword argument in the
-{meth}`viewer.add_tracks<napari.Viewer.add_tracks>` and `napari.view_tracks()` methods. From a layer that has
+{meth}`viewer.add_tracks<napari.Viewer.add_tracks>` method. From a layer that has
 already been constructed, we can set the track width via the `tail_length`
 property.
 
 ```python
 # create a tracks layer with a tail length of 5 time units
-viewer = napari.view_tracks(data, tail_length=5, name="my_tracks")
+viewer = napari.Viewer()
+viewer.add_tracks(data, tail_length=5, name="my_tracks")
 
 # update the tail width to 3 pixels
 viewer.layers["my_tracks"].tail_length = 3
@@ -286,8 +287,8 @@ length" slider in the `tracks` layer controls.
 
 We can color the tracks by mapping colors to the track features defined in
 `Tracks.features`. If we define features and pass them via the `features`
-keyword argument in the {meth}`viewer.add_tracks<napari.Viewer.add_tracks>` and `napari.view_tracks()`
-methods, we can then select the feature we would like to color the tracks by in
+keyword argument in the {meth}`viewer.add_tracks<napari.Viewer.add_tracks>`
+method, we can then select the feature we would like to color the tracks by in
 the "color by" dropdown menu in the `tracks` layer controls. We can additionally
 specify the colormap used to map the feature value to color via the "colormap"
 dropdown menu.
@@ -322,7 +323,7 @@ features = {
     'confidence': track_confidence
 }
 
-viewer = napari.view_image(hubble_image)
+viewer, _ = napari.imshow(hubble_image)
 viewer.add_tracks(tracks_data, features=features)
 napari.run()
 ```

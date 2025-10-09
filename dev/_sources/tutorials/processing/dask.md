@@ -96,7 +96,7 @@ stack
 *No data has been read from disk yet!*
 
 `napari` is capable of consuming Dask arrays,
-so you can simply call `napari.view_image` on this `stack` and behind the scenes,
+so you can simply call `napari.imshow` on this `stack` and behind the scenes,
 Dask will take care of reading the data from disk
 and handing a `numpy` array to `napari` each time a new timepoint or channel is requested.
 
@@ -105,7 +105,7 @@ import napari
 
 # specify contrast_limits and multiscale=False with big data
 # to avoid unnecessary computations
-napari.view_image(stack, contrast_limits=[0,2000], multiscale=False)
+napari.imshow(stack, contrast_limits=[0,2000], multiscale=False)
 ```
 
 *Note: providing the* `contrast_limits` *and* `multiscale` *arguments prevents* `napari` *from trying to calculate the data min/max, which can take an extremely long time with big data.
@@ -127,7 +127,7 @@ import napari
 from dask_image.imread import imread
 
 stack = imread("/path/to/experiment/*.tif")
-napari.view_image(stack, contrast_limits=[0,2000], multiscale=False)
+napari.imshow(stack, contrast_limits=[0,2000], multiscale=False)
 ```
 
 ```{raw} html
@@ -219,7 +219,7 @@ from dask_image.imread import imread
 images = imread(
     'SYNTHESIZED_TIFF_Images_Raw/Synthesized_FLASH25_100um_TIFF_Axial_Images/Synthesized_FLASH25_Axial_*.tiff'
     )
-napari.view_image(images)
+napari.imshow(images)
 
 if __name__ == '__main__':
     napari.run()
@@ -286,7 +286,7 @@ cropped = deconvolved.map_blocks(crop, dtype="float32")
 
 # put the resulting dask array into napari.
 # (don't forget the contrast limits and multiscale==False !)
-v = napari.view_image(
+viewer, _ = napari.imshow(
     cropped,
     contrast_limits=[90, 1500],
     multiscale=False,

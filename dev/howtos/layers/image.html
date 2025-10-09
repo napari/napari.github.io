@@ -890,10 +890,10 @@ in <a class="reference internal" href="../../guides/layers.html"><span class="do
 <h2>Controlling the <code class="docutils literal notranslate"><span class="pre">image</span></code> layer from the console<a class="headerlink" href="#controlling-the-image-layer-from-the-console" title="Link to this heading">#</a></h2>
 <section id="a-simple-example">
 <h3>A simple example<a class="headerlink" href="#a-simple-example" title="Link to this heading">#</a></h3>
-<p>Create a new viewer and add an image in one go using the <a class="reference internal" href="../../api/napari.html#napari.view_image" title="napari.view_image"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.view_image()</span></code></a>
+<p>Create a new viewer and add an image in one go using the <a class="reference internal" href="../../api/napari.html#napari.imshow" title="napari.imshow"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.imshow()</span></code></a>
 function, or if you already have an existing viewer, add an image to it using
 <code class="docutils literal notranslate"><span class="pre">viewer.add_image</span></code>. The API for both methods is the same. In these examples
-we’ll mainly use <code class="docutils literal notranslate"><span class="pre">view_image</span></code>.</p>
+we’ll mainly use <code class="docutils literal notranslate"><span class="pre">imshow</span></code>.</p>
 <p>A simple example of viewing an image is as follows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -901,14 +901,7 @@ we’ll mainly use <code class="docutils literal notranslate"><span class="pre">
 <span class="kn">from</span><span class="w"> </span><span class="nn">skimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">data</span>
 
 <span class="n">cells</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">cells3d</span><span class="p">()[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># grab some data</span>
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;magma&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9398/645241933.py:5: FutureWarning: `napari.view_image` is deprecated and will be removed in napari 0.7.0.
-Use `viewer = napari.Viewer(); viewer.add_image(...)` instead.
-  viewer = napari.view_image(cells, colormap=&#39;magma&#39;)
+<span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;magma&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -932,13 +925,13 @@ Use `viewer = napari.Viewer(); viewer.add_image(...)` instead.
 </div>
 </section>
 </section>
-<section id="arguments-of-view-image-and-add-image">
-<h2>Arguments of <code class="docutils literal notranslate"><span class="pre">view_image</span></code> and <code class="docutils literal notranslate"><span class="pre">add_image</span></code><a class="headerlink" href="#arguments-of-view-image-and-add-image" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../../api/napari.view_layers.html#napari.view_layers.view_image" title="napari.view_layers.view_image"><code class="xref py py-meth docutils literal notranslate"><span class="pre">view_image()</span></code></a> and <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_image()</span></code></a>
+<section id="arguments-of-imshow-and-add-image">
+<h2>Arguments of <code class="docutils literal notranslate"><span class="pre">imshow</span></code> and <code class="docutils literal notranslate"><span class="pre">add_image</span></code><a class="headerlink" href="#arguments-of-imshow-and-add-image" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../../api/napari.html#napari.imshow" title="napari.imshow"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.imshow()</span></code></a> and <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_image()</span></code></a>
 accept the same layer-creation parameters.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -948,10 +941,10 @@ accept the same layer-creation parameters.</p>
 <p class="expanded admonition-title">Hide code cell output</p>
 </summary>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function view_image in module napari.view_layers:
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function imshow in module napari.view_layers:
 
-view_image(data=None, *, channel_axis=None, affine=None, attenuation=0.05, blending=None, cache=True, colormap=None, contrast_limits=None, custom_interpolation_kernel_2d=None, depiction=&#39;volume&#39;, experimental_clipping_planes=None, gamma=1.0, interpolation2d=&#39;nearest&#39;, interpolation3d=&#39;linear&#39;, iso_threshold=None, metadata=None, multiscale=None, name=None, opacity=1.0, plane=None, projection_mode=&#39;mean&#39;, rendering=&#39;mip&#39;, rgb=None, rotate=None, scale=None, shear=None, translate=None, units=None, visible=True, title=&#39;napari&#39;, ndisplay=2, order=(), show=True, camera: napari.components.camera.Camera = None, cursor: napari.components.cursor.Cursor = None, dims: napari.components.dims.Dims = None, grid: napari.components.grid.GridCanvas = None, layers: napari.components.layerlist.LayerList = None, help: str = &#39;&#39;, status: Union[str, dict] = &#39;Ready&#39;, tooltip: napari.components.tooltip.Tooltip = None, theme: str = None, mouse_over_canvas: bool = False) -&gt; napari.viewer.Viewer
-    Create a viewer and add an image layer.
+imshow(data, *, channel_axis=None, affine=None, axis_labels=None, attenuation=0.05, blending=None, cache=True, colormap=None, contrast_limits=None, custom_interpolation_kernel_2d=None, depiction=&#39;volume&#39;, experimental_clipping_planes=None, gamma=1.0, interpolation2d=&#39;nearest&#39;, interpolation3d=&#39;linear&#39;, iso_threshold=None, metadata=None, multiscale=None, name=None, opacity=1.0, plane=None, projection_mode=&#39;mean&#39;, rendering=&#39;mip&#39;, rgb=None, rotate=None, scale=None, shear=None, translate=None, units=None, visible=True, viewer=None, title=&#39;napari&#39;, ndisplay=2, order=(), show=True) -&gt; tuple[napari.viewer.Viewer, list[&#39;Image&#39;]]
+    Load data into an Image layer and return the Viewer and Layer.
 
     Parameters
     ----------
@@ -977,9 +970,6 @@ view_image(data=None, *, channel_axis=None, affine=None, attenuation=0.05, blend
         the final column is a length N translation vector and a 1 or a
         napari `Affine` transform object. Applied as an extra transform on
         top of the provided scale, rotate, and shear values.
-    axis_labels : tuple of str
-        Dimension names of the layer data.
-        If not provided, axis_labels will be set to (..., &#39;axis -2&#39;, &#39;axis -1&#39;).
     attenuation : float or list of float
         Attenuation rate for attenuated maximum intensity projection.
     blending : str or list of str
@@ -1066,12 +1056,10 @@ view_image(data=None, *, channel_axis=None, affine=None, attenuation=0.05, blend
         A vector of shear values for an upper triangular n-D shear matrix.
     translate : tuple of float or list of tuple of float
         Translation values for the layer.
-    units : tuple of str or pint.Unit, optional
-        Units of the layer data in world coordinates.
-        If not provided, the default units are assumed to be pixels.
     visible : bool or list of bool
         Whether the layer visual is currently being displayed.
-        title : string, optional
+    viewer : Viewer object, optional, by default None.
+    title : string, optional
         The title of the viewer window. By default &#39;napari&#39;.
     ndisplay : {2, 3}, optional
         Number of displayed dimensions. By default 2.
@@ -1084,11 +1072,13 @@ view_image(data=None, *, channel_axis=None, affine=None, attenuation=0.05, blend
     show : bool, optional
         Whether to show the viewer after instantiation. By default True.
 
-
     Returns
     -------
-    viewer : :class:`napari.Viewer`
-        The newly-created viewer.
+    viewer : napari.Viewer
+        The created or passed viewer.
+    layer(s) : napari.layers.Image or List[napari.layers.Image]
+        The added layer(s). (May be more than one if the ``channel_axis`` keyword
+        argument is given.
 </pre></div>
 </div>
 </div>
@@ -1175,28 +1165,16 @@ napari in one line, as shown below:</p>
 <span class="n">cells</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">cells3d</span><span class="p">()</span> <span class="c1">#ZCYX image data</span>
 
 <span class="c1"># load multichannel image in one line</span>
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">channel_axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">viewer</span><span class="p">,</span> <span class="n">layers</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">channel_axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="c1"># load multichannel image in one line, with additional options</span>
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span>
+<span class="n">viewer</span><span class="p">,</span> <span class="n">layers</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
     <span class="n">cells</span><span class="p">,</span>
     <span class="n">channel_axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;membrane&quot;</span><span class="p">,</span> <span class="s2">&quot;nuclei&quot;</span><span class="p">],</span>
     <span class="n">colormap</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="s2">&quot;magenta&quot;</span><span class="p">],</span>
     <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">],</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">]],</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9398/233681369.py:7: FutureWarning: `napari.view_image` is deprecated and will be removed in napari 0.7.0.
-Use `viewer = napari.Viewer(); viewer.add_image(...)` instead.
-  viewer = napari.view_image(cells, channel_axis=1)
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9398/233681369.py:10: FutureWarning: `napari.view_image` is deprecated and will be removed in napari 0.7.0.
-Use `viewer = napari.Viewer(); viewer.add_image(...)` instead.
-  viewer = napari.view_image(
 </pre></div>
 </div>
 </div>
@@ -1225,14 +1203,7 @@ Use `viewer = napari.Viewer(); viewer.add_image(...)` instead.
 we are working with an <code class="docutils literal notranslate"><span class="pre">rgb</span></code> image:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9398/1002676185.py:1: FutureWarning: `napari.view_image` is deprecated and will be removed in napari 0.7.0.
-Use `viewer = napari.Viewer(); viewer.add_image(...)` instead.
-  viewer = napari.view_image(data.astronaut(), rgb=True)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="p">,</span> <span class="n">layer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1312,14 +1283,7 @@ their name. These include:</p>
 <p>Pass any of these strings to set the image colormap as shown below:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moon</span><span class="p">(),</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9398/3861937824.py:1: FutureWarning: `napari.view_image` is deprecated and will be removed in napari 0.7.0.
-Use `viewer = napari.Viewer(); viewer.add_image(...)` instead.
-  viewer = napari.view_image(data.moon(), colormap=&#39;red&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="p">,</span> <span class="n">layer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moon</span><span class="p">(),</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1343,14 +1307,7 @@ black, and color a random array, you can use this example code:</p>
 <span class="n">cmap</span> <span class="o">=</span> <span class="n">Colormap</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
 <span class="n">image</span> <span class="o">=</span> <span class="n">cell</span><span class="p">()</span>
 
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;diverging&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9398/1534987956.py:8: FutureWarning: `napari.view_image` is deprecated and will be removed in napari 0.7.0.
-Use `viewer = napari.Viewer(); viewer.add_image(...)` instead.
-  viewer = napari.view_image(image, colormap=(&#39;diverging&#39;, cmap))
+<span class="n">viewer</span><span class="p">,</span> <span class="n">layer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;diverging&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1400,15 +1357,8 @@ an existing layer using the <code class="docutils literal notranslate"><span cla
 respectively.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moon</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;moon&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="p">,</span> <span class="n">layer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moon</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;moon&#39;</span><span class="p">)</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;moon&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">contrast_limits</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">175</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9398/2834145270.py:1: FutureWarning: `napari.view_image` is deprecated and will be removed in napari 0.7.0.
-Use `viewer = napari.Viewer(); viewer.add_image(...)` instead.
-  viewer = napari.view_image(data.moon(), name=&#39;moon&#39;)
 </pre></div>
 </div>
 </div>
@@ -1544,7 +1494,7 @@ outlined in the following locations for
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-example">A simple example</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arguments-of-view-image-and-add-image">Arguments of <code class="docutils literal notranslate"><span class="pre">view_image</span></code> and <code class="docutils literal notranslate"><span class="pre">add_image</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arguments-of-imshow-and-add-image">Arguments of <code class="docutils literal notranslate"><span class="pre">imshow</span></code> and <code class="docutils literal notranslate"><span class="pre">add_image</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-data-and-numpy-like-arrays">Image data and NumPy-like arrays</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiscale-images">Multiscale images</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-multichannel-images">Loading multichannel images</a></li>

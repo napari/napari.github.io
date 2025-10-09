@@ -119,7 +119,7 @@ def point_annotator(
     """
     stack = imread(im_path)
 
-    viewer = napari.view_image(stack)
+    viewer, _ = napari.imshow(stack)
     points_layer = viewer.add_points(
         ndim=3,
         features=pd.DataFrame({'label': pd.Categorical([], categories=labels)}),
@@ -212,7 +212,7 @@ stack = imread(im_path)
 We can then start the viewer.
 
 ```python
-viewer = napari.view_image(stack)
+viewer, _ = napari.imshow(stack)
 napari.run()
 ```
 

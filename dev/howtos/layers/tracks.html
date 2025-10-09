@@ -820,9 +820,7 @@ class/type.</p>
 </section>
 <section id="a-simple-example">
 <h2>A simple example<a class="headerlink" href="#a-simple-example" title="Link to this heading">#</a></h2>
-<p>You can create a new viewer and add a set of tracks in one go using <a class="reference internal" href="../../api/napari.html#napari.view_tracks" title="napari.view_tracks"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.view_tracks()</span></code></a>,
-or if you already have an existing viewer, you can add tracks to it using <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_tracks" title="napari.Viewer.add_tracks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">viewer.add_tracks</span></code></a>.
-The API of both methods is the same.</p>
+<p>You can create a new viewer with <code class="docutils literal notranslate"><span class="pre">napari.Viewer()</span></code> and add a set of tracks using using <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_tracks" title="napari.Viewer.add_tracks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">viewer.add_tracks</span></code></a>.</p>
 <p>In this example, we will overlay some tracks on an image from the Hubble space
 telescope:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
@@ -848,7 +846,7 @@ telescope:</p>
     <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">636</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]</span>
 <span class="p">]</span>
 
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">hubble_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;image&#39;</span><span class="p">)</span>
+<span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hubble_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;image&#39;</span><span class="p">)</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">tracks_data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;tracks&#39;</span><span class="p">)</span>
 
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
@@ -973,7 +971,8 @@ shown above.  We can pass the example data above to the tracks layer as follows:
     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
 <span class="p">]</span>
 
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_tracks</span><span class="p">(</span><span class="n">tracks_data</span><span class="p">)</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">tracks_data</span><span class="p">)</span>
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1026,11 +1025,12 @@ other high dimensional data.</p>
 <section id="changing-track-width">
 <h2>Changing track width<a class="headerlink" href="#changing-track-width" title="Link to this heading">#</a></h2>
 <p>We can specify the width of the tracks in pixels. The track width can be
-specified via the <code class="docutils literal notranslate"><span class="pre">tail_width</span></code> keyword argument in the <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_tracks" title="napari.Viewer.add_tracks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">viewer.add_tracks</span></code></a> and
-<code class="docutils literal notranslate"><span class="pre">napari.view_tracks()</span></code> methods. From a layer that has already been constructed,
+specified via the <code class="docutils literal notranslate"><span class="pre">tail_width</span></code> keyword argument in the <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_tracks" title="napari.Viewer.add_tracks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">viewer.add_tracks</span></code></a> method.
+From a layer that has already been constructed,
 we can set the track width via the <code class="docutils literal notranslate"><span class="pre">layer.tail_width</span></code> property.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a tracks layer with a tail width of 5 pixels</span>
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tail_width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_tracks&quot;</span><span class="p">)</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tail_width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_tracks&quot;</span><span class="p">)</span>
 
 <span class="c1"># update the tail width to 3 pixels</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;my_tracks&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tail_width</span> <span class="o">=</span> <span class="mi">3</span>
@@ -1053,11 +1053,12 @@ we can set the track width via the <code class="docutils literal notranslate"><s
 <p>We can specify the length of the tails of the tracks in time units. The tail is
 the portion of the track displayed from previous time steps. The track tail
 length can be specified via the <code class="docutils literal notranslate"><span class="pre">tail_length</span></code> keyword argument in the
-<a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_tracks" title="napari.Viewer.add_tracks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">viewer.add_tracks</span></code></a> and <code class="docutils literal notranslate"><span class="pre">napari.view_tracks()</span></code> methods. From a layer that has
+<a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_tracks" title="napari.Viewer.add_tracks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">viewer.add_tracks</span></code></a> method. From a layer that has
 already been constructed, we can set the track width via the <code class="docutils literal notranslate"><span class="pre">tail_length</span></code>
 property.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a tracks layer with a tail length of 5 time units</span>
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tail_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_tracks&quot;</span><span class="p">)</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tail_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_tracks&quot;</span><span class="p">)</span>
 
 <span class="c1"># update the tail width to 3 pixels</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;my_tracks&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tail_length</span> <span class="o">=</span> <span class="mi">3</span>
@@ -1080,8 +1081,8 @@ length” slider in the <code class="docutils literal notranslate"><span class="
 <h2>Setting the track color with features<a class="headerlink" href="#setting-the-track-color-with-features" title="Link to this heading">#</a></h2>
 <p>We can color the tracks by mapping colors to the track features defined in
 <code class="docutils literal notranslate"><span class="pre">Tracks.features</span></code>. If we define features and pass them via the <code class="docutils literal notranslate"><span class="pre">features</span></code>
-keyword argument in the <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_tracks" title="napari.Viewer.add_tracks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">viewer.add_tracks</span></code></a> and <code class="docutils literal notranslate"><span class="pre">napari.view_tracks()</span></code>
-methods, we can then select the feature we would like to color the tracks by in
+keyword argument in the <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_tracks" title="napari.Viewer.add_tracks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">viewer.add_tracks</span></code></a>
+method, we can then select the feature we would like to color the tracks by in
 the “color by” dropdown menu in the <code class="docutils literal notranslate"><span class="pre">tracks</span></code> layer controls. We can additionally
 specify the colormap used to map the feature value to color via the “colormap”
 dropdown menu.</p>
@@ -1114,7 +1115,7 @@ dropdown menu.</p>
     <span class="s1">&#39;confidence&#39;</span><span class="p">:</span> <span class="n">track_confidence</span>
 <span class="p">}</span>
 
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">hubble_image</span><span class="p">)</span>
+<span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hubble_image</span><span class="p">)</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">tracks_data</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">)</span>
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>

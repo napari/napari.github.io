@@ -85,7 +85,8 @@ At this point, there is no concept of track *links*, lineages, or tracks splitti
 These single tracks are sometimes known as tracklets:
 
 ```python
-napari.view_tracks(data, name='tracklets')
+viewer = napari.Viewer()
+viewer.add_tracks(data, name='tracklets')
 napari.run()
 ```
 

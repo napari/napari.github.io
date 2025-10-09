@@ -882,14 +882,14 @@ and a <a class="reference external" href="https://docs.python.org/3/library/glob
 <p><img alt="HTML representation of a Dask array as seen in Jupyter notebook. The image is split into two main regions: a table showing the bytes, shape, count and data type attributes of the array and of each chunk, and a visual representation of the shape of the chunks that make up the array (a rectangle of 1200x1) and each individual chunk (a 65256256 cube)." src="../../_images/dask_repr.png" /></p>
 <p><em>No data has been read from disk yet!</em></p>
 <p><code class="docutils literal notranslate"><span class="pre">napari</span></code> is capable of consuming Dask arrays,
-so you can simply call <code class="docutils literal notranslate"><span class="pre">napari.view_image</span></code> on this <code class="docutils literal notranslate"><span class="pre">stack</span></code> and behind the scenes,
+so you can simply call <code class="docutils literal notranslate"><span class="pre">napari.imshow</span></code> on this <code class="docutils literal notranslate"><span class="pre">stack</span></code> and behind the scenes,
 Dask will take care of reading the data from disk
 and handing a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array to <code class="docutils literal notranslate"><span class="pre">napari</span></code> each time a new timepoint or channel is requested.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 
 <span class="c1"># specify contrast_limits and multiscale=False with big data</span>
 <span class="c1"># to avoid unnecessary computations</span>
-<span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2000</span><span class="p">],</span> <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2000</span><span class="p">],</span> <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><em>Note: providing the</em> <code class="docutils literal notranslate"><span class="pre">contrast_limits</span></code> <em>and</em> <code class="docutils literal notranslate"><span class="pre">multiscale</span></code> <em>arguments prevents</em> <code class="docutils literal notranslate"><span class="pre">napari</span></code> <em>from trying to calculate the data min/max, which can take an extremely long time with big data.
@@ -908,7 +908,7 @@ provided your image format can be read by the <a class="reference external" href
 <span class="kn">from</span><span class="w"> </span><span class="nn">dask_image.imread</span><span class="w"> </span><span class="kn">import</span> <span class="n">imread</span>
 
 <span class="n">stack</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s2">&quot;/path/to/experiment/*.tif&quot;</span><span class="p">)</span>
-<span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2000</span><span class="p">],</span> <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2000</span><span class="p">],</span> <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <figure>
@@ -988,7 +988,7 @@ loading the entire dataset to view in napari is straightforward.</p>
 <span class="n">images</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span>
     <span class="s1">&#39;SYNTHESIZED_TIFF_Images_Raw/Synthesized_FLASH25_100um_TIFF_Axial_Images/Synthesized_FLASH25_Axial_*.tiff&#39;</span>
     <span class="p">)</span>
-<span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+<span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
@@ -1050,7 +1050,7 @@ and display them, <em>on demand</em> as you move the <code class="docutils liter
 
 <span class="c1"># put the resulting dask array into napari.</span>
 <span class="c1"># (don&#39;t forget the contrast limits and multiscale==False !)</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span>
+<span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
     <span class="n">cropped</span><span class="p">,</span>
     <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">1500</span><span class="p">],</span>
     <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>

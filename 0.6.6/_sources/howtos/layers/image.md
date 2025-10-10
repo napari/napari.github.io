@@ -100,10 +100,10 @@ The GUI controls may be adjusted as follows:
 
 ### A simple example
 
-Create a new viewer and add an image in one go using the {func}`napari.view_image`
+Create a new viewer and add an image in one go using the {func}`napari.imshow`
 function, or if you already have an existing viewer, add an image to it using
 `viewer.add_image`. The API for both methods is the same. In these examples
-we'll mainly use `view_image`.
+we'll mainly use `imshow`.
 
 A simple example of viewing an image is as follows:
 
@@ -112,7 +112,7 @@ import napari
 from skimage import data
 
 cells = data.cells3d()[30, 1]  # grab some data
-viewer = napari.view_image(cells, colormap='magma')
+viewer, _ = napari.imshow(cells, colormap='magma')
 ```
 
 ```{code-cell} python
@@ -129,15 +129,15 @@ nbscreenshot(viewer, alt_text="Cells")
 viewer.close()
 ```
 
-## Arguments of `view_image` and `add_image`
+## Arguments of `imshow` and `add_image`
 
-{meth}`~napari.view_layers.view_image` and {meth}`~napari.Viewer.add_image`
+{func}`napari.imshow` and {meth}`~napari.Viewer.add_image`
 accept the same layer-creation parameters.
 
 ```{code-cell} python
 :tags: [hide-output]
 
-help(napari.view_image)
+help(napari.imshow)
 ```
 
 ## Image data and NumPy-like arrays
@@ -234,10 +234,10 @@ from skimage import data
 cells = data.cells3d() #ZCYX image data
 
 # load multichannel image in one line
-viewer = napari.view_image(cells, channel_axis=1)
+viewer, layers = napari.imshow(cells, channel_axis=1)
 
 # load multichannel image in one line, with additional options
-viewer = napari.view_image(
+viewer, layers = napari.imshow(
     cells,
     channel_axis=1,
     name=["membrane", "nuclei"],
@@ -266,7 +266,7 @@ In this example, the `rgb` keyword is explicitly set to `True` because we know
 we are working with an `rgb` image:
 
 ```{code-cell} python
-viewer = napari.view_image(data.astronaut(), rgb=True)
+viewer, layer = napari.imshow(data.astronaut(), rgb=True)
 ```
 
 ```{code-cell} python
@@ -307,7 +307,7 @@ Pass any of these strings to set the image colormap as shown below:
 
 
 ```{code-cell} python
-viewer = napari.view_image(data.moon(), colormap='red')
+viewer, layer = napari.imshow(data.moon(), colormap='red')
 ```
 
 You can also access the current colormap through the `layer.colormap` property
@@ -331,7 +331,7 @@ from vispy.color import Colormap
 cmap = Colormap([[1, 0, 0], [0, 0, 0], [0, 0, 1]])
 image = cell()
 
-viewer = napari.view_image(image, colormap=('diverging', cmap))
+viewer, layer = napari.imshow(image, colormap=('diverging', cmap))
 ```
 
 ```{code-cell} python
@@ -374,7 +374,7 @@ an existing layer using the `contrast_limits` keyword argument or property,
 respectively.
 
 ```{code-cell} python
-viewer = napari.view_image(data.moon(), name='moon')
+viewer, layer = napari.imshow(data.moon(), name='moon')
 viewer.layers['moon'].contrast_limits=(100, 175)
 ```
 

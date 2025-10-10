@@ -39,10 +39,8 @@ colormap.
 
 ## A simple example
 
-You can create a new viewer and add a surface in one go using the
-{meth}`napari.view_surface` method, or if you already have an existing viewer,
-you can add an image to it using `viewer.add_surface`. The API of both methods
-is the same. In these examples we'll mainly use `view_surface`.
+You can create a new viewer with `napari.Viewer()` and add a surface using the
+{meth}`~napari.Viewer.add_surface` method.
 
 A simple example of viewing a surface follows. You can copy and paste these
 statements into the napari console to see how they work:
@@ -56,7 +54,8 @@ faces = np.array([[0, 1, 2], [1, 2, 3]])
 values = np.linspace(0, 1, len(vertices))
 surface = (vertices, faces, values)
 
-viewer = napari.view_surface(surface)  # add the surface
+viewer = napari.Viewer()
+viewer.add_surface(surface)  # add the surface
 ```
 
 ```{code-cell} python
@@ -102,15 +101,14 @@ controls are available in the viewer:
     section of _Layers at a glance_ for an explanation of each type of blending.
   * Shading - Choose `none`, `flat`, or `smooth` from the dropdown.
 
-## Arguments of `view_surface` and `add_surface`
+## Arguments of `add_surface`
 
-{meth}`~napari.view_layers.view_surface` and {meth}`~napari.Viewer.add_surface`
-accept the same layer-creation parameters.
+{meth}`~napari.Viewer.add_surface` accepts the following layer-creation parameters.
 
 ```{code-cell} python
 :tags: [hide-output]
 
-help(napari.view_surface)
+help(napari.Viewer.add_surface)
 ```
 
 ## Surface data

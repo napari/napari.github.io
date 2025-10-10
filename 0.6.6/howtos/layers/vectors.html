@@ -819,11 +819,9 @@ the console or from the GUI.</p>
 </section>
 <section id="a-simple-example">
 <h2>A simple example<a class="headerlink" href="#a-simple-example" title="Link to this heading">#</a></h2>
-<p>You can create a new viewer and add vectors in one go using the
-<a class="reference internal" href="../../api/napari.html#napari.view_vectors" title="napari.view_vectors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari.view_vectors()</span></code></a> method, or if you already have an existing viewer,
-you can add vectors to it using <code class="docutils literal notranslate"><span class="pre">viewer.add_vectors</span></code>. The API of both methods is
-the same. In these examples we’ll mainly use <code class="docutils literal notranslate"><span class="pre">add_vectors</span></code> to overlay vectors
-onto an existing image.</p>
+<p>You can create a new viewer with <code class="docutils literal notranslate"><span class="pre">napari.Viewer()</span></code> and add vectors using the
+<a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_vectors" title="napari.Viewer.add_vectors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_vectors()</span></code></a> method.
+In these examples we’ll mainly use <code class="docutils literal notranslate"><span class="pre">add_vectors</span></code> to overlay vectors onto an existing image.</p>
 <p>In this example, we will overlay vectors on the image of a photographer:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -843,16 +841,9 @@ onto an existing image.</p>
 <span class="n">vectors</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">vectors</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">256</span>
 
 <span class="c1"># add the image</span>
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">camera</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;photographer&#39;</span><span class="p">)</span>
+<span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">camera</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;photographer&#39;</span><span class="p">)</span>
 <span class="c1"># add the vectors</span>
 <span class="n">vectors_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_vectors</span><span class="p">(</span><span class="n">vectors</span><span class="p">,</span> <span class="n">edge_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_10071/2814492494.py:17: FutureWarning: `napari.view_image` is deprecated and will be removed in napari 0.7.0.
-Use `viewer = napari.Viewer(); viewer.add_image(...)` instead.
-  viewer = napari.view_image(data.camera(), name=&#39;photographer&#39;)
 </pre></div>
 </div>
 </div>
@@ -950,13 +941,12 @@ both 2D and 3D:</p>
   </video>
 </figure></section>
 </section>
-<section id="arguments-of-view-vectors-and-add-vectors">
-<h2>Arguments of <code class="docutils literal notranslate"><span class="pre">view_vectors</span></code> and <code class="docutils literal notranslate"><span class="pre">add_vectors</span></code><a class="headerlink" href="#arguments-of-view-vectors-and-add-vectors" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../../api/napari.view_layers.html#napari.view_layers.view_vectors" title="napari.view_layers.view_vectors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">view_vectors()</span></code></a> and <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_vectors" title="napari.Viewer.add_vectors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_vectors()</span></code></a>
-accept the same layer-creation parameters.</p>
+<section id="arguments-of-add-vectors">
+<h2>Arguments of <code class="docutils literal notranslate"><span class="pre">add_vectors</span></code><a class="headerlink" href="#arguments-of-add-vectors" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_vectors" title="napari.Viewer.add_vectors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_vectors()</span></code></a> accepts the following layer-creation parameters.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">view_vectors</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="o">.</span><span class="n">add_vectors</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -966,10 +956,10 @@ accept the same layer-creation parameters.</p>
 <p class="expanded admonition-title">Hide code cell output</p>
 </summary>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function view_vectors in module napari.view_layers:
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function add_vectors:
 
-view_vectors(data=None, *, affine=None, blending=&#39;translucent&#39;, cache=True, edge_color=&#39;red&#39;, edge_color_cycle=None, edge_colormap=&#39;viridis&#39;, edge_contrast_limits=None, edge_width=1, experimental_clipping_planes=None, feature_defaults=None, features=None, length=1, metadata=None, name=None, ndim=None, opacity=0.7, out_of_slice_display=False, projection_mode=&#39;all&#39;, properties=None, property_choices=None, rotate=None, scale=None, shear=None, translate=None, units=None, vector_style=&#39;triangle&#39;, visible=True, title=&#39;napari&#39;, ndisplay=2, order=(), show=True, camera: napari.components.camera.Camera = None, cursor: napari.components.cursor.Cursor = None, dims: napari.components.dims.Dims = None, grid: napari.components.grid.GridCanvas = None, layers: napari.components.layerlist.LayerList = None, help: str = &#39;&#39;, status: Union[str, dict] = &#39;Ready&#39;, tooltip: napari.components.tooltip.Tooltip = None, theme: str = None, mouse_over_canvas: bool = False) -&gt; napari.viewer.Viewer
-    Create a viewer and add a vectors layer.
+add_vectors(self, data=None, *, affine=None, axis_labels=None, blending=&#39;translucent&#39;, cache=True, edge_color=&#39;red&#39;, edge_color_cycle=None, edge_colormap=&#39;viridis&#39;, edge_contrast_limits=None, edge_width=1, experimental_clipping_planes=None, feature_defaults=None, features=None, length=1, metadata=None, name=None, ndim=None, opacity=0.7, out_of_slice_display=False, projection_mode=&#39;all&#39;, properties=None, property_choices=None, rotate=None, scale=None, shear=None, translate=None, units=None, vector_style=&#39;triangle&#39;, visible=True) -&gt; napari.layers.vectors.vectors.Vectors
+    Add a Vectors layer to the layer list.
 
     Parameters
     ----------
@@ -1056,29 +1046,17 @@ view_vectors(data=None, *, affine=None, blending=&#39;translucent&#39;, cache=Tr
     units : tuple of str or pint.Unit, optional
         Units of the layer data in world coordinates.
         If not provided, the default units are assumed to be pixels.
+
     vector_style : str
         One of a list of preset display modes that determines how vectors are displayed.
         Allowed values are {&#39;line&#39;, &#39;triangle&#39;, and &#39;arrow&#39;}.
     visible : bool
         Whether the layer visual is currently being displayed.
-        title : string, optional
-        The title of the viewer window. By default &#39;napari&#39;.
-    ndisplay : {2, 3}, optional
-        Number of displayed dimensions. By default 2.
-    order : tuple of int, optional
-        Order in which dimensions are displayed where the last two or last
-        three dimensions correspond to row x column or plane x row x column if
-        ndisplay is 2 or 3. By default None
-    axis_labels : list of str, optional
-        Dimension names. By default they are labeled with sequential numbers
-    show : bool, optional
-        Whether to show the viewer after instantiation. By default True.
-
 
     Returns
     -------
-    viewer : :class:`napari.Viewer`
-        The newly-created viewer.
+    layer : :class:`napari.layers.Vectors`
+        The newly-created vectors layer.
 </pre></div>
 </div>
 </div>
@@ -1165,7 +1143,7 @@ representation internally. This representation is accessible through the
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-rendering">3D rendering</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arguments-of-view-vectors-and-add-vectors">Arguments of <code class="docutils literal notranslate"><span class="pre">view_vectors</span></code> and <code class="docutils literal notranslate"><span class="pre">add_vectors</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arguments-of-add-vectors">Arguments of <code class="docutils literal notranslate"><span class="pre">add_vectors</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-vector-length-width-and-color">Changing vector length, width, and color</a></li>
 </ul>
 </li>

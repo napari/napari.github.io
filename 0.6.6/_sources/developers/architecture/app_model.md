@@ -437,7 +437,8 @@ Our provider was context dependent. Only when we have an active viewer with a
 points layer, can it be provided:
 
 ```python
->>> viewer = napari.view_points(name='Some Points')
+>>> viewer = napari.Viewer()
+>>> viewer.add_points(name='Some Points')
 
 >>> injected_func()
 Some Points

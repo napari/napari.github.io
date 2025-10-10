@@ -36,11 +36,9 @@ the console or from the GUI.
 
 ## A simple example
 
-You can create a new viewer and add vectors in one go using the
-{meth}`napari.view_vectors` method, or if you already have an existing viewer,
-you can add vectors to it using `viewer.add_vectors`. The API of both methods is
-the same. In these examples we'll mainly use `add_vectors` to overlay vectors
-onto an existing image.
+You can create a new viewer with `napari.Viewer()` and add vectors using the
+{meth}`~napari.Viewer.add_vectors` method.
+In these examples we'll mainly use `add_vectors` to overlay vectors onto an existing image.
 
 In this example, we will overlay vectors on the image of a photographer:
 
@@ -61,7 +59,7 @@ vectors[:, 1, 1] = radius_space * np.sin(phi_space)
 vectors[:, 0] = vectors[:, 1] + 256
 
 # add the image
-viewer = napari.view_image(data.camera(), name='photographer')
+viewer, _ = napari.imshow(data.camera(), name='photographer')
 # add the vectors
 vectors_layer = viewer.add_vectors(vectors, edge_width=3)
 ```
@@ -150,15 +148,14 @@ both 2D and 3D:
 </figure>
 ```
 
-## Arguments of `view_vectors` and `add_vectors`
+## Arguments of `add_vectors`
 
-{meth}`~napari.view_layers.view_vectors` and {meth}`~napari.Viewer.add_vectors`
-accept the same layer-creation parameters.
+{meth}`~napari.Viewer.add_vectors` accepts the following layer-creation parameters.
 
 ```{code-cell} python
 :tags: [hide-output]
 
-help(napari.view_vectors)
+help(napari.Viewer.add_vectors)
 ```
 
 ### Changing vector length, width, and color

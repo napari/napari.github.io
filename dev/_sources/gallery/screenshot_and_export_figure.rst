@@ -137,7 +137,7 @@ In the final grid state shown below, the first row represents exported images. T
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 13.338 seconds)
+   **Total running time of the script:** (0 minutes 12.321 seconds)
 
 
 .. _sphx_glr_download_gallery_screenshot_and_export_figure.py:

@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/release/release_0_6_6.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="⚠️ Note: these release notes are still in draft while 0.6.6 is in release candidate testing. ⚠️ Fri, Oct 10, 2025 We’re happy to announce the release of napari 0.6.6! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing la..." />
+<meta property="og:description" content="Wed, Oct 15, 2025 We’re happy to announce the release of napari 0.6.6! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing large multi-dimensional images. It’s built on top of Qt (for the GUI), vispy (for performant GPU-b..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="⚠️ Note: these release notes are still in draft while 0.6.6 is in release candidate testing. ⚠️ Fri, Oct 10, 2025 We’re happy to announce the release of napari 0.6.6! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing la..." />
+<meta name="description" content="Wed, Oct 15, 2025 We’re happy to announce the release of napari 0.6.6! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing large multi-dimensional images. It’s built on top of Qt (for the GUI), vispy (for performant GPU-b..." />
 
     <title>napari 0.6.6 &#8212; napari</title>
   
@@ -796,8 +796,7 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="napari-0-6-6">
 <h1>napari 0.6.6<a class="headerlink" href="#napari-0-6-6" title="Link to this heading">#</a></h1>
-<p>⚠️ <em>Note: these release notes are still in draft while 0.6.6 is in release candidate testing.</em> ⚠️</p>
-<p><em>Fri, Oct 10, 2025</em></p>
+<p><em>Wed, Oct 15, 2025</em></p>
 <p>We’re happy to announce the release of napari 0.6.6!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
 It’s designed for browsing, annotating, and analyzing large multi-dimensional
@@ -809,16 +808,37 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <section id="highlights">
 <h2>Highlights<a class="headerlink" href="#highlights" title="Link to this heading">#</a></h2>
 <p>This a small bugfix release, following up the changes in 0.6.5.</p>
+<section id="zooming-in-the-dark">
+<h3>Zooming in the dark?<a class="headerlink" href="#zooming-in-the-dark" title="Link to this heading">#</a></h3>
+<p>In the previous release we accidentally made the <a class="reference external" href="https://napari.org/stable/release/release_0_6_3.html#a-zoom-with-a-view">zoom tool added in v0.6.3</a> invisible. Whoops! No worries, it’s back 🔍.</p>
+</section>
+<section id="open-with-napari">
+<h3>“Open with napari”<a class="headerlink" href="#open-with-napari" title="Link to this heading">#</a></h3>
+<p>When using the <a class="reference external" href="https://napari.org/stable/tutorials/fundamentals/installation_bundle_conda.html#how-to-install-the-napari-app">napari bundle</a>, it will now detect when a file can be opened with napari based on the extension. This allows you to use the <code class="docutils literal notranslate"><span class="pre">open</span> <span class="pre">with</span> <span class="pre">&gt;</span></code> menu from your operative system to open files with napari!</p>
+<p><img alt="image showing a context menu with the the  option available" src="https://github.com/user-attachments/assets/f13d58e5-ce2d-460a-b92e-2f23ecc8d438" /></p>
+<p>PS: Since we did quite a few changes behind the scenes on this new version of the bundle, you might experience some issues. Don’t hesitate to open an issue or contact us on zulip if you do!</p>
+</section>
+</section>
+<section id="improvements">
+<h2>Improvements<a class="headerlink" href="#improvements" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Update menuinst configuration with file type associations (<a class="reference external" href="https://github.com/napari/napari/pull/8359">#8359</a>)</p></li>
+</ul>
 </section>
 <section id="bug-fixes">
 <h2>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p>Fix shape selection in a single plane when shapes are on multiple planes (<a class="reference external" href="https://github.com/napari/napari/pull/8335">#8335</a>)</p></li>
 <li><p>Fix invisible zoom box (<a class="reference external" href="https://github.com/napari/napari/pull/8344">#8344</a>)</p></li>
 </ul>
 </section>
 <section id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p>Update release notes v0.6.6 (<a class="reference external" href="https://github.com/napari/docs/pull/868">docs#868</a>)</p></li>
+<li><p>Add info about manual trigger of conda update to release guide (<a class="reference external" href="https://github.com/napari/docs/pull/859">docs#859</a>)</p></li>
+<li><p>Fix version switcher for 0.6.5 (<a class="reference external" href="https://github.com/napari/docs/pull/861">docs#861</a>)</p></li>
+<li><p>Remove trailing comma in version switcher json (<a class="reference external" href="https://github.com/napari/docs/pull/862">docs#862</a>)</p></li>
 <li><p>Add release notes for v0.6.6 (<a class="reference external" href="https://github.com/napari/docs/pull/866">docs#866</a>)</p></li>
 </ul>
 </section>
@@ -826,30 +846,40 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <h2>Other Pull Requests<a class="headerlink" href="#other-pull-requests" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Add a new <code class="docutils literal notranslate"><span class="pre">attr_to_settr</span></code> utility function and simplify layer control widgets layer to widget setup (<a class="reference external" href="https://github.com/napari/napari/pull/8274">#8274</a>)</p></li>
+<li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8275">#8275</a>)</p></li>
 <li><p>ci(dependabot): bump the actions group with 9 updates (<a class="reference external" href="https://github.com/napari/napari/pull/8324">#8324</a>)</p></li>
 <li><p>Delay settings import to avoid circular import (<a class="reference external" href="https://github.com/napari/napari/pull/8327">#8327</a>)</p></li>
 <li><p>Add info about conda forge manual trigger to release checklist (<a class="reference external" href="https://github.com/napari/napari/pull/8328">#8328</a>)</p></li>
+<li><p>Add sponsor badge and reorganize badges into groups (<a class="reference external" href="https://github.com/napari/napari/pull/8343">#8343</a>)</p></li>
+<li><p>Fix vispy error traceback (<a class="reference external" href="https://github.com/napari/napari/pull/8346">#8346</a>)</p></li>
+<li><p>Migrate license settings to modern standards (<a class="reference external" href="https://github.com/napari/napari/pull/8350">#8350</a>)</p></li>
 </ul>
 </section>
 <section id="authors-added-to-this-release-alphabetical">
-<h2>3 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>7 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
 <p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dalthviz">Daniel Althviz Moré</a> - &#64;dalthviz</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> - &#64;Czaki</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> - &#64;brisvag</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jaimergp">Jaime Rodríguez-Guerra</a> - &#64;jaimergp</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=brisvag">docs</a>)  - &#64;brisvag</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=TimMonko">Tim Monko</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=TimMonko">docs</a>)  - &#64;TimMonko</p></li>
 </ul>
 </section>
 <section id="reviewers-added-to-this-release-alphabetical">
-<h2>6 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>8 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
 <p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=willingc">Carol Willing</a> - &#64;willingc</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dalthviz">Daniel Althviz Moré</a> - &#64;dalthviz</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> - &#64;Czaki</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> - &#64;brisvag</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=brisvag">docs</a>)  - &#64;brisvag</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=melissawm">Melissa Weber Mendonça</a> - &#64;melissawm</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=TimMonko">Tim Monko</a> - &#64;TimMonko</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=TimMonko">Tim Monko</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=TimMonko">docs</a>)  - &#64;TimMonko</p></li>
 </ul>
 </section>
 </section>
@@ -901,12 +931,17 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highlights">Highlights</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highlights">Highlights</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zooming-in-the-dark">Zooming in the dark?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-with-napari">“Open with napari”</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#improvements">Improvements</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bug-fixes">Bug Fixes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-pull-requests">Other Pull Requests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">3 authors added to this release (alphabetical)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">6 reviewers added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">7 authors added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">8 reviewers added to this release (alphabetical)</a></li>
 </ul>
   </nav></div>
 

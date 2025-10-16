@@ -37,6 +37,11 @@ PS: Since we did quite a few changes behind the scenes on this new version of th
 
 - Fix shape selection in a single plane when shapes are on multiple planes ([#8335](https://github.com/napari/napari/pull/8335))
 - Fix invisible zoom box ([#8344](https://github.com/napari/napari/pull/8344))
+- Bump console version to fix ipykernel bug ([#8360](https://github.com/napari/napari/pull/8360))
+
+## Build Tools
+
+- Bump console version to fix ipykernel bug ([#8360](https://github.com/napari/napari/pull/8360))
 
 ## Documentation
 
@@ -45,6 +50,7 @@ PS: Since we did quite a few changes behind the scenes on this new version of th
 - Fix version switcher for 0.6.5 ([docs#861](https://github.com/napari/docs/pull/861))
 - Remove trailing comma in version switcher json ([docs#862](https://github.com/napari/docs/pull/862))
 - Add release notes for v0.6.6 ([docs#866](https://github.com/napari/docs/pull/866))
+- Update release notes v0.6.6, the revenge ([docs#869](https://github.com/napari/docs/pull/869))
 
 ## Other Pull Requests
 

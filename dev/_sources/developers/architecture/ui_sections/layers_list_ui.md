@@ -180,51 +180,51 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
-├─_qt/
-│ ├─qt_resources/
-│ │ └─__init__.py
-│ ├─qt_viewer.py
-│ ├─containers/
-│ │ ├─_layer_delegate.py
-│ │ ├─_base_item_model.py
-│ │ ├─_base_item_view.py
-│ │ ├─qt_list_view.py
-│ │ ├─qt_layer_model.py
-│ │ ├─qt_layer_list.py
-│ │ ├─_factory.py
-│ │ └─qt_list_model.py
-│ ├─_qapp_model/
-│ │ ├─_menus.py
-│ │ ├─injection/
-│ │ │ ├─_qproviders.py
-│ │ │ └─_qprocessors.py
-│ │ ├─qactions/
-│ │ │ ├─_layerlist_context.py
-│ │ │ └─__init__.py
-│ │ └─__init__.py
-│ └─qt_main_window.py
 ├─layers/
+│ ├─__init__.py
 │ ├─labels/
 │ │ └─__init__.py
 │ ├─utils/
-│ │ ├─_link_layers.py
+│ │ ├─__init__.py
 │ │ ├─layer_utils.py
-│ │ └─__init__.py
-│ ├─vectors/
-│ │ └─__init__.py
-│ ├─base/
+│ │ └─_link_layers.py
+│ ├─tracks/
 │ │ └─__init__.py
 │ ├─shapes/
 │ │ └─__init__.py
-│ ├─image/
-│ │ └─__init__.py
-│ ├─tracks/
+│ ├─base/
 │ │ └─__init__.py
 │ ├─points/
 │ │ └─__init__.py
 │ ├─surface/
 │ │ └─__init__.py
-│ └─__init__.py
+│ ├─image/
+│ │ └─__init__.py
+│ └─vectors/
+│   └─__init__.py
+├─_qt/
+│ ├─qt_resources/
+│ │ └─__init__.py
+│ ├─_qapp_model/
+│ │ ├─_menus.py
+│ │ ├─__init__.py
+│ │ ├─qactions/
+│ │ │ ├─__init__.py
+│ │ │ └─_layerlist_context.py
+│ │ └─injection/
+│ │   ├─_qprocessors.py
+│ │   └─_qproviders.py
+│ ├─containers/
+│ │ ├─qt_layer_list.py
+│ │ ├─_factory.py
+│ │ ├─qt_list_view.py
+│ │ ├─_base_item_model.py
+│ │ ├─qt_list_model.py
+│ │ ├─_base_item_view.py
+│ │ ├─qt_layer_model.py
+│ │ └─_layer_delegate.py
+│ ├─qt_main_window.py
+│ └─qt_viewer.py
 └─components/
   └─layerlist.py
 ```

@@ -124,7 +124,7 @@ scaled roi screenshots with scale bar and the last 4 display the unscaled roi sc
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 44.446 seconds)
+   **Total running time of the script:** (0 minutes 41.624 seconds)
 
 
 .. _sphx_glr_download_gallery_export_rois.py:

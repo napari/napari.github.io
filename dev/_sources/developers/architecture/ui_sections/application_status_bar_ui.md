@@ -78,15 +78,15 @@ napari/
 │ └─progress.py
 ├─viewer.py
 └─_qt/
-  ├─__init__.py
-  ├─widgets/
-  │ ├─qt_command_palette.py
-  │ ├─qt_progress_bar.py
-  │ └─qt_viewer_status_bar.py
   ├─threads/
   │ └─status_checker.py
-  ├─dialogs/
-  │ ├─shimmed_plugin_dialog.py
-  │ └─qt_activity_dialog.py
-  └─qt_main_window.py
+  ├─widgets/
+  │ ├─qt_viewer_status_bar.py
+  │ ├─qt_progress_bar.py
+  │ └─qt_command_palette.py
+  ├─qt_main_window.py
+  ├─__init__.py
+  └─dialogs/
+    ├─shimmed_plugin_dialog.py
+    └─qt_activity_dialog.py
 ```

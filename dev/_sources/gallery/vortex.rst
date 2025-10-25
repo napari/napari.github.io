@@ -110,7 +110,7 @@ We subsample the vector field to display it — it's too
 messy otherwise! And we transpose the rows/columns axes to match the
 current scikit-image output.
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-54
+.. GENERATED FROM PYTHON SOURCE LINES 41-51
 
 .. code-block:: Python
 
@@ -122,10 +122,7 @@ current scikit-image output.
     usub = u[offset::step, offset::step]
     vsub = v[offset::step, offset::step]
 
-    vectors_field = np.transpose(  # transpose required — skimage bug?
-            np.stack([usub, vsub], axis=-1),
-            (1, 0, 2),
-            )
+    vectors_field = np.stack([usub, vsub], axis=-1)
 
 
 
@@ -134,12 +131,12 @@ current scikit-image output.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-57
+.. GENERATED FROM PYTHON SOURCE LINES 52-54
 
 Finally, we create a viewer, and add the vortex frames, the flow
 magnitude, and the vector field.
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-71
+.. GENERATED FROM PYTHON SOURCE LINES 54-68
 
 .. code-block:: Python
 

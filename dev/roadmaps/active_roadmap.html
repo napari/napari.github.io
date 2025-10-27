@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/roadmaps/active_roadmap.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Updated: June 22, 2025 Project vision and foundation: napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, analyzing, and processing large multi-dimensional images. napari has been adopted globally and across scientific disciplines. Mor..." />
+<meta property="og:description" content="Updated: October 27, 2025 Project vision and foundation: napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, analyzing, and processing large multi-dimensional images. napari has been adopted globally and across scientific disciplines. ..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="Updated: June 22, 2025 Project vision and foundation: napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, analyzing, and processing large multi-dimensional images. napari has been adopted globally and across scientific disciplines. Mor..." />
+<meta name="description" content="Updated: October 27, 2025 Project vision and foundation: napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, analyzing, and processing large multi-dimensional images. napari has been adopted globally and across scientific disciplines. ..." />
 
     <title>Napari Roadmap &#8212; napari</title>
   
@@ -565,7 +565,7 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="napari-roadmap">
 <span id="active-roadmap"></span><h1>Napari Roadmap<a class="headerlink" href="#napari-roadmap" title="Link to this heading">#</a></h1>
-<p>Updated: <strong>June 22, 2025</strong></p>
+<p>Updated: <strong>October 27, 2025</strong></p>
 <section id="project-vision-and-foundation">
 <h2>Project vision and foundation<a class="headerlink" href="#project-vision-and-foundation" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://napari.org/">napari</a> is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, analyzing, and processing large multi-dimensional images.</p>
@@ -690,11 +690,20 @@ users alike.</p>
 <p><strong>User-facing improvements</strong></p>
 <ul class="simple">
 <li><p>Establish a consistent physical model of <strong>data and scene spaces</strong> <a class="reference external" href="https://github.com/napari/napari/issues/5949">#5949</a></p></li>
-<li><p>Develop core library to enable a UI-agnostic <strong>multi-canvas viewer,</strong> enabling orthogonal slices, multichannel viewing, and even VR <a class="reference external" href="https://github.com/napari/napari/issues/5348">#5348</a></p></li>
+<li><p>Develop core library to enable a UI-agnostic <strong>multi-canvas viewer,</strong> enabling orthogonal slices, multichannel viewing, and even VR <a class="reference external" href="https://github.com/napari/napari/issues/5348">#5348</a></p>
+<ul>
+<li><p>Accept <a class="reference external" href="https://napari.org/stable/naps/9-multiple-canvases.html">NAP-9 – Multiple Views</a></p></li>
+</ul>
+</li>
 <li><p>Implement highly-requested functionality that improves <strong>visualizations and overlays</strong> <a class="reference external" href="https://github.com/napari/napari/issues/7587">#7587</a> <a class="reference external" href="https://github.com/napari/napari/issues/5957">#5957</a></p></li>
 <li><p>Improve <strong>file opening and saving</strong> to better support complex scientific data formats</p></li>
-<li><p>Refactor the layer models to consistently support <strong>tabular data visualization across layers</strong>. <a class="reference external" href="https://github.com/napari/napari/issues/2866">#2866</a></p></li>
+<li><p>Refactor the layer models to consistently support <strong>tabular data visualization across layers</strong>. <a class="reference external" href="https://github.com/napari/napari/issues/2866">#2866</a></p>
+<ul>
+<li><p>Adopt <code class="docutils literal notranslate"><span class="pre">features</span></code> in <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer</p></li>
+</ul>
+</li>
 <li><p>Implement core functionality needed to enable <strong>grouping of layers</strong>. <a class="reference external" href="https://github.com/napari/napari/issues/5950">#5950</a></p></li>
+<li><p>Add general-purpose spatial graph layer for displaying, slicing and editing graph-like data, such as tracks. <a class="reference external" href="https://github.com/napari/napari/issues/4274">#4274</a>, <a class="reference external" href="https://github.com/napari/napari/pull/5861">#5861</a></p></li>
 </ul>
 <p><em>Benefits: Web browser application support, composable user interfaces, efficient data pipeline, experimentation tools, and scripting for automated workflows.</em></p>
 </section>
@@ -729,9 +738,19 @@ users alike.</p>
 </ul>
 </li>
 <li><p>Implement <strong>“napari headless is Just Python”</strong> vision so napari can run anywhere that Python can. <a class="reference external" href="https://github.com/napari/napari/issues/5958">#5958</a></p></li>
-<li><p>Implement a <strong>new version of the plugin manifest</strong> that addresses current pain points, deduplicates parts of the specification, and includes richer contribution types <a class="reference external" href="https://github.com/napari/napari/issues/6227">#6227</a></p></li>
+<li><p>Improvements to the plugin manifest</p>
+<ul>
+<li><p>Add high-impact features to existing manifest to enable user workflows e.g. reading hooks <a class="reference external" href="https://github.com/napari/napari/issues/8032">#8032</a>, directory reading patterns <a class="reference external" href="https://github.com/napari/npe2/issues/155">npe2/#155</a>, and context-dependent command/menu items</p></li>
+<li><p>Design &amp; implement a <strong>new version of the plugin manifest</strong> that addresses current pain points, deduplicates parts of the specification, and includes richer contribution types <a class="reference external" href="https://github.com/napari/napari/issues/6227">#6227</a></p></li>
+</ul>
+</li>
 <li><p>Add support for <strong>composable plugin workflows</strong>. Enable data, including layers and non-layers, to be streamed from one plugin to another. <a class="reference external" href="https://github.com/napari/napari/issues/5965">#5965</a></p></li>
-<li><p>Create a <strong>simplified plugin discovery site</strong> to replace the napari hub.</p></li>
+<li><p>Improvements to the <strong>napari hub and our plugin API</strong></p>
+<ul>
+<li><p>Refactor website for improved performance and usability</p></li>
+<li><p>Refactor npe2api for long-term maintainability and performance</p></li>
+</ul>
+</li>
 <li><p>Create a <strong>highly performant, minimal functionality viewer</strong> (<strong>napari-lite, ndv,</strong> or similar) <a class="reference external" href="https://github.com/napari/napari/issues/5940">#5940</a></p></li>
 </ul>
 </section>
@@ -772,16 +791,19 @@ users alike.</p>
 <h3>2025<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>The following items are active priorities for the project:</p>
 <ul class="simple">
-<li><p>Shape triangulation performance</p></li>
-<li><p>Hub-lite: a community built and managed alternative to the napari hub</p></li>
+<li><p>Improvements to the plugin manifest &amp; its implementation</p></li>
 <li><p>Modular canvas (API foundational work)</p></li>
 <li><p>Decoupling library from application design</p></li>
 <li><p>Sustaining the project</p></li>
 </ul>
+<p>The following items were completed recently:</p>
+<ul class="simple">
+<li><p>Shape triangulation performance</p></li>
+<li><p>Hub-lite: a community built and managed alternative to the napari hub</p></li>
+</ul>
 <p>Our next priorities are:</p>
 <ul class="simple">
 <li><p>Multi-canvas (foundational work)</p></li>
-<li><p>Improvements to the plugin manifest (technical design)</p></li>
 <li><p>Core functionality for grouping of layers</p></li>
 <li><p>Instanced rendering performance</p></li>
 <li><p>Performance under core library</p></li>

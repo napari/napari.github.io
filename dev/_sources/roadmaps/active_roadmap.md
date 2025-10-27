@@ -1,7 +1,7 @@
 (active-roadmap)=
 # Napari Roadmap
 
-Updated: **June 22, 2025**
+Updated: **October 27, 2025**
 
 ## Project vision and foundation
 
@@ -154,14 +154,18 @@ This roadmap outlines our plans to simplify the napari code base to allow greate
 * Establish a consistent physical model of **data and scene spaces** [\#5949](https://github.com/napari/napari/issues/5949)
 
 * Develop core library to enable a UI-agnostic **multi-canvas viewer,** enabling orthogonal slices, multichannel viewing, and even VR [\#5348](https://github.com/napari/napari/issues/5348)
+  * Accept [NAP-9 -- Multiple Views](https://napari.org/stable/naps/9-multiple-canvases.html)
 
 * Implement highly-requested functionality that improves **visualizations and overlays** [\#7587](https://github.com/napari/napari/issues/7587) [\#5957](https://github.com/napari/napari/issues/5957)
 
 * Improve **file opening and saving** to better support complex scientific data formats
 
 * Refactor the layer models to consistently support **tabular data visualization across layers**. [\#2866](https://github.com/napari/napari/issues/2866)
+  * Adopt `features` in `Tracks` layer
 
 * Implement core functionality needed to enable **grouping of layers**. [\#5950](https://github.com/napari/napari/issues/5950)
+
+* Add general-purpose spatial graph layer for displaying, slicing and editing graph-like data, such as tracks. [\#4274](https://github.com/napari/napari/issues/4274), [\#5861](https://github.com/napari/napari/pull/5861)
 
 *Benefits: Web browser application support, composable user interfaces, efficient data pipeline, experimentation tools, and scripting for automated workflows.*
 
@@ -201,11 +205,15 @@ This roadmap outlines our plans to simplify the napari code base to allow greate
 
 * Implement **"napari headless is Just Python"** vision so napari can run anywhere that Python can. [\#5958](https://github.com/napari/napari/issues/5958)
 
-* Implement a **new version of the plugin manifest** that addresses current pain points, deduplicates parts of the specification, and includes richer contribution types [\#6227](https://github.com/napari/napari/issues/6227)
+* Improvements to the plugin manifest 
+  * Add high-impact features to existing manifest to enable user workflows e.g. reading hooks [\#8032](https://github.com/napari/napari/issues/8032), directory reading patterns [npe2/\#155](https://github.com/napari/npe2/issues/155), and context-dependent command/menu items
+  * Design & implement a **new version of the plugin manifest** that addresses current pain points, deduplicates parts of the specification, and includes richer contribution types [\#6227](https://github.com/napari/napari/issues/6227)
 
 * Add support for **composable plugin workflows**. Enable data, including layers and non-layers, to be streamed from one plugin to another. [\#5965](https://github.com/napari/napari/issues/5965)
 
-* Create a **simplified plugin discovery site** to replace the napari hub.
+* Improvements to the **napari hub and our plugin API**
+  * Refactor website for improved performance and usability
+  * Refactor npe2api for long-term maintainability and performance
 
 * Create a **highly performant, minimal functionality viewer** (**napari-lite, ndv,** or similar) [\#5940](https://github.com/napari/napari/issues/5940)
 
@@ -249,16 +257,19 @@ The timeline includes ideas that we have firm commitments to deliver. Over time,
 
 The following items are active priorities for the project:
 
-* Shape triangulation performance
-* Hub-lite: a community built and managed alternative to the napari hub
+* Improvements to the plugin manifest & its implementation
 * Modular canvas (API foundational work)
 * Decoupling library from application design
 * Sustaining the project
 
+The following items were completed recently:
+
+* Shape triangulation performance
+* Hub-lite: a community built and managed alternative to the napari hub
+
 Our next priorities are:
 
 * Multi-canvas (foundational work)
-* Improvements to the plugin manifest (technical design)
 * Core functionality for grouping of layers
 * Instanced rendering performance
 * Performance under core library

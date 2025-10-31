@@ -44,8 +44,11 @@ If you are using napari or interested in how napari could be used in your work, 
       },
       eventDidMount: function (info) {
         if (info.event.title.toLowerCase().includes('community') || info.event.title.toLowerCase().includes('working')) {
-          info.el.style.backgroundColor = 'var(--napari-primary-blue)';
-          info.el.style.borderColor = 'var(--napari-primary-blue)';
+          info.el.style.backgroundColor = 'var(--napari-navbar)';
+          info.el.style.borderColor = 'var(--napari-navbar)';
+        } else {
+          info.el.style.backgroundColor = 'var(--napari-calendar-light)';
+          info.el.style.borderColor = 'var(--napari-calendar-light)';
         }
       },
       eventClick: function (info) {

@@ -6,11 +6,11 @@ It's designed for browsing, annotating, and analyzing large multi-dimensional
 images. It's built on top of Qt (for the GUI), vispy (for performant GPU-based
 rendering), and the scientific Python stack (numpy, scipy).
 
-
 For more information, examples, and documentation, please visit our website:
 https://github.com/napari/napari
 
 ## Highlights
+
 This release contains the long awaited addition of text to both the points and
 shapes layers (#1374). Checkout our `examples/*_with_text.py` for simple usage
 and this [segmentation annotation tutorial](https://napari.org/tutorials/segmentation/annotate_segmentation)
@@ -27,26 +27,26 @@ to the SciPy conference sprints. We’re delighted to welcome new contributors t
 the codebase. If you want help contributing to napari, reach out to us on our chat
 room at https://napari.zulipchat.com!
 
-
 ## New Features
+
 - Functions to split/combine multiple layers along an axis (#1322)
 - Add text to shapes and points via TextManager (#1374)
 - Add circle/spherical brush to Labels paint brush (#1429)
 
-
 ## Improvements
+
 - Add ability to run napari script with/without gui_qt from CLI (#1373)
-- Event handler refactor for image layer  "reverted by (#1416)" (#1376)
+- Event handler refactor for image layer "reverted by (#1416)" (#1376)
 - Add ndim as a keyword argument to shapes to support creating empty layers (#1379)
 - Add helpful error on multichannel IndexError (#1381)
 - Use qlistwidget for QtLayerList "reverted by (#1416)" (#1391)
-- Event handler surface layer  "reverted by (#1416)" (#1396)
+- Event handler surface layer "reverted by (#1416)" (#1396)
 - Revert "event handler refactors (#1376), (#1391), (#1396)" (#1416)
 - Move contrast limits and gamma to the shader by vendoring vispy code (#1456)
 - Reduce attenuation default and range (#1460)
 
-
 ## Bug Fixes
+
 - Revert "remove scipy.stats import (#1250)" (#1371)
 - Fix vispy volume colormap changing (#1402)
 - Fix vertical alignment of QLabel in QtDimSliderWidget (#1415)
@@ -61,8 +61,8 @@ room at https://napari.zulipchat.com!
 - Fix edge color select bug (#1464)
 - Proper recognition tiff files with ".TIF" extension (#1472)
 
-
 ## Build Tools
+
 - Updates plugin dev docs to encourage github topic (#1366)
 - Refactor all tests to hide GUI (#1372)
 - Fix two remaining tests that try to show the viewer. (#1375)
@@ -81,7 +81,6 @@ room at https://napari.zulipchat.com!
 - Fix events docstring type (#1481)
 - Don't look for release notes in pre-releases (#1483)
 
-
 ## 14 authors added to this release (alphabetical)
 
 - [Cameron Lloyd](https://github.com/napari/napari/commits?author=camlloyd) - @camlloyd
@@ -98,7 +97,6 @@ room at https://napari.zulipchat.com!
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 - [Trevor Manz](https://github.com/napari/napari/commits?author=manzt) - @manzt
 - [Ziyang Liu](https://github.com/napari/napari/commits?author=ziyangczi) - @ziyangczi
-
 
 ## 12 reviewers added to this release (alphabetical)
 

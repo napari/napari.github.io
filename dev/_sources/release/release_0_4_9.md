@@ -6,24 +6,24 @@ It's designed for browsing, annotating, and analyzing large multi-dimensional
 images. It's built on top of Qt (for the GUI), vispy (for performant GPU-based
 rendering), and the scientific Python stack (numpy, scipy).
 
-
 For more information, examples, and documentation, please visit our website:
 https://github.com/napari/napari
 
-
 ## Highlights
+
 This release adds a couple nice new features like additional shading modes for our
 surface layer (#2972) and the ability to copy a screenshot directly to the clipboard (#2721).
 It also contains a variety of bug fixes and improvements.
 
-
 ## New Features
+
 - Add tooltip for labels (#2658)
 - Added copy-to-clipboard functionality (#2721)
 - Add `make watch` command for hot reload (#2763)
 - Expose alternative shading modes for surfaces (#2792)
 
 ## Improvements
+
 - Global plugin setting (#2565)
 - Provide interface for progress bars in @thread_workers (#2655)
 - Delay all imports in `napari.__init__` behind module level `napari.__getattr__` (#2662)
@@ -53,8 +53,8 @@ It also contains a variety of bug fixes and improvements.
 - Followup to #2485 to add opengl context (#2846)
 - Do not store default values in preference files (#2848)
 
-
 ## Bug Fixes
+
 - Fix Labels and Points properties set (#2657)
 - Fixing `add_dock_widget` compatibility with `magicgui v0.2` (#2734)
 - Shortcuts: Render properly shortcuts with minus and space. (#2735)
@@ -84,17 +84,16 @@ It also contains a variety of bug fixes and improvements.
 - Be more robust for non-existent keybindings in settings (#2861)
 - trans NameError bugfix (#2865)
 
-
 ## Tasks
+
 - Add imports linting (#2659)
 - Pre-commit update (#2728)
 - Remove linenos option from code-blocks and line references (#2739)
-- Remove qt from _qt import linter rule (#2774)
+- Remove qt from \_qt import linter rule (#2774)
 - Add PR labeler and update templates (#2775)
 - Add pytest-order and move threading tests to the top of the suite (#2779)
 - Auto assign PR to author (#2794)
 - Typo in PR template (#2831)
-
 
 ## 12 authors added to this release (alphabetical)
 
@@ -111,7 +110,6 @@ It also contains a variety of bug fixes and improvements.
 - [Pam](https://github.com/napari/napari/commits?author=ppwadhwa) - @ppwadhwa
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 
-
 ## 10 reviewers added to this release (alphabetical)
 
 - [Andy Sweet](https://github.com/napari/napari/commits?author=andy-sweet) - @andy-sweet
@@ -124,4 +122,3 @@ It also contains a variety of bug fixes and improvements.
 - [Nicholas Sofroniew](https://github.com/napari/napari/commits?author=sofroniewn) - @sofroniewn
 - [Pam](https://github.com/napari/napari/commits?author=ppwadhwa) - @ppwadhwa
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
-

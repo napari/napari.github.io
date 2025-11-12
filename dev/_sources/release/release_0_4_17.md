@@ -6,7 +6,6 @@ It's designed for browsing, annotating, and analyzing large multi-dimensional
 images. It's built on top of Qt (for the GUI), vispy (for performant GPU-based
 rendering), and the scientific Python stack (numpy, scipy).
 
-
 For more information, examples, and documentation, please visit our website:
 https://github.com/napari/napari
 
@@ -53,7 +52,6 @@ This uses the API that we intend to spread elsewhere for other style attributes 
 so if you are a heavy user of those types of attributes you should try this out and leave feedback on Zulip
 or create issues on GitHub.
 
-
 ## New Features
 
 - Multi-color text with color encodings (#4464)
@@ -78,7 +76,7 @@ or create issues on GitHub.
 - Use custom color field classes in all models (#4704)
 - napari.viewer.current_viewer fallback ancestor (#4715)
 - Add public API for dims transpose (#4727)
-- Add a public API for the setGeometry method of _qt_window (#4729)
+- Add a public API for the setGeometry method of `_qt_window` (#4729)
 - Expose points layer antialiasing control publicly (#4735)
 - Use `npe2 list` to show plugin info (#4739)
 - Allow pandas.Series as properties values (#4755)
@@ -106,23 +104,23 @@ or create issues on GitHub.
 - Fix: Always save settings after migration (#4490)
 - Make sure reader dialog pops open if File -> Open Sample is compatible with multiple readers (#4500)
 - Do not add duplicate layers (#4544)
-- Disconnect a removed slider's _pull_label callback from the axis label change event  (#4557)
+- Disconnect a removed slider's `_pull_label` callback from the axis label change event (#4557)
 - Clean status message after leave canvas (#4607)
 - Alternate fix for alt-text issues (#4617)
 - Fix numpy version comparison for dev versions of numpy (#4622)
-- Restore "show all key bindings" shortcut  (#4628)
+- Restore "show all key bindings" shortcut (#4628)
 - Raise error when rgb True but data not correct dims (#4630)
 - Define different shortcuts for different screenshot actions in file menu (#4636)
 - Do not use keyword argument for `QListWidgetItem` parent set in constructor (#4661)
 - fix: fix manifest reader extensions, ensure that all builtins go through npe2 (#4668)
 - Fix source of copied layer events by use `layer.as_layer_data_tuple` (#4681)
-- Tracks tail update fix beyond _max_length (#4688)
+- Tracks tail update fix beyond `_max_length` (#4688)
 - Keep order of layers when select to save multiple selected layers (#4689)
-- Apply shown mask to points._view_size_scale (#4699)
+- Apply shown mask to `points._view_size_scale` (#4699)
 - Color edit without tooltip fix (#4717)
 - fix presentation and enablement of npe1 plugins (#4721)
 - fix clim init for dask arrays (#4724)
-- split Image `interpolation` on two properties, `interpoltion2d` and `interpolation3d`  (#4725)
+- split Image `interpolation` on two properties, `interpoltion2d` and `interpolation3d` (#4725)
 - Fix bug in deepcopy of utils.context.Expr (#4730)
 - Fix `_get_state` for empty Vectors and Points layers (#4748)
 - Stop slider animation on display and dimension changes (#4761)
@@ -140,14 +138,14 @@ or create issues on GitHub.
 - Raise exception when layer created with a scale value of 0 (#4906)
 - Fix for display of label colors (#4935)
 - Initialize plugins before validating widget in `napari -w {plugin}` (#4948)
-- Fix resize window problem by to long text in help  (#4981)
+- Fix resize window problem by to long text in help (#4981)
 - Fix throttled status updates by ensuring GUI updates occur on the main thread (#4983)
 - Fix throttled status updates by use `QSignalThrottler` in `_QtMainWindow` constructor (#4985)
 - Ensure non-negative edge width (#5035)
 - Fix the wrong guardian for the build tooltip when bind button (#5075)
 - disable mip and minip cutoffs if opaque blending (#5085)
 - Fix blending presets. (#5087)
-- Bugfix:  disable opacity slider for opaque blending (#5088)
+- Bugfix: disable opacity slider for opaque blending (#5088)
 - Add extra garbage collection for some viewer tests (#5108)
 - Fix typestub and check manifest problems with build package (#5112)
 - Fix error with "None" key press (#5115)
@@ -158,9 +156,9 @@ or create issues on GitHub.
 
 ## API Changes
 
-- Removed unused private Layer._position (#4604)
+- Removed unused private `Layer._position` (#4604)
 - Add public API for dims transpose (#4727)
-- Add a public API for the setGeometry method of _qt_window (#4729)
+- Add a public API for the setGeometry method of `_qt_window` (#4729)
 - Expose points layer antialiasing control publicly (#4735)
 
 ## Deprecations
@@ -197,7 +195,7 @@ or create issues on GitHub.
 - Proposal to accept NAP-1 - add institutional and funding partners to governance (#4458)
 - Fix ImportErrors for instance attributes when building docs (#4471)
 - Update viewer tutorial (#4473)
-- Fix selection events documentation for LayerList  (#4478)
+- Fix selection events documentation for LayerList (#4478)
 - add ABRF LMRG workshop recording (#4487)
 - Add alt_text (#4502)
 - DOC: misc syntax updates and typos (#4517)
@@ -223,7 +221,7 @@ or create issues on GitHub.
 - Fix documentation link errors. (#4787)
 - Fixing readme typo (#4791)
 - Add Talley to the steering council (#4798)
-- Update documentation : install plugin from URL  (#4799)
+- Update documentation : install plugin from URL (#4799)
 - Accept NAP-2: Distributing napari with conda-based packaging (#4810)
 - Fixes duplicate label warnings in the documentation (#4823)
 - added description of how to save layers without compression (#4832)
@@ -265,7 +263,7 @@ or create issues on GitHub.
 - Update v0.4.17.rc0 release notes (#5058)
 - update core dev group to remove Ziyang and Justine (#5059)
 - Better script for prepare release notes (#5061)
-- Bugfix:  disable opacity slider for opaque blending (#5088)
+- Bugfix: disable opacity slider for opaque blending (#5088)
 - Update links in NAP-2 (#5099)
 - Update release notes for v0.4.17rc1 (#5110)
 - Update release notes for v0.4.17rc3 (#5147)
@@ -278,7 +276,7 @@ or create issues on GitHub.
 - Test if events for all properties are defined (#4486)
 - throttle status update (#4488)
 - use inject_napari_dependencies in layer_actions commands (#4489)
-- Add _get_value_3d to surface (#4492)
+- Add `_get_value_3d` to surface (#4492)
 - Reduce canvas margin (#4496)
 - Fix trailing comma fixes black formatting (#4498)
 - Update layer list context keys (#4499)
@@ -306,16 +304,16 @@ or create issues on GitHub.
 - Enable patch coverage reporting (#4632)
 - Add tests for qt_progress_bar.py (#4634)
 - Remove some sleepy tests, wait with timeout instead (#4638)
-- Speed up notebook display tests  (#4641)
+- Speed up notebook display tests (#4641)
 - build: slight updates/de-dups in setupcfg (#4645)
 - test: Speed up test_viewer tests, split out pyqt5/pyside2 tests again (#4646)
-- Move test examples on end of test run them in different CI job  (#4647)
+- Move test examples on end of test run them in different CI job (#4647)
 - Allow to trigger test_translation manually (#4652)
 - Limit comprehensive test concurrency to 1. (#4655)
 - Do not run `asv` on push (#4656)
 - ci: fix tox factor names in tests (#4660)
 - test: speed up magicgui forward ref tests (#4662)
-- Remove unused points _color state (#4666)
+- Remove unused points `_color` state (#4666)
 - test: Cleanup usage of npe2 plugin manager in tests (#4669)
 - add dependabot for github actions dependencies (#4671)
 - Use `cache: pip` from actions setup-python (#4672)
@@ -374,7 +372,7 @@ or create issues on GitHub.
 - Use Source object to track if a layer is duplicated (#5028)
 - Revert "Revert "Fix sys.path issue with subprocess relaunch in macOS"" (#5029)
 - update some of the ignored translations (#5032)
-- MAINT: fix a couple of trans._. (#5034)
+- MAINT: fix a couple of `trans._`. (#5034)
 - MAINT: Update Future Warning. (#5037)
 - MAINT: Unnecessary formatting of constant. (#5044)
 - Small shortcuts preference pane wording update after #5018 (#5049)
@@ -384,7 +382,6 @@ or create issues on GitHub.
 - Add new core libraries to napari info (#5077)
 - Update config directory paths for perfmon tools (#5081)
 - Update some strings to be translated, some to be ignored (#5082)
-
 
 ## 48 authors added to this release (alphabetical)
 
@@ -396,11 +393,11 @@ or create issues on GitHub.
 - [cnstt](https://github.com/napari/napari/commits?author=cnstt) - @cnstt
 - [Curtis Rueden](https://github.com/napari/napari/commits?author=ctrueden) - @ctrueden
 - [David Stansby](https://github.com/napari/napari/commits?author=dstansby) - @dstansby
-- [dependabot[bot]](https://github.com/napari/napari/commits?author=dependabot[bot]) - @dependabot[bot]
+- [dependabot[bot]](https://github.com/napari/napari/commits?author=dependabot%5Bbot%5D) - @dependabot[bot]
 - [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) - @DragaDoncila
 - [Eric Perlman](https://github.com/napari/napari/commits?author=perlman) - @perlman
 - [Gabriel Selzer](https://github.com/napari/napari/commits?author=gselzer) - @gselzer
-- [github-actions[bot]](https://github.com/napari/napari/commits?author=github-actions[bot]) - @github-actions[bot]
+- [github-actions[bot]](https://github.com/napari/napari/commits?author=github-actions%5Bbot%5D) - @github-actions[bot]
 - [Gonzalo Peña-Castellanos](https://github.com/napari/napari/commits?author=goanpeca) - @goanpeca
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) - @Czaki
 - [Guillaume Witz](https://github.com/napari/napari/commits?author=guiwitz) - @guiwitz
@@ -427,7 +424,7 @@ or create issues on GitHub.
 - [Pam](https://github.com/napari/napari/commits?author=ppwadhwa) - @ppwadhwa
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
 - [Pierre Thibault](https://github.com/napari/napari/commits?author=pierrethibault) - @pierrethibault
-- [pre-commit-ci[bot]](https://github.com/napari/napari/commits?author=pre-commit-ci[bot]) - @pre-commit-ci[bot]
+- [pre-commit-ci[bot]](https://github.com/napari/napari/commits?author=pre-commit-ci%5Bbot%5D) - @pre-commit-ci[bot]
 - [Robert Haase](https://github.com/napari/napari/commits?author=haesleinhuepf) - @haesleinhuepf
 - [Robin Koch](https://github.com/napari/napari/commits?author=RobAnKo) - @RobAnKo
 - [rwkozar](https://github.com/napari/napari/commits?author=rwkozar) - @rwkozar
@@ -436,7 +433,6 @@ or create issues on GitHub.
 - [Tru Huynh](https://github.com/napari/napari/commits?author=truatpasteurdotfr) - @truatpasteurdotfr
 - [vcwai](https://github.com/napari/napari/commits?author=victorcwai) - @victorcwai
 - [Ziyang Liu](https://github.com/napari/napari/commits?author=potating-potato) - @potating-potato
-
 
 ## 32 reviewers added to this release (alphabetical)
 

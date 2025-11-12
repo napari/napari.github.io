@@ -24,10 +24,9 @@ Have you ever tried to use the `dims` pop-up widget (accessed by right clicking 
 ❓Did you know that the `dims` widget allows you to rename the axis labels of your data?
 ![dims popup widget](https://github.com/user-attachments/assets/3b38462b-8fe2-47b2-be02-66a714d18d8f)
 
-
 ## New Features
 
-- Add inheritance of spatial data for functional plugin that return layer data.  ([#6986](https://github.com/napari/napari/pull/6986))
+- Add inheritance of spatial data for functional plugin that return layer data. ([#6986](https://github.com/napari/napari/pull/6986))
 - Bump to vispy 0.15 and update Colormap model ([#7846](https://github.com/napari/napari/pull/7846))
 - Add multiplicative blending ([#7868](https://github.com/napari/napari/pull/7868))
 
@@ -79,7 +78,6 @@ Have you ever tried to use the `dims` pop-up widget (accessed by right clicking 
 - Rename action by add missed word separator ([#7913](https://github.com/napari/napari/pull/7913))
 - Update build_trigger.yml to fix Circle pipeline ([docs#701](https://github.com/napari/docs/pull/701))
 
-
 ## 6 authors added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
@@ -89,8 +87,7 @@ Have you ever tried to use the `dims` pop-up widget (accessed by right clicking 
 - [Juan Nunez-Iglesias](https://github.com/napari/docs/commits?author=jni) - @jni
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - @brisvag
 - [Peter Sobolewski](https://github.com/napari/docs/commits?author=psobolewskiPhD) - @psobolewskiPhD
-- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
-
+- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko)) - @TimMonko
 
 ## 7 reviewers added to this release (alphabetical)
 
@@ -102,5 +99,4 @@ Have you ever tried to use the `dims` pop-up widget (accessed by right clicking 
 - [Juan Nunez-Iglesias](https://github.com/napari/docs/commits?author=jni) - @jni
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - @brisvag
 - [Peter Sobolewski](https://github.com/napari/docs/commits?author=psobolewskiPhD) - @psobolewskiPhD
-- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
-
+- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko)) - @TimMonko

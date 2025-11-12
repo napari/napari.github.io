@@ -5,9 +5,9 @@
 This guide documents `napari`'s release process as of 0.6.4.
 Most required tools mentioned here are in https://github.com/napari/napari-release-tools.
 
-:::{important}
+```{important}
 The first step in managing a release is to create a new Issue in napari/napari with the [`release` template](https://github.com/napari/napari/tree/main/.github/ISSUE_TEMPLATE/release.md).
-:::
+```
 
 ## EffVer: (Intended) Effort Versioning
 
@@ -29,7 +29,7 @@ community for testing. The length of time between these prereleases will
 depend on the size of the release and feedback received. A conservative estimate
 is one week between each prerelease.
 
-:::{important}
+```{important}
 While the latest prerelease (alpha or release candidate) can be installed with `--pre`,
 this results in *all* dependencies being installed as prereleases. This has
 resulted in other dependencies breaking napari, so instead we recommend promoting
@@ -38,7 +38,7 @@ installation of prereleases by specifying the version explicitly, e.g.:
 `python -m pip install "napari[all]>=0.6.2a0"`
 
 `uv pip install "napari[all]>=0.6.2a0"`
-:::
+```
 
 ## Release management
 
@@ -58,7 +58,7 @@ New features should wait until after release.
 
 - Add a header and highlights section to the [`additional notes`](https://github.com/napari/napari-release-tools/tree/main/additional_notes) folder for the given release.
   Use the [highlight label](https://github.com/napari/napari/pulls?q=sort%3Aupdated-desc+is%3Apr+is%3Aopen+label%3Ahighlight) for the relevant milestone to note which PRs to comment on.
-  To add images or GIFs and have them display in both the napari docs and the github release notes, add the file as a comment to the appropriate PR. 
+  To add images or GIFs and have them display in both the napari docs and the github release notes, add the file as a comment to the appropriate PR.
   You then need to link to the public GitHub asset for that file (obtained via editing the comment and getting the original link) and not the private assets version (which is the link of the previewed image).
   The public link starts with `https://github.com/user-attachments/assets/...` whereas the private link starts with `https://private-user-images.githubusercontent.com/...`.
 - Generate release notes with the [`generate_release_notes.py` script from napari/napari-release-tools](https://github.com/napari/napari-release-tools/blob/main/generate_release_notes.py);
@@ -71,7 +71,7 @@ At this point the release manager should ideally be the only person merging PRs 
 ### Step 3: Making the prerelease
 
 - Merge any remaining PRs and update release notes accordingly;
-- Ensure [`conda-recipe/recipe.yaml`](https://github.com/napari/packaging/blob/main/conda-recipe/recipe.yaml) in `napari/packaging`  is up-to-date (e.g. `run` dependencies match `pyproject.toml` requirements);
+- Ensure [`conda-recipe/recipe.yaml`](https://github.com/napari/packaging/blob/main/conda-recipe/recipe.yaml) in `napari/packaging` is up-to-date (e.g. `run` dependencies match `pyproject.toml` requirements);
 - Merge release notes;
 - Make the release candidate and announce on zulip;
 - Announce to release stream on zulip that the first release candidate is available for testing.
@@ -111,7 +111,7 @@ release though we need to generate the release notes.
 1. Grab the `generate_release_notes.py` script from the
    [napari/napari-release-tools](https://github.com/napari/napari-release-tools)
    repo. Make a list of merges, contributors, and reviewers by running
-   ``python generate_release_notes.py -h`` and following that file's usage.
+   `python generate_release_notes.py -h` and following that file's usage.
    For each release generate the list to include everything since the last release for which there
    are release notes (which should just be the last release).
 
@@ -134,15 +134,15 @@ release though we need to generate the release notes.
    python generate_release_notes.py 0.5.4 --target-directory=/path/to/docs/release/
    ```
 
-2. Scan the PR titles for highlights, deprecations, API changes,
+1. Scan the PR titles for highlights, deprecations, API changes,
    and bugfixes, and mention these in the relevant sections of the notes.
    Try to present the information in an expressive way by mentioning
    the affected functions, elaborating on the changes and their
    consequences. If possible, organize semantically close PRs in groups.
 
-3. Make sure the file name is of the form ``doc/release/release_<macro>_<meso>_<micro>.md``, e.g. `doc/release/release_0_5_4.md`.
+1. Make sure the file name is of the form `doc/release/release_<macro>_<meso>_<micro>.md`, e.g. `doc/release/release_0_5_4.md`.
 
-4. **Important**: Make and merge a PR in `napari/docs` with these release notes before moving onto the next steps.
+1. **Important**: Make and merge a PR in `napari/docs` with these release notes before moving onto the next steps.
    If these release notes are not merged, the release will fail because the
    [`make_release.yml` workflow](https://github.com/napari/napari/blob/main/.github/workflows/make_release.yml)
    will not be able to find the release notes file.
@@ -272,11 +272,11 @@ when the metadata of an existing package is proven wrong after it has been relea
 
 To amend the metadata, we need to:
 
-* Encode the patch instructions as a PR to
+- Encode the patch instructions as a PR to
   [`conda-forge/conda-forge-repodata-patches-feedstock`](https://github.com/conda-forge/conda-forge-repodata-patches-feedstock):
   - Add the required changes to `recipe/gen_patch_json.py`, under the [`record_name == 'napari'` section](https://github.com/conda-forge/conda-forge-repodata-patches-feedstock/blob/6aa624be7fe4e3627daea095c8d92b7379b3bb66/recipe/gen_patch_json.py#L1562).
   - Use a [timestamp condition](https://github.com/conda-forge/conda-forge-repodata-patches-feedstock/blob/6aa624be7fe4e3627daea095c8d92b7379b3bb66/recipe/gen_patch_json.py#L1564) to ensure only existing releases are patched.
-* If necessary, make sure the metadata is amended in the feedstock too.
+- If necessary, make sure the metadata is amended in the feedstock too.
   Usually this is not needed until a new release is made, but it's important to remember!
 
 Some previous examples include:
@@ -305,7 +305,7 @@ Next, you need to do the following:
 
 1. In the `napari/napari.github.io` repo, update the `stable` symlink in the `gh-pages` branch to point to the new version. This can be done by manually triggering this [stable symlink action](https://github.com/napari/napari.github.io/actions/workflows/symlink-stable.yml). Enter X.Y.Z into the trigger box; do not include `v` as a prefix.
 
-2. In the `napari/docs` repo, update the [`docs/_static/version_switcher.json` file](https://github.com/napari/docs/blob/main/docs/_static/version_switcher.json)
+1. In the `napari/docs` repo, update the [`docs/_static/version_switcher.json` file](https://github.com/napari/docs/blob/main/docs/_static/version_switcher.json)
    so that `stable` points to the right version.
    The active version switcher is read from the file in the `dev` folder, so this can be done as the last step in the process.
    You can find an example in [this PR](https://github.com/napari/docs/pull/754).

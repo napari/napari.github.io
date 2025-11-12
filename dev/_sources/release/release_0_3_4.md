@@ -11,7 +11,7 @@ flexibility around which Qt python bindings users install (PySide2, PyQt5).
 Starting with this release, running `pip install napari` will *no longer*
 install a GUI backend by default. For a complete installation with a GUI
 backend, users are now encouraged to use `pip install napari[all]`, which
-will install the default backend (currently PyQt5).  To explicitly select
+will install the default backend (currently PyQt5). To explicitly select
 a backend, users may run either `pip install napari[pyqt5]` or
 `pip install napari[pyside2]`.
 

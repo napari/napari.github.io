@@ -72,7 +72,7 @@ from dask import delayed
 import dask.array as da
 from glob import glob
 
-filenames = sorted(glob("/path/to/experiment/*.tif"), key=alphanumeric_key)
+filenames = sorted(glob('/path/to/experiment/*.tif'), key=alphanumeric_key)
 # read the first file to get the shape and dtype
 # ASSUMES THAT ALL FILES SHARE THE SAME SHAPE/TYPE
 sample = imread(filenames[0])
@@ -91,7 +91,7 @@ stack.shape  # (nfiles, nz, ny, nx)
 stack
 ```
 
-![HTML representation of a Dask array as seen in Jupyter notebook. The image is split into two main regions: a table showing the bytes, shape, count and data type attributes of the array and of each chunk, and a visual representation of the shape of the chunks that make up the array (a rectangle of 1200x1) and each individual chunk (a 65*256*256 cube).](../../_static/images/dask_repr.png)
+![HTML representation of a Dask array as seen in Jupyter notebook. The image is split into two main regions: a table showing the bytes, shape, count and data type attributes of the array and of each chunk, and a visual representation of the shape of the chunks that make up the array (a rectangle of 1200x1) and each individual chunk (a 65x256x256 cube).](../../_static/images/dask_repr.png)
 
 *No data has been read from disk yet!*
 
@@ -105,7 +105,7 @@ import napari
 
 # specify contrast_limits and multiscale=False with big data
 # to avoid unnecessary computations
-napari.imshow(stack, contrast_limits=[0,2000], multiscale=False)
+napari.imshow(stack, contrast_limits=[0, 2000], multiscale=False)
 ```
 
 *Note: providing the* `contrast_limits` *and* `multiscale` *arguments prevents* `napari` *from trying to calculate the data min/max, which can take an extremely long time with big data.
@@ -126,8 +126,8 @@ Using `dask-image`, *all* of the above code can be simplified to 5 lines:
 import napari
 from dask_image.imread import imread
 
-stack = imread("/path/to/experiment/*.tif")
-napari.imshow(stack, contrast_limits=[0,2000], multiscale=False)
+stack = imread('/path/to/experiment/*.tif')
+napari.imshow(stack, contrast_limits=[0, 2000], multiscale=False)
 ```
 
 ```{raw} html
@@ -154,6 +154,7 @@ For example:
 
 ```python
 from dask_image.imread import imread
+
 stack = imread('/path/to/experiment/*.tif')
 stack.shape  # -> something like (1200, 64, 256, 280)
 stack[0].compute()  # incurs a single file read
@@ -179,7 +180,7 @@ import dask.array as da
 # stack[0, 0].compute()  # incurs 600 read events!
 
 # do something like this:
-file_pattern = "/path/to/experiment/*ch{}*.tif"
+file_pattern = '/path/to/experiment/*ch{}*.tif'
 channels = [imread(file_pattern.format(i)) for i in range(nchannels)]
 stack = da.stack(channels)
 stack.shape  # (2, 600, 64, 256, 280)
@@ -211,14 +212,14 @@ will [make our lives easier](#make-your-life-easier-with-dask-image) here and us
 Using [dask_image.imread](https://image.dask.org/en/latest/dask_image.imread.html#module-dask_image.imread),
 loading the entire dataset to view in napari is straightforward.
 
-``` python
+```python
 import napari
 from dask_image.imread import imread
 
 # Load images
 images = imread(
     'SYNTHESIZED_TIFF_Images_Raw/Synthesized_FLASH25_100um_TIFF_Axial_Images/Synthesized_FLASH25_Axial_*.tiff'
-    )
+)
 napari.imshow(images)
 
 if __name__ == '__main__':
@@ -255,23 +256,26 @@ from skimage import io
 from dask_image.imread import imread
 
 # load stacks with dask_image, and psf with skimage
-stack = imread("/path/to/experiment/*.tif")
-psf = io.imread("/path/to/psf.tif")
+stack = imread('/path/to/experiment/*.tif')
+psf = io.imread('/path/to/psf.tif')
 
 # prepare some functions that accept a numpy array
 # and return a processed array
+
 
 def last3dims(f):
     # this is just a wrapper because the pycudadecon function
     # expects ndims==3 but our blocks will have ndim==4
     def func(array):
         return f(array[0])[None, ...]
+
     return func
 
 
 def crop(array):
     # simple cropping function
     return array[:, 2:, 10:-20, :500]
+
 
 # https://docs.python.org/3.8/library/functools.html#functools.partial
 deskew = last3dims(partial(pycudadecon.deskew_gpu, angle=31.5))
@@ -280,9 +284,9 @@ deconv = last3dims(partial(pycudadecon.decon, psf=psf, background=10))
 # in reality pycudadecon.decon also has a deskew argument
 
 # map and chain those functions across all dask blocks
-deskewed = stack.map_blocks(deskew, dtype="uint16")
-deconvolved = deskewed.map_blocks(deconv, dtype="float32")
-cropped = deconvolved.map_blocks(crop, dtype="float32")
+deskewed = stack.map_blocks(deskew, dtype='uint16')
+deconvolved = deskewed.map_blocks(deconv, dtype='float32')
+cropped = deconvolved.map_blocks(crop, dtype='float32')
 
 # put the resulting dask array into napari.
 # (don't forget the contrast limits and multiscale==False !)

@@ -844,7 +844,7 @@ We will walk through the code in the following sections.</p>
     <span class="s1">&#39;#e377c2&#39;</span><span class="p">,</span>
     <span class="s1">&#39;#7f7f7f&#39;</span><span class="p">,</span>
     <span class="s1">&#39;#bcbd22&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#17becf&#39;</span>
+    <span class="s1">&#39;#17becf&#39;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -867,7 +867,6 @@ We will walk through the code in the following sections.</p>
     <span class="n">label_menu</span> <span class="o">=</span> <span class="n">ComboBox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;feature_label&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
     <span class="n">label_widget</span> <span class="o">=</span> <span class="n">Container</span><span class="p">(</span><span class="n">widgets</span><span class="o">=</span><span class="p">[</span><span class="n">label_menu</span><span class="p">])</span>
 
-
     <span class="k">def</span><span class="w"> </span><span class="nf">update_label_menu</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the label menu when the point selection changes&quot;&quot;&quot;</span>
         <span class="n">new_label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
@@ -889,8 +888,8 @@ We will walk through the code in the following sections.</p>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">point_annotator</span><span class="p">(</span>
-        <span class="n">im_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">im_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a GUI for annotating points in a series of images.</span>
 
@@ -966,8 +965,8 @@ We will walk through the code in the following sections.</p>
 Wrapping the GUI creation in the function allows us to integrate it into other functions (e.g., a command line interface) and applications.
 See below for the function definition.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">point_annotator</span><span class="p">(</span>
-        <span class="n">im_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">im_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a GUI for annotating points in a series of images.</span>
 
@@ -1035,7 +1034,7 @@ For example, the <a class="reference external" href="https://github.com/d3/d3-3.
     <span class="s1">&#39;#e377c2&#39;</span><span class="p">,</span>
     <span class="s1">&#39;#7f7f7f&#39;</span><span class="p">,</span>
     <span class="s1">&#39;#bcbd22&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#17becf&#39;</span>
+    <span class="s1">&#39;#17becf&#39;</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -1047,7 +1046,7 @@ For example, the <a class="reference external" href="https://github.com/d3/d3-3.
 </section>
 <section id="adding-a-gui-for-selecting-points">
 <h2>Adding a GUI for selecting points<a class="headerlink" href="#adding-a-gui-for-selecting-points" title="Link to this heading">#</a></h2>
-<p>First, we will define a function  to create a GUI for select the labels for
+<p>First, we will define a function to create a GUI for select the labels for
 points. The function <code class="docutils literal notranslate"><span class="pre">create_label_menu()</span></code> will take the points layer we created
 and the list of labels we will annotate with and return the label menu GUI.
 Additionally, we will create and connect all the required callbacks to make the
@@ -1088,6 +1087,7 @@ We connect the function we created to the event so that <code class="docutils li
     <span class="k">if</span> <span class="n">new_label</span> <span class="o">!=</span> <span class="n">label_menu</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
         <span class="n">label_menu</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">new_label</span>
 
+
 <span class="n">points_layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">feature_defaults</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">update_label_menu</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1100,6 +1100,7 @@ To ensure the points layer is updated whenever the GUI selection is changed, we 
     <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">selected_label</span>
     <span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span> <span class="o">=</span> <span class="n">feature_defaults</span>
     <span class="n">points_layer</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
+
 
 <span class="n">label_menu</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">label_changed</span><span class="p">)</span>
 </pre></div>
@@ -1187,7 +1188,7 @@ see the examples [<a class="reference external" href="https://github.com/napari/
 <section id="saving-the-annotations">
 <h3>Saving the annotations<a class="headerlink" href="#saving-the-annotations" title="Link to this heading">#</a></h3>
 <p>Once we are happy with the annotations, we can save them to a CSV file using the building CSV writer for the points layer.
-To do so, first, select the “Points” layer in the layer list and then click “Save Selected layer(s)”  in the “File” menu or press <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">control</kbd>+<kbd class="kbd docutils literal notranslate">S</kbd></kbd> (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">cmd</kbd>+<kbd class="kbd docutils literal notranslate">S</kbd></kbd> on Mac OS)  to bring up the file save dialog.
+To do so, first, select the “Points” layer in the layer list and then click “Save Selected layer(s)” in the “File” menu or press <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">control</kbd>+<kbd class="kbd docutils literal notranslate">S</kbd></kbd> (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">cmd</kbd>+<kbd class="kbd docutils literal notranslate">S</kbd></kbd> on Mac OS) to bring up the file save dialog.
 From here you can enter the file path and save the annotation coordinates as a CSV.</p>
 <p><img alt="Viewer with green box around a points layer in layer list. Label in green says &quot;1. Select Points layer in the layer list&quot;. Dialog in the middle of the viewer has options to add save file name and choose save location, with Cancel and Save buttons in the bottom right." src="../../_images/points_save_dialog.png" /></p>
 <p>Alternatively, we can use the <code class="docutils literal notranslate"><span class="pre">points_layer.save()</span></code> method to save the coordinates from the points layer to a CSV file.

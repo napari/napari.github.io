@@ -58,7 +58,7 @@ https://napari.org
 - Much faster FormatStringEncoding ([napari/napari/#5315](https://github.com/napari/napari/pull/5315))
 - Add parent when creating layer context menu to inherit application theme and add style entry for disabled widgets and menus ([napari/napari/#5381](https://github.com/napari/napari/pull/5381))
 - Add correct `enablement` kwarg to `Split Stack` action, `Convert data type` submenu and `Projections` submenu ([napari/napari/#5437](https://github.com/napari/napari/pull/5437))
-- Apply disabled widgets style only for menus and set menus styles for `QModelMenu`  and `QMenu` instances ([napari/napari/#5446](https://github.com/napari/napari/pull/5446))
+- Apply disabled widgets style only for menus and set menus styles for `QModelMenu` and `QMenu` instances ([napari/napari/#5446](https://github.com/napari/napari/pull/5446))
 - Add disabled style rule for `QComboBox` following the one for `QPushButton` ([napari/napari/#5469](https://github.com/napari/napari/pull/5469))
 - Allow layers control section to resize to contents ([napari/napari/#5474](https://github.com/napari/napari/pull/5474))
 - Allow to use `Optional` annotation in function return type for magicgui functions ([napari/napari/#5595](https://github.com/napari/napari/pull/5595))
@@ -102,7 +102,7 @@ https://napari.org
 - Check strictly increasing values when clipping contrast limits to a new range ([napari/napari/#5258](https://github.com/napari/napari/pull/5258))
 - UI Bugfix: Make disabled QPushButton more distinct ([napari/napari/#5262](https://github.com/napari/napari/pull/5262))
 - Respect background color when calculating scale bar color ([napari/napari/#5270](https://github.com/napari/napari/pull/5270))
-- Fix circular import in _vispy module ([napari/napari/#5276](https://github.com/napari/napari/pull/5276))
+- Fix circular import in `_vispy` module ([napari/napari/#5276](https://github.com/napari/napari/pull/5276))
 - Use only data dimensions for cord in status bar ([napari/napari/#5283](https://github.com/napari/napari/pull/5283))
 - Prevent obsolete reports about failure of cleaning viewer instances ([napari/napari/#5317](https://github.com/napari/napari/pull/5317))
 - Add scikit-image[data] to install_requires, because it's required by builtins ([napari/napari/#5329](https://github.com/napari/napari/pull/5329))
@@ -115,8 +115,8 @@ https://napari.org
 - fix theme id not being used correctly ([napari/napari/#5412](https://github.com/napari/napari/pull/5412))
 - Clarify layer's editable property and separate interaction with visible property ([napari/napari/#5413](https://github.com/napari/napari/pull/5413))
 - Fix theme reference to get image for `success_label` style ([napari/napari/#5447](https://github.com/napari/napari/pull/5447))
-- Bugfix: Ensure layer._fixed_vertex is set when rotating ([napari/napari/#5449](https://github.com/napari/napari/pull/5449))
-- Fix `_n_selected_points` in _layerlist_context.py ([napari/napari/#5450](https://github.com/napari/napari/pull/5450))
+- Bugfix: Ensure `layer._fixed_vertex` is set when rotating ([napari/napari/#5449](https://github.com/napari/napari/pull/5449))
+- Fix `_n_selected_points` in `_layerlist_context.py` ([napari/napari/#5450](https://github.com/napari/napari/pull/5450))
 - Refactor Main Window status bar to improve information presentation ([napari/napari/#5451](https://github.com/napari/napari/pull/5451))
 - Bugfix: Fix test_get_system_theme test for `name` to `id` change ([napari/napari/#5456](https://github.com/napari/napari/pull/5456))
 - Bugfix: POLL_INTERVAL_MS used in QTimer needs to be an int on python 3.10 ([napari/napari/#5467](https://github.com/napari/napari/pull/5467))
@@ -124,16 +124,16 @@ https://napari.org
 - BugFix: napari does not start with Python v3.11.1: "ValueError: A distribution name is required." ([napari/napari/#5482](https://github.com/napari/napari/pull/5482))
 - Fix inverted LUT and blending ([napari/napari/#5487](https://github.com/napari/napari/pull/5487))
 - Fix opening file dialogs in PySide ([napari/napari/#5492](https://github.com/napari/napari/pull/5492))
-- Handle case when QtDims play thread is partially deleted  ([napari/napari/#5499](https://github.com/napari/napari/pull/5499))
+- Handle case when QtDims play thread is partially deleted ([napari/napari/#5499](https://github.com/napari/napari/pull/5499))
 - Ensure surface normals and wireframes are using Models internally ([napari/napari/#5501](https://github.com/napari/napari/pull/5501))
 - Recursively check for dependent property to fire events. ([napari/napari/#5528](https://github.com/napari/napari/pull/5528))
 - Set PYTHONEXECUTABLE as part of macos fixes on (re)startup ([napari/napari/#5531](https://github.com/napari/napari/pull/5531))
 - Un-set unified title and tool bar on mac (Qt property) ([napari/napari/#5533](https://github.com/napari/napari/pull/5533))
 - Fix key error issue of action manager ([napari/napari/#5539](https://github.com/napari/napari/pull/5539))
 - Bugfix: ensure Checkbox state comparisons are correct by using Qt.CheckState(state) ([napari/napari/#5541](https://github.com/napari/napari/pull/5541))
-- Clean dangling widget in test  ([napari/napari/#5544](https://github.com/napari/napari/pull/5544))
+- Clean dangling widget in test ([napari/napari/#5544](https://github.com/napari/napari/pull/5544))
 - Fix `test_worker_with_progress` by wait on worker end ([napari/napari/#5548](https://github.com/napari/napari/pull/5548))
-- Fix min req  ([napari/napari/#5560](https://github.com/napari/napari/pull/5560))
+- Fix min req ([napari/napari/#5560](https://github.com/napari/napari/pull/5560))
 - Fix vispy axes labels ([napari/napari/#5565](https://github.com/napari/napari/pull/5565))
 - Fix colormap utils error suggestion code and add a test ([napari/napari/#5571](https://github.com/napari/napari/pull/5571))
 - Fix problem of missing plugin widgets after minimize napari ([napari/napari/#5577](https://github.com/napari/napari/pull/5577))
@@ -165,7 +165,7 @@ https://napari.org
 - Maint: Bump mypy ([napari/napari/#5727](https://github.com/napari/napari/pull/5727))
 - Style `QGroupBox` indicator ([napari/napari/#5729](https://github.com/napari/napari/pull/5729))
 - Fix centering of non-displayed dimensions ([napari/napari/#5736](https://github.com/napari/napari/pull/5736))
-- Don't attempt to use npe1 readers in napari.plugins._npe2.read ([napari/napari/#5739](https://github.com/napari/napari/pull/5739))
+- Don't attempt to use npe1 readers in `napari.plugins._npe2.read` ([napari/napari/#5739](https://github.com/napari/napari/pull/5739))
 - Prevent canvas micro-panning on point add ([napari/napari/#5742](https://github.com/napari/napari/pull/5742))
 - Use text opacity to signal that widget is disabled ([napari/napari/#5745](https://github.com/napari/napari/pull/5745))
 - Bugfix: Add the missed keyReleaseEvent method in QtViewerDockWidget ([napari/napari/#5746](https://github.com/napari/napari/pull/5746))
@@ -180,7 +180,7 @@ https://napari.org
 - Set focus policy for mainwindow to prevent keeping focus on the axis labels (and other `QLineEdit` based widgets) when clicking outside the widget ([napari/napari/#5812](https://github.com/napari/napari/pull/5812))
 - Enforce Points.selected_data type as Selection ([napari/napari/#5813](https://github.com/napari/napari/pull/5813))
 - Change toggle menubar visibility functionality to hide menubar and show it on mouse movement validation ([napari/napari/#5824](https://github.com/napari/napari/pull/5824))
-- Bugfix: Disconnect callbacks on object deletion in special functions from `event_utils`  ([napari/napari/#5826](https://github.com/napari/napari/pull/5826))
+- Bugfix: Disconnect callbacks on object deletion in special functions from `event_utils` ([napari/napari/#5826](https://github.com/napari/napari/pull/5826))
 - Do not blend color in QtColorBox with black using opacity ([napari/napari/#5827](https://github.com/napari/napari/pull/5827))
 - Don't allow negative contour values ([napari/napari/#5830](https://github.com/napari/napari/pull/5830))
 - Bugfixes for layer overlays: clean up when layer is removed + fix potential double creation ([napari/napari/#5831](https://github.com/napari/napari/pull/5831))
@@ -201,7 +201,7 @@ https://napari.org
 - Fix behavior of PublicOnlyProxy in setattr, wrapped methods, and calling ([napari/napari/#5997](https://github.com/napari/napari/pull/5997))
 - Bugfix: Fix regression from #5739 for passing plugin name and reader plus add test ([napari/napari/#6013](https://github.com/napari/napari/pull/6013))
 - Avoid passing empty string to `importlib.metadata.metadata` ([napari/napari/#6018](https://github.com/napari/napari/pull/6018))
--  Use tuple for pip constraints to avoid LRU cache error ([napari/napari#6036](https://github.com/napari/napari/pull/6036)
+- Use tuple for pip constraints to avoid LRU cache error ([napari/napari#6036](https://github.com/napari/napari/pull/6036)
 
 ## API Changes
 
@@ -210,7 +210,6 @@ https://napari.org
 - Connect image to plane events and expose them ([napari/napari/#5131](https://github.com/napari/napari/pull/5131))
 
 ## Deprecations
-
 
 ## Build Tools
 
@@ -243,7 +242,7 @@ https://napari.org
 - Pre commit fixes for 0.4.18 release branch ([napari/napari/#5985](https://github.com/napari/napari/pull/5985))
 - Port changes from docs repo to main repo for 0.4.18 ([napari/napari/#6002](https://github.com/napari/napari/pull/6002))
 - Add favicon and configuration ([napari/docs/#4](https://github.com/napari/docs/pull/4))
-- Docs for  5195 from main repository ([napari/docs/#7](https://github.com/napari/docs/pull/7))
+- Docs for 5195 from main repository ([napari/docs/#7](https://github.com/napari/docs/pull/7))
 - Use `imshow` in `getting_started` ([napari/docs/#9](https://github.com/napari/docs/pull/9))
 - DOC Update `viewer.md` ([napari/docs/#11](https://github.com/napari/docs/pull/11))
 - Add and/or update documentation alt text ([napari/docs/#12](https://github.com/napari/docs/pull/12))
@@ -313,7 +312,7 @@ https://napari.org
 - Make all imports absolute ([napari/napari/#5318](https://github.com/napari/napari/pull/5318))
 - Fix track ids features ordering for unordered tracks ([napari/napari/#5320](https://github.com/napari/napari/pull/5320))
 - tests: remove private magicgui access in tests ([napari/napari/#5331](https://github.com/napari/napari/pull/5331))
-- Make settings and cache separate per each environment.  ([napari/napari/#5333](https://github.com/napari/napari/pull/5333))
+- Make settings and cache separate per each environment. ([napari/napari/#5333](https://github.com/napari/napari/pull/5333))
 - Remove internal event connection on SelectableEventedList ([napari/napari/#5339](https://github.com/napari/napari/pull/5339))
 - Unset `PYTHON*` vars and use entitlements in macOS conda menu shortcut ([napari/napari/#5354](https://github.com/napari/napari/pull/5354))
 - Distinguish between update_dims, extent changes, and refresh ([napari/napari/#5363](https://github.com/napari/napari/pull/5363))
@@ -338,9 +337,9 @@ https://napari.org
 - Add tags to recently added examples ([napari/napari/#5486](https://github.com/napari/napari/pull/5486))
 - Remove layer ndisplay event ([napari/napari/#5491](https://github.com/napari/napari/pull/5491))
 - MAINT: Don't format logs in log call ([napari/napari/#5504](https://github.com/napari/napari/pull/5504))
-- Replace flake8, isort and pyupgrade by ruff, enable additional useful rules  ([napari/napari/#5513](https://github.com/napari/napari/pull/5513))
-- Second PR that enables more ruff rules.  ([napari/napari/#5520](https://github.com/napari/napari/pull/5520))
-- Use pytest-pretty for better log readability  ([napari/napari/#5525](https://github.com/napari/napari/pull/5525))
+- Replace flake8, isort and pyupgrade by ruff, enable additional useful rules ([napari/napari/#5513](https://github.com/napari/napari/pull/5513))
+- Second PR that enables more ruff rules. ([napari/napari/#5520](https://github.com/napari/napari/pull/5520))
+- Use pytest-pretty for better log readability ([napari/napari/#5525](https://github.com/napari/napari/pull/5525))
 - MAINT: Follow Nep29, bump minimum numpy. ([napari/napari/#5532](https://github.com/napari/napari/pull/5532))
 - [pre-commit.ci] pre-commit autoupdate ([napari/napari/#5534](https://github.com/napari/napari/pull/5534))
 - Move layer editable change from slicing to controls ([napari/napari/#5546](https://github.com/napari/napari/pull/5546))
@@ -382,7 +381,6 @@ https://napari.org
 - test: [Automatic] Constraints upgrades: `dask`, `fsspec`, `hypothesis`, `imageio`, `ipython`, `napari-plugin-manager`, `napari-svg`, `numpy`, `psygnal`, `pydantic`, `pyqt6`, `pytest`, `rich`, `scikit-image`, `virtualenv`, `zarr` ([napari/napari/#5963](https://github.com/napari/napari/pull/5963))
 - Update deprecation information ([napari/napari/#5984](https://github.com/napari/napari/pull/5984))
 - Pin napari and pydantic when installing a plugin ([napari/napari/#6022](https://github.com/napari/napari/pull/6022))
-
 
 ## 40 authors added to this release (alphabetical)
 
@@ -426,7 +424,6 @@ https://napari.org
 - [Sean Martin](https://github.com/napari/napari/commits?author=seankmartin) - @seankmartin
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 - [Wouter-Michiel Vierdag](https://github.com/napari/napari/commits?author=melonora) - @melonora
-
 
 ## 43 reviewers added to this release (alphabetical)
 
@@ -474,7 +471,6 @@ https://napari.org
 - [Wouter-Michiel Vierdag](https://github.com/napari/napari/commits?author=melonora) - @melonora
 - [Ziyang Liu](https://github.com/napari/napari/commits?author=liu-ziyang) - @liu-ziyang
 
-
 ## 19 docs authors added to this release (alphabetical)
 
 - [Ashley Anderson](https://github.com/napari/docs/commits?author=aganders3) - @aganders3
@@ -496,7 +492,6 @@ https://napari.org
 - [Peter Sobolewski](https://github.com/napari/docs/commits?author=psobolewskiPhD) - @psobolewskiPhD
 - [Sean Martin](https://github.com/napari/docs/commits?author=seankmartin) - @seankmartin
 - [Wouter-Michiel Vierdag](https://github.com/napari/docs/commits?author=melonora) - @melonora
-
 
 ## 20 docs reviewers added to this release (alphabetical)
 

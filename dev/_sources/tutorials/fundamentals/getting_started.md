@@ -13,6 +13,7 @@ kernelspec:
 ---
 
 (launch)=
+
 # How to launch napari
 
 This tutorial assumes you have already installed napari.
@@ -46,7 +47,9 @@ napari
 This command will launch an empty viewer:
 
 ```{code-cell} ipython3
-:tags: [remove-input]
+---
+tags: [remove-input]
+---
 import napari
 from napari.utils import nbscreenshot
 
@@ -58,7 +61,7 @@ nbscreenshot(viewer, alt_text="Screenshot of an empty napari viewer, right after
 
 Once you have the viewer open you can add images through the `File -> Open` dropdown menu
 or by dragging and dropping images directly on the viewer. We currently only support files that can be read with [`skimage.io.imread`](https://scikit-image.org/docs/dev/api/skimage.io.html#skimage.io.imread),
-such as `tif`, `png`, and `jpg`.  We plan on adding support for more exotic file types shortly - see [issue #379](https://github.com/napari/napari/issues/379) for discussion. Finally, you can use the `File -> New Image from Clipboard` menu item to make a new `Image` layer from an image (or URL to an image) copied to your Clipboard (keybinding {kbd}`Command/Ctrl+N`).
+such as `tif`, `png`, and `jpg`. We plan on adding support for more exotic file types shortly - see [issue #379](https://github.com/napari/napari/issues/379) for discussion. Finally, you can use the `File -> New Image from Clipboard` menu item to make a new `Image` layer from an image (or URL to an image) copied to your Clipboard (keybinding {kbd}`Command/Ctrl+N`).
 
 You can also directly load an image into the viewer from the command line by passing the path to the image as an argument as follows
 
@@ -71,7 +74,9 @@ If the image is `RGB` or `RGBA` use the `-r` or `--rgb` flag.
 Here's an example of a viewer with an RGB image, the `astronaut` sample image.
 
 ```{code-cell} ipython3
-:tags: [remove-input]
+---
+tags: [remove-input]
+---
 import napari
 from napari.utils import nbscreenshot
 from skimage.data import astronaut
@@ -204,11 +209,10 @@ and where data changed in the GUI will be accessible in the notebook.
 
 To learn more about:
 
-* how to use the napari viewer graphical user interface (GUI),
+- how to use the napari viewer graphical user interface (GUI),
   checkout the [viewer tutorial](viewer-tutorial)
-* how to use the napari viewer with different types of napari layers, see
+- how to use the napari viewer with different types of napari layers, see
   [layers at a glance](layers-glance)
-
 
 ## Solving common problems
 
@@ -242,10 +246,9 @@ the `LD_LIBRARY_PATH` environment variable is set to a directory that contains
 a Qt dynamic dependency that is incompatible with the one that napari uses.
 As linkers first search in `LD_LIBRARY_PATH` directories, this may cause napari to crash.
 
-
-If you want to debug this issue for your specific use case, you 
+If you want to debug this issue for your specific use case, you
 should start with manually importing the `qt` package in Python.
-This will provide you with more information about problem. 
+This will provide you with more information about problem.
 
 Such import may look like **one** of the following lines:
 

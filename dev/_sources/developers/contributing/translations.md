@@ -48,12 +48,11 @@ from napari.utils.translations import trans
 
 
 class SomeWidget(QWidget):
-
     def __init__(self):
         self.channel_combo_box = QComboBox(self)
-        self.channel_combo_box.addItem(trans._("red"), "red")
-        self.channel_combo_box.addItem(trans._("green"), "green")
-        self.channel_combo_box.addItem(trans._("blue"), "blue")
+        self.channel_combo_box.addItem(trans._('red'), 'red')
+        self.channel_combo_box.addItem(trans._('green'), 'green')
+        self.channel_combo_box.addItem(trans._('blue'), 'blue')
 ```
 
 On this example, we add a RGB channel combo box selector. The first argument of
@@ -65,15 +64,15 @@ For the `English (US)` translation the options displayed would be the same,
 since `gettext` uses the source language as the key to find translations.
 In this case:
 
-  * red
-  * green
-  * blue
+- red
+- green
+- blue
 
 For the `Spanish (Spain)` translation the options displayed would be:
 
-  * rojo
-  * verde
-  * azul
+- rojo
+- verde
+- azul
 
 `trans._` is a wrapper on top of [gettext.gettext](https://docs.python.org/3/library/gettext.html#gettext.gettext) with enhanced functionality.
 
@@ -83,10 +82,11 @@ Strings that need some additional context to disambiguate the source string,
 can use the `trans._p` method:
 
 The word **Tab** can mean different things in the english language:
-  * A spacer, when the `Tab` key of a keyboard is used inside a text editor.
-  * A tablature, a simplified version of sheet music used for stringed
-    insruments.
-  * A user interface graphical element, like the one provide by `QTabWidget`.
+
+- A spacer, when the `Tab` key of a keyboard is used inside a text editor.
+- A tablature, a simplified version of sheet music used for stringed
+  insruments.
+- A user interface graphical element, like the one provide by `QTabWidget`.
 
 ```python
 from qtpy.QtWidgets import QComboBox, QWidget
@@ -95,12 +95,17 @@ from napari.utils.translations import trans
 
 
 class SomeWidget(QWidget):
-
     def __init__(self):
         self.context_combo_box = QComboBox(self)
-        self.context_combo_box.addItem(trans._p("character", "tab", ), "tab")
-        self.context_combo_box.addItem(trans._p("music", "tab"), "tab")
-        self.context_combo_box.addItem(trans._p("ui-element", "tab"), "tab")
+        self.context_combo_box.addItem(
+            trans._p(
+                'character',
+                'tab',
+            ),
+            'tab',
+        )
+        self.context_combo_box.addItem(trans._p('music', 'tab'), 'tab')
+        self.context_combo_box.addItem(trans._p('ui-element', 'tab'), 'tab')
 ```
 
 On this example, we add the word `tab` three time to a combo box selector.
@@ -111,15 +116,15 @@ For the `English (US)` translation the options displayed would be the same,
 since `gettext` uses the source language as the key to find translations. In
 this case:
 
-  * tab
-  * tab
-  * tab
+- tab
+- tab
+- tab
 
 For the `Spanish (Spain)` translation the options displayted would be:
 
-  * tabulación
-  * tablatura
-  * pestaña
+- tabulación
+- tablatura
+- pestaña
 
 `trans._p` is a wrapper on top of [gettext.pgettext](https://docs.python.org/3/library/gettext.html#gettext.pgettext) with enhanced functionality.
 
@@ -136,9 +141,8 @@ from napari.utils.translations import trans
 
 
 class SomeWidget(QWidget):
-
     def __init__(self, amount):
-        string = trans._n("{n} item", "{n} items", n=amount)
+        string = trans._n('{n} item', '{n} items', n=amount)
         self.label = QLabel(string)
 ```
 
@@ -151,14 +155,16 @@ interpolate the value of `n` in the string, if found.
 
 For the `English (US)` translation the string displayed for different values
 of `amount` would be:
-  * For `amount=0`, `"0 items"`
-  * For `amount=1`, `"1 item"`
-  * For `amount=2`, `"2 items"`
+
+- For `amount=0`, `"0 items"`
+- For `amount=1`, `"1 item"`
+- For `amount=2`, `"2 items"`
 
 For the `Spanish (Spain)` translation the options displayted would be:
-  * For `amount=0`, `"0 ítems"`
-  * For `amount=1`, `"1 ítem"`
-  * For `amount=2`, `"2 ítems"`
+
+- For `amount=0`, `"0 ítems"`
+- For `amount=1`, `"1 ítem"`
+- For `amount=2`, `"2 ítems"`
 
 Take into account that different languages will handle pluralization
 differently. Having clear variable names within strings (e.g. `{amount}`) of
@@ -205,11 +211,11 @@ An example of how this works with Spanish and deferred string yields:
 ```python
 from napari.utils.translations import trans
 
-deferred_string = trans._("Hello {word}", deferred=True, word="world!")
+deferred_string = trans._('Hello {word}', deferred=True, word='world!')
 
-str(deferred_string) == "Hello world!"  # True
-deferred_string.value() == "Hello world!"  # True
-deferred_string.translation() == "¡Hola mundo!"  # True
+str(deferred_string) == 'Hello world!'  # True
+deferred_string.value() == 'Hello world!'  # True
+deferred_string.translation() == '¡Hola mundo!'  # True
 ```
 
 An example of how this works for non-deferred string yields:
@@ -217,8 +223,8 @@ An example of how this works for non-deferred string yields:
 ```python
 from napari.utils.translations import trans
 
-normal_string = trans._("Hello {word}", word="world!")
-normal_string == "¡Hola mundo!"  # True
+normal_string = trans._('Hello {word}', word='world!')
+normal_string == '¡Hola mundo!'  # True
 ```
 
 ## Contributing translations

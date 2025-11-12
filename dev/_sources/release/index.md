@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: November 11, 2025*
+*Last updated: November 12, 2025*
 
 
 ## Recent Releases (Last 3 Months)
@@ -17,13 +17,14 @@ Latest features and improvements:
 This a small bugfix release, following up the changes in 0.6.5.
 
 ### Zooming in the dark?
+
 In the previous release we accidentally made the [zoom tool added in v0.6.3](https://napari.org/stable/release/release_0_6_3.html#a-zoom-with-a-view) invisible. Whoops! No worries, it's back 🔍.
 
 ### "Open with napari"
 
 When using the [napari bundle](https://napari.org/stable/tutorials/fundamentals/installation_bundle_conda.html#how-to-install-the-napari-app), it will now detect when a file can be opened with napari based on the extension. This allows you to use the `open with >` menu from your operative system to open files with napari!
 
-![image showing a context menu with the the `open with > napari` option available](https://github.com/user-attachments/assets/f13d58e5-ce2d-460a-b92e-2f23ecc8d438)
+![image showing a context menu with the the "open with > napari" option available](https://github.com/user-attachments/assets/f13d58e5-ce2d-460a-b92e-2f23ecc8d438)
 
 PS: Since we did quite a few changes behind the scenes on this new version of the bundle, you might experience some issues. Don't hesitate to open an issue or contact us on zulip if you do!
 
@@ -37,13 +38,17 @@ PS: Since we did quite a few changes behind the scenes on this new version of th
 This a sizeable release containing a few new exciting features and a lot of bugfixes.
 
 ### EffVer and no more _alpha_
+
 It is our first release officially following the [EffVer versioning scheme](https://effver.org/). We also took this occasion to (finally!) remove the `Alpha` qualifier from the project ([#8288](https://github.com/napari/napari/pull/8288)), to better reflect the reality of the extensive use of napari in production. Note that these changes are just formally bringing up to date the state of the project: our development continues as before!
 
 ### Define a startup script for custom launch behaviour
+
 Do you have a code snippet that you always find yourself running after you launch napari? No more! You can now put this code in a script and set its path in the new `startup script` setting ([#8188](https://github.com/napari/napari/pull/8188)), and it will be executed every time napari opens. It's just a python script, so sky's the limit :) We found it particularly useful for adding custom colormaps, setting up the scale bar *just right*, or automatically launching our favourite plugin on startup.
 
 ![Screenshot of the application settings menu highlighting the field for the startup script path](https://github.com/user-attachments/assets/7b0e5e5c-252b-45a0-ae76-aac88e488cbc)
+
 ### Automatically tiled overlays and ColorBar overlay
+
 Canvas overlays such as `scale_bar`, `text_overlay`, and `colorbar` overlay are now automatically tiling ([#7836](https://github.com/napari/napari/pull/7836)), preventing annoying overlap and making them easier to use without having to manage positioning. Wait, `colorbar` overlay you said? You heard it right! This is a new overlay ([#7832](https://github.com/napari/napari/pull/7832)) that shows a color bar legend, and it works with any layer which uses a colormap. All of this works seamlessly with multiple overlays and even grid mode:
 
 ```py
@@ -71,17 +76,21 @@ for layer in layers:
 Alternatively, you may also activate the `colorbar` (and other layer-related overlays such as `bounding_box`) from the graphical interface by right clicking on selected layers in the layerlist and toggling the relative entries in the **Visualization** submenu ([#8319](https://github.com/napari/napari/pull/8319)).
 
 ### Task manager will now try to prevent losing unfinished work
+
 We added a new task manager ([#8211](https://github.com/napari/napari/pull/8211)) which automatically registers any running `thread_worker`, showing a confirmation dialog if you attempt to close napari while a task is running.
 
 ### New *remove* and *pop* methods for Points and Shapes
+
 Points and Shapes can now be easily removed, not just added :P ([#8031](https://github.com/napari/napari/pull/8031) and [#8072](https://github.com/napari/napari/pull/8072)).
 
 ### A few shiny new updates to our website and documentation
+
 [napari.org](https://napari.org/) can now be visited in *dark mode* ([docs#840](https://github.com/napari/docs/pull/840))! You could try out this new relaxing colorscheme while exploring the new overhauled [Preferences documentation](https://napari.org/stable/guides/preferences.html#preferences) section 😉 ([docs#834](https://github.com/napari/docs/pull/834)).
 There's also new sections on [viewer overlays](https://napari.org/stable/tutorials/fundamentals/viewer.html#viewer-overlays) and [layer overlays](https://napari.org/stable/guides/layers.html#layer-overlays), to better explain how to use these old and new tools.
 Our [release notes page](https://napari.org/dev/release/index.html) also received a glow-up ([docs#838](https://github.com/napari/docs/pull/838)), displaying past release highlights in collapsible boxes in the timeline. This should make it easier to quickly catch up when updating across multiple releases!
 
 ### Extra dependencies for development moved to dependency groups
+
 A note for our contributors and plugin developers: we transferred our dev-related extra dependencies to the new python dependency groups ([#8227](https://github.com/napari/napari/pull/8227)). The installation is therefore slightly different, for example: `pip install napari --group testing` instead of `pip install napari[testing]`. The previous method will continue to work, but we will likely remove the old `optional-dependences` approach in a future release.
 
 [View full release notes →](release_0_6_5)
@@ -154,11 +163,11 @@ The visualization of Grid mode has been redone from the ground up! This new Grid
 
 Grid based exploration is now fluid, fast, and intuitive, especially when working with large images and 3D+ data! The mouse can even be used over one View, while updating the data, such as a label or shape annotation, in the selected layer of a different view. The usual napari overlays can now also be added to each grid, instead of just the canvas (eg. `viewer.scale_bar.gridded = True`).
 
-Grid mode spacing now works proportionally to the layer extents (i.e. [0,1), as in 0.6.0) or as a pixel value [1,1500) and will automatically adjust if needed.
+Grid mode spacing now works proportionally to the layer extents (i.e. \[0,1), as in 0.6.0) or as a pixel value \[1,1500) and will automatically adjust if needed.
 
 ![grid mode](https://github.com/user-attachments/assets/fbcb216c-666b-43a6-bf25-aad82d5e9d92)
 
-To coincide with this new Grid mode, we have chosen to reverse the ordering of layers in the grid [(#8053)](https://github.com/napari/napari/pull/8053). The first layer added to the viewer will now be at the top left of the grid, and the last layer added will be at the bottom right; new layers will be added to the bottom right of the grid. If you prefer the previous behavior, you can set the Grid Stride to `-1` in the Preferences dialog. 
+To coincide with this new Grid mode, we have chosen to reverse the ordering of layers in the grid [(#8053)](https://github.com/napari/napari/pull/8053). The first layer added to the viewer will now be at the top left of the grid, and the last layer added will be at the bottom right; new layers will be added to the bottom right of the grid. If you prefer the previous behavior, you can set the Grid Stride to `-1` in the Preferences dialog.
 
 ![Stride preference](https://github.com/user-attachments/assets/528aebca-d623-4f9a-97f4-691329d2a2a7)
 
@@ -166,21 +175,21 @@ To coincide with this new Grid mode, we have chosen to reverse the ordering of l
 
 The features table from [napari-properties-viewer](https://github.com/kevinyamauchi/napari-properties-viewer) is now a builtin widget in napari [(#7877)](https://github.com/napari/napari/pull/7877) *and* greatly improved! This widget allows you to view and edit the properties of Points, Shapes, and Labels layers in a table widget.
 
-The widget can be opened from the `Layers` menu -> `Visualize` -> `Features table widget (napari builtins)` or from the command palette.  You can also save the properties table to a CSV file. Check out the [Features table widget](https://napari.org/dev/gallery/features_table_widget.html) example to learn more.
+The widget can be opened from the `Layers` menu -> `Visualize` -> `Features table widget (napari builtins)` or from the command palette. You can also save the properties table to a CSV file. Check out the [Features table widget](https://napari.org/dev/gallery/features_table_widget.html) example to learn more.
 
 ![Features table widget in napari](https://github.com/user-attachments/assets/2c218f05-6510-4192-b5c8-fb6d135e4863)
 
 ### Community developments! 📅
 
-We are excited to share our new [active roadmap](https://napari.org/stable/roadmaps/active_roadmap.html) which is a living document that will be updated as we continue to develop napari. This document is intended to help the community understand the priorities of the napari team and to help us all work together to make napari better. 
+We are excited to share our new [active roadmap](https://napari.org/stable/roadmaps/active_roadmap.html) which is a living document that will be updated as we continue to develop napari. This document is intended to help the community understand the priorities of the napari team and to help us all work together to make napari better.
 
 We are also now including all napari related events in the [community calendar](https://napari.org/stable/community/meeting_schedule.html) and as an [image.sc post](https://forum.image.sc/t/napari-community-meetings-and-events/113689), including conferences, tutorials, sprints, virtual seminars, and more. If you have an event you would like to add, please reach out to us!
 
 ### Some great features for contributors! 🛠️
 
 1. **Contributing documentation is now a much smoother experience!** By default, new documentation will build in around 3 minutes, instead of the previous 20 minutes. This speed is thanks to new, slimmer `make` commands (`slimfast` by default) that can also be triggered in PRs with a bot (eg. `@napari-bot make docs`). Read our updated [docs contribution guide](https://napari.org/dev/developers/contributing/documentation/index.html) and reach out for help.
-2. **The organization of the napari repo has been updated by moving into a `src/` directory [(#7952)](https://github.com/napari/napari/pull/7952).** This is modern best practice in Python projects (and what has long been standard in our [napari-plugin-template](https://github.com/napari/napari-plugin-template)) to avoid issues with relative imports and *should* now always result in importing the napari version installed in the current environment. For developers, especially of pull requests prior to this release, you may have many merge conflicts to resolve. Please ping the napari team if you would like help resolving these conflicts.
-3. **There is now public API to access widgets docked in the viewer [(#7965)](https://github.com/napari/napari/pull/7965).** Check out the new documentation on the napari website to learn more about using this API to [communicate between widgets](https://napari.org/dev/plugins/advanced_topics/widget_communication.html). If you previously used `viewer.window._dock_widgets`, you should now use `viewer.window.dock_widgets`.
+1. **The organization of the napari repo has been updated by moving into a `src/` directory [(#7952)](https://github.com/napari/napari/pull/7952).** This is modern best practice in Python projects (and what has long been standard in our [napari-plugin-template](https://github.com/napari/napari-plugin-template)) to avoid issues with relative imports and *should* now always result in importing the napari version installed in the current environment. For developers, especially of pull requests prior to this release, you may have many merge conflicts to resolve. Please ping the napari team if you would like help resolving these conflicts.
+1. **There is now public API to access widgets docked in the viewer [(#7965)](https://github.com/napari/napari/pull/7965).** Check out the new documentation on the napari website to learn more about using this API to [communicate between widgets](https://napari.org/dev/plugins/advanced_topics/widget_communication.html). If you previously used `viewer.window._dock_widgets`, you should now use `viewer.window.dock_widgets`.
 
 [View full release notes →](release_0_6_2)
 
@@ -238,7 +247,7 @@ totalis](https://en.wikipedia.org/wiki/Situs_inversus)!
 By and large, many things that people care about work exactly the same in the
 mirror world — volume measurements, forces, tracking, speed, ... — so this bug
 has gone mostly unnoticed, or noticed and shrugged off and unfixed for all this
-time. But it's important for some things!  Your heart is on the left side of
+time. But it's important for some things! Your heart is on the left side of
 your body, but the right side of your mirror image's. This can be critical, for
 example, when using software to plan surgery! Thankfully, we are not aware of
 any cases of napari being used in this way. 😅
@@ -267,39 +276,39 @@ On the user space, we now offer several options to orient the axes any way you
 like:
 
 1. **Through the camera API:** the `Viewer.camera` instance gains two new
-  attributes: `orientation`, and `orientation2d`, which is just the last two
-  dimensions of `orientation`. You can set the direction that the *depth*,
-  *vertical*, and *horizontal* axes point to, respectively in that order, as
-  follows ([#7663](https://github.com/napari/napari/pull/7663)):
+   attributes: `orientation`, and `orientation2d`, which is just the last two
+   dimensions of `orientation`. You can set the direction that the *depth*,
+   *vertical*, and *horizontal* axes point to, respectively in that order, as
+   follows ([#7663](https://github.com/napari/napari/pull/7663)):
 
-  ```python
-  # 2D
-  viewer.camera.orientation2d = ('up', 'right')
-  # 3D
-  viewer.camera.orientation = ('away', 'up', 'right')
-  ```
+```python
+# 2D
+viewer.camera.orientation2d = ('up', 'right')
+# 3D
+viewer.camera.orientation = ('away', 'up', 'right')
+```
 
-  See an example of this in action in
-  {ref}`sphx_glr_gallery_xarray-latlon-timeseries.py`.
+See an example of this in action in
+{ref}`sphx_glr_gallery_xarray-latlon-timeseries.py`.
 
 2. **Through the UI:** By right clicking on the dimension toggle in the viewer,
-  and setting the axis orientations using the drop-down menus
-  ([#7686](https://github.com/napari/napari/pull/7686)), which in 3D will
-  further indicate whether the resulting coordinate frame is [right-handed or
-  left-handed](https://en.wikipedia.org/wiki/Right-hand_rule)
-  ([#7770](https://github.com/napari/napari/pull/7770)):
+   and setting the axis orientations using the drop-down menus
+   ([#7686](https://github.com/napari/napari/pull/7686)), which in 3D will
+   further indicate whether the resulting coordinate frame is [right-handed or
+   left-handed](https://en.wikipedia.org/wiki/Right-hand_rule)
+   ([#7770](https://github.com/napari/napari/pull/7770)):
 
-  ![axis orientation dialog](https://github.com/user-attachments/assets/f73898ec-9156-4f73-ab7f-ee2a7cc17fe1)
+![axis orientation dialog](https://github.com/user-attachments/assets/f73898ec-9156-4f73-ab7f-ee2a7cc17fe1)
 
 3. **Through the startup settings:** If you want to use a specific axis
-  orientation consistently, you can set the default orientation on startup by
-  changing the relevant settings
-  ([#7787](https://github.com/napari/napari/pull/7787):
+   orientation consistently, you can set the default orientation on startup by
+   changing the relevant settings
+   ([#7787](https://github.com/napari/napari/pull/7787):
 
-  ![napari settings panel with axis orientation options highlighted](https://github.com/user-attachments/assets/f5032320-8b03-4ff7-9cb7-8b182ab232af)
+![napari settings panel with axis orientation options highlighted](https://github.com/user-attachments/assets/f5032320-8b03-4ff7-9cb7-8b182ab232af)
 
-  To restore the orientation from napari 0.5.6 and earlier, change the Depth
-  axis setting to "away" (i.e. depth axis points away from you).
+To restore the orientation from napari 0.5.6 and earlier, change the Depth
+axis setting to "away" (i.e. depth axis points away from you).
 
 ### Command palette 🎨
 
@@ -319,14 +328,14 @@ palette!
 
 ### Feature improvements to Shapes layers ⛳️
 
-⚠️  *When using numba for triangulation, some shapes will still not be drawn
+⚠️ *When using numba for triangulation, some shapes will still not be drawn
 correctly, due to a bug in VisPy. We recommend installing `bermuda`, our new
 fast triangulation package, for the best performance.* ⚠️
 
 Finally, napari Shapes layers can now display polygons with holes in them,
 which starts to open it up for use with mapping data, among other things!
 ([#7566](https://github.com/napari/napari/pull/7566),
-[#6654](https://github.com/napari/napari/pull/6654)]) Implementing this feature
+[#6654](https://github.com/napari/napari/pull/6654)\]) Implementing this feature
 also eliminated a lot of bugs in our polygon drawing code, which could cause
 crashes. If you've had issues with Shapes layers before, now might be a good
 time to give them another try!
@@ -434,6 +443,7 @@ your shapes data, this release has some enhancements for you (>2x speedup)!
 ([#7346](https://github.com/napari/napari/pull/7346))
 
 To use this speedup, you'll need to:
+
 - install napari core developer Grzegorz Bokota's collection of performant
   algorithms,
   [PartSegCore-compiled-backend](https://pypi.org/project/PartSegCore-compiled-backend/).

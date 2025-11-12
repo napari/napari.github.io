@@ -6,7 +6,6 @@ It's designed for browsing, annotating, and analyzing large multi-dimensional
 images. It's built on top of Qt (for the GUI), vispy (for performant GPU-based
 rendering), and the scientific Python stack (numpy, scipy).
 
-
 For more information, examples, and documentation, please visit our website:
 https://napari.org/stable/
 
@@ -63,6 +62,7 @@ the [`glasbey`](https://pypi.org/project/glasbey/) Python package with the new
 ```python
 import glasbey
 from napari.utils.colormaps import CyclicLabelColormap
+
 # ...
 labels_layer = viewer.add_labels(
     segmentation, colormap=CyclicLabelColormap(glasbey.create_palette(256))
@@ -98,7 +98,6 @@ use case is supported before pulling out the rug. 🤝 If you are using the
 please [raise an issue](https://github.com/napari/napari/issues/new) so we can
 make sure your use case is supported before we remove it.
 ([#6283](https://github.com/napari/napari/pull/6283))
-
 
 Finally, although we still use pydantic 1.0 objects internally, napari
 installs correctly with both pydantic v1 and pydantic v2. If you wanted to
@@ -136,15 +135,15 @@ Read on for the full list of changes that went into this release.
 - Update "toggle ndview" text ([napari/napari#6192](https://github.com/napari/napari/pull/6192))
 - Add collision check when set colors for labels layer ([napari/napari#6193](https://github.com/napari/napari/pull/6193))
 - Add numpy as `np` to console predefined variables ([napari/napari#6314](https://github.com/napari/napari/pull/6314))
-- Pydantic 2 compatibility using `pydantic.v1`  ([napari/napari#6358](https://github.com/napari/napari/pull/6358))
+- Pydantic 2 compatibility using `pydantic.v1` ([napari/napari#6358](https://github.com/napari/napari/pull/6358))
 
 ## Performance
 
 - Use a shader for low discrepancy label conversion ([napari/napari#3308](https://github.com/napari/napari/pull/3308))
 - Fix lagging 3d view for big data in auto color mode ([napari/napari#6411](https://github.com/napari/napari/pull/6411))
-- Fix cycle in _update_draw/_set_highlight for Points and Shapes (high CPU background usage) ([napari/napari#6425](https://github.com/napari/napari/pull/6425))
+- Fix cycle in `_update_draw/_set_highlight` for Points and Shapes (high CPU background usage) ([napari/napari#6425](https://github.com/napari/napari/pull/6425))
 - Update performance and reduce memory usage for big Labels layer in direct color mode ([napari/napari#6439](https://github.com/napari/napari/pull/6439))
-- Add _data_to_texture method to LabelColormap and remove caching of (u)int8 and (uint16) ([napari/napari#6602](https://github.com/napari/napari/pull/6602))
+- Add `_data_to_texture` method to LabelColormap and remove caching of (u)int8 and (uint16) ([napari/napari#6602](https://github.com/napari/napari/pull/6602))
 
 ## Bug Fixes
 
@@ -177,8 +176,8 @@ Read on for the full list of changes that went into this release.
 - Bugfix: Account for multiscale for labels in 3d ([napari/napari#6317](https://github.com/napari/napari/pull/6317))
 - Update example scripts (magicgui with threads) ([napari/napari#6353](https://github.com/napari/napari/pull/6353))
 - Exclude the loaded property when linking two layers ([napari/napari#6377](https://github.com/napari/napari/pull/6377))
-- Fix problem with transform box of multiscale image  ([napari/napari#6390](https://github.com/napari/napari/pull/6390))
-- Fix cycle in _update_draw/_set_highlight for Points and Shapes (high CPU background usage) ([napari/napari#6425](https://github.com/napari/napari/pull/6425))
+- Fix problem with transform box of multiscale image ([napari/napari#6390](https://github.com/napari/napari/pull/6390))
+- Fix cycle in `_update_draw/_set_highlight` for Points and Shapes (high CPU background usage) ([napari/napari#6425](https://github.com/napari/napari/pull/6425))
 - Do not run macos process renaming if debugger is loaded ([napari/napari#6437](https://github.com/napari/napari/pull/6437))
 - Fix bounding box transforms when multiscale layer corner goes below zero ([napari/napari#6438](https://github.com/napari/napari/pull/6438))
 - Update performance and reduce memory usage for big Labels layer in direct color mode ([napari/napari#6439](https://github.com/napari/napari/pull/6439))
@@ -195,7 +194,7 @@ Read on for the full list of changes that went into this release.
 - Run test suite with optional dependencies and fix tests when `triangle` is installed ([napari/napari#6488](https://github.com/napari/napari/pull/6488))
 - Do not use native dialog for reset shortcuts ([napari/napari#6493](https://github.com/napari/napari/pull/6493))
 - Pass key event from Main window to our internal mechanism v0.4.19 ([napari/napari#6507](https://github.com/napari/napari/pull/6507))
-- Fix problem with invalidate cache  ([napari/napari#6520](https://github.com/napari/napari/pull/6520))
+- Fix problem with invalidate cache ([napari/napari#6520](https://github.com/napari/napari/pull/6520))
 - Reset single step and decimals on reset range slider in popup ([napari/napari#6523](https://github.com/napari/napari/pull/6523))
 - Fix label direct mode for installation without numba ([napari/napari#6571](https://github.com/napari/napari/pull/6571))
 - Fix labels mapping cache by filling it with background, not 0 ([napari/napari#6580](https://github.com/napari/napari/pull/6580))
@@ -211,7 +210,6 @@ Read on for the full list of changes that went into this release.
 
 ## API Changes
 
-
 [#6102](https://github.com/napari/napari/pull/6102) added the ability to set
 linear colormaps from black to a named color by using `colormap="color-name"`
 syntax. It turns out that "orange" is both the name of a
@@ -225,7 +223,6 @@ events emitted when editing Shapes or Points was changed to be more granular.
 The types are no longer "add", "remove", and "change", but "adding", "added",
 "removing", "removed", "changing", and "changed". This gives listeners more
 control over when to take action in response to an event.
-
 
 ## Deprecations
 
@@ -242,7 +239,7 @@ replacements:
 - color: `layer.color` becomes `layer.colormap.color_dict`.
   `layer.color = color_dict` becomes
   `layer.colormap = DirectLabelColormap(color_dict)`.
-- _background_label: `layer._background_label` is now at
+- `_background_label`: `layer._background_label` is now at
   `layer.colormap.background_value`.
 - color_mode: `layer.color_mode` is set by setting the colormap using the
   corresponding colormap type (`CyclicLabelColormap` or `DirectLabelColormap`;
@@ -259,7 +256,7 @@ replacements:
 
 - Add HIP workshop to documentation/workshops ([napari/napari#5117](https://github.com/napari/napari/pull/5117))
 - Update README.md for conda install change ([napari/napari#6123](https://github.com/napari/napari/pull/6123))
-- Cherry-pick docs for 0.4.19 release  ([napari/napari#6384](https://github.com/napari/napari/pull/6384))
+- Cherry-pick docs for 0.4.19 release ([napari/napari#6384](https://github.com/napari/napari/pull/6384))
 - Add 0.4.19 release notes ([napari/napari#6376](https://github.com/napari/napari/pull/6376))
 - Update docs contribution guide for two-repo setup ([napari/docs#5](https://github.com/napari/docs/pull/5))
 - Improve makefile ([napari/docs#41](https://github.com/napari/docs/pull/41))
@@ -325,7 +322,7 @@ replacements:
 - Fix labeler by adding permissions ([napari/napari#6289](https://github.com/napari/napari/pull/6289))
 - Update pre-commit and constraints and minor fixes for 0.4.19 release ([napari/napari#6340](https://github.com/napari/napari/pull/6340))
 - Ensure conda workflow runs with proper permissions ([napari/napari#6378](https://github.com/napari/napari/pull/6378))
--  Remove sphinx dependency from defaults dependencies ([napari/napari#6380](https://github.com/napari/napari/pull/6380))
+- Remove sphinx dependency from defaults dependencies ([napari/napari#6380](https://github.com/napari/napari/pull/6380))
 - Fix `test_link_layers_with_images_then_loaded_not_linked` test ([napari/napari#6385](https://github.com/napari/napari/pull/6385))
 - Do not repeat warnings in GUI ([napari/napari#6396](https://github.com/napari/napari/pull/6396))
 - Fix drawing timer ([napari/napari#6400](https://github.com/napari/napari/pull/6400))
@@ -334,9 +331,9 @@ replacements:
 - [maint] update Dockerfile with current installation of Xpra ([napari/napari#6463](https://github.com/napari/napari/pull/6463))
 - [Maint, v0.4.19] Use python 3.11 for manifest check ([napari/napari#6497](https://github.com/napari/napari/pull/6497))
 - Add copy operator to fix memory benchmarks ([napari/napari#6530](https://github.com/napari/napari/pull/6530))
-- Check in LabelColormap that fewer than 2**16 colors are requested ([napari/napari#6540](https://github.com/napari/napari/pull/6540))
+- Check in LabelColormap that fewer than `2**16` colors are requested ([napari/napari#6540](https://github.com/napari/napari/pull/6540))
 - [Maint] Update build_docs workflow to match napari/docs ([napari/napari#6547](https://github.com/napari/napari/pull/6547))
-- Moving IntensityVisualizationMixin from _ImageBase to Image ([napari/napari#6548](https://github.com/napari/napari/pull/6548))
+- Moving IntensityVisualizationMixin from `_ImageBase` to Image ([napari/napari#6548](https://github.com/napari/napari/pull/6548))
 - test: [Automatic] Constraints upgrades: `app-model`, `babel`, `certifi`, `dask`, `fsspec`, `hypothesis`, `imageio`, `ipython`, `jsonschema`, `lxml`, `magicgui`, `matplotlib`, `numba`, `numpy`, `pandas`, `pillow`, `pint`, `psutil`, `psygnal`, `pydantic`, `pygments`, `pyqt6`, `pytest-qt`, `qtconsole`, `rich`, `scipy`, `tensorstore`, `tifffile`, `torch`, `virtualenv`, `wrapt`, `xarray` ([napari/napari#6559](https://github.com/napari/napari/pull/6559))
 - Do not require triangle on macos arm ([napari/napari#6603](https://github.com/napari/napari/pull/6603))
 - No-cache fast painting ([napari/napari#6607](https://github.com/napari/napari/pull/6607))
@@ -344,7 +341,6 @@ replacements:
 - Ignore pandas pyarrow warning ([napari/napari#6609](https://github.com/napari/napari/pull/6609))
 - test: [Automatic] Constraints upgrades: `hypothesis`, `pydantic`, `tifffile` ([napari/napari#6630](https://github.com/napari/napari/pull/6630))
 - Update docs to suggest python 3.10 install ([napari/docs#246](https://github.com/napari/docs/pull/246))
-
 
 ## 20 authors added to this release (alphabetical)
 
@@ -369,7 +365,6 @@ replacements:
 - [Sean Martin](https://github.com/napari/napari/commits?author=seankmartin) - @seankmartin
 - [Wouter-Michiel Vierdag](https://github.com/napari/napari/commits?author=melonora) - @melonora
 
-
 ## 17 reviewers added to this release (alphabetical)
 
 - [Alister Burt](https://github.com/napari/napari/commits?author=alisterburt) - @alisterburt
@@ -389,7 +384,6 @@ replacements:
 - [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) - @melissawm
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
 - [Wouter-Michiel Vierdag](https://github.com/napari/napari/commits?author=melonora) - @melonora
-
 
 ## 18 docs authors added to this release (alphabetical)
 
@@ -411,7 +405,6 @@ replacements:
 - [Sean Martin](https://github.com/napari/docs/commits?author=seankmartin) - @seankmartin
 - [Talley Lambert](https://github.com/napari/docs/commits?author=tlambert03) - @tlambert03
 - [Wouter-Michiel Vierdag](https://github.com/napari/docs/commits?author=melonora) - @melonora
-
 
 ## 18 docs reviewers added to this release (alphabetical)
 

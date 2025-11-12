@@ -17,7 +17,7 @@ strange at times. Often we write code in a very procedural way: "Step 1: do this
 Step 2: do that, etc ...". With napari and other GUI programs however, usually you
 connect events to "callback" functions, which essentially specifies; "If this event
 happens, then call this function". Next you start the event loop and hope you
-connected everything correctly!  Indeed, much of the napari source code is
+connected everything correctly! Indeed, much of the napari source code is
 dedicated to creating and handling events: search the codebase for
 [`.emit(`](https://github.com/search?q=repo%3Anapari%2Fnapari+%22.emit%28%22&type=code)
 and
@@ -83,11 +83,11 @@ napari.run()
 # Anything below here will execute only after all viewers are closed.
 ```
 
------------
+______________________________________________________________________
 
 ## More in depth
 
-At its core, an event loop is rather simple.  It amounts to something that looks
+At its core, an event loop is rather simple. It amounts to something that looks
 like this (in pseudo-code):
 
 ```python
@@ -115,7 +115,7 @@ A deep dive into the Qt event loop is beyond the scope of this document, but
 it's worth being aware of two critical steps in the "lifetime" of a Qt
 Application:
 
-1) Any program that would like to create a
+1. Any program that would like to create a
    [`QWidget`](https://doc.qt.io/qt-5/qwidget.html) (the class from which all
    napari's graphical elements are subclassed), must create a
    [`QApplication`](https://doc.qt.io/qt-5/qapplication.html) instance *before*
@@ -127,7 +127,7 @@ Application:
    app = QApplication([])  # where [] is a list of args passed to the App
    ```
 
-2) In order to actually show and interact with widgets, one must start the
+1. In order to actually show and interact with widgets, one must start the
    application's event loop:
 
    ```python
@@ -139,7 +139,7 @@ If you would like to create your own widgets in napari see {ref}`creating-widget
 ### napari's `QApplication`
 
 In napari, the initial step of creating the `QApplication` is handled by
-{func}`napari.qt.get_qapp`.  (Note however, that napari will do this for you
+{func}`napari.qt.get_qapp`. (Note however, that napari will do this for you
 automatically behind the scenes when you create a viewer with
 {class}`napari.Viewer()`)
 

@@ -1,4 +1,5 @@
 (your-first-plugin)=
+
 # Your first plugin
 
 In this tutorial, we'll step through the fundamental concepts for building a
@@ -8,11 +9,13 @@ At the end, we'll point you to the [napari-plugin-template
 repository][napari_plugin_template] that helps automate the creation of new plugins, and adds a number
 of conveniences for testing, maintaining, and deploying your plugin.
 
-````{admonition} new plugin format!
-:class: important
+```{admonition} new plugin format!
+---
+class: important
+---
 This page describes the creation of a plugin targeting `npe2`, the second
 generation plugin engine.
-````
+```
 
 ## Before you start
 
@@ -35,7 +38,7 @@ Napari plugins are just Python packages. *Minimally*, they must:
 
 1. Include a static [plugin manifest](plugin-manifest) file that details the
    [contributions](contributions-ref) contained in the plugin.
-2. Declare a `napari.manifest` [entry point][entry_points] that allows
+1. Declare a `napari.manifest` [entry point][entry_points] that allows
    napari to detect the plugin at runtime.
 
 ## 1. Create a new directory
@@ -52,19 +55,19 @@ mkdir src/napari_hello
 ## 2. Add standard Python package metadata files
 
 In your root `napari-hello` folder, create a `pyproject.toml` file, then create
- an empty `__init__.py` and `napari.yaml` file inside `src/napari_hello/`.
+an empty `__init__.py` and `napari.yaml` file inside `src/napari_hello/`.
 
-::::{tab-set}
+`````{tab-set}
 
-:::{tab-item} macOS / Linux
+````{tab-item} macOS / Linux
 
 ```sh
 touch src/napari_hello/__init__.py src/napari_hello/napari.yaml pyproject.toml
 ```
 
-:::
+````
 
-:::{tab-item} Windows
+````{tab-item} Windows
 
 ```bat
 type nul > src\napari_hello\__init__.py
@@ -72,9 +75,8 @@ type nul > src\napari_hello\napari.yaml
 type nul > pyproject.toml
 ```
 
-:::
-
-::::
+````
+`````
 
 Your project should now look like this:
 
@@ -88,7 +90,9 @@ Your project should now look like this:
 ```
 
 ````{admonition} **napari-hello** vs **napari_hello**
-:class: tip
+---
+class: tip
+---
 You might notice that we used a **dash** in our top level folder, and an 
 **underscore** in the inner folder. This is the Python convention: *distribution 
 packages* use dashes, while Python *files* and *modules* use underscores. Our 
@@ -150,7 +154,7 @@ for more.
 
 ## 3. Implement the plugin
 
-So far, we've done nothing napari-specific.  Let's create the actual plugin and add
+So far, we've done nothing napari-specific. Let's create the actual plugin and add
 some Python code. We're going to add a
 [Widget contribution](contributions-widgets)
 with a single button that shows a "Hello, world!" message when clicked.
@@ -162,6 +166,7 @@ It just uses the napari notifications API to show a message:
 
 ```python
 from napari.utils.notifications import show_info
+
 
 def show_hello_message():
     show_info('Hello, world!')
@@ -178,9 +183,9 @@ If you haven't already, create an empty [plugin manifest](plugin-manifest) file 
 1. That our plugin contributes a [**command**](contributions-commands)
    (we give the command an ID of `napari-hello.say_hi`. It must start with our plugin
    name, and be unique).
-2. The location of the function that executes the command (the `python_name`, pointing
+1. The location of the function that executes the command (the `python_name`, pointing
    to the `show_hello_message` function in the `napari_hello` module).
-3. That our plugin contributes a [**widget**](contributions-widgets),
+1. That our plugin contributes a [**widget**](contributions-widgets),
    and that we'd like napari to **autogenerate** the widget from the command signature
    (so we don't need to deal with any GUI code).
 
@@ -213,24 +218,24 @@ Lastly, we need to make a few changes to `pyproject.toml`.
 1. Because we are directly using the `napari.utils.notifications` API in our,
    `show_hello_message` function, we need to add `napari` to our package
    **`install_requires`**. (You should add *all* of your required package dependencies
-   here.  Assume nothing about your user's environment! Not even napari.)
+   here. Assume nothing about your user's environment! Not even napari.)
 
-2. We need to instruct setuptools to *include* that `napari.yaml` file
+1. We need to instruct setuptools to *include* that `napari.yaml` file
    when it bundles our package for distribution, by adding
    **`include-package-data = True`** to the `[tool.setuptools]` section and pointing
    `package-data` to all `yaml` files.
 
-3. In order for napari to find our plugin when it's installed, we need to
+1. In order for napari to find our plugin when it's installed, we need to
    add an **entry point** for `napari.manifest` in the `[project.entry-points]` section.
    This tells napari to look for our plugin manifest in the `napari.yaml`
    file we added to the `napari_hello` module.
 
-    ```{tip}
-    Entry points are a standard Python mechanism for an installed distribution to
-    advertise components it provides to be discovered and used by other code.
+   ```{tip}
+   Entry points are a standard Python mechanism for an installed distribution to
+   advertise components it provides to be discovered and used by other code.
 
-    See the [Entry points specification][entry_points] for details.
-    ```
+   See the [Entry points specification][entry_points] for details.
+   ```
 
 With the above changes, your final `pyproject.toml` should look like this:
 
@@ -263,7 +268,7 @@ napari-hello = "napari_hello:napari.yaml"
 
 ## 4. Install your plugin and try it out!
 
-With that, we're ready to go.  Let's install our package in the environment
+With that, we're ready to go. Let's install our package in the environment
 and then run napari. Note: we're using `python -m pip install -e .` here to install our
 package (in the current working directory) in ["editable" mode][editable_mode].
 This means that changes we make to our package during development will be
@@ -316,7 +321,7 @@ copier copy --trust https://github.com/napari/napari-plugin-template new-plugin-
 
 ## Next Steps
 
-Plugins can do a lot more than just say hi!  You can see the complete list
+Plugins can do a lot more than just say hi! You can see the complete list
 of available contributions and their fields in the
 [Contributions Reference](contributions-ref), and learn more about each
 specific contribution type in the [Guides](plugin-contribution-guides).
@@ -324,8 +329,8 @@ specific contribution type in the [Guides](plugin-contribution-guides).
 Review the [Best Practices](best-practices) when developing plugins and,
 when you're ready to share your plugin, see [Testing and Publishing](plugin-test-deploy).
 
-[miniconda]: https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html
-[python_env]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-python.html
 [editable_mode]: https://pip.pypa.io/en/stable/cli/pip_install/#editable-installs
-[napari_plugin_template]: https://github.com/napari/napari-plugin-template
 [entry_points]: https://packaging.python.org/en/latest/specifications/entry-points/
+[miniconda]: https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html
+[napari_plugin_template]: https://github.com/napari/napari-plugin-template
+[python_env]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-python.html

@@ -12,6 +12,7 @@ kernelspec:
 ---
 
 (layers-surface)=
+
 # Using the `surface` layer
 
 In this document, you will learn about the `napari` `surface` layer, including
@@ -59,16 +60,18 @@ viewer.add_surface(surface)  # add the surface
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
-
+---
+tags: [hide-input]
+---
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="A viewer with a surface")
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
-
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 
@@ -77,37 +80,38 @@ viewer.close()
 Once you have created a `surface` layer programmatically, the following GUI
 controls are available in the viewer:
 
-* **Buttons**
-  * Pan/zoom - ![image: Pan/zoom tool](../../_static/images/pan-zoom-tool.png) is the default
+- **Buttons**
+  - Pan/zoom - ![image: Pan/zoom tool](../../_static/images/pan-zoom-tool.png) is the default
     mode of the layer and supports panning and zooming. Press the `1` key when the
     layer is selected to use this mode.
-  * Transform - ![image: Transform](../../_static/images/transform-tool.png) enables you to
+  - Transform - ![image: Transform](../../_static/images/transform-tool.png) enables you to
     rotate, scale, or translate the layer. Note: at present this feature is limited to 2D viewer display mode. To reset the transformation, you can
     Option/Alt-click the transform button (a confirmation dialog will open to
     confirm the reset). Press the `2` key when the layer is selected to use this mode.
-* **Controls**
-  * Opacity - use this slider control to assign opacity from 0 to 1.00 where 0 is
+- **Controls**
+  - Opacity - use this slider control to assign opacity from 0 to 1.00 where 0 is
     transparent and 1.00 is completely opaque.
-  * Contrast Limits - click and slide the dots on either end of the slider bar to
+  - Contrast Limits - click and slide the dots on either end of the slider bar to
     adjust upper and lower contrast limits.
-  * Auto-contrast - choose once or continuous.
-  * Gamma - Click on the oval on the gamma slider bar and adjust it to any value
+  - Auto-contrast - choose once or continuous.
+  - Gamma - Click on the oval on the gamma slider bar and adjust it to any value
     between 0.20 and 2.00. Gamma correction or gamma is a nonlinear operation used
     to encode and decode luminance or tristimulus values in video or still image
     systems.
-  * Colormap - select a value from the dropdown list.
-  * Blending - Choose `opaque`, `translucent`, `translucent no depth`, or
+  - Colormap - select a value from the dropdown list.
+  - Blending - Choose `opaque`, `translucent`, `translucent no depth`, or
     `additive` from the dropdown. Refer to the [Blending layers](blending-layers)
     section of _Layers at a glance_ for an explanation of each type of blending.
-  * Shading - Choose `none`, `flat`, or `smooth` from the dropdown.
+  - Shading - Choose `none`, `flat`, or `smooth` from the dropdown.
 
 ## Arguments of `add_surface`
 
 {meth}`~napari.Viewer.add_surface` accepts the following layer-creation parameters.
 
 ```{code-cell} python
-:tags: [hide-output]
-
+---
+tags: [hide-output]
+---
 help(napari.Viewer.add_surface)
 ```
 

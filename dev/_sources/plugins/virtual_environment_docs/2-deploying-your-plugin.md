@@ -3,9 +3,11 @@
 This guide explains some of the techniques you can use to deploy your plugin.
 
 ## Overview of PyPI and conda
-PyPI and conda are two options for how you distribute your package and allow your users to more easily find and install it.  Ideally, try to deploy to both. But for now, try to at least use PyPI. You can always also provide your users with manual installation instructions (e.g. if you want them to use `conda` or have specific dependencies).
+
+PyPI and conda are two options for how you distribute your package and allow your users to more easily find and install it. Ideally, try to deploy to both. But for now, try to at least use PyPI. You can always also provide your users with manual installation instructions (e.g. if you want them to use `conda` or have specific dependencies).
 
 ### Building your package
+
 `sdist` means source distribution. An `sdist` includes all of the files that are required to *build* your package. An `sdist` may require specific additional software (e.g. compilers) to actually build.
 
 `wheel` is a prebuilt package, ready to drop into your `site-packages` directory. It includes compiled OS-specific extensions (if applicable).
@@ -14,7 +16,7 @@ You are *strongly* encouraged to ship both! If the `wheel` is not present, `pip`
 
 **Note:** This goes for dependencies too! Check all your dependencies for wheel availability.
 
-**[build](https://pypa-build.readthedocs.io/en/latest/ )** is the recommended package builder that bundles your source code into `sdist` or `wheel` distributions. Install `build` into your local environment and then run it at the root of your package to build your package, as shown below:
+**[build](https://pypa-build.readthedocs.io/en/latest/)** is the recommended package builder that bundles your source code into `sdist` or `wheel` distributions. Install `build` into your local environment and then run it at the root of your package to build your package, as shown below:
 
 ```console
    pip install build
@@ -24,7 +26,8 @@ You are *strongly* encouraged to ship both! If the `wheel` is not present, `pip`
 ## Deploying plugins to PyPI
 
 ### Manually via **twine**.
-[twine](https://twine.readthedocs.io/en/latest/ ) is a command line client you can use to upload your distribution to PyPI. Note that you will need to set up a PyPI account and authenticate yourself when uploading. See [this great guide](https://packaging.python.org/en/latest/tutorials/packaging-projects/) for a detailed tutorial to building and sharing your first Python packages.
+
+[twine](https://twine.readthedocs.io/en/latest/) is a command line client you can use to upload your distribution to PyPI. Note that you will need to set up a PyPI account and authenticate yourself when uploading. See [this great guide](https://packaging.python.org/en/latest/tutorials/packaging-projects/) for a detailed tutorial to building and sharing your first Python packages.
 
 ```console
 
@@ -42,13 +45,16 @@ You are *strongly* encouraged to ship both! If the `wheel` is not present, `pip`
     $ twine upload dist/*
 
 ```
+
 **Note:** `python -m build` is the modern alternative to `setuptools`' `python setup.py sdist bdist_wheel`. It calls `setuptools` behind the scenes.
 
 ### Automatically via GitHub actions
+
 This requires either:
-* Running `twine` as above in a workflow after setting up Python and installing it
-or
-* Using a pre-made [GitHub action](https://github.com/pypa/gh-action-pypi-publish)
+
+- Running `twine` as above in a workflow after setting up Python and installing it
+  or
+- Using a pre-made [GitHub action](https://github.com/pypa/gh-action-pypi-publish)
 
 Here is an example workflow that manually deploys using `twine` when tests pass and you push a tagged commit.
 
@@ -81,32 +87,37 @@ jobs:
 
 ```
 
-  **Note:** Gate this action on some criterion, e.g. a git tag as above, or [some other criterion](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows).
+**Note:** Gate this action on some criterion, e.g. a git tag as above, or [some other criterion](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows).
 
 (deploying-to-conda-forge)=
+
 ## Deploying to conda-forge
+
 This is only a brief guide to deploying to `conda-forge`. More information can be found in the [conda-forge docs](https://conda-forge.org/docs/maintainer/adding_pkgs.html).
 To deploy a plugin to `conda-forge`, the plugin's build and run requirements **must** be available on `conda-forge` so the plugin and its dependencies may be installed.
+
 1. Fork https://github.com/conda-forge/staged-recipes
-2. Create a new branch
-3. Create a new folder in recipes directory (copy the existing example)
-4. Update the **meta.yaml** file to include your package's build and run requirements
-5. Commit and open a PR to https://github.com/conda-forge/staged-recipes
+1. Create a new branch
+1. Create a new folder in recipes directory (copy the existing example)
+1. Update the **meta.yaml** file to include your package's build and run requirements
+1. Commit and open a PR to https://github.com/conda-forge/staged-recipes
 
 Once your recipe is approved and merged, the rest happens *automagically*, and your package will appear on the [conda-forge package list](https://conda-forge.org/packages/).
 
 This is **far** easier if you already have an `sdist` published to PyPI.
 
 ```{admonition} Updating your package on conda-forge
-:class: important
-
+---
+class: important
+---
 By default, when a new release is detected on PyPI, conda-forge bots will automatically make a pull requests to your `conda-forge/package-name-feedstock`, and the plugin maintainer must review, make changes, if needed,  and approve the pull request.
 ```
 
 ## Other topics in this series:
-* [Virtual environments](./1-virtual-environments.md)
-* [Version management](./3-version-management.md)
-* [Developer tools](./4-developer-tools.md)
-* [Survey/Q&A](./5-survey.md)
+
+- [Virtual environments](./1-virtual-environments.md)
+- [Version management](./3-version-management.md)
+- [Developer tools](./4-developer-tools.md)
+- [Survey/Q&A](./5-survey.md)
 
 The next topic in this series is [Version management](./3-version-management.md).

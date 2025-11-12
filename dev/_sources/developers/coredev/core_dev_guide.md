@@ -1,18 +1,19 @@
 (core-dev-guide)=
+
 # Core team member guide
 
-Welcome, new core team member!  The core team appreciate the quality of
+Welcome, new core team member! The core team appreciate the quality of
 your work, and enjoy working with you; we have therefore invited you
-to join us.  Thank you for your numerous contributions to the project
+to join us. Thank you for your numerous contributions to the project
 so far.
 
 You can see a list of all the current core team members on our
 [@napari/core-devs](https://github.com/orgs/napari/teams/core-devs)
 GitHub team. You should now be on that list too.
 
-This document offers guidelines for your new role.  First and
+This document offers guidelines for your new role. First and
 foremost, you should familiarize yourself with the project's
-[mission and values](mission-and-values).  When in
+[mission and values](mission-and-values). When in
 doubt, always refer back there.
 
 As a core team member, you gain the responsibility of shepherding
@@ -22,10 +23,10 @@ guidelines for how to do that.
 ## All contributors are treated the same
 
 As a core team member, you gain the ability to merge or approve
-other contributors' pull requests.  Much like nuclear launch keys, it
+other contributors' pull requests. Much like nuclear launch keys, it
 is a shared power: you must merge *only after* another core has
 approved the pull request, *and* after you yourself have carefully
-reviewed it.  (See [Reviewing](#reviewing) and especially
+reviewed it. (See [Reviewing](#reviewing) and especially
 [Merge Only Changes You Understand](#merge-only-changes-you-understand) below.)
 It should also be considered best practice to leave a reasonable (24hr) time window
 after approval before merge to ensure that other core team members have a reasonable
@@ -58,7 +59,7 @@ constructive criticism on ideas and implementations, and remind
 yourself of how it felt when your own work was being evaluated as a
 novice.
 
-`napari` strongly values mentorship in code review.  New users
+`napari` strongly values mentorship in code review. New users
 often need more handholding, having little to no git
 experience. Repeat yourself liberally, and, if you don’t recognize a
 contributor, point them to our development guide, or other GitHub
@@ -71,52 +72,52 @@ an abandoned pull request.
 When reviewing, focus on the following:
 
 1. **Usability and generality:** `napari` is a GUI application that strives to be accessible
-to both coding and non-coding users, and new features should ultimately be
-accessible to everyone using the app. `napari` targets the scientific user
-community broadly, and core features should be domain-agnostic and general purpose.
-Custom functionality is meant to be provided through our plugin ecosystem. If in doubt,
-consult back with our [mission and values](mission-and-values).
+   to both coding and non-coding users, and new features should ultimately be
+   accessible to everyone using the app. `napari` targets the scientific user
+   community broadly, and core features should be domain-agnostic and general purpose.
+   Custom functionality is meant to be provided through our plugin ecosystem. If in doubt,
+   consult back with our [mission and values](mission-and-values).
 
-2. **Performance and benchmarks:** As `napari` targets scientific applications that often involve
-large multidimensional datasets, high performance is a key value of `napari`. While
-every new feature won't scale equally to all sizes of data, keeping in mind performance
-and our [benchmarks](napari-benchmarks) during a review may be important, and you may
-need to ask for benchmarks to be run and reported or new benchmarks to be added.
+1. **Performance and benchmarks:** As `napari` targets scientific applications that often involve
+   large multidimensional datasets, high performance is a key value of `napari`. While
+   every new feature won't scale equally to all sizes of data, keeping in mind performance
+   and our [benchmarks](napari-benchmarks) during a review may be important, and you may
+   need to ask for benchmarks to be run and reported or new benchmarks to be added.
 
-3. **APIs and stability:** Coding users and plugin developers will make
-extensive use of our APIs. The foundation of a healthy plugin ecosystem will be
-a fully capable and stable set of APIs, so as `napari` matures it will
-very important to ensure our APIs are stable. For now, while the project is still
-in an earlier stage, spending the extra time to consider names of public facing
-variables and methods, along side function signatures, could save us considerable
-trouble in the future. Right now we are still making breaking changes with minor
-version numbers `0.x` and do not have a deprecation policy, but we will work to add one soon.
+1. **APIs and stability:** Coding users and plugin developers will make
+   extensive use of our APIs. The foundation of a healthy plugin ecosystem will be
+   a fully capable and stable set of APIs, so as `napari` matures it will
+   very important to ensure our APIs are stable. For now, while the project is still
+   in an earlier stage, spending the extra time to consider names of public facing
+   variables and methods, along side function signatures, could save us considerable
+   trouble in the future. Right now we are still making breaking changes with minor
+   version numbers `0.x` and do not have a deprecation policy, but we will work to add one soon.
 
-4. **Documentation and tutorials:** All new methods should have appropriate doc
-strings following [PEP257](https://peps.python.org/pep-0257/) and the
-[NumPy documentation guide](https://numpy.org/devdocs/dev/howto-docs.html#documentation-style).
-For API changes, make sure to check that a `.. versionadded::` or
-`.. versionchanged::` directive has been added to the appropriate docstring. For
-any major new features, accompanying changes should be made to our
-[tutorials](tutorials). These should not only illustrate the new feature, but
-explain it. Titles for all documents in napari should follow
-[sentence case capitalization](https://apastyle.apa.org/style-grammar-guidelines/capitalization/sentence-case),
-but the name `napari` should always be written in lowercase.
+1. **Documentation and tutorials:** All new methods should have appropriate doc
+   strings following [PEP257](https://peps.python.org/pep-0257/) and the
+   [NumPy documentation guide](https://numpy.org/devdocs/dev/howto-docs.html#documentation-style).
+   For API changes, make sure to check that a `.. versionadded::` or
+   `.. versionchanged::` directive has been added to the appropriate docstring. For
+   any major new features, accompanying changes should be made to our
+   [tutorials](tutorials). These should not only illustrate the new feature, but
+   explain it. Titles for all documents in napari should follow
+   [sentence case capitalization](https://apastyle.apa.org/style-grammar-guidelines/capitalization/sentence-case),
+   but the name `napari` should always be written in lowercase.
 
-5. **Implementations and algorithms:** You should understand the code being modified
-or added before approving it.  (See [Merge Only Changes You Understand](#merge-only-changes-you-understand)
-below.) Implementations should do what they claim and be simple, readable, and efficient
-in that order.
+1. **Implementations and algorithms:** You should understand the code being modified
+   or added before approving it. (See [Merge Only Changes You Understand](#merge-only-changes-you-understand)
+   below.) Implementations should do what they claim and be simple, readable, and efficient
+   in that order.
 
-6. **Tests:** All contributions *must* be tested, and each added line of code
-should be covered by at least one test. Good tests not only execute the code,
-but explore corner cases.  It can be tempting not to review tests, but please
-do so.
+1. **Tests:** All contributions *must* be tested, and each added line of code
+   should be covered by at least one test. Good tests not only execute the code,
+   but explore corner cases. It can be tempting not to review tests, but please
+   do so.
 
-7. **Labels and Milestones:** Make sure you add the appropriate labels and
-milestone to PRs before merging. This should be done both in the main napari
-repo and in the docs repo. Both repos have a CI check, triggered by the
-`ready_to_merge` label, which will fail if the milestone is not set in the PR.
+1. **Labels and Milestones:** Make sure you add the appropriate labels and
+   milestone to PRs before merging. This should be done both in the main napari
+   repo and in the docs repo. Both repos have a CI check, triggered by the
+   `ready_to_merge` label, which will fail if the milestone is not set in the PR.
 
 Other changes may be *nitpicky*: spelling mistakes, formatting,
 etc. Do not insist contributors make these changes, but instead you should offer
@@ -127,7 +128,7 @@ it gives the contributor a choice in whether to accept the changes.
 
 Unless you know that a contributor is experienced with git, don’t
 ask for a rebase when merge conflicts arise. Instead, rebase the
-branch yourself, force-push to their branch, and advise the contributor to force-pull.  If the contributor is
+branch yourself, force-push to their branch, and advise the contributor to force-pull. If the contributor is
 no longer active, you may take over their branch by submitting a new pull
 request and closing the original, including a reference to the original pull
 request. In doing so, ensure you communicate that you are not throwing the
@@ -135,9 +136,9 @@ contributor's work away!
 
 ### Merge only changes you understand
 
-*Long-term maintainability* is an important concern.  Code doesn't
+*Long-term maintainability* is an important concern. Code doesn't
 merely have to *work*, but should be *understood* by multiple core
-team members.  Changes will have to be made in the future, and the
+team members. Changes will have to be made in the future, and the
 original contributor may have moved on.
 
 Therefore, *do not merge a code change unless you understand it*. Ask
@@ -145,7 +146,7 @@ for help freely: we can consult community members, or even external developers,
 for added insight where needed, and see this as a great learning opportunity.
 
 While we collectively "own" any patches (and bugs!) that become part
-of the code base, you are vouching for changes you merge.  Please take
+of the code base, you are vouching for changes you merge. Please take
 that responsibility seriously.
 
 ## Documentation and website
@@ -175,8 +176,8 @@ As a core member, you should be familiar with the following napari guides:
 
 - [PEP8](https://peps.python.org/pep-0008/) for Python style.
 - [PEP257](https://peps.python.org/pep-0257/) and the
-   [NumPy documentation guide](https://numpy.org/devdocs/dev/howto-docs.html#documentation-style)
-   for docstring conventions.
+  [NumPy documentation guide](https://numpy.org/devdocs/dev/howto-docs.html#documentation-style)
+  for docstring conventions.
 - [`pre-commit`](https://pre-commit.com) hooks for autoformatting.
 - [`ruff-format`](https://docs.astral.sh/ruff/formatter/) autoformatting.
 - [`ruff`](https://github.com/astral-sh/ruff) linting.
@@ -212,11 +213,11 @@ Core team members can choose to become emeritus core team members and suspend
 their approval and voting rights until they become active again. Emeritus core
 team members can request **or** be invited to become active core team members at
 a later date, and active core team members will vote on this status-change as
-above. 
+above.
 
 ## Contribute to this guide (!)
 
-This guide reflects the experience of the current core team members.  We
+This guide reflects the experience of the current core team members. We
 may well have missed things that, by now, have become second
 nature—things that you, as a new team member, will spot more easily.
 Please ask the other core team members if you have any questions, and
@@ -224,6 +225,6 @@ submit a pull request with insights gained.
 
 ## Conclusion
 
-We are excited to have you on board!  We look forward to your
-contributions to the code base and the community.  Thank you in
+We are excited to have you on board! We look forward to your
+contributions to the code base and the community. Thank you in
 advance!

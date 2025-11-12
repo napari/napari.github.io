@@ -810,7 +810,7 @@ strange at times. Often we write code in a very procedural way: “Step 1: do th
 Step 2: do that, etc …”. With napari and other GUI programs however, usually you
 connect events to “callback” functions, which essentially specifies; “If this event
 happens, then call this function”. Next you start the event loop and hope you
-connected everything correctly!  Indeed, much of the napari source code is
+connected everything correctly! Indeed, much of the napari source code is
 dedicated to creating and handling events: search the codebase for
 <a class="reference external" href="https://github.com/search?q=repo%3Anapari%2Fnapari+%22.emit%28%22&amp;amp;type=code"><code class="docutils literal notranslate"><span class="pre">.emit(</span></code></a>
 and
@@ -874,7 +874,7 @@ When the last napari viewer closes, execution of the script will proceed.</p>
 <hr class="docutils" />
 <section id="more-in-depth">
 <h2>More in depth<a class="headerlink" href="#more-in-depth" title="Link to this heading">#</a></h2>
-<p>At its core, an event loop is rather simple.  It amounts to something that looks
+<p>At its core, an event loop is rather simple. It amounts to something that looks
 like this (in pseudo-code):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">event_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
 
@@ -921,7 +921,7 @@ application’s event loop:</p>
 <section id="napari-s-qapplication">
 <h3>napari’s <code class="docutils literal notranslate"><span class="pre">QApplication</span></code><a class="headerlink" href="#napari-s-qapplication" title="Link to this heading">#</a></h3>
 <p>In napari, the initial step of creating the <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> is handled by
-<a class="reference internal" href="../api/napari.qt.html#napari.qt.get_qapp" title="napari.qt.get_qapp"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.qt.get_qapp()</span></code></a>.  (Note however, that napari will do this for you
+<a class="reference internal" href="../api/napari.qt.html#napari.qt.get_qapp" title="napari.qt.get_qapp"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.qt.get_qapp()</span></code></a>. (Note however, that napari will do this for you
 automatically behind the scenes when you create a viewer with
 <a class="reference internal" href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">napari.Viewer()</span></code></a>)</p>
 <p>The second step – starting the Qt event loop – is handled by <a class="reference internal" href="../api/napari.html#napari.run" title="napari.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.run()</span></code></a></p>

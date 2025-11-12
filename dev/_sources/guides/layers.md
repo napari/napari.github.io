@@ -1,4 +1,5 @@
 (layers-glance)=
+
 # Layers at a glance
 
 {class}`~napari.layers` are the basic viewable objects that can be added to a
@@ -29,20 +30,21 @@ introduction, check out the
 [Layer list section in the napari viewer tutorial](layer-list).
 
 (layer_mode)=
+
 ## Layer mode
 
 All our layers support a `mode` property that changes the way you interact
 with the layer from the viewer. These modes are accessible via the layer controls
 widget top buttons and via keyboard shortcuts (these shortcuts will vary depending on the layer type). Currently, there are two base modes:
 
-* Pan and zoom
-![image: Pan/zoom](../_static/images/pan-zoom-tool.png)
+- Pan and zoom
+  ![image: Pan/zoom](../_static/images/pan-zoom-tool.png)
 
 The `pan_zoom` mode allows you to pan around and zoom in/out the layer. It's
 the default mode selected. Note: zooming with the mouse-wheel should essentially always work!
 
-* Transform
-![image: Transform](../_static/images/transform-tool.png)
+- Transform
+  ![image: Transform](../_static/images/transform-tool.png)
 
 The `transform` mode allows you to translate, rotate, and scale the layer
 graphically. Note: While you can transform 3D layers, at present this mode is only usable in 2D viewer display mode.
@@ -64,6 +66,7 @@ button. Note that you can Option/Alt-click on the `visibility` button to show
 will be restored.
 
 (layer_opacity)=
+
 ## Layer opacity
 
 All our layers support an opacity slider and `opacity` property that allow you
@@ -82,33 +85,35 @@ globally to all the vectors in the layer.
 ```
 
 (blending-layers)=
+
 ## Blending layers
 
 All our layers support a number of different blending modes. These modes
 determine how the visuals for this layer get mixed with the visuals from the
 other layers.
 
-* A `translucent` setting will cause the layer to blend with the layers below
+- A `translucent` setting will cause the layer to blend with the layers below
   it if you decrease its opacity but will fully block those layers if its
   opacity is `1`. This is a reasonable default, useful for many applications.
-* A `translucent-no depth` setting allows for multiple layers to be blended with
+- A `translucent-no depth` setting allows for multiple layers to be blended with
   different opacity, but no depth testing is performed.
-* An `additive` blending mode will cause the layer to blend with the layers
+- An `additive` blending mode will cause the layer to blend with the layers
   below even when it has full opacity. This mode is especially useful for
   visualizing multiple layers at the same time, such as cell biology
   applications where you have multiple different components of a cell labeled in
   different colors.
-* A `minimum` blending mode will cause the layer to blend using the minimum of
+- A `minimum` blending mode will cause the layer to blend using the minimum of
   each pixel's R, G, and B values. This mode is uniquely useful for blending
   multiple layers with inverted colormaps/LUTs, which represent measured signal
   with color on a white background.
-* An `opaque` layer hides any layer data below it.
+- An `opaque` layer hides any layer data below it.
 
 For example, the image below shows an image with the blending set to `additive`.
 
 ![napari viewer with an image of a cell. Layer controls are open in the left sidebar with the blending set to additive.](../_static/images/blending.png)
 
 (layer-overlays)=
+
 ## Layer overlays
 
 Following the same pattern as [viewer overlays](viewer-overlays), layers offer some extra visualisations as overlays:
@@ -145,6 +150,7 @@ leads to a memory error.
 ```
 
 (layer-interpolation)=
+
 ## Layer interpolation
 
 We support a variety of interpolation modes when viewing 2D slices. In the
@@ -188,11 +194,11 @@ existing layer using the `scale` as a keyword argument or property respectively.
 
 ```python
 # scaling while creating the image layer
-viewer, layer = napari.imshow(retina, name='retina', scale=[1,10,1,1])
+viewer, layer = napari.imshow(retina, name='retina', scale=[1, 10, 1, 1])
 # scaling an existing layer by accessing from the layer list
-viewer.layers['retina'].scale = [1,10,1,1]
+viewer.layers['retina'].scale = [1, 10, 1, 1]
 # alternatively using the returned layer variable
-layer.scale = [1,10,1,1]
+layer.scale = [1, 10, 1, 1]
 ```
 
 ```{raw} html

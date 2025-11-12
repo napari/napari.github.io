@@ -35,7 +35,7 @@ Below are several versions of the napari logo that you can use in your docs or p
 
 ## Website colors
 
-Below is the list of colors used in the napari website. 
+Below is the list of colors used in the napari website.
 
 - primary blue: #80d1ff
 - deep blue: #009bf2

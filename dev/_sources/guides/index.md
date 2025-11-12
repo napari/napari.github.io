@@ -1,4 +1,5 @@
 (explanations)=
+
 # In-depth explanations
 
 ```{note}

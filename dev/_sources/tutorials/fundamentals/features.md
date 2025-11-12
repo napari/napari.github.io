@@ -11,7 +11,9 @@ kernelspec:
   language: python
   name: python3
 ---
+
 (feature-highlights)=
+
 # Feature highlights
 
 This page highlights a few napari features that are useful in many scenarios and might be easily overlooked.
@@ -20,6 +22,7 @@ The [measurement tool](measure-tool) allows for quick distance and area measurem
 For layers with `features`, the [features table widge](features-table-widget) provides a simple graphical interface for editing and interaction with the feature table.
 
 (command-palette)=
+
 ## Command Palette
 
 napari has a **command palette** that can be opened with
@@ -42,9 +45,11 @@ keys to make a selection. Once you have the action you want highlighted, press
 
 </figure>
 ```
+
 ...
 
 (measure-tool)=
+
 ## Measure distances and areas
 
 When using a `Shapes` layer to annotate features of interest, the **Shape Measurement Tool** is used to obtain a live measurement of the available shapes, including perimeter and area. You can also measure distances by tracing a `Line` between two points.
@@ -56,6 +61,7 @@ This tool can be enabled by clicking on `Layers->Measure->Toggle shape dimension
 The measurements are displayed on the canvas and updated live, and they are also accessible through the layer's features table via `layer.features['_area']` and `layer.features['_perimeter']`.
 
 (features-table-widget)=
+
 ## Features table widget
 
 The **Features Table Widget** can be used to visualize, edit, select, or save the contents of the `features` table of any layer that supports features (e.g., `Points.features`).
@@ -82,7 +88,7 @@ This feature is especially useful for quickly testing or distributing code snipp
 
 Since napari 0.6.5 it is possible to provide a script that will be run every time napari starts.
 This can be done by providing a script path in Settings » Application » Startup script.
-This can be useful, for example, for adding a 
+This can be useful, for example, for adding a
 [custom colormap](https://github.com/napari/napari/blob/main/examples/dev/settings_startup_script.py)
 or loading a specific plugin every time napari starts.
 
@@ -93,6 +99,3 @@ This feature is intended only for users. Plugin are not allowed to modify this s
 As with other settings, the value of this field can be overridden by setting the
 `NAPARI_APPLICATION_STARTUP_SCRIPT` environment variable to the path of the script to run at startup.
 Setting it to an empty string will disable the startup script.
-
-
- 

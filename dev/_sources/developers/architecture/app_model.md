@@ -33,13 +33,13 @@ singleton. It can be retrieved with `napari._app_model.get_app_model`.
 Currently, the primary purpose of the `app` is to compose the following
 {mod}`app_model.registries` into a single name-spaced object:
 
-* {class}`~app_model.registries.CommandsRegistry`: maintains all of the
+- {class}`~app_model.registries.CommandsRegistry`: maintains all of the
   [commands](app-model-commands) (the actual callable objects) that have been
   registered with the application. Accessible via `app.commands`.
-* {class}`~app_model.registries.MenusRegistry`: maintains all of the
+- {class}`~app_model.registries.MenusRegistry`: maintains all of the
   [menus and submenus](app-model-menus) that have been registered with the application.
   Accessible via `app.menus`.
-* {class}`~app_model.registries.KeyBindingsRegistry`: maintains the association
+- {class}`~app_model.registries.KeyBindingsRegistry`: maintains the association
   between a [KeyBinding](app-model-keybindings) and a command ID in the
   {class}`~app_model.registries.CommandsRegistry`. Accessible via `app.keybindings`.
 
@@ -76,22 +76,21 @@ from napari._app_model.context import LayerListContextKeys as LLCK
 
 
 # `layers` will be injected later when this action is invoked
-def split_rgb_layer(layers: 'LayerList'):
-    ...
+def split_rgb_layer(layers: 'LayerList'): ...
 
 
 action = Action(
     id=CommandId.LAYER_SPLIT_RGB,
     title=CommandId.LAYER_SPLIT_RGB.title,
     callback=split_rgb_layer,
-    menus = [
+    menus=[
         {
             'id': MenuId.LAYERLIST_CONTEXT,
             'group': MenuGroup.LAYERLIST_CONTEXT.SPLIT_MERGE,
             'when': LLCK.active_layer_is_rgb,
         }
     ],
-    keybindings=[{'primary': KeyMod.CtrlCmd | KeyMod.Alt | KeyCode.KeyT }]
+    keybindings=[{'primary': KeyMod.CtrlCmd | KeyMod.Alt | KeyCode.KeyT}],
 )
 ```
 
@@ -168,10 +167,10 @@ The string is arbitrary, and the only real requirement is that the same command 
 string cannot be used twice. However, to help readability and usability, we use
 the following naming conventions:
 
-* use `.` to separate words
-* start with `napari` for builtin commands or the plugin name for plugin commands
-* the `napari.window` prefix indicates the `napari` command is part of a GUI menu
-* the final word should be the name of the function callback
+- use `.` to separate words
+- start with `napari` for builtin commands or the plugin name for plugin commands
+- the `napari.window` prefix indicates the `napari` command is part of a GUI menu
+- the final word should be the name of the function callback
 
 {class}`app_model.types.CommandRule` class (of which {class}`~app_model.types.Action`
 is a subclass) includes many fields to detail various aspects of commands.
@@ -191,7 +190,7 @@ you to use a callable (instead of an expression) to determine toggle state.
 
 While it is conceivable that plugins might need/want to refer to one of these
 napari commands by its string id, it is **not** currently a goal that napari
-end-users would execute any of these commands by their ID.  There should always
+end-users would execute any of these commands by their ID. There should always
 be a "pure python" way to import a napari object and call it. For example,
 sample data is added to the `File` -> `Open Sample` menu but you can also
 use {meth}`napari.Viewer.open_sample` to open a sample data in headless mode.
@@ -270,7 +269,7 @@ context if required (see [](context-expressions) for more details).
 To add a submenu append it to the `app`'s
 {class}`~app_model.registries.MenusRegistry`, e.g., via `app.menus.append_menu_items`.
 {meth}`~app_model.registries.MenusRegistry.append_menu_items` takes a tuple of the
-format (`MenuId`, [`MenuItem` or `SubmenuItem`]).
+format (`MenuId`, \[`MenuItem` or `SubmenuItem`\]).
 
 ### Menus in napari
 
@@ -398,6 +397,7 @@ Processors can be registered in the same way.
 ```python
 from napari._app_model import get_app_model
 
+
 # return annotation indicates what this provider provides
 def provide_points() -> Optional['Points']:
     import napari.viewer
@@ -405,10 +405,8 @@ def provide_points() -> Optional['Points']:
 
     viewer = napari.viewer.current_viewer()
     if viewer is not None:
-        return next(
-            (i for i in viewer.layers if isinstance(i, Points)),
-            None
-        )
+        return next((i for i in viewer.layers if isinstance(i, Points)), None)
+
 
 get_app_model().injection_store.register_provider(provide_points)
 ```
@@ -445,7 +443,7 @@ Some Points
 ```
 
 The fact that `injected_func` may now be called without parameters allows it to
-be used easily as a command in a menu, or bound to a keybinding.  It is up to
+be used easily as a command in a menu, or bound to a keybinding. It is up to
 napari to determine what providers it will make available, and what type hints
 plugins/users may use to request dependencies.
 
@@ -460,18 +458,18 @@ napari {attr}`~app_model.Application.injection_store`'s `namespace` attribute.
 In the napari `app`'s `Store`, some basic napari objects are added to the `namespace`
 attribute:
 
-* all public types from the modules {mod}`napari.components`, {mod}`napari.layers`
+- all public types from the modules {mod}`napari.components`, {mod}`napari.layers`
   and {mod}`napari.viewer`
-* {class}`~napari._qt.qt_main_window.Window`
-* {class}`~napari._qt.qt_viewer.QtViewer`
+- {class}`~napari._qt.qt_main_window.Window`
+- {class}`~napari._qt.qt_viewer.QtViewer`
 
 This means that when annotating a callback function, you will not need to import
 any of the above classes for the annotation to be resolved. For other classes
 you will need to import them at the **module** level. Importing in any of the following
 ways will not work:
 
-* import within `typing.TYPE_CHECKING`
-* import within an outer function, where the callback function is an inner function
+- import within `typing.TYPE_CHECKING`
+- import within an outer function, where the callback function is an inner function
 
 ### Providers and processors in napari
 
@@ -507,11 +505,11 @@ On `napari` start up, `app-model` initialization occurs in the following order:
    This also results in the first call to `napari._app_model.get_app_model`.
 
    i. Instantiation of the `app-model` app results in registration of all non-GUI
-      internal `napari` actions (and associated submenus). Note that the
-      `napari._app_model.get_app_model` call creates the `app` only when *first*
-      called. It simply returns the existing app on all subsequent calls.
+   internal `napari` actions (and associated submenus). Note that the
+   `napari._app_model.get_app_model` call creates the `app` only when *first*
+   called. It simply returns the existing app on all subsequent calls.
 
-2. {class}`~napari._qt.qt_main_window.Window` instantiation, followed by
+1. {class}`~napari._qt.qt_main_window.Window` instantiation, followed by
    instantiation of `_QtMainWindow`, during which we call
    `napari._qt._qapp_model.qactions.init_qactions`. This registers all
    `napari` Qt actions (and associated submenus), providers and processors.
@@ -563,10 +561,10 @@ The `app` gives you access to its {class}`~app_model.registries.CommandsRegistry
 {class}`~app_model.registries.MenusRegistry` and
 {class}`~app_model.registries.KeyBindingsRegistry`. Some useful methods:
 
-* {meth}`app_model.registries.CommandsRegistry.execute_command` allows you to
+- {meth}`app_model.registries.CommandsRegistry.execute_command` allows you to
   manually execute registered commands. Note that commands can always be
   executed this way regardless of its enablement state.
-* {meth}`app_model.registries.MenusRegistry.get_menu` allows you to obtain any
+- {meth}`app_model.registries.MenusRegistry.get_menu` allows you to obtain any
   registered {class}`app_model.types.MenuItem` or {class}`app_model.types.SubmenuItem`.
 
 ### Menus
@@ -624,7 +622,7 @@ there are a number of motivations for adopting this abstraction.
 1. It gives us an abstraction layer on top of Qt that will make it much easier to explore different application backends (such as a web-based app, etc..)
 1. It's easier to test: `app-model` can take care of making sure that commands, menus, keybindings, and actions are rendered, updated, and triggered correctly, and napari can focus on testing the napari-specific logic.
 1. It's becomes **much** easier to add & remove contributions from plugins if our internal representation of a command, menu, keybinding is similar to the schema that plugins use. The previous procedural approach made this marriage much more cumbersome.
-1. **The Dream**: The unification of napari commands and plugin commands into a registry that can execute commands in response to user input provides an excellent base for "recording" a user workflow.  If all GUI user interactions go through dependency-injected commands, then it becomes much easier to export a script that reproduces a set of interactions.
+1. **The Dream**: The unification of napari commands and plugin commands into a registry that can execute commands in response to user input provides an excellent base for "recording" a user workflow. If all GUI user interactions go through dependency-injected commands, then it becomes much easier to export a script that reproduces a set of interactions.
 
 (app-model-action-manager-differences)=
 

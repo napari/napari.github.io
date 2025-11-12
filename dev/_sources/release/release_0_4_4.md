@@ -6,11 +6,11 @@ It's designed for browsing, annotating, and analyzing large multi-dimensional
 images. It's built on top of Qt (for the GUI), vispy (for performant GPU-based
 rendering), and the scientific Python stack (numpy, scipy).
 
-
 For more information, examples, and documentation, please visit our website:
 https://github.com/napari/napari
 
 ## Highlights
+
 This release is a quick follow on from our `0.4.3` release and contains some
 nice improvements to the GUI and analysis function hookspecs we experimentally
 added in that release. We've expanded the API of the
@@ -25,8 +25,8 @@ function or list of functions. napari will then take care to generate an
 appropriate user interface for that function. This will make it even easier to
 create analysis pipelines in napari (#2158).
 
-
 ## Improvements
+
 - Add example code to hook documentation (#2112)
 - move Viewer import into method (#2119)
 - Support for EventedList.__setitem__ with array-like items (#2120)
@@ -39,17 +39,19 @@ create analysis pipelines in napari (#2158).
 - Add information on what to do on error in GUI (#2165)
 
 ## Documentation
+
 - Better documentation of API changes in 0.4.4 release notes (#2171)
 - Add new function and dock widget hook specifications to documentation (#2158)
 
 ## Bug Fixes
+
 - QtAboutKeyBindings patch (#2132)
 - Fix too-late registration of napari types in magicgui (#2139)
 - Fix magicgui.FunctionGui deprecation warning (#2164)
 - Fix show/ hide of plugin widgets (#2173)
 
-
 ## API Changes
+
 - `viewer.grid_view()` has been removed, use `viewer.grid.enabled = True`
   instead (#2144)
 - `viewer.stack_view()` has been removed, use `viewer.grid.enabled = False`
@@ -68,8 +70,8 @@ create analysis pipelines in napari (#2158).
   `napari_experimental_provide_dock_widget` for more elaborate plugins
   that require custom widgets. (#2158)
 
-
 ## Deprecations
+
 - `layer.status` is deprecated, to be removed in 0.4.6. Users should instead
   use `layer.get_status(position)`. (#1985)
 - The position argument to `layer.get_value()` is no longer optional, and will
@@ -77,8 +79,8 @@ create analysis pipelines in napari (#2158).
 - `layer.get_message()` is deprecated, to be removed in 0.4.6. Users should use
   `layer.get_status(position)` instead. (#1985)
 
-
 ## Build Tools and Support
+
 - Add missed doc string in `import_resources` (#2113)
 - Delay import of pkg_resources (#2121)
 - Remove duplicate entry in install_requires (#2122)
@@ -87,7 +89,6 @@ create analysis pipelines in napari (#2158).
 - DOC: Rename Section to conform to numpydocs (Return->Returns) (#2130)
 - Provide `make_test_viewer` as a pytest plugin, for external use. (#2131)
 - Doc: fix syntax = instead of : (#2141)
-
 
 ## 11 authors added to this release (alphabetical)
 
@@ -102,7 +103,6 @@ create analysis pipelines in napari (#2158).
 - [Robert Haase](https://github.com/napari/napari/commits?author=haesleinhuepf) - @haesleinhuepf
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 - [Volker Hilsenstein](https://github.com/napari/napari/commits?author=VolkerH) - @VolkerH
-
 
 ## 6 reviewers added to this release (alphabetical)
 

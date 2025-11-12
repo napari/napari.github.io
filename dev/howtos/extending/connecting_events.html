@@ -822,9 +822,11 @@ pressed:</p>
 
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
 
+
 <span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">add_layer</span><span class="p">(</span><span class="n">viewer</span><span class="p">):</span>
     <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)))</span>
+
 
 <span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">delete_layer</span><span class="p">(</span><span class="n">viewer</span><span class="p">):</span>
@@ -832,6 +834,7 @@ pressed:</p>
         <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
         <span class="k">pass</span>
+
 
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
@@ -850,9 +853,11 @@ clicked.</p>
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
 <span class="n">layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)))</span>
 
+
 <span class="nd">@layer</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">update_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
     <span class="n">layer</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">))</span>
+
 
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
@@ -878,9 +883,9 @@ examples.</p>
 <span id="connect-napari-event"></span><h2>Connecting functions to native napari events<a class="headerlink" href="#connecting-functions-to-native-napari-events" title="Link to this heading">#</a></h2>
 <p>If you want something to happen following some event that happens <em>within</em>
 napari, the trick becomes knowing which native signals any given napari object
-provides for you to “connect” to.  Until we have centralized documentation for
+provides for you to “connect” to. Until we have centralized documentation for
 all of the events offered by napari objects, the best way to find these is to
-browse the source code.  Take for instance, the base
+browse the source code. Take for instance, the base
 <a class="reference internal" href="../../api/napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></a> class: you’ll find in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method a
 <code class="docutils literal notranslate"><span class="pre">self.events</span></code> section that looks like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">EmitterGroup</span><span class="p">(</span>
@@ -896,7 +901,8 @@ browse the source code.  Take for instance, the base
 changes. To provide your own response to that change, you can hook up a callback
 function that accepts the event object:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">print_layer_name</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> changed its data!&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> changed its data!&#39;</span><span class="p">)</span>
+
 
 <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">print_layer_name</span><span class="p">)</span>
 </pre></div>
@@ -905,8 +911,8 @@ function that accepts the event object:</p>
 <section id="long-running-blocking-functions">
 <span id="blocking-functions"></span><h2>Long-running, blocking functions<a class="headerlink" href="#long-running-blocking-functions" title="Link to this heading">#</a></h2>
 <p>An important detail here is that the napari event loop is running in a <em>single
-thread</em>.  This works just fine if the handling of each event is very short, as
-is usually the case with moving sliders, and pressing buttons.  However, if one
+thread</em>. This works just fine if the handling of each event is very short, as
+is usually the case with moving sliders, and pressing buttons. However, if one
 of the events in the queue takes a long time to process, then every other event
 must wait!</p>
 <p>Take this example in napari:</p>
@@ -919,8 +925,8 @@ must wait!</p>
 </div>
 <p>Here we have a long computation (<code class="docutils literal notranslate"><span class="pre">np.random.rand(512,</span> <span class="pre">1024,</span> <span class="pre">1024).mean(0)</span></code>) that
 “blocks” the main thread, meaning <em>no button press, key press, or any other
-event can be processed until it’s done</em>.  In this scenario, it’s best to put
-your long-running function into another thread or process.  napari provides a
+event can be processed until it’s done</em>. In this scenario, it’s best to put
+your long-running function into another thread or process. napari provides a
 convenience for that, described in <a class="reference internal" href="../../guides/threading.html#multithreading-in-napari"><span class="std std-ref">Multithreading in napari</span></a>.</p>
 </section>
 </section>

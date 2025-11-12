@@ -6,7 +6,6 @@ It's designed for browsing, annotating, and analyzing large multi-dimensional
 images. It's built on top of Qt (for the GUI), vispy (for performant GPU-based
 rendering), and the scientific Python stack (numpy, scipy).
 
-
 For more information, examples, and documentation, please visit our website:
 https://github.com/napari/napari
 
@@ -41,11 +40,13 @@ documentation.
 See below for the full list of changes.
 
 ## New Features
-- Notification Manager  (#2205)
+
+- Notification Manager (#2205)
 - Add preference dialog (#2211)
 - Make napari strings localizable (#2429)
 
 ## Documentation
+
 - Add profiling documentation (#1998)
 - Add release note about pydantic viewermodel (#2334)
 - Broken link fixed for Handling Code of Conduct Reports (#2342)
@@ -54,6 +55,7 @@ See below for the full list of changes.
 - Make structural doc changes to better align with sitemap (#2404)
 
 ## Improvements
+
 - ColorManager take 2 (w/ pydantic) (#2204)
 - Add basic selection model (#2293)
 - Tooltips2 (#2310)
@@ -88,6 +90,7 @@ See below for the full list of changes.
 - Update preferences dialog style to match designs (#2456)
 
 ## Bug Fixes
+
 - Fix initialization of an empty Points layer (#2341)
 - Fix octree clim (#2349)
 - Fix json encoder inheritance on nested submodels for pydantic>=1.8.0 (#2357)
@@ -139,9 +142,9 @@ We have also deprecated the `napari.qt.QtNDisplayButton`. Instead a more general
 `napari.qt.QtStateButton` is provided.
 
 ## Build Tools and Support
+
 - Add environment flag for sparse library (#2396)
 - re-add plausible (#2433)
-
 
 ## 14 authors added to this release (alphabetical)
 
@@ -160,7 +163,6 @@ We have also deprecated the `napari.qt.QtNDisplayButton`. Instead a more general
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 - [ziyangczi](https://github.com/napari/napari/commits?author=ziyangczi) - @ziyangczi
 
-
 ## 12 reviewers added to this release (alphabetical)
 
 - [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) - @DragaDoncila
@@ -175,4 +177,3 @@ We have also deprecated the `napari.qt.QtNDisplayButton`. Instead a more general
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 - [Thomas A Caswell](https://github.com/napari/napari/commits?author=tacaswell) - @tacaswell
 - [ziyangczi](https://github.com/napari/napari/commits?author=ziyangczi) - @ziyangczi
-

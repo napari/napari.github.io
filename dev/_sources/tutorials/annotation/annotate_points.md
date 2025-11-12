@@ -3,7 +3,9 @@
 # Annotating videos with napari
 
 ```{Admonition} DEPRECATED ATTRIBUTES
-:class: warning
+---
+class: warning
+---
 As of napari 0.5.0, `edge_*` attributes are being renamed to
 `border_*` attributes. We have yet to update the images and/or videos in
 this tutorial. Please use `border` in place of `edge` for all `Points` attributes moving forward.
@@ -60,7 +62,7 @@ COLOR_CYCLE = [
     '#e377c2',
     '#7f7f7f',
     '#bcbd22',
-    '#17becf'
+    '#17becf',
 ]
 
 
@@ -83,7 +85,6 @@ def create_label_menu(points_layer, labels):
     label_menu = ComboBox(label='feature_label', choices=labels)
     label_widget = Container(widgets=[label_menu])
 
-
     def update_label_menu(event):
         """Update the label menu when the point selection changes"""
         new_label = str(points_layer.feature_defaults['label'][0])
@@ -105,8 +106,8 @@ def create_label_menu(points_layer, labels):
 
 
 def point_annotator(
-        im_path: str,
-        labels: List[str],
+    im_path: str,
+    labels: List[str],
 ):
     """Create a GUI for annotating points in a series of images.
 
@@ -184,8 +185,8 @@ See below for the function definition.
 
 ```python
 def point_annotator(
-        im_path: str,
-        labels: List[str],
+    im_path: str,
+    labels: List[str],
 ):
     """Create a GUI for annotating points in a series of images.
 
@@ -260,7 +261,7 @@ COLOR_CYCLE = [
     '#e377c2',
     '#7f7f7f',
     '#bcbd22',
-    '#17becf'
+    '#17becf',
 ]
 ```
 
@@ -274,7 +275,7 @@ Finally, we set the border color to a color cycle:
 
 ## Adding a GUI for selecting points
 
-First, we will define a function  to create a GUI for select the labels for
+First, we will define a function to create a GUI for select the labels for
 points. The function `create_label_menu()` will take the points layer we created
 and the list of labels we will annotate with and return the label menu GUI.
 Additionally, we will create and connect all the required callbacks to make the
@@ -322,6 +323,7 @@ def update_label_menu(event):
     if new_label != label_menu.value:
         label_menu.value = new_label
 
+
 points_layer.events.feature_defaults.connect(update_label_menu)
 ```
 
@@ -336,6 +338,7 @@ def label_changed(selected_label):
     feature_defaults['label'] = selected_label
     points_layer.feature_defaults = feature_defaults
     points_layer.refresh_colors()
+
 
 label_menu.changed.connect(label_changed)
 ```
@@ -410,7 +413,7 @@ def next_on_click(layer, event):
 After creating the function, we then add it to the `points_layer` mouse drag callbacks.
 In napari, clicking and dragging events are both handled under the `mouse_drag_callbacks`.
 For more details on how mouse event callbacks work,
-see the examples [[1](https://github.com/napari/napari/blob/main/examples/custom_mouse_functions.py), [2](https://github.com/napari/napari/blob/main/examples/mouse_drag_callback.py)].
+see the examples \[[1](https://github.com/napari/napari/blob/main/examples/custom_mouse_functions.py), [2](https://github.com/napari/napari/blob/main/examples/mouse_drag_callback.py)\].
 
 ```python
 # bind the callback to the mouse drag event
@@ -432,7 +435,7 @@ point_annotator(im_path, labels=['ear_l', 'ear_r', 'tail'])
 ### Saving the annotations
 
 Once we are happy with the annotations, we can save them to a CSV file using the building CSV writer for the points layer.
-To do so, first, select the "Points" layer in the layer list and then click "Save Selected layer(s)"  in the "File" menu or press {kbd}`control+S` ({kbd}`cmd+S` on Mac OS)  to bring up the file save dialog.
+To do so, first, select the "Points" layer in the layer list and then click "Save Selected layer(s)" in the "File" menu or press {kbd}`control+S` ({kbd}`cmd+S` on Mac OS) to bring up the file save dialog.
 From here you can enter the file path and save the annotation coordinates as a CSV.
 
 ![Viewer with green box around a points layer in layer list. Label in green says "1. Select Points layer in the layer list". Dialog in the middle of the viewer has options to add save file name and choose save location, with Cancel and Save buttons in the bottom right.](../../_static/images/points_save_dialog.png)

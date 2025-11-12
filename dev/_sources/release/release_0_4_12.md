@@ -6,7 +6,6 @@ It's designed for browsing, annotating, and analyzing large multi-dimensional
 images. It's built on top of Qt (for the GUI), vispy (for performant GPU-based
 rendering), and the scientific Python stack (numpy, scipy).
 
-
 For more information, examples, and documentation, please visit our website:
 https://github.com/napari/napari
 
@@ -23,12 +22,13 @@ be converted from a context menu on the layer list (#3402).
 See the full list of merged pull requests below for further delails!
 
 ## New Features
+
 - Add progress bar when opening list of files (#3355)
 - Add right-click context menu to convert label data type. (#3402)
 
-
 ## Improvements
-- Support for `Future` return type in magicgui widget  (#2581)
+
+- Support for `Future` return type in magicgui widget (#2581)
 - Don't register dask cache globally - but do use cache as context manager when slicing (#3285)
 - Hide or Destroy dock widgets (#3331)
 - `_vispy` module cleanup (#3333)
@@ -39,7 +39,7 @@ See the full list of merged pull requests below for further delails!
 - Add an option to change the theme to match the system one (#3370)
 - Add toggle visibility to layer actions (#3372)
 - Remove 0.4.9 deprecations (#3377)
-- Move `progress` outside of `qt` and eliminate need for `qt` imports in headless mode  (#3379)
+- Move `progress` outside of `qt` and eliminate need for `qt` imports in headless mode (#3379)
 - Normalize_dtype() when setting contrast limits. (#3380)
 - Add translucent no depth blending mode (#3398)
 - Center data within points thumbnail (#3406)
@@ -59,8 +59,8 @@ See the full list of merged pull requests below for further delails!
 - Drop pythonw patch in windows bundle (#3479)
 - Revert "drop pythonw patch (#3479)" (#3501)
 
-
 ## Bug Fixes
+
 - Fix `_old_size` attribute error in main window (#3329)
 - Fix problem with local function signal binding (#3352)
 - Fix __getattr__ in WorkerBase (#3368)
@@ -73,19 +73,17 @@ See the full list of merged pull requests below for further delails!
 - Fix naming inconsistency for windows bundle (#3476)
 - Add ability to provide empty data to vectors layer (#2995)
 
-
 ## API Changes
-
 
 ## Deprecations
 
-
 ## Documentation
-- Fix docs order in _toc.yml for 0.4.11 (#3330)
+
+- Fix docs order in `_toc.yml` for 0.4.11 (#3330)
 - Add example with data of mixed dimensionality (#3392)
 
-
 ## Build Tools and Support
+
 - Split windows pyside/pyqt into own GitHub action check (#2989)
 - Attempt to cache tox virtualenv. (#2996)
 - Update references to master to point to main (#3351)
@@ -139,7 +137,6 @@ See the full list of merged pull requests below for further delails!
 - [Tim-Oliver Buchholz](https://github.com/napari/napari/commits?author=tibuch) - @tibuch
 - [Ziyang Liu](https://github.com/napari/napari/commits?author=potating-potato) - @potating-potato
 
-
 ## 20 reviewers added to this release (alphabetical)
 
 - [Alister Burt](https://github.com/napari/napari/commits?author=alisterburt) - @alisterburt
@@ -162,4 +159,3 @@ See the full list of merged pull requests below for further delails!
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 - [Tim-Oliver Buchholz](https://github.com/napari/napari/commits?author=tibuch) - @tibuch
 - [Ziyang Liu](https://github.com/napari/napari/commits?author=potating-potato) - @potating-potato
-

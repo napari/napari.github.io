@@ -20,6 +20,7 @@ your shapes data, this release has some enhancements for you (>2x speedup)!
 ([#7346](https://github.com/napari/napari/pull/7346))
 
 To use this speedup, you'll need to:
+
 - install napari core developer Grzegorz Bokota's collection of performant
   algorithms,
   [PartSegCore-compiled-backend](https://pypi.org/project/PartSegCore-compiled-backend/).
@@ -71,7 +72,6 @@ grateful! 🙏
 
 Read on for the full list of changes since 0.5.5.
 
-
 ## New Features
 
 - Add poly line drawing ([#7099](https://github.com/napari/napari/pull/7099))
@@ -103,7 +103,7 @@ Read on for the full list of changes since 0.5.5.
 - [bugfix] use mean instead of norm for fixed aspect scaling in transform mode ([#7466](https://github.com/napari/napari/pull/7466))
 - TracksFilter head_length property bug ([#7474](https://github.com/napari/napari/pull/7474))
 - Use faster triangulation edge function form compiled backend ([#7512](https://github.com/napari/napari/pull/7512))
-- Bugfix: Check if Layer._loaded before returning status ([#7515](https://github.com/napari/napari/pull/7515))
+- Bugfix: Check if `Layer._loaded` before returning status ([#7515](https://github.com/napari/napari/pull/7515))
 - Breakout gray and gray_r from mpl_colormaps and ensure they work with `ensure_colormap` ([#7517](https://github.com/napari/napari/pull/7517))
 - Update camera depth when layer extents change ([#7529](https://github.com/napari/napari/pull/7529))
 - Fix missed cache invalidation in transform shape ([#7537](https://github.com/napari/napari/pull/7537))
@@ -115,7 +115,7 @@ Read on for the full list of changes since 0.5.5.
 - Update tutorials ([docs#514](https://github.com/napari/docs/pull/514))
 - Add version warning banner for old versions of the docs ([docs#531](https://github.com/napari/docs/pull/531))
 - Add troubleshooting page ([docs#533](https://github.com/napari/docs/pull/533))
-- add info on how to cross-reference gallery examples  ([docs#534](https://github.com/napari/docs/pull/534))
+- add info on how to cross-reference gallery examples ([docs#534](https://github.com/napari/docs/pull/534))
 - Add reference to napari architecture guide in the contributing guide ([docs#537](https://github.com/napari/docs/pull/537))
 - Fix broken link in installation tutorial ([docs#539](https://github.com/napari/docs/pull/539))
 - Add docs on advanced contrast limits widget ([docs#542](https://github.com/napari/docs/pull/542))
@@ -155,13 +155,12 @@ Read on for the full list of changes since 0.5.5.
 - Revert #7488 "Flip z axis on 3D camera to default to right-handed frame" ([#7519](https://github.com/napari/napari/pull/7519))
 - Add test suite without numba ([#7520](https://github.com/napari/napari/pull/7520))
 - [pre-commit.ci] pre-commit autoupdate ([#7522](https://github.com/napari/napari/pull/7522))
-- Revert PR #3243 ; commit 68157f3 ; (drop compatibility, just use QLabeled* sliders) ([#7525](https://github.com/napari/napari/pull/7525))
+- Revert PR #3243 ; commit 68157f3 ; (drop compatibility, just use `QLabeled*` sliders) ([#7525](https://github.com/napari/napari/pull/7525))
 - Fix formatting after ruff update in #7522 ([#7530](https://github.com/napari/napari/pull/7530))
 - Minor grammar fix in preference text ([#7539](https://github.com/napari/napari/pull/7539))
 - [pre-commit.ci] pre-commit autoupdate ([#7542](https://github.com/napari/napari/pull/7542))
 - Replace twitter with mastodon and bluesky in documentation ([docs#553](https://github.com/napari/docs/pull/553))
 - Update `dask`, `hypothesis`, `imageio`, `napari-svg`, `numpy`, `pyopengl`, `virtualenv`, `wrapt` ([#7538](https://github.com/napari/napari/pull/7538)
-
 
 ## 13 authors added to this release (alphabetical)
 
@@ -172,15 +171,14 @@ Read on for the full list of changes since 0.5.5.
 - [Daniel Althviz Moré](https://github.com/napari/docs/commits?author=dalthviz) - @dalthviz
 - [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) - @DragaDoncila
 - [Etienne Doumazane](https://github.com/napari/napari/commits?author=edoumazane) - @edoumazane +
-- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
+- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki)) - @Czaki
 - [Jordão Bragantini](https://github.com/napari/napari/commits?author=JoOkuma) - @JoOkuma
-- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni))  - @jni
+- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni)) - @jni
 - [Melissa Weber Mendonça](https://github.com/napari/docs/commits?author=melissawm) - @melissawm
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
 - [Sesan](https://github.com/napari/napari/commits?author=Olusesan) - @Olusesan +
-- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
-- [Wouter-Michiel Vierdag](https://github.com/napari/napari/commits?author=melonora) ([docs](https://github.com/napari/docs/commits?author=melonora))  - @melonora
-
+- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko)) - @TimMonko
+- [Wouter-Michiel Vierdag](https://github.com/napari/napari/commits?author=melonora) ([docs](https://github.com/napari/docs/commits?author=melonora)) - @melonora
 
 ## 13 reviewers added to this release (alphabetical)
 
@@ -190,13 +188,12 @@ Read on for the full list of changes since 0.5.5.
 - [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) - @DragaDoncila
 - [Etienne Doumazane](https://github.com/napari/napari/commits?author=edoumazane) - @edoumazane +
 - [Genevieve Buckley](https://github.com/napari/docs/commits?author=GenevieveBuckley) - @GenevieveBuckley
-- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
-- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni))  - @jni
+- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki)) - @Czaki
+- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni)) - @jni
 - [kyle i. s. harrington](https://github.com/napari/docs/commits?author=kephale) - @kephale
 - [Lorenzo Gaifas](https://github.com/napari/docs/commits?author=brisvag) - @brisvag
 - [Melissa Weber Mendonça](https://github.com/napari/docs/commits?author=melissawm) - @melissawm
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
 - [Sesan](https://github.com/napari/napari/commits?author=Olusesan) - @Olusesan +
-- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
-- [Wouter-Michiel Vierdag](https://github.com/napari/napari/commits?author=melonora) ([docs](https://github.com/napari/docs/commits?author=melonora))  - @melonora
-
+- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko)) - @TimMonko
+- [Wouter-Michiel Vierdag](https://github.com/napari/napari/commits?author=melonora) ([docs](https://github.com/napari/docs/commits?author=melonora)) - @melonora

@@ -806,7 +806,7 @@ described on this page.</p>
 </div>
 <p>In napari, we’d like to be able to capture the <em>concept</em> of some condition being
 <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>, <em>prior</em> to actually having the context required to evaluate
-it.  For example, a plugin (or napari itself) might want to stipulate that a
+it. For example, a plugin (or napari itself) might want to stipulate that a
 given function should only be enabled when “the active layer has at least 3
 dimensions”.</p>
 <p>At runtime, in Python code, this might be captured by the expression:</p>
@@ -823,12 +823,12 @@ with a concrete set of keys and values (the <code class="docutils literal notran
 <h2>Python expressions<a class="headerlink" href="#python-expressions" title="Link to this heading">#</a></h2>
 <p>In Python, <strong>expressions</strong> are simple combinations of <strong>values</strong> and
 <strong>operations</strong> that can be reduced to a single value. For example, <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">&gt;</span> <span class="pre">5</span></code> is an
-expression that always reduces to the value <code class="docutils literal notranslate"><span class="pre">False</span></code> when evaluated.  <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">5</span> <span class="pre">and</span> <span class="pre">y</span> <span class="pre">==</span> <span class="pre">'hello'</span></code> is also an expression that reduces to a boolean value; however, in
+expression that always reduces to the value <code class="docutils literal notranslate"><span class="pre">False</span></code> when evaluated. <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">5</span> <span class="pre">and</span> <span class="pre">y</span> <span class="pre">==</span> <span class="pre">'hello'</span></code> is also an expression that reduces to a boolean value; however, in
 order to evaluate that expression, we need to be able to fill in the values for
 the variable <strong>names</strong> “<code class="docutils literal notranslate"><span class="pre">x</span></code>” and “<code class="docutils literal notranslate"><span class="pre">y</span></code>”. Those values are provided by some
 <strong>context</strong> (or “namespace”), which maps the variable names to their values.</p>
 <p>The value of an <code class="docutils literal notranslate"><span class="pre">expression</span></code> depends on the context in which it is evaluated.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">expression</span> <span class="o">=</span> <span class="s2">&quot;x &gt; 5 and y == &#39;hello&#39;&quot;</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">expression</span> <span class="o">=</span> <span class="s2">&quot;x &gt; 5 and y == &#39;hello&#39;&quot;</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">context_a</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;hello&#39;</span><span class="p">}</span>
 
@@ -860,7 +860,7 @@ module, see <a class="reference external" href="https://greentreesnakes.readthed
 </div>
 <p>A string expression can be converted to a napari <code class="docutils literal notranslate"><span class="pre">Expr</span></code> object with the
 <code class="docutils literal notranslate"><span class="pre">parse_expression</span></code> function:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_expression</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_expression</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">expr</span> <span class="o">=</span> <span class="n">parse_expression</span><span class="p">(</span><span class="s2">&quot;x &gt; 5 and y == &#39;hello&#39;&quot;</span><span class="p">)</span>
 
@@ -885,21 +885,19 @@ module, see <a class="reference external" href="https://greentreesnakes.readthed
 </div>
 <p>The expression object can be evaluated by passing a context (a Mapping) to
 its <code class="docutils literal notranslate"><span class="pre">eval</span></code> method:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">expr</span><span class="o">.</span><span class="n">eval</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;hello&#39;</span><span class="p">})</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">expr</span><span class="o">.</span><span class="n">eval</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;hello&#39;</span><span class="p">})</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="kc">True</span>
 </pre></div>
 </div>
 <p>and it can also be combined with other expressions and/or constants using
 <strong>operators</strong>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">new_expr</span> <span class="o">=</span> <span class="n">expr</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">7</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># always False</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">new_expr</span> <span class="o">=</span> <span class="n">expr</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">7</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># always False</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="n">new_expr</span><span class="o">.</span><span class="n">eval</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;hello&#39;</span><span class="p">})</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="kc">False</span>
-
-<span class="n">The</span> <span class="n">following</span> <span class="n">operators</span> <span class="n">are</span> <span class="n">supported</span><span class="p">:</span>
-
 </pre></div>
 </div>
+<p>The following operators are supported:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Operator</p></th>
@@ -946,7 +944,7 @@ its <code class="docutils literal notranslate"><span class="pre">eval</span></co
 <section id="napari-context-keys">
 <h3>napari context keys<a class="headerlink" href="#napari-context-keys" title="Link to this heading">#</a></h3>
 <p>To capture napari-specific conditions, napari will declare special
-<strong>names</strong> that can be used in a napari expression.  Taking the example above, a
+<strong>names</strong> that can be used in a napari expression. Taking the example above, a
 plugin might only want to provide a function if “the active layer has at least 3
 dimensions”. For this, napari recognizes the name <code class="docutils literal notranslate"><span class="pre">&quot;active_layer_ndim&quot;</span></code> used
 in an expression. In a plugin manifest, the plugin can provide a <em>when clause</em>
@@ -982,7 +980,7 @@ to enable/disable a given command:</p>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">active_layer_ndim</span></code></p></td>
 <td><p>Number of dimensions in the active layer, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if nothing is active</p></td>
 </tr>
-<tr class="row-even"><td><p>…  many more</p></td>
+<tr class="row-even"><td><p>… many more</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -992,7 +990,7 @@ to enable/disable a given command:</p>
 <section id="contextkey-objects">
 <h3><code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> objects<a class="headerlink" href="#contextkey-objects" title="Link to this heading">#</a></h3>
 <p>To track the special <strong>name</strong> strings that can be used in expressions, napari
-has the <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> class.  Instances of <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> subclass from
+has the <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> class. Instances of <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> subclass from
 <a class="reference external" href="https://docs.python.org/3/library/ast.html#ast.Name"><code class="docutils literal notranslate"><span class="pre">ast.Name</span></code></a> and represent
 a variable name in an expression. Additionally, they have a <code class="docutils literal notranslate"><span class="pre">description</span></code> that
 can be used in documentation, a <code class="docutils literal notranslate"><span class="pre">default_value</span></code>, and a <code class="docutils literal notranslate"><span class="pre">getter</span></code> function that
@@ -1003,28 +1001,29 @@ Contexts</a> below for more).</p>
 declared as class attributes on a <code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code> class:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># all of the getters here receive an instance of viewer.layers.selection</span>
 
+
 <span class="k">class</span><span class="w"> </span><span class="nc">LayerListContextKeys</span><span class="p">(</span><span class="n">ContextNamespace</span><span class="p">):</span>
     <span class="n">layers_selection_count</span> <span class="o">=</span> <span class="n">ContextKey</span><span class="p">(</span>
         <span class="n">default_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Number of layers currently selected&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Number of layers currently selected&#39;</span><span class="p">,</span>
         <span class="n">getter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">sel</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">sel</span><span class="p">),</span>
     <span class="p">)</span>
     <span class="n">active_layer_is_rgb</span> <span class="o">=</span> <span class="n">ContextKey</span><span class="p">(</span>
         <span class="n">default_value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;True when the active layer is RGB&quot;</span><span class="p">,</span>
-        <span class="n">getter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">sel</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sel</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="s2">&quot;rgb&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;True when the active layer is RGB&#39;</span><span class="p">,</span>
+        <span class="n">getter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">sel</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sel</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="s1">&#39;rgb&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
     <span class="p">)</span>
     <span class="n">active_layer_ndim</span> <span class="o">=</span> <span class="n">ContextKey</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
-        <span class="s2">&quot;Number of dimensions in the active layer, or `None` if nothing is active&quot;</span><span class="p">,</span>
-        <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">active</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;ndim&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="s1">&#39;Number of dimensions in the active layer, or `None` if nothing is active&#39;</span><span class="p">,</span>
+        <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">active</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;ndim&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
     <span class="p">)</span>
 </pre></div>
 </div>
 <p>The members of a <code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code> are static <code class="docutils literal notranslate"><span class="pre">Expr</span></code> objects.
 Similar to a python <code class="docutils literal notranslate"><span class="pre">Enum</span></code>, you can see all of its members using the
 <code class="docutils literal notranslate"><span class="pre">__members__</span></code> attribute on the class:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">LayerListContextKeys</span><span class="o">.</span><span class="n">__members__</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">LayerListContextKeys</span><span class="o">.</span><span class="n">__members__</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">13</span><span class="p">]:</span>
 <span class="n">mappingproxy</span><span class="p">({</span>
     <span class="s1">&#39;layers_selection_count&#39;</span><span class="p">:</span> <span class="n">ContextKey</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;layers_selection_count&#39;</span><span class="p">),</span>
@@ -1034,7 +1033,7 @@ Similar to a python <code class="docutils literal notranslate"><span class="pre"
 </pre></div>
 </div>
 <p>A nice aspect of <code class="docutils literal notranslate"><span class="pre">ContextKeys</span></code> is that they can be used in expressions:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="n">expr</span> <span class="o">=</span> <span class="n">LayerListContextKeys</span><span class="o">.</span><span class="n">active_layer_ndim</span> <span class="o">&gt;=</span> <span class="mi">3</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="n">expr</span> <span class="o">=</span> <span class="n">LayerListContextKeys</span><span class="o">.</span><span class="n">active_layer_ndim</span> <span class="o">&gt;=</span> <span class="mi">3</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="n">expr</span><span class="o">.</span><span class="n">eval</span><span class="p">({</span><span class="s1">&#39;active_layer_ndim&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="kc">False</span>
@@ -1056,7 +1055,7 @@ their values. When evaluating a napari expression with <code class="docutils lit
 indeed just pass a <code class="docutils literal notranslate"><span class="pre">dict</span></code> as that mapping.</p>
 <p>Important objects in napari, such as the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> and the <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> will be
 associated with a <code class="docutils literal notranslate"><span class="pre">Context</span></code> object that tracks the value of various context
-keys.  It is the job of these various objects (i.e. the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> and the
+keys. It is the job of these various objects (i.e. the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> and the
 <code class="docutils literal notranslate"><span class="pre">LayerList</span></code>) to update the values in their <code class="docutils literal notranslate"><span class="pre">Contexts</span></code> when they change.
 Continuing with the example above, if the user clicks on a 4-dimensional layer,
 the <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> would set the context key <code class="docutils literal notranslate"><span class="pre">active_layer_ndim</span></code> to <code class="docutils literal notranslate"><span class="pre">4</span></code>. napari
@@ -1071,7 +1070,7 @@ as it allows us to have “sub-contexts” that are children of some parent cont
 Child contexts can access all of the keys of the parent (but not vice-versa).
 For example because a <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> has a <code class="docutils literal notranslate"><span class="pre">LayerList</span></code>, all of the keys in the
 <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> context are available to the <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> context.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_context</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_context</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">ctx</span> <span class="o">=</span> <span class="n">get_context</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
 
@@ -1096,14 +1095,14 @@ For example because a <code class="docutils literal notranslate"><span class="pr
 </pre></div>
 </div>
 <p>The “root” context is a special <code class="docutils literal notranslate"><span class="pre">SettingsAwareContext</span></code> that can access keys in
-the global <code class="docutils literal notranslate"><span class="pre">settings</span></code>.  Because contexts are <code class="docutils literal notranslate"><span class="pre">ChainMaps</span></code>, they can all access
+the global <code class="docutils literal notranslate"><span class="pre">settings</span></code>. Because contexts are <code class="docutils literal notranslate"><span class="pre">ChainMaps</span></code>, they can all access
 the settings:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">ctx</span><span class="p">[</span><span class="s1">&#39;settings.appearance.theme&#39;</span><span class="p">]</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">ctx</span><span class="p">[</span><span class="s1">&#39;settings.appearance.theme&#39;</span><span class="p">]</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="s1">&#39;dark&#39;</span>
 </pre></div>
 </div>
 <p>When we evaluate an expression, we can provide it one of these context objects:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">expr</span> <span class="o">=</span> <span class="n">LayerListContextKeys</span><span class="o">.</span><span class="n">layers_selection_count</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">expr</span> <span class="o">=</span> <span class="n">LayerListContextKeys</span><span class="o">.</span><span class="n">layers_selection_count</span> <span class="o">&gt;</span> <span class="mi">0</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">expr</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="kc">False</span>
@@ -1114,17 +1113,17 @@ the settings:</p>
 <h3>Updating Contexts<a class="headerlink" href="#updating-contexts" title="Link to this heading">#</a></h3>
 <p>You may be wondering exactly how objects such as <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> and <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> update
 the keys in their contexts. The aforementioned
-<a class="reference internal" href="#contextkey-objects"><code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code></a> comes into play here again.  A
+<a class="reference internal" href="#contextkey-objects"><code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code></a> comes into play here again. A
 <code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code> can be instantiated, and bound to a specific <code class="docutils literal notranslate"><span class="pre">Context</span></code>
 instance.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">ctx</span> <span class="o">=</span> <span class="n">get_context</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">ctx</span> <span class="o">=</span> <span class="n">get_context</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">llck</span> <span class="o">=</span> <span class="n">LayerListContextKeys</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Attributes of an instantiated <code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code> now act as getters (and
 setters!) of their respective <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> in the associated <code class="docutils literal notranslate"><span class="pre">Context</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">llck</span><span class="o">.</span><span class="n">layers_selection_count</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">llck</span><span class="o">.</span><span class="n">layers_selection_count</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="mi">0</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">ctx</span><span class="p">[</span><span class="s1">&#39;layers_selection_count&#39;</span><span class="p">]</span>
@@ -1137,7 +1136,7 @@ setters!) of their respective <code class="docutils literal notranslate"><span c
 that was declared in the <a class="reference internal" href="#contextkey-objects"><code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> constructor</a>)</p>
 <p>The following example works because <em>all</em> of the <code class="docutils literal notranslate"><span class="pre">getter</span></code> methods declared
 in <code class="docutils literal notranslate"><span class="pre">LayerListContextKeys</span></code> take an instance of <code class="docutils literal notranslate"><span class="pre">layers.selection</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">llck</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">llck</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">()</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">Points</span> <span class="n">layer</span> <span class="s1">&#39;Points&#39;</span> <span class="n">at</span> <span class="mh">0x13c62b1f0</span><span class="o">&gt;</span>
@@ -1158,19 +1157,19 @@ in <code class="docutils literal notranslate"><span class="pre">LayerListContext
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">LayerListContextKeys</span><span class="p">(</span><span class="n">ContextNamespace</span><span class="p">):</span>
     <span class="n">active_layer_type</span> <span class="o">=</span> <span class="n">ContextKey</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
-        <span class="s2">&quot;Lowercase name of active layer type, or None of none active.&quot;</span><span class="p">,</span>
-        <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">active</span> <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">_type_string</span>
+        <span class="s1">&#39;Lowercase name of active layer type, or None of none active.&#39;</span><span class="p">,</span>
+        <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">active</span> <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">_type_string</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">active_layer_is_rgb</span> <span class="o">=</span> <span class="n">ContextKey</span><span class="p">(</span>
         <span class="kc">False</span><span class="p">,</span>
-        <span class="s2">&quot;True when the active layer is RGB&quot;</span><span class="p">,</span>
-        <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="s2">&quot;rgb&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="s1">&#39;True when the active layer is RGB&#39;</span><span class="p">,</span>
+        <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="s1">&#39;rgb&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
     <span class="p">)</span>
 </pre></div>
 </div>
 </li>
 <li><p><em>Internally</em> (in napari code), we can use those objects directly to declare
-expressions in an IDE-friendly way.  For example, here we are declaratively
+expressions in an IDE-friendly way. For example, here we are declaratively
 populating the layer-list context menu; this is a function that will split
 the current stack into multiple layers, but it is only enabled when the
 selected image is a (non-RGB) <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer.</p>
@@ -1184,7 +1183,7 @@ selected image is a (non-RGB) <code class="docutils literal notranslate"><span c
 </div>
 </li>
 <li><p><em>Externally</em> (in plugin manifests), plugin developers use the string form to
-express conditions.  For example, this plugin manifest offers up a command
+express conditions. For example, this plugin manifest offers up a command
 (just a callable) that is only enabled when the the active layer is an RGB
 image.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_plugin</span>
@@ -1198,7 +1197,7 @@ napari <code class="docutils literal notranslate"><span class="pre">Expr</span><
 </li>
 <li><p>During runtime, napari maintains and <a class="reference internal" href="#updating-contexts">updates contexts</a></p></li>
 <li><p>As these contexts are updated, they emit events that allow menus, keybindings,
-and other things to update themselves accordingly.  For example, the layer-list
+and other things to update themselves accordingly. For example, the layer-list
 context menu might update the items in the menu that are visible and/or enabled:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">context_menu</span><span class="o">.</span><span class="n">update_from_context</span><span class="p">(</span><span class="n">get_context</span><span class="p">(</span><span class="n">layer_list</span><span class="p">))</span>
 </pre></div>

@@ -30,25 +30,24 @@ This installation method does not have any prerequisites.
 
 Click the tile below to jump to the installation instructions for your operating system.
 
-::::{grid}
+````{grid}
 
-:::{grid-item-card} macOS
+```{grid-item-card} macOS
 :link: macos-bundle
 :link-type: ref
-:::
+```
 
-:::{grid-item-card} Windows
+```{grid-item-card} Windows
 :link: windows-bundle
 :link-type: ref
-:::
+```
 
-:::{grid-item-card} Linux
+```{grid-item-card} Linux
 :link: linux-bundle
 :link-type: ref
-:::
+```
 
-::::
-
+````
 
 ```{note}
 If you are interested in an earlier version of the napari app, you may access those files by scrolling below the latest release on the [napari GitHub release page](https://github.com/napari/napari/releases). Each release (0.4.15 and above) will have an "Assets" section with the installers for Windows, macOS, and Linux.
@@ -61,12 +60,16 @@ If you are interested in an earlier version of the napari app, you may access th
 Download the napari app ({{ napari_version }}) for your platform:
 
 ```{admonition} macOS Apple Silicon (arm64)
-:class: admonition
+---
+class: admonition
+---
 {{ '# [Download from GitHub](https://github.com/napari/napari/releases/download/vNAPARI_VER/napari-NAPARI_VER-macOS-arm64.pkg)'.replace('NAPARI_VER', napari_version) }}
 ```
 
 ```{admonition} macOS Intel (x86)
-:class: admonition
+---
+class: admonition
+---
 {{ '# [Download from GitHub](https://github.com/napari/napari/releases/download/vNAPARI_VER/napari-NAPARI_VER-macOS-x86_64.pkg)'.replace('NAPARI_VER', napari_version) }}
 ```
 
@@ -118,7 +121,9 @@ Next check out our [tutorial on the viewer](viewer.md) or explore any of the pag
 Download the napari app ({{ napari_version }}) for your platform:
 
 ```{admonition} Windows (x86_64)
-:class: admonition
+---
+class: admonition
+---
 {{ '# [Download from GitHub](https://github.com/napari/napari/releases/download/vNAPARI_VER/napari-NAPARI_VER-Windows-x86_64.exe)'.replace('NAPARI_VER', napari_version) }}
 ```
 
@@ -160,7 +165,9 @@ Next check out our [tutorial on the viewer](viewer.md) or explore any of the pag
 Download the napari app ({{ napari_version }}) for your platform:
 
 ```{admonition} Linux (x86_64)
-:class: admonition
+---
+class: admonition
+---
 {{ '# [Download from GitHub](https://github.com/napari/napari/releases/download/vNAPARI_VER/napari-NAPARI_VER-Linux-x86_64.sh)'.replace('NAPARI_VER', napari_version) }}
 ```
 

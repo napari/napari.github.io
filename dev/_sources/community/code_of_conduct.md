@@ -1,4 +1,5 @@
 (napari-coc)=
+
 # Code of Conduct
 
 ## Introduction
@@ -15,25 +16,25 @@ We strive to:
 
 1. Be open. We invite anyone to participate in our community. We prefer to use public methods of communication for project-related messages, unless discussing something sensitive. This applies to messages for help or project-related support, too; not only is a public support request much more likely to result in an answer to a question, it also ensures that any inadvertent mistakes in answering are more easily detected and corrected.
 
-2. Be empathetic, welcoming, friendly, and patient. We work together to resolve conflict, and assume good intentions. We may all experience some frustration from time to time, but we do not allow frustration to turn into a personal attack. A community where people feel uncomfortable or threatened is not a productive one.
+1. Be empathetic, welcoming, friendly, and patient. We work together to resolve conflict, and assume good intentions. We may all experience some frustration from time to time, but we do not allow frustration to turn into a personal attack. A community where people feel uncomfortable or threatened is not a productive one.
 
-3. Be collaborative. Our work will be used by other people, and in turn we will depend on the work of others. When we make something for the benefit of the project, we are willing to explain to others how it works, so that they can build on the work to make it even better. Any decision we make will affect users and colleagues, and we take those consequences seriously when making decisions.
+1. Be collaborative. Our work will be used by other people, and in turn we will depend on the work of others. When we make something for the benefit of the project, we are willing to explain to others how it works, so that they can build on the work to make it even better. Any decision we make will affect users and colleagues, and we take those consequences seriously when making decisions.
 
-4. Be inquisitive. Nobody knows everything! Asking questions early avoids many problems later, so we encourage questions, although we may direct them to the appropriate forum. We will try hard to be responsive and helpful.
+1. Be inquisitive. Nobody knows everything! Asking questions early avoids many problems later, so we encourage questions, although we may direct them to the appropriate forum. We will try hard to be responsive and helpful.
 
-5. Be careful in the words that we choose. We are careful and respectful in our communication and we take responsibility for our own speech. Be kind to others. Do not insult or put down other participants. We will not accept harassment or other exclusionary behaviour, such as:
+1. Be careful in the words that we choose. We are careful and respectful in our communication and we take responsibility for our own speech. Be kind to others. Do not insult or put down other participants. We will not accept harassment or other exclusionary behaviour, such as:
 
-> * Violent threats or language directed against another person.
-> * Sexist, racist, ableist, or otherwise discriminatory jokes and language.
-> * Posting sexually explicit or violent material.
-> * Posting (or threatening to post) other people’s personally identifying information (“doxing”).
-> * Sharing private content, such as emails sent privately or non-publicly, or unlogged forums such as IRC channel history, without the sender’s consent.
-> * Personal insults, especially those using sexist, racist, or ableist terms.
-> * Intentional or repeated misgendering of participants who have explicitly requested to be addressed by specific pronouns.
-> * Unwelcome sexual attention.
-> * Excessive profanity. Please avoid swearwords; people differ greatly in their sensitivity to swearing.
-> * Repeated harassment of others. In general, if someone asks you to stop, then stop.
-> * Advocating for, or encouraging, any of the above behaviour.
+> - Violent threats or language directed against another person.
+> - Sexist, racist, ableist, or otherwise discriminatory jokes and language.
+> - Posting sexually explicit or violent material.
+> - Posting (or threatening to post) other people’s personally identifying information (“doxing”).
+> - Sharing private content, such as emails sent privately or non-publicly, or unlogged forums such as IRC channel history, without the sender’s consent.
+> - Personal insults, especially those using sexist, racist, or ableist terms.
+> - Intentional or repeated misgendering of participants who have explicitly requested to be addressed by specific pronouns.
+> - Unwelcome sexual attention.
+> - Excessive profanity. Please avoid swearwords; people differ greatly in their sensitivity to swearing.
+> - Repeated harassment of others. In general, if someone asks you to stop, then stop.
+> - Advocating for, or encouraging, any of the above behaviour.
 
 ## Diversity statement
 
@@ -53,14 +54,14 @@ For clearly intentional breaches, report those to the Code of Conduct committee 
 
 You can report issues to the napari Code of Conduct committee, at napari-conduct@googlegroups.com . Currently, the committee consists of:
 
-* [Juan Nunez-Iglesias](https://github.com/jni) (chair)
-* [Draga Doncila Pop](https://github.com/DragaDoncila)
-* [Peter Sobolewski](https://github.com/psobolewskiPhD)
-* [Tim Monko](https://github.com/TimMonko)
+- [Juan Nunez-Iglesias](https://github.com/jni) (chair)
+- [Draga Doncila Pop](https://github.com/DragaDoncila)
+- [Peter Sobolewski](https://github.com/psobolewskiPhD)
+- [Tim Monko](https://github.com/TimMonko)
 
 If your report involves any members of the committee, or if they feel they have a conflict of interest in handling it, then they will recuse themselves from considering your report. Alternatively, if for any reason you feel uncomfortable making a report to the committee, then you can also contact:
 
-* [Carol Willing](https://github.com/willingc) at willingc@gmail.com
+- [Carol Willing](https://github.com/willingc) at willingc@gmail.com
 
 ## Incident reporting resolution & Code of Conduct enforcement
 
@@ -74,11 +75,11 @@ In cases not involving clear severe and obvious breaches of this code of conduct
 
 1. acknowledge report is received
 
-2. reasonable discussion/feedback
+1. reasonable discussion/feedback
 
-3. mediation (if feedback didn’t help, and only if both reporter and reportee agree to this)
+1. mediation (if feedback didn’t help, and only if both reporter and reportee agree to this)
 
-4. enforcement via transparent decision (see [Resolutions](code_of_conduct_reporting.md#resolutions)) by the Code of Conduct Committee
+1. enforcement via transparent decision (see [Resolutions](code_of_conduct_reporting.md#resolutions)) by the Code of Conduct Committee
 
 The committee will respond to any report as soon as possible, and at most within 72 hours.
 
@@ -86,5 +87,5 @@ The committee will respond to any report as soon as possible, and at most within
 
 We are thankful to the groups behind the following documents, from which we drew content and inspiration:
 
-* [The SciPy Code of Conduct](https://docs.scipy.org/doc/scipy/dev/conduct/code_of_conduct.html)
-* [The Numpy Code of Conduct](https://numpy.org/code-of-conduct/)
+- [The SciPy Code of Conduct](https://docs.scipy.org/doc/scipy/dev/conduct/code_of_conduct.html)
+- [The Numpy Code of Conduct](https://numpy.org/code-of-conduct/)

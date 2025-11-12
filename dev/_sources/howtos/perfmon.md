@@ -10,11 +10,11 @@ The module can do several things:
 
 1. Time Qt Events
 
-2. Display a dockable **performance** widget.
+1. Display a dockable **performance** widget.
 
-3. Write JSON trace files viewable with `chrome://tracing`.
+1. Write JSON trace files viewable with `chrome://tracing`.
 
-4. Time any function that you specify in the config file.
+1. Time any function that you specify in the config file.
 
 ## Monitoring vs. profiling
 
@@ -48,8 +48,8 @@ creating a napari `Viewer`.
 Setting `NAPARI_PERFMON=1` does three things:
 
 1. Times Qt Events
-2. Shows the dockable **performance** widget.
-3. Reveals the **Debug** menu which you can use to create a trace file.
+1. Shows the dockable **performance** widget.
+1. Reveals the **Debug** menu which you can use to create a trace file.
 
 ## Configuration file format
 
@@ -123,8 +123,9 @@ To simulate a performance problem in napari, add a `sleep()` call to the
 will make the method take at least 100 ms:
 
 ```{code-block} python
-:emphasize-lines: 2-3
-
+---
+emphasize-lines: 2-3
+---
 def paint(self, coord, new_label, refresh=True):
     import time
     time.sleep(0.1)

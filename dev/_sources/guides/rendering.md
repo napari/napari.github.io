@@ -24,8 +24,8 @@ or someone who wants to contribute to and help improve the clarity or performanc
 At a high level, rendering in napari is simple.
 
 1. Viewing: {attr}`ViewerModel.dims<napari.components.ViewerModel.dims>` defines which 2D or 3D region is currently being viewed.
-2. Slicing: [`Layer._slice_dims`](https://github.com/napari/napari/blob/b3a8dd22895c913d8183735f52b9d1d71c963d7f/napari/layers/base/base.py#L1184) loads the corresponding 2D or 3D region of the layer's ND data into RAM.
-3. Drawing: [`VispyBaseLayer._on_data_change`](https://github.com/napari/napari/blob/b3a8dd22895c913d8183735f52b9d1d71c963d7f/napari/_vispy/layers/base.py#L126) pushes the 2D or 3D sliced data from RAM to VRAM to be drawn on screen.
+1. Slicing: [`Layer._slice_dims`](https://github.com/napari/napari/blob/b3a8dd22895c913d8183735f52b9d1d71c963d7f/napari/layers/base/base.py#L1184) loads the corresponding 2D or 3D region of the layer's ND data into RAM.
+1. Drawing: [`VispyBaseLayer._on_data_change`](https://github.com/napari/napari/blob/b3a8dd22895c913d8183735f52b9d1d71c963d7f/napari/_vispy/layers/base.py#L126) pushes the 2D or 3D sliced data from RAM to VRAM to be drawn on screen.
 
 But as the details of this document reveal, rendering in napari is, in fact, very complicated.
 
@@ -51,7 +51,9 @@ viewer.open_sample('napari', 'cells3d')
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
+---
+tags: [hide-input]
+---
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="3D cell nuclei and membranes rendered as 2D slices in the napari viewer")
@@ -106,7 +108,9 @@ viewer.dims.point = (0, 0, 0)
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
+---
+tags: [hide-input]
+---
 nbscreenshot(viewer, alt_text="3D cell nuclei and membranes rendered as 2D slices at the zero-position in the napari viewer")
 ```
 
@@ -149,7 +153,9 @@ which takes an arithmetic mean across the slices in the window defined by the ma
 This effectively smooths the rendered slice across that window, which is particularly helpful when each individual slice is noisy.
 
 ```{code-cell} python
-:tags: [hide-input]
+---
+tags: [hide-input]
+---
 nbscreenshot(viewer, alt_text="3D cell nuclei and membranes rendered as thick, mean-projected 2D slices in the napari viewer")
 ```
 
@@ -173,10 +179,10 @@ to right-align the dimensions to determine the mapping.
 
 For example, let's consider the case of one 2D and one 3D layer.
 
-| World   | 0 | 1 | 2 |
-| ------- | - | - | - |
-| 2DLayer |   | 0 | 1 |
-| 3DLayer | 0 | 1 | 2 |
+| World   | 0   | 1   | 2   |
+| ------- | --- | --- | --- |
+| 2DLayer |     | 0   | 1   |
+| 3DLayer | 0   | 1   | 2   |
 
 As before, the mapping from the world dimensions to the 3D layer's dimensions is the identity function.
 But the mapping from the world dimensions to the 2D layer's dimensions is a little trickier.
@@ -290,9 +296,9 @@ From v0.4.3, two experimental implementations were introduced to perform slicing
 These implementations could be enabled using the `NAPARI_ASYNC` and `NAPARI_OCTREE` settings.
 To understand how to use these in napari v0.4, see the [associated documentation](https://napari.org/0.4.19/guides/rendering.html).
 
-:::{warning}
-These implementations are unfinished and not well maintained, so may not work at all on some later v0.4.* versions.
-:::
+```{warning}
+These implementations are unfinished and not well maintained, so may not work at all on some later v0.4.\* versions.
+```
 
 #### Present
 
@@ -345,6 +351,8 @@ The implementation of this method should read the updated state from the layer, 
 In turn, vispy makes the appropriate updates to VRAM and executes any programs needed to update the display on napari's canvas.
 
 ```{code-cell} python
-:tags: [remove-cell]
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```

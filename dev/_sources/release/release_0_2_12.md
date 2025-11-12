@@ -33,7 +33,7 @@ https://github.com/napari/napari
 - Fix 4D ellipses (#950)
 - Fix Points highlight bug index (Points-data6-3 test) (#972)
 - Fix labels colormap by updating computation of low discrepancy images (#985)
-- Pin jupyter-client<6.0.0 (#997)
+- Pin jupyter-client\<6.0.0 (#997)
 
 ## Support
 
@@ -49,7 +49,7 @@ https://github.com/napari/napari
 - Fix docs version tag (#964)
 - Disallow sphinx 2.4.0; bug fixed in 2.4.1 (#965)
 - Remove duplicated imports in setup.py (#969)
-- Fix viewer view_* func signature parity (#976)
+- Fix viewer `view_*` func signature parity (#976)
 - Fix ability to test released distributions (#1002)
 - Fix recursive-include in manifest.in (#1003)
 

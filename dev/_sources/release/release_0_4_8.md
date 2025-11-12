@@ -39,8 +39,7 @@ plugin](https://github.com/napari/napari/blob/v0.4.8/docs/plugins/for_plugin_dev
 specification](https://github.com/napari/napari/blob/v0.4.8/napari/plugins/hook_specifications.py#L57).
 
 The scale bar now has rudimentary support for physical units 📏 (#2617). To use
-it, set your scale numerically as before, then use `viewer.scale_bar.unit =
-'um'`, for example.
+it, set your scale numerically as before, then use `viewer.scale_bar.unit = 'um'`, for example.
 
 We have also added a text overlay, which you can use to display arbitrary text
 over the viewer (#2595). You can use this to display time series time stamps,
@@ -57,7 +56,6 @@ bar on the viewer (#2580). You can find usage examples in the repo
 [here](https://github.com/napari/napari/blob/fa342dc399b636330afdb1b4cb58f919832651fd/examples/progress_bar_minimal.py)
 and
 [here](https://github.com/napari/napari/blob/fa342dc399b636330afdb1b4cb58f919832651fd/examples/progress_bar_segmentation.py).
-
 
 ## New Features
 
@@ -99,7 +97,7 @@ and
 - Support varying number of dimensions during labels painting (#2609)
 - Add units to the ScaleBar visual (#2617)
 - Return widgets created by `add_plugin_dock_widget` (#2635)
-- Add _QtMainWindow.current (#2638)
+- Add `_QtMainWindow.current` (#2638)
 - Relax dask test (#2641)
 - Add table header style (#2645)
 - QLargeIntSpinbox with QAbstractSpinbox and python model (#2648)
@@ -162,18 +160,19 @@ and
   the previous behaviour with
   `napari.utils.resize_dask_cache(memory_fraction=0.1)`. You can of course also
   experiment with other values!
+
 - The default `area` for `add_dock_widget` is now `right`, and no longer `bottom`.
+
 - To avoid oddly spaced sparse widgets, #2154 adds vertical stretch to the
   bottom of all dock widgets added (via plugins or manually) with an `area`
   of `left` or `right`, *unless:*
 
-    1) the widget, or any widget in its primary layout, has a vertical
-       [`QSizePolicy`](https://doc.qt.io/qt-5/qsizepolicy.html#Policy-enum)
-       of `Expanding`, `MinimumExpanding`, or `Ignored`
+  1. the widget, or any widget in its primary layout, has a vertical
+     [`QSizePolicy`](https://doc.qt.io/qt-5/qsizepolicy.html#Policy-enum)
+     of `Expanding`, `MinimumExpanding`, or `Ignored`
 
-    1) `add_vertical_stretch=False` is provided to `add_dock_widget`,
-       or in the widget options provided with plugin dock widgets.
-
+  1. `add_vertical_stretch=False` is provided to `add_dock_widget`,
+     or in the widget options provided with plugin dock widgets.
 
 ## Deprecations
 
@@ -226,7 +225,6 @@ and
 - Update PULL_REQUEST_TEMPLATE.md (#2497)
 - Non-dynamic base layer classes (#2624)
 
-
 ## 19 authors added to this release (alphabetical)
 
 - [alisterburt](https://github.com/napari/napari/commits?author=alisterburt) - @alisterburt
@@ -248,7 +246,6 @@ and
 - [Volker Hilsenstein](https://github.com/napari/napari/commits?author=VolkerH) - @VolkerH
 - [Wilson Adhikari](https://github.com/napari/napari/commits?author=wadhikar) - @wadhikar
 - [Zac Hatfield-Dodds](https://github.com/napari/napari/commits?author=Zac-HD) - @Zac-HD
-
 
 ## 20 reviewers added to this release (alphabetical)
 

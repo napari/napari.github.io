@@ -23,7 +23,9 @@ If you are using napari or interested in how napari could be used in your work, 
 </div>
 
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
+
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.9/index.global.min.js"></script>
+
 <script>
   document.getElementById('timezone').innerHTML = "All times shown in "+Intl.DateTimeFormat().resolvedOptions().timeZone+".";
   document.addEventListener('DOMContentLoaded', function () {

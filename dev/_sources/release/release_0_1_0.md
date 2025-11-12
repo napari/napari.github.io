@@ -111,7 +111,7 @@ https://github.com/napari/napari
 - fix selected default (#361)
 - Add dims test and fix 5D images (#362)
 - Shape thumbnails (#364)
-- [FIX] setting remote upstream in contributing guidelines  (#366)
+- [FIX] setting remote upstream in contributing guidelines (#366)
 - Refactor thumbnail type conversion (#370)
 - Selectable points (#371)
 - Test layers list model and view (#373)

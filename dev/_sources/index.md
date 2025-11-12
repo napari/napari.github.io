@@ -46,9 +46,9 @@ theme:
 
 # napari: a fast, interactive viewer for multi-dimensional images in Python
 
-::::{grid} 1 1 3 3
+`````{grid} 1 1 3 3
 
-:::{grid-item}
+````{grid-item}
 :columns: 12 12 4 4
 
 - **view and explore** 2D, 3D, and higher-dimensional arrays on a canvas;
@@ -58,9 +58,9 @@ theme:
   such as NumPy or Zarr arrays, allowing you to
 - **seamlessly weave** exploration, computation, and annotation together in
   imaging data analysis.
-:::
+````
 
-:::{grid-item}
+````{grid-item}
 :columns: 12 12 8 8
 
 ```{raw} html
@@ -78,59 +78,59 @@ theme:
 </figure>
 ```
 
-:::
+````
 
-::::
+`````
 
-::::{grid}
+`````{grid}
 
-:::{grid-item-card} Examples
+````{grid-item-card} Examples
 :link: gallery
 :link-type: ref
 
 See some of the things napari can do.
-:::
+````
 
-:::{grid-item-card} Installation
+````{grid-item-card} Installation
 :link: napari-installation
 :link-type: ref
 
 How to install napari.
-:::
+````
 
-:::{grid-item-card} Getting started
+````{grid-item-card} Getting started
 :link: launch
 :link-type: ref
 
 Get started with napari.
-:::
+````
 
-::::
+`````
 
-::::{grid}
+`````{grid}
 
-:::{grid-item-card} Community
+````{grid-item-card} Community
 :link: community
 :link-type: ref
 
 Forums, web chat, video chat, where to ask questions and more! Join us!
-:::
+````
 
-:::{grid-item-card} Governance
+````{grid-item-card} Governance
 :link: napari-governance
 :link-type: ref
 
 napari is developed by a global community. See how.
-:::
+````
 
-:::{grid-item-card} Plugins
+````{grid-item-card} Plugins
 :link: plugins-index
 :link-type: ref
 
 napari is extensible! Find plugins, or develop your own!
-:::
+````
 
-::::
+`````
 
 ## funding
 
@@ -142,32 +142,32 @@ napari is a fiscally sponsored project of [NumFOCUS], a US-based non-profit
 supporting open science and open source scientific software.
 
 We gratefully acknowledge funding support from the [Chan Zuckerberg
-Initiative][CZI] (CZI) and [NumFOCUS].
+Initiative][czi] (CZI) and [NumFOCUS].
 
-::::{grid} 1 1 3 3
+`````{grid} 1 1 3 3
 
-:::{grid-item-card}
+````{grid-item-card}
 :text-align: center
 :class-body: d-flex align-items-center justify-content-center
 
 [![CZI logo](_static/images/czi-logo.png)](https://chanzuckerberg.com)
-:::
+````
 
-:::{grid-item-card}
+````{grid-item-card}
 :text-align: center
 :class-body: d-flex align-items-center justify-content-center
 
 [![NumFOCUS logo](_static/images/nf-logo.png)](https://numfocus.org)
-:::
+````
 
-:::{grid-item-card} ADD YOUR LOGO HERE
+````{grid-item-card} ADD YOUR LOGO HERE
 :text-align: center
 :class-body: d-flex align-items-center justify-content-center
 :link: funding
 :link-type: ref
-:::
-  
-::::
+````
 
-[NumFOCUS]: https://numfocus.org
-[CZI]: https://chanzuckerberg.com
+`````
+
+[czi]: https://chanzuckerberg.com
+[numfocus]: https://numfocus.org

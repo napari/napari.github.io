@@ -77,7 +77,7 @@ The `npe2 convert` command will:
 
 1. Inspect your plugin for hook implementations, and generate an npe2-compatible
    [manifest file](plugin-manifest), called `napari.yaml`.
-2. **Modify** your `setup.cfg` to use the new `napari.manifest` entry point, and
+1. **Modify** your `setup.cfg` to use the new `napari.manifest` entry point, and
    include the manifest file in your package data.
 
 Use the `npe2 convert` command, passing a path to a plugin
@@ -91,7 +91,7 @@ New manifest at /Users/talley/Desktop/napari-animation/napari_animation/napari.y
 If you have any napari_plugin_engine imports or hook_implementation decorators, you may remove them now.
 ```
 
-You are encouraged to inspect the newly-generated `napari.yaml` file.  Refer to
+You are encouraged to inspect the newly-generated `napari.yaml` file. Refer to
 the [manifest](plugin-manifest) and [contributions](contributions-ref) references pages
 for details on each field in the manifest.
 
@@ -116,16 +116,15 @@ Now, update the local package metadata by repeating:
 The next time napari is run, your plugin should be discovered as an
 `npe2` plugin.
 
-----------------
+______________________________________________________________________
 
 ## Migration Reference
 
 > *This section goes into detail on the differences between first-generation and
-second-generation implementations. In many cases, this will be more detail than
-you need.  If you are still struggling with a specific conversion after using
-`npe2 convert` and reading the [contributions](contributions-ref) reference and
-[guides](plugin-contribution-guides), this section may be of help.*
-
+> second-generation implementations. In many cases, this will be more detail than
+> you need. If you are still struggling with a specific conversion after using
+> `npe2 convert` and reading the [contributions](contributions-ref) reference and
+> [guides](plugin-contribution-guides), this section may be of help.*
 
 Existing `napari-plugin-engine` plugins expose functionality via *hook
 implementations*. These are functions decorated to indicate they fulfil a
@@ -447,7 +446,7 @@ npe1 plugins as if they were npe2 plugins using a "npe1 -> npe2 adaptor"
 When this option is enabled and a plugin using the legacy plugin manager API
 is loaded for the first time, the plugin will be imported as usual and
 contributions will be discovered. A "shim" npe2 manifest representing the
-plugin's contributions will be created and cached locally.  On all future
+plugin's contributions will be created and cached locally. On all future
 launches of napari, that cached manifest will be used and the plugin will
 *not* be imported immediately when napari boots.
 
@@ -455,7 +454,7 @@ launches of napari, that cached manifest will be used and the plugin will
 
 The benefits for an end-user opting in to the npe2 adaptor are:
 
-- dramatically reduced time to load napari.  By avoiding importing all plugins
+- dramatically reduced time to load napari. By avoiding importing all plugins
   at launch, napari can boot *significantly* faster.
 - Plugins are imported lazily, only after one of their commands or menu items
   has been requested.
@@ -473,21 +472,13 @@ following things will be "ignored" for a user using the npe2 adaptor:
   loading npe2 plugins or npe1 plugins loaded with the npe2 adaptor.
 - arguments for `add_dock_widget` returned from
   `napari_experimental_provide_dock_widget` (such as `area=` or
-  `add_vertical_stretch=`) will no longer do anything:  `area` will always be
+  `add_vertical_stretch=`) will no longer do anything: `area` will always be
   `'right'` and `add_vertical_stretch` will always be `True`.
 
 There is nothing a plugin can do to prevent a user from using the npe2 adaptor,
-it is a user decision.  Furthermore, as we deprecate the legacy
+it is a user decision. Furthermore, as we deprecate the legacy
 napari-plugin-engine API, the npe2 adapter will likely become the only way that
 npe1 plugins are supported in the future, and the option to *not* use the npe2
 adaptor will be removed.
 
-
-[epg]: https://packaging.python.org/specifications/entry-points/
-[pd]: https://setuptools.pypa.io/en/latest/userguide/datafiles.html
-[npe1]: https://github.com/napari/napari-plugin-engine
-[npe2]: https://github.com/tlambert03/npe2
-[json]: https://www.json.org/
-[yaml]: https://yaml.org/
-[toml]: https://toml.io/
 [magicgui]: https://napari.org/magicgui

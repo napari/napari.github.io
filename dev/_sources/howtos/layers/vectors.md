@@ -12,6 +12,7 @@ kernelspec:
 ---
 
 (layers-vectors)=
+
 # Using the `vectors` layer
 
 In this document, you will learn about the `napari` `vectors` layer, including
@@ -65,16 +66,18 @@ vectors_layer = viewer.add_vectors(vectors, edge_width=3)
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
-
+---
+tags: [hide-input]
+---
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="Vectors overlaid on an image")
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
-
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 
@@ -84,40 +87,40 @@ Before you can use the GUI to manipulate vectors, you must load a vector layer.
 Please refer to [A simple example](#a-simple-example) to add a `vectors` layer
 first, then explore the editing options the GUI provides.
 
-* **Buttons**
-  * Pan/zoom - ![image: Pan/zoom tool](../../_static/images/pan-zoom-tool.png) is the default
+- **Buttons**
+  - Pan/zoom - ![image: Pan/zoom tool](../../_static/images/pan-zoom-tool.png) is the default
     mode of the layer and supports panning and zooming. Press the `1` key when the
     layer is selected to use this mode.
-  * Transform - ![image: Transform](../../_static/images/transform-tool.png) enables you to
+  - Transform - ![image: Transform](../../_static/images/transform-tool.png) enables you to
     rotate, scale, or translate the layer. Note: at present this feature is limited to 2D viewer display mode. To reset the transformation, you can
     Option/Alt-click the transform button (a confirmation dialog will open to
     confirm the reset). Press the `2` key when the layer is selected to use this mode.
-* **Controls**
-  * Opacity - click and hold the circle on the opacity slider bar and adjust it to
+- **Controls**
+  - Opacity - click and hold the circle on the opacity slider bar and adjust it to
     any value between 0.00 (clear) and 1.00 (completely opaque).
-  * Width - adjusting the width makes the vectors appear thicker or thinner. Use
+  - Width - adjusting the width makes the vectors appear thicker or thinner. Use
     the + and - buttons on either side of the width bar to adjust width or click
     on the number in the middle of the bar and enter a value. The minimum value is
     0.10.
-  * Length - adjusting the length makes the vector longer or shorter. Use the +
+  - Length - adjusting the length makes the vector longer or shorter. Use the +
     and - buttons on either side of the length bar to adjust length or click on
     the number in the middle of the bar and enter a value. The minimum value is
     0.10.
-  * Blending - `blending` has the options of `opaque`, `translucent`,
+  - Blending - `blending` has the options of `opaque`, `translucent`,
     `translucent no depth`, `minimum`, or `additive` in the dropdown. Refer to the
     [Blending layers](blending-layers) section of _Layers at a glance_ for an
     explanation of each type of blending.
-  * Edge color mode - select `direct`, `cycle`, or `colormap` from the dropdown.
-    * Direct (default mode) allows each vector to be set arbitrarily.
-    * Cycle allows the color to be set via a color cycle over an attribute.
-    * Colormap allows the color to be set via a color map over an attribute.
-  * Edge color - click the thumbnail next to `edge color:` to select or create a
+  - Edge color mode - select `direct`, `cycle`, or `colormap` from the dropdown.
+    - Direct (default mode) allows each vector to be set arbitrarily.
+    - Cycle allows the color to be set via a color cycle over an attribute.
+    - Colormap allows the color to be set via a color map over an attribute.
+  - Edge color - click the thumbnail next to `edge color:` to select or create a
     color from the palette.
-  * Out of slice - if this box is checked, `out of slice` is on or true. If this
+  - Out of slice - if this box is checked, `out of slice` is on or true. If this
     box is not checked, `out of slice` is off or false. If it is on or true,
     vectors slightly out of slice are rendered.
 
-### Vector starting position  
+### Vector starting position
 
 The starting position of vectors cannot be edited from the GUI. Nor is it
 possible to draw vectors from the GUI. If you want to draw lines using the GUI
@@ -153,8 +156,9 @@ both 2D and 3D:
 {meth}`~napari.Viewer.add_vectors` accepts the following layer-creation parameters.
 
 ```{code-cell} python
-:tags: [hide-output]
-
+---
+tags: [hide-output]
+---
 help(napari.Viewer.add_vectors)
 ```
 

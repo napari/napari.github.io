@@ -22,7 +22,7 @@ See below for the full list of changes!
 ## New Features
 
 - Add option for smoother labels rendering in 3D ([#7100](https://github.com/napari/napari/pull/7100))
-- Add optional fixed `length` parameter to scale bar  ([#7167](https://github.com/napari/napari/pull/7167))
+- Add optional fixed `length` parameter to scale bar ([#7167](https://github.com/napari/napari/pull/7167))
 
 ## Improvements
 
@@ -47,7 +47,7 @@ See below for the full list of changes!
 - Turn on warnings as error option for sphinx build ([docs#409](https://github.com/napari/docs/pull/409))
 - Update version switcher for v0.5.1 ([docs#468](https://github.com/napari/docs/pull/468))
 - Add documentation for run benchmark under debugger ([docs#470](https://github.com/napari/docs/pull/470))
-- Update installation notes about macOS arm processors and Qt5 backends  ([docs#471](https://github.com/napari/docs/pull/471))
+- Update installation notes about macOS arm processors and Qt5 backends ([docs#471](https://github.com/napari/docs/pull/471))
 - Fix docs CI ([docs#472](https://github.com/napari/docs/pull/472))
 - Add October and July workshops from 2023 ([docs#473](https://github.com/napari/docs/pull/473))
 - Add 0.5.2 release notes ([docs#476](https://github.com/napari/docs/pull/476))
@@ -70,7 +70,7 @@ See below for the full list of changes!
 - [pre-commit.ci] pre-commit autoupdate ([#7161](https://github.com/napari/napari/pull/7161))
 - fix: typo in shape model name ([#7166](https://github.com/napari/napari/pull/7166))
 - Update `dask`, `hypothesis`, `magicgui`, `matplotlib`, `pyyaml` ([#7169](https://github.com/napari/napari/pull/7169))
-- Update docs constraints to pin sphinx<8 ([#7170](https://github.com/napari/napari/pull/7170))
+- Update docs constraints to pin sphinx\<8 ([#7170](https://github.com/napari/napari/pull/7170))
 - Move parallel setting for coverage calculation to tox.ini ([#7173](https://github.com/napari/napari/pull/7173))
 - Clarify workflow names ([#7174](https://github.com/napari/napari/pull/7174))
 - correct typos in comments ([#7175](https://github.com/napari/napari/pull/7175))
@@ -86,13 +86,13 @@ See below for the full list of changes!
 - [Antoine J.-F. Salomon](https://github.com/napari/napari/commits?author=AJFSalomon) - @AJFSalomon +
 - [Ashley Anderson](https://github.com/napari/napari/commits?author=aganders3) - @aganders3
 - [Daniel Althviz Moré](https://github.com/napari/napari/commits?author=dalthviz) - @dalthviz
-- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
+- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki)) - @Czaki
 - [Johannes Soltwedel](https://github.com/napari/napari/commits?author=jo-mueller) - @jo-mueller
 - [Juan Nunez-Iglesias](https://github.com/napari/docs/commits?author=jni) - @jni
 - [kyle i. s. harrington](https://github.com/napari/docs/commits?author=kephale) - @kephale
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - @brisvag
-- [Lucy Liu](https://github.com/napari/napari/commits?author=lucyleeow) ([docs](https://github.com/napari/docs/commits?author=lucyleeow))  - @lucyleeow
-- [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) ([docs](https://github.com/napari/docs/commits?author=melissawm))  - @melissawm
+- [Lucy Liu](https://github.com/napari/napari/commits?author=lucyleeow) ([docs](https://github.com/napari/docs/commits?author=lucyleeow)) - @lucyleeow
+- [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) ([docs](https://github.com/napari/docs/commits?author=melissawm)) - @melissawm
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
 
 ## 13 reviewers added to this release (alphabetical)
@@ -103,13 +103,12 @@ See below for the full list of changes!
 - [Antoine J.-F. Salomon](https://github.com/napari/napari/commits?author=AJFSalomon) - @AJFSalomon +
 - [Ashley Anderson](https://github.com/napari/napari/commits?author=aganders3) - @aganders3
 - [Draga Doncila Pop](https://github.com/napari/docs/commits?author=DragaDoncila) - @DragaDoncila
-- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
+- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki)) - @Czaki
 - [Johannes Soltwedel](https://github.com/napari/napari/commits?author=jo-mueller) - @jo-mueller
 - [Jordão Bragantini](https://github.com/napari/docs/commits?author=JoOkuma) - @JoOkuma
 - [Juan Nunez-Iglesias](https://github.com/napari/docs/commits?author=jni) - @jni
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - @brisvag
-- [Lucy Liu](https://github.com/napari/napari/commits?author=lucyleeow) ([docs](https://github.com/napari/docs/commits?author=lucyleeow))  - @lucyleeow
-- [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) ([docs](https://github.com/napari/docs/commits?author=melissawm))  - @melissawm
+- [Lucy Liu](https://github.com/napari/napari/commits?author=lucyleeow) ([docs](https://github.com/napari/docs/commits?author=lucyleeow)) - @lucyleeow
+- [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) ([docs](https://github.com/napari/docs/commits?author=melissawm)) - @melissawm
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
 - [Wouter-Michiel Vierdag](https://github.com/napari/docs/commits?author=melonora) - @melonora
-

@@ -33,7 +33,7 @@ totalis](https://en.wikipedia.org/wiki/Situs_inversus)!
 By and large, many things that people care about work exactly the same in the
 mirror world — volume measurements, forces, tracking, speed, ... — so this bug
 has gone mostly unnoticed, or noticed and shrugged off and unfixed for all this
-time. But it's important for some things!  Your heart is on the left side of
+time. But it's important for some things! Your heart is on the left side of
 your body, but the right side of your mirror image's. This can be critical, for
 example, when using software to plan surgery! Thankfully, we are not aware of
 any cases of napari being used in this way. 😅
@@ -62,39 +62,39 @@ On the user space, we now offer several options to orient the axes any way you
 like:
 
 1. **Through the camera API:** the `Viewer.camera` instance gains two new
-  attributes: `orientation`, and `orientation2d`, which is just the last two
-  dimensions of `orientation`. You can set the direction that the *depth*,
-  *vertical*, and *horizontal* axes point to, respectively in that order, as
-  follows ([#7663](https://github.com/napari/napari/pull/7663)):
+   attributes: `orientation`, and `orientation2d`, which is just the last two
+   dimensions of `orientation`. You can set the direction that the *depth*,
+   *vertical*, and *horizontal* axes point to, respectively in that order, as
+   follows ([#7663](https://github.com/napari/napari/pull/7663)):
 
-  ```python
-  # 2D
-  viewer.camera.orientation2d = ('up', 'right')
-  # 3D
-  viewer.camera.orientation = ('away', 'up', 'right')
-  ```
+```python
+# 2D
+viewer.camera.orientation2d = ('up', 'right')
+# 3D
+viewer.camera.orientation = ('away', 'up', 'right')
+```
 
-  See an example of this in action in
-  {ref}`sphx_glr_gallery_xarray-latlon-timeseries.py`.
+See an example of this in action in
+{ref}`sphx_glr_gallery_xarray-latlon-timeseries.py`.
 
 2. **Through the UI:** By right clicking on the dimension toggle in the viewer,
-  and setting the axis orientations using the drop-down menus
-  ([#7686](https://github.com/napari/napari/pull/7686)), which in 3D will
-  further indicate whether the resulting coordinate frame is [right-handed or
-  left-handed](https://en.wikipedia.org/wiki/Right-hand_rule)
-  ([#7770](https://github.com/napari/napari/pull/7770)):
+   and setting the axis orientations using the drop-down menus
+   ([#7686](https://github.com/napari/napari/pull/7686)), which in 3D will
+   further indicate whether the resulting coordinate frame is [right-handed or
+   left-handed](https://en.wikipedia.org/wiki/Right-hand_rule)
+   ([#7770](https://github.com/napari/napari/pull/7770)):
 
-  ![axis orientation dialog](https://github.com/user-attachments/assets/f73898ec-9156-4f73-ab7f-ee2a7cc17fe1)
+![axis orientation dialog](https://github.com/user-attachments/assets/f73898ec-9156-4f73-ab7f-ee2a7cc17fe1)
 
 3. **Through the startup settings:** If you want to use a specific axis
-  orientation consistently, you can set the default orientation on startup by
-  changing the relevant settings
-  ([#7787](https://github.com/napari/napari/pull/7787):
+   orientation consistently, you can set the default orientation on startup by
+   changing the relevant settings
+   ([#7787](https://github.com/napari/napari/pull/7787):
 
-  ![napari settings panel with axis orientation options highlighted](https://github.com/user-attachments/assets/f5032320-8b03-4ff7-9cb7-8b182ab232af)
+![napari settings panel with axis orientation options highlighted](https://github.com/user-attachments/assets/f5032320-8b03-4ff7-9cb7-8b182ab232af)
 
-  To restore the orientation from napari 0.5.6 and earlier, change the Depth
-  axis setting to "away" (i.e. depth axis points away from you).
+To restore the orientation from napari 0.5.6 and earlier, change the Depth
+axis setting to "away" (i.e. depth axis points away from you).
 
 ### Command palette 🎨
 
@@ -114,14 +114,14 @@ palette!
 
 ### Feature improvements to Shapes layers ⛳️
 
-⚠️  *When using numba for triangulation, some shapes will still not be drawn
+⚠️ *When using numba for triangulation, some shapes will still not be drawn
 correctly, due to a bug in VisPy. We recommend installing `bermuda`, our new
 fast triangulation package, for the best performance.* ⚠️
 
 Finally, napari Shapes layers can now display polygons with holes in them,
 which starts to open it up for use with mapping data, among other things!
 ([#7566](https://github.com/napari/napari/pull/7566),
-[#6654](https://github.com/napari/napari/pull/6654)]) Implementing this feature
+[#6654](https://github.com/napari/napari/pull/6654)\]) Implementing this feature
 also eliminated a lot of bugs in our polygon drawing code, which could cause
 crashes. If you've had issues with Shapes layers before, now might be a good
 time to give them another try!
@@ -216,7 +216,7 @@ the rendered results in only two minutes!
 
 - Implement command palette widget ([#5483](https://github.com/napari/napari/pull/5483))
 - Add a custom log handler and GUI viewer with filters ([#6900](https://github.com/napari/napari/pull/6900))
-- Add Grid Mode Spacing to change distance between layers  ([#7597](https://github.com/napari/napari/pull/7597))
+- Add Grid Mode Spacing to change distance between layers ([#7597](https://github.com/napari/napari/pull/7597))
 - Enable creation of custom linear colormaps in layer controls ([#7600](https://github.com/napari/napari/pull/7600))
 - Add API to Camera model to flip axes ([#7663](https://github.com/napari/napari/pull/7663))
 - Show layer status for all visible layers ([#7673](https://github.com/napari/napari/pull/7673))
@@ -229,7 +229,7 @@ the rendered results in only two minutes!
 - Add Image Border / Bounding Box Gallery Examples for both 2D and 3D ([#7546](https://github.com/napari/napari/pull/7546))
 - Add right-click indicator to 3D, Roll, Grid, and Square push buttons ([#7556](https://github.com/napari/napari/pull/7556))
 - Change naming of 'pan/zoom' mode to 'Move camera' to clarify functionality differences in 2D and 3D ([#7569](https://github.com/napari/napari/pull/7569))
-- ENH: adjust layer coordinates in status by _translate_grid ([#7584](https://github.com/napari/napari/pull/7584))
+- ENH: adjust layer coordinates in status by `_translate_grid` ([#7584](https://github.com/napari/napari/pull/7584))
 - Add right click indicator to playback icons ([#7590](https://github.com/napari/napari/pull/7590))
 - Change ndisplay button to toggle-like to increase discoverability ([#7608](https://github.com/napari/napari/pull/7608))
 - [UI] Add Command Palette to the welcome screen ([#7613](https://github.com/napari/napari/pull/7613))
@@ -283,7 +283,7 @@ the rendered results in only two minutes!
 - Fix dump settings ([#7808](https://github.com/napari/napari/pull/7808))
 - [bugfix] ensure erasing and fill work with swap and preserve labels ([#7816](https://github.com/napari/napari/pull/7816))
 - fix `ScalarField._get_value_3d` to return information about data level for multiscale ([#7849](https://github.com/napari/napari/pull/7849))
-- Use  weak reference to slider in `AnimationThread` ([#7866](https://github.com/napari/napari/pull/7866))
+- Use weak reference to slider in `AnimationThread` ([#7866](https://github.com/napari/napari/pull/7866))
 - Patch `CONDA_EXE` environment variable to valid conda path ([#7869](https://github.com/napari/napari/pull/7869))
 - Compare slice_key array instead of value for use with 4+D data ([#7879](https://github.com/napari/napari/pull/7879))
 
@@ -293,7 +293,7 @@ the rendered results in only two minutes!
 
 ## Build Tools
 
-- Bump `asv` constraints version  ([#7255](https://github.com/napari/napari/pull/7255))
+- Bump `asv` constraints version ([#7255](https://github.com/napari/napari/pull/7255))
 - Add sphinx opengraph dependency to docs for better social media preview ([#7814](https://github.com/napari/napari/pull/7814))
 
 ## Documentation
@@ -308,7 +308,7 @@ the rendered results in only two minutes!
 - Update README.md to bump the recommended python to 3.11 ([#7610](https://github.com/napari/napari/pull/7610))
 - Update layerlist.py docstring to stop doc build warnings ([#7660](https://github.com/napari/napari/pull/7660))
 - Skip `multiple_viewers` example from docs Examples gallery ([#7676](https://github.com/napari/napari/pull/7676))
-- Unblock examples/surface_timeseries_.py ([#7788](https://github.com/napari/napari/pull/7788))
+- Unblock `examples/surface_timeseries_.py` ([#7788](https://github.com/napari/napari/pull/7788))
 - Add PyQt6 info to Qt bindings check ImportError message ([#7804](https://github.com/napari/napari/pull/7804))
 - Update readme badge from NEP 29 to scientific python ecosystem coordination SPEC 0 ([#7811](https://github.com/napari/napari/pull/7811))
 - Add sphinx opengraph dependency to docs for better social media preview ([#7814](https://github.com/napari/napari/pull/7814))
@@ -349,7 +349,7 @@ the rendered results in only two minutes!
 - Update napari-workshops.md to include LIBRE LatAm, SciPy, and I2K ([docs#641](https://github.com/napari/docs/pull/641))
 - Update event_loop.md to remove gui_qt which is removed in 0.6.0 ([docs#642](https://github.com/napari/docs/pull/642))
 - Withdraw NAP-5 new logo proposal ([docs#644](https://github.com/napari/docs/pull/644))
-- Update roadmap index to highlight global roadmap  ([docs#651](https://github.com/napari/docs/pull/651))
+- Update roadmap index to highlight global roadmap ([docs#651](https://github.com/napari/docs/pull/651))
 - Add missing magicgui imports ([docs#655](https://github.com/napari/docs/pull/655))
 - Surface plugin best practices ([docs#656](https://github.com/napari/docs/pull/656))
 - Add Tim Monko to core developers list ([docs#662](https://github.com/napari/docs/pull/662))
@@ -372,7 +372,7 @@ the rendered results in only two minutes!
 - Small improvement of code readability for Shape painting ([#7544](https://github.com/napari/napari/pull/7544))
 - Remove some py38 leftovers ([#7549](https://github.com/napari/napari/pull/7549))
 - Update `hypothesis`, `pydantic`, `scikit-image` ([#7557](https://github.com/napari/napari/pull/7557))
-- Fix rendering of Fourier example screenshot  ([#7560](https://github.com/napari/napari/pull/7560))
+- Fix rendering of Fourier example screenshot ([#7560](https://github.com/napari/napari/pull/7560))
 - [pre-commit.ci] pre-commit autoupdate ([#7561](https://github.com/napari/napari/pull/7561))
 - Update scale bar tests to actually test white/magenta ([#7563](https://github.com/napari/napari/pull/7563))
 - ci(dependabot): update cff-validator and codecov upload ([#7572](https://github.com/napari/napari/pull/7572))
@@ -422,7 +422,7 @@ the rendered results in only two minutes!
 - Remove warning about deprecated and renamed params min and max for setting range in progress bar ([#7736](https://github.com/napari/napari/pull/7736))
 - Remove deprecated get_app method ([#7737](https://github.com/napari/napari/pull/7737))
 - Remove deprecated and renamed points properties ([#7738](https://github.com/napari/napari/pull/7738))
-- Test shapes performance against multiple backends  ([#7739](https://github.com/napari/napari/pull/7739))
+- Test shapes performance against multiple backends ([#7739](https://github.com/napari/napari/pull/7739))
 - Remove warning about since_version parameter in deprecation warnings ([#7740](https://github.com/napari/napari/pull/7740))
 - Remove deprecated Interpolation attribute from Image layer ([#7741](https://github.com/napari/napari/pull/7741))
 - Add pyqt5-qt5 pin for `uv add` compatibility on Windows ([#7744](https://github.com/napari/napari/pull/7744))
@@ -449,7 +449,7 @@ the rendered results in only two minutes!
 - [pre-commit.ci] pre-commit autoupdate ([#7824](https://github.com/napari/napari/pull/7824))
 - Add PR dependency workflow ([#7828](https://github.com/napari/napari/pull/7828))
 - Update to more recent circleci base image that uses uv ([#7830](https://github.com/napari/napari/pull/7830))
-- Use OIDC authorization only for push and pull requests from the same repository  ([#7837](https://github.com/napari/napari/pull/7837))
+- Use OIDC authorization only for push and pull requests from the same repository ([#7837](https://github.com/napari/napari/pull/7837))
 - [maint] Add pyopenGL version to napari info ([#7838](https://github.com/napari/napari/pull/7838))
 - [maint] Add whether napari was installed using conda to napari info ([#7844](https://github.com/napari/napari/pull/7844))
 - [maint, enh] Add experimental settings status to napari --info ([#7857](https://github.com/napari/napari/pull/7857))
@@ -474,32 +474,30 @@ the rendered results in only two minutes!
 - Update Makefile to use -WT --keep-going for CI make targets ([docs#675](https://github.com/napari/docs/pull/675))
 - Always upload build artifacts in build_docs.yml workflow ([docs#694](https://github.com/napari/docs/pull/694))
 
-
 ## 20 authors added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
 - [Andrew Sweet](https://github.com/napari/napari/commits?author=andy-sweet) - @andy-sweet
-- [Carol Willing](https://github.com/napari/napari/commits?author=willingc) ([docs](https://github.com/napari/docs/commits?author=willingc))  - @willingc
+- [Carol Willing](https://github.com/napari/napari/commits?author=willingc) ([docs](https://github.com/napari/docs/commits?author=willingc)) - @willingc
 - [Clement Caporal](https://github.com/napari/napari/commits?author=ClementCaporal) - @ClementCaporal
-- [Constantin Aronssohn](https://github.com/napari/napari/commits?author=cnstt) ([docs](https://github.com/napari/docs/commits?author=cnstt))  - @cnstt
+- [Constantin Aronssohn](https://github.com/napari/napari/commits?author=cnstt) ([docs](https://github.com/napari/docs/commits?author=cnstt)) - @cnstt
 - [Daniel Althviz Moré](https://github.com/napari/napari/commits?author=dalthviz) - @dalthviz
-- [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) ([docs](https://github.com/napari/docs/commits?author=DragaDoncila))  - @DragaDoncila
-- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
+- [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) ([docs](https://github.com/napari/docs/commits?author=DragaDoncila)) - @DragaDoncila
+- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki)) - @Czaki
 - [Hanjin Liu](https://github.com/napari/napari/commits?author=hanjinliu) - @hanjinliu +
 - [Horst Obenhaus](https://github.com/napari/napari/commits?author=horsto) - @horsto +
 - [Johannes Soltwedel](https://github.com/napari/napari/commits?author=jo-mueller) - @jo-mueller
-- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni))  - @jni
+- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni)) - @jni
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - @brisvag
 - [Lukasz Migas](https://github.com/napari/napari/commits?author=lukasz-migas) - @lukasz-migas
 - [Matthias Bussonnier](https://github.com/napari/napari/commits?author=Carreau) - @Carreau
-- [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) ([docs](https://github.com/napari/docs/commits?author=melissawm))  - @melissawm
-- [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) ([docs](https://github.com/napari/docs/commits?author=psobolewskiPhD))  - @psobolewskiPhD
+- [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) ([docs](https://github.com/napari/docs/commits?author=melissawm)) - @melissawm
+- [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) ([docs](https://github.com/napari/docs/commits?author=psobolewskiPhD)) - @psobolewskiPhD
 - [Sofi Milano](https://github.com/napari/napari/commits?author=sfmig) - @sfmig +
-- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
+- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko)) - @TimMonko
 - [Wouter-Michiel Vierdag](https://github.com/napari/docs/commits?author=melonora) - @melonora
 - [Yaroslav Halchenko](https://github.com/napari/docs/commits?author=yarikoptic) - @yarikoptic +
-
 
 ## 19 reviewers added to this release (alphabetical)
 
@@ -507,21 +505,20 @@ the rendered results in only two minutes!
 
 - [Andy Sweet](https://github.com/napari/napari/commits?author=andy-sweet) - @andy-sweet
 - [Ashley Anderson](https://github.com/napari/docs/commits?author=aganders3) - @aganders3
-- [Carol Willing](https://github.com/napari/napari/commits?author=willingc) ([docs](https://github.com/napari/docs/commits?author=willingc))  - @willingc
-- [Constantin Aronssohn](https://github.com/napari/napari/commits?author=cnstt) ([docs](https://github.com/napari/docs/commits?author=cnstt))  - @cnstt
+- [Carol Willing](https://github.com/napari/napari/commits?author=willingc) ([docs](https://github.com/napari/docs/commits?author=willingc)) - @willingc
+- [Constantin Aronssohn](https://github.com/napari/napari/commits?author=cnstt) ([docs](https://github.com/napari/docs/commits?author=cnstt)) - @cnstt
 - [Daniel Althviz Moré](https://github.com/napari/napari/commits?author=dalthviz) - @dalthviz
-- [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) ([docs](https://github.com/napari/docs/commits?author=DragaDoncila))  - @DragaDoncila
-- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
+- [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) ([docs](https://github.com/napari/docs/commits?author=DragaDoncila)) - @DragaDoncila
+- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki)) - @Czaki
 - [Hanjin Liu](https://github.com/napari/napari/commits?author=hanjinliu) - @hanjinliu +
 - [Horst Obenhaus](https://github.com/napari/napari/commits?author=horsto) - @horsto +
 - [Jacy Lee](https://github.com/napari/docs/commits?author=JensenJacy) - @JensenJacy
-- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni))  - @jni
+- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni)) - @jni
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - @brisvag
 - [Lucy Liu](https://github.com/napari/docs/commits?author=lucyleeow) - @lucyleeow
 - [Lukasz Migas](https://github.com/napari/napari/commits?author=lukasz-migas) - @lukasz-migas
-- [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) ([docs](https://github.com/napari/docs/commits?author=melissawm))  - @melissawm
-- [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) ([docs](https://github.com/napari/docs/commits?author=psobolewskiPhD))  - @psobolewskiPhD
-- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
+- [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) ([docs](https://github.com/napari/docs/commits?author=melissawm)) - @melissawm
+- [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) ([docs](https://github.com/napari/docs/commits?author=psobolewskiPhD)) - @psobolewskiPhD
+- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko)) - @TimMonko
 - [Wouter-Michiel Vierdag](https://github.com/napari/docs/commits?author=melonora) - @melonora
 - [Yaroslav Halchenko](https://github.com/napari/docs/commits?author=yarikoptic) - @yarikoptic +
-

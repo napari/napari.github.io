@@ -14,8 +14,9 @@ In the intervening years, adoption of npe2 has improved, and currently, more tha
 
 ## What is changing in 0.6.0?
 
-In napari 0.6.0: 
-- the `Use npe2 adaptor` setting will be turned on by default. 
+In napari 0.6.0:
+
+- the `Use npe2 adaptor` setting will be turned on by default.
 - if a plugin is still declared using the npe1 engine, napari will auto-convert it to npe2 before loading it.
 - users will be notified about any auto-converted plugins when launching napari.
 - if there is a conflict with a plugin, the `Use npe2 adaptor` setting may be disabled. This will allow plugins to be loaded using the original npe1 plugin engine.
@@ -32,7 +33,7 @@ In napari 0.6.0:
 
 ## How does this affect plugins?
 
-The vast majority of plugins will be unaffected by changing the default behavior in 0.6.0, and users will see minimal, if any, changes. 
+The vast majority of plugins will be unaffected by changing the default behavior in 0.6.0, and users will see minimal, if any, changes.
 
 There are two known cases where autoconversion may be inadequate:
 

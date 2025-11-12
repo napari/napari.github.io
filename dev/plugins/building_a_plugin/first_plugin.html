@@ -680,7 +680,7 @@ for more.</p>
 </section>
 <section id="implement-the-plugin">
 <h2>3. Implement the plugin<a class="headerlink" href="#implement-the-plugin" title="Link to this heading">#</a></h2>
-<p>So far, we’ve done nothing napari-specific.  Let’s create the actual plugin and add
+<p>So far, we’ve done nothing napari-specific. Let’s create the actual plugin and add
 some Python code. We’re going to add a
 <a class="reference internal" href="../technical_references/contributions.html#contributions-widgets"><span class="std std-ref">Widget contribution</span></a>
 with a single button that shows a “Hello, world!” message when clicked.</p>
@@ -689,6 +689,7 @@ with a single button that shows a “Hello, world!” message when clicked.</p>
 <p>Copy and paste the following text into the file at <code class="docutils literal notranslate"><span class="pre">napari_hello/__init__.py</span></code>.
 It just uses the napari notifications API to show a message:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.notifications</span><span class="w"> </span><span class="kn">import</span> <span class="n">show_info</span>
+
 
 <span class="k">def</span><span class="w"> </span><span class="nf">show_hello_message</span><span class="p">():</span>
     <span class="n">show_info</span><span class="p">(</span><span class="s1">&#39;Hello, world!&#39;</span><span class="p">)</span>
@@ -739,7 +740,7 @@ of the corresponding <code class="docutils literal notranslate"><span class="pre
 <li><p>Because we are directly using the <code class="docutils literal notranslate"><span class="pre">napari.utils.notifications</span></code> API in our,
 <code class="docutils literal notranslate"><span class="pre">show_hello_message</span></code> function, we need to add <code class="docutils literal notranslate"><span class="pre">napari</span></code> to our package
 <strong><code class="docutils literal notranslate"><span class="pre">install_requires</span></code></strong>. (You should add <em>all</em> of your required package dependencies
-here.  Assume nothing about your user’s environment! Not even napari.)</p></li>
+here. Assume nothing about your user’s environment! Not even napari.)</p></li>
 <li><p>We need to instruct setuptools to <em>include</em> that <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> file
 when it bundles our package for distribution, by adding
 <strong><code class="docutils literal notranslate"><span class="pre">include-package-data</span> <span class="pre">=</span> <span class="pre">True</span></code></strong> to the <code class="docutils literal notranslate"><span class="pre">[tool.setuptools]</span></code> section and pointing
@@ -786,7 +787,7 @@ advertise components it provides to be discovered and used by other code.</p>
 </section>
 <section id="install-your-plugin-and-try-it-out">
 <h2>4. Install your plugin and try it out!<a class="headerlink" href="#install-your-plugin-and-try-it-out" title="Link to this heading">#</a></h2>
-<p>With that, we’re ready to go.  Let’s install our package in the environment
+<p>With that, we’re ready to go. Let’s install our package in the environment
 and then run napari. Note: we’re using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> here to install our
 package (in the current working directory) in <a class="reference external" href="https://pip.pypa.io/en/stable/cli/pip_install/#editable-installs">“editable” mode</a>.
 This means that changes we make to our package during development will be
@@ -831,7 +832,7 @@ copier<span class="w"> </span>copy<span class="w"> </span>--trust<span class="w"
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
-<p>Plugins can do a lot more than just say hi!  You can see the complete list
+<p>Plugins can do a lot more than just say hi! You can see the complete list
 of available contributions and their fields in the
 <a class="reference internal" href="../technical_references/contributions.html#contributions-ref"><span class="std std-ref">Contributions Reference</span></a>, and learn more about each
 specific contribution type in the <a class="reference internal" href="guides.html#plugin-contribution-guides"><span class="std std-ref">Guides</span></a>.</p>

@@ -1,4 +1,5 @@
 (napari-governance)=
+
 # Governance model
 
 ## Abstract
@@ -68,11 +69,11 @@ activities.
 Core team members are expected to review code contributions while adhering to the
 [core team member guide](core-dev-guide). New core team members can be nominated
 by any existing core team member, and for details on that process see our core
-team member guide. Core team members can choose to step down from their role and 
+team member guide. Core team members can choose to step down from their role and
 become "emeritus" core team members if they are no longer involved with the project,
 or feel they do not have sufficient time to dedicate to their role. Emeritus core
 team members can request or be invited to become active core team members at
-a later date and with consensus from currently active core team members. 
+a later date and with consensus from currently active core team members.
 
 For a full list of core team members see our [About the project and team](team) page.
 
@@ -111,7 +112,7 @@ then admission to the SC by consensus. During that time deadlocked votes of the 
 be postponed until the new member has joined and another vote can be held. The IFP seat
 is elected by the IFP Advisory Council.
 
-The SC may be contacted at `napari-steering-council@googlegroups.com`. For a list of the current 
+The SC may be contacted at `napari-steering-council@googlegroups.com`. For a list of the current
 SC see our [About the project and team](team) page.
 
 ### Institutional and funding partners
@@ -155,9 +156,9 @@ IFP benefits are:
 - Acknowledgement on the napari website, including homepage, and in talks.
 - Ability to acknowledge their contribution to napari on their own websites and in talks.
 - Ability to provide input to the project through their Institutional Partner
-Representative.
+  Representative.
 - Ability to influence the project through the election of the Institutional
-and Funding Partner seat on the SC.
+  and Funding Partner seat on the SC.
 
 For a full list of current IFPs and their Representatives see our [About Us](team) page.
 
@@ -177,7 +178,7 @@ napari uses a “consensus seeking” process for making decisions. The group
 tries to find a resolution that has no open objections among core team members.
 Core team members are expected to distinguish between fundamental objections to a
 proposal and minor perceived flaws that they can live with, and not hold up the
-decision-making process for the latter.  If no option can be found without
+decision-making process for the latter. If no option can be found without
 objections, the decision is escalated to the SC, which will itself use
 consensus seeking to come to a resolution. In the unlikely event that there is
 still a deadlock, the proposal will move forward if it has the support of a
@@ -204,7 +205,7 @@ are made according to the following rules:
   decision-making process outlined above.
 
 - **Changes to this governance model or our mission, vision, and values**
-  require a  dedicated issue on our [issue tracker](https://github.com/napari/napari/issues)
+  require a dedicated issue on our [issue tracker](https://github.com/napari/napari/issues)
   and follow the decision-making process outlined above,
   *unless* there is unanimous agreement from core team members on the change in
   which case it can move forward faster.

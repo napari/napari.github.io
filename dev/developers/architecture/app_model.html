@@ -631,22 +631,21 @@ currently intention to use plain strings for command <code class="docutils liter
 
 
 <span class="c1"># `layers` will be injected later when this action is invoked</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">split_rgb_layer</span><span class="p">(</span><span class="n">layers</span><span class="p">:</span> <span class="s1">&#39;LayerList&#39;</span><span class="p">):</span>
-    <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">split_rgb_layer</span><span class="p">(</span><span class="n">layers</span><span class="p">:</span> <span class="s1">&#39;LayerList&#39;</span><span class="p">):</span> <span class="o">...</span>
 
 
 <span class="n">action</span> <span class="o">=</span> <span class="n">Action</span><span class="p">(</span>
     <span class="nb">id</span><span class="o">=</span><span class="n">CommandId</span><span class="o">.</span><span class="n">LAYER_SPLIT_RGB</span><span class="p">,</span>
     <span class="n">title</span><span class="o">=</span><span class="n">CommandId</span><span class="o">.</span><span class="n">LAYER_SPLIT_RGB</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
     <span class="n">callback</span><span class="o">=</span><span class="n">split_rgb_layer</span><span class="p">,</span>
-    <span class="n">menus</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">menus</span><span class="o">=</span><span class="p">[</span>
         <span class="p">{</span>
             <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">MenuId</span><span class="o">.</span><span class="n">LAYERLIST_CONTEXT</span><span class="p">,</span>
             <span class="s1">&#39;group&#39;</span><span class="p">:</span> <span class="n">MenuGroup</span><span class="o">.</span><span class="n">LAYERLIST_CONTEXT</span><span class="o">.</span><span class="n">SPLIT_MERGE</span><span class="p">,</span>
             <span class="s1">&#39;when&#39;</span><span class="p">:</span> <span class="n">LLCK</span><span class="o">.</span><span class="n">active_layer_is_rgb</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">],</span>
-    <span class="n">keybindings</span><span class="o">=</span><span class="p">[{</span><span class="s1">&#39;primary&#39;</span><span class="p">:</span> <span class="n">KeyMod</span><span class="o">.</span><span class="n">CtrlCmd</span> <span class="o">|</span> <span class="n">KeyMod</span><span class="o">.</span><span class="n">Alt</span> <span class="o">|</span> <span class="n">KeyCode</span><span class="o">.</span><span class="n">KeyT</span> <span class="p">}]</span>
+    <span class="n">keybindings</span><span class="o">=</span><span class="p">[{</span><span class="s1">&#39;primary&#39;</span><span class="p">:</span> <span class="n">KeyMod</span><span class="o">.</span><span class="n">CtrlCmd</span> <span class="o">|</span> <span class="n">KeyMod</span><span class="o">.</span><span class="n">Alt</span> <span class="o">|</span> <span class="n">KeyCode</span><span class="o">.</span><span class="n">KeyT</span><span class="p">}],</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -734,7 +733,7 @@ you to use a callable (instead of an expression) to determine toggle state.</p>
 <h3>Commands should <em>not</em> be confused with the public napari API<a class="headerlink" href="#commands-should-not-be-confused-with-the-public-napari-api" title="Link to this heading">#</a></h3>
 <p>While it is conceivable that plugins might need/want to refer to one of these
 napari commands by its string id, it is <strong>not</strong> currently a goal that napari
-end-users would execute any of these commands by their ID.  There should always
+end-users would execute any of these commands by their ID. There should always
 be a “pure python” way to import a napari object and call it. For example,
 sample data is added to the <code class="docutils literal notranslate"><span class="pre">File</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Sample</span></code> menu but you can also
 use <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.open_sample" title="napari.Viewer.open_sample"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari.Viewer.open_sample()</span></code></a> to open a sample data in headless mode.</p>
@@ -916,6 +915,7 @@ registered in the <code class="docutils literal notranslate"><span class="pre">a
 Processors can be registered in the same way.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari._app_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_app_model</span>
 
+
 <span class="c1"># return annotation indicates what this provider provides</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">provide_points</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;Points&#39;</span><span class="p">]:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">napari.viewer</span>
@@ -923,10 +923,8 @@ Processors can be registered in the same way.</p>
 
     <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">current_viewer</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">viewer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">next</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">Points</span><span class="p">)),</span>
-            <span class="kc">None</span>
-        <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">next</span><span class="p">((</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">Points</span><span class="p">)),</span> <span class="kc">None</span><span class="p">)</span>
+
 
 <span class="n">get_app_model</span><span class="p">()</span><span class="o">.</span><span class="n">injection_store</span><span class="o">.</span><span class="n">register_provider</span><span class="p">(</span><span class="n">provide_points</span><span class="p">)</span>
 </pre></div>
@@ -957,7 +955,7 @@ points layer, can it be provided:</p>
 </pre></div>
 </div>
 <p>The fact that <code class="docutils literal notranslate"><span class="pre">injected_func</span></code> may now be called without parameters allows it to
-be used easily as a command in a menu, or bound to a keybinding.  It is up to
+be used easily as a command in a menu, or bound to a keybinding. It is up to
 napari to determine what providers it will make available, and what type hints
 plugins/users may use to request dependencies.</p>
 <section id="annotation-and-namespaces">
@@ -1129,7 +1127,7 @@ there are a number of motivations for adopting this abstraction.</p>
 <li><p>It gives us an abstraction layer on top of Qt that will make it much easier to explore different application backends (such as a web-based app, etc..)</p></li>
 <li><p>It’s easier to test: <code class="docutils literal notranslate"><span class="pre">app-model</span></code> can take care of making sure that commands, menus, keybindings, and actions are rendered, updated, and triggered correctly, and napari can focus on testing the napari-specific logic.</p></li>
 <li><p>It’s becomes <strong>much</strong> easier to add &amp; remove contributions from plugins if our internal representation of a command, menu, keybinding is similar to the schema that plugins use. The previous procedural approach made this marriage much more cumbersome.</p></li>
-<li><p><strong>The Dream</strong>: The unification of napari commands and plugin commands into a registry that can execute commands in response to user input provides an excellent base for “recording” a user workflow.  If all GUI user interactions go through dependency-injected commands, then it becomes much easier to export a script that reproduces a set of interactions.</p></li>
+<li><p><strong>The Dream</strong>: The unification of napari commands and plugin commands into a registry that can execute commands in response to user input provides an excellent base for “recording” a user workflow. If all GUI user interactions go through dependency-injected commands, then it becomes much easier to export a script that reproduces a set of interactions.</p></li>
 </ol>
 </section>
 <section id="app-model-vs-action-manager-implementation-differences">

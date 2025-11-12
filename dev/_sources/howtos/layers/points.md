@@ -10,11 +10,15 @@ kernelspec:
   language: python
   name: python3
 ---
+
 (layers-points)=
+
 # Using the `points` layer
 
 ```{Admonition} DEPRECATED ATTRIBUTES
-:class: warning
+---
+class: warning
+---
 As of napari 0.5.0, `edge_*` attributes are being renamed to
 `border_*` attributes. We have yet to update the images and/or videos in
 this tutorial. Please use `border` in place of `edge` for all `Points` attributes moving forward.
@@ -49,35 +53,35 @@ respective class/type. For more details on point features, see
 The GUI contains following tools in the `layer controls` panel for the `points`
 layer:
 
-* Buttons
-    * Delete selected points
-    * Add points
-    * Select points
-    * Pan/zoom
-    * Transform
-* Controls
-    * Opacity
-    * Point size
-    * Blending
-    * Symbol
-    * Face color
-    * Border color
-    * Display text
-    * Out of slice
-* Other tools
-    * New points layer button
-    * 2D/3D button
+- Buttons
+  - Delete selected points
+  - Add points
+  - Select points
+  - Pan/zoom
+  - Transform
+- Controls
+  - Opacity
+  - Point size
+  - Blending
+  - Symbol
+  - Face color
+  - Border color
+  - Display text
+  - Out of slice
+- Other tools
+  - New points layer button
+  - 2D/3D button
 
 ### Buttons
 
-* **Deleting points**
+- **Deleting points**
   ![image: Delete points tool](../../_static/images/point-deleting-tool.png)
 
   Points can be deleted after they have been selected. First select the point or
   points to delete, then click on the `delete` button in the `layer controls`
   panel or press the delete key on your keyboard.
 
-* **Adding points**
+- **Adding points**
   ![image: Add points tool](../../_static/images/point-adding-tool.png)
 
   New points can be added using the point adding tool, shown above, from the
@@ -101,7 +105,7 @@ layer:
   Note: Pressing either keybinding again will toggle the selection, so you can
   select all points in a layer and the *deselect* points from a slice.
 
-* **Selecting points**
+- **Selecting points**
   ![image: Select points tool](../../_static/images/point-selecting-tool.png)
 
   Select a point using the tool (shown above) and then clicking on that point.
@@ -116,7 +120,7 @@ layer:
   by pressing and holding the spacebar. This feature can be useful if you want
   to move around the `points` layer as you create your selection.
 
-* **Pan/zoom**
+- **Pan/zoom**
   ![image: Pan/zoom tool](../../_static/images/pan-zoom-tool.png)
 
   The default mode of the points layer supports panning and zooming, as in the
@@ -126,10 +130,10 @@ layer:
   options are supported only when viewing a layer using 2D rendering. Return to
   pan and zoom mode by pressing the `4` key when the points layer is selected.
 
-* **Transform**
+- **Transform**
   ![image: Transform](../../_static/images/transform-tool.png)
 
-  Use this tool to rotate, scale, or translate the layer. 
+  Use this tool to rotate, scale, or translate the layer.
   Note: at present this feature is limited to 2D viewer display mode. To reset the transformation,
   you can Option/Alt-click the transform button (a confirmation dialog will open to
   confirm the reset). Enable this mode by pressing the `5` key when the points layer
@@ -137,22 +141,22 @@ layer:
 
 ### Controls
 
-* Opacity
+- Opacity
 
   The opacity slider adjusts the opacity of a point or points from 0
   (transparent) to 1.00 (completely opaque).
 
-* Point size
+- Point size
 
   Point size can be adjusted from 1 to 100 using the point size slider.
 
-* Blending
+- Blending
 
   Select `translucent`, `translucent no depth`, `additive`, `minimum`, or
   `opaque` from the dropdown. Refer to the [Blending layers](blending-layers)
   section of _Layers at a glance_ for an explanation of each type of blending.
 
-* Symbol
+- Symbol
 
   Select one of the symbol types from the dropdown menu. This will be the shape
   of a new point or will change the shape of all points on the current `points`
@@ -160,7 +164,7 @@ layer:
   need to have any points selected for it to have an effect. In fact, you cannot
   change the symbol for a single point on a layer and leave the rest the same.
 
-* Face and border colors
+- Face and border colors
 
   To change the point color properties from the GUI first select the points
   whose properties you want to change, otherwise you will just be initializing
@@ -168,14 +172,14 @@ layer:
   then click the thumbnail next to `face color:` or `border color:` to select or
   create a color from the palette.
 
-* Display text
+- Display text
 
   Check this box to turn `display text` on or off. Currently, text can be added
   to the points only programmatically and not through the GUI. Refer to the
   example [](../../gallery/add_points_with_multicolor_text) for more
   information.
 
-* Out of slice
+- Out of slice
 
   If this box is checked, `out of slice` is on or true. If this box is not
   checked, `out of slice` is off or false. If it is on or true, points slightly
@@ -184,7 +188,7 @@ layer:
 
 ### Other tools
 
-* `New points layer` button
+- `New points layer` button
 
   Create a brand new empty points layer by clicking the `New points layer`
   button at the top of the `layers list` panel. The shape of the points layer is
@@ -193,7 +197,7 @@ layer:
   dimension of any layer currently in the viewer, or to 2 if no other layers are
   present in the viewer.
 
-* 2D/3D button or `Toggle ndisplay` button
+- 2D/3D button or `Toggle ndisplay` button
 
   All layers can be rendered in both 2D and 3D. The `Toggle ndisplay` button at
   the bottom of the left panel toggles between these 2 modes.
@@ -205,7 +209,7 @@ layer:
   `Delete selected points`, and `Select points` tools are all disabled. Those
   options are supported only when viewing a layer using 2D rendering.
 
-* `ctrl-c` and `ctrl-v` (copying and pasting points)
+- `ctrl-c` and `ctrl-v` (copying and pasting points)
 
   Copy and paste any selected points using `ctrl-c` and `ctrl-v`, respectively.
   If you have a multidimensional `Points` layer you can copy points from one
@@ -215,6 +219,7 @@ layer:
   slice values.
 
 ## Controlling the `points` layer programmatically
+
 ### A simple example
 
 You can create a new viewer with `napari.Viewer()` and add a set of points with the `viewer.add_points` method.
@@ -242,16 +247,18 @@ points_layer = viewer.add_points(points, size=30)
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
-
+---
+tags: [hide-input]
+---
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="3 points overlaid on an astronaut image")
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
-
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 
@@ -261,8 +268,9 @@ viewer.close()
 accepts the following layer-creation parameters.
 
 ```{code-cell} python
-:tags: [hide-output]
-
+---
+tags: [hide-output]
+---
 help(napari.Viewer.add_points)
 ```
 
@@ -417,13 +425,16 @@ points_layer = viewer.add_points(
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
+---
+tags: [hide-input]
+---
 nbscreenshot(viewer, alt_text="3 points overlaid on an astronaut image, where the border color of the points has been changed to a color cycle")
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
-
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 
@@ -461,13 +472,16 @@ points_layer = viewer.add_points(
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
+---
+tags: [hide-input]
+---
 nbscreenshot(viewer, alt_text="3 points overlaid on an astronaut image, where the face color of the points has been changed to a colormap")
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
-
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 

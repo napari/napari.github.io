@@ -55,7 +55,7 @@ know in our [GitHub issues](https://github.com/napari/napari/issues).
 Contributors can now easily extend napari to open and save in a variety of file
 formats, both local and remote, through our plugin architecture. The same file
 formats as before are available to read (TIFF, most image file formats
-supported by imageio, and zarr).  However, we can now *write* to all these
+supported by imageio, and zarr). However, we can now *write* to all these
 formats, and read and write point and shape annotations in .csv format.
 Additionally, we have made it possible for anyone to create packages for napari
 to read and write in any other formats through plugins. You can read about our
@@ -171,12 +171,13 @@ with napari.gui_qt():
 ```
 
 ## New Features
+
 - Hook up reader plugins (#937)
 - Support for magicgui (#981)
 - Writer plugins (#1104)
 
-
 ## Improvements
+
 - Generalize keybindings (#791)
 - Points view data refactor (#951)
 - Add magic name guessing (#1008)
@@ -217,12 +218,13 @@ with napari.gui_qt():
 - Change screenshot hotkey and open menubar names (#1201)
 
 ## Bug Fixes
+
 - Refactor cleanup, prevent leaked widgets, add viewer.close method (#1014)
 - Allow StringEnum to accept instances of self as argument (#1027)
 - Close the canvas used to retrieve maximum texture size. (#1028)
 - Fix points color cycle refresh (#1034)
-- Fix styles for Qt < 5.12.  Fix styles in manifest for pip install (#1037)
-- Fix label styles in contrast limit popup  (#1039)
+- Fix styles for Qt < 5.12. Fix styles in manifest for pip install (#1037)
+- Fix label styles in contrast limit popup (#1039)
 - Fix pyramid clipping (#1053)
 - Fix resources/build_icons:build_resources_qrc (#1060)
 - Add error raise in `Viewer._add_layer_from_data` (#1063)
@@ -246,14 +248,15 @@ with napari.gui_qt():
 - Only assert that dask config returns to original value in test (#1202)
 
 ## Breaking API Changes
+
 - Allow add_path() to accept any layer-specific kwarg and rename to open() (#1111)
 - Remove path arg from add_image and add_labels (#1149)
 - Drop pyramid autogeneration (#1159)
 - Replace pyramid with multiscale (#1170)
 - Add napari-svg plugin support (#1171)
 
-
 ## Support
+
 - Publish developer resources (#967)
 - Fix recursive include in manifest.in (#1003)
 - Fix pip install with older versions of pip (#1011)
@@ -265,12 +268,12 @@ with napari.gui_qt():
 - Roadmap for 0.3 releases (#1095)
 - Add installed plugins to sys_info() (#1096)
 - Avoid pillow 7.1.0 (#1099)
-- Pin pillow at <= 7.0.0 (#1108)
+- Pin pillow at \<= 7.0.0 (#1108)
 - Fix a number of sphinxdocs errors (#1113)
 - Fix miniconda download in CI (#1119)
 - Convert old release notes to md (#1135)
 - Automate release process (#1138)
-- Open up Pillow again after 7.1.* (#1146)
+- Open up Pillow again after 7.1.\* (#1146)
 - Fix black consistency (#1152)
 - Fix sphinx (#1155)
 - Change release notes source file to use .md ext (#1156)
@@ -279,7 +282,6 @@ with napari.gui_qt():
 - Update napari-svg to 0.1.1 (#1182)
 - Update manifest.in for plugin code removal (#1187)
 - Fix pip-missing-reqs step (#1189)
-
 
 ## 13 authors added to this release (alphabetical)
 
@@ -296,7 +298,6 @@ with napari.gui_qt():
 - [Peter Boone](https://github.com/napari/napari/commits?author=boonepeter) - @boonepeter
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 - [Tony Tung](https://github.com/napari/napari/commits?author=ttung) - @ttung
-
 
 ## 13 reviewers added to this release (alphabetical)
 

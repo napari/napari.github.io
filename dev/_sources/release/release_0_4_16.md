@@ -21,57 +21,72 @@ After discussion in [#4102](https://github.com/napari/napari/pull/4102), [#4111]
 
 This has led to the following API and GUI changes
 
--  `builtins` is now the default value for the `plugin` argument in `viewer.open`. This means
-    - you should **always** explicitly pass a plugin to `viewer.open`, if you don't want to use `builtins` (and we encourage you to pass the argument anyway).
+- `builtins` is now the default value for the `plugin` argument in `viewer.open`. This means
 
-        - To specify a plugin in a Python script:
+  - you should **always** explicitly pass a plugin to `viewer.open`, if you don't want to use `builtins` (and we encourage you to pass the argument anyway).
 
-            ```python
-            import napari
+    - To specify a plugin in a Python script:
 
-            viewer = napari.Viewer()
-            viewer.open('my-path.tif') # this will throw MultipleReaderError if napari_tifffile is installed as both it and builtins could open the file
-            viewer.open('my-path.tif', plugin='napari_tifffile') # this won't
-            ```
+      ```python
+      import napari
 
-    - `viewer.open` will **not** inspect your file extension preferences, and will not choose among available plugins
-    - if you wish to opt into the "gui-like" behavior where your preferences are respected and we infer a plugin if just one is compatible with your file path, you must explicitly use `plugin=None`
+      viewer = napari.Viewer()
+      viewer.open(
+          'my-path.tif'
+      )  # this will throw MultipleReaderError if napari_tifffile is installed as both it and builtins could open the file
+      viewer.open('my-path.tif', plugin='napari_tifffile')  # this won't
+      ```
 
-        - To opt into plugin inference behavior:
+  - `viewer.open` will **not** inspect your file extension preferences, and will not choose among available plugins
 
-            ```python
-            import napari
+  - if you wish to opt into the "gui-like" behavior where your preferences are respected and we infer a plugin if just one is compatible with your file path, you must explicitly use `plugin=None`
 
-            viewer = napari.Viewer()
-            viewer.open('my-path.nd2', plugin=None)
-            ```
-        - If multiple plugins could read your file, you will see a `MultipleReaderError`
-        - A preferred reader missing from current plugins will trigger a warning, but the preference will be otherwise ignored
-        - A preferred reader failing to read your file will result in an error e.g. if you saved `napari_tifffile` as a preference for TIFFs but then tried to open a broken file
+    - To opt into plugin inference behavior:
 
-        - To save a preference for a file pattern in Python, use:
+      ```python
+      import napari
 
-            ```python
-            from napari.settings import get_settings
-            get_settings().plugins.extension2reader['*.tif'] = 'napari_tifffile'
-            get_settings().plugins.extension2reader['*.zarr'] = 'napari-ome-zarr'
-            ```
+      viewer = napari.Viewer()
+      viewer.open('my-path.nd2', plugin=None)
+      ```
+
+    - If multiple plugins could read your file, you will see a `MultipleReaderError`
+
+    - A preferred reader missing from current plugins will trigger a warning, but the preference will be otherwise ignored
+
+    - A preferred reader failing to read your file will result in an error e.g. if you saved `napari_tifffile` as a preference for TIFFs but then tried to open a broken file
+
+    - To save a preference for a file pattern in Python, use:
+
+      ```python
+      from napari.settings import get_settings
+
+      get_settings().plugins.extension2reader['*.tif'] = 'napari_tifffile'
+      get_settings().plugins.extension2reader['*.zarr'] = 'napari-ome-zarr'
+      ```
 
 - When opening a file through a GUI pathway (drag & drop, File -> Open, Open Sample) with no preferences saved, you are provided with a dialog allowing you to choose among the various plugins that are compatible with your file
-    - This dialog also allows you to save a preference for files and folders with extensions
-    - This dialog also pops up if a preferred reader fails to open your file
-    - This dialog does not pop up if only one plugin can open your file
-- Running `napari path` in the shell will also provide the reader dialog. You can still pass through a plugin choice, or layer keyword arguments
-    - To specify a plugin at the command line, use:
 
-    ```sh
-    napari my-path.tif --plugin napari_tifffile
-    ```
+  - This dialog also allows you to save a preference for files and folders with extensions
+  - This dialog also pops up if a preferred reader fails to open your file
+  - This dialog does not pop up if only one plugin can open your file
+
+- Running `napari path` in the shell will also provide the reader dialog. You can still pass through a plugin choice, or layer keyword arguments
+
+  - To specify a plugin at the command line, use:
+
+  ```sh
+  napari my-path.tif --plugin napari_tifffile
+  ```
+
 - Preference saving for file reading is now supported for filename patterns accepted by `npe2` readers, rather than strictly file extensions
-    - Existing preferences for file extensions will be automatically updated e.g. `.tif` will become `*.tif`
+
+  - Existing preferences for file extensions will be automatically updated e.g. `.tif` will become `*.tif`
+
 - Reader preferences for filename patterns can be saved in the GUI via the preference dialog
-    - Reader preferences for folders are not yet supported in the GUI preference dialog - use the Python method above
-    - This will be addressed by the next release
+
+  - Reader preferences for folders are not yet supported in the GUI preference dialog - use the Python method above
+  - This will be addressed by the next release
 
 We have thought carefully about these choices, but there are still some open questions to address, and features to implement. Some of these are captured across the issues listed below, and we'd love to hear any feedback you have about the new behavior!
 
@@ -126,27 +141,27 @@ We have thought carefully about these choices, but there are still some open que
 - Bugfix: Divide by zero error making empty shapes layer (#4267)
 - Bugfix: Conversion between Label and Image with original scaling (#4272)
 - Address concurrent refresh in plugin list during multiple (un)installs (#4283)
-- Delay import of _npe2 module in napari.__main__ to prevent duplicate discovery of plugins (#4311)
+- Delay import of `_npe2` module in `napari.__main__` to prevent duplicate discovery of plugins (#4311)
 - Fix black line ellipse (#4312)
 - Fix Labels.fill when Labels.data is an xarray.DataArray (#4314)
 - Fix image and label layer values reported in GUI status bar when display is 3D (#4315)
 - Quick fix for colormap updates not updating QtColorBox. (#4321)
 - Update `black` version because of break of private API in its dependency (#4327)
 - Fix progress update signature (#4333)
-- move pixel center offset code into _ImageBase (#4352)
+- move pixel center offset code into `_ImageBase` (#4352)
 - Fix TextManager to work with vispy when using string constants (#4362)
-- Fix format string encoding for all numeric features    (#4363)
+- Fix format string encoding for all numeric features (#4363)
 - Bugfix/broadcast projections by reducing number of axes (keepdims=False) (#4376)
 - Correctly order vispy layers on insertion (#4433)
 - napari --info: list npe2 plugins (#4445)
-- Bugfix/Add affine to base_dict via _get_base_state() (#4453)
+- Bugfix/Add affine to base_dict via `_get_base_state()` (#4453)
 - Fix layer control pop-up issue (#4460)
 - fix Re-setting shapes data to initial data fails, but only in 3D (#4550)
 - Make sure we pass plugin through if opening file as stack (#4515)
 - Fix update of plugins and disable update button if not available on conda forge (for bundle) (#4512)
 - Connect napari events first to EventEmitter (#4480)
 - Fix AttributeError: 'LayerList' object has no attribute 'name' (#4276)
-- Fix _BaseEventedItemModel.flags (#4558)
+- Fix `_BaseEventedItemModel.flags` (#4558)
 - Bug fix: blending multichannel images and 3D points (#4567)
 - Fix checkable menu entries when using PySide2 backend (#4581)
 
@@ -167,7 +182,7 @@ We have thought carefully about these choices, but there are still some open que
 - Minor copy update: Usage page (#4278)
 - Minor copy update: Segmentation tutorial page (#4279)
 - Minor copy update: Annotations tutorial page (#4280)
-- Minor copy update: Tracking tutorial page  (#4282)
+- Minor copy update: Tracking tutorial page (#4282)
 - Add napari.utils.notifications to the API docs (#4286)
 - Added sphinx-gallery (#4288)
 - Add NAP process for major proposals (#4299)
@@ -210,7 +225,6 @@ We have thought carefully about these choices, but there are still some open que
 
 ## Deprecations
 
-
 ## Build Tools
 
 - singularity and docker container images from CI (#3965)
@@ -228,12 +242,12 @@ We have thought carefully about these choices, but there are still some open que
 - Fix make-typestubs: use union for type hint instead of '|' (#4476)
 - [conda] rework how plugin install/remove subprocesses receive the parent environment (#4520)
 - [conda] revert default installation path (#4525)
-- Pin vispy to <0.11 to prevent future breakages (#4594)
+- Pin vispy to \<0.11 to prevent future breakages (#4594)
 
 ## Other Pull Requests
 
 - adds citation file (#3470)
-- Add tests for _npe2.py (#4103)
+- Add tests for `_npe2.py` (#4103)
 - Decrease LFS size, gif -> webm. (#4207)
 - Run PNG crush on all Pngs. (#4208)
 - Refactor toward fixing local value capturing. (#4212)
@@ -284,7 +298,7 @@ We have thought carefully about these choices, but there are still some open que
 - [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) - @melissawm
 - [Pam](https://github.com/napari/napari/commits?author=ppwadhwa) - @ppwadhwa
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
-- [pre-commit-ci[bot]](https://github.com/napari/napari/commits?author=pre-commit-ci[bot]) - @pre-commit-ci[bot]
+- [pre-commit-ci[bot]](https://github.com/napari/napari/commits?author=pre-commit-ci%5Bbot%5D) - @pre-commit-ci[bot]
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 - [Tom di Mino](https://github.com/napari/napari/commits?author=tdimino) - @tdimino
 - [Tru Huynh](https://github.com/napari/napari/commits?author=truatpasteurdotfr) - @truatpasteurdotfr
@@ -335,4 +349,3 @@ We have thought carefully about these choices, but there are still some open que
 - [Tru Huynh](https://github.com/napari/napari/commits?author=truatpasteurdotfr) - @truatpasteurdotfr
 - [Volker Hilsenstein](https://github.com/napari/napari/commits?author=VolkerH) - @VolkerH
 - [Ziyang Liu](https://github.com/napari/napari/commits?author=potating-potato) - @potating-potato
-

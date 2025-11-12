@@ -1,10 +1,12 @@
 (plugin-test)=
+
 # Testing guidelines
 
 (plugin-testing-tips)=
+
 ## Tips for testing napari plugins
 
-Testing is a big topic!  If you are completely new to writing tests in Python,
+Testing is a big topic! If you are completely new to writing tests in Python,
 consider reading this post on [Getting Started With Testing in
 Python](https://realpython.com/python-testing/)
 
@@ -14,13 +16,13 @@ plugin. Aim for [100% test coverage](best-practices-test-coverage)!
 
 ### The `make_napari_viewer_proxy` fixture
 
-Testing a napari `Viewer` requires some setup and teardown each time.  We have
+Testing a napari `Viewer` requires some setup and teardown each time. We have
 created a [pytest fixture](https://docs.pytest.org/en/6.2.x/fixture.html) called
 `make_napari_viewer_proxy` that you can use (this requires that you have napari
 installed in your environment).
 
 To use a fixture in pytest, you simply include the name of the fixture in the
-test parameters (oddly enough, you don't need to import it!).  For example, to
+test parameters (oddly enough, you don't need to import it!). For example, to
 create a napari viewer for testing:
 
 ```py
@@ -38,7 +40,7 @@ you can use the `make_napari_viewer` fixture.
 
 The most common issue people run into when designing tests for napari plugins is
 that they try to test everything as a full "integration test", starting from the
-napari event or action that would trigger their plugin to do something.  For
+napari event or action that would trigger their plugin to do something. For
 example, let's say you have a dock widget that connects a mouse callback to the
 viewer:
 
@@ -64,7 +66,7 @@ otherwise leave `napari` out of it.
 
 Instead, focus on "unit testing" your code: just call the function directly with
 objects that emulate, or "mock" the objects that your function expects to
-receive from napari. You may also need to slightly reorganize your code.  Let's
+receive from napari. You may also need to slightly reorganize your code. Let's
 modify the above widget to make it easier to test:
 
 ```py
@@ -83,7 +85,7 @@ class MyWidget:
 To test this, we can often just instantiate the widget with our own viewer, and
 then call the methods directly. As for the `event` object, notice that all we
 care about in this plugin is that it has a `modifiers` attribute that may or may
-not contain the string `"Shift"`.  So let's just fake it!
+not contain the string `"Shift"`. So let's just fake it!
 
 ```py
 class FakeEvent:

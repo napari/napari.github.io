@@ -47,6 +47,7 @@ The output will be a table similar to this one:
     18283    0.027    0.000    0.278    0.000 fromnumeric.py:70(_wrapreduction)
 ...
 ```
+
 The format of this table is documented in the Python docs
 [here](https://docs.python.org/3/library/profile.html#instant-user-s-manual).
 Because the output for complex programs such as napari can be very long,
@@ -59,54 +60,59 @@ python -m cProfile -o result.pstat path_to_script.py
 
 Once the file is saved, you can investigate using free tools. Some options include:
 
-1.  The Stat object.
+1. The Stat object.
 
-    You can parse the profile output using the `Stats` object from the `pstats` built-in library. For example:
-    ```python
-    from pstats import Stats
-    stat = Stats("path/to/result.pstat")
-    stat.sort_stats("tottime").print_stats(10)
-    ```
-    You can find more documentation about the Stats object in the Python documentation [here](https://docs.python.org/3/library/profile.html#the-stats-class).
+   You can parse the profile output using the `Stats` object from the `pstats` built-in library. For example:
 
-2.  Snakeviz.
+   ```python
+   from pstats import Stats
 
-    Snakeviz is a third party library designed to visualize profiling output interactively.
-    You can install it with pip like any other Python library using `python -m pip install snakeviz`.
-    This will provide the `snakeviz` command, which you can call to create an in-browser
-    visualization of your profiling data. Use the command:
-    ```bash
-    snakeviz path/to/result.pstat
-    ```
-    This should cause a new page to open in your browser with your profiling information.
-    You can read more about how to interpret this visualization on the
-    [snakeviz homepage](https://jiffyclub.github.io/snakeviz/).
+   stat = Stats('path/to/result.pstat')
+   stat.sort_stats('tottime').print_stats(10)
+   ```
 
-3.  gprof2dot
+   You can find more documentation about the Stats object in the Python documentation [here](https://docs.python.org/3/library/profile.html#the-stats-class).
 
-    You can visualize the call graph with [`graphviz`](https://www.graphviz.org/),
-    a third party graph visualization library.
-    You can install graphviz with system package managers:
+1. Snakeviz.
 
-    * Ubuntu: `sudo apt install graphviz`
-    * macOS with brew: `brew install graphviz`
-    * Windows with choco `choco install graphviz`
+   Snakeviz is a third party library designed to visualize profiling output interactively.
+   You can install it with pip like any other Python library using `python -m pip install snakeviz`.
+   This will provide the `snakeviz` command, which you can call to create an in-browser
+   visualization of your profiling data. Use the command:
 
-    You can then use `gprof2dot`, a Python library, to convert the `.pstat`
-    statistics to a `.dot` graph file and use graphviz:
+   ```bash
+   snakeviz path/to/result.pstat
+   ```
 
-    ```bash
-    $ python -m gprof2dot -f pstats  -n 5  result.pstat -o result.dot
-    $ dot -Tpng -o result.png result.dot
-    ```
+   This should cause a new page to open in your browser with your profiling information.
+   You can read more about how to interpret this visualization on the
+   [snakeviz homepage](https://jiffyclub.github.io/snakeviz/).
 
-    If your shell supports piping, this can all be combined into one command:
+1. gprof2dot
 
-    ```bash
-    $ python -m gprof2dot -f pstats  -n 5  result.pstat -o | dot -Tpng -o result.png
-    ```
+   You can visualize the call graph with [`graphviz`](https://www.graphviz.org/),
+   a third party graph visualization library.
+   You can install graphviz with system package managers:
 
-4.  Some IDEs have built in profiling visualization tools. For example, PyCharm Professional, which is free for academics and open source maintainers, allows viewing `.pstat` files using Tools > Open CProfile snapshot.
+   - Ubuntu: `sudo apt install graphviz`
+   - macOS with brew: `brew install graphviz`
+   - Windows with choco `choco install graphviz`
+
+   You can then use `gprof2dot`, a Python library, to convert the `.pstat`
+   statistics to a `.dot` graph file and use graphviz:
+
+   ```bash
+   $ python -m gprof2dot -f pstats  -n 5  result.pstat -o result.dot
+   $ dot -Tpng -o result.png result.dot
+   ```
+
+   If your shell supports piping, this can all be combined into one command:
+
+   ```bash
+   $ python -m gprof2dot -f pstats  -n 5  result.pstat -o | dot -Tpng -o result.png
+   ```
+
+1. Some IDEs have built in profiling visualization tools. For example, PyCharm Professional, which is free for academics and open source maintainers, allows viewing `.pstat` files using Tools > Open CProfile snapshot.
 
 cProfile also allows profiling only specific parts of the code.
 You can restrict profiling to particular code sections using
@@ -117,7 +123,7 @@ import cProfile
 
 with cProfile.Profile() as pr:
     code_for_profile()
-pr.dump_stats("result.pstat")
+pr.dump_stats('result.pstat')
 ```
 
 The resulting profile can then be visualized using the above methods.
@@ -131,16 +137,17 @@ button to trigger profiling:
 def testing_fun():
     with cProfile.Profile() as pr:
         code_for_profile()
-    pr.dump_stats("camera_layers.pstat")
+    pr.dump_stats('camera_layers.pstat')
 
-testing_btn = QPushButton("Profile")
+
+testing_btn = QPushButton('Profile')
 testing_btn.clicked.connect(testing_fun)
 viewer.window.add_dock_widget(testing_btn)
 ```
 
 In addition to cProfile, third-party profilers are available in Python:
 
-*  `yappi` with support for multithreading
-*  `vmprof`
+- `yappi` with support for multithreading
+- `vmprof`
 
 Both can be installed with `pip`.

@@ -29,11 +29,11 @@ Membership is optional and opt-in, and you can join by attending group meetings 
 ## How to start a new working group
 
 1. Check the existing working groups list (above) to make sure the problem space is unique.
-2. Propose working group on [napari’s main Zulip](https://napari.zulipchat.com) and schedule meeting to begin readme creation (live or asynchronously).
-3. Start a working groups folder in [napari/meeting-notes](https://github.com/napari/meeting-notes) and complete readme with associated items (see below) and share with group.
-4. Set up Zulip stream named working-group-[name], add group and associated items to this site, and add meeting to napari community calendar.
-5. Collaborate with others and get working. After each meeting, store the working group’s meeting minutes in [napari/meeting-notes](https://github.com/napari/meeting-notes).
-6. Share out at the next community meeting. Boom, you’ve done it!
+1. Propose working group on [napari’s main Zulip](https://napari.zulipchat.com) and schedule meeting to begin readme creation (live or asynchronously).
+1. Start a working groups folder in [napari/meeting-notes](https://github.com/napari/meeting-notes) and complete readme with associated items (see below) and share with group.
+1. Set up Zulip stream named working-group-[name], add group and associated items to this site, and add meeting to napari community calendar.
+1. Collaborate with others and get working. After each meeting, store the working group’s meeting minutes in [napari/meeting-notes](https://github.com/napari/meeting-notes).
+1. Share out at the next community meeting. Boom, you’ve done it!
 
 ## Template for working group readme
 
@@ -52,6 +52,7 @@ _example: ensure that all napari users have a place to easily find the informati
 
 **Team priorities:**
 _example_
+
 - Content & organisation of napari.org
 - Users must have a clear path through the documentation (currently lacking)
 - Easy for people to contribute to and keep updated

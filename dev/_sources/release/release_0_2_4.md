@@ -26,8 +26,7 @@ https://github.com/napari/napari
 
 ## Deprecations
 
-- napari.Viewer.add_multichannel was removed. Use `napari.Viewer.add_image(...,
-  channel_axis=num)`   (#619)
+- napari.Viewer.add_multichannel was removed. Use `napari.Viewer.add_image(..., channel_axis=num)` (#619)
 
 ## 4 authors added to this release (alphabetical)
 

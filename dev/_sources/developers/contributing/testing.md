@@ -1,4 +1,5 @@
 (napari-testing)=
+
 # Testing
 
 ```{note}
@@ -16,13 +17,13 @@ We use unit tests, integration tests, and functional tests to ensure that
 `napari` works as intended. We have:
 
 - Unit tests which test if individual modules or functions work correctly
-in isolation.
+  in isolation.
 
 - Integration tests which test if different modules or functions work properly
-when combined.
+  when combined.
 
 - Functional tests which test if slices of `napari` functionality work as
-intended in the whole system.
+  intended in the whole system.
 
 ### Testing philosophy
 
@@ -63,17 +64,17 @@ our GUI code.
 
 Core library tests are located in the following folders:
 
-* [`napari/layers`](https://github.com/napari/napari/tree/main/napari/layers)
-* [`napari/components`](https://github.com/napari/napari/tree/main/napari/components)
-* [`napari/utils`](https://github.com/napari/napari/tree/main/napari/utils)
+- [`napari/layers`](https://github.com/napari/napari/tree/main/napari/layers)
+- [`napari/components`](https://github.com/napari/napari/tree/main/napari/components)
+- [`napari/utils`](https://github.com/napari/napari/tree/main/napari/utils)
 
 #### GUI unit tests
 
 Our GUI code have tests in the following folders:
 
-* [`napari/_tests`](https://github.com/napari/napari/tree/main/napari/_tests)
-* [`napari/_qt`](https://github.com/napari/napari/tree/main/napari/_qt)
-* [`napari/_vispy`](https://github.com/napari/napari/tree/main/napari/_vispy)
+- [`napari/_tests`](https://github.com/napari/napari/tree/main/napari/_tests)
+- [`napari/_qt`](https://github.com/napari/napari/tree/main/napari/_qt)
+- [`napari/_vispy`](https://github.com/napari/napari/tree/main/napari/_vispy)
 
 These GUI tests are ignored when we run them in the subset of our continuous integration
 workflows. Workflows that run in a "headless" environment (without a Qt backend).
@@ -88,9 +89,9 @@ The `napari/plugins` folder contains most tests related to plugins.
 Pytest fixtures are used to set up test state, such as setup and teardown, and provide frequently test data. These
 fixtures reduce repetitive code when writing and running tests. The fixtures can be found in:
 
-* [`napari/conftest.py`](https://github.com/napari/napari/blob/main/napari/conftest.py) -
+- [`napari/conftest.py`](https://github.com/napari/napari/blob/main/napari/conftest.py) -
   available globally to all of `napari`.
-* [`napari/utils/_testsupport.py`](https://github.com/napari/napari/blob/main/napari/utils/_testsupport.py) -
+- [`napari/utils/_testsupport.py`](https://github.com/napari/napari/blob/main/napari/utils/_testsupport.py) -
   available globally to all of `napari` **and** to all tests in the same virtual environment
   that `napari` is in (as this `testsupport.py` file is exported).
 
@@ -119,7 +120,6 @@ and are available to tests stored in
 To run our test suite locally, run `pytest` on the command line.
 When running tests, use a
 [napari development installation](https://napari.org/stable/developers/contributing/dev_install.html#setting-up-a-development-installation).
-
 
 ### Run GUI tests locally
 
@@ -162,21 +162,27 @@ This can be annoying if you are trying to use your computer while the tests are 
 You can avoid pop-up windows opening two different ways:
 
 1. Use the `QT_QPA_PLATFORM=offscreen` environment variable with pytest or tox.
-This tells Qt to render windows "offscreen", which is slower but will avoid the distracting pop-ups.
+   This tells Qt to render windows "offscreen", which is slower but will avoid the distracting pop-ups.
+
    ```shell
    QT_QPA_PLATFORM=offscreen pytest napari
    ```
+
    or
+
    ```shell
    QT_QPA_PLATFORM=offscreen tox -e py310-linux-pyqt5
    ```
 
-2. If you are using Linux or WSL (Windows Subsystem for Linux), you can use the `xvfb-run` command.
+1. If you are using Linux or WSL (Windows Subsystem for Linux), you can use the `xvfb-run` command.
    This will run the tests in a virtual X server.
+
    ```sh
    xvfb-run pytest napari
    ```
+
    or
+
    ```sh
    xvfb-run tox -e py310-linux-pyqt5
    ```
@@ -207,7 +213,7 @@ In general, it pays to learn a few of the [tips and tricks](https://docs.pytest.
 ### Testing coverage locally
 
 We aim for good [test coverage](https://en.wikipedia.org/wiki/Code_coverage), and we use [codecov](https://app.codecov.io/gh/napari/napari)
-during continuous integration to make sure we maintain good coverage.  If you'd like to test coverage locally as you develop new code, you can install [`pytest-cov`](https://github.com/pytest-dev/pytest-cov) and take advantage of a few handy commands:
+during continuous integration to make sure we maintain good coverage. If you'd like to test coverage locally as you develop new code, you can install [`pytest-cov`](https://github.com/pytest-dev/pytest-cov) and take advantage of a few handy commands:
 
 ```sh
 # run the full test suite with coverage
@@ -237,19 +243,19 @@ chat.
 
 It can be confusing to write unit tests for individual functions, when the
 function being tested in turn depends on the output from some other function or
-method.  This makes it tempting to write integration tests that "just test the
-whole thing together".  A useful tool in this case is the [mock object
-library](https://docs.python.org/3/library/unittest.mock.html).  "Mocking" lets
+method. This makes it tempting to write integration tests that "just test the
+whole thing together". A useful tool in this case is the [mock object
+library](https://docs.python.org/3/library/unittest.mock.html). "Mocking" lets
 you patch or replace parts of the code being tested with "fake" behavior or
 return values, so that you can test how a given function would perform *if* it
-were to receive some value from the upstream code.  For a few examples of using
+were to receive some value from the upstream code. For a few examples of using
 mocks when testing napari, search the codebase for
 [`unittest.mock`](https://github.com/search?q=repo%3Anapari%2Fnapari+%22unittest.mock%22&type=Code).
 
 ### Property-based testing with Hypothesis
 
 Property-based tests allow you to test that "for any X, ..." - with a much nicer
-developer experience than using truly random data.  We use Hypothesis for unit or
+developer experience than using truly random data. We use Hypothesis for unit or
 integration tests where there are simple properties like `x == load(save(x))` or
 when Napari implements a function we can check against the equivalent in a trusted
 library for at least some inputs.
@@ -269,15 +275,15 @@ When using fixtures with mocks, the GUI behavior can be simulated and tested.
 ### Testing with `Qt` and `napari.Viewer`
 
 There are a couple things to keep in mind when writing a test where a `Qt` event
-loop or a {class}`~napari.Viewer` is required.  The important thing is that any widgets
+loop or a {class}`~napari.Viewer` is required. The important thing is that any widgets
 you create during testing need to be cleaned up at the end of each test. We thus
 recommend that you use the following fixtures when needing a widget or
 {class}`~napari.Viewer` in a test.
 
-:::{seealso}
+```{seealso}
 Grzegorz Bokota, a napari core team member, has written an excellent blog post on
 [preventing segfaults in test suite that has Qt Tests](https://czaki.github.io/blog/2024/09/16/preventing-segfaults-in-test-suite-that-has-qt-tests/).
-:::
+```
 
 #### qapp and qtbot
 
@@ -334,6 +340,7 @@ def test_something_else(qtbot):
 ```
 
 (qt_viewer)=
+
 #### `qt_viewer` and `viewer_model`
 
 Since `napari==0.5.4` we have implemented the `qt_viewer` [pytest fixture](https://docs.pytest.org/en/stable/explanation/fixtures.html) which can be used for tests that are only using the `ViewerModel` api or are only checking rendering of the viewer.
@@ -384,8 +391,8 @@ def qt_viewer(qt_viewer_):
     return qt_viewer_
 ```
 
-
 (make_napari_viewer)=
+
 #### `make_napari_viewer`
 
 For more complex test cases where we need to fully test application behaviour
@@ -399,7 +406,6 @@ you simply include `make_napari_viewer` as a test function parameter, as shown i
 ```{eval-rst}
 .. autofunction:: napari.utils._testsupport.make_napari_viewer()
 ```
-
 
 ### Testing `QWidget` visibility
 

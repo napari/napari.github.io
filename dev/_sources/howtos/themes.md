@@ -2,10 +2,10 @@
 
 # Creating and testing themes
 
-A theme is a set of colors used throughout napari.  See, for example, the
-builtin themes in `napari/utils/theme.py`.  To make a new theme, create a new
+A theme is a set of colors used throughout napari. See, for example, the
+builtin themes in `napari/utils/theme.py`. To make a new theme, create a new
 `dict` with the same keys as one of the existing themes, and
-replace the values with your new colors.  For example
+replace the values with your new colors. For example
 
 ```python
 from napari.utils.theme import get_theme, register_theme
@@ -22,17 +22,19 @@ blue_theme.update(
 register_theme('blue', blue_theme)
 ```
 
-
 To test out the theme, use the
 `qt_theme_sample.py` file from the command line as follows:
 
 ```sh
 python -m napari._qt.widgets.qt_theme_sample
 ```
+
 *note*: you may specify a theme with one additional argument on the command line:
+
 ```sh
 python -m napari._qt.widgets.qt_theme_sample dark
 ```
+
 (providing no arguments will show all themes in `theme.py`)
 
 ## Sharing your theme via a plugin

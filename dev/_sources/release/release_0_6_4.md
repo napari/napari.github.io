@@ -59,7 +59,6 @@ Toggling the napari console (with the keyboard (`Cmd/Ctrl+Shift+C`), GUI, or com
 - Update Version Switcher to 0.6.3 ([docs#808](https://github.com/napari/docs/pull/808))
 - ci(dependabot): bump napari/napari from 0.6.2 to 0.6.3 in the github-actions group ([docs#810](https://github.com/napari/docs/pull/810))
 
-
 ## 8 authors added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
@@ -71,8 +70,7 @@ Toggling the napari console (with the keyboard (`Cmd/Ctrl+Shift+C`), GUI, or com
 - [Jaime Rodríguez-Guerra](https://github.com/napari/napari/commits?author=jaimergp) - @jaimergp
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - @brisvag
 - [Peter Sobolewski](https://github.com/napari/docs/commits?author=psobolewskiPhD) - @psobolewskiPhD
-- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
-
+- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko)) - @TimMonko
 
 ## 8 reviewers added to this release (alphabetical)
 
@@ -85,5 +83,4 @@ Toggling the napari console (with the keyboard (`Cmd/Ctrl+Shift+C`), GUI, or com
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - @brisvag
 - [Melissa Weber Mendonça](https://github.com/napari/docs/commits?author=melissawm) - @melissawm
 - [Peter Sobolewski](https://github.com/napari/docs/commits?author=psobolewskiPhD) - @psobolewskiPhD
-- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
-
+- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko)) - @TimMonko

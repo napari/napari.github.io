@@ -30,13 +30,14 @@ https://github.com/napari/napari
 Complete list of changes below:
 
 ## Highlights
+
 - Spherical Points (#3430)
 - Point selection in 3d (#3508)
 - Surface normals and wireframe (#3689)
 - Add dialog for selecting reader plugin when dragging & dropping a file (#3799)
 
-
 ## New Features
+
 - 3D click + drag interactivity API (#3205)
 - Initial npe2 writer support (#3426)
 - Add glossary (#3569)
@@ -44,8 +45,8 @@ Complete list of changes below:
 - Add `experimental_canvas_size_limits` argument to points (#3734)
 - 3D point selection with drag box (#3840)
 
-
 ## Improvements
+
 - Raise AttributeError when labels.contrast_limits are set to anything other than (0, 1) (#2573)
 - Allow magicgui to return a worker object (#2593)
 - Proposition of save as_dict in get_theme but with change default behaviour in future (#3429)
@@ -57,7 +58,7 @@ Complete list of changes below:
 - Add Context object, and LayerListContextKeys (#3513)
 - Add class method to viewers to simplify closing all of them. (#3516)
 - Ndisplay async (#3517)
-- Minor LayerList refactor to remove unneeded NumPy<=1.17 fallback code (#3522)
+- Minor LayerList refactor to remove unneeded NumPy\<=1.17 fallback code (#3522)
 - Establish LayerDataProtocol and basic Multiscale wrapper (resuscitate #2683) (#3560)
 - Add checked `QpushButton` qss (#3561)
 - Allow disconnect from EventEmiter using object (#3566)
@@ -90,7 +91,7 @@ Complete list of changes below:
 - Add setter for modifying multiple dims.range elements (#3677)
 - Cleanum QtPopup code (#3687)
 - Remove buttons and context from action manager, fix multi-viewer (#3692)
-- Add npe2 plugins to plugins installed list  (#3694)
+- Add npe2 plugins to plugins installed list (#3694)
 - Force layer name to be string (#3699)
 - Add sequence support to more Dims setters (#3709)
 - Add tooltip implementation for points (#3710)
@@ -106,8 +107,8 @@ Complete list of changes below:
 - Add test for new large labels when in contour mode (#3768)
 - Don't run qapplication when testing examples (#3773)
 - Refactor npe2 widget name to display_name (#3789)
-- Don't use `pytest.warns(None)` (avoids DeprecationWarning with pytest 7)  (#3793)
-- Integrate npe2 schema updates  (#3798)
+- Don't use `pytest.warns(None)` (avoids DeprecationWarning with pytest 7) (#3793)
+- Integrate npe2 schema updates (#3798)
 - Feature defaults property (#3801)
 - Add event debugging tool (#3802)
 - napari cli: enable --with option for npe2 widgets (#3807)
@@ -119,7 +120,7 @@ Complete list of changes below:
 - Remove excess fields from plugin manifest (#3843)
 - Remove napari from installed plugins list (#3845)
 - QtViewer viewer argument type annotation fix (#3846)
-- Changes so viewer is centered only when first layer is added.  (#3859)
+- Changes so viewer is centered only when first layer is added. (#3859)
 - npe2 icon on plugin install dialog (#3860)
 - Protect against setting corner_pixels with extent 0 for multiscale images (#3866)
 - Properly order IPython-related logic. (#3870)
@@ -127,7 +128,7 @@ Complete list of changes below:
 - Properly raise exception in test to set __traceback__ (#3873)
 - Replace timeout in test by duration assertion. (#3887)
 - Do not leak QtViewer between tests. (#3890)
-- `_track_colors`  cleanup (#3891)
+- `_track_colors` cleanup (#3891)
 - Add error message if local file doesn't exist. (#3900)
 - Better error message on failed window import (#3901)
 - Update typing test on CI (#3903)
@@ -137,14 +138,14 @@ Complete list of changes below:
 - Better Notification __str__ method (#3933)
 - Fix ndisplay button highlight (#3935)
 
-
 ## Bug Fixes
+
 - Fix removing selected points with derived text (#3505)
 - Fix for wrong bounding box definition (#3511)
 - Fix missing class annotations from stubgen (#3514)
 - Fix corner_pixels set from QtViewer.on_draw when layers have mixed numbers of dimensions (#3519)
 - Fix test import (#3588)
-- Fix bug with inspecting dock widget __init__  (#3612)
+- Fix bug with inspecting dock widget __init__ (#3612)
 - Fix screenshot test on hi dpi screen. (#3638)
 - Fix HiDPI test. (#3641)
 - Fix workflow yml syntax (#3643)
@@ -180,19 +181,18 @@ Complete list of changes below:
 - Switch append to concat (#3963)
 - Update plugin docs index (#3964)
 
-
 ## API Changes
 
-
 ## Deprecations
+
 - Deprecate public `window.qt_viewer` (remove in 0.5.0) (#3748)
 - Deprecate `qt_viewer.screenshot` & `clipboard` (#3765)
 - Restrict PublicOnlyProxy to napari namespace, allow napari-internal private usage (#3777)
 - Change PublicOnlyProxy deprecation expiry to 0.5.0 (#3788)
 - Remove deprecation of screenshot in qt_viewer (#3937)
 
-
 ## Build Tools and Docs
+
 - Auto generate event reference docs (#2750)
 - Try to run docs under xvfb-run. (#3497)
 - Patch plugin manager in `plugins.io` during test (#3515)
@@ -239,7 +239,7 @@ Complete list of changes below:
 - Update jupyter-book version (#3858)
 - Readme install update (#3862)
 - Link "development status" button in readme to explanation of "Alpha", "Beta",... (#3885)
-- Use packaging.version, DeprecationWarnings since setuptools 59+  (#3894)
+- Use packaging.version, DeprecationWarnings since setuptools 59+ (#3894)
 - [pre-commit.ci] pre-commit autoupdate (#3902)
 - npe2 doc fix: remove outdated text (#3905)
 - Fix docs calendar (#3912)
@@ -253,7 +253,6 @@ Complete list of changes below:
 - Fix path to prep_docs in make_docs workflow (#3950)
 - Add descriptive information to assertion checking if QtViewer is cleaned properly (#3960)
 - Fix preference docs (#3967)
-
 
 ## 28 authors added to this release (alphabetical)
 
@@ -285,7 +284,6 @@ Complete list of changes below:
 - [Robert Haase](https://github.com/napari/napari/commits?author=haesleinhuepf) - @haesleinhuepf
 - [Subhashree Mishra](https://github.com/napari/napari/commits?author=Mishrasubha) - @Mishrasubha
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
-
 
 ## 30 reviewers added to this release (alphabetical)
 
@@ -319,4 +317,3 @@ Complete list of changes below:
 - [Robert Haase](https://github.com/napari/napari/commits?author=haesleinhuepf) - @haesleinhuepf
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 - [Ziyang Liu](https://github.com/napari/napari/commits?author=potating-potato) - @potating-potato
-

@@ -24,19 +24,19 @@ napari/
 └── utils/
 ```
 
-* Folders beginning with `_` represent private code, that is not part of the public
+- Folders beginning with `_` represent private code, that is not part of the public
   API.
-  * Similarly, files beginning with `_` within folders are not considered part
+  - Similarly, files beginning with `_` within folders are not considered part
     of the public API.
-* Information on organization of test files can be found in [](test-organization).
+- Information on organization of test files can be found in [](test-organization).
 
 Notable folders in the root directory:
 
-* [`examples/`](https://github.com/napari/napari/tree/main/examples) folder
+- [`examples/`](https://github.com/napari/napari/tree/main/examples) folder
   contains the source [examples gallery](gallery) files.
   The code in these files are executed and outputs captured when building the gallery.
-  See [](contributing-docs) for details on napari` documentation.
-* [`.github/`](https://github.com/napari/napari/tree/main/.github) contains
+  See [](contributing-docs) for details on napari\` documentation.
+- [`.github/`](https://github.com/napari/napari/tree/main/.github) contains
   our [GitHub Actions](https://docs.github.com/en/actions)
   [continuous integration (CI)](https://en.wikipedia.org/wiki/Continuous_integration)
   workflows. The majority of our CI workflows are run using GitHub Actions.
@@ -60,28 +60,28 @@ is named `_qapp_model` inside `_qt/`).
 
 ## Folder summary
 
-* `_app_model/` - the code here relates to [app-model](app-model) and defines
+- `_app_model/` - the code here relates to [app-model](app-model) and defines
   menu item `Actions`, providers and processors and context keys. Any Qt parts
   live in `napari/_qt/_qapp_model`.
-* `_qt/` - here we define all the visual elements of napari including layer controls,
+- `_qt/` - here we define all the visual elements of napari including layer controls,
   menus, vispy canvas and dialogs. Any code that directly imports GUI also lives here.
-* `_vendor/` - code vendored from other projects. This may have been because we only
+- `_vendor/` - code vendored from other projects. This may have been because we only
   wanted to use a small part of a library and did not want to add another dependency.
   We may also have wanted to use changes in an upstream package before it has
   been released.
-* `_vispy/` - code here defines how layers and their metadata are displayed on the
+- `_vispy/` - code here defines how layers and their metadata are displayed on the
   canvas (the canvas is a vispy object onto which you can draw 'visuals').
-* `benchmarks/` - benchmarking code, mostly for checking the performance of layers.
+- `benchmarks/` - benchmarking code, mostly for checking the performance of layers.
   It is is executed in CI and is run every Sunday. See
   [`.github/workflows/benchmarks.yml`](https://github.com/napari/napari/blob/main/.github/workflows/benchmarks.yml)
   for CI workflow details. The benchmarks can also be run locally.
-* `components/` - code that defines all components of the napari viewer, including the
+- `components/` - code that defines all components of the napari viewer, including the
   layerlist, dimensions and camera.
-* `errors/` - custom napari errors (that inherit from built-in errors) are defined
+- `errors/` - custom napari errors (that inherit from built-in errors) are defined
   here. Currently we only have reader related custom errors.
-* `layers/` - defines the classes, utilities, keybinding and mouse binding for
+- `layers/` - defines the classes, utilities, keybinding and mouse binding for
   each [layer type](using-layers).
-* `plugins/` - the code here deals with registering, activating and deactivating
+- `plugins/` - the code here deals with registering, activating and deactivating
   plugins. It also handles ingesting plugin contributions to achieve the desired
   effect in viewer (e.g., widget contributions should add a widget to the napari
   viewer).
@@ -89,8 +89,8 @@ is named `_qapp_model` inside `_qt/`).
   manifest and defines plugin manager (a class that manages the currently installed
   plugins and their contribitions) lives in its own repo:
   [`npe2`](https://github.com/napari/npe2).
-* `qt/` - public utilities that directly rely on Qt, such as the progress bar
+- `qt/` - public utilities that directly rely on Qt, such as the progress bar
   and the [thread worker](multithreading-in-napari).
-* `resources/` - stores icons for buttons in the viewer.
-* `settings/` - code that defines and manages napari user settings.
-* `utils/` - commonly used classes and functions imported in variety of places.
+- `resources/` - stores icons for buttons in the viewer.
+- `settings/` - code that defines and manages napari user settings.
+- `utils/` - commonly used classes and functions imported in variety of places.

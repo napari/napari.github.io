@@ -550,7 +550,7 @@
 <span id="plugin-test"></span><h1>Testing guidelines<a class="headerlink" href="#testing-guidelines" title="Link to this heading">#</a></h1>
 <section id="tips-for-testing-napari-plugins">
 <span id="plugin-testing-tips"></span><h2>Tips for testing napari plugins<a class="headerlink" href="#tips-for-testing-napari-plugins" title="Link to this heading">#</a></h2>
-<p>Testing is a big topic!  If you are completely new to writing tests in Python,
+<p>Testing is a big topic! If you are completely new to writing tests in Python,
 consider reading this post on <a class="reference external" href="https://realpython.com/python-testing/">Getting Started With Testing in
 Python</a></p>
 <p>We recommend using
@@ -558,12 +558,12 @@ Python</a></p>
 plugin. Aim for <a class="reference internal" href="../building_a_plugin/best_practices.html#best-practices-test-coverage"><span class="std std-ref">100% test coverage</span></a>!</p>
 <section id="the-make-napari-viewer-proxy-fixture">
 <h3>The <code class="docutils literal notranslate"><span class="pre">make_napari_viewer_proxy</span></code> fixture<a class="headerlink" href="#the-make-napari-viewer-proxy-fixture" title="Link to this heading">#</a></h3>
-<p>Testing a napari <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> requires some setup and teardown each time.  We have
+<p>Testing a napari <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> requires some setup and teardown each time. We have
 created a <a class="reference external" href="https://docs.pytest.org/en/6.2.x/fixture.html">pytest fixture</a> called
 <code class="docutils literal notranslate"><span class="pre">make_napari_viewer_proxy</span></code> that you can use (this requires that you have napari
 installed in your environment).</p>
 <p>To use a fixture in pytest, you simply include the name of the fixture in the
-test parameters (oddly enough, you don’t need to import it!).  For example, to
+test parameters (oddly enough, you don’t need to import it!). For example, to
 create a napari viewer for testing:</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_something_with_a_viewer</span><span class="p">(</span><span class="n">make_napari_viewer_proxy</span><span class="p">):</span>
     <span class="n">viewer</span> <span class="o">=</span> <span class="n">make_napari_viewer_proxy</span><span class="p">()</span>
@@ -577,7 +577,7 @@ you can use the <code class="docutils literal notranslate"><span class="pre">mak
 <span id="plugin-testing-prefer-unit-test"></span><h3>Prefer smaller unit tests when possible<a class="headerlink" href="#prefer-smaller-unit-tests-when-possible" title="Link to this heading">#</a></h3>
 <p>The most common issue people run into when designing tests for napari plugins is
 that they try to test everything as a full “integration test”, starting from the
-napari event or action that would trigger their plugin to do something.  For
+napari event or action that would trigger their plugin to do something. For
 example, let’s say you have a dock widget that connects a mouse callback to the
 viewer:</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyWidget</span><span class="p">:</span>
@@ -600,7 +600,7 @@ function with a <code class="docutils literal notranslate"><span class="pre">Vie
 otherwise leave <code class="docutils literal notranslate"><span class="pre">napari</span></code> out of it.</p>
 <p>Instead, focus on “unit testing” your code: just call the function directly with
 objects that emulate, or “mock” the objects that your function expects to
-receive from napari. You may also need to slightly reorganize your code.  Let’s
+receive from napari. You may also need to slightly reorganize your code. Let’s
 modify the above widget to make it easier to test:</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyWidget</span><span class="p">:</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;napari.Viewer&#39;</span><span class="p">):</span>
@@ -617,7 +617,7 @@ modify the above widget to make it easier to test:</p>
 <p>To test this, we can often just instantiate the widget with our own viewer, and
 then call the methods directly. As for the <code class="docutils literal notranslate"><span class="pre">event</span></code> object, notice that all we
 care about in this plugin is that it has a <code class="docutils literal notranslate"><span class="pre">modifiers</span></code> attribute that may or may
-not contain the string <code class="docutils literal notranslate"><span class="pre">&quot;Shift&quot;</span></code>.  So let’s just fake it!</p>
+not contain the string <code class="docutils literal notranslate"><span class="pre">&quot;Shift&quot;</span></code>. So let’s just fake it!</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">FakeEvent</span><span class="p">:</span>
     <span class="n">modifiers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Shift&#39;</span><span class="p">}</span>
 

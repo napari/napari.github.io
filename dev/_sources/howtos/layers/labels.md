@@ -10,6 +10,7 @@ kernelspec:
   language: python
   name: python3
 ---
+
 (layers-labels)=
 
 # Using the `labels` layer
@@ -38,30 +39,30 @@ instance segmentation.
 The GUI contains following tools in the `layer controls` panel for the `labels`
 layer:
 
-* Buttons
-    * shuffle colors
-    * label eraser
-    * paintbrush
-    * polygon tool
-    * fill bucket
-    * color picker
-    * pan/zoom mode
-    * transform mode
-* Controls
-    * label
-    * opacity
-    * brush size
-    * blending
-    * color mode
-    * contour
-    * n edit dim
-    * contiguous
-    * preserve labels
-    * show selected
+- Buttons
+  - shuffle colors
+  - label eraser
+  - paintbrush
+  - polygon tool
+  - fill bucket
+  - color picker
+  - pan/zoom mode
+  - transform mode
+- Controls
+  - label
+  - opacity
+  - brush size
+  - blending
+  - color mode
+  - contour
+  - n edit dim
+  - contiguous
+  - preserve labels
+  - show selected
 
 ### Buttons
 
-* **Shuffle colors**
+- **Shuffle colors**
 
   The color that each integer gets assigned is random, aside from 0 which always
   gets assigned to be transparent. The colormap we use is designed such that
@@ -72,13 +73,13 @@ layer:
   This changes the color of existing labels. Shuffling colors can be useful as
   some colors may be hard to distinguish from the background or nearby objects.
 
-* **Label eraser**
+- **Label eraser**
 
   Use this tool to manually erase a label on the `labels layer`. Other layers
   will not be affected. The label eraser tool looks like this:
   ![image: eraser tool](../../_static/images/labels-layer-eraser.png)
 
-* **Paintbrush**
+- **Paintbrush**
 
   One of the major use cases for the `labels layer` is to manually edit or
   create image segmentations. One of the tools that can be used for manual
@@ -91,16 +92,16 @@ layer:
 
   Click the `paintbrush` icon and select a color from the `label` option by
   clicking on the + or - on the label bar in the layer controls panel. This will
-  scroll through the available colors. 
-  
+  scroll through the available colors.
+
   ```{tip}
   If you press the {kbd}`m` key, you will get a new, unused label -- one larger than the current
   largest label.
   ```
-  
-  Whatever color you pick will be the *edge color* of the label. 
-  Draw the edge of the label using the `paintbrush`. If you draw a continuous edge, 
-  you can fill it in using the `paint bucket` or `fill bucket` tool. 
+
+  Whatever color you pick will be the *edge color* of the label.
+  Draw the edge of the label using the `paintbrush`. If you draw a continuous edge,
+  you can fill it in using the `paint bucket` or `fill bucket` tool.
   It can be the same color as the edge or a different color.
 
   Adjust the size of your `paintbrush` using the `brush size` slider or using
@@ -115,28 +116,28 @@ layer:
   To quickly select the paintbrush, press the `2` key when the `labels layer` is
   selected.
 
-* **Polygon**
+- **Polygon**
 
   Another tool that can be used to quickly add or edit image segmentations is
-  the `polygon` tool.  It combines functionality of the `paintbrush` and `fill bucket`
+  the `polygon` tool. It combines functionality of the `paintbrush` and `fill bucket`
   tools by allowing for readily drawing enclosed instance segmentations.
   The `polygon` tool can be activated by clicking on the icon
   resembling a polygon in the layer control panel or by pressing `3`. Once
   activated, the user actions are as follows:
 
   1. Left-click anywhere on the canvas to start drawing the polygon.
-  2. Move the mouse to the location where you want the next vertex to be.
-  3. Click again to set the vertex that is tracking the mouse cursor.
-  4. After this step a polygon overlay will appear when moving the mouse. Repeat
+  1. Move the mouse to the location where you want the next vertex to be.
+  1. Click again to set the vertex that is tracking the mouse cursor.
+  1. After this step a polygon overlay will appear when moving the mouse. Repeat
      steps 2 and 3 until the shape to be segmented is enclosed by the polygon
      overlay.
-  5. To undo the last added vertex, use a right-click.
-  6. To cancel the drawing at any time without making a permanent change on the
+  1. To undo the last added vertex, use a right-click.
+  1. To cancel the drawing at any time without making a permanent change on the
      labels layer, press `Esc`. This will delete the polygon overlay.
-  7. To finish drawing and complete the shape, use double click for the last vertex
+  1. To finish drawing and complete the shape, use double click for the last vertex
      or press "Enter". This will add the polygon overlay to the labels layer.
      Note that in Settings > Experimental you can enable and set the minimum distance
-     to the origin vertex required for double click to complete the shape. 
+     to the origin vertex required for double click to complete the shape.
 
   The polygon overlay will have the color of the label. The polygon overlay also
   has an opacity that can be adjusted the value of the `opacity` slider in the
@@ -153,7 +154,7 @@ layer:
   toggling the number of displayed dimensions, the `polygon` tool will be
   automatically deactivated.
 
-* **Fill bucket**
+- **Fill bucket**
 
   Sometimes you might want to replace an entire label with a different label.
   This could be because you want to make two touching regions have the same
@@ -171,15 +172,15 @@ layer:
   on that layer will be colored by the new label.
 
   If you have a multidimensional `labels layer` the `fill bucket` will edit data
-  only in the visible slice by default. However, if you set the 
-  `n_edit_dimensions` property to `3`, then `fill bucket` will extend out into 
+  only in the visible slice by default. However, if you set the
+  `n_edit_dimensions` property to `3`, then `fill bucket` will extend out into
   neighbouring slices, either to all pixels with that label in the layer, or only
   connected pixels depending on if the `contiguous` property is disabled or not.
 
   To quickly select the fill bucket, press the {kbd}`4` key when the `labels layer`
   is selected.
 
-* **Color picker**
+- **Color picker**
 
   The `color picker` can be used to select another color at any time. Click the
   color picker tool then click on the existing color in the labels layer you
@@ -197,61 +198,61 @@ layer:
 
 ### Controls
 
-* Label
+- Label
 
   Use this control to choose a color for a label you are about to create or to
   change the color of an existing label.
 
-* Opacity
+- Opacity
 
   Click and hold the oval on the opacity slider bar and adjust it to any value
   between 0.00 (clear) and 1.00 (completely opaque).
 
-* Brush size
+- Brush size
 
   Adjust the size of the `paintbrush` using the `brush size` slider to any value
   from 1 to 40. 1 is as small as a single pixel.
 
-* Blending
+- Blending
 
   Select from `translucent`, `translucent no depth`, `additive`, `minimum`, or
   `opaque` from the dropdown. Refer to the [Blending layers](blending-layers)
   section of _Layers at a glance_ for an explanation of each type of blending.
 
-* Color mode
+- Color mode
 
   Select `auto` or `direct` from the dropdown. Auto is the default and allows
   color to be set via a hash function with a seed. Direct allows the color of
   each label to be set directly by a color dictionary, which can be accessed
   directly via the `color` property of the layer, `layer.color`.
 
-* Contour
+- Contour
 
   If this field has any value other than 0, only the contours of the labels
   will show. Change the value by clicking the - or + symbols on either end of
   the bar, or by clicking the number in the center of the bar and typing in the
   desired value.
 
-* n edit dim
+- n edit dim
 
   This is the number of dimensions across which labels will be edited.
 
-* Contiguous
+- Contiguous
 
   If this box is checked, the `fill bucket` changes only connected pixels of the
   same label.
 
-* Preserve labels
+- Preserve labels
 
   If this box is checked, existing labels are preserved while painting. It
   defaults to false to allow painting on existing labels. When set to true,
-  existing labels will be preserved during painting. 
+  existing labels will be preserved during painting.
 
   ```{tip}
   You can toggle this mode using the default keybinding {kbd}`b`.
   ```
 
-* Show selected
+- Show selected
 
   When this is checked, only the selected labels will be displayed. Selected
   labels are those labels that match the color in the `label` control. When it
@@ -287,13 +288,13 @@ them.
 
 A particular label can be chosen in one of three ways:
 
-* Using the label control inside the `layer controls` panel and typing in the
+- Using the label control inside the `layer controls` panel and typing in the
   numeric value of the desired label;
 
-* Using the + or - buttons to get to the desired label color (or press the 
+- Using the + or - buttons to get to the desired label color (or press the
   default keybinding {kbd}`m` to set a new label);
 
-* Selecting the `color picker` tool and then clicking on a pixel with the
+- Selecting the `color picker` tool and then clicking on a pixel with the
   desired label color in the image.
 
 When a label is chosen, the integer value associated with it appears inside the
@@ -308,7 +309,7 @@ While painting with a label, you can swap between the current (selected) label
 and the transparent background label (`0`) by pressing `x`.
 
 You can set the selected label to a new label -- one larger than the current
-largest label -- by pressing {kbd}`m`. This selection will guarantee that you are 
+largest label -- by pressing {kbd}`m`. This selection will guarantee that you are
 using a label that hasn't been used before.
 
 You can also increment or decrement the currently selected label by pressing the
@@ -320,7 +321,7 @@ Create and edit object segmentation maps using the `color picker`, `paintbrush`,
 and `fill bucket` tools. Below we show how to use these tools by performing
 common editing tasks on connected components (keep the `contiguous` box checked).
 
-* Creating or drawing a connected component
+- Creating or drawing a connected component
 
   ```{raw} html
   <figure>
@@ -335,12 +336,12 @@ common editing tasks on connected components (keep the `contiguous` box checked)
   </figure>
   ```
 
-  * Press `m` to select a label color that has not been used.
-  * Select the `paintbrush` tool and draw a closed contour around the object.
-  * Select the `fill bucket` tool and click inside the contour to assign the
+  - Press `m` to select a label color that has not been used.
+  - Select the `paintbrush` tool and draw a closed contour around the object.
+  - Select the `fill bucket` tool and click inside the contour to assign the
     label to all pixels of the object.
 
-* Deleting a connected component
+- Deleting a connected component
 
   ```{raw} html
   <figure>
@@ -355,11 +356,11 @@ common editing tasks on connected components (keep the `contiguous` box checked)
   </figure>
   ```
 
-  Select the background label with the `color picker` or press `x`, then use the 
+  Select the background label with the `color picker` or press `x`, then use the
   `fill bucket` to set all pixels of the
   connected component to background.
 
-* Merging connected components
+- Merging connected components
 
   ```{raw} html
   <figure>
@@ -374,10 +375,11 @@ common editing tasks on connected components (keep the `contiguous` box checked)
   </figure>
   ```
 
-  * Select the label of one of the components with the `color picker` tool.
-  * Select the `fill bucket` and fill the components to be merged.
+  - Select the label of one of the components with the `color picker` tool.
+  - Select the `fill bucket` and fill the components to be merged.
 
-* Splitting a connected component
+- Splitting a connected component
+
   ```{raw} html
   <figure>
     <video width="100%" controls autoplay loop muted playsinline>
@@ -390,17 +392,19 @@ common editing tasks on connected components (keep the `contiguous` box checked)
     </video>
   </figure>
   ```
+
   Splitting a connected component will introduce an additional object.
-  * Select the background label with the `color picker` or press `x`.
-  * Use the `paintbrush` tool to draw a dividing line where you want to split
+
+  - Select the background label with the `color picker` or press `x`.
+  - Use the `paintbrush` tool to draw a dividing line where you want to split
     the component.
-  * Assign the new label to one of the parts with the `fill bucket`.
+  - Assign the new label to one of the parts with the `fill bucket`.
 
 ### Undo/redo functionality
 
 When using the `fill bucket` or `paintbrush` it can be easy to make a mistake
 that you might want to undo or you might want to redo something that has just
-been undone. Use  `ctrl-z` to redo and `shift-ctrl-z` to redo. There are plans
+been undone. Use `ctrl-z` to redo and `shift-ctrl-z` to redo. There are plans
 to support this sort of functionality more generally, but for now these actions
 will undo the most recent painting or filling event, up to 100 events in the
 past.
@@ -411,6 +415,7 @@ cause the undo history to be reset.
 ```
 
 ## Controlling the `labels` layer from the console
+
 ### A simple example
 
 Create a new viewer with `napari.Viewer()` and then add a labels image in one go using the {meth}`~napari.Viewer.add_labels` method.
@@ -445,16 +450,18 @@ labels_layer = viewer.add_labels(label_image, name='segmentation')
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
-
+---
+tags: [hide-input]
+---
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="Segmentation of coins in an image, displayed using a labels layer")
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
-
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 
@@ -464,8 +471,9 @@ viewer.close()
 accepts the following layer-creation parameters.
 
 ```{code-cell} python
-:tags: [hide-output]
-
+---
+tags: [hide-output]
+---
 help(napari.Viewer.add_labels)
 ```
 
@@ -477,7 +485,7 @@ the same NumPy-like arrays, including
 [xarrays](https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html),
 and [zarr arrays](https://zarr.readthedocs.io/en/stable/api/core.html). A
 `Labels` layer must be integer valued, and the background label must be
-0.
+0\.
 
 Because the `labels` layer subclasses the `image` layer, it inherits the great
 properties of the `image` layer, like supporting lazy loading and multiscale
@@ -493,8 +501,9 @@ the size of any currently existing image layers, allowing you to paint on top of
 them.
 
 ```{admonition} Want to save without compression?
-:class: tip
-
+---
+class: tip
+---
 When saving a labels layer, lossless zlib compression is applied by default.
 To save with a different level of compression, consider using
 [imageio.imwrite](https://imageio.readthedocs.io/en/stable/_autosummary/imageio.v3.imwrite.html).
@@ -526,7 +535,9 @@ dimensions of the layer, allowing you to browse volumetric timeseries data and
 other high dimensional data.
 
 ```{code-cell} python
-:tags: [remove-output]
+---
+tags: [remove-output]
+---
 import napari
 from skimage import data
 from scipy import ndimage as ndi
@@ -539,8 +550,9 @@ viewer.dims.ndisplay = 3
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
-
+---
+tags: [hide-input]
+---
 # programmatically adjust the camera angle
 viewer.camera.zoom = 2
 viewer.camera.angles = (3, 38, 53)

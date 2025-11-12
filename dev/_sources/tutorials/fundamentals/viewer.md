@@ -12,6 +12,7 @@ kernelspec:
 ---
 
 (viewer-tutorial)=
+
 # Viewer tutorial
 
 +++
@@ -29,9 +30,9 @@ This tutorial will teach you about the **napari** viewer, including how to use i
 As discussed in the [getting started](launch) tutorial, the napari viewer can be launched from the command-line, a python script, an IPython console, or a Jupyter notebook. All four methods launch the same viewer, and anything related to interacting with the viewer on the screen applies equally to all of them. We will use the syntax for running the code inside a jupyter notebook with each code block below pasted into its own cell, but if you'd like to use a python script instead, simply copy and paste the code blocks into scripts with [`napari.run()`](https://napari.org/stable/api/napari.html#napari.run) as the final line (this starts an event loop which will
 open an interactive viewer) and run them.
 
-:::{tip}
+```{tip}
 Starting with release 0.6.0, you can use the [command palette](command-palette) to launch any command via {kbd}`Command/Ctrl+Shift+P`. :art:
-:::
+```
 
 **Note:** There is also an IPython console available in napari, when napari is launched from the terminal, from a Python script, or when you use the napari bundled app. You can open it with the IPython console button (far left viewer button) or with the menu option **Window** > **console**. You can use this console to programmatically interact with an open viewer using the API methods illustrated in this tutorial.
 
@@ -48,7 +49,9 @@ viewer, image_layer = napari.imshow(data.astronaut(), rgb=True)
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 
@@ -64,19 +67,24 @@ import napari
 viewer = napari.Viewer()
 new_layer = viewer.add_image(data.astronaut(), rgb=True)
 ```
+
 {meth}`add_image<napari.components.ViewerModel.add_image>` accepts the same arguments as {func}`imshow<napari.imshow>` but only returns an {class}`Image<napari.layers.Image>` layer instead of both the {class}`Viewer<napari.Viewer>` and {class}`Image<napari.layers.Image>` layer (as you must already have a viewer to use it).
 
 After running either of those two commands, you should be able to see the photograph of the astronaut in the **napari** viewer as shown below:
 
 ```{code-cell} python
-:tags: [hide-input]
+---
+tags: [hide-input]
+---
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="photograph of an astronaut in napari viewer")
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 
@@ -91,28 +99,30 @@ Now we will continue exploring the rest of the viewer.
 ## Layout of the viewer
 
 The viewer is organized into a few key areas which are explained in the next sections:
-* Main Menu (top bar menu)
-* Layer Controls
-* Layer Buttons
-* Layer List
-* Viewer Buttons
-* Status Bar
-* Canvas
-* Dimension Sliders
-* Scroll Buttons
-* Frame Playback
+
+- Main Menu (top bar menu)
+- Layer Controls
+- Layer Buttons
+- Layer List
+- Viewer Buttons
+- Status Bar
+- Canvas
+- Dimension Sliders
+- Scroll Buttons
+- Frame Playback
 
 The image below has the areas of the viewer labeled:
 
 ![image: viewer layout](../../_static/images/Viewer-with-arrows.png)
 
-:::{admonition} Tip: Right click advanced option indicator
-:class: tip
+```{admonition} Tip: Right click advanced option indicator
+---
+class: tip
+---
 If you see a button with a chevron mark in the lower right corner, it means you can click it with the right mouse button to bring up more advanced options!
 
 ![buttons with right click indicators](../../_static/images/button-right-click-indicator.png)
-
-:::
+```
 
 We'll go through each of these in the next sections.
 
@@ -120,21 +130,25 @@ We'll go through each of these in the next sections.
 
 The main menu consists of the **File**, **View**, **Layers**, **Plugins**, **Window** and **Help** options.
 
-* **File** has the options to open files, folders, and samples, save layers and screenshots, copy screenshots to clipboard and, in the Windows and Linux versions, preferences. Additionally, you can make a new `Image` layer from an image (or URL to an image) copied to your Clipboard (keybinding {kbd}`Command/Ctrl+N`). The `New Layer` submenu allows you to create new, blank, `Labels`, `Points` or `Shapes` layers, identical to those created by the buttons above the layer list. Plugins can also contribute custom new layer creators to this menu.
+- **File** has the options to open files, folders, and samples, save layers and screenshots, copy screenshots to clipboard and, in the Windows and Linux versions, preferences. Additionally, you can make a new `Image` layer from an image (or URL to an image) copied to your Clipboard (keybinding {kbd}`Command/Ctrl+N`). The `New Layer` submenu allows you to create new, blank, `Labels`, `Points` or `Shapes` layers, identical to those created by the buttons above the layer list. Plugins can also contribute custom new layer creators to this menu.
 
-  :::{tip}
+  ```{tip}
   **Preferences** opens a dialog that allows you to personalize napari settings, including keyboard shortcuts
   (keybindings). To learn more about this, see our [guide to napari Preferences](napari-preferences).
   **Note:** On macOS, the **Preferences** menu item is under the `napari` menu.
-  :::
+  ```
 
-* **View** allows you to toggle full screen, the menu bar, play, display axes, the scale bar, tooltips, and the activity dock.
-* **Layers** contains actions and commands designed to act on existing layers, or generate new ones. The menu is mostly
+- **View** allows you to toggle full screen, the menu bar, play, display axes, the scale bar, tooltips, and the activity dock.
+
+- **Layers** contains actions and commands designed to act on existing layers, or generate new ones. The menu is mostly
   designed for use by plugins, but will also be populated with builtin actions. Currently this menu is **in development**,
   so items may change from version to version. For more information on this menu and its usage, see [NAP-6](nap-6-contributable-menus).
-* **Plugins** allows you to install and manage plugins and displays a list of plugins that are currently installed.
-* **Window** allows you to open the integrated console, and hide or display the layer controls and layer list.
-* **Help** contains the citation and about information.
+
+- **Plugins** allows you to install and manage plugins and displays a list of plugins that are currently installed.
+
+- **Window** allows you to open the integrated console, and hide or display the layer controls and layer list.
+
+- **Help** contains the citation and about information.
 
 +++
 
@@ -167,6 +181,7 @@ The **canvas** is in the center of the viewer and contains the visual display of
 +++
 
 (layer-list)=
+
 ### Layer list
 
 Layers are one of the basic napari objects. There are different layer types for `Image`, `Points`, `Shapes`, and other data types. They can be added to the viewer either programmatically or through the GUI. Once added, they populate the layer list located on the bottom left side of the canvas.
@@ -176,7 +191,9 @@ The layer list contains one widget for each of the layers that have been added t
 Adding the following three image layers using the code below adds three-layer widgets to the layer list as follows:
 
 ```{code-cell} python
-:tags: [remove-output]
+---
+tags: [remove-output]
+---
 import napari
 
 from skimage import data
@@ -188,7 +205,9 @@ viewer.add_image(data.camera(), name='camera')
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
+---
+tags: [hide-input]
+---
 nbscreenshot(viewer, alt_text="3 image layers shown in napari viewer with the canvas displaying a photograph of a man looking through a camcorder")
 ```
 
@@ -217,7 +236,9 @@ viewer.layers['astronaut']
 You can rearrange layers by clicking and dragging them.
 
 ```{code-cell} python
-:tags: [remove-cell]
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 
@@ -228,7 +249,9 @@ Above the **layer list** in the top left corner of the viewer there is a box tha
 For example, if you add a `Points` layer after adding an `Image` layer, the new `Points` layer will be 'selected' and you will now see different controls.
 
 ```{code-cell} python
-:tags: [remove-output]
+---
+tags: [remove-output]
+---
 import numpy as np
 from skimage import data
 
@@ -240,7 +263,9 @@ viewer.add_points(points, size=30)
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
+---
+tags: [hide-input]
+---
 nbscreenshot(viewer, alt_text="points layer showing 3 white points layered on top of astronaut image in napari viewer")
 ```
 
@@ -258,7 +283,9 @@ viewer.layers[0].opacity = 0.7
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 
@@ -292,11 +319,14 @@ One of the main strengths of **napari** is that it has been designed from the be
 
 Adding data with a dimensionality greater than 2D will cause dimension sliders to appear directly underneath the canvas and above the status bar. As many sliders as needed will appear to ensure the data can be fully browsed. For example, a 3D dataset needs one slider, a 4D dataset needs two sliders, and so on. The widths of the scroll bars of the dimension sliders are directly related to how many slices are in each dimension.
 To the left of each slider will be an integer indicating which dimension is being controlled by that slider. These integers are automatically updated when changing which dimensions are to be displayed. Alternately, the sliders can be labeled by double-clicking on the integer and editing the field. The labels can be retrieved programmatically as follows:
+
 ```{code-cell} python
 # To get the dimension labels
 viewer.dims.axis_labels
 ```
+
 You can also set the axis labels programmatically as follows:
+
 ```{code-cell} python
 # To set new axis labels
 viewer.dims.axis_labels = ("label_1", "label_2")
@@ -308,7 +338,9 @@ same. Effectively, the two datasets are broadcast together using [NumPy broadcas
 For example, the following commands from the console will add both 2D and 3D datasets to the same viewer:
 
 ```{code-cell} python
-:tags: [remove-output]
+---
+tags: [remove-output]
+---
 import numpy as np
 from skimage import data
 
@@ -329,7 +361,9 @@ viewer.add_image(blobs, name='blobs', opacity=0.5, colormap='red')
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
+---
+tags: [hide-input]
+---
 nbscreenshot(viewer, alt_text="A 2d view of the moon on top of which is overlaid a 3d volume containing blobs through which you can navigate using the dimension slider.")
 ```
 
@@ -339,20 +373,24 @@ In this example there are three dimensions. In order to get or update the curren
 # To get the current position returned as tuple of length 3
 viewer.dims.current_step
 ```
+
 And to change the current position of the sliders use:
+
 ```{code-cell} python
 # To change the current position of this example to step 3
 viewer.dims.current_step = (3, 255, 255)
 ```
+
 The length of the `current_step` tuple corresponds to the number of dimensions. Note that in this example, the last two dimensions are *displayed* (don't have a slider) and thus changing the last two elements of the tuple will have no effect [until the axes order is changed](#roll-dimensions).
 The same information but in *world coordinates* (i.e., including
 scale and translate transformations) is accessible via `viewer.dims.point`.
 
-By default napari will only show a slice of the data: that which is located *exactly* at this position. However, it is possible to visualize data from a thicker dimensional slice by modifying `viewer.dims.thickness`. This will use each layer's `projection_mode` to visualize the space around `viewer.dims.point`.  Alternately, you can set `viewer.dims.margin_left` and `viewer.dims.margin_right` to explicitly set the range of data around `viewer.dims.point` to be projected. Finally, you can use the corresponding `margin_left_step` and `margin_right_step` properties to work in "slider coordinates".
-
+By default napari will only show a slice of the data: that which is located *exactly* at this position. However, it is possible to visualize data from a thicker dimensional slice by modifying `viewer.dims.thickness`. This will use each layer's `projection_mode` to visualize the space around `viewer.dims.point`. Alternately, you can set `viewer.dims.margin_left` and `viewer.dims.margin_right` to explicitly set the range of data around `viewer.dims.point` to be projected. Finally, you can use the corresponding `margin_left_step` and `margin_right_step` properties to work in "slider coordinates".
 
 ```{code-cell} python
-:tags: [remove-output]
+---
+tags: [remove-output]
+---
 import numpy as np
 from skimage import data
 
@@ -368,7 +406,9 @@ nuclei.projection_mode = 'none'
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
+---
+tags: [hide-input]
+---
 nbscreenshot(viewer, alt_text="A slice through a 2-channel (membranes and nuclei) fluorescence image of cells, which the membranes averaged over 10 z-slices.")
 ```
 
@@ -385,12 +425,13 @@ On the left end of the dimension slider is the **frame playback** button. Right 
 ## Viewer buttons
 
 Below the **layer list** is a row containing these buttons:
-* Console
-* 2D/3D
-* Roll Dimensions
-* Transpose Dimensions
-* Grid display
-* Home
+
+- Console
+- 2D/3D
+- Roll Dimensions
+- Transpose Dimensions
+- Grid display
+- Home
 
 ![image: Viewer buttons](../../_static/images/viewer-buttons.png)
 
@@ -416,9 +457,10 @@ The console (when available) appears at the bottom of the viewer as shown below:
 The second button from the left is the 2D/3D button which toggles between `2D` and `3D` renderings of the data.
 For example, run the following code:
 
-
 ```{code-cell} python
-:tags: [remove-output]
+---
+tags: [remove-output]
+---
 from skimage import data
 from scipy import ndimage as ndi
 
@@ -437,6 +479,7 @@ the following, to indicate 3D mode:
 ![image: 3D_button](../../_static/images/3D-button.png)
 
 This mode can be entered programmatically using:
+
 ```python
 viewer.dims.ndisplay = 3
 ```
@@ -446,8 +489,9 @@ image) and see what it looks like from the side, back, or a different angle. To 
 drag the cursor to a new position, which will give something like the following view:
 
 ```{code-cell} python
-:tags: [hide-input]
-
+---
+tags: [hide-input]
+---
 # programmatically adjust the camera angle
 viewer.dims.ndisplay = 3
 viewer.camera.zoom = 2
@@ -465,12 +509,14 @@ handed, a mirror image of the former default. For more information see
 Note that if you want to drag the canvas/rendering itself, instead of rotating the view, you have to hold down the
 {kbd}`Shift` key while dragging with the mouse. Finally, while in 3D mode you can change the perspective of the
 3D view by
+
 - holding {kbd}`Shift` ({kbd}`Control` on macOS), pressing the right mouse button and
-dragging the mouse; or
+  dragging the mouse; or
 - right-clicking (on macOS holding {kbd}`Control` and clicking) on the 2D/3D mode
-button, which will bring up the perspective slider.
+  button, which will bring up the perspective slider.
 
 The camera perspective can also be altered programmatically:
+
 ```python
 viewer.camera.perspective = 45
 ```
@@ -502,11 +548,14 @@ The dimension order can also be checked programmatically as follows:
 # To get the current dimension order as tuple of int
 viewer.dims.order
 ```
+
 And then, changed programmatically as follows:
+
 ```{code-cell} python
 # To change the current dimension order
 viewer.dims.order = (2, 1, 0)
 ```
+
 In this case the third dimension will be controlled by the slider and the first and second dimension will be visible.
 Note that this has no effect on the order of `viewer.dims.current_step`. The first element still corresponds to the first dimension for example. These are just examples; the only requirement is that the length of the tuple is the same as the number of dimensions.
 
@@ -534,8 +583,8 @@ The fifth button, the grid button, toggles between the default layer mode and gr
 The distribution of the layers in the grid can be altered according to the settings below, accessible by right-clicking the button (or programmatically through `viewer.grid`). The question icons can be hovered for more information about each setting.
 
 1. Grid stride: By default, 1, placing one layer in each view. The value determines the number of layers overlaid in each view. Negative values reverse the order in which layers are displayed in the grid.
-2. Grid width/height: By default, -1, which automatically determines the grid layout.
-3. Grid spacing: The value will adjust the spacing between grid views either proportionally to the layer extents (i.e. [0,1)) or as a pixel value [1,1500) and will automatically adjust if needed.
+1. Grid width/height: By default, -1, which automatically determines the grid layout.
+1. Grid spacing: The value will adjust the spacing between grid views either proportionally to the layer extents (i.e. \[0,1)) or as a pixel value \[1,1500) and will automatically adjust if needed.
 
 ![image: Grid Mode Widget](../../_static/images/grid-widget.png)
 
@@ -554,6 +603,7 @@ On the left side of the status bar there is a message about the position of the 
 The right side of the status bar contains some helpful tips depending on which layer and tools are currently selected.
 
 (viewer-overlays)=
+
 ## Viewer overlays
 
 Overlays provide additional information about the render state and the data, displayed on the canvas itself.
@@ -567,54 +617,55 @@ The viewer gives access to a few such overlays:
 
 These overlays can also be accessed via graphical interface through the **View** menu and their respective submenus.
 
-:::{tip}
+```{tip}
 Similarly to the viewer, layers [also have some overlays](layer-overlays) that can be used to display layer-specific information!
-:::
+```
 
 ## Right-click menu
 
 A context-sensitive menu is available when you right-click on any of the layers. The type of layer determines which options are available. Note that if you have multiple layers selected, the menu actions will affect all of the selected layers. The options that are not available for a layer are greyed out. The following options are available depending on which layer type you have selected:
-* **Toggle visibility** - invert the visibility state (hides or show) of selected layers: hidden layers will be shown, visible layers will be hidden.
-* **Show All Selected Layers** - Set all selected layers to visible.
-* **Hide All Selected Layers** - Set all selected layers to hidden.
-* **Show All Unselected Layers** - Set all *unselected* layers to visible.
-* **Hide All Unselected Layers** - Set all *unselected* layers to hidden.
-* **Convert to Labels** - converts an **Image** layer to a **Labels** layer (if the data is already of type `int` it is not copied or altered, only the representation is changed, making this fully reversible). This is useful for converting a binary image segmentation map to a labels layer with each segmented object denoted by its own integer. Can also be used on a **Shapes** layer, in this case a new **Labels** layer will be created.
-* **Convert to Image** - converts a **Labels** layer into an **Image** layer (the data is not copied or altered, only the representation is changed, making this fully reversible).
-* **Convert datatype** - converts a **Labels** layer into int8, int16, int32, int64, uint8, uint16, uint32, or uint64 data types. The initial data type is the data type of the data itself.
-* **Copy scale and transforms** - copies the scale and transformation properties of the selected layer to the clipboard. This can be useful for pasting the properties to another layer. The following options are available in this sub-menu:
-  * **Copy all to clipboard** - copy all scale and transform properties to the clipboard.
-  * **Copy affine to clipboard** - copy the affine transformations to the clipboard.
-  * **Copy rotate to clipboard** - copy the rotation transformations to the clipboard.
-  * **Copy scale to clipboard** - copy the scale transformations to the clipboard.
-  * **Copy shear to clipboard** - copy the shear transformations to the clipboard.
-  * **Copy translate to clipboard** - copy the translation transformations to the clipboard.
-* **Apply scale/transforms from Clipboard** - applies the scale and translation properties from the clipboard to the selected layer.
-* **Duplicate Layer** - creates a second copy of the selected layer. Can be used on **Points**, **Shapes**, **Labels**, and **Image** layers. This is useful for testing your analysis on a copy instead of on the original image.
-* **Split RGB** - if the image layer is an RGB image, it will be split into 3 new layers with red, green, and blue values in separate layers.
-* **Split Stack** - if an image layer is a stack (has 3 or more dimensions), it is split into a list of layers along the axis. This option takes a little time to execute. Properties will be changed as follows:
-    * **Colormap:** (magenta, green) for a stack with 2 channels, (CYMRGB) for stacks with more than 2 channels
-    * **Blending:** additive
-    * **Contrast_limits:** min and max values of the layer
-    * All other properties, such as **Scale** and **Translate** will be propagated from the original stack.
-* *Merge to RGB** - combines a set of 3 image layers with the same dimensionality to a RGB layer. The layers must have one of `red`, `green`, and `blue` colormaps to indicate merging order.
-* **Merge to Stack** - combines a set of layers to a single-layer stack. The resulting layer stack will contain the layers with their original ordering in the layer list. Layers must be of the same type (e.g. An **Image** layer can be merged only with other **Image** layers.) and must have the same dimensionality.  (e.g. a 1024 x 1024 layer can only be merged with another 1024 x 1024 layer.)
-* **Projection** - can be used only on a layer with more than 2 dimensions, also known as a *stack*.  It creates a new layer that is a projection of the layer stack with the characteristic the user selects, reducing the number of dimensions by 1. More information about the types of projections is available [here](https://medium.com/@damiandn/an-intoduction-to-biological-image-processing-in-imagej-part-3-stacks-and-stack-projections-942aa789420f). The following projections are available:
-  * **max projection** - maximum intensity projection. At each pixel position, we go  through the stacks, find the pixel with the maximum intensity, and that becomes the intensity of that pixel value in the projected image.
-  * **min projection** - minimum intensity projection. Similar to the maximum intensity projection, except that the minimum pixel value is used for the projected image instead of the maximum pixel value.
-  * **std projection** - the standard deviation projection. At each pixel position, the standard deviation of the pixel intensities through the stack is the assigned value of that pixel position. Positions with large differences in the pixel intensities through the stack appear brighter in this projection.
-  * **sum projection** - the sum projection simply adds together all the pixel values in the stack for a given position. In this projection, the image is typically re-scaled to a 16-bit image, as the sum of all the pixel intensity values usually exceeds 255, which would result in a completely white 8-bit image.
-  * **mean projection** - the mean projection is the average intensity projection.  It simply averages all the pixel values in the stacks to make the final projected image.
-  * **median projection** - the median projection takes the median pixel intensity for the final projected image.
-* **Link Layers** - links the selected layers.  Once layers are linked, any action performed on one layer will be performed on all linked layers at the same time. The layer control panel will show _only_ when a single layer is selected. Changing properties with that layer's control panel will change properties in all of the linked layers.
-* **Unlink Layers** - appears when layers are linked. It unlinks the layers so that changes to one of the layer's properties no longer result in the same changes to the previously linked layers.
-* **Select Linked Layers** - appears only when layers are linked. Selects all layers linked to a given layer.
+
+- **Toggle visibility** - invert the visibility state (hides or show) of selected layers: hidden layers will be shown, visible layers will be hidden.
+- **Show All Selected Layers** - Set all selected layers to visible.
+- **Hide All Selected Layers** - Set all selected layers to hidden.
+- **Show All Unselected Layers** - Set all *unselected* layers to visible.
+- **Hide All Unselected Layers** - Set all *unselected* layers to hidden.
+- **Convert to Labels** - converts an **Image** layer to a **Labels** layer (if the data is already of type `int` it is not copied or altered, only the representation is changed, making this fully reversible). This is useful for converting a binary image segmentation map to a labels layer with each segmented object denoted by its own integer. Can also be used on a **Shapes** layer, in this case a new **Labels** layer will be created.
+- **Convert to Image** - converts a **Labels** layer into an **Image** layer (the data is not copied or altered, only the representation is changed, making this fully reversible).
+- **Convert datatype** - converts a **Labels** layer into int8, int16, int32, int64, uint8, uint16, uint32, or uint64 data types. The initial data type is the data type of the data itself.
+- **Copy scale and transforms** - copies the scale and transformation properties of the selected layer to the clipboard. This can be useful for pasting the properties to another layer. The following options are available in this sub-menu:
+  - **Copy all to clipboard** - copy all scale and transform properties to the clipboard.
+  - **Copy affine to clipboard** - copy the affine transformations to the clipboard.
+  - **Copy rotate to clipboard** - copy the rotation transformations to the clipboard.
+  - **Copy scale to clipboard** - copy the scale transformations to the clipboard.
+  - **Copy shear to clipboard** - copy the shear transformations to the clipboard.
+  - **Copy translate to clipboard** - copy the translation transformations to the clipboard.
+- **Apply scale/transforms from Clipboard** - applies the scale and translation properties from the clipboard to the selected layer.
+- **Duplicate Layer** - creates a second copy of the selected layer. Can be used on **Points**, **Shapes**, **Labels**, and **Image** layers. This is useful for testing your analysis on a copy instead of on the original image.
+- **Split RGB** - if the image layer is an RGB image, it will be split into 3 new layers with red, green, and blue values in separate layers.
+- **Split Stack** - if an image layer is a stack (has 3 or more dimensions), it is split into a list of layers along the axis. This option takes a little time to execute. Properties will be changed as follows:
+  - **Colormap:** (magenta, green) for a stack with 2 channels, (CYMRGB) for stacks with more than 2 channels
+  - **Blending:** additive
+  - **Contrast_limits:** min and max values of the layer
+  - All other properties, such as **Scale** and **Translate** will be propagated from the original stack.
+- *Merge to RGB*\* - combines a set of 3 image layers with the same dimensionality to a RGB layer. The layers must have one of `red`, `green`, and `blue` colormaps to indicate merging order.
+- **Merge to Stack** - combines a set of layers to a single-layer stack. The resulting layer stack will contain the layers with their original ordering in the layer list. Layers must be of the same type (e.g. An **Image** layer can be merged only with other **Image** layers.) and must have the same dimensionality. (e.g. a 1024 x 1024 layer can only be merged with another 1024 x 1024 layer.)
+- **Projection** - can be used only on a layer with more than 2 dimensions, also known as a *stack*. It creates a new layer that is a projection of the layer stack with the characteristic the user selects, reducing the number of dimensions by 1. More information about the types of projections is available [here](https://medium.com/@damiandn/an-intoduction-to-biological-image-processing-in-imagej-part-3-stacks-and-stack-projections-942aa789420f). The following projections are available:
+  - **max projection** - maximum intensity projection. At each pixel position, we go through the stacks, find the pixel with the maximum intensity, and that becomes the intensity of that pixel value in the projected image.
+  - **min projection** - minimum intensity projection. Similar to the maximum intensity projection, except that the minimum pixel value is used for the projected image instead of the maximum pixel value.
+  - **std projection** - the standard deviation projection. At each pixel position, the standard deviation of the pixel intensities through the stack is the assigned value of that pixel position. Positions with large differences in the pixel intensities through the stack appear brighter in this projection.
+  - **sum projection** - the sum projection simply adds together all the pixel values in the stack for a given position. In this projection, the image is typically re-scaled to a 16-bit image, as the sum of all the pixel intensity values usually exceeds 255, which would result in a completely white 8-bit image.
+  - **mean projection** - the mean projection is the average intensity projection. It simply averages all the pixel values in the stacks to make the final projected image.
+  - **median projection** - the median projection takes the median pixel intensity for the final projected image.
+- **Link Layers** - links the selected layers. Once layers are linked, any action performed on one layer will be performed on all linked layers at the same time. The layer control panel will show _only_ when a single layer is selected. Changing properties with that layer's control panel will change properties in all of the linked layers.
+- **Unlink Layers** - appears when layers are linked. It unlinks the layers so that changes to one of the layer's properties no longer result in the same changes to the previously linked layers.
+- **Select Linked Layers** - appears only when layers are linked. Selects all layers linked to a given layer.
 
 +++
 
 ## Changing the viewer theme
 
-Currently, **napari** comes with `light`, `dark` themes for the viewer;  the default is `dark`. Additionally, there is the `system` virtual theme that will attempt to match the viewer theme (`light` or `dark`) to your system theme on macOS, Windows, and some Linux. To change the preferred theme used for all viewers you can use the **Preferences** menu item in the **File** or **napari** menu and then select the **Appearance** tab. You can also change the `theme` property of the *current* viewer by using the following code:
+Currently, **napari** comes with `light`, `dark` themes for the viewer; the default is `dark`. Additionally, there is the `system` virtual theme that will attempt to match the viewer theme (`light` or `dark`) to your system theme on macOS, Windows, and some Linux. To change the preferred theme used for all viewers you can use the **Preferences** menu item in the **File** or **napari** menu and then select the **Appearance** tab. You can also change the `theme` property of the *current* viewer by using the following code:
 
 ```{code-cell} python
 from skimage import data
@@ -628,14 +679,16 @@ viewer.theme = 'light'
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
-
+---
+tags: [hide-input]
+---
 nbscreenshot(viewer, alt_text="A napari viewer changed to light theme")
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
-
+---
+tags: [remove-cell]
+---
 # change the viewer theme back to dark (for the rest of tutorial)
 viewer.theme = 'dark'
 ```
@@ -670,7 +723,9 @@ def print_names(viewer):
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 
@@ -687,7 +742,9 @@ def print_message(viewer):
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 

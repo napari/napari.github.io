@@ -233,4 +233,3 @@ per CC0+BY[^id4].
 [^id4]: <https://dancohen.org/2013/11/26/cc0-by/>
 
 [^NumFOCUS-Fiscal-Sponsorship]: https://numfocus.org/projects-overview
-

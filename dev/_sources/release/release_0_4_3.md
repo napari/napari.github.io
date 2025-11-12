@@ -6,11 +6,11 @@ It's designed for browsing, annotating, and analyzing large multi-dimensional
 images. It's built on top of Qt (for the GUI), vispy (for performant GPU-based
 rendering), and the scientific Python stack (numpy, scipy).
 
-
 For more information, examples, and documentation, please visit our website:
 https://github.com/napari/napari
 
 ## Highlights
+
 In this release we've added two new analysis and GUI focused [hook specifications](https://github.com/napari/napari/blob/87961d0554b2bb1574553e23bf2231a9a5117568/docs/source/plugins/hook_specifications.rst) for our plugin developers (#2080).
 
 The first one `napari_experimental_provide_function_widget` allows you to provide a function or list of functions that we
@@ -27,13 +27,13 @@ We've also made good progress on our `experimental` support for an octree system
 
 Finally we've added our [0.4 series roadmap](https://napari.org/roadmaps/0_4.html) and a [retrospective on our 0.3 roadmap](https://napari.org/roadmaps/0_3_retrospective.html)!
 
-
 ## New Features
+
 - Add support for function widgets (#1856)
 - Gui hookspecs (#2080)
 
-
 ## Improvements
+
 - Use evented dataclass for dims (#1917)
 - Add information about screen resolution (#1957)
 - Add asdict and update to evented dataclass (#1966)
@@ -63,10 +63,10 @@ Finally we've added our [0.4 series roadmap](https://napari.org/roadmaps/0_4.htm
 - Remove global app logic from Window init (#2065)
 - async-45: Docs and Cleanup (#2067)
 - Better bound magicgui viewer (#2100)
-- reduce call of _extent_data in layer (#2106)
-
+- reduce call of `_extent_data` in layer (#2106)
 
 ## Bug Fixes
+
 - Fix append and remove from layerlist (#1955)
 - Change label tooltip checkbox (#1978)
 - Fix cursor size (#1983)
@@ -88,37 +88,37 @@ Finally we've added our [0.4 series roadmap](https://napari.org/roadmaps/0_4.htm
 - Fix overly strict magic kwargs (#2099)
 - Undo calling pyrcc with python sys.executable (#2102)
 
-
 ## API Changes
-- The ``axis`` parameter is no longer present on the ``current_step``, ``range``, or ``axis_labels`` events. Instead a single event is emitted whenever the tuple changes (#1917)
-- The deprecated public layer dims has been removed in 0.4.2 and the private ``layer._dims`` is now a NamedTuple (#1919)
-- The deprecated ``layer.shape`` attribute has been removed. Instead you should use the ``layer.extent.data`` and ``layer.extent.world attributes`` to get the extent of the data in data or world coordinates (#1990, #2002)
-- Keymap handling has been moved off the ``Viewer`` and ``Viewer.keymap_providers`` has been removed. The ``Viewer`` itself
-can still provide keymappings, but no longer handles keymappings from other objects like the layers. (#2003)
-- Drop scale background color and axes background color. These colors are now determined by defaults or the canvas background color. (#2037)
-- ``event.text`` was renamed ``event.value`` for the events emitted when changing ``Viewer.status``, ``Viewer.title``,
-``Viewer.help``, and ``event.item`` was renamed ``event.value`` for the event emitted when changing ``Viewer.active_layer`` (#2038)
 
+- The `axis` parameter is no longer present on the `current_step`, `range`, or `axis_labels` events. Instead a single event is emitted whenever the tuple changes (#1917)
+- The deprecated public layer dims has been removed in 0.4.2 and the private `layer._dims` is now a NamedTuple (#1919)
+- The deprecated `layer.shape` attribute has been removed. Instead you should use the `layer.extent.data` and `layer.extent.world attributes` to get the extent of the data in data or world coordinates (#1990, #2002)
+- Keymap handling has been moved off the `Viewer` and `Viewer.keymap_providers` has been removed. The `Viewer` itself
+  can still provide keymappings, but no longer handles keymappings from other objects like the layers. (#2003)
+- Drop scale background color and axes background color. These colors are now determined by defaults or the canvas background color. (#2037)
+- `event.text` was renamed `event.value` for the events emitted when changing `Viewer.status`, `Viewer.title`,
+  `Viewer.help`, and `event.item` was renamed `event.value` for the event emitted when changing `Viewer.active_layer` (#2038)
 
 ## Deprecations
-- The ``Viewer.interactive`` parameter has been deprecated, instead you should use ``Viewer.camera.interactive`` (#2008)
-- The ``Viewer.palette`` attribute has been deprecated. To access the palette you can get it using ``napari.utils.theme.register_theme`` dictionary using the ``viewer.theme`` as the key (#2031)
-- Annotating a magicgui function with a return type of ``napari.layers.Layer`` is deprecated. To indicate that your function returns a layer data tuple, please use a return annotation of ``napari.types.LayerDataTuple`` or ``List[napari.types.LayerDataTuple]``(#2079)
 
+- The `Viewer.interactive` parameter has been deprecated, instead you should use `Viewer.camera.interactive` (#2008)
+- The `Viewer.palette` attribute has been deprecated. To access the palette you can get it using `napari.utils.theme.register_theme` dictionary using the `viewer.theme` as the key (#2031)
+- Annotating a magicgui function with a return type of `napari.layers.Layer` is deprecated. To indicate that your function returns a layer data tuple, please use a return annotation of `napari.types.LayerDataTuple` or `List[napari.types.LayerDataTuple]`(#2079)
 
 ## Build Tools and Support
+
 - 0.4 roadmap (#1906)
 - Rename artifact for nightly build releases (#1971)
 - Update latest tag alone with nightly build (#2001)
 - Only raise leaked widgets errors in tests if no other exception was raised (#2043)
-- Bump minimum numpy requirement to 1.16.5  (#2050)
+- Bump minimum numpy requirement to 1.16.5 (#2050)
 - Tox tests on github actions (#2051)
 - Move all requirements to extras (#2054)
 - Drop additional perfmon test pass (#2058)
 - Fix name in gha test (#2059)
 - Fix big sur on GHA and fix failed test template (#2061)
 - Update bundle.py (#2064)
-- Update pre-commit  and add pyupgrade (#2068)
+- Update pre-commit and add pyupgrade (#2068)
 - Skip perfmon test on python 3.9 on CI (#2073)
 - async-46: Rendering Guide and Code Comments (#2078)
 - Update get-tag action (#2083)
@@ -128,7 +128,6 @@ can still provide keymappings, but no longer handles keymappings from other obje
 - Fix roadmap headings in docs (#2097)
 - Add PR 2106 to 0.4.3 release notes (#2107)
 - Fix `pytest --pyargs napari` test on pip install. Add CI test (#2109)
-
 
 ## 9 authors added to this release (alphabetical)
 
@@ -143,7 +142,6 @@ can still provide keymappings, but no longer handles keymappings from other obje
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 - [Ziyang Liu](https://github.com/napari/napari/commits?author=ziyangczi) - @ziyangczi
 
-
 ## 7 reviewers added to this release (alphabetical)
 
 - [Genevieve Buckley](https://github.com/napari/napari/commits?author=GenevieveBuckley) - @GenevieveBuckley
@@ -153,4 +151,3 @@ can still provide keymappings, but no longer handles keymappings from other obje
 - [Philip Winston](https://github.com/napari/napari/commits?author=pwinston) - @pwinston
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 - [Ziyang Liu](https://github.com/napari/napari/commits?author=ziyangczi) - @ziyangczi
-

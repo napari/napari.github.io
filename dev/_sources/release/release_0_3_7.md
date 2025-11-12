@@ -35,6 +35,7 @@ This is in addition to many bug fixes and usability improvements — see below
 for the full list! Thank you to everyone who contributed to this release!
 
 ## New Features
+
 - Add briefcase app bundles to release assets (#1289)
 - Evented list (#1444)
 - Async rendering part 1 (#1565)
@@ -42,9 +43,10 @@ for the full list! Thank you to everyone who contributed to this release!
 - Add SELECTED color-mode for individual label visibility (#1555)
 
 ## Improvements
-- auto generate view_* methods (#978)
+
+- auto generate `view_*` methods (#978)
 - Add world extents for layers (#1360)
-- Reorganize _qt module (#1431)
+- Reorganize `_qt` module (#1431)
 - Add CTRL+ Mouse Scroll to scroll through last active stack (#1434)
 - Perfmon System version 2 (#1453)
 - Add global exception catching in Qt (#1476)
@@ -55,8 +57,8 @@ for the full list! Thank you to everyone who contributed to this release!
 - Improve Shapes layer performance (#1561)
 - Add support for deprecate signal in EmitterGroup (#1582)
 
-
 ## Bug Fixes
+
 - Prevent napari crashing after layer is dragged into trash (#1487)
 - Fix URL parsing scheme for view_path (#1515)
 - Fix potentially-confusing typo in comment (#1521)
@@ -74,8 +76,8 @@ for the full list! Thank you to everyone who contributed to this release!
 - Restore multiple command-line arguments (#1597)
 - Lock briefcase version (#1599)
 
-
 ## Build Tools
+
 - Points slicing benchmark (#1435)
 - Fix 0.3.6 release notes to indicate reversions (#1498)
 - format imports with isort (#1505)
@@ -106,7 +108,6 @@ for the full list! Thank you to everyone who contributed to this release!
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 - [Ziyang Liu](https://github.com/napari/napari/commits?author=ziyangczi) - @ziyangczi
 
-
 ## 12 reviewers added to this release (alphabetical)
 
 - [Davis Bennett](https://github.com/napari/napari/commits?author=d-v-b) - @d-v-b
@@ -121,4 +122,3 @@ for the full list! Thank you to everyone who contributed to this release!
 - [Philip Winston](https://github.com/napari/napari/commits?author=pwinston) - @pwinston
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 - [Ziyang Liu](https://github.com/napari/napari/commits?author=ziyangczi) - @ziyangczi
-

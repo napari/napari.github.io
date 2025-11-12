@@ -806,6 +806,7 @@
 <span class="sd">Perform a segmentation and annotate the results with</span>
 <span class="sd">bounding boxes and text</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">skimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">data</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">skimage.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">threshold_otsu</span>
@@ -863,9 +864,7 @@
     <span class="n">maxr</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">maxc</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
 
-    <span class="n">bbox_rect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-        <span class="p">[[</span><span class="n">minr</span><span class="p">,</span> <span class="n">minc</span><span class="p">],</span> <span class="p">[</span><span class="n">maxr</span><span class="p">,</span> <span class="n">minc</span><span class="p">],</span> <span class="p">[</span><span class="n">maxr</span><span class="p">,</span> <span class="n">maxc</span><span class="p">],</span> <span class="p">[</span><span class="n">minr</span><span class="p">,</span> <span class="n">maxc</span><span class="p">]]</span>
-    <span class="p">)</span>
+    <span class="n">bbox_rect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">minr</span><span class="p">,</span> <span class="n">minc</span><span class="p">],</span> <span class="p">[</span><span class="n">maxr</span><span class="p">,</span> <span class="n">minc</span><span class="p">],</span> <span class="p">[</span><span class="n">maxr</span><span class="p">,</span> <span class="n">maxc</span><span class="p">],</span> <span class="p">[</span><span class="n">minr</span><span class="p">,</span> <span class="n">maxc</span><span class="p">]])</span>
     <span class="n">bbox_rect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">bbox_rect</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">bbox_rect</span>
@@ -886,7 +885,7 @@
 <span class="sd">    circularity : float</span>
 <span class="sd">        The circularity of the region as defined by 4*pi*area / perimeter^2</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">circularity</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">area</span> <span class="o">/</span> <span class="p">(</span><span class="n">perimeter</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">circularity</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">area</span> <span class="o">/</span> <span class="p">(</span><span class="n">perimeter</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">circularity</span>
 
@@ -899,9 +898,7 @@
 <span class="n">feature</span> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span>
     <span class="n">label_image</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;bbox&#39;</span><span class="p">,</span> <span class="s1">&#39;perimeter&#39;</span><span class="p">,</span> <span class="s1">&#39;area&#39;</span><span class="p">)</span>
 <span class="p">)</span>
-<span class="n">features</span><span class="p">[</span><span class="s1">&#39;circularity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span>
-    <span class="n">features</span><span class="p">[</span><span class="s1">&#39;perimeter&#39;</span><span class="p">],</span> <span class="n">features</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span>
-<span class="p">)</span>
+<span class="n">features</span><span class="p">[</span><span class="s1">&#39;circularity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;perimeter&#39;</span><span class="p">],</span> <span class="n">features</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">])</span>
 
 <span class="c1"># create the bounding box rectangles</span>
 <span class="n">bbox_rects</span> <span class="o">=</span> <span class="n">make_bbox</span><span class="p">([</span><span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;bbox-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
@@ -930,7 +927,6 @@
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bounding box&#39;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-
 </pre></div>
 </div>
 <section id="segmentation">
@@ -989,21 +985,26 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Conveniently, <code class="docutils literal notranslate"><span class="pre">regionprops_table()</span></code> returns a dictionary that can be used as input for a napari layer’s features table, so we will be able to use it directly. If we inspect the values of features, we see each key is the name of the feature and the values are arrays with an element containing the feature value for each shape. Note that the bounding boxes have been output as <code class="docutils literal notranslate"><span class="pre">bbox-0</span></code>,  <code class="docutils literal notranslate"><span class="pre">bbox-1</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-1</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-2</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-3</span></code> which correspond with the <code class="docutils literal notranslate"><span class="pre">min_row</span></code>, <code class="docutils literal notranslate"><span class="pre">min_column</span></code>, <code class="docutils literal notranslate"><span class="pre">max_row</span></code>, and <code class="docutils literal notranslate"><span class="pre">max_column</span></code> of each bounding box, respectively.</p>
+<p>Conveniently, <code class="docutils literal notranslate"><span class="pre">regionprops_table()</span></code> returns a dictionary that can be used as input for a napari layer’s features table, so we will be able to use it directly. If we inspect the values of features, we see each key is the name of the feature and the values are arrays with an element containing the feature value for each shape. Note that the bounding boxes have been output as <code class="docutils literal notranslate"><span class="pre">bbox-0</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-1</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-1</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-2</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-3</span></code> which correspond with the <code class="docutils literal notranslate"><span class="pre">min_row</span></code>, <code class="docutils literal notranslate"><span class="pre">min_column</span></code>, <code class="docutils literal notranslate"><span class="pre">max_row</span></code>, and <code class="docutils literal notranslate"><span class="pre">max_column</span></code> of each bounding box, respectively.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-	<span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]),</span>
-	<span class="s1">&#39;bbox-0&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span> <span class="mi">46</span><span class="p">,</span>  <span class="mi">55</span><span class="p">,</span>  <span class="mi">57</span><span class="p">,</span>  <span class="mi">60</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">122</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">129</span><span class="p">]),</span>
-	<span class="s1">&#39;bbox-1&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">195</span><span class="p">,</span> <span class="mi">136</span><span class="p">,</span>  <span class="mi">34</span><span class="p">,</span>  <span class="mi">84</span><span class="p">,</span> <span class="mi">139</span><span class="p">,</span> <span class="mi">201</span><span class="p">,</span>  <span class="mi">30</span><span class="p">,</span>  <span class="mi">85</span><span class="p">]),</span>
-	<span class="s1">&#39;bbox-2&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span> <span class="mi">94</span><span class="p">,</span>  <span class="mi">94</span><span class="p">,</span>  <span class="mi">95</span><span class="p">,</span>  <span class="mi">95</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">167</span><span class="p">,</span> <span class="mi">167</span><span class="p">]),</span>
-	<span class="s1">&#39;bbox-3&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">246</span><span class="p">,</span> <span class="mi">177</span><span class="p">,</span>  <span class="mi">72</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">187</span><span class="p">,</span> <span class="mi">247</span><span class="p">,</span>  <span class="mi">74</span><span class="p">,</span> <span class="mi">124</span><span class="p">]),</span>
-	<span class="s1">&#39;perimeter&#39;</span><span class="p">:</span>
-		<span class="n">array</span><span class="p">(</span>
-			<span class="p">[</span>
-				<span class="mf">165.88225099</span><span class="p">,</span> <span class="mf">129.05382387</span><span class="p">,</span> <span class="mf">123.98275606</span><span class="p">,</span> <span class="mf">121.98275606</span><span class="p">,</span>
-       			<span class="mf">155.88225099</span><span class="p">,</span> <span class="mf">149.05382387</span><span class="p">,</span> <span class="mf">140.46803743</span><span class="p">,</span> <span class="mf">125.39696962</span>
-       		<span class="p">]</span>
-   		<span class="p">),</span>
-   	<span class="s1">&#39;area&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">1895</span><span class="p">,</span> <span class="mi">1212</span><span class="p">,</span> <span class="mi">1124</span><span class="p">,</span> <span class="mi">1102</span><span class="p">,</span> <span class="mi">1720</span><span class="p">,</span> <span class="mi">1519</span><span class="p">,</span> <span class="mi">1475</span><span class="p">,</span> <span class="mi">1155</span><span class="p">])</span>
+    <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]),</span>
+    <span class="s1">&#39;bbox-0&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">46</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">122</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">129</span><span class="p">]),</span>
+    <span class="s1">&#39;bbox-1&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">195</span><span class="p">,</span> <span class="mi">136</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">139</span><span class="p">,</span> <span class="mi">201</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">85</span><span class="p">]),</span>
+    <span class="s1">&#39;bbox-2&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">94</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">167</span><span class="p">,</span> <span class="mi">167</span><span class="p">]),</span>
+    <span class="s1">&#39;bbox-3&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">246</span><span class="p">,</span> <span class="mi">177</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">187</span><span class="p">,</span> <span class="mi">247</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">124</span><span class="p">]),</span>
+    <span class="s1">&#39;perimeter&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="mf">165.88225099</span><span class="p">,</span>
+            <span class="mf">129.05382387</span><span class="p">,</span>
+            <span class="mf">123.98275606</span><span class="p">,</span>
+            <span class="mf">121.98275606</span><span class="p">,</span>
+            <span class="mf">155.88225099</span><span class="p">,</span>
+            <span class="mf">149.05382387</span><span class="p">,</span>
+            <span class="mf">140.46803743</span><span class="p">,</span>
+            <span class="mf">125.39696962</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">),</span>
+    <span class="s1">&#39;area&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">1895</span><span class="p">,</span> <span class="mi">1212</span><span class="p">,</span> <span class="mi">1124</span><span class="p">,</span> <span class="mi">1102</span><span class="p">,</span> <span class="mi">1720</span><span class="p">,</span> <span class="mi">1519</span><span class="p">,</span> <span class="mi">1475</span><span class="p">,</span> <span class="mi">1155</span><span class="p">]),</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1023,15 +1024,13 @@
 <span class="sd">    circularity : float</span>
 <span class="sd">        The circularity of the region as defined by 4*pi*area / perimeter^2</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">circularity</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">area</span> <span class="o">/</span> <span class="p">(</span><span class="n">perimeter</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">circularity</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">area</span> <span class="o">/</span> <span class="p">(</span><span class="n">perimeter</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">circularity</span>
 </pre></div>
 </div>
 <p>We can then calculate the circularity of each region and save it as a feature.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;circularity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span>
-    <span class="n">features</span><span class="p">[</span><span class="s1">&#39;perimeter&#39;</span><span class="p">],</span> <span class="n">features</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span>
-<span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;circularity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;perimeter&#39;</span><span class="p">],</span> <span class="n">features</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>We will use a napari shapes layer to visualize the bounding box of the segmentation. The napari shapes layer requires each shape to be defined by the coordinates of corner. Since regionprops returns the bounding box as a tuple of <code class="docutils literal notranslate"><span class="pre">(min_row,</span> <span class="pre">min_column,</span> <span class="pre">max_row,</span> <span class="pre">max_column)</span></code> we define a function <code class="docutils literal notranslate"><span class="pre">make_bbox()</span></code> to convert the regionprops bounding box to the napari shapes format.</p>
@@ -1056,9 +1055,7 @@
     <span class="n">maxr</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">maxc</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
 
-    <span class="n">bbox_rect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-        <span class="p">[[</span><span class="n">minr</span><span class="p">,</span> <span class="n">minc</span><span class="p">],</span> <span class="p">[</span><span class="n">maxr</span><span class="p">,</span> <span class="n">minc</span><span class="p">],</span> <span class="p">[</span><span class="n">maxr</span><span class="p">,</span> <span class="n">maxc</span><span class="p">],</span> <span class="p">[</span><span class="n">minr</span><span class="p">,</span> <span class="n">maxc</span><span class="p">]]</span>
-    <span class="p">)</span>
+    <span class="n">bbox_rect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">minr</span><span class="p">,</span> <span class="n">minc</span><span class="p">],</span> <span class="p">[</span><span class="n">maxr</span><span class="p">,</span> <span class="n">minc</span><span class="p">],</span> <span class="p">[</span><span class="n">maxr</span><span class="p">,</span> <span class="n">maxc</span><span class="p">],</span> <span class="p">[</span><span class="n">minr</span><span class="p">,</span> <span class="n">maxc</span><span class="p">]])</span>
     <span class="n">bbox_rect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">bbox_rect</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">bbox_rect</span>
@@ -1122,7 +1119,7 @@
     <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
     <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
     <span class="s1">&#39;anchor&#39;</span><span class="p">:</span> <span class="s1">&#39;upper_left&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;translation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="s1">&#39;translation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1146,7 +1143,7 @@
     <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
     <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
     <span class="s1">&#39;anchor&#39;</span><span class="p">:</span> <span class="s1">&#39;upper_left&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;translation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="s1">&#39;translation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="p">}</span>
 
 <span class="c1"># initialise viewer with coins image</span>
@@ -1161,7 +1158,7 @@
     <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span>
     <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="n">text_parameters</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bounding box&#39;</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bounding box&#39;</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>

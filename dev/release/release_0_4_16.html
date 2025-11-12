@@ -819,8 +819,10 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;my-path.tif&#39;</span><span class="p">)</span> <span class="c1"># this will throw MultipleReaderError if napari_tifffile is installed as both it and builtins could open the file</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;my-path.tif&#39;</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="s1">&#39;napari_tifffile&#39;</span><span class="p">)</span> <span class="c1"># this won&#39;t</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
+    <span class="s1">&#39;my-path.tif&#39;</span>
+<span class="p">)</span>  <span class="c1"># this will throw MultipleReaderError if napari_tifffile is installed as both it and builtins could open the file</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;my-path.tif&#39;</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="s1">&#39;napari_tifffile&#39;</span><span class="p">)</span>  <span class="c1"># this won&#39;t</span>
 </pre></div>
 </div>
 </li>
@@ -842,6 +844,7 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li><p>A preferred reader failing to read your file will result in an error e.g. if you saved <code class="docutils literal notranslate"><span class="pre">napari_tifffile</span></code> as a preference for TIFFs but then tried to open a broken file</p></li>
 <li><p>To save a preference for a file pattern in Python, use:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span>
+
 <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">extension2reader</span><span class="p">[</span><span class="s1">&#39;*.tif&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;napari_tifffile&#39;</span>
 <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">extension2reader</span><span class="p">[</span><span class="s1">&#39;*.zarr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;napari-ome-zarr&#39;</span>
 </pre></div>
@@ -939,27 +942,27 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li><p>Bugfix: Divide by zero error making empty shapes layer (#4267)</p></li>
 <li><p>Bugfix: Conversion between Label and Image with original scaling (#4272)</p></li>
 <li><p>Address concurrent refresh in plugin list during multiple (un)installs (#4283)</p></li>
-<li><p>Delay import of _npe2 module in napari.<strong>main</strong> to prevent duplicate discovery of plugins (#4311)</p></li>
+<li><p>Delay import of <code class="docutils literal notranslate"><span class="pre">_npe2</span></code> module in <code class="docutils literal notranslate"><span class="pre">napari.__main__</span></code> to prevent duplicate discovery of plugins (#4311)</p></li>
 <li><p>Fix black line ellipse (#4312)</p></li>
 <li><p>Fix Labels.fill when Labels.data is an xarray.DataArray (#4314)</p></li>
 <li><p>Fix image and label layer values reported in GUI status bar when display is 3D (#4315)</p></li>
 <li><p>Quick fix for colormap updates not updating QtColorBox. (#4321)</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">black</span></code> version because of break of private API in its dependency (#4327)</p></li>
 <li><p>Fix progress update signature (#4333)</p></li>
-<li><p>move pixel center offset code into _ImageBase (#4352)</p></li>
+<li><p>move pixel center offset code into <code class="docutils literal notranslate"><span class="pre">_ImageBase</span></code> (#4352)</p></li>
 <li><p>Fix TextManager to work with vispy when using string constants (#4362)</p></li>
-<li><p>Fix format string encoding for all numeric features    (#4363)</p></li>
+<li><p>Fix format string encoding for all numeric features (#4363)</p></li>
 <li><p>Bugfix/broadcast projections by reducing number of axes (keepdims=False) (#4376)</p></li>
 <li><p>Correctly order vispy layers on insertion (#4433)</p></li>
 <li><p>napari –info: list npe2 plugins (#4445)</p></li>
-<li><p>Bugfix/Add affine to base_dict via _get_base_state() (#4453)</p></li>
+<li><p>Bugfix/Add affine to base_dict via <code class="docutils literal notranslate"><span class="pre">_get_base_state()</span></code> (#4453)</p></li>
 <li><p>Fix layer control pop-up issue (#4460)</p></li>
 <li><p>fix Re-setting shapes data to initial data fails, but only in 3D (#4550)</p></li>
 <li><p>Make sure we pass plugin through if opening file as stack (#4515)</p></li>
 <li><p>Fix update of plugins and disable update button if not available on conda forge (for bundle) (#4512)</p></li>
 <li><p>Connect napari events first to EventEmitter (#4480)</p></li>
 <li><p>Fix AttributeError: ‘LayerList’ object has no attribute ‘name’ (#4276)</p></li>
-<li><p>Fix _BaseEventedItemModel.flags (#4558)</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">_BaseEventedItemModel.flags</span></code> (#4558)</p></li>
 <li><p>Bug fix: blending multichannel images and 3D points (#4567)</p></li>
 <li><p>Fix checkable menu entries when using PySide2 backend (#4581)</p></li>
 </ul>
@@ -982,7 +985,7 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li><p>Minor copy update: Usage page (#4278)</p></li>
 <li><p>Minor copy update: Segmentation tutorial page (#4279)</p></li>
 <li><p>Minor copy update: Annotations tutorial page (#4280)</p></li>
-<li><p>Minor copy update: Tracking tutorial page  (#4282)</p></li>
+<li><p>Minor copy update: Tracking tutorial page (#4282)</p></li>
 <li><p>Add napari.utils.notifications to the API docs (#4286)</p></li>
 <li><p>Added sphinx-gallery (#4288)</p></li>
 <li><p>Add NAP process for major proposals (#4299)</p></li>
@@ -1056,7 +1059,7 @@ console, so this is strictly an improvement!)</p></li>
 <h2>Other Pull Requests<a class="headerlink" href="#other-pull-requests" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>adds citation file (#3470)</p></li>
-<li><p>Add tests for _npe2.py (#4103)</p></li>
+<li><p>Add tests for <code class="docutils literal notranslate"><span class="pre">_npe2.py</span></code> (#4103)</p></li>
 <li><p>Decrease LFS size, gif -&gt; webm. (#4207)</p></li>
 <li><p>Run PNG crush on all Pngs. (#4208)</p></li>
 <li><p>Refactor toward fixing local value capturing. (#4212)</p></li>

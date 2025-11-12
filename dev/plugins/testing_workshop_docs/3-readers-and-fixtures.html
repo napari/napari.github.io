@@ -584,7 +584,7 @@
 <h2>Reader<a class="headerlink" href="#reader" title="Link to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> function is the first thing to test. In the top-level directory under <code class="docutils literal notranslate"><span class="pre">src</span></code>, we have the <code class="docutils literal notranslate"><span class="pre">plugin_tests</span></code> module. Inside <code class="docutils literal notranslate"><span class="pre">plugin_tests</span></code> is the <code class="docutils literal notranslate"><span class="pre">_tests</span></code> directory. This is a typical structure when writing tests. There is also a <code class="docutils literal notranslate"><span class="pre">test_reader.py</span></code> file, which is empty. We will populate it with tests.</p>
 <p><img alt="reader_function" src="../../_images/napari_plugins_2nd_reader_function.png" /></p>
-<p>We are focused on testing the <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> function. Sometimes it returns <code class="docutils literal notranslate"><span class="pre">None</span></code>; sometimes it returns the <code class="docutils literal notranslate"><span class="pre">reader_function</span></code>. We want to ensure that if we pass in a path that ends with <code class="docutils literal notranslate"><span class="pre">.npy</span></code>, it gives us back a function we can call.  We import <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code>. <code class="docutils literal notranslate"><span class="pre">numpy</span></code> will be used later.</p>
+<p>We are focused on testing the <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> function. Sometimes it returns <code class="docutils literal notranslate"><span class="pre">None</span></code>; sometimes it returns the <code class="docutils literal notranslate"><span class="pre">reader_function</span></code>. We want to ensure that if we pass in a path that ends with <code class="docutils literal notranslate"><span class="pre">.npy</span></code>, it gives us back a function we can call. We import <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code>. <code class="docutils literal notranslate"><span class="pre">numpy</span></code> will be used later.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Test as much as possible and focus on writing small tests that look at one indivisible unit. Give tests meaningful names that describe what they’re doing.</p>
@@ -601,7 +601,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calling get_reader on numpy file returns callable&quot;&quot;&quot;</span>
 
     <span class="c1"># write some fake data</span>
-    <span class="n">my_test_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">&quot;myfile.npy&quot;</span><span class="p">)</span>
+    <span class="n">my_test_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s1">&#39;myfile.npy&#39;</span><span class="p">)</span>
     <span class="n">original_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
     <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span><span class="p">)</span>
 
@@ -618,7 +618,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calling get_reader on numpy file returns callable&quot;&quot;&quot;</span>
 
     <span class="c1"># write some fake data</span>
-    <span class="n">my_test_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">&quot;myfile.np&quot;</span><span class="p">)</span> <span class="c1"># note ends in .np</span>
+    <span class="n">my_test_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s1">&#39;myfile.np&#39;</span><span class="p">)</span>  <span class="c1"># note ends in .np</span>
     <span class="n">original_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
     <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span><span class="p">)</span>
 
@@ -640,7 +640,6 @@
 <p>We still want to make sure we get a reader when we call <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> with the file. We call that <code class="docutils literal notranslate"><span class="pre">reader</span></code> function with the file we created to see if it returns what we expect. Based on the <a class="reference internal" href="../building_a_plugin/guides.html#plugin-readers-guide"><span class="std std-ref">reader spec</span></a>, it should return a layer data list. Here is the full test, with the fixture:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">write_im_to_file</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
-
     <span class="k">def</span><span class="w"> </span><span class="nf">write_func</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
         <span class="n">my_test_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="n">filename</span><span class="p">)</span>
         <span class="n">original_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
@@ -650,8 +649,9 @@
 
     <span class="k">return</span> <span class="n">write_func</span>
 
+
 <span class="k">def</span><span class="w"> </span><span class="nf">test_reader_round_trip</span><span class="p">(</span><span class="n">write_im_to_file</span><span class="p">):</span>
-    <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s2">&quot;myfile.npy&quot;</span><span class="p">)</span>
+    <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s1">&#39;myfile.npy&#39;</span><span class="p">)</span>
 
     <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
@@ -668,7 +668,7 @@
 <p>We will test that inside that list is what we expected - layer data tuples. The first item of a layer data tuple is the actual data. We’re going to test that explicitly.</p>
 <p>Then we assert, using <code class="docutils literal notranslate"><span class="pre">numpy</span></code>’s asserting mechanism, <code class="docutils literal notranslate"><span class="pre">np.testing.assert_allclose</span></code> that they are all close, even though they should be exactly the same. This is standard practice when working with floating point precision. NumPy also has <a class="reference external" href="https://numpy.org/doc/stable/reference/routines.testing.html">other assertion options</a> you may find useful. The layer data we read back with the reader function should be the same as the original data. If that’s true, then we made the entire round trip. We saved the file and we used the reader to read the file.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_reader_round_trip</span><span class="p">(</span><span class="n">write_im_to_file</span><span class="p">):</span>
-    <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s2">&quot;myfile.npy&quot;</span><span class="p">)</span>
+    <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s1">&#39;myfile.npy&#39;</span><span class="p">)</span>
 
     <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>

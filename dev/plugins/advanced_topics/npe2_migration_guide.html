@@ -626,7 +626,7 @@ New<span class="w"> </span>manifest<span class="w"> </span>at<span class="w"> </
 If<span class="w"> </span>you<span class="w"> </span>have<span class="w"> </span>any<span class="w"> </span>napari_plugin_engine<span class="w"> </span>imports<span class="w"> </span>or<span class="w"> </span>hook_implementation<span class="w"> </span>decorators,<span class="w"> </span>you<span class="w"> </span>may<span class="w"> </span>remove<span class="w"> </span>them<span class="w"> </span>now.
 </pre></div>
 </div>
-<p>You are encouraged to inspect the newly-generated <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> file.  Refer to
+<p>You are encouraged to inspect the newly-generated <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> file. Refer to
 the <a class="reference internal" href="../technical_references/manifest.html#plugin-manifest"><span class="std std-ref">manifest</span></a> and <a class="reference internal" href="../technical_references/contributions.html#contributions-ref"><span class="std std-ref">contributions</span></a> references pages
 for details on each field in the manifest.</p>
 <div class="admonition note">
@@ -655,7 +655,7 @@ must have global <code class="docutils literal notranslate"><span class="pre">py
 <blockquote>
 <div><p><em>This section goes into detail on the differences between first-generation and
 second-generation implementations. In many cases, this will be more detail than
-you need.  If you are still struggling with a specific conversion after using
+you need. If you are still struggling with a specific conversion after using
 <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code> and reading the <a class="reference internal" href="../technical_references/contributions.html#contributions-ref"><span class="std std-ref">contributions</span></a> reference and
 <a class="reference internal" href="../building_a_plugin/guides.html#plugin-contribution-guides"><span class="std std-ref">guides</span></a>, this section may be of help.</em></p>
 </div></blockquote>
@@ -955,14 +955,14 @@ npe1 plugins as if they were npe2 plugins using a “npe1 -&gt; npe2 adaptor”
 <p>When this option is enabled and a plugin using the legacy plugin manager API
 is loaded for the first time, the plugin will be imported as usual and
 contributions will be discovered. A “shim” npe2 manifest representing the
-plugin’s contributions will be created and cached locally.  On all future
+plugin’s contributions will be created and cached locally. On all future
 launches of napari, that cached manifest will be used and the plugin will
 <em>not</em> be imported immediately when napari boots.</p>
 <section id="benefits">
 <h3>Benefits<a class="headerlink" href="#benefits" title="Link to this heading">#</a></h3>
 <p>The benefits for an end-user opting in to the npe2 adaptor are:</p>
 <ul class="simple">
-<li><p>dramatically reduced time to load napari.  By avoiding importing all plugins
+<li><p>dramatically reduced time to load napari. By avoiding importing all plugins
 at launch, napari can boot <em>significantly</em> faster.</p></li>
 <li><p>Plugins are imported lazily, only after one of their commands or menu items
 has been requested.</p></li>
@@ -981,11 +981,11 @@ following things will be “ignored” for a user using the npe2 adaptor:</p>
 loading npe2 plugins or npe1 plugins loaded with the npe2 adaptor.</p></li>
 <li><p>arguments for <code class="docutils literal notranslate"><span class="pre">add_dock_widget</span></code> returned from
 <code class="docutils literal notranslate"><span class="pre">napari_experimental_provide_dock_widget</span></code> (such as <code class="docutils literal notranslate"><span class="pre">area=</span></code> or
-<code class="docutils literal notranslate"><span class="pre">add_vertical_stretch=</span></code>) will no longer do anything:  <code class="docutils literal notranslate"><span class="pre">area</span></code> will always be
+<code class="docutils literal notranslate"><span class="pre">add_vertical_stretch=</span></code>) will no longer do anything: <code class="docutils literal notranslate"><span class="pre">area</span></code> will always be
 <code class="docutils literal notranslate"><span class="pre">'right'</span></code> and <code class="docutils literal notranslate"><span class="pre">add_vertical_stretch</span></code> will always be <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
 </ul>
 <p>There is nothing a plugin can do to prevent a user from using the npe2 adaptor,
-it is a user decision.  Furthermore, as we deprecate the legacy
+it is a user decision. Furthermore, as we deprecate the legacy
 napari-plugin-engine API, the npe2 adapter will likely become the only way that
 npe1 plugins are supported in the future, and the option to <em>not</em> use the npe2
 adaptor will be removed.</p>

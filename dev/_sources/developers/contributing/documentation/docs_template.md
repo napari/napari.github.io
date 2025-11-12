@@ -26,10 +26,11 @@ Edit this section to include a sentence or two introducing the tutorial, and inc
 
 Fill out this section with a list of things the reader will need to successfully follow this document.
 Include things like:
+
 - python and/or napari version needed
 - links to any existing napari.org tutorials or how-to guides that can help the user fulfill these prerequisites
 - the level of python/napari knowledge required to follow this document
-    - try to be specific about what skills are needed e.g.
+  - try to be specific about what skills are needed e.g.
     'connecting callbacks to layer events' or 'using matplotlib to produce plots'
 - napari plugins that should be installed
 - python packages that should be installed (don't list napari or its dependencies)
@@ -37,6 +38,7 @@ Include things like:
   - **don't add this data to the repository**
 
 ## Write your document
+
 Fill out the main content of the document - your explanation, how-to steps or tutorial.
 
 ## Include pictures
@@ -102,19 +104,20 @@ You can completely remove input (i.e. the code that's running) in a notebook cel
 How you add cell tags depends on how you're editing your notebook.
 
 1. If you're working in Jupyter notebook,
-you can open up the Tags toolbar for your cell using `View -> Cell Toolbar -> Tags`. A toolbar
-will be added to the top right of your cell. You can then add any tags you want
-(e.g. `remove-input`) by typing into the text entry box of the toolbar and clicking `Add Tag`.
+   you can open up the Tags toolbar for your cell using `View -> Cell Toolbar -> Tags`. A toolbar
+   will be added to the top right of your cell. You can then add any tags you want
+   (e.g. `remove-input`) by typing into the text entry box of the toolbar and clicking `Add Tag`.
 
-2. If you're editing a MyST Markdown file directly, you can add tags to your code blocks like so:
+1. If you're editing a MyST Markdown file directly, you can add tags to your code blocks like so:
 
-```
+````
     ```{code-cell} python3
     :tags: [remove-input]
 
     print("Your code here")
     ```
-```
+````
+
 #### What to put in removed cells
 
 Alongside your call to `nbscreenshot`, you can also place other potentially distracting code in these tagged cells,
@@ -127,12 +130,15 @@ from napari.utils import nbscreenshot
 
 viewer.window._qt_window.resize(750, 550)
 viewer.dims.current_step = (25, 0, 1)
-nbscreenshot(viewer, alt_text="Resized example generated screenshot of the napari viewer.")
+nbscreenshot(
+    viewer, alt_text='Resized example generated screenshot of the napari viewer.'
+)
 ```
 
 ```{code-cell} python3
-:tags: [remove-input]
-
+---
+tags: [remove-input]
+---
 from napari.utils import nbscreenshot
 
 viewer.window._qt_window.resize(750, 550)
@@ -145,6 +151,7 @@ example above we imported `nbscreenshot` to show its functionality, you should p
 import in a removed cell when you write your documentation.
 
 Here are some examples of settings you might want to use in a `remove-input` cell to make your screenshot look pretty:
+
 - window resizing (as above)
 - [toggling visible layers](napari.layers.Layer.visible)
 - [setting the slider position to a particular slice](napari.components.Dims.current_step)
@@ -163,6 +170,7 @@ The [Google writing style guide](https://developers.google.com/style/) should an
 words to capitalize in your headings (spoiler - we use sentence case for our headings) and other style conventions.
 
 ## Next steps
+
 - Use this section to link to other (maybe more advanced?) tutorials, further reading on any complex topics you mentioned,
-or other relevant documentation
+  or other relevant documentation
 - Now that you've written your document, you can proceed with [updating the TOC](update-toc)

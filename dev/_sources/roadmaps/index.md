@@ -11,7 +11,7 @@ If a particular roadmap item is important to you and you want to help make it ha
 
 ## For funders
 
-If you have the resources and you are interested in bringing one or more of our roadmap items to life, you can write to us at [napari-steering-council@googlegroups.com](mailto:napari-steering-council@googlegroups.com) and donate on our [NumFOCUS page](https://numfocus.org/donate-to-napari). For a limited time, CZI will kindly [match donations up to a total of $100,000 USD](https://chanzuckerberg.com/science/programs-resources/imaging/napari/seeding-sustainability-for-the-napari-project/).
+If you have the resources and you are interested in bringing one or more of our roadmap items to life, you can write to us at [napari-steering-council@googlegroups.com](mailto:napari-steering-council@googlegroups.com) and donate on our [NumFOCUS page](https://numfocus.org/donate-to-napari). For a limited time, CZI will kindly [match donations up to a total of \$100,000 USD](https://chanzuckerberg.com/science/programs-resources/imaging/napari/seeding-sustainability-for-the-napari-project/).
 
 ### Past Roadmaps
 

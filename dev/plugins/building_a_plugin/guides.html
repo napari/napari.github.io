@@ -1184,7 +1184,7 @@ napari-plugin-engine</label><div class="sd-tab-content docutils">
 <span id="layer-data-tuples"></span><h2>The LayerData tuple<a class="headerlink" href="#the-layerdata-tuple" title="Link to this heading">#</a></h2>
 <p>When transferring data to and from plugins, napari does not pass <code class="docutils literal notranslate"><span class="pre">Layer</span></code> objects
 directly. Instead, it passes (mostly) pure-python and array-like types,
-deconstructed into a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a> that we refer to as a <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple.  This type shows
+deconstructed into a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a> that we refer to as a <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple. This type shows
 up often in plugins and is explained here.</p>
 <p>Note that when writing your own plugin, type annotations are optional,
 except in the case of <a class="reference internal" href="../../howtos/extending/magicgui.html#magicgui-decorator"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> function widgets</span></a>.
@@ -1203,7 +1203,7 @@ for the <code class="docutils literal notranslate"><span class="pre">Image</span
 <li><p><em>(Optional).</em> A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> of layer attributes, suitable for passing as
 keyword arguments to the corresponding layer constructor (e.g. <code class="docutils literal notranslate"><span class="pre">{'opacity':</span> <span class="pre">0.7}</span></code>)</p></li>
 <li><p><em>(Optional).</em> A lower case <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> indicating the layer type (e.g.<code class="docutils literal notranslate"><span class="pre">'image'</span></code>,
-<code class="docutils literal notranslate"><span class="pre">'labels'</span></code>, etc…).  If not provided (i.e. if the tuple is only of length 2), the
+<code class="docutils literal notranslate"><span class="pre">'labels'</span></code>, etc…). If not provided (i.e. if the tuple is only of length 2), the
 layer type is assumed to be <code class="docutils literal notranslate"><span class="pre">'image</span></code>’.</p></li>
 </ol>
 </section>
@@ -1217,7 +1217,7 @@ layer type is assumed to be <code class="docutils literal notranslate"><span cla
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">Sequence</span>
 
 <span class="n">LayerTypeName</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span>
-    <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">,</span> <span class="s2">&quot;points&quot;</span><span class="p">,</span> <span class="s2">&quot;shapes&quot;</span><span class="p">,</span> <span class="s2">&quot;surface&quot;</span><span class="p">,</span> <span class="s2">&quot;tracks&quot;</span><span class="p">,</span> <span class="s2">&quot;vectors&quot;</span>
+    <span class="s1">&#39;image&#39;</span><span class="p">,</span> <span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;points&#39;</span><span class="p">,</span> <span class="s1">&#39;shapes&#39;</span><span class="p">,</span> <span class="s1">&#39;surface&#39;</span><span class="p">,</span> <span class="s1">&#39;tracks&#39;</span><span class="p">,</span> <span class="s1">&#39;vectors&#39;</span>
 <span class="p">]</span>
 <span class="n">LayerProps</span> <span class="o">=</span> <span class="n">Dict</span>
 <span class="n">DataType</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]]</span>
@@ -1230,8 +1230,10 @@ layer type is assumed to be <code class="docutils literal notranslate"><span cla
     <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
     <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span>
+
     <span class="k">def</span><span class="w"> </span><span class="nf">__array__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArrayLike</span><span class="p">:</span> <span class="o">...</span>
+
 
 <span class="c1"># the main point is that we&#39;re more concerned with structural</span>
 <span class="c1"># typing than literal array types (e.g. numpy, dask, xarray, etc...)</span>
@@ -1242,6 +1244,7 @@ layer type is assumed to be <code class="docutils literal notranslate"><span cla
 <h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h3>
 <p>Assume that <code class="docutils literal notranslate"><span class="pre">data</span></code> is a numpy array:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
 </pre></div>
 </div>

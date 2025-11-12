@@ -33,7 +33,6 @@ other in the UI ([#7202](https://github.com/napari/napari/pull/7202))
 
 Read on for all the changes in this version!
 
-
 ## New Features
 
 - enable get_value_3d for image layers ([#7126](https://github.com/napari/napari/pull/7126))
@@ -72,14 +71,14 @@ Read on for all the changes in this version!
 - Doc/metadata: add jni's ORCID to the CITATION.cff file ([#7275](https://github.com/napari/napari/pull/7275))
 - Style fix: use recommended capitalization for "GitHub" in README ([#7284](https://github.com/napari/napari/pull/7284))
 - Add psygnal and pydantic to napari --info ([#7285](https://github.com/napari/napari/pull/7285))
-- Move images to _static folder ([docs#483](https://github.com/napari/docs/pull/483))
+- Move images to `_static` folder ([docs#483](https://github.com/napari/docs/pull/483))
 - Update version switcher to add 0.5.3 ([docs#488](https://github.com/napari/docs/pull/488))
 - Move release notes to be under Usage ([docs#489](https://github.com/napari/docs/pull/489))
 - Update release guide ([docs#491](https://github.com/napari/docs/pull/491))
 - Use `get_qapp` or `get_app_model` instead of `get_app` ([docs#495](https://github.com/napari/docs/pull/495))
 - Add 0.5.4 release notes ([docs#496](https://github.com/napari/docs/pull/496))
 - Add note about questions in landing page ([docs#498](https://github.com/napari/docs/pull/498))
-- Add further fixes to release notes ([docs#499](Add further fixes to release notes))
+- Add further fixes to release notes ([docs#499](https://github.com/napari/docs/pull/499))
 
 ## Other Pull Requests
 
@@ -104,23 +103,21 @@ Read on for all the changes in this version!
 - Update menu sorting tests still using `mock_app` and `get_app` instead of `mock_app_model` and `get_app_model` ([#7283](https://github.com/napari/napari/pull/7283))
 - Remove obsolete self from layout argument ([#7291](https://github.com/napari/napari/pull/7291))
 
-
 ## 11 authors added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
 - [BeanLi](https://github.com/napari/napari/commits?author=beanli161514) - @beanli161514
-- [Daniel Althviz Moré](https://github.com/napari/napari/commits?author=dalthviz) ([docs](https://github.com/napari/docs/commits?author=dalthviz))  - @dalthviz
+- [Daniel Althviz Moré](https://github.com/napari/napari/commits?author=dalthviz) ([docs](https://github.com/napari/docs/commits?author=dalthviz)) - @dalthviz
 - [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) - @DragaDoncila
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) - @Czaki
 - [Ikko Eltociear Ashimine](https://github.com/napari/napari/commits?author=eltociear) - @eltociear +
-- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni))  - @jni
+- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni)) - @jni
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - @brisvag
 - [Lucy Liu](https://github.com/napari/napari/commits?author=lucyleeow) - @lucyleeow
 - [Melissa Weber Mendonça](https://github.com/napari/docs/commits?author=melissawm) - @melissawm
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
 - [Sammy Hansali](https://github.com/napari/napari/commits?author=sammyhansali) - @sammyhansali +
-
 
 ## 13 reviewers added to this release (alphabetical)
 
@@ -128,15 +125,14 @@ Read on for all the changes in this version!
 
 - [andrew sweet](https://github.com/napari/docs/commits?author=andy-sweet) - @andy-sweet
 - [Ashley Anderson](https://github.com/napari/docs/commits?author=aganders3) - @aganders3
-- [Daniel Althviz Moré](https://github.com/napari/napari/commits?author=dalthviz) ([docs](https://github.com/napari/docs/commits?author=dalthviz))  - @dalthviz
+- [Daniel Althviz Moré](https://github.com/napari/napari/commits?author=dalthviz) ([docs](https://github.com/napari/docs/commits?author=dalthviz)) - @dalthviz
 - [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) - @DragaDoncila
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) - @Czaki
 - [jaime rodriguez-guerra](https://github.com/napari/docs/commits?author=jaimergp) - @jaimergp
-- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni))  - @jni
+- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni)) - @jni
 - [kyle i. s. harrington](https://github.com/napari/docs/commits?author=kephale) - @kephale
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - @brisvag
 - [Lucy Liu](https://github.com/napari/napari/commits?author=lucyleeow) - @lucyleeow
 - [Melissa Weber Mendonça](https://github.com/napari/docs/commits?author=melissawm) - @melissawm
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
 - [Wouter-Michiel Vierdag](https://github.com/napari/docs/commits?author=melonora) - @melonora
-

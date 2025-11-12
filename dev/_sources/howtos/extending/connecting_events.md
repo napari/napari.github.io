@@ -32,9 +32,11 @@ import napari
 
 viewer = napari.Viewer()
 
+
 @viewer.bind_key('i')
 def add_layer(viewer):
     viewer.add_image(np.random.random((512, 512)))
+
 
 @viewer.bind_key('k')
 def delete_layer(viewer):
@@ -42,6 +44,7 @@ def delete_layer(viewer):
         viewer.layers.pop(0)
     except IndexError:
         pass
+
 
 napari.run()
 ```
@@ -64,19 +67,21 @@ import napari
 viewer = napari.Viewer()
 layer = viewer.add_image(np.random.random((512, 512)))
 
+
 @layer.mouse_drag_callbacks.append
 def update_layer(layer, event):
     layer.data = np.random.random((512, 512))
+
 
 napari.run()
 ```
 
 As of this writing `MouseProvider`s have 4 list of callbacks that can be registered:
 
-   - `mouse_move_callbacks`
-   - `mouse_wheel_callbacks`
-   - `mouse_drag_callbacks`
-   - `mouse_double_click_callbacks`
+- `mouse_move_callbacks`
+- `mouse_wheel_callbacks`
+- `mouse_drag_callbacks`
+- `mouse_double_click_callbacks`
 
 Please look at the documentation of `MouseProvider` for a more in depth
 discussion of when each callback is triggered. In particular single click can be
@@ -95,11 +100,11 @@ examples.
 
 If you want something to happen following some event that happens *within*
 napari, the trick becomes knowing which native signals any given napari object
-provides for you to "connect" to.  Until we have centralized documentation for
+provides for you to "connect" to. Until we have centralized documentation for
 all of the events offered by napari objects, the best way to find these is to
-browse the source code.  Take for instance, the base
+browse the source code. Take for instance, the base
 {class}`~napari.layers.Layer` class: you'll find in the `__init__` method a
-``self.events`` section that looks like this:
+`self.events` section that looks like this:
 
 ```python
 self.events = EmitterGroup(
@@ -117,7 +122,8 @@ function that accepts the event object:
 
 ```python
 def print_layer_name(event):
-    print(f"{event.source.name} changed its data!")
+    print(f'{event.source.name} changed its data!')
+
 
 layer.events.data.connect(print_layer_name)
 ```
@@ -127,8 +133,8 @@ layer.events.data.connect(print_layer_name)
 ## Long-running, blocking functions
 
 An important detail here is that the napari event loop is running in a *single
-thread*.  This works just fine if the handling of each event is very short, as
-is usually the case with moving sliders, and pressing buttons.  However, if one
+thread*. This works just fine if the handling of each event is very short, as
+is usually the case with moving sliders, and pressing buttons. However, if one
 of the events in the queue takes a long time to process, then every other event
 must wait!
 
@@ -144,6 +150,6 @@ viewer.add_image(image)
 
 Here we have a long computation (`np.random.rand(512, 1024, 1024).mean(0)`) that
 "blocks" the main thread, meaning *no button press, key press, or any other
-event can be processed until it's done*.  In this scenario, it's best to put
-your long-running function into another thread or process.  napari provides a
+event can be processed until it's done*. In this scenario, it's best to put
+your long-running function into another thread or process. napari provides a
 convenience for that, described in {ref}`multithreading-in-napari`.

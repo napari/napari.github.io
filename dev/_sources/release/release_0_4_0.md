@@ -15,6 +15,7 @@ For more information, examples, and documentation, please visit our website at
 https://napari.org
 
 ## Highlights
+
 napari 0.4.0 is the culmination of months of improvements to our data models.
 It finally brings the data from all layers into a consistent, global coordinate
 system. This means our display is more accurate (we aim for pixel-perfect
@@ -39,6 +40,7 @@ issues at https://github.com/napari/napari/issues.
 We thank the many contributors who have made this release possible!
 
 ## New Features
+
 - Add camera model (#854)
 - Tracks layer (#1361)
 - Affine transforms (#1616)
@@ -48,13 +50,13 @@ We thank the many contributors who have made this release possible!
 - Add BOP (blue/orange/purple) colormaps (#1743)
 - Add cursor model (#1763)
 
-
 ## Improvements
+
 - Dataclass decorator with events and properties (#1475)
 - Docker Integration by adding dockerfile and docker.md (#1496)
 - Don't show colormap for rgb images (#1586)
 - Fix NameError: name 'Optional' is not defined on Python 3.9 (#1650)
-- Async-2.6: Move async into experimental  (#1659)
+- Async-2.6: Move async into experimental (#1659)
 - Skip axes with size 1 in roll operation (#1665)
 - Reduce the default dask cache size (#1666)
 - Async-2.7: Vendor Cachetools (#1671)
@@ -67,7 +69,7 @@ We thank the many contributors who have made this release possible!
 - Async-8: config cleanup (#1684)
 - Async-9: async unit testing infra (#1685)
 - Allow dask development version to work with napari (#1692)
-- Autogenerate add_* methods (#1694)
+- Autogenerate `add_*` methods (#1694)
 - Async-10: add experimental vendor package humanize (#1698)
 - Async-11: IPython commands (#1699)
 - Async-12: Processes (#1704)
@@ -80,6 +82,7 @@ We thank the many contributors who have made this release possible!
 - Add warning on failed save (#1770)
 
 ## Bug Fixes
+
 - Status bar value bug for automatically down-sampled images (#1577)
 - Magic name handle attribute exception (#1635)
 - Speed up points selection and selection display (#1648)
@@ -91,7 +94,7 @@ We thank the many contributors who have made this release possible!
 - Fix image extent (#1696)
 - Fix for tracks layer properties as dataframe (#1711)
 - Fixes magic_name for all layers, fixes #1709 due to #1694 autogen (#1714)
-- Add tests for #1709 for magic_name with add_* layers (#1716)
+- Add tests for #1709 for magic_name with `add_*` layers (#1716)
 - Fix delete all shapes (#1718)
 - Fix nD mutliscale (#1723)
 - Fix initialization of tracks color_by (#1725)
@@ -115,12 +118,14 @@ We thank the many contributors who have made this release possible!
 - Fix zoom of scale bar and axes visuals on launch (#1791)
 
 ## API Changes and Deprecations
+
 - Make layer dims private (#1581)
 - Drop Python 3.6 (#1652)
 - Make signals public attribute of WorkerBase (#1681)
 - Add extent named tuple (#1771)
 
 ## Build Tools and Docs
+
 - New perfmon doc (#1634)
 - Build docs action (#1638)
 - Increase retry action timeout from 10 to 30 mins (#1651)
@@ -128,7 +133,6 @@ We thank the many contributors who have made this release possible!
 - Pin dask !=2.28.0 due to performance problems, see napari issue #1656 (#1712)
 - Fix top-level links referenced in README.md and published on napari.org (#1750)
 - Update installation readme (#1758)
-
 
 ## 20 authors added to this release (alphabetical)
 
@@ -153,7 +157,6 @@ We thank the many contributors who have made this release possible!
 - [Volker Hilsenstein](https://github.com/napari/napari/commits?author=VolkerH) - @VolkerH
 - [Ziyang Liu](https://github.com/napari/napari/commits?author=ziyangczi) - @ziyangczi
 
-
 ## 18 reviewers added to this release (alphabetical)
 
 - [Alan R Lowe](https://github.com/napari/napari/commits?author=quantumjot) - @quantumjot
@@ -174,4 +177,3 @@ We thank the many contributors who have made this release possible!
 - [Philip Winston](https://github.com/napari/napari/commits?author=pwinston) - @pwinston
 - [Volker Hilsenstein](https://github.com/napari/napari/commits?author=VolkerH) - @VolkerH
 - [Ziyang Liu](https://github.com/napari/napari/commits?author=ziyangczi) - @ziyangczi
-

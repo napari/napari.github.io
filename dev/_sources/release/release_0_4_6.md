@@ -6,11 +6,11 @@ It's designed for browsing, annotating, and analyzing large multi-dimensional
 images. It's built on top of Qt (for the GUI), vispy (for performant GPU-based
 rendering), and the scientific Python stack (numpy, scipy).
 
-
 For more information, examples, and documentation, please visit our website:
 https://github.com/napari/napari
 
 ## Highlights
+
 This release is the first that adds support for persistent settings in napari (#2212).
 Right now we just store the current theme and window geometry but we will be expanding
 this to include a full set of preferences in future releases.
@@ -19,14 +19,14 @@ We've also made plugin installation from our plugin dialog more flexible, includ
 supporting installation from anything supported by `pip`, such as a
 package name, url, or local file (#2319).
 
-
 ## New Features
+
 - Add the ability to show contours of labels (#2168)
 - Add initial settings management for theme and window geometry (#2212)
-- More flexible plugin install (from url, name or file)  (#2319)
-
+- More flexible plugin install (from url, name or file) (#2319)
 
 ## Improvements
+
 - Use pydantic for viewer model (#2066)
 - Use vectorized indexing for xarray arrays in labels (#2191)
 - Add basic composite tree model (#2217)
@@ -46,8 +46,8 @@ package name, url, or local file (#2319).
 - Don't subclass `Layer` directly from `Image`, (adds `_ImageBase`) (#2307)
 - Disable run pre release test outside napari main repository (#2331)
 
-
 ## Bug Fixes
+
 - Fix QtPoll to poll when camera moves (#2227)
 - Prevent garbage collection of viewer during startup. (#2262)
 - Fix EventedModel signatures with PySide2 imported (#2265)
@@ -55,15 +55,16 @@ package name, url, or local file (#2319).
 - Fix bug with not display points close to given layer (#2289)
 - Fix plugin discovery in bundle (use certifi context for urlopen) (#2298)
 - Call processEvents before nbscreenshot (#2303)
-- Add handling of python <= 3.7 for translator (#2305)
+- Add handling of python \<= 3.7 for translator (#2305)
 - Add parent parameter to about dialog to correctly inherit and apply theme (#2308)
 - Remove unneeded stylesheet on QtAbout dialog (#2312)
 - Avoid importing xarray (and other array libs) for equality checkers (#2325)
 
 ## API Changes
+
 - The ViewerModel is now a Pydantic BaseModel and so subclassing the Viewer might require
-reading some of the [Pydantic BaseModel documentation](https://docs.pydantic.dev/latest/usage/models/).
-Otherwise the API of the ViewerModel is unchanged.
+  reading some of the [Pydantic BaseModel documentation](https://docs.pydantic.dev/latest/usage/models/).
+  Otherwise the API of the ViewerModel is unchanged.
 - Because `Labels` no longer inherit from `Image` (#2307), magicgui function
   parameters annotated as `napari.layers.Image` will no longer include
   `napari.layers.Labels` layer types in the dropdown menu. (`napari.layers.Layer`
@@ -71,6 +72,7 @@ Otherwise the API of the ViewerModel is unchanged.
   menu.)
 
 ## Build Tools and Support
+
 - Add missing release notes 0.4.5 (#2250)
 - Explicitly document ability to implement multiple of the same hook (#2256)
 - Update install instructions to work with zsh default Mac shell (#2258)
@@ -80,7 +82,6 @@ Otherwise the API of the ViewerModel is unchanged.
 - Pin pydantic < 1.8.0 (#2323)
 - Fix docs build with code execution (#2324)
 - Pin pydantic != 1.8.0 (#2333)
-
 
 ## 12 authors added to this release (alphabetical)
 
@@ -96,7 +97,6 @@ Otherwise the API of the ViewerModel is unchanged.
 - [Pam](https://github.com/napari/napari/commits?author=ppwadhwa) - @ppwadhwa
 - [Philip Winston](https://github.com/napari/napari/commits?author=pwinston) - @pwinston
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
-
 
 ## 13 reviewers added to this release (alphabetical)
 

@@ -4,8 +4,8 @@
 
 Once a release is cut, napari is distributed in two main ways:
 
-* Packages: both to [PyPI][20] and [conda-forge][21].
-* Installers: bundles that include napari plus its runtime dependencies in a step-by-step
+- Packages: both to [PyPI][20] and [conda-forge][21].
+- Installers: bundles that include napari plus its runtime dependencies in a step-by-step
   executable.
 
 ## Packages
@@ -82,9 +82,9 @@ with no prior knowledge of `pip`, `conda`, virtual environments, command line pr
 
 A software installer is usually expected to fulfill these requirements:
 
-* It will install the application so it can be run immediately after.
-* It will provide a convenient way of opening the application, like a shortcut or a menu entry.
-* It will allow the user to uninstall the application, leaving no artifacts behind.
+- It will install the application so it can be run immediately after.
+- It will provide a convenient way of opening the application, like a shortcut or a menu entry.
+- It will allow the user to uninstall the application, leaving no artifacts behind.
 
 We use `constructor` to build the bundled installers, which takes `conda` packages.
 `conda` packages offer several advantages when it comes to bundling dependencies, since it makes very few assumptions about the underlying system installation.
@@ -98,15 +98,14 @@ packages and the `constructor` installers.
 [`constructor`][6] allows you to build cross-platform installers out of `conda` packages.
 It supports the following installer types:
 
-* On Linux, a shell-based installer is generated; users can execute it with `bash installer.sh`.
-* On macOS, you can generate both PKG and shell-based installers.
+- On Linux, a shell-based installer is generated; users can execute it with `bash installer.sh`.
+- On macOS, you can generate both PKG and shell-based installers.
   PKG files are graphical installers native to macOS, so that's the method we use with napari.
-* On Windows, a graphical installer based on [NSIS][19] is generated.
+- On Windows, a graphical installer based on [NSIS][19] is generated.
 
 The configuration is done through a `construct.yaml` file, documented [here][7].
 We generate one on the fly in the `build_installers.py` script found in `napari/packaging`.
 For a hypothetical napari v1.2.3 we would have built this configuration file:
-
 
 ```yaml
 # os-agnostic configuration
@@ -160,22 +159,22 @@ signing_certificate: certificate.pfx  # path to signing certificate
 
 The main OS-agnostic keys are:
 
-* `channels`: where the packages will be downloaded from.
+- `channels`: where the packages will be downloaded from.
   We mainly rely on `conda-forge` for this, where `napari` is published.
   In CI, we locally build our own (development) packages for `conda`, without resorting to `conda-forge`.
   To make use of those (which are eventually published to the [napari channel][17]),
   we unpack the GitHub Actions artifact in a specific location that `constructor` recognizes as a _local_ channel once indexed.
-* {{ '`extra_envs> napari-NAPARI_VER`'.replace('NAPARI_VER', napari_version) }}: the environment that will actually contain the napari installation.
+- {{ '`extra_envs> napari-NAPARI_VER`'.replace('NAPARI_VER', napari_version) }}: the environment that will actually contain the napari installation.
   In this key, you will find `specs`, which lists the conda packages to be installed in that environment.
   Constructor will perform a conda solve here to retrieve the needed dependencies.
-* `menu_packages`: restrict which packages can create shortcuts.
+- `menu_packages`: restrict which packages can create shortcuts.
   We only want the shortcuts provided by `napari-menu`, and not any that could come from the (many) dependencies of napari.
 
 Then, depending on the operating systems and the installer format, we customize the configuration a bit more.
 
 The bundled Python version in the installers follows the Python version installed in the CI
 `make_bundle_conda.yml` workflow at `napari/packaging`. Update the CI matrix configuration to bump
-the bundled Python. We use the oldest version supported by the [SPEC-0][SPEC0] recommendations.
+the bundled Python. We use the oldest version supported by the [SPEC-0][spec0] recommendations.
 
 #### Default installation path
 
@@ -184,18 +183,18 @@ This depends on each OS. Our general strategy is to put the general installation
 `envs/`, with environments named as `napari-<VERSION>`. However, there are several constrains we
 need to take into account to make this happen:
 
-* On Windows, users can choose between an "Only me" and "All users" installation. This changes what
+- On Windows, users can choose between an "Only me" and "All users" installation. This changes what
   we understand by "user directory". This is further complicated by the existence of "domain users",
   which are not guaranteed to have a user directory per se.
-* On macOS, the PKG installer does not offer a lot of flexibility for this configuration. We will
+- On macOS, the PKG installer does not offer a lot of flexibility for this configuration. We will
   put it under `~/Library/napari-<VERSION>`, by default.
 
 This means that if you install {{ napari_conda_version }} using the installer, the actual `napari` executable
 can be found, by default, on the following locations:
 
-* Linux: {{ '`~/.local/napari-NAPARI_VER/envs/napari-NAPARI_VER/bin/napari`'.replace('NAPARI_VER', napari_version) }}
-* macOS: {{ '`~/Library/napari-NAPARI_VER/envs/napari-NAPARI_VER/bin/napari`'.replace('NAPARI_VER', napari_version) }}`
-* Windows: {{ '`~/napari-NAPARI_VER/envs/napari-NAPARI_VER/Library/bin/napari`'.replace('NAPARI_VER', napari_version) }}
+- Linux: {{ '`~/.local/napari-NAPARI_VER/envs/napari-NAPARI_VER/bin/napari`'.replace('NAPARI_VER', napari_version) }}
+- macOS: {{ '`~/Library/napari-NAPARI_VER/envs/napari-NAPARI_VER/bin/napari`'.replace('NAPARI_VER', napari_version) }}
+- Windows: {{ '`~/napari-NAPARI_VER/envs/napari-NAPARI_VER/Library/bin/napari`'.replace('NAPARI_VER', napari_version) }}
 
 #### Branding
 
@@ -225,7 +224,7 @@ certificate is not recognized by Windows as a valid one, so users will still get
 warning. However, it will allow folks to check the signature metadata and see that it comes
 from napari.
 
----
+______________________________________________________________________
 
 More details about our packaging infrastructure can be found in the [NAP-2 document][nap-2].
 
@@ -236,16 +235,15 @@ Generating a `conda`-based installer requires several components in place:
 - `constructor` is the command-line tool that _builds_ the installer.
   - It depends on `conda` to solve the `specs` request.
   - It also requires a copy of `conda-standalone` (a PyInstaller-frozen version of `conda`) to be
-   present at build time so it can be bundled in the installer. This is needed because that
-   `conda-standalone` copy will handle the extraction, linking and shortcut creation when the user
-   runs the installer on their machine.
+    present at build time so it can be bundled in the installer. This is needed because that
+    `conda-standalone` copy will handle the extraction, linking and shortcut creation when the user
+    runs the installer on their machine.
 - `menuinst` handles the creation of shortcuts / desktop menu entries across all platforms.
   - `conda` depends on this library to handle shortcuts when packages are installed.
   - `constructor` delegates the shortcut creation to `conda-standalone`'s `menuinst` bundled copy
     at _installation time_.
     - For performance reasons, uninstalling the shortcut is done via a [bundled script][22]
       that calls `menuinst` directly.
-
 
 <!-- hyperlinks -->
 
@@ -263,4 +261,4 @@ Generating a `conda`-based installer requires several components in place:
 [21]: https://anaconda.org/conda-forge/napari
 [22]: https://github.com/conda/constructor/blob/764ba8a/constructor/nsis/_nsis.py
 [nap-2]: https://napari.org/dev/naps/2-conda-based-packaging.html
-[SPEC0]: https://scientific-python.org/specs/spec-0000/
+[spec0]: https://scientific-python.org/specs/spec-0000/

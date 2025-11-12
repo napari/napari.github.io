@@ -860,7 +860,7 @@ and a <a class="reference external" href="https://docs.python.org/3/library/glob
 <span class="kn">import</span><span class="w"> </span><span class="nn">dask.array</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">da</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">glob</span><span class="w"> </span><span class="kn">import</span> <span class="n">glob</span>
 
-<span class="n">filenames</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;/path/to/experiment/*.tif&quot;</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">alphanumeric_key</span><span class="p">)</span>
+<span class="n">filenames</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;/path/to/experiment/*.tif&#39;</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">alphanumeric_key</span><span class="p">)</span>
 <span class="c1"># read the first file to get the shape and dtype</span>
 <span class="c1"># ASSUMES THAT ALL FILES SHARE THE SAME SHAPE/TYPE</span>
 <span class="n">sample</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">filenames</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -879,7 +879,7 @@ and a <a class="reference external" href="https://docs.python.org/3/library/glob
 <span class="n">stack</span>
 </pre></div>
 </div>
-<p><img alt="HTML representation of a Dask array as seen in Jupyter notebook. The image is split into two main regions: a table showing the bytes, shape, count and data type attributes of the array and of each chunk, and a visual representation of the shape of the chunks that make up the array (a rectangle of 1200x1) and each individual chunk (a 65256256 cube)." src="../../_images/dask_repr.png" /></p>
+<p><img alt="HTML representation of a Dask array as seen in Jupyter notebook. The image is split into two main regions: a table showing the bytes, shape, count and data type attributes of the array and of each chunk, and a visual representation of the shape of the chunks that make up the array (a rectangle of 1200x1) and each individual chunk (a 65x256x256 cube)." src="../../_images/dask_repr.png" /></p>
 <p><em>No data has been read from disk yet!</em></p>
 <p><code class="docutils literal notranslate"><span class="pre">napari</span></code> is capable of consuming Dask arrays,
 so you can simply call <code class="docutils literal notranslate"><span class="pre">napari.imshow</span></code> on this <code class="docutils literal notranslate"><span class="pre">stack</span></code> and behind the scenes,
@@ -889,7 +889,7 @@ and handing a <code class="docutils literal notranslate"><span class="pre">numpy
 
 <span class="c1"># specify contrast_limits and multiscale=False with big data</span>
 <span class="c1"># to avoid unnecessary computations</span>
-<span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2000</span><span class="p">],</span> <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2000</span><span class="p">],</span> <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><em>Note: providing the</em> <code class="docutils literal notranslate"><span class="pre">contrast_limits</span></code> <em>and</em> <code class="docutils literal notranslate"><span class="pre">multiscale</span></code> <em>arguments prevents</em> <code class="docutils literal notranslate"><span class="pre">napari</span></code> <em>from trying to calculate the data min/max, which can take an extremely long time with big data.
@@ -907,8 +907,8 @@ provided your image format can be read by the <a class="reference external" href
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dask_image.imread</span><span class="w"> </span><span class="kn">import</span> <span class="n">imread</span>
 
-<span class="n">stack</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s2">&quot;/path/to/experiment/*.tif&quot;</span><span class="p">)</span>
-<span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2000</span><span class="p">],</span> <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s1">&#39;/path/to/experiment/*.tif&#39;</span><span class="p">)</span>
+<span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2000</span><span class="p">],</span> <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <figure>
@@ -928,6 +928,7 @@ A standard approach to deal with that sort of thing in <code class="docutils lit
 With Dask, reshaping arrays can <em>sometimes</em> lead to unexpected read events if you’re not careful.</p>
 <p>For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dask_image.imread</span><span class="w"> </span><span class="kn">import</span> <span class="n">imread</span>
+
 <span class="n">stack</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s1">&#39;/path/to/experiment/*.tif&#39;</span><span class="p">)</span>
 <span class="n">stack</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># -&gt; something like (1200, 64, 256, 280)</span>
 <span class="n">stack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>  <span class="c1"># incurs a single file read</span>
@@ -951,7 +952,7 @@ Dask arrays altogether, by constructing multiple Dask arrays using <code class="
 <span class="c1"># stack[0, 0].compute()  # incurs 600 read events!</span>
 
 <span class="c1"># do something like this:</span>
-<span class="n">file_pattern</span> <span class="o">=</span> <span class="s2">&quot;/path/to/experiment/*ch</span><span class="si">{}</span><span class="s2">*.tif&quot;</span>
+<span class="n">file_pattern</span> <span class="o">=</span> <span class="s1">&#39;/path/to/experiment/*ch</span><span class="si">{}</span><span class="s1">*.tif&#39;</span>
 <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="n">imread</span><span class="p">(</span><span class="n">file_pattern</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nchannels</span><span class="p">)]</span>
 <span class="n">stack</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
 <span class="n">stack</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># (2, 600, 64, 256, 280)</span>
@@ -987,7 +988,7 @@ loading the entire dataset to view in napari is straightforward.</p>
 <span class="c1"># Load images</span>
 <span class="n">images</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span>
     <span class="s1">&#39;SYNTHESIZED_TIFF_Images_Raw/Synthesized_FLASH25_100um_TIFF_Axial_Images/Synthesized_FLASH25_Axial_*.tiff&#39;</span>
-    <span class="p">)</span>
+<span class="p">)</span>
 <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
@@ -1019,23 +1020,26 @@ and display them, <em>on demand</em> as you move the <code class="docutils liter
 <span class="kn">from</span><span class="w"> </span><span class="nn">dask_image.imread</span><span class="w"> </span><span class="kn">import</span> <span class="n">imread</span>
 
 <span class="c1"># load stacks with dask_image, and psf with skimage</span>
-<span class="n">stack</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s2">&quot;/path/to/experiment/*.tif&quot;</span><span class="p">)</span>
-<span class="n">psf</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;/path/to/psf.tif&quot;</span><span class="p">)</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s1">&#39;/path/to/experiment/*.tif&#39;</span><span class="p">)</span>
+<span class="n">psf</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;/path/to/psf.tif&#39;</span><span class="p">)</span>
 
 <span class="c1"># prepare some functions that accept a numpy array</span>
 <span class="c1"># and return a processed array</span>
+
 
 <span class="k">def</span><span class="w"> </span><span class="nf">last3dims</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
     <span class="c1"># this is just a wrapper because the pycudadecon function</span>
     <span class="c1"># expects ndims==3 but our blocks will have ndim==4</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="kc">None</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+
     <span class="k">return</span> <span class="n">func</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">crop</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
     <span class="c1"># simple cropping function</span>
     <span class="k">return</span> <span class="n">array</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:,</span> <span class="mi">10</span><span class="p">:</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="p">:</span><span class="mi">500</span><span class="p">]</span>
+
 
 <span class="c1"># https://docs.python.org/3.8/library/functools.html#functools.partial</span>
 <span class="n">deskew</span> <span class="o">=</span> <span class="n">last3dims</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">pycudadecon</span><span class="o">.</span><span class="n">deskew_gpu</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mf">31.5</span><span class="p">))</span>
@@ -1044,9 +1048,9 @@ and display them, <em>on demand</em> as you move the <code class="docutils liter
 <span class="c1"># in reality pycudadecon.decon also has a deskew argument</span>
 
 <span class="c1"># map and chain those functions across all dask blocks</span>
-<span class="n">deskewed</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">map_blocks</span><span class="p">(</span><span class="n">deskew</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;uint16&quot;</span><span class="p">)</span>
-<span class="n">deconvolved</span> <span class="o">=</span> <span class="n">deskewed</span><span class="o">.</span><span class="n">map_blocks</span><span class="p">(</span><span class="n">deconv</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-<span class="n">cropped</span> <span class="o">=</span> <span class="n">deconvolved</span><span class="o">.</span><span class="n">map_blocks</span><span class="p">(</span><span class="n">crop</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+<span class="n">deskewed</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">map_blocks</span><span class="p">(</span><span class="n">deskew</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;uint16&#39;</span><span class="p">)</span>
+<span class="n">deconvolved</span> <span class="o">=</span> <span class="n">deskewed</span><span class="o">.</span><span class="n">map_blocks</span><span class="p">(</span><span class="n">deconv</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+<span class="n">cropped</span> <span class="o">=</span> <span class="n">deconvolved</span><span class="o">.</span><span class="n">map_blocks</span><span class="p">(</span><span class="n">crop</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
 
 <span class="c1"># put the resulting dask array into napari.</span>
 <span class="c1"># (don&#39;t forget the contrast limits and multiscale==False !)</span>

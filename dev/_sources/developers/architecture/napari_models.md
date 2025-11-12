@@ -10,25 +10,25 @@ familiar with basic usage of napari.
 
 The three main components:
 
-* Python models describing components in the napari application - these are able
+- Python models describing components in the napari application - these are able
   to operate without the GUI interface and do not have any dependencies on user
   interface classes
-    * this code lives in `napari/components` (utility objects) and
-     `napari/layers` (objects that contain data)
-* Qt classes that handle the interactive GUI aspect of the napari viewer
-    * the private Qt code lives in `napari/_qt` and the smaller public Qt
-      interface code lives in `napari/qt`
-* vispy classes that handle rendering
-    * the code for this is private and lives in `napari/_vispy`
+  - this code lives in `napari/components` (utility objects) and
+    `napari/layers` (objects that contain data)
+- Qt classes that handle the interactive GUI aspect of the napari viewer
+  - the private Qt code lives in `napari/_qt` and the smaller public Qt
+    interface code lives in `napari/qt`
+- vispy classes that handle rendering
+  - the code for this is private and lives in `napari/_vispy`
 
 The separation of the Python models from viewer GUI code allows:
 
-* analysis plugins to be developed without worrying about the GUI
+- analysis plugins to be developed without worrying about the GUI
   aspect
-* napari to have the option to move away from the rendering backend currently
+- napari to have the option to move away from the rendering backend currently
   used
-* tests to be easily run headlessly
-* the Python models to be run headlessly (see
+- tests to be easily run headlessly
+- the Python models to be run headlessly (see
   [Running napari headlessly](napari-headless) for more)
 
 ## Python models and events
@@ -45,6 +45,7 @@ for example the `Dims` class with a selected few attributes:
 ```python
 from napari.utils.events import EmitterGroup
 
+
 class Dims:
     """Dimensions object modeling slicing and displaying.
 
@@ -54,6 +55,7 @@ class Dims:
         Number of displayed dimensions.
     ...
     """
+
     def __init__(self, ndisplay):
         self._ndisplay = ndisplay
 
@@ -84,6 +86,7 @@ to watch:
 # create an instance of the model
 dims = Dims(ndisplay=2)
 
+
 # define some callback that should respond to changes in the model
 # if the function takes a single parameter it will receive the event
 # as first value.
@@ -102,7 +105,8 @@ def _update_display(event):
 
     # ... or directly get the new value for this specific event:
     assert ndisplay == event.value
-    print(f"Update number of dimensions displayed to {ndisplay}")
+    print(f'Update number of dimensions displayed to {ndisplay}')
+
 
 # register our callback with the model
 dims.events.ndisplay.connect(_update_display)
@@ -116,8 +120,8 @@ generic base model `EventedModel` was added to reduce this and
 "standardize" this change/emit pattern. The `EventedModel` provides the
 following features:
 
-* type validation and coercion on class instantiation and attribute assignment
-* event emission after successful attribute assignment
+- type validation and coercion on class instantiation and attribute assignment
+- event emission after successful attribute assignment
 
 Using `EventedModel` would reduce the above `Dim` class code to:
 
@@ -131,6 +135,7 @@ class Dim(EventedModel):
         Number of displayed dimensions.
     ...
     """
+
     ndisplay: float
 ```
 
@@ -139,7 +144,7 @@ changes. Other classes interested in the `Dim` class can register a callback
 function that will be executed when an attribute changes.
 
 ```python
-class DimsDependentClass():
+class DimsDependentClass:
     """A class that needs to 'do something' when Dims attributes change.
 
     Parameters
@@ -212,14 +217,11 @@ the function `_on_ndisplay_change`:
 
 ```python
 class VispyCamera:
-    """Vipsy camera for both 2D and 3D rendering.
-    """
+    """Vipsy camera for both 2D and 3D rendering."""
 
     def __init__(self, dims: Dims):
         self._dims = dims
         ...
 
-        self._dims.events.ndisplay.connect(
-            self._on_ndisplay_change, position='first'
-        )
+        self._dims.events.ndisplay.connect(self._on_ndisplay_change, position='first')
 ```

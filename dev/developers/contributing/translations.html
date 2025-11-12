@@ -600,12 +600,11 @@ below explains this in more detail.</p>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">SomeWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">channel_combo_box</span> <span class="o">=</span> <span class="n">QComboBox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">channel_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">),</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">channel_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;green&quot;</span><span class="p">),</span> <span class="s2">&quot;green&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">channel_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">),</span> <span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">channel_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">),</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">channel_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;green&#39;</span><span class="p">),</span> <span class="s1">&#39;green&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">channel_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">),</span> <span class="s1">&#39;blue&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>On this example, we add a RGB channel combo box selector. The first argument of
@@ -645,12 +644,17 @@ insruments.</p></li>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">SomeWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context_combo_box</span> <span class="o">=</span> <span class="n">QComboBox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">context_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_p</span><span class="p">(</span><span class="s2">&quot;character&quot;</span><span class="p">,</span> <span class="s2">&quot;tab&quot;</span><span class="p">,</span> <span class="p">),</span> <span class="s2">&quot;tab&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">context_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_p</span><span class="p">(</span><span class="s2">&quot;music&quot;</span><span class="p">,</span> <span class="s2">&quot;tab&quot;</span><span class="p">),</span> <span class="s2">&quot;tab&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">context_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_p</span><span class="p">(</span><span class="s2">&quot;ui-element&quot;</span><span class="p">,</span> <span class="s2">&quot;tab&quot;</span><span class="p">),</span> <span class="s2">&quot;tab&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_p</span><span class="p">(</span>
+                <span class="s1">&#39;character&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;tab&#39;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="s1">&#39;tab&#39;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_p</span><span class="p">(</span><span class="s1">&#39;music&#39;</span><span class="p">,</span> <span class="s1">&#39;tab&#39;</span><span class="p">),</span> <span class="s1">&#39;tab&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_p</span><span class="p">(</span><span class="s1">&#39;ui-element&#39;</span><span class="p">,</span> <span class="s1">&#39;tab&#39;</span><span class="p">),</span> <span class="s1">&#39;tab&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>On this example, we add the word <code class="docutils literal notranslate"><span class="pre">tab</span></code> three time to a combo box selector.
@@ -683,9 +687,8 @@ string.</p>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">SomeWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
-        <span class="n">string</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_n</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{n}</span><span class="s2"> item&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{n}</span><span class="s2"> items&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">amount</span><span class="p">)</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_n</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{n}</span><span class="s1"> item&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{n}</span><span class="s1"> items&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">amount</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -748,18 +751,18 @@ used for rendering the deferred strings on demand.</p>
 <p>An example of how this works with Spanish and deferred string yields:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
-<span class="n">deferred_string</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Hello </span><span class="si">{word}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">word</span><span class="o">=</span><span class="s2">&quot;world!&quot;</span><span class="p">)</span>
+<span class="n">deferred_string</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Hello </span><span class="si">{word}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">word</span><span class="o">=</span><span class="s1">&#39;world!&#39;</span><span class="p">)</span>
 
-<span class="nb">str</span><span class="p">(</span><span class="n">deferred_string</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Hello world!&quot;</span>  <span class="c1"># True</span>
-<span class="n">deferred_string</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Hello world!&quot;</span>  <span class="c1"># True</span>
-<span class="n">deferred_string</span><span class="o">.</span><span class="n">translation</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;¡Hola mundo!&quot;</span>  <span class="c1"># True</span>
+<span class="nb">str</span><span class="p">(</span><span class="n">deferred_string</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Hello world!&#39;</span>  <span class="c1"># True</span>
+<span class="n">deferred_string</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Hello world!&#39;</span>  <span class="c1"># True</span>
+<span class="n">deferred_string</span><span class="o">.</span><span class="n">translation</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;¡Hola mundo!&#39;</span>  <span class="c1"># True</span>
 </pre></div>
 </div>
 <p>An example of how this works for non-deferred string yields:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
-<span class="n">normal_string</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Hello </span><span class="si">{word}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">word</span><span class="o">=</span><span class="s2">&quot;world!&quot;</span><span class="p">)</span>
-<span class="n">normal_string</span> <span class="o">==</span> <span class="s2">&quot;¡Hola mundo!&quot;</span>  <span class="c1"># True</span>
+<span class="n">normal_string</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Hello </span><span class="si">{word}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">word</span><span class="o">=</span><span class="s1">&#39;world!&#39;</span><span class="p">)</span>
+<span class="n">normal_string</span> <span class="o">==</span> <span class="s1">&#39;¡Hola mundo!&#39;</span>  <span class="c1"># True</span>
 </pre></div>
 </div>
 </section>

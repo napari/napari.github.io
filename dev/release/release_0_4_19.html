@@ -851,6 +851,7 @@ the <a class="reference external" href="https://pypi.org/project/glasbey/"><code
 <code class="docutils literal notranslate"><span class="pre">CyclicLabelColormap</span></code> API:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">glasbey</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps</span><span class="w"> </span><span class="kn">import</span> <span class="n">CyclicLabelColormap</span>
+
 <span class="c1"># ...</span>
 <span class="n">labels_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span>
     <span class="n">segmentation</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="n">CyclicLabelColormap</span><span class="p">(</span><span class="n">glasbey</span><span class="o">.</span><span class="n">create_palette</span><span class="p">(</span><span class="mi">256</span><span class="p">))</span>
@@ -922,7 +923,7 @@ us on Mastodon</a>!</p>
 <li><p>Update “toggle ndview” text (<a class="reference external" href="https://github.com/napari/napari/pull/6192">napari/napari#6192</a>)</p></li>
 <li><p>Add collision check when set colors for labels layer (<a class="reference external" href="https://github.com/napari/napari/pull/6193">napari/napari#6193</a>)</p></li>
 <li><p>Add numpy as <code class="docutils literal notranslate"><span class="pre">np</span></code> to console predefined variables (<a class="reference external" href="https://github.com/napari/napari/pull/6314">napari/napari#6314</a>)</p></li>
-<li><p>Pydantic 2 compatibility using <code class="docutils literal notranslate"><span class="pre">pydantic.v1</span></code>  (<a class="reference external" href="https://github.com/napari/napari/pull/6358">napari/napari#6358</a>)</p></li>
+<li><p>Pydantic 2 compatibility using <code class="docutils literal notranslate"><span class="pre">pydantic.v1</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/6358">napari/napari#6358</a>)</p></li>
 </ul>
 </section>
 <section id="performance">
@@ -930,9 +931,9 @@ us on Mastodon</a>!</p>
 <ul class="simple">
 <li><p>Use a shader for low discrepancy label conversion (<a class="reference external" href="https://github.com/napari/napari/pull/3308">napari/napari#3308</a>)</p></li>
 <li><p>Fix lagging 3d view for big data in auto color mode (<a class="reference external" href="https://github.com/napari/napari/pull/6411">napari/napari#6411</a>)</p></li>
-<li><p>Fix cycle in _update_draw/_set_highlight for Points and Shapes (high CPU background usage) (<a class="reference external" href="https://github.com/napari/napari/pull/6425">napari/napari#6425</a>)</p></li>
+<li><p>Fix cycle in <code class="docutils literal notranslate"><span class="pre">_update_draw/_set_highlight</span></code> for Points and Shapes (high CPU background usage) (<a class="reference external" href="https://github.com/napari/napari/pull/6425">napari/napari#6425</a>)</p></li>
 <li><p>Update performance and reduce memory usage for big Labels layer in direct color mode (<a class="reference external" href="https://github.com/napari/napari/pull/6439">napari/napari#6439</a>)</p></li>
-<li><p>Add _data_to_texture method to LabelColormap and remove caching of (u)int8 and (uint16) (<a class="reference external" href="https://github.com/napari/napari/pull/6602">napari/napari#6602</a>)</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">_data_to_texture</span></code> method to LabelColormap and remove caching of (u)int8 and (uint16) (<a class="reference external" href="https://github.com/napari/napari/pull/6602">napari/napari#6602</a>)</p></li>
 </ul>
 </section>
 <section id="bug-fixes">
@@ -967,8 +968,8 @@ us on Mastodon</a>!</p>
 <li><p>Bugfix: Account for multiscale for labels in 3d (<a class="reference external" href="https://github.com/napari/napari/pull/6317">napari/napari#6317</a>)</p></li>
 <li><p>Update example scripts (magicgui with threads) (<a class="reference external" href="https://github.com/napari/napari/pull/6353">napari/napari#6353</a>)</p></li>
 <li><p>Exclude the loaded property when linking two layers (<a class="reference external" href="https://github.com/napari/napari/pull/6377">napari/napari#6377</a>)</p></li>
-<li><p>Fix problem with transform box of multiscale image  (<a class="reference external" href="https://github.com/napari/napari/pull/6390">napari/napari#6390</a>)</p></li>
-<li><p>Fix cycle in _update_draw/_set_highlight for Points and Shapes (high CPU background usage) (<a class="reference external" href="https://github.com/napari/napari/pull/6425">napari/napari#6425</a>)</p></li>
+<li><p>Fix problem with transform box of multiscale image (<a class="reference external" href="https://github.com/napari/napari/pull/6390">napari/napari#6390</a>)</p></li>
+<li><p>Fix cycle in <code class="docutils literal notranslate"><span class="pre">_update_draw/_set_highlight</span></code> for Points and Shapes (high CPU background usage) (<a class="reference external" href="https://github.com/napari/napari/pull/6425">napari/napari#6425</a>)</p></li>
 <li><p>Do not run macos process renaming if debugger is loaded (<a class="reference external" href="https://github.com/napari/napari/pull/6437">napari/napari#6437</a>)</p></li>
 <li><p>Fix bounding box transforms when multiscale layer corner goes below zero (<a class="reference external" href="https://github.com/napari/napari/pull/6438">napari/napari#6438</a>)</p></li>
 <li><p>Update performance and reduce memory usage for big Labels layer in direct color mode (<a class="reference external" href="https://github.com/napari/napari/pull/6439">napari/napari#6439</a>)</p></li>
@@ -985,7 +986,7 @@ us on Mastodon</a>!</p>
 <li><p>Run test suite with optional dependencies and fix tests when <code class="docutils literal notranslate"><span class="pre">triangle</span></code> is installed (<a class="reference external" href="https://github.com/napari/napari/pull/6488">napari/napari#6488</a>)</p></li>
 <li><p>Do not use native dialog for reset shortcuts (<a class="reference external" href="https://github.com/napari/napari/pull/6493">napari/napari#6493</a>)</p></li>
 <li><p>Pass key event from Main window to our internal mechanism v0.4.19 (<a class="reference external" href="https://github.com/napari/napari/pull/6507">napari/napari#6507</a>)</p></li>
-<li><p>Fix problem with invalidate cache  (<a class="reference external" href="https://github.com/napari/napari/pull/6520">napari/napari#6520</a>)</p></li>
+<li><p>Fix problem with invalidate cache (<a class="reference external" href="https://github.com/napari/napari/pull/6520">napari/napari#6520</a>)</p></li>
 <li><p>Reset single step and decimals on reset range slider in popup (<a class="reference external" href="https://github.com/napari/napari/pull/6523">napari/napari#6523</a>)</p></li>
 <li><p>Fix label direct mode for installation without numba (<a class="reference external" href="https://github.com/napari/napari/pull/6571">napari/napari#6571</a>)</p></li>
 <li><p>Fix labels mapping cache by filling it with background, not 0 (<a class="reference external" href="https://github.com/napari/napari/pull/6580">napari/napari#6580</a>)</p></li>
@@ -1030,7 +1031,7 @@ replacements:</p>
 <li><p>color: <code class="docutils literal notranslate"><span class="pre">layer.color</span></code> becomes <code class="docutils literal notranslate"><span class="pre">layer.colormap.color_dict</span></code>.
 <code class="docutils literal notranslate"><span class="pre">layer.color</span> <span class="pre">=</span> <span class="pre">color_dict</span></code> becomes
 <code class="docutils literal notranslate"><span class="pre">layer.colormap</span> <span class="pre">=</span> <span class="pre">DirectLabelColormap(color_dict)</span></code>.</p></li>
-<li><p>_background_label: <code class="docutils literal notranslate"><span class="pre">layer._background_label</span></code> is now at
+<li><p><code class="docutils literal notranslate"><span class="pre">_background_label</span></code>: <code class="docutils literal notranslate"><span class="pre">layer._background_label</span></code> is now at
 <code class="docutils literal notranslate"><span class="pre">layer.colormap.background_value</span></code>.</p></li>
 <li><p>color_mode: <code class="docutils literal notranslate"><span class="pre">layer.color_mode</span></code> is set by setting the colormap using the
 corresponding colormap type (<code class="docutils literal notranslate"><span class="pre">CyclicLabelColormap</span></code> or <code class="docutils literal notranslate"><span class="pre">DirectLabelColormap</span></code>;
@@ -1051,7 +1052,7 @@ superseded by <code class="docutils literal notranslate"><span class="pre">layer
 <ul class="simple">
 <li><p>Add HIP workshop to documentation/workshops (<a class="reference external" href="https://github.com/napari/napari/pull/5117">napari/napari#5117</a>)</p></li>
 <li><p>Update <a class="reference external" href="http://README.md">README.md</a> for conda install change (<a class="reference external" href="https://github.com/napari/napari/pull/6123">napari/napari#6123</a>)</p></li>
-<li><p>Cherry-pick docs for 0.4.19 release  (<a class="reference external" href="https://github.com/napari/napari/pull/6384">napari/napari#6384</a>)</p></li>
+<li><p>Cherry-pick docs for 0.4.19 release (<a class="reference external" href="https://github.com/napari/napari/pull/6384">napari/napari#6384</a>)</p></li>
 <li><p>Add 0.4.19 release notes (<a class="reference external" href="https://github.com/napari/napari/pull/6376">napari/napari#6376</a>)</p></li>
 <li><p>Update docs contribution guide for two-repo setup (<a class="reference external" href="https://github.com/napari/docs/pull/5">napari/docs#5</a>)</p></li>
 <li><p>Improve makefile (<a class="reference external" href="https://github.com/napari/docs/pull/41">napari/docs#41</a>)</p></li>
@@ -1128,9 +1129,9 @@ superseded by <code class="docutils literal notranslate"><span class="pre">layer
 <li><p>[maint] update Dockerfile with current installation of Xpra (<a class="reference external" href="https://github.com/napari/napari/pull/6463">napari/napari#6463</a>)</p></li>
 <li><p>[Maint, v0.4.19] Use python 3.11 for manifest check (<a class="reference external" href="https://github.com/napari/napari/pull/6497">napari/napari#6497</a>)</p></li>
 <li><p>Add copy operator to fix memory benchmarks (<a class="reference external" href="https://github.com/napari/napari/pull/6530">napari/napari#6530</a>)</p></li>
-<li><p>Check in LabelColormap that fewer than 2**16 colors are requested (<a class="reference external" href="https://github.com/napari/napari/pull/6540">napari/napari#6540</a>)</p></li>
+<li><p>Check in LabelColormap that fewer than <code class="docutils literal notranslate"><span class="pre">2**16</span></code> colors are requested (<a class="reference external" href="https://github.com/napari/napari/pull/6540">napari/napari#6540</a>)</p></li>
 <li><p>[Maint] Update build_docs workflow to match napari/docs (<a class="reference external" href="https://github.com/napari/napari/pull/6547">napari/napari#6547</a>)</p></li>
-<li><p>Moving IntensityVisualizationMixin from _ImageBase to Image (<a class="reference external" href="https://github.com/napari/napari/pull/6548">napari/napari#6548</a>)</p></li>
+<li><p>Moving IntensityVisualizationMixin from <code class="docutils literal notranslate"><span class="pre">_ImageBase</span></code> to Image (<a class="reference external" href="https://github.com/napari/napari/pull/6548">napari/napari#6548</a>)</p></li>
 <li><p>test: [Automatic] Constraints upgrades: <code class="docutils literal notranslate"><span class="pre">app-model</span></code>, <code class="docutils literal notranslate"><span class="pre">babel</span></code>, <code class="docutils literal notranslate"><span class="pre">certifi</span></code>, <code class="docutils literal notranslate"><span class="pre">dask</span></code>, <code class="docutils literal notranslate"><span class="pre">fsspec</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">imageio</span></code>, <code class="docutils literal notranslate"><span class="pre">ipython</span></code>, <code class="docutils literal notranslate"><span class="pre">jsonschema</span></code>, <code class="docutils literal notranslate"><span class="pre">lxml</span></code>, <code class="docutils literal notranslate"><span class="pre">magicgui</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, <code class="docutils literal notranslate"><span class="pre">numba</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">pillow</span></code>, <code class="docutils literal notranslate"><span class="pre">pint</span></code>, <code class="docutils literal notranslate"><span class="pre">psutil</span></code>, <code class="docutils literal notranslate"><span class="pre">psygnal</span></code>, <code class="docutils literal notranslate"><span class="pre">pydantic</span></code>, <code class="docutils literal notranslate"><span class="pre">pygments</span></code>, <code class="docutils literal notranslate"><span class="pre">pyqt6</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest-qt</span></code>, <code class="docutils literal notranslate"><span class="pre">qtconsole</span></code>, <code class="docutils literal notranslate"><span class="pre">rich</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>, <code class="docutils literal notranslate"><span class="pre">tensorstore</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code>, <code class="docutils literal notranslate"><span class="pre">torch</span></code>, <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code>, <code class="docutils literal notranslate"><span class="pre">wrapt</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/6559">napari/napari#6559</a>)</p></li>
 <li><p>Do not require triangle on macos arm (<a class="reference external" href="https://github.com/napari/napari/pull/6603">napari/napari#6603</a>)</p></li>
 <li><p>No-cache fast painting (<a class="reference external" href="https://github.com/napari/napari/pull/6607">napari/napari#6607</a>)</p></li>

@@ -1,9 +1,12 @@
 (napari-plugin-engine)=
+
 # First generation plugins (*Deprecated*)
 
 ```{Admonition} DEPRECATED
-:class: warning
-We introduced a new plugin engine ([`npe2`][npe2]) in December 2021.
+---
+class: warning
+---
+We introduced a new plugin engine ([`npe2`](https://github.com/napari/npe2)) in December 2021.
 
 Plugins targeting the first generation `napari-plugin-engine`
 (described on this page) will continue to work for at least the
@@ -16,7 +19,6 @@ The content below describes the original
 and exists for archival reference purposes during the deprecation period.
 ```
 
-
 ## Overview
 
 `napari` supports plugin development through **hooks**:
@@ -28,18 +30,18 @@ specific places in the napari codebase where functionality can be extended.
    that we promise to call somewhere in the napari codebase.
    See {ref}`plugins-hook-spec`.
 
-2. **Hook implementations**: To make a plugin, plugin developers then write functions ("_hook
+1. **Hook implementations**: To make a plugin, plugin developers then write functions ("_hook
    implementations_") and mark that function as meeting the requirements of a
    specific _hook specification_ offered by napari.
    See {ref}`plugins-hook-implement`.
 
-3. **Plugin discovery**: Plugins that are installed in the same python
+1. **Plugin discovery**: Plugins that are installed in the same python
    environment as napari can make themselves known to napari. `napari` will then
    scan plugin modules for _hook implementations_ that will be called at the
    appropriate time and place during the execution of `napari`.
    See {ref}`plugin-discovery`.
 
-4. **Plugin sharing**: When you are ready to share your plugin, tag your repo
+1. **Plugin sharing**: When you are ready to share your plugin, tag your repo
    with `napari-plugin`, push a release to pypi, and announce it on Image.sc.
    Your plugin will then be available for users on the
    [napari hub](https://napari-hub.org/). See {ref}`plugin-sharing`.
@@ -60,7 +62,6 @@ the {ref}`hook-specifications-reference`.
 A single plugin package may implement more than one _hook specification_, and
 each _hook specification_ could have multiple _hook implementations_ within
 a single package.
-
 
 Let's take the {func}`~napari.plugins.hook_specifications.napari_get_reader`
 hook (our primary "reader plugin" hook) as an example. It is defined as:
@@ -207,11 +208,11 @@ functionality by simply installing your package along with napari:
 ```
 
 (plugin-sharing)=
+
 ### Step 4: Deploy your plugin
 
-See [testing and deploying](plugin-test-deploy) your plugin.  (This hasn't changed
+See [testing and deploying](plugin-test-deploy) your plugin. (This hasn't changed
 significantly with the second generation (`npe2`) plugin engine).
-
 
 (napari-plugin-template)=
 
@@ -234,12 +235,11 @@ copier copy --trust https://github.com/napari/napari-plugin-template new-plugin-
 
 See the [readme](https://github.com/napari/napari-plugin-template) for details
 
-
-----------------------------
+______________________________________________________________________
 
 (hook-specifications-reference)=
-## Hook Specification Reference
 
+## Hook Specification Reference
 
 ```{eval-rst}
 .. automodule:: napari.plugins.hook_specifications
@@ -297,5 +297,3 @@ If you run into trouble creating your plugin, please don't hesitate to reach
 out for help in the [Image.sc Forum](https://forum.image.sc/tag/napari).
 Alternatively, if you find a bug or have a specific feature request for plugin
 support, please open an issue at our [GitHub issue tracker](https://github.com/napari/napari/issues/new/choose).
-
-[npe2]: https://github.com/napari/npe2

@@ -69,7 +69,7 @@ investigate some crashes that it seemed to be contributing to. See #1905.
 - Fix #1811: Move visual creation to end of __init__ (#1835)
 - Fix keybinding inheritance (#1838)
 - Fix lower triangular shear values (#1839)
-- Fix bug for painting when scale above 1  (#1840)
+- Fix bug for painting when scale above 1 (#1840)
 - Enhance accessibility by ensuring welcome screen contrast meets required
   standards (#1863)
 - Apply requested opacity in points layer (#1864)
@@ -84,10 +84,10 @@ investigate some crashes that it seemed to be contributing to. See #1905.
 
 ## API Changes
 
-- ``Viewer.grid_view()`` and ``Viewer.stack_view()`` are deprecated.
-  Instead, use ``viewer.grid.enabled = <True/False>``. (#1821)
-- ``Viewer.grid_stride`` and ``Viewer.grid_size`` are deprecated. Instead,
-  use ``Viewer.grid.stride`` and ``Viewer.grid.shape``. (#1821, #1847)
+- `Viewer.grid_view()` and `Viewer.stack_view()` are deprecated.
+  Instead, use `viewer.grid.enabled = <True/False>`. (#1821)
+- `Viewer.grid_stride` and `Viewer.grid_size` are deprecated. Instead,
+  use `Viewer.grid.stride` and `Viewer.grid.shape`. (#1821, #1847)
 
 ## Build Tools and Docs
 
@@ -129,7 +129,6 @@ investigate some crashes that it seemed to be contributing to. See #1905.
 - [Volker Hilsenstein](https://github.com/napari/napari/commits?author=VolkerH) - @VolkerH
 - [Will Moore](https://github.com/napari/napari/commits?author=will-moore) - @will-moore
 - [Ziyang Liu](https://github.com/napari/napari/commits?author=ziyangczi) - @ziyangczi
-
 
 ## 10 reviewers added to this release (alphabetical)
 

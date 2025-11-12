@@ -15,7 +15,7 @@ https://github.com/napari/napari
 
 ## Improvements
 
-- Add linter pre-commit hook  (#638)
+- Add linter pre-commit hook (#638)
 - Modify dims QScrollbar with scroll-to-click behavior (#664)
 
 ## Bug Fixes

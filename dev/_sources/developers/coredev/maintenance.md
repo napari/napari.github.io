@@ -17,14 +17,14 @@ The token should have a one-year expiration date. After that, it needs to be ref
 
 The token should be named `GHA_TOKEN` and the required permissions are:
 
- * **read** to repository metadata
- * **read and write** to pull requests
- * **read and write** to code
+- **read** to repository metadata
+- **read and write** to pull requests
+- **read and write** to code
 
- ![screenshot of token permissions in GitHub UI](../../_static/images/update_token_permissions.png)
+![screenshot of token permissions in GitHub UI](../../_static/images/update_token_permissions.png)
 
- At the moment of writing this document, there is a difference in names between the summary of the token and the list of permissions.
- The **code** permission is called **Contents** in the Edit view of the token.
+At the moment of writing this document, there is a difference in names between the summary of the token and the list of permissions.
+The **code** permission is called **Contents** in the Edit view of the token.
 
 ![screenshot of token permissions](../../_static/images/edit_token_permissions.png)
 
@@ -41,11 +41,11 @@ Fill the form:
 1. Choose a name for the token. This is only for you to better remember what
    the token is. The name will not be used by any workflows or in any other
    step.
-2. Set expiration to custom and then select one year after the current date.
-3. Optionally set a description. Again this is only for your own memory. A link
+1. Set expiration to custom and then select one year after the current date.
+1. Optionally set a description. Again this is only for your own memory. A link
    to this page might be appropriate.
-4. Select **napari** to be the resource owner
-5. Select _Only selected repositories_ and then select **napari/napari** repository
+1. Select **napari** to be the resource owner
+1. Select _Only selected repositories_ and then select **napari/napari** repository
 
 ![screenshot of the token creation form](../../_static/images/token_permission_form.png)
 
@@ -54,10 +54,10 @@ Fill the form:
 ![screenshot of the token creation form](../../_static/images/token_permission_selection.png)
 
 7. Click the _Generate token_ button
-8. Copy token
-9. Go to the napari repository settings
-10. Expand the _Secrets and variables_ section and select _Actions_
-11. Click the edit button for the `GHA_TOKEN` secret
+1. Copy token
+1. Go to the napari repository settings
+1. Expand the _Secrets and variables_ section and select _Actions_
+1. Click the edit button for the `GHA_TOKEN` secret
 
 ![screenshot of the token creation form](../../_static/images/secrets_section.png)
 
@@ -81,13 +81,13 @@ file `/tools/strings_list.py` to include strings to skip safely from translation
 
 The test checks:
 
-  1. **Untranslated strings**: not using the `trans` methods.
-  2. **Outdated skip strings**: should no longer be included in the `/tools/strings_list.py` file.
-  3. **Translation usage errors**: where translation strings may be missing interpolation variables.
+1. **Untranslated strings**: not using the `trans` methods.
+1. **Outdated skip strings**: should no longer be included in the `/tools/strings_list.py` file.
+1. **Translation usage errors**: where translation strings may be missing interpolation variables.
 
 You can execute tests locally from the repository root, and follow the instructions printed
 on the `stdout` if any test fails.
 
-  ```bash
-  pytest tools/ --tb=short
-  ```
+```bash
+pytest tools/ --tb=short
+```

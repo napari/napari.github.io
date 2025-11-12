@@ -62,7 +62,7 @@ changes!
 - Add `napari.benchmarks.util` to sdist and wheel to fix balls example data ([#7186](https://github.com/napari/napari/pull/7186))
 - Bugfix: Revert "Emit highlight event only if selection changed (#7162)" ([#7201](https://github.com/napari/napari/pull/7201))
 - Use new DOI for surface example ([#7222](https://github.com/napari/napari/pull/7222))
--  Fix convex polygon detection ([#7228](https://github.com/napari/napari/pull/7228))
+- Fix convex polygon detection ([#7228](https://github.com/napari/napari/pull/7228))
 
 ## Documentation
 
@@ -79,12 +79,12 @@ changes!
 - Fix/add some typing to napari.layers.tracks ([#7014](https://github.com/napari/napari/pull/7014))
 - Call workflow providing target directory name ([#7181](https://github.com/napari/napari/pull/7181))
 - Improve error message in `combine_widgets` ([#7194](https://github.com/napari/napari/pull/7194))
-- [Maint] Remove some pytest skipif for python <3.9 ([#7203](https://github.com/napari/napari/pull/7203))
+- [Maint] Remove some pytest skipif for python \<3.9 ([#7203](https://github.com/napari/napari/pull/7203))
 - Update `dask`, `hypothesis`, `imageio`, `matplotlib` ([#7206](https://github.com/napari/napari/pull/7206))
 - [pre-commit.ci] pre-commit autoupdate ([#7207](https://github.com/napari/napari/pull/7207))
 - [pre-commit.ci] pre-commit autoupdate ([#7216](https://github.com/napari/napari/pull/7216))
 - Fix example by connect missing event ([#7218](https://github.com/napari/napari/pull/7218))
-- Improve deploy workflow by use deploy directory from workflow dispatch input  ([docs#477](https://github.com/napari/docs/pull/477))
+- Improve deploy workflow by use deploy directory from workflow dispatch input ([docs#477](https://github.com/napari/docs/pull/477))
 
 ## 9 authors added to this release (alphabetical)
 
@@ -93,13 +93,12 @@ changes!
 - [BeanLi](https://github.com/napari/napari/commits?author=beanli161514) - @beanli161514 +
 - [Daniel Althviz Moré](https://github.com/napari/napari/commits?author=dalthviz) - @dalthviz
 - [David Stansby](https://github.com/napari/napari/commits?author=dstansby) - @dstansby
-- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
-- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni))  - @jni
+- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki)) - @Czaki
+- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni)) - @jni
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - @brisvag
-- [Lucy Liu](https://github.com/napari/napari/commits?author=lucyleeow) ([docs](https://github.com/napari/docs/commits?author=lucyleeow))  - @lucyleeow
+- [Lucy Liu](https://github.com/napari/napari/commits?author=lucyleeow) ([docs](https://github.com/napari/docs/commits?author=lucyleeow)) - @lucyleeow
 - [Melissa Weber Mendonça](https://github.com/napari/docs/commits?author=melissawm) - @melissawm
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
-
 
 ## 13 reviewers added to this release (alphabetical)
 
@@ -110,12 +109,11 @@ changes!
 - [David Stansby](https://github.com/napari/napari/commits?author=dstansby) - @dstansby
 - [Draga Doncila Pop](https://github.com/napari/docs/commits?author=DragaDoncila) - @DragaDoncila
 - [Genevieve Buckley](https://github.com/napari/docs/commits?author=GenevieveBuckley) - @GenevieveBuckley
-- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
-- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni))  - @jni
+- [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki)) - @Czaki
+- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni)) - @jni
 - [Kevin Yamauchi](https://github.com/napari/docs/commits?author=kevinyamauchi) - @kevinyamauchi
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - @brisvag
-- [Lucy Liu](https://github.com/napari/napari/commits?author=lucyleeow) ([docs](https://github.com/napari/docs/commits?author=lucyleeow))  - @lucyleeow
+- [Lucy Liu](https://github.com/napari/napari/commits?author=lucyleeow) ([docs](https://github.com/napari/docs/commits?author=lucyleeow)) - @lucyleeow
 - [Melissa Weber Mendonça](https://github.com/napari/docs/commits?author=melissawm) - @melissawm
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
 - [Wouter-Michiel Vierdag](https://github.com/napari/docs/commits?author=melonora) - @melonora
-

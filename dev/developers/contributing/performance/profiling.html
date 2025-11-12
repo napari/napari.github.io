@@ -616,8 +616,9 @@ which can be investigated later. To save the output to file use the <code class=
 <li><p>The Stat object.</p>
 <p>You can parse the profile output using the <code class="docutils literal notranslate"><span class="pre">Stats</span></code> object from the <code class="docutils literal notranslate"><span class="pre">pstats</span></code> built-in library. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">Stats</span>
-<span class="n">stat</span> <span class="o">=</span> <span class="n">Stats</span><span class="p">(</span><span class="s2">&quot;path/to/result.pstat&quot;</span><span class="p">)</span>
-<span class="n">stat</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s2">&quot;tottime&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">print_stats</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">stat</span> <span class="o">=</span> <span class="n">Stats</span><span class="p">(</span><span class="s1">&#39;path/to/result.pstat&#39;</span><span class="p">)</span>
+<span class="n">stat</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s1">&#39;tottime&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">print_stats</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You can find more documentation about the Stats object in the Python documentation <a class="reference external" href="https://docs.python.org/3/library/profile.html#the-stats-class">here</a>.</p>
@@ -663,7 +664,7 @@ You can restrict profiling to particular code sections using
 
 <span class="k">with</span> <span class="n">cProfile</span><span class="o">.</span><span class="n">Profile</span><span class="p">()</span> <span class="k">as</span> <span class="n">pr</span><span class="p">:</span>
     <span class="n">code_for_profile</span><span class="p">()</span>
-<span class="n">pr</span><span class="o">.</span><span class="n">dump_stats</span><span class="p">(</span><span class="s2">&quot;result.pstat&quot;</span><span class="p">)</span>
+<span class="n">pr</span><span class="o">.</span><span class="n">dump_stats</span><span class="p">(</span><span class="s1">&#39;result.pstat&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The resulting profile can then be visualized using the above methods.</p>
@@ -674,9 +675,10 @@ button to trigger profiling:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">testing_fun</span><span class="p">():</span>
     <span class="k">with</span> <span class="n">cProfile</span><span class="o">.</span><span class="n">Profile</span><span class="p">()</span> <span class="k">as</span> <span class="n">pr</span><span class="p">:</span>
         <span class="n">code_for_profile</span><span class="p">()</span>
-    <span class="n">pr</span><span class="o">.</span><span class="n">dump_stats</span><span class="p">(</span><span class="s2">&quot;camera_layers.pstat&quot;</span><span class="p">)</span>
+    <span class="n">pr</span><span class="o">.</span><span class="n">dump_stats</span><span class="p">(</span><span class="s1">&#39;camera_layers.pstat&#39;</span><span class="p">)</span>
 
-<span class="n">testing_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Profile&quot;</span><span class="p">)</span>
+
+<span class="n">testing_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Profile&#39;</span><span class="p">)</span>
 <span class="n">testing_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">testing_fun</span><span class="p">)</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">testing_btn</span><span class="p">)</span>
 </pre></div>

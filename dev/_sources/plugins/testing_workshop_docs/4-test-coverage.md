@@ -4,20 +4,23 @@
 
 ## Other lessons in this tutorial:
 
-* 1: [Python’s assert keyword](plugin-testing-workshop-assert)
-* 2: [Pytest testing framework](plugin-testing-workshop-pytest)
-* 3: [Readers and fixtures](plugin-testing-workshop-reader-fixtures)
-* 4: This lesson (Test coverage)
-* Resource links: [testing resources](plugin-testing-resources)
+- 1: [Python’s assert keyword](plugin-testing-workshop-assert)
+- 2: [Pytest testing framework](plugin-testing-workshop-pytest)
+- 3: [Readers and fixtures](plugin-testing-workshop-reader-fixtures)
+- 4: This lesson (Test coverage)
+- Resource links: [testing resources](plugin-testing-resources)
 
 ### This lesson covers:
-* [Coverage](#coverage)
-* [pytest --cov](#pytest---cov)
+
+- [Coverage](#coverage)
+- [pytest --cov](#pytest---cov)
 
 #### Resources
+
 The example plugin and all the tests discussed in this lesson are available in [this GitHub repository](https://github.com/DragaDoncila/plugin-tests).
 
 ## Coverage
+
 How do we know when we have tested everything?
 
 This is where _coverage_ comes in. `pytest-cov` can find out what the coverage of our tests is. Install using
@@ -25,7 +28,7 @@ This is where _coverage_ comes in. `pytest-cov` can find out what the coverage o
 
 ## pytest --cov
 
-To run tests with coverage, run `pytest` and add `--cov` pointing to the module you're covering. There is also an option to generate an html report, which we do in this case. [Note that the `.` (period character) is part of the command.]
+To run tests with coverage, run `pytest` and add `--cov` pointing to the module you're covering. There is also an option to generate an html report, which we do in this case. \[Note that the `.` (period character) is part of the command.\]
 
 ```console
 (napari-env) user@directory % pytest --cov=plugin_tests --cov-report=html .
@@ -77,16 +80,19 @@ We are interested in `_reader.py`. The file containing the reader code has 86% c
 Because we never provided a list of paths, we don't know what will happen in that case. We also never ran code that tests not returning a reader. In other words, we never tested the failed cases. We can and should add those tests. The first one is `test_get_reader_pass`. We'll call it with a file that doesn't end in `.npy` and assert that it returned `None`. Then we'll create a second test to call with a list of paths.
 
 Using the `write_im_to_file` fixture again, we can write two files, call `napari_get_reader` with two paths and assert that it still returns a callable.
+
 ```python
 def test_get_reader_pass():
     """Calling get_reader with non-numpy file path returns None"""
-    reader = napari_get_reader("fake.file")
+    reader = napari_get_reader('fake.file')
     assert reader is None
+
 
 def test_get_reader_path_list(write_im_to_file):
     """Calling get_reader on list of numpy files returns callable"""
-    pth1, _ = write_im_to_file("myfile1.npy")
-    pth2, _ = write_im_to_file("myfile2.npy")
+    pth1, _ = write_im_to_file('myfile1.npy')
+    pth2, _ = write_im_to_file('myfile2.npy')
+
 
 reader = napari_get_reader([pth1, pth2])
 assert callable(reader)

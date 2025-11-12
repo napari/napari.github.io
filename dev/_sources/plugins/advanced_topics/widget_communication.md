@@ -6,7 +6,7 @@ Sometimes complex workflows require access to other docked widgets, information 
 
 ## Access another plugin widget with `viewer.window.add_plugin_dock_widget`
 
-If a desired plugin widget is already docked in the viewer, 
+If a desired plugin widget is already docked in the viewer,
 calling the `add_plugin_dock_widget` method will return the existing widget instance.
 If the desired widget is absent, it will be created and added to the viewer.
 `add_plugin_dock_widget` is the most convenient way to access a plugin widget that is required by your plugin.
@@ -20,8 +20,7 @@ This method returns the widget itself, not the `QtViewerDockWidget` wrapper.
 
 *The `dock_widgets` property was added in napari 0.6.2.*
 
-
-## Widget name 
+## Widget name
 
 When a widget is added to the viewer via a plugin contribution (by using a menu or `add_plugin_dock_widget`), it is assigned a name.
 The name is created by concatenating the widget `display_name` from the plugin manifest and the plugin name in parentheses, like this: `"Widget name (plugin_name)"`. Note: this is the same name that is shown in the napari menus and the title bar of the widget.
@@ -30,23 +29,24 @@ The name is created by concatenating the widget `display_name` from the plugin m
 We don't recommend using the `viewer.window._dock_widgets` attribute to access `QtViewerDockWidget` widgets. This is a private, internal API and may stop working on any release. Please use the above described public API instead.
 ```
 
-
 ## Shared state between widgets
 
 If you have a need for multiple widgets to share a state, you can use a shared global object.
 
-```python 
-
+```python
 from psygnal import EventedModel
+
 
 class GlobalState(EventedModel):
     """A global state object that can be shared between widgets."""
+
     # Define your shared state attributes here
     some_value: int = 0
-    another_value: str = "default"
-    
+    another_value: str = 'default'
+
 
 GLOBAL_STATE = None
+
 
 def get_global_state():
     """Get the global state object, creating it if it does not exist."""
@@ -63,13 +63,17 @@ from weakref import WeakKeyDictionary
 
 from psygnal import EventedModel
 
+
 class GlobalState(EventedModel):
     """A global state object that can be shared between widgets."""
+
     # Define your shared state attributes here
     some_value: int = 0
-    another_value: str = "default"
+    another_value: str = 'default'
+
 
 GLOBAL_STATE = WeakKeyDictionary()
+
 
 def get_global_state(viewer):
     """Get the global state object for the given viewer, creating it if it does not exist."""
@@ -82,7 +86,7 @@ To store state between sessions, you can enhance the `get_global_state` to load 
 To get a location for storing the state, you can use the `get_settings().config_path` to have a path per napari installation.
 Or you can use [`appdirs.user_config_dir`](https://pypi.org/project/appdirs/)
 
-```python 
+```python
 import logging
 from pathlib import Path
 
@@ -92,9 +96,10 @@ from pydantic import ValidationError
 
 class GlobalState(EventedModel):
     """A global state object that can be shared between widgets."""
+
     # Define your shared state attributes here
     some_value: int = 0
-    another_value: str = "default"
+    another_value: str = 'default'
 
 
 GLOBAL_STATE = None
@@ -104,7 +109,7 @@ def get_save_path():
     """Get the path to save the global state."""
     from napari.settings import get_settings
 
-    return Path(get_settings().config_path).parent / "plugin_name" / "state.json"
+    return Path(get_settings().config_path).parent / 'plugin_name' / 'state.json'
 
 
 def get_global_state():
@@ -119,12 +124,16 @@ def get_global_state():
                     GLOBAL_STATE = GlobalState.model_validate_json(f.read())
             except ValidationError:
                 # If loading fails, create a new global state
-                logging.exception("Failed to load global state from file, creating a new one.")
+                logging.exception(
+                    'Failed to load global state from file, creating a new one.'
+                )
                 GLOBAL_STATE = GlobalState()
         else:
             # Create a new global state if the file does not exist
             GLOBAL_STATE = GlobalState()
-        GLOBAL_STATE.events.connect(save_global_state)  # Connect the save event to the global state on change
+        GLOBAL_STATE.events.connect(
+            save_global_state
+        )  # Connect the save event to the global state on change
     return GLOBAL_STATE
 
 

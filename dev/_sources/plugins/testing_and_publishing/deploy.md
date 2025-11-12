@@ -1,4 +1,5 @@
 (plugin-deploy)=
+
 # Publish your plugin
 
 ## Preparing for release
@@ -27,22 +28,22 @@ Wiki](https://github.com/chanzuckerberg/napari-hub/wiki).
 If you want your plugin to be available on PyPI, but not visible on the napari
 hub, add a `visibility` flag to your plugin manifest. For more details, see the 
 [manifest reference](plugin-manifest) and napari hub [customization
-guide][hub-guide-custom-viz].
+guide](https://github.com/chanzuckerberg/napari-hub/wiki/Customizing-your-plugin's-listing#visibility).
 ```
 
 ## Deployment
 
 When you are ready to share your plugin, [upload the Python package to
-PyPI][pypi-upload] after which it will be installable using `python -m pip install
-<yourpackage>`, or (assuming you added the `Framework :: napari` classifier)
+PyPI][pypi-upload] after which it will be installable using `python -m pip install <yourpackage>`, or (assuming you added the `Framework :: napari` classifier)
 in the builtin plugin installer dialog.
 
 If you used the {ref}`napari-plugin-template`, you can also
 [setup automated deployments][autodeploy] on GitHub for every tagged commit.
 
 ```{admonition} conda-forge
-:class: attention
-
+---
+class: attention
+---
 You can also deploy your plugin to conda-forge. Check out [deploying to conda-forge](deploying-to-conda-forge) for more
 details on how to do that.
 ```
@@ -53,10 +54,7 @@ PyPI and conda-forge.
 When you are ready for users, announce your plugin on the [Image.sc
 forum](https://forum.image.sc/tag/napari).
 
-
+[autodeploy]: https://github.com/napari/napari-plugin-template#set-up-automatic-deployments
 [classifier]: https://pypi.org/classifiers/
 [pypi]: https://pypi.org/
 [pypi-upload]: https://packaging.python.org/en/latest/tutorials/packaging-projects/#uploading-the-distribution-archives
-[hubguide]: https://github.com/chanzuckerberg/napari-hub/blob/main/docs/customizing-plugin-listing.md
-[hub-guide-custom-viz]: https://github.com/chanzuckerberg/napari-hub/wiki/Customizing-your-plugin's-listing#visibility
-[autodeploy]: https://github.com/napari/napari-plugin-template#set-up-automatic-deployments

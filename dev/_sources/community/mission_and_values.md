@@ -1,4 +1,5 @@
 (mission-and-values)=
+
 # Mission and Values
 
 This document is meant to help guide decisions about the future of `napari`, be it in terms of
@@ -24,6 +25,7 @@ The founding napari team came together around a shared vision for a Python based
 As the project has grown we've turned these original principles into the mission statement and set of values that we described below.
 
 (our-mission)=
+
 ## Our mission
 
 napari aims to be the **multi-dimensional image viewer for Python** and to **provide GUI access to a plugin ecosystem of image analysis tools for scientists** to use in their daily work. We hope to accomplish this by:
@@ -41,16 +43,16 @@ napari aims to be the **multi-dimensional image viewer for Python** and to **pro
 - ensuring **scientific accuracy**. We prioritise bug fixes and feature development that affect the scientific interpretation of the displayed data. For example, a bug in which point coordinates are offset by one pixel from the overlaid image coordinates is higher priority than one in which a UI button doesn't work.
 
 (our-values)=
+
 ## Our values
 
-- We are **inclusive**. We welcome and mentor newcomers who are making their first contribution and strive to grow our most dedicated contributors into [core team members](core-dev-guide). We have a [Code of Conduct](napari-coc) to make napari
-a welcoming place for all.
+- We are **inclusive**. We welcome and mentor newcomers who are making their first contribution and strive to grow our most dedicated contributors into [core team members](core-dev-guide). We have a [Code of Conduct](napari-coc) to make napari a welcoming place for all.
 
-- We are **community-driven**. We respond to feature requests and proposals on our [issue tracker](https://github.com/napari/napari/issues), making decisions that are driven by our users’ requirements, not by the whims of the core team.
+- We are **community-driven**. We respond to feature requests and proposals on our [issue tracker](https://github.com/napari/napari/issues), making decisions that are driven by our users' requirements, not by the whims of the core team.
 
 - We provide **a tool others can build on** and making it easy for people to develop and share plugins that extend napari's functionality and to develop fully custom applications that consume napari.
 
-- We serve **scientific applications** primarily, over “consumer” image editing in the vein of Photoshop or GIMP. This often means prioritizing n-dimensional data support, and rejecting implementations of “flashy” features that have little scientific value.
+- We serve **scientific applications** primarily, over "consumer" image editing in the vein of Photoshop or GIMP. This often means prioritizing n-dimensional data support, and rejecting implementations of "flashy" features that have little scientific value.
 
 - We are **domain agnostic** within the sciences. Functionality that is highly specific to particular scientific domains belongs in plugins, whereas functionality that cuts across many domains and is likely to be widely used belongs inside napari.
 
@@ -60,7 +62,7 @@ a welcoming place for all.
 
 - We value **education and documentation**. All functions should have docstrings, preferably with examples, and major functionality should be explained in our [tutorials](https://napari.org/tutorials). Core team members can take an active role in finishing documentation examples.
 
-- We **minimize [magic](https://en.wikipedia.org/wiki/Magic_(programming))** and always provide a way for users to opt out of magical behaviour and guessing by providing explicit ways to control functionality. We support NumPy array like objects and we prefer to educate users rather than make decisions on their behalf. This does not preclude the use of sensible defaults.
+- We **minimize [magic](<https://en.wikipedia.org/wiki/Magic_(programming)>)** and always provide a way for users to opt out of magical behaviour and guessing by providing explicit ways to control functionality. We support NumPy array like objects and we prefer to educate users rather than make decisions on their behalf. This does not preclude the use of sensible defaults.
 
 ## Our vision for plugins
 

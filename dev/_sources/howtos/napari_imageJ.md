@@ -25,7 +25,7 @@ except ModuleNotFoundError:
     installed. To install try 'conda install pyimagej'.""")
 
 print('--> Initializing imagej')
-ij = imagej.init('sc.fiji:fiji') # Fiji includes Bio-Formats.
+ij = imagej.init('sc.fiji:fiji')  # Fiji includes Bio-Formats.
 
 viewer = napari.Viewer()
 for path in sys.argv[1:]:
@@ -62,6 +62,7 @@ Firstly import napari:
 
 ```python
 import napari
+
 viewer = napari.Viewer()
 ```
 
@@ -69,11 +70,12 @@ When napari comes up, open the Jupyter Qt console and type:
 
 ```python
 import imagej
+
 ij = imagej.init(headless=False)
 ij.ui().showUI()
 ```
 
-This works because the console in napari is running in the correctly initialized Qt GUI/main thread. However,if we even touch the Java UI from Python it locks up i.e.  Python will now lock up even for the simplest line of code such as:
+This works because the console in napari is running in the correctly initialized Qt GUI/main thread. However,if we even touch the Java UI from Python it locks up i.e. Python will now lock up even for the simplest line of code such as:
 
 ```python
 ij.ui().showDialog('hello')
@@ -82,54 +84,64 @@ ij.ui().showDialog('hello')
 To fix this we can use either of these 3 following methods :
 
 1. Use Java’s EventQueue to queue the task on the Java event dispatch thread:
-    ```python
-    from jnius import PythonJavaClass, java_method, autoclass
-    class JavaRunnable(PythonJavaClass):
-        __javainterfaces__ = ['java/lang/Runnable']
-        def __init__(self, f):
-            super(JavaRunnable, self).__init__()
-            self._f = f
 
-        @java_method('()V')
-        def run(self):
-            self._f()
+   ```python
+   from jnius import PythonJavaClass, java_method, autoclass
 
-    EventQueue = autoclass('java.awt.EventQueue')
-    EventQueue.invokeLater(JavaRunnable(lambda: ij.ui().showDialog('hello')))
-    ```
 
-2. Use the SciJava ScriptService:
-    ```python
-    ij.script().run('.groovy', "#@ ImageJ ij\nij.ui().showDialog('hello')", True)
-    ```
+   class JavaRunnable(PythonJavaClass):
+       __javainterfaces__ = ['java/lang/Runnable']
 
-3. Using ImageJ’s [Script Editor](https://imagej.net/scripting/script-editor)
+       def __init__(self, f):
+           super(JavaRunnable, self).__init__()
+           self._f = f
+
+       @java_method('()V')
+       def run(self):
+           self._f()
+
+
+   EventQueue = autoclass('java.awt.EventQueue')
+   EventQueue.invokeLater(JavaRunnable(lambda: ij.ui().showDialog('hello')))
+   ```
+
+1. Use the SciJava ScriptService:
+
+   ```python
+   ij.script().run('.groovy', "#@ ImageJ ij\nij.ui().showDialog('hello')", True)
+   ```
+
+1. Using ImageJ’s [Script Editor](https://imagej.net/scripting/script-editor)
 
 #### 2. Starting napari + ImageJ from plain Python (without napari's Qt Console)
+
 Here is a plain Python script that starts up Qt and spins up ImageJ without use of napari's Qt Console.
 
-``` python
+```python
 from PyQt5 import QtCore, QtWidgets
+
 
 def main():
     app = QtWidgets.QApplication([])
-    app.setQuitOnLastWindowClosed( True )
+    app.setQuitOnLastWindowClosed(True)
 
     def start_imagej():
         import imagej
+
         ij = imagej.init(headless=False)
         print(ij.getVersion())
         ij.launch()
-        print("Launched ImageJ")
+        print('Launched ImageJ')
 
     QtCore.QTimer.singleShot(0, start_imagej)
     app.exec_()
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     main()
 ```
 
-Note that the app.exec_() call blocks the main thread, because Qt takes it over as its GUI/main thread. On macOS, the main thread is the only thread that works for Qt to use as its GUI/main thread.
+Note that the `app.exec_()` call blocks the main thread, because Qt takes it over as its GUI/main thread. On macOS, the main thread is the only thread that works for Qt to use as its GUI/main thread.
 
 #### 3. Starting napari+ImageJ from IPython
 
@@ -140,11 +152,15 @@ A code that successfully starts ImageJ from IPython
 ```python
 def start_imagej():
     import imagej
+
     global ij
     ij = imagej.init(headless=False)
     ij.ui().showUI()
     print(ij.getVersion())
+
+
 from PyQt5 import QtCore
+
 QtCore.QTimer.singleShot(0, start_imagej)
 ```
 

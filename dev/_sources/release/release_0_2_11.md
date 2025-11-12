@@ -13,14 +13,13 @@ https://github.com/napari/napari
 
 - Point face color and edge color are now settable as a property in a columnar
   data table, mapped using a colormap (continuous values) or a color cycle
-  (categorical values). See `this example
-  <https://github.com/napari/napari/blob/main/examples/add_points_with_properties.py>`_
+  (categorical values). See [this example](https://github.com/napari/napari/blob/main/examples/add_points_with_properties.py)
   for syntax details.
 - Python 3.8 is now supported.
 
 ## Improvements
 
-- Represent color as Nx4 array in Points  (#782)
+- Represent color as Nx4 array in Points (#782)
 - Qt/Vispy connection & lambda refactor (#859)
 - Improve slider step precision based on data range (#884)
 - Allow Points display properties to be set by point properties (#895)

@@ -10,7 +10,9 @@ kernelspec:
   language: python
   name: python3
 ---
+
 (layers-image)=
+
 # Using the `image` layer
 
 In this document, you will learn how to use the `napari` `image` layer,
@@ -26,30 +28,31 @@ For more information about layers, refer to [Layers at a glance](../../guides/la
 The GUI contains following tools in the `layer controls` panel for the `image`
 layer:
 
-* Buttons
-    * Pan/zoom
-    * Transform
-* Controls
-    * Opacity
-    * Contrast Limits
-    * Auto-contrast
-    * Gamma
-    * Colormap
-    * Blending
-    * Interpolation
+- Buttons
+  - Pan/zoom
+  - Transform
+- Controls
+  - Opacity
+  - Contrast Limits
+  - Auto-contrast
+  - Gamma
+  - Colormap
+  - Blending
+  - Interpolation
 
 Before we can use any of the GUI `layer controls`, we must load an image.
+
 1. Start napari.
-2. Click `File` > `Open Sample` > `napari builtins` > `Cells (3D+2Ch)` or any
-sample image of your choice.
+1. Click `File` > `Open Sample` > `napari builtins` > `Cells (3D+2Ch)` or any
+   sample image of your choice.
 
 ### Buttons
 
-* `Pan/zoom` ![image: Pan/zoom tool](../../_static/images/pan-zoom-tool.png) is the default mode
+- `Pan/zoom` ![image: Pan/zoom tool](../../_static/images/pan-zoom-tool.png) is the default mode
   of the layer and supports panning and zooming. Press the `1` key when the layer is selected
   to use this mode.
 
-* `Transform` ![image: Transform](../../_static/images/transform-tool.png) enables you to
+- `Transform` ![image: Transform](../../_static/images/transform-tool.png) enables you to
   rotate, scale, or translate the layer. Note: at present this feature is limited to 2D viewer display mode.
   To reset the transformation,
   you can Option/Alt-click the transform button (a confirmation dialog will open to
@@ -59,39 +62,40 @@ sample image of your choice.
 
 The GUI controls may be adjusted as follows:
 
-* `opacity` is adjusted by moving the circle along the slider until the image
+- `opacity` is adjusted by moving the circle along the slider until the image
   has the opacity you want. 0 is transparent and 1 is completely opaque.
 
-* `contrast limits` are adjusted by moving the minimum and maximum circles along
+- `contrast limits` are adjusted by moving the minimum and maximum circles along
   the slider until you have the contrast limits you want. For more precise
   control, including the ability to set specific numerical values, you can
   right-click on the slider. **Note:** Contrast limits are explained in
   [Adjusting contrast limits](#adjusting-contrast-limits).
 
-* `auto-contrast` is adjusted by selecting either `once` or `continuous`. `once`
+- `auto-contrast` is adjusted by selecting either `once` or `continuous`. `once`
   adjusts the contrast one time while `continuous` adjusts the contrast as you
   explore the image.
 
-* `gamma` can be adjusted from a minimum of 0.20 to a maximum of 2.00.
+- `gamma` can be adjusted from a minimum of 0.20 to a maximum of 2.00.
   *Gamma correction* or *gamma* is a nonlinear operation used to encode and
   decode luminance or tristimulus values.
 
-* `colormap` is selected from the dropdown. **Note:** If the image you select is
+- `colormap` is selected from the dropdown. **Note:** If the image you select is
   an RGB or RGBA image, the colormap is automatically assigned RGB and cannot be
   changed. You can find out if your image is RGB or RGBA by looking at the
   `.rgb` property of the image layer.
 
-* `blending` has the options of `translucent`, `translucent no depth`,
+- `blending` has the options of `translucent`, `translucent no depth`,
   `additive`, `minimum`, or `opaque` in the dropdown. Refer to the
   [Blending layers](blending-layers) section of _Layers at a glance_ for an
   explanation of each type of blending.
 
-* `interpolation` may be assigned one of the following from the dropdown:
-  * `cubic`
-  * `linear`
-  * `kaiser`
-  * `nearest` - default
-  * `spline36`
+- `interpolation` may be assigned one of the following from the dropdown:
+
+  - `cubic`
+  - `linear`
+  - `kaiser`
+  - `nearest` - default
+  - `spline36`
 
   **Note:** There is a brief explation of [interpolation](layer-interpolation)
   in [Layers at a glance](../../guides/layers).
@@ -116,16 +120,18 @@ viewer, _ = napari.imshow(cells, colormap='magma')
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
-
+---
+tags: [hide-input]
+---
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="Cells")
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
-
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 
@@ -135,8 +141,9 @@ viewer.close()
 accept the same layer-creation parameters.
 
 ```{code-cell} python
-:tags: [hide-output]
-
+---
+tags: [hide-output]
+---
 help(napari.imshow)
 ```
 
@@ -247,16 +254,18 @@ viewer, layers = napari.imshow(
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
-
+---
+tags: [hide-input]
+---
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="napari viewer with a multichannel image of cells displayed as two image layers: nuclei and membrane.")
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
-
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 
@@ -270,16 +279,18 @@ viewer, layer = napari.imshow(data.astronaut(), rgb=True)
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
-
+---
+tags: [hide-input]
+---
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="napari viewer with the left sidebar layer controls and an image of astronaut Eileen Collins. In the layer controls, the colormap is fixed to RGB")
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
-
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 
@@ -304,7 +315,6 @@ list(napari.utils.colormaps.AVAILABLE_COLORMAPS)
 ```
 
 Pass any of these strings to set the image colormap as shown below:
-
 
 ```{code-cell} python
 viewer, layer = napari.imshow(data.moon(), colormap='red')
@@ -335,8 +345,9 @@ viewer, layer = napari.imshow(image, colormap=('diverging', cmap))
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
-
+---
+tags: [hide-input]
+---
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="napari viewer with colormap example using the cell example from skimage")
@@ -350,6 +361,7 @@ The named colormap now appears in the dropdown alongside a thumbnail of the full
 range of the colormap.
 
 (contrast-limits)=
+
 ## Adjusting contrast limits
 
 Each image layer gets mapped through its colormap according to values called
@@ -359,7 +371,7 @@ larger than the first. The smaller contrast limit corresponds to the value of
 the image data that will get mapped to the color defined by 0 in the colormap,
 meaning that in most cases any value under the lower contrast limit will appear as black. On
 the other hand, the upper contrast limit corresponds to the value of the image
-data that will get mapped to the color defined by 1 in the colormap; for an image using the `gray` colormap, all values larger than this value will appear as white. Note that the values set in the contrast limits do not change the underlying values of the image, only the visualization of the colormap. 
+data that will get mapped to the color defined by 1 in the colormap; for an image using the `gray` colormap, all values larger than this value will appear as white. Note that the values set in the contrast limits do not change the underlying values of the image, only the visualization of the colormap.
 
 For example, if you are looking at an image that has values between 0 and 100 with
 a standard `gray` colormap, and you set the contrast limits to `(20, 75)`, then
@@ -379,16 +391,18 @@ viewer.layers['moon'].contrast_limits=(100, 175)
 ```
 
 ```{code-cell} python
-:tags: [hide-input]
-
+---
+tags: [hide-input]
+---
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="A viewer where the contrast limits have been adjusted")
 ```
 
 ```{code-cell} python
-:tags: [remove-cell]
-
+---
+tags: [remove-cell]
+---
 viewer.close()
 ```
 
@@ -416,6 +430,7 @@ can.
 
 For more precise control, you can right-click on the contrast limits slider to show a version of the slider with numerical values. Importantly, all four displayed values can be edited by clicking on them. Editing the numbers above the circular slider handles allows you to precisely specify values for the two contrast limits. Press the {kbd}`Enter` or {kbd}`Return` to confirm the new value.
 Meanwhile, the numbers at the two ends of the horizontal rule let you change the *range* of the contrast limits slider (programmatically accessed using the `contrast_limits_range` property). Clicking the `full range` button will reset the contrast limits slider range back to the full range of the data type (e.g. 0 and 255 for `uint8`). Finally, clicking the `reset` button will reset *both* the contrast limits *and* the contrast limits range to the full range for uint8 images (0, 255), and to the minimum and maximum of the *data* for other data types.
+
 ### Resetting the contrast limits
 
 When all the image data values are near the bottom of the range, the image can

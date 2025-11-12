@@ -883,6 +883,7 @@ and select the image file, or simply drag and drop the image into napari.</p>
 <li><p>Type</p></li>
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">skimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">data</span>
+
 <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">cell</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;cell&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -899,7 +900,7 @@ and select the image file, or simply drag and drop the image into napari.</p>
 <h3>Image display adjustment<a class="headerlink" href="#image-display-adjustment" title="Link to this heading">#</a></h3>
 <p>The layer controls panel at the upper left of the viewer allows you to adjust contrast, colormap, and other layer properties. These settings affect the visualization, but do not affect the underlying data.</p>
 <p>To change the image display through the <a class="reference internal" href="../../api/index.html#api"><span class="std std-ref">API</span></a>, in IPython console, type</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;cell&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="s2">&quot;yellow&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;cell&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="s1">&#39;yellow&#39;</span>
 </pre></div>
 </div>
 <div class="cell tag_remove-input docutils container">
@@ -939,8 +940,9 @@ the default keybinding <kbd class="kbd docutils literal notranslate">m</kbd>.</p
 <p>To analyze labels our layer, we can use <a class="reference external" href="https://scikit-image.org/">scikit-image</a>, a popular Python library that comes with your napari installation. <a class="reference external" href="https://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.regionprops">skimage.measure.regionprops</a> provides a good set of features that can be extracted from labels, including area measurement.</p>
 <p>In IPython console, type</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">skimage.measure</span><span class="w"> </span><span class="kn">import</span> <span class="n">regionprops</span>
+
 <span class="n">props</span> <span class="o">=</span> <span class="n">regionprops</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;Labels&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the cell area is: &quot;</span><span class="p">,</span> <span class="n">props</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">area</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;the cell area is: &#39;</span><span class="p">,</span> <span class="n">props</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">area</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Alternatively, try <a class="reference external" href="https://www.napari-hub.org/plugins/napari-skimage-regionprops">this plugin</a> to have the result in a table form.</p>

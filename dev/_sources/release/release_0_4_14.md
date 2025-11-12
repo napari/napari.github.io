@@ -18,6 +18,7 @@ https://github.com/napari/napari
 Complete list of changes below:
 
 ## Highlights
+
 - Enable shapes layer (right click) > convert to labels (#3978)
 - Out-of-slice rendering for Vectors (#2902)
 - Hide points individually (#3625)
@@ -25,6 +26,7 @@ Complete list of changes below:
 ## New Features
 
 ## Improvements
+
 - Update tests to remove warnings (#3974)
 - Add test to check that things are removed properly (#3996)
 - Change base point slice thickness to half a unit (#3997)
@@ -37,6 +39,7 @@ Complete list of changes below:
 - Update on merge to stack action ordering (#4033)
 
 ## Bug Fixes
+
 - Fix about on python 3.10 (#3972)
 - Revert changes to scikit-image test API (#3979)
 - Fix missing builtins in bundle (#3982)
@@ -51,8 +54,8 @@ Complete list of changes below:
 
 ## Deprecations
 
-
 ## Build Tools and Docs
+
 - DOC: Misc doc syntax. (#3985)
 - Fix include_package_data inclusion in the "your first plugin" docs page (#4022)
 - 0.4.14 translation strings (#4029)
@@ -60,6 +63,7 @@ Complete list of changes below:
 - Update packaging files, remove setup.py and requirements.txt (#4014)
 
 ## 11 authors added to this release (alphabetical)
+
 - [Alister Burt](https://github.com/napari/napari/commits?author=alisterburt) - @alisterburt
 - [Andy Sweet](https://github.com/napari/napari/commits?author=andy-sweet) - @andy-sweet
 - [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) - @DragaDoncila
@@ -72,8 +76,8 @@ Complete list of changes below:
 - [Pam](https://github.com/napari/napari/commits?author=ppwadhwa) - @ppwadhwa
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 
-
 ## 11 reviewers added to this release (alphabetical)
+
 - [Alister Burt](https://github.com/napari/napari/commits?author=alisterburt) - @alisterburt
 - [Andy Sweet](https://github.com/napari/napari/commits?author=andy-sweet) - @andy-sweet
 - [Chi-li Chiu](https://github.com/napari/napari/commits?author=chili-chiu) - @chili-chiu
@@ -85,5 +89,3 @@ Complete list of changes below:
 - [Nathan Clack](https://github.com/napari/napari/commits?author=nclack) - @nclack
 - [Nicholas Sofroniew](https://github.com/napari/napari/commits?author=sofroniewn) - @sofroniewn
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
-
-

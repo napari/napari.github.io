@@ -1,4 +1,5 @@
 (contributing-index)=
+
 # Contributing
 
 We welcome your contributions! Here you will find resources to help you contribute
@@ -10,8 +11,8 @@ The [](active-roadmap) highlights the general direction for napari development a
 
 If you are looking to create and deploy your own napari workshop material, check out the [napari Workshop Template](https://napari.org/napari-workshop-template/home.html).
 
-::::{grid} 2
-:::{grid-item-card} Contributor guides
+````{grid} 2
+```{grid-item-card} Contributor guides
 
 Resources for contributors
 
@@ -24,9 +25,9 @@ Resources for contributors
     - [Benchmarks](napari-benchmarks)
   - [Contributing documentation](contributing-docs)
 - [](architecture-index)
-:::
+```
 
-:::{grid-item-card} Core team member guides
+```{grid-item-card} Core team member guides
 
 Resources for core team members, including information for onboarding new core team members
 
@@ -35,10 +36,11 @@ Resources for core team members, including information for onboarding new core t
 - [Release guide](napari-release)
 - [Deploying documentation](docs-deployment)
 - [Packaging](napari-packaging)
-:::
-::::
+```
+````
 
 (contact)=
+
 ## Contact
 
 There are a number of ways to contact the napari community:

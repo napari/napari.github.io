@@ -9,9 +9,9 @@ for a given function parameter. It allows third party packages
 {func}`~magicgui.type_map.register_type`. `napari` registers
 a number of types, additionally specifying, where appropriate:
 
-* widget type for the parameter type
-* function for updating inputs for the widget
-* return callback, for return types
+- widget type for the parameter type
+- function for updating inputs for the widget
+- return callback, for return types
 
 This enables `magicgui` widgets to be easily created via type annotations.
 

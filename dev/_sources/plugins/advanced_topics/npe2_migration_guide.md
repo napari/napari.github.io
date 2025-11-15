@@ -148,7 +148,7 @@ command for an `npe2` reader.
 #### napari_hook_spec
 
 ```python
-def napari_get_reader(path: Union[str, List[str]]) -> Optional[ReaderFunction]
+def napari_get_reader(path: Union[str, list[str]]) -> Optional[ReaderFunction]
 ```
 
 #### npe2 contributions
@@ -235,7 +235,7 @@ has to be imported or run until a compatible writer is found.
 
 ```python
 def napari_get_writer(
-    path: str, layer_types: List[str]
+    path: str, layer_types: list[str]
 ) -> Optional[WriterFunction]
 ```
 
@@ -243,8 +243,8 @@ Where the `WriterFunction` is something like:
 
 ```python
 def writer(
-    path: str, layer_data: List[Tuple[Any, Dict, str]]
-    ) -> List[str]
+    path: str, layer_data: list[tuple[Any, dict, str]]
+    ) -> list[str]
 ```
 
 #### Example npe2 contribution

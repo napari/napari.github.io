@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: November 15, 2025*
+*Last updated: November 18, 2025*
 
 
 ## Recent Releases (Last 3 Months)
@@ -195,6 +195,11 @@ We are also now including all napari related events in the [community calendar](
 
 ````
 
+
+
+
+## Releases from 6-12 Months Ago
+
 ````{dropdown} napari 0.6.1 (May 2025)
 :open:
 
@@ -215,11 +220,6 @@ Have you ever tried to use the `dims` pop-up widget (accessed by right clicking 
 [View full release notes →](release_0_6_1)
 
 ````
-
-
-
-
-## Releases from 6-12 Months Ago
 
 ````{dropdown} napari 0.6.0 (May 2025)
 :open:

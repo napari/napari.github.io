@@ -63,11 +63,6 @@ using the layers swap method and remove one
         napari.run()
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** (0 minutes 10.943 seconds)
-
-
 .. _sphx_glr_download_gallery_layers.py:
 
 .. only:: html

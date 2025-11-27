@@ -6,9 +6,10 @@ html {
     --napari-primary-blue: #80d1ff;
     --napari-deep-blue: #009bf2;
     --napari-light-blue: #d2efff;
+    --napari-dark-blue: #526a77;
     --napari-dark-gray: #686868;
     --napari-gray: #f7f7f7;
-    --napari-purple: #564C69;
+    --napari-purple: #4d485c;
     --napari-color-text-title: black;
     --pst-font-family-base: var(--pst-font-family-base-system);
     --pst-font-family-heading: var(--pst-font-family-base-system);
@@ -35,6 +36,7 @@ html[data-theme="light"] {
     --pst-color-target: var(--napari-gray);
     --napari-navbar: var(--napari-primary-blue);
     --napari-calendar-dark: var(--napari-deep-blue);
+    --napari-calendar-light: var(--napari-light-blue);
 }
 
 html[data-theme="dark"] {
@@ -49,6 +51,7 @@ html[data-theme="dark"] {
     --pst-color-target: var(--napari-dark-gray);
     --napari-navbar: var(--napari-purple);
     --napari-calendar-dark: #26283d;
+    --napari-calendar-light: var(--napari-dark-blue);
 }
 
 body {
@@ -66,6 +69,10 @@ h1 {
     font-size: 2.1875rem;
     line-height: 125%;
     font-weight: bolder;
+}
+
+html[data-theme="dark"] .sphx-glr-download > p > a.reference.download::before {
+    color: white;
 }
 
 /***************************
@@ -698,18 +705,18 @@ nav.page-toc {
 ***************************/
 
 :root {
-    --fc-border-color: var(--napari-navbar);
     --fc-daygrid-event-dot-width: 5px;
-    --fc-button-bg-color: var(--napari-navbar);
-    --fc-button-border-color: var(--napari-navbar);
     --fc-button-text-color: var(--napari-color-text-base);
-    --fc-button-active-bg-color: rgba(var(--napari-navbar), 1.0);
     --fc-button-active-border-color: var(--napari-calendar-dark);
     --fc-button-hover-bg-color: var(--napari-calendar-dark);
     --fc-button-hover-border-color: var(--napari-calendar-dark);
+    --fc-event-text-color: var(--napari-color-text-base);
+    --fc-border-color: var(--napari-navbar);
+    --fc-button-bg-color: var(--napari-navbar);
+    --fc-button-border-color: var(--napari-navbar);
+    --fc-button-active-bg-color: rgba(var(--napari-navbar), 1.0);
     --fc-event-bg-color: rgba(var(--napari-navbar), 0.8);
     --fc-event-border-color: rgba(var(--napari-navbar), 0.8);
-    --fc-event-text-color: var(--napari-color-text-base);
 }
 
 .fc .fc-button:focus {
@@ -996,6 +1003,10 @@ html[data-theme="dark"] .admonition.note {
     }
 }
 
+html[data-theme="dark"] .modal-content {
+    background-color: var(--pst-color-background);
+    color: var(--napari-color-text-base);
+}
 
 /* Add Animation */
 @-webkit-keyframes animatetop {
@@ -1054,3 +1065,7 @@ html[data-theme="dark"] .admonition.note {
     padding: 12px;
 }
 
+/* Notebook outputs */
+html[data-theme="dark"] .bd-content div.cell_output .text_html:not(:has(table.dataframe)), html[data-theme="dark"] .bd-content div.cell_output .widget-subarea, html[data-theme="dark"] .bd-content div.cell_output img {
+  background-color: var(--pst-color-background);
+}

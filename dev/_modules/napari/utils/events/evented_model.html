@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=c6ee9847"></script>
+    <script src="../../../../_static/documentation_options.js?v=2da41451"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -816,8 +816,7 @@ window.addEventListener("load", load);
                 <article class="bd-article">
                   
   <h1>Source code for napari.utils.events.evented_model</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Union</span>
@@ -830,7 +829,6 @@ window.addEventListener("load", load);
     <span class="n">ModelMetaclass</span><span class="p">,</span>
     <span class="n">PrivateAttr</span><span class="p">,</span>
     <span class="n">main</span><span class="p">,</span>
-    <span class="n">utils</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.event</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">Event</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">pick_equality_operator</span>
@@ -843,52 +841,6 @@ window.addEventListener("load", load);
     <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">arr</span><span class="p">:</span> <span class="n">arr</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
     <span class="n">KeyBinding</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
 <span class="p">}</span>
-
-
-<span class="nd">@contextmanager</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">no_class_attributes</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Context in which pydantic.main.ClassAttribute just passes value 2.</span>
-
-<span class="sd">    Due to a very annoying decision by PySide2, all class ``__signature__``</span>
-<span class="sd">    attributes may only be assigned **once**.  (This seems to be regardless of</span>
-<span class="sd">    whether the class has anything to do with PySide2 or not).  Furthermore,</span>
-<span class="sd">    the PySide2 ``__signature__`` attribute seems to break the python</span>
-<span class="sd">    descriptor protocol, which means that class attributes that have a</span>
-<span class="sd">    ``__get__`` method will not be able to successfully retrieve their value</span>
-<span class="sd">    (instead, the descriptor object itself will be accessed).</span>
-
-<span class="sd">    This plays terribly with Pydantic, which assigns a ``ClassAttribute``</span>
-<span class="sd">    object to the value of ``cls.__signature__`` in ``ModelMetaclass.__new__``</span>
-<span class="sd">    in order to avoid masking the call signature of object instances that have</span>
-<span class="sd">    a ``__call__`` method (https://github.com/samuelcolvin/pydantic/pull/1466).</span>
-
-<span class="sd">    So, because we only get to set the ``__signature__`` once, this context</span>
-<span class="sd">    manager basically &quot;opts-out&quot; of pydantic&#39;s ``ClassAttribute`` strategy,</span>
-<span class="sd">    thereby directly setting the ``cls.__signature__`` to an instance of</span>
-<span class="sd">    ``inspect.Signature``.</span>
-
-<span class="sd">    For additional context, see:</span>
-<span class="sd">    - https://github.com/napari/napari/issues/2264</span>
-<span class="sd">    - https://github.com/napari/napari/pull/2265</span>
-<span class="sd">    - https://bugreports.qt.io/browse/PYSIDE-1004</span>
-<span class="sd">    - https://codereview.qt-project.org/c/pyside/pyside-setup/+/261411</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">if</span> <span class="s1">&#39;PySide2&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
-        <span class="k">yield</span>
-        <span class="k">return</span>
-
-    <span class="c1"># monkey patch the pydantic ClassAttribute object</span>
-    <span class="c1"># the second argument to ClassAttribute is the inspect.Signature object</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_return2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">y</span>
-
-    <span class="n">main</span><span class="o">.</span><span class="n">ClassAttribute</span> <span class="o">=</span> <span class="n">_return2</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">yield</span>
-    <span class="k">finally</span><span class="p">:</span>
-        <span class="c1"># undo our monkey patch</span>
-        <span class="n">main</span><span class="o">.</span><span class="n">ClassAttribute</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">ClassAttribute</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">EventedMetaclass</span><span class="p">(</span><span class="n">ModelMetaclass</span><span class="p">):</span>
@@ -906,8 +858,7 @@ window.addEventListener("load", load);
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__new__</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">no_class_attributes</span><span class="p">():</span>
-            <span class="bp">cls</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">__eq_operators__</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__fields__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">__eq_operators__</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">pick_equality_operator</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">type_</span><span class="p">)</span>

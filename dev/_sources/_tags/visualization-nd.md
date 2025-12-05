@@ -6,6 +6,7 @@
 maxdepth: 1
 caption: With this tag
 ---
+../gallery/3D_vectors_through_time.rst
 ../gallery/add-points-3d.rst
 ../gallery/add_3D_image.rst
 ../gallery/add_points_on_nD_shapes.rst

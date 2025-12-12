@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/release/index.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: December 10, 2025 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.6.6 (October 2025) This a small bugfix release, following up the chang..." />
+<meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: December 12, 2025 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.6.6 (October 2025) This a small bugfix release, following up the chang..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: December 10, 2025 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.6.6 (October 2025) This a small bugfix release, following up the chang..." />
+<meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: December 12, 2025 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.6.6 (October 2025) This a small bugfix release, following up the chang..." />
 
     <title>Release Notes &#8212; napari</title>
   
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=e58f2f79"></script>
+    <script src="../_static/documentation_options.js?v=b8b552fb"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -795,7 +795,7 @@
   <section class="tex2jax_ignore mathjax_ignore" id="release-notes">
 <span id="id1"></span><h1>Release Notes<a class="headerlink" href="#release-notes" title="Link to this heading">#</a></h1>
 <p>Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.</p>
-<p><em>Last updated: December 10, 2025</em></p>
+<p><em>Last updated: December 12, 2025</em></p>
 <section id="recent-releases-last-3-months">
 <h2>Recent Releases (Last 3 Months)<a class="headerlink" href="#recent-releases-last-3-months" title="Link to this heading">#</a></h2>
 <p>Latest features and improvements:</p>
@@ -1160,58 +1160,11 @@ grateful! 🙏</p>
 <p class="sd-card-text">Read on for the full list of changes since 0.5.5.</p>
 <p class="sd-card-text"><a class="reference internal" href="release_0_5_6.html"><span class="doc std std-doc">View full release notes →</span></a></p>
 </div>
-</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
-<summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text">napari 0.5.5 (December 2024)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">This release continues the 0.5 tradition of churning out the bug fixes and
-enhancements, with 24 pull requests total in that category. If you are a user
-of oblique plane rendering, you’ll appreciate
-<a class="reference external" href="https://github.com/napari/napari/pull/7422">#7422</a>, which fixes the plane
-calculation when data is anisotropic.</p>
-<p class="sd-card-text">And, did you have a hole in your heart where high-quality 3D labels rendering
-should have been? Check out
-<a class="reference external" href="https://github.com/napari/napari/pull/7431">#7431</a>, in which <a class="reference external" href="https://github.com/aganders3">Ashley
-Anderson</a> has (again) improved the quality of 3D
-labels by filling the (apparent, but fictional) holes in labels at the borders
-of a volume. Before/after gif:</p>
-<p class="sd-card-text"><img alt="movie showing before and after of labels rendering at the borders of avolume" src="https://github.com/user-attachments/assets/728505be-d212-417b-a29e-7228761ffed3" /></p>
-<p class="sd-card-text">Additionally, <a class="reference external" href="https://github.com/Czaki">Grzegorz Bokota</a> has again sped up
-launch time for Shapes layers by porting all the edge triangulation code to
-numba (<a class="reference external" href="https://github.com/napari/napari/pull/7268">#7268</a>). As part of that
-work he also created a fantastic developer example explaining how the edge
-triangulation works, which you can find at
-<a class="reference external" href="https://github.com/napari/napari/blob/b2edccd6e40e04467ccfeec0257c2160783f7187/examples/dev/triangle_edge.py">examples/dev/triangle_edge.py</a>.
-Give it a read and a play if you want to peek under the hood of the Shapes
-layer!</p>
-<figure>
-  <video width="100%" controls autoplay loop muted playsinline>
-    <source src="../_static/images/triangle-edge.webm" type="video/webm" />
-    <source src="../_static/images/triangle-edge.mp4" type="video/mp4" />
-    <img src="../_static/images/triangle-edge.png"
-      title="Your browser does not support the video tag"
-      alt="napari viewer showing a shapes layer and associated layers depicting the triangulation of the elements of the Shapes layer."
-    >
-  </video>
-</figure><p class="sd-card-text">Did you miss a napari error or warning while reading these notes? We don’t
-blame you! Those missed notifications will be a thing of the past with
-<a class="reference external" href="https://github.com/napari/napari/pull/7220">#7220</a>, which will keep
-notifications open if the napari window is not in focus. Whew!</p>
-<p class="sd-card-text">Finally, for the zarrventurous among you, napari 0.5.5 is ready for zarr v3,
-coming soon to a PyPI near you!
-(<a class="reference external" href="https://github.com/napari/napari/pull/7215">#7215</a>) If you are using or
-testing the zarr 3.0.0 betas, try them with napari! We hope you’ll be
-pleasantly surprised. 😊</p>
-<p class="sd-card-text">As always, we thank all the contributors to this napari release and all the
-previous ones! We welcome <a class="reference external" href="https://github.com/willingc">Carol Willing</a> and
-<a class="reference external" href="https://github.com/TimMonko">Tim Monko</a> to the list of contributors. Read on
-for all the changes in this version!</p>
-<p class="sd-card-text">Read on for all the changes in this version!</p>
-<p class="sd-card-text"><a class="reference internal" href="release_0_5_5.html"><span class="doc std std-doc">View full release notes →</span></a></p>
-</div>
 </details></section>
 <section id="older-releases">
 <h2>Older Releases<a class="headerlink" href="#older-releases" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p><strong><a class="reference internal" href="release_0_5_5.html"><span class="doc std std-doc">napari 0.5.5</span></a></strong> (December 2024) - This release continues the 0.5 tradition of churning out the bug fixes and enhancements, with 24 pull requests total in that category. If you are a us…</p></li>
 <li><p><strong><a class="reference internal" href="release_0_5_4.html"><span class="doc std std-doc">napari 0.5.4</span></a></strong> (September 2024) - Another release with a lot of bug fixes, but also some (more!) improvements to Shapes layer performance ([#7144](<a class="github reference external" href="https://github.com/napari/napari/pull">napari/napari#pull</a>…</p></li>
 <li><p><strong><a class="reference internal" href="release_0_5_3.html"><span class="doc std std-doc">napari 0.5.3</span></a></strong> (August 2024) - This is primarily a bug-fix release, including fixes for a couple of nasty regressions in 0.5.0 (<a class="reference external" href="https://github.com/napari/napari/pull/7184">#7184</a>) …</p></li>
 <li><p><strong><a class="reference internal" href="release_0_5_2.html"><span class="doc std std-doc">napari 0.5.2</span></a></strong> (August 2024) - This is primarily a bug-fix release, but we snuck a couple of new features in there, including smoother, prettier, better rendering of Labels volumes …</p></li>

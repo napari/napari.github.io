@@ -45,27 +45,17 @@ Display a surface timeseries using data from nilearn
     /home/runner/nilearn_data/nki_enhanced_surface
     [fetch_surf_nki_enhanced] Downloading data from 
     https://www.nitrc.org/frs/download.php/8470/pheno_nki_nilearn.csv ...
-    [fetch_surf_nki_enhanced]  ...done. (13 seconds, 0 min)
+    [fetch_surf_nki_enhanced]  ...done. (0 seconds, 0 min)
 
     [fetch_surf_nki_enhanced] Downloading data from 
     https://www.nitrc.org/frs/download.php/8261/A00028185_rh_preprocessed_fsaverage5
     _fwhm6.gii ...
-    [fetch_surf_nki_enhanced] Downloaded 8273920 of 42412120 bytes (19.5%%,    4.2s 
-    remaining)
-    [fetch_surf_nki_enhanced] Downloaded 23027712 of 42412120 bytes (54.3%%,    1.7s
-    remaining)
-    [fetch_surf_nki_enhanced] Downloaded 37625856 of 42412120 bytes (88.7%%,    0.4s
-    remaining)
-    [fetch_surf_nki_enhanced]  ...done. (20 seconds, 0 min)
+    [fetch_surf_nki_enhanced]  ...done. (1 seconds, 0 min)
 
     [fetch_surf_nki_enhanced] Downloading data from 
     https://www.nitrc.org/frs/download.php/8260/A00028185_lh_preprocessed_fsaverage5
     _fwhm6.gii ...
-    [fetch_surf_nki_enhanced] Downloaded 19775488 of 42402060 bytes (46.6%%,    1.1s
-    remaining)
-    [fetch_surf_nki_enhanced] Downloaded 40689664 of 42402060 bytes (96.0%%,    0.1s
-    remaining)
-    [fetch_surf_nki_enhanced]  ...done. (16 seconds, 0 min)
+    [fetch_surf_nki_enhanced]  ...done. (1 seconds, 0 min)
 
 
 
@@ -115,11 +105,6 @@ Display a surface timeseries using data from nilearn
 
     if __name__ == '__main__':
         napari.run()
-
-
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** (0 minutes 51.506 seconds)
 
 
 .. _sphx_glr_download_gallery_surface_timeseries.py:

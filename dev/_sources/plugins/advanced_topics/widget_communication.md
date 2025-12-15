@@ -14,9 +14,24 @@ If the desired widget is absent, it will be created and added to the viewer.
 ## Access a widget by name with `viewer.window.dock_widgets`
 
 If the goal is to access a target widget, without creating a widget, use the `dock_widgets` property.
-The `dock_widgets` property provides access to a read-only mapping of all docked widgets in the viewer.
+The `dock_widgets` property provides access to a read-only mapping of all docked widgets in the viewer. You can list available widget names with `viewer.window.dock_widgets.keys()`.
 
-This method returns the widget itself, not the `QtViewerDockWidget` wrapper.
+This public API returns the (inner) widget, not the `QtViewerDockWidget` wrapper.
+To access the `QtViewerDockWidget` wrapper, use the `.parent()` method on the returned `QWidget`, or `.native.parent()` for a magicgui `Widget`.
+For example, to programmatically show the "Home" dock widget:
+
+```python
+widget = viewer.window.dock_widgets["Home"]
+qt_widget = widget.native if hasattr(widget, "native") else widget
+dock_widget = qt_widget.parent()  # Get the QtViewerDockWidget wrapper
+dock_widget.show()
+dock_widget.raise_()
+```
+
+```{important}
+Do not use `viewer.window._dock_widgets` to access `QtViewerDockWidget`.
+This is a private API that will be removed soon.
+```
 
 *The `dock_widgets` property was added in napari 0.6.2.*
 
@@ -24,10 +39,6 @@ This method returns the widget itself, not the `QtViewerDockWidget` wrapper.
 
 When a widget is added to the viewer via a plugin contribution (by using a menu or `add_plugin_dock_widget`), it is assigned a name.
 The name is created by concatenating the widget `display_name` from the plugin manifest and the plugin name in parentheses, like this: `"Widget name (plugin_name)"`. Note: this is the same name that is shown in the napari menus and the title bar of the widget.
-
-```{important}
-We don't recommend using the `viewer.window._dock_widgets` attribute to access `QtViewerDockWidget` widgets. This is a private, internal API and may stop working on any release. Please use the above described public API instead.
-```
 
 ## Shared state between widgets
 

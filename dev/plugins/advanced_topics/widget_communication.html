@@ -560,18 +560,28 @@ If the desired widget is absent, it will be created and added to the viewer.
 <section id="access-a-widget-by-name-with-viewer-window-dock-widgets">
 <h1>Access a widget by name with <code class="docutils literal notranslate"><span class="pre">viewer.window.dock_widgets</span></code><a class="headerlink" href="#access-a-widget-by-name-with-viewer-window-dock-widgets" title="Link to this heading">#</a></h1>
 <p>If the goal is to access a target widget, without creating a widget, use the <code class="docutils literal notranslate"><span class="pre">dock_widgets</span></code> property.
-The <code class="docutils literal notranslate"><span class="pre">dock_widgets</span></code> property provides access to a read-only mapping of all docked widgets in the viewer.</p>
-<p>This method returns the widget itself, not the <code class="docutils literal notranslate"><span class="pre">QtViewerDockWidget</span></code> wrapper.</p>
+The <code class="docutils literal notranslate"><span class="pre">dock_widgets</span></code> property provides access to a read-only mapping of all docked widgets in the viewer. You can list available widget names with <code class="docutils literal notranslate"><span class="pre">viewer.window.dock_widgets.keys()</span></code>.</p>
+<p>This public API returns the (inner) widget, not the <code class="docutils literal notranslate"><span class="pre">QtViewerDockWidget</span></code> wrapper.
+To access the <code class="docutils literal notranslate"><span class="pre">QtViewerDockWidget</span></code> wrapper, use the <code class="docutils literal notranslate"><span class="pre">.parent()</span></code> method on the returned <code class="docutils literal notranslate"><span class="pre">QWidget</span></code>, or <code class="docutils literal notranslate"><span class="pre">.native.parent()</span></code> for a magicgui <code class="docutils literal notranslate"><span class="pre">Widget</span></code>.
+For example, to programmatically show the “Home” dock widget:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">widget</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">dock_widgets</span><span class="p">[</span><span class="s2">&quot;Home&quot;</span><span class="p">]</span>
+<span class="n">qt_widget</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">native</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s2">&quot;native&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">widget</span>
+<span class="n">dock_widget</span> <span class="o">=</span> <span class="n">qt_widget</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>  <span class="c1"># Get the QtViewerDockWidget wrapper</span>
+<span class="n">dock_widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">dock_widget</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Do not use <code class="docutils literal notranslate"><span class="pre">viewer.window._dock_widgets</span></code> to access <code class="docutils literal notranslate"><span class="pre">QtViewerDockWidget</span></code>.
+This is a private API that will be removed soon.</p>
+</div>
 <p><em>The <code class="docutils literal notranslate"><span class="pre">dock_widgets</span></code> property was added in napari 0.6.2.</em></p>
 </section>
 <section id="widget-name">
 <h1>Widget name<a class="headerlink" href="#widget-name" title="Link to this heading">#</a></h1>
 <p>When a widget is added to the viewer via a plugin contribution (by using a menu or <code class="docutils literal notranslate"><span class="pre">add_plugin_dock_widget</span></code>), it is assigned a name.
 The name is created by concatenating the widget <code class="docutils literal notranslate"><span class="pre">display_name</span></code> from the plugin manifest and the plugin name in parentheses, like this: <code class="docutils literal notranslate"><span class="pre">&quot;Widget</span> <span class="pre">name</span> <span class="pre">(plugin_name)&quot;</span></code>. Note: this is the same name that is shown in the napari menus and the title bar of the widget.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>We don’t recommend using the <code class="docutils literal notranslate"><span class="pre">viewer.window._dock_widgets</span></code> attribute to access <code class="docutils literal notranslate"><span class="pre">QtViewerDockWidget</span></code> widgets. This is a private, internal API and may stop working on any release. Please use the above described public API instead.</p>
-</div>
 </section>
 <section id="shared-state-between-widgets">
 <h1>Shared state between widgets<a class="headerlink" href="#shared-state-between-widgets" title="Link to this heading">#</a></h1>

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=a6f0cd6d"></script>
+    <script src="../../../_static/documentation_options.js?v=c85ffd38"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -2129,7 +2129,9 @@ window.addEventListener("load", load);
         <span class="c1"># other widget we should keep this name for a longer period</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="s1">&#39;The `_dock_widgets` property is private and should not be used in any plugin code. &#39;</span>
-            <span class="s1">&#39;Please use the `dock_widgets` property instead.&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;To return the inner widget, use the `dock_widgets` property instead.&#39;</span>
+            <span class="s1">&#39;If you need the dock wrapper, return it via `dock_widgets[name].parent()`&#39;</span>
+            <span class="s1">&#39;(or `dock_widgets[name].native.parent()` for magicgui widgets).&#39;</span><span class="p">,</span>
             <span class="ne">FutureWarning</span><span class="p">,</span>
             <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
@@ -2137,9 +2139,23 @@ window.addEventListener("load", load);
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">dock_widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;QWidget | Widget&#39;</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read only mapping of widgets docked in napari window.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read-only mapping of widgets docked in napari window.</span>
 
-<span class="sd">        For wrapping QtViewerDockWidget use `dock_widgets` property.</span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This mapping returns the *inner* widget contained in each dock widget</span>
+<span class="sd">        (a Qt ``QWidget`` or a ``magicgui.widgets.Widget``), not the</span>
+<span class="sd">        :class:`~napari._qt.widgets.qt_viewer_dock_widget.QtViewerDockWidget`</span>
+<span class="sd">        wrapper.</span>
+
+<span class="sd">        If you need to control the dock widget itself (for example, to show or</span>
+<span class="sd">        raise a docked widget tab), access the wrapper via the Qt parent:</span>
+
+<span class="sd">        &gt;&gt;&gt; name = &quot;My widget&quot;</span>
+<span class="sd">        &gt;&gt;&gt; widget = viewer.window.dock_widgets[name]</span>
+<span class="sd">        &gt;&gt;&gt; qt_widget = widget.native if hasattr(widget, &quot;native&quot;) else widget</span>
+<span class="sd">        &gt;&gt;&gt; dock_widget = qt_widget.parent()  # QtViewerDockWidget / QDockWidget</span>
+<span class="sd">        &gt;&gt;&gt; dock_widget.show(); dock_widget.raise_()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">InnerWidgetMappingProxy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_wrapped_dock_widgets</span><span class="p">)</span>
 

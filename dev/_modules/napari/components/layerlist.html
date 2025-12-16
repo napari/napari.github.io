@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=bf795340"></script>
+    <script src="../../../_static/documentation_options.js?v=1ee129e5"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -878,6 +878,9 @@ window.addEventListener("load", load);
 <span class="sd">        ``value``</span>
 <span class="sd">    reordered : (value: self)</span>
 <span class="sd">        emitted when the list is reordered (eg. moved/reversed).</span>
+<span class="sd">    renamed : (index: int)</span>
+<span class="sd">        emitted when a layer in the list is renamed, providing the index</span>
+<span class="sd">        of the layer.</span>
 <span class="sd">    selection.events.changed : (added: Set[_T], removed: Set[_T])</span>
 <span class="sd">        emitted when the set changes, includes item(s) that have been added</span>
 <span class="sd">        and/or removed from the set.</span>
@@ -937,11 +940,26 @@ window.addEventListener("load", load);
             <span class="n">basetype</span><span class="o">=</span><span class="n">Layer</span><span class="p">,</span>
             <span class="n">lookup</span><span class="o">=</span><span class="p">{</span><span class="nb">str</span><span class="p">:</span> <span class="n">get_name</span><span class="p">},</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-            <span class="n">begin_batch</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">end_batch</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">begin_batch</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span> <span class="n">end_batch</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span> <span class="n">renamed</span><span class="o">=</span><span class="n">Event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">inserted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layer_inserted</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layer_removed</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_create_contexts</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_layer_inserted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect to layer events when a new layer is inserted.&quot;&quot;&quot;</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layer_renamed</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_layer_removed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Disconnect from layer events when a layer is removed.&quot;&quot;&quot;</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layer_renamed</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_layer_renamed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Re-emit layer name changes from a layer as a LayerList event.&quot;&quot;&quot;</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">renamed</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_create_contexts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create contexts to manage enabled/visible action/menu states.</span>

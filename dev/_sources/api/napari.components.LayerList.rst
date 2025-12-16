@@ -20,6 +20,9 @@ napari.components.LayerList
       ~LayerList.append
    
    
+      ~LayerList.batched_update
+   
+   
       ~LayerList.clear
    
    

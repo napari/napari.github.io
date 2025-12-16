@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=fe0a2689"></script>
+    <script src="../../../_static/documentation_options.js?v=bf795340"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -818,6 +818,7 @@ window.addEventListener("load", load);
   <h1>Source code for napari.components.layerlist</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
@@ -830,6 +831,7 @@ window.addEventListener("load", load);
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.dims</span><span class="w"> </span><span class="kn">import</span> <span class="n">RangeTuple</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Layer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.layer_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">Extent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.containers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SelectableEventedList</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.naming</span><span class="w"> </span><span class="kn">import</span> <span class="n">inc_name_count</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
@@ -934,6 +936,10 @@ window.addEventListener("load", load);
             <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
             <span class="n">basetype</span><span class="o">=</span><span class="n">Layer</span><span class="p">,</span>
             <span class="n">lookup</span><span class="o">=</span><span class="p">{</span><span class="nb">str</span><span class="p">:</span> <span class="n">get_name</span><span class="p">},</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">begin_batch</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">end_batch</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_create_contexts</span><span class="p">()</span>
 
@@ -1062,7 +1068,8 @@ window.addEventListener("load", load);
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unlink_layers</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">remove_selected</span><span class="p">()</span></div>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">batched_update</span><span class="p">():</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">remove_selected</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="LayerList.toggle_selected_visibility">
@@ -1381,7 +1388,23 @@ window.addEventListener("load", load);
             <span class="k">return</span> <span class="p">[]</span>
 
         <span class="k">return</span> <span class="n">save_layers</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span> <span class="n">_writer</span><span class="o">=</span><span class="n">_writer</span><span class="p">)</span></div>
-</div>
+
+
+<div class="viewcode-block" id="LayerList.clear">
+<a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.clear">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove all layers from viewer.&quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">batched_update</span><span class="p">():</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+
+    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">batched_update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">begin_batch</span><span class="p">()</span>
+            <span class="k">yield</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">end_batch</span><span class="p">()</span></div>
 
 </pre></div>
 

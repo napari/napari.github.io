@@ -9,6 +9,8 @@
 |  `layers.events.moved`              |  emitted after ``value`` is moved from ``index`` to ``new_index``           |                    |
 |  `layers.events.changed`            |  emitted when item at ``index`` is changed from ``old_value`` to ``value``  |                    |
 |  `layers.events.reordered`          |  emitted when the list is reordered (eg. moved/reversed).                   |                    |
+|  `layers.events.begin_batch`        |                                                                             |                    |
+|  `layers.events.end_batch`          |                                                                             |                    |
 |  `layers.selection.events.active`   |                                                                             |                    |
 |  `layers.selection.events.changed`  |                                                                             |                    |
                                                                                                                                           

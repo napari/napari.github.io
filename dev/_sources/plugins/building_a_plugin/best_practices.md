@@ -8,16 +8,15 @@ affect the ability to install or use your plugin effectively.
 
 (best-practices-no-qt-backend)=
 
-## Don't include `napari[all]`, `PySide2`, `PyQt5` or `PyQt6` in your plugin's default dependencies.
+## Don't include `napari[all]`, `PySide6`, `PyQt5` or `PyQt6` in your plugin's default dependencies.
 
 *This is important! Avoid including any form of Qt in your plugin's dependencies!*
 
 Napari supports *both* PyQt and PySide backends for Qt. It is up to the
 end-user to choose which one they want. If they installed napari with `pip install napari[all]`, then this includes `PyQt5` from PyPI as the default backend.
 If they installed via `conda install napari pyqt`, then they'll have `PyQt5`,
-but from conda-forge instead of PyPI. Meanwhile, the napari bundle installs with PySide2.
-Users are also free to install PyQt6, which is fully supported, or the
-experimental PySide6 backend.
+but from conda-forge instead of PyPI. Meanwhile, the napari bundle installs with PySide6.
+Users are also free to install PyQt6, or PySide6 backend.
 
 Here's what can go wrong if you *also* declare one of these backends **or napari[all]**
 in the `dependencies`/`install_requires` section of your plugin metadata:
@@ -29,7 +28,7 @@ in the `dependencies`/`install_requires` section of your plugin metadata:
   environment and re-install napari*. This is an unfortunate consequence of
   [package naming decisions](https://github.com/ContinuumIO/anaconda-issues/issues/1554),
   and it's not something napari can fix.
-- Alternatively, they may end up with some combination of *both* PyQt5, PyQt6, PySide2,
+- Alternatively, they may end up with some combination of *both* PyQt5, PyQt6,
   and PySide6 in their environment: the Qt backend they had installed and the one your
   plugin installed as a dependency. This is will not *always* to break things, but
   it will lead to unexpected and difficult to debug problems.
@@ -59,10 +58,10 @@ command line installation in a fresh environment. In `pyproject.toml` this would
 
 ````
 
-## Don't import from any specific Qt backend (e.g. PyQt5, PySide2, etc.) in your plugin: use `qtpy`
+## Don't import from any specific Qt backend (e.g. `PyQt5`, `PyQt6`, `PySide6`, etc.) in your plugin: use `qtpy`
 
 If you use `from PyQt5 import QtCore` (or similar) in your plugin, but the
-end-user has chosen to use `PySide2` for their Qt backend — or vice versa —
+end-user has chosen to use `PySide6` or `PyQt6` for their Qt backend — or vice versa —
 then your plugin will fail to import. Instead use `from qtpy import QtCore`.
 `qtpy` is a [Qt compatibility layer](https://github.com/spyder-ide/qtpy)
 that will import from whatever backend is installed in the environment.

@@ -4,12 +4,35 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: December 15, 2025*
+*Last updated: December 16, 2025*
 
 
 ## Recent Releases (Last 3 Months)
 
 Latest features and improvements:
+
+````{dropdown} napari 0.7.0 (January 2026)
+:open:
+
+More detail coming soon...
+
+### Grid Overlay
+
+...
+
+
+- Add grid overlay ([#7827](https://github.com/napari/napari/pull/7827))
+- Multilayer features table ([#8189](https://github.com/napari/napari/pull/8189))
+- Fix camera angles‽ ([#8281](https://github.com/napari/napari/pull/8281))
+- Remove `numpydoc` as a base and testing dependency ([#8338](https://github.com/napari/napari/pull/8338))
+- (WIP) Histogram ([#8391](https://github.com/napari/napari/pull/8391))
+- Texture tiling ([#8395](https://github.com/napari/napari/pull/8395))
+- Fix overlay initialization and layer addition slowdown ([#8443](https://github.com/napari/napari/pull/8443))
+- Remove PySide2 support ([#8450](https://github.com/napari/napari/pull/8450))
+
+[View full release notes →](release_0_7_0)
+
+````
 
 ````{dropdown} napari 0.6.6 (October 2025)
 :open:

@@ -649,6 +649,7 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../release/index.html">Release Notes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_7_0.html">napari 0.7.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_6_6.html">napari 0.6.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_6_5.html">napari 0.6.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_6_4.html">napari 0.6.4</a></li>
@@ -861,8 +862,8 @@ conda-forge channel. We also recommend this path for users of arm64 macOS machin
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>update<span class="w"> </span>napari
 </pre></div>
 </div>
-<p>If you want to install napari with PySide2 as the backend you need to install it using</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>napari<span class="w"> </span>pyside2
+<p>If you want to install napari with PySide6 as the backend you need to install it using</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>napari<span class="w"> </span>pyside6
 </pre></div>
 </div>
 <div class="admonition note">
@@ -937,9 +938,9 @@ the current release 0.6.7, using the command: <code class="docutils literal notr
 <section id="choosing-a-different-qt-backend">
 <h3>Choosing a different Qt backend<a class="headerlink" href="#choosing-a-different-qt-backend" title="Link to this heading">#</a></h3>
 <p id="choosing-qt-backend">napari needs a library called <a class="reference external" href="https://www.qt.io/">Qt</a> to run its user interface
-(UI). In Python, there are two alternative libraries to run this, called
-<a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt/download">PyQt5</a> and
-<a class="reference external" href="https://doc.qt.io/qtforpython-6/">PySide2</a>. By default, we don’t choose for you,
+(UI). In Python, there are three alternative libraries to run this, called
+<a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt/download">PyQt5</a> for Qt5,
+<a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt/download">PyQt5</a> and <a class="reference external" href="https://doc.qt.io/qtforpython-6/">PySide6</a> for Qt6. By default, we don’t choose for you,
 and simply running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari</span></code> will not install either. You <em>might</em>
 already have one of them installed in your environment, thanks to other
 scientific packages such as Spyder or matplotlib. If neither is available,
@@ -951,20 +952,19 @@ PyQt5–but this could change in the future.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[pyqt6, optional]&quot;</span><span class="w">    </span><span class="c1"># for PyQt6</span>
 
 <span class="c1"># OR</span>
-python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[pyside2, optional]&quot;</span><span class="w">  </span><span class="c1"># for PySide2</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[pyside6, optional]&quot;</span><span class="w">  </span><span class="c1"># for PySide6</span>
 </pre></div>
 </div>
 <p>By including <code class="docutils literal notranslate"><span class="pre">optional</span></code> you will install everything that <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code> includes, but with the Qt backend of your choice.</p>
-<p>Please note that, if you have a Mac with the newer arm64
-architecture (<a class="reference external" href="https://support.apple.com/en-us/116943">Apple Silicon</a>), then installing the PySide2 backend using <code class="docutils literal notranslate"><span class="pre">pip</span></code> is not supported because pre-compiled PySide2 packages
-(<a class="reference external" href="https://realpython.com/python-wheels/">wheels</a>) are not available on
-<a class="reference external" href="https://pypi.org">PyPI</a>, the repository used by <code class="docutils literal notranslate"><span class="pre">pip</span></code>. However,
-you can install <code class="docutils literal notranslate"><span class="pre">pyside2</span></code> separately, for example from <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>,
-and then use <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you switch backends, it’s a good idea to <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span></code> the one
 you’re not using.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As PySide2 is not maintained, we drop support for it in napari 0.7.0.
+PyQt5 is still supported, as there is no PyQt6 on conda-forge yet.</p>
 </div>
 </section>
 <section id="using-constraints-files">

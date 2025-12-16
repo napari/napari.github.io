@@ -161,7 +161,7 @@ and run the command from the second line of a given constraints file.
 For example:  
 
 ```bash
-uv pip compile --python-version 3.12 --output-file resources/constraints/constraints_py3.12.txt pyproject.toml resources/constraints/version_denylist.txt --extra pyqt6 --extra pyside2 --extra pyside6_experimental --extra testing --extra testing_extra --extra optional
+uv pip compile --python-version 3.12 --output-file resources/constraints/constraints_py3.12.txt pyproject.toml resources/constraints/version_denylist.txt --extra pyqt6 --extra pyside6 --extra testing --extra testing_extra --extra optional
 ```
 ````
 

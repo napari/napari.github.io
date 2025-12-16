@@ -127,7 +127,7 @@ extra_envs:
       - napari=1.2.3
       - napari-menu=1.2.3
       - python   # pinned to a specific version, configured by CI
-      - pyside2  # pinned to a specific version, configured by CI
+      - pyside6  # pinned to a specific version, configured by CI
       - conda    # needed for the plugin manager
       - mamba    # needed for the plugin manager
       - pip      # needed for the plugin manager

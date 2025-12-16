@@ -66,7 +66,7 @@ In order to make changes to `napari`, you will need to [fork](https://docs.githu
    pip install -e ".[pyqt]" --group dev  # (quotes only needed for zsh shell)
    ```
 
-   To use PySide2 instead of the PyQt5, use:
+   To use PySide6 instead of the PyQt5, use:
 
    ```sh
    pip install -e ".[pyside]" --group dev  # (quotes only needed for zsh shell)

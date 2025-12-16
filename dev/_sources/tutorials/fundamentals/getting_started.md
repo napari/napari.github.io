@@ -230,7 +230,7 @@ First you need to validate if you have Qt bindings installed. You can do this by
 pip list
 ```
 
-And check if `PyQt5`, `PySide2`, `PyQt6` or `PySide6` are mentioned in the output as installed.
+And check if `PyQt5`, `PyQt6` or `PySide6` are mentioned in the output as installed.
 
 If there is no such entry, please install one of them following the instructions
 in [Choosing a different Qt backend](choosing-qt-backend)
@@ -255,7 +255,6 @@ Such import may look like **one** of the following lines:
 ```python
 from PyQt5 import QtWidgets
 from PyQt6 import QtWidgets
-from PySide2 import QtWidgets
 from PySide6 import QtWidgets
 ```
 

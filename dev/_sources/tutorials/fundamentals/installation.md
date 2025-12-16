@@ -89,10 +89,10 @@ You can then upgrade to a new version of napari using:
 conda update napari
 ```
 
-If you want to install napari with PySide2 as the backend you need to install it using
+If you want to install napari with PySide6 as the backend you need to install it using
 
 ```sh
-conda install -c conda-forge napari pyside2
+conda install -c conda-forge napari pyside6
 ```
 
 ````{note}
@@ -186,9 +186,9 @@ the current release {{ napari_version }}, using the command: `napari --version` 
 (choosing-qt-backend)=
 
 napari needs a library called [Qt](https://www.qt.io/) to run its user interface
-(UI). In Python, there are two alternative libraries to run this, called
-[PyQt5](https://www.riverbankcomputing.com/software/pyqt/download) and
-[PySide2](https://doc.qt.io/qtforpython-6/). By default, we don't choose for you,
+(UI). In Python, there are three alternative libraries to run this, called
+[PyQt5](https://www.riverbankcomputing.com/software/pyqt/download) for Qt5,
+[PyQt5](https://www.riverbankcomputing.com/software/pyqt/download) and [PySide6](https://doc.qt.io/qtforpython-6/) for Qt6. By default, we don't choose for you,
 and simply running `python -m pip install napari` will not install either. You *might*
 already have one of them installed in your environment, thanks to other
 scientific packages such as Spyder or matplotlib. If neither is available,
@@ -204,21 +204,19 @@ To install napari with a specific framework, you can use:
 python -m pip install "napari[pyqt6, optional]"    # for PyQt6
 
 # OR
-python -m pip install "napari[pyside2, optional]"  # for PySide2
+python -m pip install "napari[pyside6, optional]"  # for PySide6
 ```
 
 By including `optional` you will install everything that `napari[all]` includes, but with the Qt backend of your choice.
 
-Please note that, if you have a Mac with the newer arm64
-architecture ([Apple Silicon](https://support.apple.com/en-us/116943)), then installing the PySide2 backend using `pip` is not supported because pre-compiled PySide2 packages
-([wheels](https://realpython.com/python-wheels/)) are not available on
-[PyPI](https://pypi.org), the repository used by `pip`. However,
-you can install `pyside2` separately, for example from `conda-forge`,
-and then use `pip install napari`.
-
 ```{note}
 If you switch backends, it's a good idea to `pip uninstall` the one
 you're not using.
+```
+
+```{note}
+As PySide2 is not maintained, we drop support for it in napari 0.7.0. 
+PyQt5 is still supported, as there is no PyQt6 on conda-forge yet. 
 ```
 
 ### Using constraints files

@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: December 16, 2025*
+*Last updated: December 17, 2025*
 
 
 ## Recent Releases (Last 3 Months)

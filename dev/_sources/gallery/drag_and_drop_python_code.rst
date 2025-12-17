@@ -12,7 +12,7 @@
 
         :ref:`Go to the end <sphx_glr_download_gallery_drag_and_drop_python_code.py>`
         to download the full example as a Python script or as a
-        Jupyter notebook.
+        Jupyter notebook..
 
 .. rst-class:: sphx-glr-example-title
 
@@ -43,7 +43,7 @@ To use this example, open napari and drag this file into the viewer.
  .. code-block:: none
 
 
-    <napari._qt.widgets.qt_viewer_dock_widget.QtViewerDockWidget object at 0x7fdac12e0680>
+    <napari._qt.widgets.qt_viewer_dock_widget.QtViewerDockWidget object at 0x7fb21929c950>
 
 
 

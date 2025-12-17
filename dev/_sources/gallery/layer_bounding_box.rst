@@ -12,7 +12,7 @@
 
         :ref:`Go to the end <sphx_glr_download_gallery_layer_bounding_box.py>`
         to download the full example as a Python script or as a
-        Jupyter notebook.
+        Jupyter notebook..
 
 .. rst-class:: sphx-glr-example-title
 
@@ -100,7 +100,7 @@ see :ref:`sphx_glr_gallery_image_border.py`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 10.734 seconds)
+   **Total running time of the script:** (0 minutes 10.602 seconds)
 
 
 .. _sphx_glr_download_gallery_layer_bounding_box.py:

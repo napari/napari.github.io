@@ -12,7 +12,7 @@
 
         :ref:`Go to the end <sphx_glr_download_gallery_surface_timeseries.py>`
         to download the full example as a Python script or as a
-        Jupyter notebook.
+        Jupyter notebook..
 
 .. rst-class:: sphx-glr-example-title
 
@@ -45,7 +45,7 @@ Display a surface timeseries using data from nilearn
     /home/runner/nilearn_data/nki_enhanced_surface
     [fetch_surf_nki_enhanced] Downloading data from 
     https://www.nitrc.org/frs/download.php/8470/pheno_nki_nilearn.csv ...
-    [fetch_surf_nki_enhanced]  ...done. (0 seconds, 0 min)
+    [fetch_surf_nki_enhanced]  ...done. (1 seconds, 0 min)
 
     [fetch_surf_nki_enhanced] Downloading data from 
     https://www.nitrc.org/frs/download.php/8261/A00028185_rh_preprocessed_fsaverage5

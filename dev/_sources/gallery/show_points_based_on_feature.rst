@@ -12,7 +12,7 @@
 
         :ref:`Go to the end <sphx_glr_download_gallery_show_points_based_on_feature.py>`
         to download the full example as a Python script or as a
-        Jupyter notebook.
+        Jupyter notebook..
 
 .. rst-class:: sphx-glr-example-title
 

@@ -12,7 +12,7 @@
 
         :ref:`Go to the end <sphx_glr_download_gallery_glasbey-colormap.py>`
         to download the full example as a Python script or as a
-        Jupyter notebook.
+        Jupyter notebook..
 
 .. rst-class:: sphx-glr-example-title
 
@@ -174,11 +174,6 @@ in two viewers to show both colormaps.
 
 
 
-
-
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** (0 minutes 12.573 seconds)
 
 
 .. _sphx_glr_download_gallery_glasbey-colormap.py:

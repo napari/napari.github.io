@@ -12,7 +12,7 @@
 
         :ref:`Go to the end <sphx_glr_download_gallery_surface_multi_texture.py>`
         to download the full example as a Python script or as a
-        Jupyter notebook.
+        Jupyter notebook..
 
 .. rst-class:: sphx-glr-example-title
 
@@ -278,7 +278,7 @@ sphinx_gallery_thumbnail_number = 2
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 16.584 seconds)
+   **Total running time of the script:** (0 minutes 16.402 seconds)
 
 
 .. _sphx_glr_download_gallery_surface_multi_texture.py:

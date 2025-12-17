@@ -164,9 +164,6 @@ napari.types.ArrayBase
       ~ArrayBase.tolist
    
    
-      ~ArrayBase.tostring
-   
-   
       ~ArrayBase.trace
    
    

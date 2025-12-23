@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/release/index.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: December 17, 2025 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.7.0 (January 2026) More detail coming soon… Grid Overlay … Add grid ov..." />
+<meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: December 23, 2025 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.7.0 (January 2026) More detail coming soon… Transition to npe2 plugin ..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: December 17, 2025 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.7.0 (January 2026) More detail coming soon… Grid Overlay … Add grid ov..." />
+<meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: December 23, 2025 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.7.0 (January 2026) More detail coming soon… Transition to npe2 plugin ..." />
 
     <title>Release Notes &#8212; napari</title>
   
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=68916bb9"></script>
+    <script src="../_static/documentation_options.js?v=67bab6ba"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -796,7 +796,7 @@
   <section class="tex2jax_ignore mathjax_ignore" id="release-notes">
 <span id="id1"></span><h1>Release Notes<a class="headerlink" href="#release-notes" title="Link to this heading">#</a></h1>
 <p>Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.</p>
-<p><em>Last updated: December 17, 2025</em></p>
+<p><em>Last updated: December 23, 2025</em></p>
 <section id="recent-releases-last-3-months">
 <h2>Recent Releases (Last 3 Months)<a class="headerlink" href="#recent-releases-last-3-months" title="Link to this heading">#</a></h2>
 <p>Latest features and improvements:</p>
@@ -804,6 +804,25 @@
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">napari 0.7.0 (January 2026)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text">More detail coming soon…</p>
+<p class="rubric" id="transition-to-npe2-plugin-engine">Transition to npe2 plugin engine 🔌</p>
+<p class="sd-card-text">In 0.6.0 we began the process of deprecating npe1 (napari-plugin-engine).
+In all 0.6.x releases, npe1 plugins were automatically converted to npe2 by default,
+and users could turn off the <code class="docutils literal notranslate"><span class="pre">use_npe2_adaptor</span></code> setting to continue using npe1 plugins
+without auto-conversion.</p>
+<p class="sd-card-text">In 0.7.0 this setting is being removed, and plugins will <em>only</em> continue to function if
+they can be auto-converted to npe2. Most plugins will be unaffected, but those that rely
+on import-time behaviour may not work as expected. If a plugin is relying on import-time
+behaviour, it may be able to replicate this using the new startup scripts functionality added
+in 0.6.5 (<a class="reference external" href="https://github.com/napari/napari/pull/8188">#8188</a>).</p>
+<p class="sd-card-text">If you encounter conversion issues in a plugin you rely on, please contact the
+plugin authors to encourage them to migrate their plugin to the npe2 system.</p>
+<p class="sd-card-text">For more details on this change and how it affects plugins, see the <a class="reference internal" href="../plugins/advanced_topics/adapted_plugin_guide.html#adapted-plugin-guide"><span class="std std-ref">detailed
+guide</span></a>. If you are a plugin author and your plugin is not
+yet npe2-compatible, please see our <a class="reference internal" href="../plugins/advanced_topics/npe2_migration_guide.html#npe2-migration-guide"><span class="std std-ref">npe2 migration
+guide</span></a>, and, if you encounter any issues, get in touch in
+our <a class="reference external" href="https://napari.zulipchat.com/#narrow/channel/309872-plugins">Plugins Zulip chat
+channel</a> or by
+coming to one of our <a class="reference internal" href="../community/meeting_schedule.html#meeting-schedule"><span class="std std-ref">community meetings</span></a>.</p>
 <p class="rubric" id="grid-overlay">Grid Overlay</p>
 <p class="sd-card-text">…</p>
 <ul class="simple">
@@ -814,7 +833,9 @@
 <li><p class="sd-card-text">(WIP) Histogram (<a class="reference external" href="https://github.com/napari/napari/pull/8391">#8391</a>)</p></li>
 <li><p class="sd-card-text">Texture tiling (<a class="reference external" href="https://github.com/napari/napari/pull/8395">#8395</a>)</p></li>
 <li><p class="sd-card-text">Fix overlay initialization and layer addition slowdown (<a class="reference external" href="https://github.com/napari/napari/pull/8443">#8443</a>)</p></li>
+<li><p class="sd-card-text">Remove shim setting and warning dialog (<a class="reference external" href="https://github.com/napari/napari/pull/8448">#8448</a>)</p></li>
 <li><p class="sd-card-text">Remove PySide2 support (<a class="reference external" href="https://github.com/napari/napari/pull/8450">#8450</a>)</p></li>
+<li><p class="sd-card-text">Speed up the deletion of layers by deduplicating the function calls  (<a class="reference external" href="https://github.com/napari/napari/pull/8479">#8479</a>)</p></li>
 </ul>
 <p class="sd-card-text"><a class="reference internal" href="release_0_7_0.html"><span class="doc std std-doc">View full release notes →</span></a></p>
 </div>
@@ -1059,10 +1080,10 @@ install the relevant package (for example, <code class="docutils literal notrans
 &gt; triangulation backend. (If you use <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code>, you will have bermuda
 installed and it will be used automatically, as the default option is “fastest
 available”.)</p>
-<p class="rubric" id="transition-to-npe2-plugin-engine">Transition to npe2 plugin engine 🔌</p>
+<p class="rubric" id="id2">Transition to npe2 plugin engine 🔌</p>
 <p class="sd-card-text">npe2 was introduced over four years ago, with napari 0.4.12. npe2 has paved the
-way for new plugin functionality, such as <a class="reference internal" href="../naps/6-contributable-menus.html#nap-6-contributable-menus"><span class="std std-ref">adding menu
-items</span></a> and the command palette. We are now beginning
+way for new plugin functionality, such as <a class="reference external" href="https://napari.org/stable/naps/6-contributable-menus.html">adding menu
+items</a> and the command palette. We are now beginning
 the process of deprecating npe1 (napari-plugin-engine) plugins, which we need
 to do to continue to improve npe2 functionality, for example in file readers,
 which is currently very entangled with npe1 code.</p>
@@ -1076,10 +1097,10 @@ removed in 0.7.0, and npe1 plugins will <em>only</em> work through automatic
 conversion. We anticipate 0.7.0 will be released in the second half of 2025.</p>
 <p class="sd-card-text">If you encounter conversion issues in a plugin you rely on, please contact the
 plugin authors to encourage them to migrate their plugin to the npe2 system.</p>
-<p class="sd-card-text">For more details on this change and how it affects plugins, see the <a class="reference internal" href="../plugins/advanced_topics/adapted_plugin_guide.html#adapted-plugin-guide"><span class="std std-ref">detailed
-guide</span></a>. If you are a plugin author and your plugin is not
-yet npe2-compatible, please see our <a class="reference internal" href="../plugins/advanced_topics/npe2_migration_guide.html#npe2-migration-guide"><span class="std std-ref">npe2 migration
-guide</span></a>, and, if you encounter any issues, get in touch in
+<p class="sd-card-text">For more details on this change and how it affects plugins, see the <a class="reference external" href="https://napari.org/stable/plugins/advanced_topics/adapted_plugin_guide.html">detailed
+guide</a>. If you are a plugin author and your plugin is not
+yet npe2-compatible, please see our <a class="reference external" href="https://napari.org/stable/plugins/advanced_topics/npe2_migration_guide.html">npe2 migration
+guide</a>, and, if you encounter any issues, get in touch in
 our <a class="reference external" href="https://napari.zulipchat.com/#narrow/channel/309872-plugins">Plugins Zulip chat
 channel</a> or by
 coming to one of our <a class="reference internal" href="../community/meeting_schedule.html#meeting-schedule"><span class="std std-ref">community meetings</span></a>.</p>

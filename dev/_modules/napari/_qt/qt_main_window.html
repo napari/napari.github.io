@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=68916bb9"></script>
+    <script src="../../../_static/documentation_options.js?v=67bab6ba"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -878,7 +878,6 @@ window.addEventListener("load", load);
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.dialogs.preferences_dialog</span><span class="w"> </span><span class="kn">import</span> <span class="n">PreferencesDialog</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.dialogs.qt_activity_dialog</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtActivityDialog</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.dialogs.qt_notification</span><span class="w"> </span><span class="kn">import</span> <span class="n">NapariQtNotification</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.dialogs.shimmed_plugin_dialog</span><span class="w"> </span><span class="kn">import</span> <span class="n">ShimmedPluginDialog</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.qt_event_loop</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">NAPARI_ICON_PATH</span><span class="p">,</span>
     <span class="n">get_qapp</span><span class="p">,</span>
@@ -1283,31 +1282,6 @@ window.addEventListener("load", load);
         <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">save_window_state</span><span class="p">:</span>
             <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">window_state</span> <span class="o">=</span> <span class="n">window_state</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_warn_on_shimmed_plugins</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Warn about shimmed plugins if needed.</span>
-
-<span class="sd">        In 0.6.0, a plugin using the deprecated plugin engine will be automatically</span>
-<span class="sd">        converted so it can be used with npe2. By default, a dialog is displayed</span>
-<span class="sd">        with each startup listing all shimmed plugins. The user can change this setting</span>
-<span class="sd">        to only be warned about newly installed shimmed plugins.</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">npe2</span><span class="w"> </span><span class="kn">import</span> <span class="n">plugin_manager</span> <span class="k">as</span> <span class="n">pm</span>
-
-        <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
-        <span class="n">shimmed_plugins</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">get_shimmed_plugins</span><span class="p">())</span>
-        <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">only_new_shimmed_plugins_warning</span><span class="p">:</span>
-            <span class="n">new_plugins</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">shimmed_plugins</span>
-                <span class="o">-</span> <span class="n">settings</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">already_warned_shimmed_plugins</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">new_plugins</span> <span class="o">=</span> <span class="n">shimmed_plugins</span>
-
-        <span class="k">if</span> <span class="n">new_plugins</span><span class="p">:</span>
-            <span class="n">dialog</span> <span class="o">=</span> <span class="n">ShimmedPluginDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_plugins</span><span class="p">)</span>
-            <span class="n">dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
-
     <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quit_app</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">confirm_need</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Override to handle closing app or just the window.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">quit_app</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
@@ -1606,8 +1580,6 @@ window.addEventListener("load", load);
                 <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dockLayerControls</span><span class="o">.</span><span class="n">minimumHeight</span><span class="p">(),</span> <span class="mi">10000</span><span class="p">],</span>
                 <span class="n">Qt</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">Vertical</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="c1"># TODO: where to put this?</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">_warn_on_shimmed_plugins</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_setup_existing_themes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function is only executed once at the startup of napari</span>

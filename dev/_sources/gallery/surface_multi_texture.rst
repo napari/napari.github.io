@@ -87,7 +87,7 @@ coordinates, and may require resizing the textures to match each other.
 Download the model
 ------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-79
+.. GENERATED FROM PYTHON SOURCE LINES 57-74
 
 .. code-block:: Python
 
@@ -101,17 +101,12 @@ Download the model
         'Texture_0': 'PocilloporaDamicornisSkin_Texture_0.jpg',
         'GeneratedMat2': 'PocilloporaDamicornisSkin_GeneratedMat2.png',
     }
+    data_to_path = {}
     print(f'downloading data into {tmp_dir}')
-    for file_name in data_files.values():
-        if not (tmp_dir / file_name).exists():
-            print(f'downloading {file_name}')
-            download(
-                f'doi:{doi}/{file_name}',
-                output_file=tmp_dir / file_name,
-                pooch=None,
-            )
-        else:
-            print(f'using cached {tmp_dir / file_name}')
+    for id_, file_name in data_files.items():
+        res = pooch.retrieve(f'doi:{doi}/{file_name}', known_hash=None,  progressbar=True)
+        data_to_path[id_] = res
+
 
 
 
@@ -122,14 +117,23 @@ Download the model
  .. code-block:: none
 
     downloading data into /home/runner/work/docs/docs/.cache/napari-surface-texture-example
-    using cached /home/runner/work/docs/docs/.cache/napari-surface-texture-example/PocilloporaDamicornisSkin.obj
-    using cached /home/runner/work/docs/docs/.cache/napari-surface-texture-example/PocilloporaDamicornisSkin_Texture_0.jpg
-    using cached /home/runner/work/docs/docs/.cache/napari-surface-texture-example/PocilloporaDamicornisSkin_GeneratedMat2.png
+    Downloading...
+    From: https://drive.google.com/uc?id=1yuPHWlLzowlfWzVMUg-mvAEe_Tmvpzy4
+    To: /home/runner/work/docs/docs/.cache/pooch/tmpk8fdhha4
+      0%|          | 0.00/93.8M [00:00<?, ?B/s]      1%|          | 1.05M/93.8M [00:00<00:09, 9.42MB/s]     10%|▉         | 8.91M/93.8M [00:00<00:02, 40.0MB/s]     16%|█▌        | 15.2M/93.8M [00:00<00:01, 45.8MB/s]     23%|██▎       | 21.5M/93.8M [00:00<00:01, 47.0MB/s]     37%|███▋      | 34.6M/93.8M [00:00<00:00, 72.4MB/s]     45%|████▌     | 42.5M/93.8M [00:00<00:01, 50.7MB/s]     54%|█████▍    | 50.9M/93.8M [00:00<00:00, 54.4MB/s]     63%|██████▎   | 59.2M/93.8M [00:01<00:00, 58.0MB/s]     74%|███████▍  | 69.2M/93.8M [00:01<00:00, 67.6MB/s]     97%|█████████▋| 91.2M/93.8M [00:01<00:00, 106MB/s]     100%|██████████| 93.8M/93.8M [00:01<00:00, 70.9MB/s]
+    Downloading...
+    From: https://drive.google.com/uc?id=17tG44rMPWjAIoO_AlH9BaQkPY7GxxEN9
+    To: /home/runner/work/docs/docs/.cache/pooch/tmp7a7mw276
+      0%|          | 0.00/17.3M [00:00<?, ?B/s]      3%|▎         | 524k/17.3M [00:00<00:03, 5.11MB/s]     52%|█████▏    | 8.91M/17.3M [00:00<00:00, 32.3MB/s]     76%|███████▌  | 13.1M/17.3M [00:00<00:00, 33.2MB/s]    100%|██████████| 17.3M/17.3M [00:00<00:00, 36.9MB/s]
+    Downloading...
+    From: https://drive.google.com/uc?id=1l_hGxDg6JARAyFMgWXuoIZs49qKXBv01
+    To: /home/runner/work/docs/docs/.cache/pooch/tmpiw1nwdg_
+      0%|          | 0.00/120k [00:00<?, ?B/s]    100%|██████████| 120k/120k [00:00<00:00, 1.79MB/s]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-86
+.. GENERATED FROM PYTHON SOURCE LINES 75-81
 
 Load the model
 --------------
@@ -138,11 +142,11 @@ support reading material properties (.mtl files) nor separate texture and
 vertex indices (i.e. repeated vertices). Normal vectors read from the file
 are also ignored and re-calculated from the faces.
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-88
+.. GENERATED FROM PYTHON SOURCE LINES 81-83
 
 .. code-block:: Python
 
-    vertices, faces, _normals, texcoords = read_mesh(tmp_dir / data_files['mesh'])
+    vertices, faces, _normals, texcoords = read_mesh(data_to_path['mesh'])
 
 
 
@@ -157,7 +161,7 @@ are also ignored and re-calculated from the faces.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 89-94
+.. GENERATED FROM PYTHON SOURCE LINES 84-89
 
 Load the textures
 -----------------
@@ -165,12 +169,12 @@ This model comes with two textures: `Texture_0` is generated from
 photogrammetry of the actual object, and `GeneratedMat2` is a generated
 material to fill in  parts of the model lacking photographic texture.
 
-.. GENERATED FROM PYTHON SOURCE LINES 94-97
+.. GENERATED FROM PYTHON SOURCE LINES 89-92
 
 .. code-block:: Python
 
-    photo_texture = imread(tmp_dir / data_files['Texture_0'])
-    generated_texture = imread(tmp_dir / data_files['GeneratedMat2'])
+    photo_texture = imread(data_to_path['Texture_0'])
+    generated_texture = imread(data_to_path['GeneratedMat2'])
 
 
 
@@ -179,11 +183,11 @@ material to fill in  parts of the model lacking photographic texture.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-99
+.. GENERATED FROM PYTHON SOURCE LINES 93-94
 
 This is what the texture images look like in 2D:
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-110
+.. GENERATED FROM PYTHON SOURCE LINES 94-105
 
 .. code-block:: Python
 
@@ -210,7 +214,7 @@ This is what the texture images look like in 2D:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-116
+.. GENERATED FROM PYTHON SOURCE LINES 106-111
 
 Create the napari layers
 ------------------------
@@ -218,7 +222,7 @@ Next create two separate layers with the same mesh - once with each texture.
 In this example the texture coordinates happen to be the same for each
 texture, but this is not a strict requirement.
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-129
+.. GENERATED FROM PYTHON SOURCE LINES 111-124
 
 .. code-block:: Python
 
@@ -242,14 +246,14 @@ texture, but this is not a strict requirement.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 130-134
+.. GENERATED FROM PYTHON SOURCE LINES 125-129
 
 Add the layers to a viewer
 --------------------------
 Finally, create the viewer and add the Surface layers.
 sphinx_gallery_thumbnail_number = 2
 
-.. GENERATED FROM PYTHON SOURCE LINES 134-144
+.. GENERATED FROM PYTHON SOURCE LINES 129-139
 
 .. code-block:: Python
 
@@ -278,7 +282,7 @@ sphinx_gallery_thumbnail_number = 2
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 16.402 seconds)
+   **Total running time of the script:** (0 minutes 27.566 seconds)
 
 
 .. _sphx_glr_download_gallery_surface_multi_texture.py:

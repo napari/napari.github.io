@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=68916bb9"></script>
+    <script src="../../../_static/documentation_options.js?v=67bab6ba"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -816,7 +816,9 @@ window.addEventListener("load", load);
                 <article class="bd-article">
                   
   <h1>Source code for napari.components.camera</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Optional</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">cast</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial.transform</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rotation</span> <span class="k">as</span> <span class="n">R</span>
@@ -833,7 +835,6 @@ window.addEventListener("load", load);
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events</span><span class="w"> </span><span class="kn">import</span> <span class="n">EventedModel</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ensure_n_tuple</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">numpy.typing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npt</span>
@@ -871,7 +872,7 @@ window.addEventListener("load", load);
         <span class="mf">0.0</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">zoom</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
-    <span class="n">angles</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">)</span>
+    <span class="n">angles</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
     <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">mouse_pan</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">mouse_zoom</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
@@ -894,15 +895,12 @@ window.addEventListener("load", load);
 <span class="sd">        3-tuple. This direction is in 3D scene coordinates, the world coordinate</span>
 <span class="sd">        system for three currently displayed dimensions.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">ang</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">angles</span><span class="p">)</span>
-        <span class="n">view_direction</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="c1"># z has a negative sign for the right-handed reference frame</span>
-            <span class="c1"># flip (#7488)</span>
-            <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">ang</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">ang</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">ang</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">ang</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
-            <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">ang</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="n">view_direction</span>
+        <span class="c1"># once we&#39;re in scene-land, we pretend to be in xyz space (axes names don&#39;t</span>
+        <span class="c1"># mean anything after all...) which simplifies the logic a lot.</span>
+        <span class="n">rotation</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># view direction is given by the z component, but flipping the sign.</span>
+        <span class="c1"># This is because the default view direction at angles (0, 0, 0) is (-1, 0, 0)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="o">-</span><span class="n">rotation</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">up_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
@@ -912,16 +910,12 @@ window.addEventListener("load", load);
 <span class="sd">        3-tuple. This direction is in 3D scene coordinates, the world coordinate</span>
 <span class="sd">        system for three currently displayed dimensions.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span>
-            <span class="n">seq</span><span class="o">=</span><span class="s1">&#39;yzx&#39;</span><span class="p">,</span> <span class="n">angles</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="c1"># z has a negative sign for the right-handed reference frame</span>
-            <span class="c1"># flip (#7488)</span>
-            <span class="o">-</span><span class="n">rotation_matrix</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-            <span class="n">rotation_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-            <span class="n">rotation_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-        <span class="p">)</span>
+        <span class="c1"># once we&#39;re in scene-land, we pretend to be in xyz space (axes names don&#39;t</span>
+        <span class="c1"># mean anything after all...) which simplifies the logic a lot.</span>
+        <span class="n">rotation</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># up direction is given by the y component, but flipping the sign.</span>
+        <span class="c1"># This is because the default up direction at angles (0, 0, 0) is (0, -1, 0)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="o">-</span><span class="n">rotation</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
 
 <div class="viewcode-block" id="Camera.set_view_direction">
 <a class="viewcode-back" href="../../../api/napari.components.Camera.html#napari.components.Camera.set_view_direction">[docs]</a>
@@ -951,59 +945,32 @@ window.addEventListener("load", load);
 <span class="sd">            to (0, -1, 0) unless the view direction is parallel to the y-axis,</span>
 <span class="sd">            in which case will default to (-1, 0, 0).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># default behaviour of up direction</span>
-        <span class="n">view_direction_along_y_axis</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">view_direction</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-            <span class="n">view_direction</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-        <span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">up_direction_along_y_axis</span> <span class="o">=</span> <span class="p">(</span><span class="n">up_direction</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">up_direction</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">==</span> <span class="p">(</span>
-            <span class="mi">0</span><span class="p">,</span>
-            <span class="mi">0</span><span class="p">,</span>
+        <span class="c1"># project up onto view so we can remove the parallel component</span>
+        <span class="n">projection</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">up_direction</span><span class="p">,</span> <span class="n">view_direction</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="n">view_direction</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">view_direction_along_y_axis</span> <span class="ow">and</span> <span class="n">up_direction_along_y_axis</span><span class="p">:</span>
-            <span class="n">up_direction</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># align up direction along z axis</span>
+        <span class="n">up_direction_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">up_direction</span><span class="p">)</span> <span class="o">-</span> <span class="n">projection</span>
 
-        <span class="c1"># xyz ordering for vispy</span>
-        <span class="n">view_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">view_direction</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="c1"># flip z axis for right-handed frame</span>
-        <span class="n">view_vector</span> <span class="o">*=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="c1"># normalise vector for rotation matrix</span>
-        <span class="n">view_vector</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">view_vector</span><span class="p">)</span>
-
-        <span class="c1"># xyz ordering for vispy</span>
-        <span class="n">up_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">up_direction</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="c1"># flip z axis for right-handed frame</span>
-        <span class="n">up_vector</span> <span class="o">*=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="c1"># ??? why a cross product here?</span>
-        <span class="n">up_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">view_vector</span><span class="p">,</span> <span class="n">up_vector</span><span class="p">)</span>
-        <span class="c1"># normalise vector for rotation matrix</span>
-        <span class="n">up_vector</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">up_vector</span><span class="p">)</span>
-
-        <span class="c1"># explicit check for parallel view direction and up direction</span>
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">view_vector</span><span class="p">,</span> <span class="n">up_vector</span><span class="p">),</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;view direction and up direction are parallel&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-
-        <span class="n">x_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">up_vector</span><span class="p">,</span> <span class="n">view_vector</span><span class="p">)</span>
-        <span class="n">x_vector</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x_vector</span><span class="p">)</span>
-
-        <span class="c1"># construct rotation matrix, convert to euler angles</span>
-        <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">up_vector</span><span class="p">,</span> <span class="n">view_vector</span><span class="p">,</span> <span class="n">x_vector</span><span class="p">))</span>
-        <span class="n">euler_angles</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">rotation_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">as_euler</span><span class="p">(</span>
-            <span class="n">seq</span><span class="o">=</span><span class="s1">&#39;yzx&#39;</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span>
+        <span class="n">view_direction_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">view_direction</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span>
+            <span class="n">view_direction</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="n">euler_angles</span></div>
+        <span class="n">up_direction_arr</span> <span class="o">=</span> <span class="n">up_direction_arr</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">up_direction_arr</span><span class="p">)</span>
+        <span class="n">right_direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">up_direction_arr</span><span class="p">,</span> <span class="n">view_direction_arr</span><span class="p">)</span>
+
+        <span class="c1"># once we&#39;re in scene-land, we pretend to be in xyz space (axes names don&#39;t</span>
+        <span class="c1"># mean anything after all...) which simplifies the logic a lot. We also</span>
+        <span class="c1"># flip all signs (see explanations in self.view_direction, and self.up_direction)</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">view_direction_arr</span><span class="p">,</span> <span class="n">up_direction_arr</span><span class="p">,</span> <span class="n">right_direction</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="o">.</span><span class="n">as_euler</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Camera.calculate_nd_view_direction">
 <a class="viewcode-back" href="../../../api/napari.components.Camera.html#napari.components.Camera.calculate_nd_view_direction">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">calculate_nd_view_direction</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;npt.NDArray[np.float64]&#39;</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the nD view direction vector of the camera.</span>
 
 <span class="sd">        Parameters</span>
@@ -1082,7 +1049,98 @@ window.addEventListener("load", load);
         <span class="p">]</span>
         <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">diffs</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Handedness</span><span class="o">.</span><span class="n">LEFT</span>
-        <span class="k">return</span> <span class="n">Handedness</span><span class="o">.</span><span class="n">RIGHT</span></div>
+        <span class="k">return</span> <span class="n">Handedness</span><span class="o">.</span><span class="n">RIGHT</span>
+
+<div class="viewcode-block" id="Camera.from_legacy_angles">
+<a class="viewcode-back" href="../../../api/napari.components.Camera.html#napari.components.Camera.from_legacy_angles">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_legacy_angles</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">angles</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert camera angles from vispy convention (legacy behaviour) to napari.</span>
+
+<span class="sd">        Vispy (and previously napari) uses YZX ordering, but in napari we use ZYX.</span>
+<span class="sd">        Rotations are extrinsic.</span>
+
+<span class="sd">        Prior to napari 0.7.0, we didn&#39;t account for Vispy&#39;s ZYX ordering, so our</span>
+<span class="sd">        camera angles updated the rotation around the wrong axes. See:</span>
+
+<span class="sd">        https://github.com/napari/napari/pull/8281</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># see #8281 for why this is yzx. In short: longstanding vispy bug.</span>
+        <span class="n">rot</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s1">&#39;yzx&#39;</span><span class="p">,</span> <span class="n">angles</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># rotate 90 degrees to get neutral position at 0, 0, 0</span>
+        <span class="n">rot</span> <span class="o">=</span> <span class="n">rot</span> <span class="o">*</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">angles</span> <span class="o">=</span> <span class="n">rot</span><span class="o">.</span><span class="n">as_euler</span><span class="p">(</span><span class="s1">&#39;zyx&#39;</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># flip angles where orientation is flipped relative to default, so the</span>
+        <span class="c1"># resulting rotation is always right-handed (i.e: CCW when facing the plane)</span>
+        <span class="n">flipped</span> <span class="o">=</span> <span class="n">angles</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_vispy_flipped_axes</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">flipped</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Camera.to_legacy_angles">
+<a class="viewcode-back" href="../../../api/napari.components.Camera.html#napari.components.Camera.to_legacy_angles">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_legacy_angles</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">angles</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert camera angles to napari convention to vispy (legacy behaviour).</span>
+
+<span class="sd">        Vispy (and previously napari) uses YZX ordering, but in napari we use ZYX.</span>
+<span class="sd">        Rotations are extrinsic.</span>
+
+<span class="sd">        Prior to napari 0.7.0, we didn&#39;t account for Vispy&#39;s ZYX ordering, so our</span>
+<span class="sd">        camera angles updated the rotation around the wrong axes. See:</span>
+
+<span class="sd">        https://github.com/napari/napari/pull/8281</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># flip angles where orientation is flipped relative to default, so the</span>
+        <span class="c1"># resulting rotation is always right-handed (i.e: CCW when facing the plane)</span>
+        <span class="n">flipped_angles</span> <span class="o">=</span> <span class="n">angles</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_vispy_flipped_axes</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="c1"># see #8281 for why this is yzx. In short: longstanding vispy bug.</span>
+        <span class="n">rot</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s1">&#39;zyx&#39;</span><span class="p">,</span> <span class="n">flipped_angles</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># flip angles so handedness of rotation is always right</span>
+        <span class="n">rot</span> <span class="o">=</span> <span class="n">rot</span> <span class="o">*</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span>
+            <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="n">rot</span><span class="o">.</span><span class="n">as_euler</span><span class="p">(</span><span class="s1">&#39;yzx&#39;</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
+        <span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_vispy_flipped_axes</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">ndisplay</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+        <span class="c1"># Note: the Vispy axis order is xyz, or horizontal, vertical, depth,</span>
+        <span class="c1"># while the napari axis order is zyx / plane-row-column, or depth, vertical,</span>
+        <span class="c1"># horizontal — i.e. it is exactly inverted. This switch happens when data</span>
+        <span class="c1"># is passed from napari to Vispy, usually with a transposition. In the camera</span>
+        <span class="c1"># models, this means that the order of these orientations appear in the</span>
+        <span class="c1"># opposite order to that in napari.components.Camera.</span>
+        <span class="c1">#</span>
+        <span class="c1"># Note that the default Vispy camera orientations come from Vispy, not from us.</span>
+        <span class="n">vispy_default_orientation</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="s1">&#39;towards&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span>
+            <span class="k">else</span> <span class="p">(</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="s1">&#39;away&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Vispy uses xyz coordinates; napari uses zyx coordinates. We therefore</span>
+        <span class="c1"># start by inverting the order of coordinates coming from the napari</span>
+        <span class="c1"># camera model:</span>
+        <span class="n">orientation_xyz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># The Vispy camera flip is a tuple of three ints in {0, 1}, indicating</span>
+        <span class="c1"># whether they are flipped relative to the Vispy default.</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span>
+            <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+            <span class="nb">tuple</span><span class="p">(</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">ori</span> <span class="o">!=</span> <span class="n">default_ori</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">ori</span><span class="p">,</span> <span class="n">default_ori</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                    <span class="n">orientation_xyz</span><span class="p">,</span> <span class="n">vispy_default_orientation</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span></div>
 
 </pre></div>
 

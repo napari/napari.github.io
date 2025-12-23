@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: December 17, 2025*
+*Last updated: December 23, 2025*
 
 
 ## Recent Releases (Last 3 Months)
@@ -15,6 +15,30 @@ Latest features and improvements:
 :open:
 
 More detail coming soon...
+
+### Transition to npe2 plugin engine 🔌
+
+In 0.6.0 we began the process of deprecating npe1 (napari-plugin-engine).
+In all 0.6.x releases, npe1 plugins were automatically converted to npe2 by default,
+and users could turn off the `use_npe2_adaptor` setting to continue using npe1 plugins
+without auto-conversion.
+
+In 0.7.0 this setting is being removed, and plugins will *only* continue to function if
+they can be auto-converted to npe2. Most plugins will be unaffected, but those that rely
+on import-time behaviour may not work as expected. If a plugin is relying on import-time
+behaviour, it may be able to replicate this using the new startup scripts functionality added
+in 0.6.5 ([#8188](https://github.com/napari/napari/pull/8188)).
+
+If you encounter conversion issues in a plugin you rely on, please contact the
+plugin authors to encourage them to migrate their plugin to the npe2 system.
+
+For more details on this change and how it affects plugins, see the [detailed
+guide](adapted-plugin-guide). If you are a plugin author and your plugin is not
+yet npe2-compatible, please see our [npe2 migration
+guide](npe2-migration-guide), and, if you encounter any issues, get in touch in
+our [Plugins Zulip chat
+channel](https://napari.zulipchat.com/#narrow/channel/309872-plugins) or by
+coming to one of our [community meetings](meeting-schedule).
 
 ### Grid Overlay
 
@@ -28,7 +52,9 @@ More detail coming soon...
 - (WIP) Histogram ([#8391](https://github.com/napari/napari/pull/8391))
 - Texture tiling ([#8395](https://github.com/napari/napari/pull/8395))
 - Fix overlay initialization and layer addition slowdown ([#8443](https://github.com/napari/napari/pull/8443))
+- Remove shim setting and warning dialog ([#8448](https://github.com/napari/napari/pull/8448))
 - Remove PySide2 support ([#8450](https://github.com/napari/napari/pull/8450))
+- Speed up the deletion of layers by deduplicating the function calls  ([#8479](https://github.com/napari/napari/pull/8479))
 
 [View full release notes →](release_0_7_0)
 
@@ -377,7 +403,7 @@ available".)
 
 npe2 was introduced over four years ago, with napari 0.4.12. npe2 has paved the
 way for new plugin functionality, such as [adding menu
-items](nap-6-contributable-menus) and the command palette. We are now beginning
+items](https://napari.org/stable/naps/6-contributable-menus.html) and the command palette. We are now beginning
 the process of deprecating npe1 (napari-plugin-engine) plugins, which we need
 to do to continue to improve npe2 functionality, for example in file readers,
 which is currently very entangled with npe1 code.
@@ -396,9 +422,9 @@ If you encounter conversion issues in a plugin you rely on, please contact the
 plugin authors to encourage them to migrate their plugin to the npe2 system.
 
 For more details on this change and how it affects plugins, see the [detailed
-guide](adapted-plugin-guide). If you are a plugin author and your plugin is not
+guide](https://napari.org/stable/plugins/advanced_topics/adapted_plugin_guide.html). If you are a plugin author and your plugin is not
 yet npe2-compatible, please see our [npe2 migration
-guide](npe2-migration-guide), and, if you encounter any issues, get in touch in
+guide](https://napari.org/stable/plugins/advanced_topics/npe2_migration_guide.html), and, if you encounter any issues, get in touch in
 our [Plugins Zulip chat
 channel](https://napari.zulipchat.com/#narrow/channel/309872-plugins) or by
 coming to one of our [community meetings](meeting-schedule).

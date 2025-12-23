@@ -18,6 +18,30 @@ napari follows [EffVer (Intended Effort Versioning)](https://effver.org/); this 
 
 More detail coming soon...
 
+### Transition to npe2 plugin engine 🔌
+
+In 0.6.0 we began the process of deprecating npe1 (napari-plugin-engine).
+In all 0.6.x releases, npe1 plugins were automatically converted to npe2 by default,
+and users could turn off the `use_npe2_adaptor` setting to continue using npe1 plugins
+without auto-conversion.
+
+In 0.7.0 this setting is being removed, and plugins will *only* continue to function if
+they can be auto-converted to npe2. Most plugins will be unaffected, but those that rely
+on import-time behaviour may not work as expected. If a plugin is relying on import-time
+behaviour, it may be able to replicate this using the new startup scripts functionality added
+in 0.6.5 ([#8188](https://github.com/napari/napari/pull/8188)).
+
+If you encounter conversion issues in a plugin you rely on, please contact the
+plugin authors to encourage them to migrate their plugin to the npe2 system.
+
+For more details on this change and how it affects plugins, see the [detailed
+guide](adapted-plugin-guide). If you are a plugin author and your plugin is not
+yet npe2-compatible, please see our [npe2 migration
+guide](npe2-migration-guide), and, if you encounter any issues, get in touch in
+our [Plugins Zulip chat
+channel](https://napari.zulipchat.com/#narrow/channel/309872-plugins) or by
+coming to one of our [community meetings](meeting-schedule).
+
 ### Grid Overlay
 
 ...
@@ -30,7 +54,9 @@ More detail coming soon...
 - (WIP) Histogram ([#8391](https://github.com/napari/napari/pull/8391))
 - Texture tiling ([#8395](https://github.com/napari/napari/pull/8395))
 - Fix overlay initialization and layer addition slowdown ([#8443](https://github.com/napari/napari/pull/8443))
+- Remove shim setting and warning dialog ([#8448](https://github.com/napari/napari/pull/8448))
 - Remove PySide2 support ([#8450](https://github.com/napari/napari/pull/8450))
+- Speed up the deletion of layers by deduplicating the function calls  ([#8479](https://github.com/napari/napari/pull/8479))
 
 ## New Features
 
@@ -51,14 +77,20 @@ More detail coming soon...
 - change default blending mode of images on split RGB ([#8385](https://github.com/napari/napari/pull/8385))
 - Texture tiling ([#8395](https://github.com/napari/napari/pull/8395))
 - Enh: simple speed up of Shapes `_extent_data` ([#8401](https://github.com/napari/napari/pull/8401))
+- Enh: performance optimizations to ShapeList outlines ([#8403](https://github.com/napari/napari/pull/8403))
 - Set viewer dimension based on number of axis labels ([#8436](https://github.com/napari/napari/pull/8436))
+- Enh: Add label value to the labels tooltip ([#8495](https://github.com/napari/napari/pull/8495))
+- Use 10x10 pixels rect around mouse position to invalidate tooltip ([#8500](https://github.com/napari/napari/pull/8500))
+- Bump to vispy 0.16 ([#8501](https://github.com/napari/napari/pull/8501))
 
 ## Performance
 
 - ENH: Speedup multiple shapes removal by concat'ing and np.deleting as a batch ([#8375](https://github.com/napari/napari/pull/8375))
 - Enh: simple speed up of Shapes `_extent_data` ([#8401](https://github.com/napari/napari/pull/8401))
+- Enh: performance optimizations to ShapeList outlines ([#8403](https://github.com/napari/napari/pull/8403))
 - Fix unnecessary overlay initialization on scenegraph update ([#8423](https://github.com/napari/napari/pull/8423))
 - Fix overlay initialization and layer addition slowdown ([#8443](https://github.com/napari/napari/pull/8443))
+- Cap point highlight size ([#8504](https://github.com/napari/napari/pull/8504))
 
 ## Bug Fixes
 
@@ -70,9 +102,12 @@ More detail coming soon...
 - bugfix: Ensure that edge_width is accounted for when using polygon lasso ([#8414](https://github.com/napari/napari/pull/8414))
 - Fix Shapes thumbnail z ordering ([#8417](https://github.com/napari/napari/pull/8417))
 - Fix unnecessary overlay initialization on scenegraph update ([#8423](https://github.com/napari/napari/pull/8423))
+- Bugfix: update magicgui layer combobox if a layer is renamed using LayerList.renamed event ([#8429](https://github.com/napari/napari/pull/8429))
 - Fix overlay initialization and layer addition slowdown ([#8443](https://github.com/napari/napari/pull/8443))
 - Bugfix: ensure triangle colors are updated properly when using polygon lasso ([#8469](https://github.com/napari/napari/pull/8469))
 - Speed up the deletion of layers by deduplicating the function calls  ([#8479](https://github.com/napari/napari/pull/8479))
+- Bump to vispy 0.16 ([#8501](https://github.com/napari/napari/pull/8501))
+- Cap point highlight size ([#8504](https://github.com/napari/napari/pull/8504))
 
 ## API Changes
 
@@ -81,6 +116,7 @@ More detail coming soon...
 ## Build Tools
 
 - Bump urllib3 from 2.5.0 to 2.6.0 in /resources ([#8484](https://github.com/napari/napari/pull/8484))
+- Migrate overlays to psygnal ([#8492](https://github.com/napari/napari/pull/8492))
 
 ## Documentation
 
@@ -96,6 +132,7 @@ More detail coming soon...
 - Update dark mode colors ([docs#884](https://github.com/napari/docs/pull/884))
 - Remove outdated mentions about PySide2 in documentation ([docs#889](https://github.com/napari/docs/pull/889))
 - Explain accessing dock widget wrappers ([docs#892](https://github.com/napari/docs/pull/892))
+- Add v0.7.0 release notes ([docs#893](https://github.com/napari/docs/pull/893))
 
 ## Other Pull Requests
 
@@ -127,8 +164,9 @@ More detail coming soon...
 - Update `certifi`, `coverage`, `dask`, `fsspec`, `hypothesis`, `imageio`, `ipython`, `matplotlib`, `numpy`, `pandas`, `pillow`, `pint`, `psutil`, `psygnal`, `pydantic`, `pyqt6`, `pyside6`, `pytest`, `pytest-rerunfailures`, `pyyaml`, `rich`, `scipy`, `tensorstore`, `tifffile`, `toolz`, `virtualenv`, `wrapt`, `xarray` ([#8441](https://github.com/napari/napari/pull/8441))
 - [pre-commit.ci] pre-commit autoupdate ([#8442](https://github.com/napari/napari/pull/8442))
 - Stop updating python 3.10 docs constraints ([#8444](https://github.com/napari/napari/pull/8444))
-- Remove shim setting and warning dialog ([#8448](https://github.com/napari/napari/pull/8448))
 - Block problematic numba in docs constraints ([#8454](https://github.com/napari/napari/pull/8454))
+- Change link to getting started in Help menu ([#8455](https://github.com/napari/napari/pull/8455))
+- Update `coverage`, `dask`, `fsspec`, `hypothesis`, `ipython`, `matplotlib`, `pydantic`, `pyqt6`, `pyside6`, `pytest`, `tensorstore`, `tifffile`, `xarray` ([#8456](https://github.com/napari/napari/pull/8456))
 - Use new logos! ([#8457](https://github.com/napari/napari/pull/8457))
 - [pre-commit.ci] pre-commit autoupdate ([#8458](https://github.com/napari/napari/pull/8458))
 - ci(dependabot): bump the actions group across 1 directory with 7 updates ([#8460](https://github.com/napari/napari/pull/8460))
@@ -144,6 +182,8 @@ More detail coming soon...
 - Maint: Update test_prereleases.yml to bump retries to 3 ([#8488](https://github.com/napari/napari/pull/8488))
 - Block numba 0.62.0 for docs constraints ([#8490](https://github.com/napari/napari/pull/8490))
 - [pre-commit.ci] pre-commit autoupdate ([#8491](https://github.com/napari/napari/pull/8491))
+- [pre-commit.ci] pre-commit autoupdate ([#8499](https://github.com/napari/napari/pull/8499))
+- Test on macos-15-intel without numba ([#8503](https://github.com/napari/napari/pull/8503))
 - ci(dependabot): bump the github-actions group with 4 updates ([docs#856](https://github.com/napari/docs/pull/856))
 - Allow to redeploy docs after merge new commits to main branch ([docs#874](https://github.com/napari/docs/pull/874))
 - Add mdformat to pre-commit config ([docs#878](https://github.com/napari/docs/pull/878))
@@ -152,11 +192,12 @@ More detail coming soon...
 - ci(dependabot): bump the github-actions group with 3 updates ([docs#890](https://github.com/napari/docs/pull/890))
 
 
-## 13 authors added to this release (alphabetical)
+## 14 authors added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
-- [Draga Doncila Pop](https://github.com/napari/docs/commits?author=DragaDoncila) - @DragaDoncila
+- [David Stansby](https://github.com/napari/napari/commits?author=dstansby) - @dstansby
+- [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) ([docs](https://github.com/napari/docs/commits?author=DragaDoncila))  - @DragaDoncila
 - [Edward Andò](https://github.com/napari/napari/commits?author=edwardando) - @edwardando +
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
 - [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) - @jni
@@ -164,23 +205,24 @@ More detail coming soon...
 - [Marco Edward Gorelli](https://github.com/napari/napari/commits?author=MarcoGorelli) - @MarcoGorelli +
 - [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) ([docs](https://github.com/napari/docs/commits?author=melissawm))  - @melissawm
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
-- [Qin Yu](https://github.com/napari/docs/commits?author=qin-yu) - @qin-yu +
+- [Qin Yu](https://github.com/napari/napari/commits?author=qin-yu) ([docs](https://github.com/napari/docs/commits?author=qin-yu))  - @qin-yu +
 - [Rensu Theart](https://github.com/napari/docs/commits?author=rensutheart) - @rensutheart +
 - [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
 - [Yohsuke T. Fukai](https://github.com/napari/napari/commits?author=yfukai) - @yfukai +
 - [Zuzana Čočková](https://github.com/napari/napari/commits?author=cockovaz) - @cockovaz +
 
-## 19 reviewers added to this release (alphabetical)
+## 20 reviewers added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
 - [Ashley Anderson](https://github.com/napari/docs/commits?author=aganders3) - @aganders3
 - [Carol Willing](https://github.com/napari/docs/commits?author=willingc) - @willingc
-- [David Stansby](https://github.com/napari/docs/commits?author=dstansby) - @dstansby
-- [Draga Doncila Pop](https://github.com/napari/docs/commits?author=DragaDoncila) - @DragaDoncila
+- [David Stansby](https://github.com/napari/napari/commits?author=dstansby) - @dstansby
+- [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) ([docs](https://github.com/napari/docs/commits?author=DragaDoncila))  - @DragaDoncila
 - [Edward Andò](https://github.com/napari/napari/commits?author=edwardando) - @edwardando +
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
 - [Guillaume Witz](https://github.com/napari/docs/commits?author=guiwitz) - @guiwitz
+- [Jacopo Abramo](https://github.com/napari/docs/commits?author=jacopoabramo) - @jacopoabramo
 - [Johannes Soltwedel](https://github.com/napari/docs/commits?author=jo-mueller) - @jo-mueller
 - [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) - @jni
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - @brisvag

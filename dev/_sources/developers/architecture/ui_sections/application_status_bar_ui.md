@@ -11,11 +11,8 @@ graph LR
 	napari._qt.dialogs.qt_activity_dialog --> napari._qt.widgets.qt_progress_bar
 	napari._qt.dialogs.qt_activity_dialog --> napari.utils.progress
 	click napari._qt.dialogs.qt_activity_dialog "https://github.com/napari/napari/tree/main/napari/_qt/dialogs/qt_activity_dialog.py" _blank
-	napari._qt.dialogs.shimmed_plugin_dialog(napari._qt.dialogs.shimmed_plugin_dialog)
-	click napari._qt.dialogs.shimmed_plugin_dialog "https://github.com/napari/napari/tree/main/napari/_qt/dialogs/shimmed_plugin_dialog.py" _blank
 	napari._qt.qt_main_window(napari._qt.qt_main_window)
 	napari._qt.qt_main_window --> napari._qt.dialogs.qt_activity_dialog
-	napari._qt.qt_main_window --> napari._qt.dialogs.shimmed_plugin_dialog
 	napari._qt.qt_main_window --> napari._qt.threads.status_checker
 	napari._qt.qt_main_window --> napari._qt.widgets.qt_command_palette
 	napari._qt.qt_main_window --> napari._qt.widgets.qt_viewer_status_bar
@@ -46,7 +43,6 @@ graph LR
 	class module.napari subgraphs
 	subgraph module.napari._qt.dialogs[napari._qt.dialogs]
 		 napari._qt.dialogs.qt_activity_dialog
-		 napari._qt.dialogs.shimmed_plugin_dialog
 	end
 	class module.napari._qt.dialogs subgraphs
 	subgraph module.napari._qt[napari._qt]
@@ -87,6 +83,5 @@ napari/
   ├─qt_main_window.py
   ├─__init__.py
   └─dialogs/
-    ├─shimmed_plugin_dialog.py
     └─qt_activity_dialog.py
 ```

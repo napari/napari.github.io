@@ -140,7 +140,7 @@ available".)
 
 npe2 was introduced over four years ago, with napari 0.4.12. npe2 has paved the
 way for new plugin functionality, such as [adding menu
-items](nap-6-contributable-menus) and the command palette. We are now beginning
+items](https://napari.org/stable/naps/6-contributable-menus.html) and the command palette. We are now beginning
 the process of deprecating npe1 (napari-plugin-engine) plugins, which we need
 to do to continue to improve npe2 functionality, for example in file readers,
 which is currently very entangled with npe1 code.
@@ -159,9 +159,9 @@ If you encounter conversion issues in a plugin you rely on, please contact the
 plugin authors to encourage them to migrate their plugin to the npe2 system.
 
 For more details on this change and how it affects plugins, see the [detailed
-guide](adapted-plugin-guide). If you are a plugin author and your plugin is not
+guide](https://napari.org/stable/plugins/advanced_topics/adapted_plugin_guide.html). If you are a plugin author and your plugin is not
 yet npe2-compatible, please see our [npe2 migration
-guide](npe2-migration-guide), and, if you encounter any issues, get in touch in
+guide](https://napari.org/stable/plugins/advanced_topics/npe2_migration_guide.html), and, if you encounter any issues, get in touch in
 our [Plugins Zulip chat
 channel](https://napari.zulipchat.com/#narrow/channel/309872-plugins) or by
 coming to one of our [community meetings](meeting-schedule).

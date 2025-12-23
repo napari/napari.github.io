@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=68916bb9"></script>
+    <script src="../_static/documentation_options.js?v=67bab6ba"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -811,6 +811,27 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <section id="highlights">
 <h2>Highlights<a class="headerlink" href="#highlights" title="Link to this heading">#</a></h2>
 <p>More detail coming soon…</p>
+<section id="transition-to-npe2-plugin-engine">
+<h3>Transition to npe2 plugin engine 🔌<a class="headerlink" href="#transition-to-npe2-plugin-engine" title="Link to this heading">#</a></h3>
+<p>In 0.6.0 we began the process of deprecating npe1 (napari-plugin-engine).
+In all 0.6.x releases, npe1 plugins were automatically converted to npe2 by default,
+and users could turn off the <code class="docutils literal notranslate"><span class="pre">use_npe2_adaptor</span></code> setting to continue using npe1 plugins
+without auto-conversion.</p>
+<p>In 0.7.0 this setting is being removed, and plugins will <em>only</em> continue to function if
+they can be auto-converted to npe2. Most plugins will be unaffected, but those that rely
+on import-time behaviour may not work as expected. If a plugin is relying on import-time
+behaviour, it may be able to replicate this using the new startup scripts functionality added
+in 0.6.5 (<a class="reference external" href="https://github.com/napari/napari/pull/8188">#8188</a>).</p>
+<p>If you encounter conversion issues in a plugin you rely on, please contact the
+plugin authors to encourage them to migrate their plugin to the npe2 system.</p>
+<p>For more details on this change and how it affects plugins, see the <a class="reference internal" href="../plugins/advanced_topics/adapted_plugin_guide.html#adapted-plugin-guide"><span class="std std-ref">detailed
+guide</span></a>. If you are a plugin author and your plugin is not
+yet npe2-compatible, please see our <a class="reference internal" href="../plugins/advanced_topics/npe2_migration_guide.html#npe2-migration-guide"><span class="std std-ref">npe2 migration
+guide</span></a>, and, if you encounter any issues, get in touch in
+our <a class="reference external" href="https://napari.zulipchat.com/#narrow/channel/309872-plugins">Plugins Zulip chat
+channel</a> or by
+coming to one of our <a class="reference internal" href="../community/meeting_schedule.html#meeting-schedule"><span class="std std-ref">community meetings</span></a>.</p>
+</section>
 <section id="grid-overlay">
 <h3>Grid Overlay<a class="headerlink" href="#grid-overlay" title="Link to this heading">#</a></h3>
 <p>…</p>
@@ -822,7 +843,9 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li><p>(WIP) Histogram (<a class="reference external" href="https://github.com/napari/napari/pull/8391">#8391</a>)</p></li>
 <li><p>Texture tiling (<a class="reference external" href="https://github.com/napari/napari/pull/8395">#8395</a>)</p></li>
 <li><p>Fix overlay initialization and layer addition slowdown (<a class="reference external" href="https://github.com/napari/napari/pull/8443">#8443</a>)</p></li>
+<li><p>Remove shim setting and warning dialog (<a class="reference external" href="https://github.com/napari/napari/pull/8448">#8448</a>)</p></li>
 <li><p>Remove PySide2 support (<a class="reference external" href="https://github.com/napari/napari/pull/8450">#8450</a>)</p></li>
+<li><p>Speed up the deletion of layers by deduplicating the function calls  (<a class="reference external" href="https://github.com/napari/napari/pull/8479">#8479</a>)</p></li>
 </ul>
 </section>
 </section>
@@ -848,7 +871,11 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li><p>change default blending mode of images on split RGB (<a class="reference external" href="https://github.com/napari/napari/pull/8385">#8385</a>)</p></li>
 <li><p>Texture tiling (<a class="reference external" href="https://github.com/napari/napari/pull/8395">#8395</a>)</p></li>
 <li><p>Enh: simple speed up of Shapes <code class="docutils literal notranslate"><span class="pre">_extent_data</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8401">#8401</a>)</p></li>
+<li><p>Enh: performance optimizations to ShapeList outlines (<a class="reference external" href="https://github.com/napari/napari/pull/8403">#8403</a>)</p></li>
 <li><p>Set viewer dimension based on number of axis labels (<a class="reference external" href="https://github.com/napari/napari/pull/8436">#8436</a>)</p></li>
+<li><p>Enh: Add label value to the labels tooltip (<a class="reference external" href="https://github.com/napari/napari/pull/8495">#8495</a>)</p></li>
+<li><p>Use 10x10 pixels rect around mouse position to invalidate tooltip (<a class="reference external" href="https://github.com/napari/napari/pull/8500">#8500</a>)</p></li>
+<li><p>Bump to vispy 0.16 (<a class="reference external" href="https://github.com/napari/napari/pull/8501">#8501</a>)</p></li>
 </ul>
 </section>
 <section id="performance">
@@ -856,8 +883,10 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <ul class="simple">
 <li><p>ENH: Speedup multiple shapes removal by concat’ing and np.deleting as a batch (<a class="reference external" href="https://github.com/napari/napari/pull/8375">#8375</a>)</p></li>
 <li><p>Enh: simple speed up of Shapes <code class="docutils literal notranslate"><span class="pre">_extent_data</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8401">#8401</a>)</p></li>
+<li><p>Enh: performance optimizations to ShapeList outlines (<a class="reference external" href="https://github.com/napari/napari/pull/8403">#8403</a>)</p></li>
 <li><p>Fix unnecessary overlay initialization on scenegraph update (<a class="reference external" href="https://github.com/napari/napari/pull/8423">#8423</a>)</p></li>
 <li><p>Fix overlay initialization and layer addition slowdown (<a class="reference external" href="https://github.com/napari/napari/pull/8443">#8443</a>)</p></li>
+<li><p>Cap point highlight size (<a class="reference external" href="https://github.com/napari/napari/pull/8504">#8504</a>)</p></li>
 </ul>
 </section>
 <section id="bug-fixes">
@@ -871,9 +900,12 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li><p>bugfix: Ensure that edge_width is accounted for when using polygon lasso (<a class="reference external" href="https://github.com/napari/napari/pull/8414">#8414</a>)</p></li>
 <li><p>Fix Shapes thumbnail z ordering (<a class="reference external" href="https://github.com/napari/napari/pull/8417">#8417</a>)</p></li>
 <li><p>Fix unnecessary overlay initialization on scenegraph update (<a class="reference external" href="https://github.com/napari/napari/pull/8423">#8423</a>)</p></li>
+<li><p>Bugfix: update magicgui layer combobox if a layer is renamed using LayerList.renamed event (<a class="reference external" href="https://github.com/napari/napari/pull/8429">#8429</a>)</p></li>
 <li><p>Fix overlay initialization and layer addition slowdown (<a class="reference external" href="https://github.com/napari/napari/pull/8443">#8443</a>)</p></li>
 <li><p>Bugfix: ensure triangle colors are updated properly when using polygon lasso (<a class="reference external" href="https://github.com/napari/napari/pull/8469">#8469</a>)</p></li>
 <li><p>Speed up the deletion of layers by deduplicating the function calls  (<a class="reference external" href="https://github.com/napari/napari/pull/8479">#8479</a>)</p></li>
+<li><p>Bump to vispy 0.16 (<a class="reference external" href="https://github.com/napari/napari/pull/8501">#8501</a>)</p></li>
+<li><p>Cap point highlight size (<a class="reference external" href="https://github.com/napari/napari/pull/8504">#8504</a>)</p></li>
 </ul>
 </section>
 <section id="api-changes">
@@ -886,6 +918,7 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <h2>Build Tools<a class="headerlink" href="#build-tools" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Bump urllib3 from 2.5.0 to 2.6.0 in /resources (<a class="reference external" href="https://github.com/napari/napari/pull/8484">#8484</a>)</p></li>
+<li><p>Migrate overlays to psygnal (<a class="reference external" href="https://github.com/napari/napari/pull/8492">#8492</a>)</p></li>
 </ul>
 </section>
 <section id="documentation">
@@ -903,6 +936,7 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li><p>Update dark mode colors (<a class="reference external" href="https://github.com/napari/docs/pull/884">docs#884</a>)</p></li>
 <li><p>Remove outdated mentions about PySide2 in documentation (<a class="reference external" href="https://github.com/napari/docs/pull/889">docs#889</a>)</p></li>
 <li><p>Explain accessing dock widget wrappers (<a class="reference external" href="https://github.com/napari/docs/pull/892">docs#892</a>)</p></li>
+<li><p>Add v0.7.0 release notes (<a class="reference external" href="https://github.com/napari/docs/pull/893">docs#893</a>)</p></li>
 </ul>
 </section>
 <section id="other-pull-requests">
@@ -936,8 +970,9 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">certifi</span></code>, <code class="docutils literal notranslate"><span class="pre">coverage</span></code>, <code class="docutils literal notranslate"><span class="pre">dask</span></code>, <code class="docutils literal notranslate"><span class="pre">fsspec</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">imageio</span></code>, <code class="docutils literal notranslate"><span class="pre">ipython</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">pillow</span></code>, <code class="docutils literal notranslate"><span class="pre">pint</span></code>, <code class="docutils literal notranslate"><span class="pre">psutil</span></code>, <code class="docutils literal notranslate"><span class="pre">psygnal</span></code>, <code class="docutils literal notranslate"><span class="pre">pydantic</span></code>, <code class="docutils literal notranslate"><span class="pre">pyqt6</span></code>, <code class="docutils literal notranslate"><span class="pre">pyside6</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest-rerunfailures</span></code>, <code class="docutils literal notranslate"><span class="pre">pyyaml</span></code>, <code class="docutils literal notranslate"><span class="pre">rich</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>, <code class="docutils literal notranslate"><span class="pre">tensorstore</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code>, <code class="docutils literal notranslate"><span class="pre">toolz</span></code>, <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code>, <code class="docutils literal notranslate"><span class="pre">wrapt</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8441">#8441</a>)</p></li>
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8442">#8442</a>)</p></li>
 <li><p>Stop updating python 3.10 docs constraints (<a class="reference external" href="https://github.com/napari/napari/pull/8444">#8444</a>)</p></li>
-<li><p>Remove shim setting and warning dialog (<a class="reference external" href="https://github.com/napari/napari/pull/8448">#8448</a>)</p></li>
 <li><p>Block problematic numba in docs constraints (<a class="reference external" href="https://github.com/napari/napari/pull/8454">#8454</a>)</p></li>
+<li><p>Change link to getting started in Help menu (<a class="reference external" href="https://github.com/napari/napari/pull/8455">#8455</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">coverage</span></code>, <code class="docutils literal notranslate"><span class="pre">dask</span></code>, <code class="docutils literal notranslate"><span class="pre">fsspec</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">ipython</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, <code class="docutils literal notranslate"><span class="pre">pydantic</span></code>, <code class="docutils literal notranslate"><span class="pre">pyqt6</span></code>, <code class="docutils literal notranslate"><span class="pre">pyside6</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, <code class="docutils literal notranslate"><span class="pre">tensorstore</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8456">#8456</a>)</p></li>
 <li><p>Use new logos! (<a class="reference external" href="https://github.com/napari/napari/pull/8457">#8457</a>)</p></li>
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8458">#8458</a>)</p></li>
 <li><p>ci(dependabot): bump the actions group across 1 directory with 7 updates (<a class="reference external" href="https://github.com/napari/napari/pull/8460">#8460</a>)</p></li>
@@ -953,6 +988,8 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li><p>Maint: Update test_prereleases.yml to bump retries to 3 (<a class="reference external" href="https://github.com/napari/napari/pull/8488">#8488</a>)</p></li>
 <li><p>Block numba 0.62.0 for docs constraints (<a class="reference external" href="https://github.com/napari/napari/pull/8490">#8490</a>)</p></li>
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8491">#8491</a>)</p></li>
+<li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8499">#8499</a>)</p></li>
+<li><p>Test on macos-15-intel without numba (<a class="reference external" href="https://github.com/napari/napari/pull/8503">#8503</a>)</p></li>
 <li><p>ci(dependabot): bump the github-actions group with 4 updates (<a class="reference external" href="https://github.com/napari/docs/pull/856">docs#856</a>)</p></li>
 <li><p>Allow to redeploy docs after merge new commits to main branch (<a class="reference external" href="https://github.com/napari/docs/pull/874">docs#874</a>)</p></li>
 <li><p>Add mdformat to pre-commit config (<a class="reference external" href="https://github.com/napari/docs/pull/878">docs#878</a>)</p></li>
@@ -962,10 +999,11 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 </ul>
 </section>
 <section id="authors-added-to-this-release-alphabetical">
-<h2>13 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>14 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
 <p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">Draga Doncila Pop</a> - &#64;DragaDoncila</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dstansby">David Stansby</a> - &#64;dstansby</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">docs</a>)  - &#64;DragaDoncila</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=edwardando">Edward Andò</a> - &#64;edwardando +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=Czaki">docs</a>)  - &#64;Czaki</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
@@ -973,7 +1011,7 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=MarcoGorelli">Marco Edward Gorelli</a> - &#64;MarcoGorelli +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=melissawm">Melissa Weber Mendonça</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=melissawm">docs</a>)  - &#64;melissawm</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=qin-yu">Qin Yu</a> - &#64;qin-yu +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=qin-yu">Qin Yu</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=qin-yu">docs</a>)  - &#64;qin-yu +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=rensutheart">Rensu Theart</a> - &#64;rensutheart +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=TimMonko">Tim Monko</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=TimMonko">docs</a>)  - &#64;TimMonko</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=yfukai">Yohsuke T. Fukai</a> - &#64;yfukai +</p></li>
@@ -981,16 +1019,17 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 </ul>
 </section>
 <section id="reviewers-added-to-this-release-alphabetical">
-<h2>19 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>20 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
 <p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=aganders3">Ashley Anderson</a> - &#64;aganders3</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=willingc">Carol Willing</a> - &#64;willingc</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=dstansby">David Stansby</a> - &#64;dstansby</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">Draga Doncila Pop</a> - &#64;DragaDoncila</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dstansby">David Stansby</a> - &#64;dstansby</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">docs</a>)  - &#64;DragaDoncila</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=edwardando">Edward Andò</a> - &#64;edwardando +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=Czaki">docs</a>)  - &#64;Czaki</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=guiwitz">Guillaume Witz</a> - &#64;guiwitz</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=jacopoabramo">Jacopo Abramo</a> - &#64;jacopoabramo</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=jo-mueller">Johannes Soltwedel</a> - &#64;jo-mueller</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> - &#64;brisvag</p></li>
@@ -1055,6 +1094,7 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highlights">Highlights</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transition-to-npe2-plugin-engine">Transition to npe2 plugin engine 🔌</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-overlay">Grid Overlay</a></li>
 </ul>
 </li>
@@ -1066,8 +1106,8 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-tools">Build Tools</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-pull-requests">Other Pull Requests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">13 authors added to this release (alphabetical)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">19 reviewers added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">14 authors added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">20 reviewers added to this release (alphabetical)</a></li>
 </ul>
   </nav></div>
 

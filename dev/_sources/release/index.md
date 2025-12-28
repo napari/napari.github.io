@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: December 23, 2025*
+*Last updated: December 28, 2025*
 
 
 ## Recent Releases (Last 3 Months)
@@ -203,6 +203,11 @@ Napari now has improved support for PySide6 [(#7887)](https://github.com/napari/
 
 ````
 
+
+
+
+## Releases from 6-12 Months Ago
+
 ````{dropdown} napari 0.6.2 (July 2025)
 :open:
 
@@ -243,11 +248,6 @@ We are also now including all napari related events in the [community calendar](
 [View full release notes →](release_0_6_2)
 
 ````
-
-
-
-
-## Releases from 6-12 Months Ago
 
 ````{dropdown} napari 0.6.1 (May 2025)
 :open:

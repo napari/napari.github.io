@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=3fa79fe0"></script>
+    <script src="../_static/documentation_options.js?v=49475f1e"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -863,6 +863,7 @@ coming to one of our <a class="reference internal" href="../community/meeting_sc
 <section id="improvements">
 <h2>Improvements<a class="headerlink" href="#improvements" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p>perf: reallocate instead of clearing and repopulating set of selected points (<a class="reference external" href="https://github.com/napari/napari/pull/6895">#6895</a>)</p></li>
 <li><p>Add a seed argument to built-in samples with random seeds (<a class="reference external" href="https://github.com/napari/napari/pull/8317">#8317</a>)</p></li>
 <li><p>Enh: clarify Points selection keybinding behavior: select_in_slice not append by default, add new select_append_in_slice (<a class="reference external" href="https://github.com/napari/napari/pull/8339">#8339</a>)</p></li>
 <li><p>Enh: Improve zarr reading by builtins (<a class="reference external" href="https://github.com/napari/napari/pull/8355">#8355</a>)</p></li>
@@ -876,11 +877,13 @@ coming to one of our <a class="reference internal" href="../community/meeting_sc
 <li><p>Enh: Add label value to the labels tooltip (<a class="reference external" href="https://github.com/napari/napari/pull/8495">#8495</a>)</p></li>
 <li><p>Use 10x10 pixels rect around mouse position to invalidate tooltip (<a class="reference external" href="https://github.com/napari/napari/pull/8500">#8500</a>)</p></li>
 <li><p>Bump to vispy 0.16 (<a class="reference external" href="https://github.com/napari/napari/pull/8501">#8501</a>)</p></li>
+<li><p>Avoid materializing property views when updating points highlight (<a class="reference external" href="https://github.com/napari/napari/pull/8517">#8517</a>)</p></li>
 </ul>
 </section>
 <section id="performance">
 <h2>Performance<a class="headerlink" href="#performance" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p>perf: reallocate instead of clearing and repopulating set of selected points (<a class="reference external" href="https://github.com/napari/napari/pull/6895">#6895</a>)</p></li>
 <li><p>ENH: Speedup multiple shapes removal by concat’ing and np.deleting as a batch (<a class="reference external" href="https://github.com/napari/napari/pull/8375">#8375</a>)</p></li>
 <li><p>Enh: simple speed up of Shapes <code class="docutils literal notranslate"><span class="pre">_extent_data</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8401">#8401</a>)</p></li>
 <li><p>Enh: performance optimizations to ShapeList outlines (<a class="reference external" href="https://github.com/napari/napari/pull/8403">#8403</a>)</p></li>
@@ -896,6 +899,7 @@ coming to one of our <a class="reference internal" href="../community/meeting_sc
 <li><p>bugfix &amp; refactor: Use events for shape multiselection (<a class="reference external" href="https://github.com/napari/napari/pull/8332">#8332</a>)</p></li>
 <li><p>Fix conversion of vector images to coordinates of vectors (<a class="reference external" href="https://github.com/napari/napari/pull/8366">#8366</a>)</p></li>
 <li><p>initialize label selection spinbox to a correct value (<a class="reference external" href="https://github.com/napari/napari/pull/8382">#8382</a>)</p></li>
+<li><p>Bugfix: fix erratic Shape sorting (<a class="reference external" href="https://github.com/napari/napari/pull/8408">#8408</a>)</p></li>
 <li><p>Bugfix: update magicgui layer combobox if a layer is renamed (<a class="reference external" href="https://github.com/napari/napari/pull/8412">#8412</a>)</p></li>
 <li><p>bugfix: Ensure that edge_width is accounted for when using polygon lasso (<a class="reference external" href="https://github.com/napari/napari/pull/8414">#8414</a>)</p></li>
 <li><p>Fix Shapes thumbnail z ordering (<a class="reference external" href="https://github.com/napari/napari/pull/8417">#8417</a>)</p></li>
@@ -906,6 +910,7 @@ coming to one of our <a class="reference internal" href="../community/meeting_sc
 <li><p>Speed up the deletion of layers by deduplicating the function calls  (<a class="reference external" href="https://github.com/napari/napari/pull/8479">#8479</a>)</p></li>
 <li><p>Bump to vispy 0.16 (<a class="reference external" href="https://github.com/napari/napari/pull/8501">#8501</a>)</p></li>
 <li><p>Cap point highlight size (<a class="reference external" href="https://github.com/napari/napari/pull/8504">#8504</a>)</p></li>
+<li><p>Bugfix: recurse through sub-fields when making connections in EventedSettings Config (<a class="reference external" href="https://github.com/napari/napari/pull/8520">#8520</a>)</p></li>
 </ul>
 </section>
 <section id="api-changes">
@@ -937,6 +942,8 @@ coming to one of our <a class="reference internal" href="../community/meeting_sc
 <li><p>Remove outdated mentions about PySide2 in documentation (<a class="reference external" href="https://github.com/napari/docs/pull/889">docs#889</a>)</p></li>
 <li><p>Explain accessing dock widget wrappers (<a class="reference external" href="https://github.com/napari/docs/pull/892">docs#892</a>)</p></li>
 <li><p>Add v0.7.0 release notes (<a class="reference external" href="https://github.com/napari/docs/pull/893">docs#893</a>)</p></li>
+<li><p>Add npe1 deprecation info to release notes (<a class="reference external" href="https://github.com/napari/docs/pull/894">docs#894</a>)</p></li>
+<li><p>Overwrite pooch downloader to fix Zenodo access problems (<a class="reference external" href="https://github.com/napari/docs/pull/895">docs#895</a>)</p></li>
 </ul>
 </section>
 <section id="other-pull-requests">
@@ -990,6 +997,10 @@ coming to one of our <a class="reference internal" href="../community/meeting_sc
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8491">#8491</a>)</p></li>
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8499">#8499</a>)</p></li>
 <li><p>Test on macos-15-intel without numba (<a class="reference external" href="https://github.com/napari/napari/pull/8503">#8503</a>)</p></li>
+<li><p>Move constraints calculation to script, allow upgrade subset of packages (<a class="reference external" href="https://github.com/napari/napari/pull/8505">#8505</a>)</p></li>
+<li><p>Workaround for Zenodo outage by downloading data from google drive.  (<a class="reference external" href="https://github.com/napari/napari/pull/8508">#8508</a>)</p></li>
+<li><p>Fix overlay tests (<a class="reference external" href="https://github.com/napari/napari/pull/8513">#8513</a>)</p></li>
+<li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8519">#8519</a>)</p></li>
 <li><p>ci(dependabot): bump the github-actions group with 4 updates (<a class="reference external" href="https://github.com/napari/docs/pull/856">docs#856</a>)</p></li>
 <li><p>Allow to redeploy docs after merge new commits to main branch (<a class="reference external" href="https://github.com/napari/docs/pull/874">docs#874</a>)</p></li>
 <li><p>Add mdformat to pre-commit config (<a class="reference external" href="https://github.com/napari/docs/pull/878">docs#878</a>)</p></li>
@@ -999,9 +1010,10 @@ coming to one of our <a class="reference internal" href="../community/meeting_sc
 </ul>
 </section>
 <section id="authors-added-to-this-release-alphabetical">
-<h2>14 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>15 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
 <p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=aganders3">Ashley Anderson</a> - &#64;aganders3</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dstansby">David Stansby</a> - &#64;dstansby</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">docs</a>)  - &#64;DragaDoncila</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=edwardando">Edward Andò</a> - &#64;edwardando +</p></li>
@@ -1019,11 +1031,12 @@ coming to one of our <a class="reference internal" href="../community/meeting_sc
 </ul>
 </section>
 <section id="reviewers-added-to-this-release-alphabetical">
-<h2>20 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>21 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
 <p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=aganders3">Ashley Anderson</a> - &#64;aganders3</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=aganders3">Ashley Anderson</a> - &#64;aganders3</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=willingc">Carol Willing</a> - &#64;willingc</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=DanGonite57">Daniel Zhang</a> - &#64;DanGonite57</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dstansby">David Stansby</a> - &#64;dstansby</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">docs</a>)  - &#64;DragaDoncila</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=edwardando">Edward Andò</a> - &#64;edwardando +</p></li>
@@ -1106,8 +1119,8 @@ coming to one of our <a class="reference internal" href="../community/meeting_sc
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-tools">Build Tools</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-pull-requests">Other Pull Requests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">14 authors added to this release (alphabetical)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">20 reviewers added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">15 authors added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">21 reviewers added to this release (alphabetical)</a></li>
 </ul>
   </nav></div>
 

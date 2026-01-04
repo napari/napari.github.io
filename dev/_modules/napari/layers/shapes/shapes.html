@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=49475f1e"></script>
+    <script src="../../../../_static/documentation_options.js?v=cfdd0a0e"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -847,7 +847,6 @@ window.addEventListener("load", load);
     <span class="n">shape_classes</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.shapes._shapes_mouse_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">_set_highlight</span><span class="p">,</span>
     <span class="n">add_ellipse</span><span class="p">,</span>
     <span class="n">add_line</span><span class="p">,</span>
     <span class="n">add_path_polygon</span><span class="p">,</span>
@@ -1440,9 +1439,6 @@ window.addEventListener("load", load);
             <span class="n">features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="c1"># Trigger generation of view slice and thumbnail</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_wheel_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_set_highlight</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_set_highlight</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_current_color_for_empty_layer</span><span class="p">(</span>
@@ -2584,8 +2580,8 @@ window.addEventListener("load", load);
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_update_draw</span><span class="p">(</span>
             <span class="n">scale_factor</span><span class="p">,</span> <span class="n">corner_pixels_displayed</span><span class="p">,</span> <span class="n">shape_threshold</span>
         <span class="p">)</span>
-        <span class="c1"># update highlight only if scale has changed, otherwise causes a cycle</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="p">(</span><span class="n">prev_scale</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">prev_scale</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Shapes.add_rectangles">
 <a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.add_rectangles">[docs]</a>
@@ -3486,11 +3482,11 @@ window.addEventListener("load", load);
 <span class="sd">            Bool that forces a redraw to occur when `True`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Check if any shape or vertex ids have changed since last call</span>
-        <span class="k">if</span> <span class="p">(</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">force</span> <span class="ow">and</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_stored</span>
             <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value_stored</span><span class="p">)</span>
             <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_drag_box</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_drag_box_stored</span><span class="p">)</span>
-        <span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
+        <span class="p">):</span>
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_stored</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_value_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span>

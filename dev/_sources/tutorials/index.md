@@ -1,6 +1,6 @@
 (tutorials)=
 
-# napari tutorials
+# Tutorials
 
 These tutorials will help you explore the main usage modes and methods of
 napari, and target people who want to use napari. If you are also interested
@@ -8,14 +8,14 @@ in contributing to napari then please check out [the Community page](community).
 
 ````{grid}
 ```{grid-item-card} Annotation
-:link: annotation
+:link: annotating-points
 :link-type: ref
 
 How to annotate images and videos using the napari points, labels, or shapes layers
 ```
 
 ```{grid-item-card} Processing
-:link: processing
+:link: dask-napari
 :link-type: ref
 
 Data processing with napari
@@ -31,7 +31,7 @@ Segmentation labeling with napari
 ```
 
 ```{grid-item-card} Tracking
-:link: tracking
+:link: cell-tracking
 :link-type: ref
 
 How to work with object tracking data and how to format it for display as a napari tracks layer.

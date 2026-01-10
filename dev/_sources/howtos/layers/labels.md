@@ -13,7 +13,7 @@ kernelspec:
 
 (layers-labels)=
 
-# Using the `labels` layer
+# Labels
 
 In this document, you will learn about the `napari` `Labels` layer, including
 using the layer to display the results of image segmentation analyses, and how
@@ -21,7 +21,7 @@ to manually segment images using the paintbrush and fill buckets. You will also
 understand how to add a labels image and edit it from the GUI and the
 console.
 
-For more information about layers, refer to [Layers at a glance](../../guides/layers).
+For more information about layers, refer to [Layers at a glance](layers-glance).
 
 ## When to use the `labels` layer
 

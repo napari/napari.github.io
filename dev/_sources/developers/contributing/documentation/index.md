@@ -513,7 +513,7 @@ You will need:
   ```bash
   python -m pip install -e ".[pyqt]" --group docs
   ```
-  This will use the default Qt backend. For other options, see [the napari installation guide](../../../tutorials/fundamentals/installation.md#choosing-a-different-qt-backend).
+  This will use the default Qt backend. For other options, see [the napari installation guide](choosing-qt-backend).
 
   ````{note}
   You can combine the documentation dependencies with [a development installation of napari](dev-installation) by selecting the Qt extra and both dependency groups, e.g. installing with `.[pyqt]` and adding `--group dev --group docs`.

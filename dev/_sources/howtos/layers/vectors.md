@@ -12,13 +12,12 @@ kernelspec:
 ---
 
 (layers-vectors)=
-
-# Using the `vectors` layer
+# Vectors
 
 In this document, you will learn about the `napari` `vectors` layer, including
 how to display many vectors simultaneously and adjust their properties.
 
-For more information about layers, refer to [Layers at a glance](../../guides/layers).
+For more information about layers, refer to [Layers at a glance](layers-glance).
 
 ```{note}
 Vector layers can be added only programmatically, i.e., in the console, or using

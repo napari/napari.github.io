@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: January 12, 2026*
+*Last updated: January 13, 2026*
 
 
 ## Recent Releases (Last 3 Months)
@@ -60,6 +60,11 @@ coming to one of our [community meetings](meeting-schedule).
 
 ````
 
+
+
+
+## Releases from 3-6 Months Ago
+
 ````{dropdown} napari 0.6.6 (October 2025)
 :open:
 
@@ -80,11 +85,6 @@ PS: Since we did quite a few changes behind the scenes on this new version of th
 [View full release notes →](release_0_6_6)
 
 ````
-
-
-
-
-## Releases from 3-6 Months Ago
 
 ````{dropdown} napari 0.6.5 (October 2025)
 :open:

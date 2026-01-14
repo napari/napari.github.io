@@ -170,10 +170,6 @@ the default keybinding {kbd}`m`.
 </figure>
 ```
 
-Several plugins can perform automatic segmentation that takes image layers as input and generates labels layers as output.
-
-Try [cellpose-napari](https://www.napari-hub.org/plugins/cellpose-napari) if you have cell images.
-
 +++
 
 ## Get the cell area measurement

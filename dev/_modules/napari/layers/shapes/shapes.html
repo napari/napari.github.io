@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=5a18e828"></script>
+    <script src="../../../../_static/documentation_options.js?v=4be54573"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1398,6 +1398,12 @@ window.addEventListener("load", load);
         <span class="bp">self</span><span class="o">.</span><span class="n">_drag_box_stored</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_creating</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Shapes</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_outlines_cache</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span>
+            <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">items_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_clean_outline_cache</span>
+        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span>
 
@@ -3346,6 +3352,33 @@ window.addEventListener("load", load);
         <span class="k">return</span> <span class="n">box</span></div>
 
 
+<div class="viewcode-block" id="Shapes.refresh">
+<a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.refresh">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">refresh</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">event</span><span class="p">:</span> <span class="n">Event</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">thumbnail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">data_displayed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">highlight</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">extent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">data_displayed</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_clean_outline_cache</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span>
+            <span class="n">event</span><span class="p">,</span>
+            <span class="n">thumbnail</span><span class="o">=</span><span class="n">thumbnail</span><span class="p">,</span>
+            <span class="n">data_displayed</span><span class="o">=</span><span class="n">data_displayed</span><span class="p">,</span>
+            <span class="n">highlight</span><span class="o">=</span><span class="n">highlight</span><span class="p">,</span>
+            <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">,</span>
+            <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_clean_outline_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_outlines_cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
     <span class="k">def</span><span class="w"> </span><span class="nf">_outline_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Find outlines of any selected or hovered shapes.</span>
 
@@ -3362,18 +3395,27 @@ window.addEventListener("load", load);
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
         <span class="p">):</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
-                        <span class="k">pass</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                <span class="n">index</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
 
-            <span class="n">centers</span><span class="p">,</span> <span class="n">offsets</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outlines_cache</span><span class="p">:</span>
+                <span class="n">centers</span><span class="p">,</span> <span class="n">offsets</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outlines_cache</span><span class="p">[</span><span class="n">value</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                    <span class="n">index</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">index</span> <span class="o">=</span> <span class="n">value</span>
+
+                <span class="n">centers</span><span class="p">,</span> <span class="n">offsets</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_outlines_cache</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">centers</span><span class="p">,</span>
+                    <span class="n">offsets</span><span class="p">,</span>
+                    <span class="n">triangles</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="n">vertices</span> <span class="o">=</span> <span class="n">centers</span> <span class="o">+</span> <span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_normalized_scale_factor</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_width</span> <span class="o">*</span> <span class="n">offsets</span>
             <span class="p">)</span>

@@ -43,9 +43,9 @@ Action manager
     application, not part of the napari viewer model. If your use case
     requires access to qt_viewer, please open an issue to discuss.
       layer_buttons = viewer.window.qt_viewer.layerButtons
-    calling <function bind_shortcut at 0x7fb981ff5260>
-    calling <function bind_button at 0x7fb981ff6840>
-    calling <function register_action at 0x7fb950548fe0>
+    calling <function bind_shortcut at 0x7f1b59b0c220>
+    calling <function bind_button at 0x7f1b59b0c0e0>
+    calling <function register_action at 0x7f1b6be99760>
 
 
 

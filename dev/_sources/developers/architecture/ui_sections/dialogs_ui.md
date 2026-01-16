@@ -116,10 +116,6 @@ graph LR
 	napari._qt.widgets.qt_logger(napari._qt.widgets.qt_logger)
 	napari._qt.widgets.qt_logger --> napari._qt.dialogs.qt_about
 	click napari._qt.widgets.qt_logger "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_logger.py" _blank
-	napari._qt.widgets.qt_plugin_sorter(napari._qt.widgets.qt_plugin_sorter)
-	napari._qt.widgets.qt_plugin_sorter --> napari._qt.utils
-	napari._qt.widgets.qt_plugin_sorter --> napari._qt.widgets.qt_tooltip
-	click napari._qt.widgets.qt_plugin_sorter "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_plugin_sorter.py" _blank
 	napari._qt.widgets.qt_progress_bar(napari._qt.widgets.qt_progress_bar)
 	click napari._qt.widgets.qt_progress_bar "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_progress_bar.py" _blank
 	napari._qt.widgets.qt_scrollbar(napari._qt.widgets.qt_scrollbar)
@@ -151,7 +147,6 @@ graph LR
 	napari._vendor.qt_json_builder.qt_jsonschema_form.widgets --> napari._qt.widgets.qt_extension2reader
 	napari._vendor.qt_json_builder.qt_jsonschema_form.widgets --> napari._qt.widgets.qt_font_size
 	napari._vendor.qt_json_builder.qt_jsonschema_form.widgets --> napari._qt.widgets.qt_highlight_preview
-	napari._vendor.qt_json_builder.qt_jsonschema_form.widgets --> napari._qt.widgets.qt_plugin_sorter
 	napari._vendor.qt_json_builder.qt_jsonschema_form.widgets --> napari._qt.widgets.qt_spinbox
 	napari._vendor.qt_json_builder.qt_jsonschema_form.widgets --> napari._vendor.qt_json_builder.qt_jsonschema_form.form
 	napari._vendor.qt_json_builder.qt_jsonschema_form.widgets --> napari._vendor.qt_json_builder.qt_jsonschema_form.signal
@@ -206,7 +201,6 @@ graph LR
 		 napari._qt.widgets.qt_font_size
 		 napari._qt.widgets.qt_highlight_preview
 		 napari._qt.widgets.qt_logger
-		 napari._qt.widgets.qt_plugin_sorter
 		 napari._qt.widgets.qt_progress_bar
 		 napari._qt.widgets.qt_scrollbar
 		 napari._qt.widgets.qt_spinbox
@@ -265,7 +259,6 @@ napari/
 │ │ ├─qt_dims_slider.py
 │ │ ├─qt_command_palette.py
 │ │ ├─qt_spinbox.py
-│ │ ├─qt_plugin_sorter.py
 │ │ ├─qt_extension2reader.py
 │ │ ├─qt_font_size.py
 │ │ └─qt_tooltip.py

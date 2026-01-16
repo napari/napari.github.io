@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=2e553ad3"></script>
+    <script src="../../../_static/documentation_options.js?v=90059ae7"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -995,13 +995,6 @@ window.addEventListener("load", load);
 
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
 
-        <span class="c1"># TODO:</span>
-        <span class="c1"># settings.plugins.defaults.call_order = plugin_manager.call_order()</span>
-
-        <span class="c1"># set the values in plugins to match the ones saved in settings</span>
-        <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">call_order</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">plugin_manager</span><span class="o">.</span><span class="n">set_call_order</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">call_order</span><span class="p">)</span>
-
         <span class="n">_QtMainWindow</span><span class="o">.</span><span class="n">_instances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="c1"># since we initialize canvas before the window,</span>
@@ -1526,7 +1519,6 @@ window.addEventListener("load", load);
         <span class="n">_themes</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_remove_theme</span><span class="p">)</span>
 
         <span class="c1"># discover any themes provided by plugins</span>
-        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">discover_themes</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_setup_existing_themes</span><span class="p">()</span>
 
         <span class="c1"># import and index all discovered shimmed npe1 plugins</span>

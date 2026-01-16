@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=90059ae7"></script>
+    <script src="../../_static/documentation_options.js?v=9dfc693d"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -830,6 +830,7 @@ window.addEventListener("load", load);
 <span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy.typing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npt</span>
 
 <span class="c1"># TODO decide where types should be defined to have single place for them</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">npe2.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerName</span> <span class="k">as</span> <span class="n">LayerTypeName</span>
@@ -878,6 +879,7 @@ window.addEventListener("load", load);
 <span class="c1"># note, numpy.typing.ArrayLike (in v1.20) is not quite what we want either,</span>
 <span class="c1"># since it includes all valid arguments for np.array() ( int, float, str...)</span>
 <span class="n">ArrayLike</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="s1">&#39;dask.array.Array&#39;</span><span class="p">,</span> <span class="s1">&#39;zarr.Array&#39;</span><span class="p">]</span>
+<span class="n">LayerDataType</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">]]</span>
 
 <span class="c1"># layer data may be: (data,) (data, meta), or (data, meta, layer_type)</span>
 <span class="c1"># using &quot;Any&quot; for the data type until ArrayLike is more mature.</span>

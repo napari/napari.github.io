@@ -35,9 +35,6 @@ napari.components.Camera
       ~Camera.enums_as_values
    
    
-      ~Camera.from_legacy_angles
-   
-   
       ~Camera.from_orm
    
    
@@ -63,9 +60,6 @@ napari.components.Camera
    
    
       ~Camera.set_view_direction
-   
-   
-      ~Camera.to_legacy_angles
    
    
       ~Camera.update

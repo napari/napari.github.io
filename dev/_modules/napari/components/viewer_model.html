@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=90059ae7"></script>
+    <script src="../../../_static/documentation_options.js?v=9dfc693d"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1551,7 +1551,11 @@ window.addEventListener("load", load);
         <span class="c1"># TODO: this doesn&#39;t work well yet with grid mode (and is broken by wide borders too)</span>
 
         <span class="c1"># Compute the tooltip first since it is always needed.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span> <span class="ow">and</span> <span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">active</span><span class="o">.</span><span class="n">_loaded</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span>
+            <span class="ow">and</span> <span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="n">active</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_loaded</span>
+        <span class="p">):</span>
             <span class="n">tooltip_text</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">_get_tooltip_text</span><span class="p">(</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">),</span>
                 <span class="n">view_direction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">_view_direction</span><span class="p">,</span>
@@ -1561,7 +1565,11 @@ window.addEventListener("load", load);
 
         <span class="c1"># If there is an active layer and a single selection, calculate status using &quot;the classic way&quot;.</span>
         <span class="c1"># Then return the status and the tooltip.</span>
-        <span class="k">if</span> <span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">active</span><span class="o">.</span><span class="n">_loaded</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="n">active</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_loaded</span>
+            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span>
+        <span class="p">):</span>
             <span class="n">status</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">get_status</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">,</span>
                 <span class="n">view_direction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">_view_direction</span><span class="p">,</span>
@@ -1576,7 +1584,7 @@ window.addEventListener("load", load);
             <span class="k">if</span> <span class="p">(</span>
                 <span class="ow">not</span> <span class="n">layer</span><span class="o">.</span><span class="n">visible</span>
                 <span class="ow">or</span> <span class="n">layer</span><span class="o">.</span><span class="n">opacity</span> <span class="o">==</span> <span class="mi">0</span>
-                <span class="ow">or</span> <span class="ow">not</span> <span class="n">layer</span><span class="o">.</span><span class="n">_loaded</span>
+                <span class="ow">or</span> <span class="ow">not</span> <span class="n">layer</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_loaded</span>
                 <span class="ow">or</span> <span class="p">(</span><span class="n">layer</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">selection</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
             <span class="p">):</span>
                 <span class="k">continue</span>

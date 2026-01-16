@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=90059ae7"></script>
+    <script src="../../../../_static/documentation_options.js?v=9dfc693d"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -823,17 +823,14 @@ window.addEventListener("load", load);
 <span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os.path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">cached_property</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">TYPE_CHECKING</span><span class="p">,</span>
-    <span class="n">Any</span><span class="p">,</span>
-    <span class="n">ClassVar</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ClassVar</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">magicgui</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mgui</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -863,6 +860,7 @@ window.addEventListener("load", load);
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.plane</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClippingPlane</span><span class="p">,</span> <span class="n">ClippingPlaneList</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerDataType</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._dask_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">configure_dask</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._magicgui</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">add_layer_to_viewer</span><span class="p">,</span>
@@ -892,9 +890,11 @@ window.addEventListener("load", load);
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.overlays.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">Overlay</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers._source</span><span class="w"> </span><span class="kn">import</span> <span class="n">Source</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">psygnal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Signal</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;napari.layers.base.base&#39;</span><span class="p">)</span>
 
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Layer&#39;</span><span class="p">,</span> <span class="s1">&#39;_LayerSlicingState&#39;</span><span class="p">,</span> <span class="s1">&#39;no_op&#39;</span><span class="p">)</span>
 
 <span class="n">Array1dOfInts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">]]</span>
 <span class="n">ListOrArrayOfInts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">Array1dOfInts</span>
@@ -919,7 +919,6 @@ window.addEventListener("load", load);
 <span class="sd">    None</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">PostInit</span><span class="p">(</span><span class="n">ABCMeta</span><span class="p">):</span>
@@ -933,6 +932,205 @@ window.addEventListener("load", load);
         <span class="n">obj</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">obj</span><span class="o">.</span><span class="n">_post_init</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">obj</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">_LayerSlicingState</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span>
+    <span class="n">slice_done</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>
+    <span class="n">loaded_data</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LayerDataType</span><span class="p">,</span> <span class="n">cache</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer</span> <span class="o">=</span> <span class="n">layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dask_optimized_slicing</span> <span class="o">=</span> <span class="n">configure_dask</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cache</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">_SliceInput</span><span class="p">(</span>
+            <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">world_slice</span><span class="o">=</span><span class="n">_ThickNDSlice</span><span class="o">.</span><span class="n">make_full</span><span class="p">(</span><span class="n">ndim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span>
+            <span class="n">order</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_slice_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">dask_optimized_slicing</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_view_slice</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">data_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_ThickNDSlice</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Slice in data coordinates.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># all dims are displayed dimensions</span>
+            <span class="c1"># early return to avoid evaluating data_to_world.inverse</span>
+            <span class="k">return</span> <span class="n">_ThickNDSlice</span><span class="o">.</span><span class="n">make_full</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">data_slice</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">with_ndim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_slice_input_from_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_slice_input</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_slice_input</span><span class="p">(</span><span class="n">slice_input</span><span class="p">,</span> <span class="n">force</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_slice_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_input</span><span class="p">:</span> <span class="n">_SliceInput</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">==</span> <span class="n">slice_input</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">slice_input</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">visible</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
+            <span class="c1"># We check if layer is visible to not trigger obsolete access to data</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_view_slice</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">ndim</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_slice_input</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_SliceInput</span><span class="p">:</span>
+        <span class="n">world_slice</span> <span class="o">=</span> <span class="n">_ThickNDSlice</span><span class="o">.</span><span class="n">from_dims</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
+        <span class="n">order_array</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">dims</span><span class="o">.</span><span class="n">order</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dims</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_world_to_layer_dims</span><span class="p">(</span>
+                <span class="n">world_dims</span><span class="o">=</span><span class="n">order_array</span><span class="p">,</span>
+                <span class="n">ndim_world</span><span class="o">=</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">_SliceInput</span><span class="p">(</span>
+            <span class="n">ndisplay</span><span class="o">=</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">,</span>
+            <span class="n">world_slice</span><span class="o">=</span><span class="n">world_slice</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="p">:],</span>
+            <span class="n">order</span><span class="o">=</span><span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="p">:]),</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_world_to_layer_dims</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">world_dims</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">Array1dOfInts</span><span class="p">,</span>
+        <span class="n">ndim_world</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Array1dOfInts</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map world dimensions to layer dimensions while maintaining order.</span>
+
+<span class="sd">        This is used to map dimensions from the full world space defined by ``Dims``</span>
+<span class="sd">        to the subspace that a layer inhabits, so that those can be used to index the</span>
+<span class="sd">        layer&#39;s data and associated coordinates.</span>
+
+<span class="sd">        For example a world ``Dims.order`` of [2, 1, 0, 3] would map to [0, 1] for a</span>
+<span class="sd">        layer with two dimensions and [1, 0, 2] for a layer with three dimensions</span>
+<span class="sd">        as those correspond to the relative order of the last two and three world dimensions</span>
+<span class="sd">        respectively.</span>
+
+<span class="sd">        Let&#39;s keep in mind a few facts:</span>
+
+<span class="sd">         - each dimension index is present exactly once.</span>
+<span class="sd">         - the lowest represented dimension index will be 0</span>
+
+<span class="sd">        That is to say both the `world_dims` input and return results are _some_</span>
+<span class="sd">        permutation of 0...N</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+
+<span class="sd">        `[2, 1, 0, 3]`  sliced in N=2 dimensions.</span>
+
+<span class="sd">          - we want to keep the N=2 dimensions with the biggest index</span>
+<span class="sd">          - `[2, None, None, 3]`</span>
+<span class="sd">          - we filter the None</span>
+<span class="sd">          - `[2, 3]`</span>
+<span class="sd">          - reindex so that the lowest dimension is 0 by subtracting 2 from all indices</span>
+<span class="sd">          - `[0, 1]`</span>
+
+<span class="sd">          `[2, 1, 0, 3]`  sliced in N=3 dimensions.</span>
+
+<span class="sd">          - we want to keep the N=3 dimensions with the biggest index</span>
+<span class="sd">          - `[2, 1, None, 3]`</span>
+<span class="sd">          - we filter the None</span>
+<span class="sd">          - `[2, 1, 3]`</span>
+<span class="sd">          - reindex so that the lowest dimension is 0 by subtracting 1 from all indices</span>
+<span class="sd">          - `[1, 0, 2]`</span>
+
+<span class="sd">        Conveniently if the world (layer) dimension is bigger than our displayed</span>
+<span class="sd">        dims, we can return everything</span>
+
+
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        world_dims : ndarray</span>
+<span class="sd">            The world dimensions.</span>
+<span class="sd">        ndim_world : int</span>
+<span class="sd">            The number of dimensions in the world coordinate system.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ndarray</span>
+<span class="sd">            The corresponding layer dimensions with the same ordering as the given world dimensions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_world_to_layer_dims_impl</span><span class="p">(</span>
+            <span class="n">world_dims</span><span class="p">,</span> <span class="n">ndim_world</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_world_to_layer_dims_impl</span><span class="p">(</span>
+        <span class="n">world_dims</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">Array1dOfInts</span><span class="p">,</span>
+        <span class="n">ndim_world</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Array1dOfInts</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Static for ease of testing</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">ndim_world</span> <span class="o">-</span> <span class="n">ndim</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">world_dims</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">offset</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">order</span>
+        <span class="k">if</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">offset</span><span class="p">),</span> <span class="n">order</span> <span class="o">-</span> <span class="n">offset</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">order</span><span class="p">[</span><span class="n">order</span> <span class="o">&gt;=</span> <span class="n">offset</span><span class="p">]</span> <span class="o">-</span> <span class="n">offset</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;True if this layer is fully loaded in memory, False otherwise.</span>
+
+<span class="sd">        Layers that only support sync slicing are always fully loaded.</span>
+<span class="sd">        Layers that support async slicing can be temporarily not loaded</span>
+<span class="sd">        while slicing is occurring.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_set_loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loaded</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the loaded state and notify a change with the loaded event.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">!=</span> <span class="n">loaded</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="n">loaded</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loaded_data</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_set_unloaded_slice_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set this layer to be unloaded and associated with a pending slice ID.</span>
+
+<span class="sd">        This is private but accessed externally because it is related to slice</span>
+<span class="sd">        state, which is intended to be moved off the layer in the future.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_slice_id</span> <span class="o">=</span> <span class="n">slice_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_loaded</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_loaded_slice_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Potentially update the loaded state based on the given completed slice ID.</span>
+
+<span class="sd">        This is private but accessed externally because it is related to slice</span>
+<span class="sd">        state, which is intended to be moved off the layer in the future.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_slice_id</span> <span class="o">==</span> <span class="n">slice_id</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_loaded</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Layer">
@@ -1203,14 +1401,6 @@ window.addEventListener("load", load);
         <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_blocked</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span> <span class="o">=</span> <span class="n">ndim</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">_SliceInput</span><span class="p">(</span>
-            <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-            <span class="n">world_slice</span><span class="o">=</span><span class="n">_ThickNDSlice</span><span class="o">.</span><span class="n">make_full</span><span class="p">(</span><span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">),</span>
-            <span class="n">order</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">)),</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_last_slice_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-
         <span class="c1"># Create a transform chain consisting of four transforms:</span>
         <span class="c1"># 1. `tile2data`: An initial transform only needed to display tiles</span>
         <span class="c1">#   of an image. It maps pixels of the tile into the coordinate space</span>
@@ -1311,6 +1501,11 @@ window.addEventListener("load", load);
                 <span class="s1">&#39;bounding_box&#39;</span><span class="p">:</span> <span class="n">BoundingBoxOverlay</span><span class="p">(),</span>
             <span class="p">}</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_layer_slicing_state</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cache</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_slice_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_slice_input</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_post_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Post init hook for subclasses to use.&quot;&quot;&quot;</span>
@@ -1501,37 +1696,8 @@ window.addEventListener("load", load);
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;True if this layer is fully loaded in memory, False otherwise.</span>
-
-<span class="sd">        Layers that only support sync slicing are always fully loaded.</span>
-<span class="sd">        Layers that support async slicing can be temporarily not loaded</span>
-<span class="sd">        while slicing is occurring.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_set_loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loaded</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the loaded state and notify a change with the loaded event.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">!=</span> <span class="n">loaded</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="n">loaded</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">loaded</span><span class="p">()</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_set_unloaded_slice_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set this layer to be unloaded and associated with a pending slice ID.</span>
-
-<span class="sd">        This is private but accessed externally because it is related to slice</span>
-<span class="sd">        state, which is intended to be moved off the layer in the future.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_last_slice_id</span> <span class="o">=</span> <span class="n">slice_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_set_loaded</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_update_loaded_slice_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Potentially update the loaded state based on the given completed slice ID.</span>
-
-<span class="sd">        This is private but accessed externally because it is related to slice</span>
-<span class="sd">        state, which is intended to be moved off the layer in the future.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_slice_id</span> <span class="o">==</span> <span class="n">slice_id</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_set_loaded</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: Whether the layer has been loaded into memory.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">loaded</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">opacity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -1755,9 +1921,8 @@ window.addEventListener("load", load);
             <span class="n">new_axes</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span> <span class="o">-</span> <span class="n">old_ndim</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">new_axes</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">with_ndim</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span> <span class="o">=</span> <span class="n">ndim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">update_dims</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
@@ -1876,14 +2041,7 @@ window.addEventListener("load", load);
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_data_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_ThickNDSlice</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Slice in data coordinates.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="c1"># all dims are displayed dimensions</span>
-            <span class="c1"># early return to avoid evaluating data_to_world.inverse</span>
-            <span class="k">return</span> <span class="n">_ThickNDSlice</span><span class="o">.</span><span class="n">make_full</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">data_slice</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">data_slice</span>
 
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -2057,8 +2215,7 @@ window.addEventListener("load", load);
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;bounding_box&#39;</span><span class="p">]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">dask_optimized_slicing</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_set_view_slice</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">set_view_slice</span><span class="p">()</span>
 
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2087,9 +2244,8 @@ window.addEventListener("load", load);
             <span class="n">dims</span><span class="p">,</span>
             <span class="n">force</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_input</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">force</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">!=</span> <span class="n">slice_input</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">slice_input</span>
+        <span class="n">changed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">set_slice_input_from_dims</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="n">force</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">force</span> <span class="ow">or</span> <span class="n">changed</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_sync</span><span class="p">(</span>
                 <span class="n">data_displayed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">thumbnail</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -2097,34 +2253,18 @@ window.addEventListener("load", load);
                 <span class="n">extent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_make_slice_input</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_world_to_layer_dims</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_SliceInput</span><span class="p">:</span>
-        <span class="n">world_ndim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="k">if</span> <span class="n">dims</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">dims</span><span class="o">.</span><span class="n">ndim</span>
-        <span class="k">if</span> <span class="n">dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="c1"># if no dims is given, &quot;world&quot; has same dimensionality of self</span>
-            <span class="c1"># this happens for example if a layer is not in a viewer</span>
-            <span class="c1"># in this case, we assume all dims are displayed dimensions</span>
-            <span class="n">world_slice</span> <span class="o">=</span> <span class="n">_ThickNDSlice</span><span class="o">.</span><span class="n">make_full</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">world_slice</span> <span class="o">=</span> <span class="n">_ThickNDSlice</span><span class="o">.</span><span class="n">from_dims</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
-        <span class="n">order_array</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">world_ndim</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">dims</span><span class="o">.</span><span class="n">order</span> <span class="ow">is</span> <span class="kc">None</span>
-            <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dims</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">order</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_world_to_layer_dims</span><span class="p">(</span>
-                <span class="n">world_dims</span><span class="o">=</span><span class="n">order_array</span><span class="p">,</span>
-                <span class="n">ndim_world</span><span class="o">=</span><span class="n">world_ndim</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">world_dims</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">Array1dOfInts</span><span class="p">,</span>
+        <span class="n">ndim_world</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Array1dOfInts</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;For docs to build</span>
 
-        <span class="k">return</span> <span class="n">_SliceInput</span><span class="p">(</span>
-            <span class="n">ndisplay</span><span class="o">=</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">,</span>
-            <span class="n">world_slice</span><span class="o">=</span><span class="n">world_slice</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="p">:],</span>
-            <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="p">:],</span>
+<span class="sd">        Remove after clean guides/rendering notebook</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_world_to_layer_dims</span><span class="p">(</span>
+            <span class="n">world_dims</span><span class="o">=</span><span class="n">world_dims</span><span class="p">,</span> <span class="n">ndim_world</span><span class="o">=</span><span class="n">ndim_world</span>
         <span class="p">)</span>
 
     <span class="nd">@abstractmethod</span>
@@ -2351,13 +2491,15 @@ window.addEventListener("load", load);
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">layer</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
         <span class="c1"># Otherwise, slice immediately on the calling thread.</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_sync</span><span class="p">(</span>
-                <span class="n">thumbnail</span><span class="o">=</span><span class="n">thumbnail</span><span class="p">,</span>
-                <span class="n">data_displayed</span><span class="o">=</span><span class="n">data_displayed</span><span class="p">,</span>
-                <span class="n">highlight</span><span class="o">=</span><span class="n">highlight</span><span class="p">,</span>
-                <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">,</span>
-                <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
-            <span class="p">)</span></div>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_view_slice</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_sync</span><span class="p">(</span>
+                    <span class="n">thumbnail</span><span class="o">=</span><span class="n">thumbnail</span><span class="p">,</span>
+                    <span class="n">data_displayed</span><span class="o">=</span><span class="n">data_displayed</span><span class="p">,</span>
+                    <span class="n">highlight</span><span class="o">=</span><span class="n">highlight</span><span class="p">,</span>
+                    <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">,</span>
+                    <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
+                <span class="p">)</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_refresh_sync</span><span class="p">(</span>
@@ -2375,7 +2517,6 @@ window.addEventListener("load", load);
         <span class="k">if</span> <span class="n">extent</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">data_displayed</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_view_slice</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">thumbnail</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span>
@@ -2552,86 +2693,6 @@ window.addEventListener("load", load);
         <span class="n">transformed_vector</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">transformed_vector</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">transformed_vector</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_world_to_layer_dims</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">world_dims</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span> <span class="n">ndim_world</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map world dimensions to layer dimensions while maintaining order.</span>
-
-<span class="sd">        This is used to map dimensions from the full world space defined by ``Dims``</span>
-<span class="sd">        to the subspace that a layer inhabits, so that those can be used to index the</span>
-<span class="sd">        layer&#39;s data and associated coordinates.</span>
-
-<span class="sd">        For example a world ``Dims.order`` of [2, 1, 0, 3] would map to [0, 1] for a</span>
-<span class="sd">        layer with two dimensions and [1, 0, 2] for a layer with three dimensions</span>
-<span class="sd">        as those correspond to the relative order of the last two and three world dimensions</span>
-<span class="sd">        respectively.</span>
-
-<span class="sd">        Let&#39;s keep in mind a few facts:</span>
-
-<span class="sd">         - each dimension index is present exactly once.</span>
-<span class="sd">         - the lowest represented dimension index will be 0</span>
-
-<span class="sd">        That is to say both the `world_dims` input and return results are _some_</span>
-<span class="sd">        permutation of 0...N</span>
-
-<span class="sd">        Examples</span>
-<span class="sd">        --------</span>
-
-<span class="sd">        `[2, 1, 0, 3]`  sliced in N=2 dimensions.</span>
-
-<span class="sd">          - we want to keep the N=2 dimensions with the biggest index</span>
-<span class="sd">          - `[2, None, None, 3]`</span>
-<span class="sd">          - we filter the None</span>
-<span class="sd">          - `[2, 3]`</span>
-<span class="sd">          - reindex so that the lowest dimension is 0 by subtracting 2 from all indices</span>
-<span class="sd">          - `[0, 1]`</span>
-
-<span class="sd">          `[2, 1, 0, 3]`  sliced in N=3 dimensions.</span>
-
-<span class="sd">          - we want to keep the N=3 dimensions with the biggest index</span>
-<span class="sd">          - `[2, 1, None, 3]`</span>
-<span class="sd">          - we filter the None</span>
-<span class="sd">          - `[2, 1, 3]`</span>
-<span class="sd">          - reindex so that the lowest dimension is 0 by subtracting 1 from all indices</span>
-<span class="sd">          - `[1, 0, 2]`</span>
-
-<span class="sd">        Conveniently if the world (layer) dimension is bigger than our displayed</span>
-<span class="sd">        dims, we can return everything</span>
-
-
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        world_dims : ndarray</span>
-<span class="sd">            The world dimensions.</span>
-<span class="sd">        ndim_world : int</span>
-<span class="sd">            The number of dimensions in the world coordinate system.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        ndarray</span>
-<span class="sd">            The corresponding layer dimensions with the same ordering as the given world dimensions.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_world_to_layer_dims_impl</span><span class="p">(</span>
-            <span class="n">world_dims</span><span class="p">,</span> <span class="n">ndim_world</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
-        <span class="p">)</span>
-
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_world_to_layer_dims_impl</span><span class="p">(</span>
-        <span class="n">world_dims</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span> <span class="n">ndim_world</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Static for ease of testing</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">offset</span> <span class="o">=</span> <span class="n">ndim_world</span> <span class="o">-</span> <span class="n">ndim</span>
-        <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">world_dims</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">offset</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">order</span>
-        <span class="k">if</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">offset</span><span class="p">),</span> <span class="n">order</span> <span class="o">-</span> <span class="n">offset</span><span class="p">))</span>
-
-        <span class="k">return</span> <span class="n">order</span><span class="p">[</span><span class="n">order</span> <span class="o">&gt;=</span> <span class="n">offset</span><span class="p">]</span> <span class="o">-</span> <span class="n">offset</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_display_bounding_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;An axis aligned (ndisplay, 2) bounding box around the data&quot;&quot;&quot;</span>
@@ -3201,7 +3262,14 @@ window.addEventListener("load", load);
                     <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span></div>
-</div>
+
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_layer_slicing_state</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LayerDataType</span><span class="p">,</span> <span class="n">cache</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_LayerSlicingState</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a LayerSlicer instance appropriate for this layer.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
 
 

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=9dfc693d"></script>
+    <script src="../../../../_static/documentation_options.js?v=28628998"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -816,7 +816,9 @@ window.addEventListener("load", load);
                 <article class="bd-article">
                   
   <h1>Source code for napari.layers.labels.labels</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">deque</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Sequence</span>
@@ -836,6 +838,7 @@ window.addEventListener("load", load);
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers._multiscale_data</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiScaleData</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers._scalar_field.scalar_field</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">ScalarFieldBase</span><span class="p">,</span>
+    <span class="n">ScalarFieldSlicingState</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">no_op</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.base._base_mouse_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -862,7 +865,9 @@ window.addEventListener("load", load);
     <span class="n">interpolate_coordinates</span><span class="p">,</span>
     <span class="n">sphere_indices</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.labels._slice</span><span class="w"> </span><span class="kn">import</span> <span class="n">_LabelsSliceRequest</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.layer_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">_FeatureTable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerDataType</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._dtype</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">get_dtype_limits</span><span class="p">,</span>
     <span class="n">normalize_dtype</span><span class="p">,</span>
@@ -1084,7 +1089,7 @@ window.addEventListener("load", load);
     <span class="n">_modeclass</span> <span class="o">=</span> <span class="n">Mode</span>
 
     <span class="n">_drag_modes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span>
-        <span class="nb">dict</span><span class="p">[</span><span class="n">Mode</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="s1">&#39;Labels&#39;</span><span class="p">,</span> <span class="n">Event</span><span class="p">],</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">Generator</span><span class="p">]]</span>
+        <span class="nb">dict</span><span class="p">[</span><span class="n">Mode</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Labels</span><span class="p">,</span> <span class="n">Event</span><span class="p">],</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">Generator</span><span class="p">]]</span>
     <span class="p">]</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># type: ignore[assignment]</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">transform_with_box</span><span class="p">,</span>
@@ -1098,7 +1103,7 @@ window.addEventListener("load", load);
     <span class="n">brush_size_on_mouse_move</span> <span class="o">=</span> <span class="n">BrushSizeOnMouseMove</span><span class="p">(</span><span class="n">min_brush_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="n">_move_modes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span>
-        <span class="nb">dict</span><span class="p">[</span><span class="n">StringEnum</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="s1">&#39;Labels&#39;</span><span class="p">,</span> <span class="n">Event</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span>
+        <span class="nb">dict</span><span class="p">[</span><span class="n">StringEnum</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Labels</span><span class="p">,</span> <span class="n">Event</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span>
     <span class="p">]</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># type: ignore[assignment]</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">highlight_box_handles</span><span class="p">,</span>
@@ -2467,8 +2472,18 @@ window.addEventListener("load", load);
             <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">idx</span>
             <span class="ow">and</span> <span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span>
-        <span class="p">]</span></div>
+        <span class="p">]</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_layer_slicing_state</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LayerDataType</span><span class="p">,</span> <span class="n">cache</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_LabelsSlicingState</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_LabelsSlicingState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">cache</span><span class="p">)</span></div>
+
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">_LabelsSlicingState</span><span class="p">(</span><span class="n">ScalarFieldSlicingState</span><span class="p">):</span>
+    <span class="n">layer</span><span class="p">:</span> <span class="n">Labels</span>
+    <span class="n">_slice_request_class</span> <span class="o">=</span> <span class="n">_LabelsSliceRequest</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_coerce_indices_for_vectorization</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>

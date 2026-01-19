@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=9dfc693d"></script>
+    <script src="../../../../_static/documentation_options.js?v=28628998"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -842,6 +842,7 @@ window.addEventListener("load", load);
     <span class="n">InterpolationStr</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.image._image_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">guess_rgb</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.image._slice</span><span class="w"> </span><span class="kn">import</span> <span class="n">_ImageSliceRequest</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.intensity_mixin</span><span class="w"> </span><span class="kn">import</span> <span class="n">IntensityVisualizationMixin</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.layer_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">calc_data_range</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerDataType</span>
@@ -1497,6 +1498,7 @@ window.addEventListener("load", load);
 
 <span class="k">class</span><span class="w"> </span><span class="nc">_ImageSlicingState</span><span class="p">(</span><span class="n">ScalarFieldSlicingState</span><span class="p">):</span>
     <span class="n">layer</span><span class="p">:</span> <span class="n">Image</span>
+    <span class="n">_slice_request_class</span> <span class="o">=</span> <span class="n">_ImageSliceRequest</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_slice_response</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">_ScalarFieldSliceResponse</span>

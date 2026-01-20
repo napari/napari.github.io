@@ -45,16 +45,17 @@ coming to one of our [community meetings](meeting-schedule).
 ...
 
 
-- Add grid overlay ([#7827](https://github.com/napari/napari/pull/7827))
 - Multilayer features table ([#8189](https://github.com/napari/napari/pull/8189))
 - Fix camera angles‽ ([#8281](https://github.com/napari/napari/pull/8281))
 - Remove `numpydoc` as a base and testing dependency ([#8338](https://github.com/napari/napari/pull/8338))
-- (WIP) Histogram ([#8391](https://github.com/napari/napari/pull/8391))
+- Histogram ([#8391](https://github.com/napari/napari/pull/8391))
 - Texture tiling ([#8395](https://github.com/napari/napari/pull/8395))
 - Fix overlay initialization and layer addition slowdown ([#8443](https://github.com/napari/napari/pull/8443))
 - Remove shim setting and warning dialog ([#8448](https://github.com/napari/napari/pull/8448))
 - Remove PySide2 support ([#8450](https://github.com/napari/napari/pull/8450))
 - Speed up the deletion of layers by deduplicating the function calls  ([#8479](https://github.com/napari/napari/pull/8479))
+- Remove `npe1` settings and theme loading ([#8540](https://github.com/napari/napari/pull/8540))
+- Use negative indexing for viewer dims axis labels ([#8565](https://github.com/napari/napari/pull/8565))
 
 [View full release notes →](release_0_7_0)
 

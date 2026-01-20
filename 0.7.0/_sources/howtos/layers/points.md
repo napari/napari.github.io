@@ -12,8 +12,7 @@ kernelspec:
 ---
 
 (layers-points)=
-
-# Using the `points` layer
+# Points
 
 ```{Admonition} DEPRECATED ATTRIBUTES
 ---
@@ -31,7 +30,7 @@ displaying `points` over an image that have been found in an automated fashion,
 or manually annotating an image with `points`. You will also understand how to
 add a `points layer` and edit it from the GUI and from the console.
 
-For more information about layers, refer to [Layers at a glance](../../guides/layers).
+For more information about layers, refer to [Layers at a glance](layers-glance).
 
 ## When to use the `points` layer
 
@@ -46,7 +45,7 @@ border colors of the points. For example, when displaying points of different
 classes/types, one could automatically set color the individual points by their
 respective class/type. For more details on point features, see
 [](#setting-point-border-and-face-color-with-features) or
-[point annotation tutorial](../../tutorials/annotation/annotate_points).
+[point annotation tutorial](annotating-points).
 
 ## Creating and editing the `points` layer using the GUI
 

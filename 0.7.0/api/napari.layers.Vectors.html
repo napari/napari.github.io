@@ -55,7 +55,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=5cca5fb8"></script>
+    <script src="../_static/documentation_options.js?v=ab0f410d"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -66,7 +66,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -139,8 +139,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="napari - Home"/>
-    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="napari - Home"/>
+    <img src="../_static/logo.svg" class="logo__image only-light" alt="napari - Home"/>
+    <img src="../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="napari - Home"/>
   
   
 </a></div>
@@ -1005,7 +1005,7 @@ subsampled.</p>
 <td><p>Multiplicative factor for length of all vectors.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Vectors.loaded" title="napari.layers.Vectors.loaded"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loaded</span></code></a></p></td>
-<td><p>True if this layer is fully loaded in memory, False otherwise.</p></td>
+<td><p>Whether the layer has been loaded into memory.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Vectors.metadata" title="napari.layers.Vectors.metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metadata</span></code></a></p></td>
 <td><p>Key/value map for user-stored data.</p></td>
@@ -1531,10 +1531,12 @@ and converted into data coordinates. False by default.</p></li>
 <dl class="py property">
 <dt class="sig sig-object py" id="napari.layers.Vectors.loaded">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loaded</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.layers.Vectors.loaded" title="Link to this definition">#</a></dt>
-<dd><p>True if this layer is fully loaded in memory, False otherwise.</p>
-<p>Layers that only support sync slicing are always fully loaded.
-Layers that support async slicing can be temporarily not loaded
-while slicing is occurring.</p>
+<dd><p>Whether the layer has been loaded into memory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -2633,7 +2635,7 @@ dimensions will be used.</p>
       
         <div class="footer-item"><div class="napari-copyright">
   <p class="copyright">
-        Copyright 2025, The napari team<br>
+        Copyright 2026, The napari team<br>
   </p>
 
   <div class="sphinx-version">

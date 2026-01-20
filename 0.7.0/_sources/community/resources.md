@@ -2,36 +2,7 @@
 
 ## napari logo
 
-Below are several versions of the napari logo that you can use in your docs or presentations.
-
-<table>
-    <tr>
-        <th class="text-center">
-            <a href="https://raw.githubusercontent.com/napari/docs/refs/heads/main/docs/_static/images/logo.png">
-            <img src="../_static/images/logo.png" alt="napari logo" width="150"/>
-            Download .png
-            </a>
-        </th>
-        <th class="text-center">
-            <a href="https://raw.githubusercontent.com/napari/docs/refs/heads/main/docs/_static/favicon/logo-noborder-180.png">
-            <img src="../_static/favicon/logo-noborder-180.png" alt="napari logo with no border" width="150"/>
-            Download .png
-            </a>
-        </th>
-        <th class="text-center">
-            <a href="https://raw.githubusercontent.com/napari/docs/refs/heads/main/docs/_static/favicon/logo-silhouette-192.png">
-            <img src="../_static/favicon/logo-silhouette-192.png" alt="napari logo, silhouette only" width="150"/>
-            Download .png
-            </a>
-        </th>
-        <th class="text-center">
-            <a href="https://raw.githubusercontent.com/napari/docs/refs/heads/main/docs/_static/favicon/logo-silhouette-dark-light.svg">
-            <img src="../_static/favicon/logo-silhouette-dark-light.svg" alt="napari logo, silhouette only, svg format" width="150"/>
-            Download .svg
-            </a>
-        </th>
-    </tr>
-</table>
+The various versions of the napari logo (and other resources), are hosted on the [napari resources repository](https://github.com/napari/resources). To download the latest, head to the [latest release page](https://github.com/napari/resources/releases/latest). Make sure to read the [license](https://github.com/napari/resources#license) agreements and guidelines before using any of these in your own work.
 
 ## Website colors
 

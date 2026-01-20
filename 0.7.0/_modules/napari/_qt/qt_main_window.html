@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=5cca5fb8"></script>
+    <script src="../../../_static/documentation_options.js?v=ab0f410d"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -421,7 +421,7 @@ window.addEventListener("load", load);
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -492,8 +492,8 @@ window.addEventListener("load", load);
       
     
     
-    <img src="../../../_static/logo.png" class="logo__image only-light" alt="napari - Home"/>
-    <img src="../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="napari - Home"/>
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="napari - Home"/>
+    <img src="../../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="napari - Home"/>
   
   
 </a></div>
@@ -870,10 +870,6 @@ window.addEventListener("load", load);
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt._qapp_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_qmodel_menu</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt._qapp_model.qactions</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_dummy_actions</span><span class="p">,</span> <span class="n">init_qactions</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt._qapp_model.qactions._debug</span><span class="w"> </span><span class="kn">import</span> <span class="n">_is_set_trace_active</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt._qplugins</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">_rebuild_npe1_plugins_menu</span><span class="p">,</span>
-    <span class="n">_rebuild_npe1_samples_menu</span><span class="p">,</span>
-<span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.dialogs.confirm_close_dialog</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfirmCloseDialog</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.dialogs.preferences_dialog</span><span class="w"> </span><span class="kn">import</span> <span class="n">PreferencesDialog</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.dialogs.qt_activity_dialog</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtActivityDialog</span>
@@ -999,13 +995,6 @@ window.addEventListener("load", load);
 
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
 
-        <span class="c1"># TODO:</span>
-        <span class="c1"># settings.plugins.defaults.call_order = plugin_manager.call_order()</span>
-
-        <span class="c1"># set the values in plugins to match the ones saved in settings</span>
-        <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">call_order</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">plugin_manager</span><span class="o">.</span><span class="n">set_call_order</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">call_order</span><span class="p">)</span>
-
         <span class="n">_QtMainWindow</span><span class="o">.</span><span class="n">_instances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="c1"># since we initialize canvas before the window,</span>
@@ -1107,7 +1096,7 @@ window.addEventListener("load", load);
             <span class="p">)</span>
             <span class="n">rect</span> <span class="o">=</span> <span class="n">QRect</span><span class="p">(</span><span class="n">pnt</span><span class="o">.</span><span class="n">x</span><span class="p">()</span> <span class="o">-</span> <span class="mi">5</span><span class="p">,</span> <span class="n">pnt</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">-</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
             <span class="n">QToolTip</span><span class="o">.</span><span class="n">showText</span><span class="p">(</span>
-                <span class="n">pnt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">rect</span><span class="o">=</span><span class="n">rect</span>
+                <span class="n">pnt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">rect</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">WindowActivate</span><span class="p">,</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ZOrderChange</span><span class="p">}:</span>
             <span class="c1"># upon activation or raise_, put window at the end of _instances</span>
@@ -1530,7 +1519,6 @@ window.addEventListener("load", load);
         <span class="n">_themes</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_remove_theme</span><span class="p">)</span>
 
         <span class="c1"># discover any themes provided by plugins</span>
-        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">discover_themes</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_setup_existing_themes</span><span class="p">()</span>
 
         <span class="c1"># import and index all discovered shimmed npe1 plugins</span>
@@ -1739,25 +1727,6 @@ window.addEventListener("load", load);
             <span class="n">task_status_id</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">description</span>
         <span class="p">)</span>
 
-    <span class="c1"># TODO: Remove once npe1 deprecated</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_setup_npe1_samples_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Register npe1 sample data, build menu and connect to events.&quot;&quot;&quot;</span>
-        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">discover_sample_data</span><span class="p">()</span>
-        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">enabled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_rebuild_npe1_samples_menu</span><span class="p">)</span>
-        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">disabled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_rebuild_npe1_samples_menu</span><span class="p">)</span>
-        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">registered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_rebuild_npe1_samples_menu</span><span class="p">)</span>
-        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">unregistered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_rebuild_npe1_samples_menu</span><span class="p">)</span>
-        <span class="n">_rebuild_npe1_samples_menu</span><span class="p">()</span>
-
-    <span class="c1"># TODO: Remove once npe1 deprecated</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_setup_npe1_plugins_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Register npe1 widgets, build menu and connect to events&quot;&quot;&quot;</span>
-        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">discover_widgets</span><span class="p">()</span>
-        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">registered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_rebuild_npe1_plugins_menu</span><span class="p">)</span>
-        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">disabled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_rebuild_npe1_plugins_menu</span><span class="p">)</span>
-        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">unregistered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_rebuild_npe1_plugins_menu</span><span class="p">)</span>
-        <span class="n">_rebuild_npe1_plugins_menu</span><span class="p">()</span>
-
     <span class="k">def</span><span class="w"> </span><span class="nf">_handle_trace_file_on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Start trace of `trace_file_on_start` config set.&quot;&quot;&quot;</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt._qapp_model.qactions._debug</span><span class="w"> </span><span class="kn">import</span> <span class="n">_start_trace</span>
@@ -1792,7 +1761,6 @@ window.addEventListener("load", load);
         <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
             <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_FILE</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;&amp;File&#39;</span><span class="p">),</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_npe1_samples_menu</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_file_menu_state</span><span class="p">,</span>
         <span class="p">)</span>
@@ -1821,7 +1789,6 @@ window.addEventListener("load", load);
             <span class="n">title</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;&amp;Plugins&#39;</span><span class="p">),</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_npe1_plugins_menu</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plugins_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_plugins_menu_state</span><span class="p">,</span>
         <span class="p">)</span>
@@ -3539,7 +3506,7 @@ window.addEventListener("load", load);
       
         <div class="footer-item"><div class="napari-copyright">
   <p class="copyright">
-        Copyright 2025, The napari team<br>
+        Copyright 2026, The napari team<br>
   </p>
 
   <div class="sphinx-version">

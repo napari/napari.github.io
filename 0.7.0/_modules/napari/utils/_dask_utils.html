@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=5cca5fb8"></script>
+    <script src="../../../_static/documentation_options.js?v=ab0f410d"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -421,7 +421,7 @@ window.addEventListener("load", load);
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -492,8 +492,8 @@ window.addEventListener("load", load);
       
     
     
-    <img src="../../../_static/logo.png" class="logo__image only-light" alt="napari - Home"/>
-    <img src="../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="napari - Home"/>
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="napari - Home"/>
+    <img src="../../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="napari - Home"/>
   
   
 </a></div>
@@ -942,6 +942,8 @@ window.addEventListener("load", load);
 <span class="sd">    ----------</span>
 <span class="sd">    data : Any</span>
 <span class="sd">        data, as passed to a ``Layer.__init__`` method.</span>
+<span class="sd">    cache: bool</span>
+<span class="sd">        Whether to use the global dask cache.  If False, no cache will be used</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -964,6 +966,8 @@ window.addEventListener("load", load);
     <span class="k">def</span><span class="w"> </span><span class="nf">dask_optimized_slicing</span><span class="p">(</span>
         <span class="n">memfrac</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+        <span class="c1"># For debug from where the delayed slicer is called</span>
+        <span class="c1"># add &quot;scheduler&quot;: &quot;synchronous&quot; to opts</span>
         <span class="n">opts</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;optimization.fuse.active&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
         <span class="k">with</span> <span class="n">dask</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="k">as</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">_cache</span> <span class="k">as</span> <span class="n">c</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">c</span>
@@ -1647,7 +1651,7 @@ window.addEventListener("load", load);
       
         <div class="footer-item"><div class="napari-copyright">
   <p class="copyright">
-        Copyright 2025, The napari team<br>
+        Copyright 2026, The napari team<br>
   </p>
 
   <div class="sphinx-version">

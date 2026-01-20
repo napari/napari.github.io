@@ -12,15 +12,14 @@ kernelspec:
 ---
 
 (layers-shapes)=
-
-# Using the `shapes` layer
+# Shapes
 
 In this document, you will learn about the `napari` `shapes` layer, including
 how to display and edit shapes like rectangle, ellipses, polygons, paths, and
 lines. You will also understand how to add a `shapes` layer and edit it from the
 GUI and from the console.
 
-For more information about layers, refer to [Layers at a glance](../../guides/layers).
+For more information about layers, refer to [Layers at a glance](layers-glance).
 
 ## When to use the `shapes` layer
 

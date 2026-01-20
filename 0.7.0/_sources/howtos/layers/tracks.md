@@ -12,13 +12,12 @@ kernelspec:
 ---
 
 (layers-tracks)=
-
-# Using the `tracks` layer
+# Tracks
 
 In this document, you will learn about the `napari` `tracks` layer, including
 displaying tracks and defining relationships between tracks.
 
-For more information about layers, refer to [Layers at a glance](../../guides/layers).
+For more information about layers, refer to [Layers at a glance](layers-glance).
 
 ```{note}
 Tracks layers can be created only programmatically, i.e. in the console, using a

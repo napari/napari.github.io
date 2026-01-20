@@ -1,6 +1,6 @@
 (workshops)=
 
-# napari workshops
+# Workshops
 
 There have been many workshops and tutorials given about napari.
 This page contains a list, to make them easier to find online.

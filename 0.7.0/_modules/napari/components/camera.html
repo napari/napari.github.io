@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=5cca5fb8"></script>
+    <script src="../../../_static/documentation_options.js?v=ab0f410d"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -421,7 +421,7 @@ window.addEventListener("load", load);
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -492,8 +492,8 @@ window.addEventListener("load", load);
       
     
     
-    <img src="../../../_static/logo.png" class="logo__image only-light" alt="napari - Home"/>
-    <img src="../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="napari - Home"/>
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="napari - Home"/>
+    <img src="../../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="napari - Home"/>
   
   
 </a></div>
@@ -1050,64 +1050,6 @@ window.addEventListener("load", load);
         <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">diffs</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Handedness</span><span class="o">.</span><span class="n">LEFT</span>
         <span class="k">return</span> <span class="n">Handedness</span><span class="o">.</span><span class="n">RIGHT</span>
-
-<div class="viewcode-block" id="Camera.from_legacy_angles">
-<a class="viewcode-back" href="../../../api/napari.components.Camera.html#napari.components.Camera.from_legacy_angles">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">from_legacy_angles</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">angles</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert camera angles from vispy convention (legacy behaviour) to napari.</span>
-
-<span class="sd">        Vispy (and previously napari) uses YZX ordering, but in napari we use ZYX.</span>
-<span class="sd">        Rotations are extrinsic.</span>
-
-<span class="sd">        Prior to napari 0.7.0, we didn&#39;t account for Vispy&#39;s ZYX ordering, so our</span>
-<span class="sd">        camera angles updated the rotation around the wrong axes. See:</span>
-
-<span class="sd">        https://github.com/napari/napari/pull/8281</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># see #8281 for why this is yzx. In short: longstanding vispy bug.</span>
-        <span class="n">rot</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s1">&#39;yzx&#39;</span><span class="p">,</span> <span class="n">angles</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="c1"># rotate 90 degrees to get neutral position at 0, 0, 0</span>
-        <span class="n">rot</span> <span class="o">=</span> <span class="n">rot</span> <span class="o">*</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">angles</span> <span class="o">=</span> <span class="n">rot</span><span class="o">.</span><span class="n">as_euler</span><span class="p">(</span><span class="s1">&#39;zyx&#39;</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="c1"># flip angles where orientation is flipped relative to default, so the</span>
-        <span class="c1"># resulting rotation is always right-handed (i.e: CCW when facing the plane)</span>
-        <span class="n">flipped</span> <span class="o">=</span> <span class="n">angles</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_vispy_flipped_axes</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">flipped</span><span class="p">))</span></div>
-
-
-<div class="viewcode-block" id="Camera.to_legacy_angles">
-<a class="viewcode-back" href="../../../api/napari.components.Camera.html#napari.components.Camera.to_legacy_angles">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">to_legacy_angles</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">angles</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert camera angles to napari convention to vispy (legacy behaviour).</span>
-
-<span class="sd">        Vispy (and previously napari) uses YZX ordering, but in napari we use ZYX.</span>
-<span class="sd">        Rotations are extrinsic.</span>
-
-<span class="sd">        Prior to napari 0.7.0, we didn&#39;t account for Vispy&#39;s ZYX ordering, so our</span>
-<span class="sd">        camera angles updated the rotation around the wrong axes. See:</span>
-
-<span class="sd">        https://github.com/napari/napari/pull/8281</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># flip angles where orientation is flipped relative to default, so the</span>
-        <span class="c1"># resulting rotation is always right-handed (i.e: CCW when facing the plane)</span>
-        <span class="n">flipped_angles</span> <span class="o">=</span> <span class="n">angles</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_vispy_flipped_axes</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
-        <span class="p">)</span>
-        <span class="c1"># see #8281 for why this is yzx. In short: longstanding vispy bug.</span>
-        <span class="n">rot</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s1">&#39;zyx&#39;</span><span class="p">,</span> <span class="n">flipped_angles</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="c1"># flip angles so handedness of rotation is always right</span>
-        <span class="n">rot</span> <span class="o">=</span> <span class="n">rot</span> <span class="o">*</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span>
-            <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-            <span class="nb">tuple</span><span class="p">(</span><span class="n">rot</span><span class="o">.</span><span class="n">as_euler</span><span class="p">(</span><span class="s1">&#39;yzx&#39;</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
-        <span class="p">)</span></div>
-
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_vispy_flipped_axes</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">ndisplay</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
@@ -1820,7 +1762,7 @@ window.addEventListener("load", load);
       
         <div class="footer-item"><div class="napari-copyright">
   <p class="copyright">
-        Copyright 2025, The napari team<br>
+        Copyright 2026, The napari team<br>
   </p>
 
   <div class="sphinx-version">

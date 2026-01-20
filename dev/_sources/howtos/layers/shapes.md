@@ -324,9 +324,14 @@ are used. i.e. You can't remove a vertex before you have created a shape.
 
 - Display text
 
-  Check this box to turn `display text` on or off. Text can be added to the
-  points only programmatically and not through the GUI. Refer to
-  [](../../gallery/add_points_with_multicolor_text) for more information.
+  Check this box to turn `display text` on or off. At present, text can be added to
+  shapes only programmatically and not through the GUI. For unique text labels, see
+  [](../../gallery/add_shapes_with_text) for example code. Alternately, set the same
+  (constant) string for all shapes of a Shapes layer "Shapes", you can use:
+
+  ```python
+  viewer.layers['Shapes'].text = {'string': {'constant': 'hello world'}}
+  ```
 
 ### Other tools
 

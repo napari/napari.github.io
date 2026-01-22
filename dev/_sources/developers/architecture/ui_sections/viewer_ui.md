@@ -49,7 +49,6 @@ graph LR
 	napari._qt.qt_viewer --> napari._qt.widgets.qt_dims
 	napari._qt.qt_viewer --> napari._qt.widgets.qt_viewer_buttons
 	napari._qt.qt_viewer --> napari._qt.widgets.qt_viewer_dock_widget
-	napari._qt.qt_viewer --> napari._qt.widgets.qt_welcome
 	napari._qt.qt_viewer --> napari.components.camera
 	napari._qt.qt_viewer --> napari.components.layerlist
 	napari._qt.qt_viewer --> napari.layers
@@ -106,8 +105,6 @@ graph LR
 	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.dialogs
 	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.qt_main_window
 	click napari._qt.widgets.qt_viewer_status_bar "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_status_bar.py" _blank
-	napari._qt.widgets.qt_welcome(napari._qt.widgets.qt_welcome)
-	click napari._qt.widgets.qt_welcome "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_welcome.py" _blank
 	napari.components._layer_slicer(napari.components._layer_slicer)
 	napari.components._layer_slicer --> napari.layers
 	click napari.components._layer_slicer "https://github.com/napari/napari/tree/main/napari/components/_layer_slicer.py" _blank
@@ -141,6 +138,7 @@ graph LR
 	napari.components.overlays --> napari.components.overlays.labels_polygon
 	napari.components.overlays --> napari.components.overlays.scale_bar
 	napari.components.overlays --> napari.components.overlays.text
+	napari.components.overlays --> napari.components.overlays.welcome
 	napari.components.overlays --> napari.components.overlays.zoom
 	click napari.components.overlays "https://github.com/napari/napari/tree/main/napari/components/overlays/__init__.py" _blank
 	napari.components.overlays.axes(napari.components.overlays.axes)
@@ -174,6 +172,9 @@ graph LR
 	napari.components.overlays.text(napari.components.overlays.text)
 	napari.components.overlays.text --> napari.components.overlays.base
 	click napari.components.overlays.text "https://github.com/napari/napari/tree/main/napari/components/overlays/text.py" _blank
+	napari.components.overlays.welcome(napari.components.overlays.welcome)
+	napari.components.overlays.welcome --> napari.components.overlays.base
+	click napari.components.overlays.welcome "https://github.com/napari/napari/tree/main/napari/components/overlays/welcome.py" _blank
 	napari.components.overlays.zoom(napari.components.overlays.zoom)
 	napari.components.overlays.zoom --> napari.components.overlays.base
 	click napari.components.overlays.zoom "https://github.com/napari/napari/tree/main/napari/components/overlays/zoom.py" _blank
@@ -234,7 +235,6 @@ graph LR
 		 napari._qt.widgets.qt_viewer_buttons
 		 napari._qt.widgets.qt_viewer_dock_widget
 		 napari._qt.widgets.qt_viewer_status_bar
-		 napari._qt.widgets.qt_welcome
 	end
 	class module.napari._qt.widgets subgraphs
 	subgraph module.napari.components[napari.components]
@@ -262,6 +262,7 @@ graph LR
 		 napari.components.overlays.labels_polygon
 		 napari.components.overlays.scale_bar
 		 napari.components.overlays.text
+		 napari.components.overlays.welcome
 		 napari.components.overlays.zoom
 	end
 	class module.napari.components.overlays subgraphs
@@ -304,7 +305,6 @@ napari/
 │ │ ├─qt_scrollbar.py
 │ │ ├─qt_viewer_buttons.py
 │ │ ├─qt_dims_slider.py
-│ │ ├─qt_welcome.py
 │ │ ├─qt_command_palette.py
 │ │ ├─qt_spinbox.py
 │ │ └─qt_tooltip.py
@@ -331,6 +331,7 @@ napari/
   │ ├─scale_bar.py
   │ ├─brush_circle.py
   │ ├─text.py
+  │ ├─welcome.py
   │ ├─__init__.py
   │ ├─colorbar.py
   │ └─base.py

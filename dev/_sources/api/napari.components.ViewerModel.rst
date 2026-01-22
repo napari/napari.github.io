@@ -119,6 +119,7 @@ napari.components.ViewerModel
       ~ViewerModel.keymap
       ~ViewerModel.scale_bar
       ~ViewerModel.text_overlay
+      ~ViewerModel.welcome_screen
       
       
       

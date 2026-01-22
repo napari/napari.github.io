@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=ab0f410d"></script>
+    <script src="../../../_static/documentation_options.js?v=0332da1d"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -432,7 +432,7 @@ window.addEventListener("load", load);
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -442,7 +442,7 @@ window.addEventListener("load", load);
     <link rel="prev" title="Layers list" href="layers_list_ui.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.7.0" />
+  <meta name="docsearch:version" content="dev" />
   </head>
   
   
@@ -983,7 +983,6 @@ window.addEventListener("load", load);
 	napari._qt.qt_viewer --&gt; napari._qt.widgets.qt_dims
 	napari._qt.qt_viewer --&gt; napari._qt.widgets.qt_viewer_buttons
 	napari._qt.qt_viewer --&gt; napari._qt.widgets.qt_viewer_dock_widget
-	napari._qt.qt_viewer --&gt; napari._qt.widgets.qt_welcome
 	napari._qt.qt_viewer --&gt; napari.components.camera
 	napari._qt.qt_viewer --&gt; napari.components.layerlist
 	napari._qt.qt_viewer --&gt; napari.layers
@@ -1040,8 +1039,6 @@ window.addEventListener("load", load);
 	napari._qt.widgets.qt_viewer_status_bar --&gt; napari._qt.dialogs
 	napari._qt.widgets.qt_viewer_status_bar --&gt; napari._qt.qt_main_window
 	click napari._qt.widgets.qt_viewer_status_bar &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_status_bar.py&quot; _blank
-	napari._qt.widgets.qt_welcome(napari._qt.widgets.qt_welcome)
-	click napari._qt.widgets.qt_welcome &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_welcome.py&quot; _blank
 	napari.components._layer_slicer(napari.components._layer_slicer)
 	napari.components._layer_slicer --&gt; napari.layers
 	click napari.components._layer_slicer &quot;https://github.com/napari/napari/tree/main/napari/components/_layer_slicer.py&quot; _blank
@@ -1075,6 +1072,7 @@ window.addEventListener("load", load);
 	napari.components.overlays --&gt; napari.components.overlays.labels_polygon
 	napari.components.overlays --&gt; napari.components.overlays.scale_bar
 	napari.components.overlays --&gt; napari.components.overlays.text
+	napari.components.overlays --&gt; napari.components.overlays.welcome
 	napari.components.overlays --&gt; napari.components.overlays.zoom
 	click napari.components.overlays &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/__init__.py&quot; _blank
 	napari.components.overlays.axes(napari.components.overlays.axes)
@@ -1108,6 +1106,9 @@ window.addEventListener("load", load);
 	napari.components.overlays.text(napari.components.overlays.text)
 	napari.components.overlays.text --&gt; napari.components.overlays.base
 	click napari.components.overlays.text &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/text.py&quot; _blank
+	napari.components.overlays.welcome(napari.components.overlays.welcome)
+	napari.components.overlays.welcome --&gt; napari.components.overlays.base
+	click napari.components.overlays.welcome &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/welcome.py&quot; _blank
 	napari.components.overlays.zoom(napari.components.overlays.zoom)
 	napari.components.overlays.zoom --&gt; napari.components.overlays.base
 	click napari.components.overlays.zoom &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/zoom.py&quot; _blank
@@ -1168,7 +1169,6 @@ window.addEventListener("load", load);
 		 napari._qt.widgets.qt_viewer_buttons
 		 napari._qt.widgets.qt_viewer_dock_widget
 		 napari._qt.widgets.qt_viewer_status_bar
-		 napari._qt.widgets.qt_welcome
 	end
 	class module.napari._qt.widgets subgraphs
 	subgraph module.napari.components[napari.components]
@@ -1196,6 +1196,7 @@ window.addEventListener("load", load);
 		 napari.components.overlays.labels_polygon
 		 napari.components.overlays.scale_bar
 		 napari.components.overlays.text
+		 napari.components.overlays.welcome
 		 napari.components.overlays.zoom
 	end
 	class module.napari.components.overlays subgraphs
@@ -1238,7 +1239,6 @@ window.addEventListener("load", load);
 │ │ ├─qt_scrollbar.py
 │ │ ├─qt_viewer_buttons.py
 │ │ ├─qt_dims_slider.py
-│ │ ├─qt_welcome.py
 │ │ ├─qt_command_palette.py
 │ │ ├─qt_spinbox.py
 │ │ └─qt_tooltip.py
@@ -1265,6 +1265,7 @@ window.addEventListener("load", load);
   │ ├─scale_bar.py
   │ ├─brush_circle.py
   │ ├─text.py
+  │ ├─welcome.py
   │ ├─__init__.py
   │ ├─colorbar.py
   │ └─base.py

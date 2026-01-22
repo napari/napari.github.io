@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=ab0f410d"></script>
+    <script src="../../../_static/documentation_options.js?v=0332da1d"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -421,7 +421,7 @@ window.addEventListener("load", load);
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -429,7 +429,7 @@ window.addEventListener("load", load);
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.7.0" />
+  <meta name="docsearch:version" content="dev" />
   </head>
   
   
@@ -945,13 +945,19 @@ window.addEventListener("load", load);
     <span class="c1"># provider for dependency injection</span>
     <span class="c1"># See https://github.com/napari/napari/pull/4826</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;Viewer&#39;</span><span class="p">,</span> <span class="n">window</span><span class="p">:</span> <span class="s1">&#39;Window&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;Viewer&#39;</span><span class="p">,</span>
+        <span class="n">window</span><span class="p">:</span> <span class="s1">&#39;Window&#39;</span><span class="p">,</span>
+        <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">show_welcome_screen</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ev</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_window</span> <span class="o">=</span> <span class="n">window</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager_dialog</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span> <span class="o">=</span> <span class="n">QtViewer</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">show_welcome_screen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span> <span class="o">=</span> <span class="n">QtViewer</span><span class="p">(</span>
+            <span class="n">viewer</span><span class="p">,</span> <span class="n">show_welcome_screen</span><span class="o">=</span><span class="n">show_welcome_screen</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_quit_app</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_window_icon</span><span class="p">))</span>
@@ -976,8 +982,8 @@ window.addEventListener("load", load);
         <span class="c1"># this ia sa workaround for #5335 issue. The dict is used to not</span>
         <span class="c1"># collide shortcuts for close and close all windows</span>
 
-        <span class="n">act_dlg</span> <span class="o">=</span> <span class="n">QtActivityDialog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">resized</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">act_dlg</span> <span class="o">=</span> <span class="n">QtActivityDialog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">native</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">resized</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="n">act_dlg</span><span class="o">.</span><span class="n">move_to_bottom_right</span>
         <span class="p">)</span>
         <span class="n">act_dlg</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
@@ -1006,6 +1012,12 @@ window.addEventListener("load", load);
         <span class="c1"># this is the line that initializes any Qt-based app-model Actions that</span>
         <span class="c1"># were defined somewhere in the `_qt` module and imported in init_qactions</span>
         <span class="n">init_qactions</span><span class="p">()</span>
+
+        <span class="c1"># only after qaction are initialized we can get all shortcuts, so we have</span>
+        <span class="c1"># to force update the welcome screen here. TODO: UGLYYYY</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_overlay_to_visual</span><span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">welcome_screen</span>
+        <span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
         <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">IndexError</span><span class="p">):</span>
             <span class="n">viewer</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span>
@@ -1495,7 +1507,13 @@ window.addEventListener("load", load);
 <span class="sd">        Window menu.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;Viewer&#39;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;Viewer&#39;</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_welcome_screen</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># create QApplication if it doesn&#39;t already exist</span>
         <span class="n">qapp</span> <span class="o">=</span> <span class="n">get_qapp</span><span class="p">()</span>
 
@@ -1510,7 +1528,9 @@ window.addEventListener("load", load);
         <span class="bp">self</span><span class="o">.</span><span class="n">_task_status_manager</span> <span class="o">=</span> <span class="n">TaskStatusManager</span><span class="p">()</span>
 
         <span class="c1"># Connect the Viewer and create the Main Window</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span> <span class="o">=</span> <span class="n">_QtMainWindow</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span> <span class="o">=</span> <span class="n">_QtMainWindow</span><span class="p">(</span>
+            <span class="n">viewer</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">show_welcome_screen</span><span class="o">=</span><span class="n">show_welcome_screen</span>
+        <span class="p">)</span>
         <span class="n">qapp</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">)</span>
 
         <span class="c1"># connect theme events before collecting plugin-provided themes</span>

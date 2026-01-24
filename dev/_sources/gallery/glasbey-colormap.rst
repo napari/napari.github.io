@@ -94,6 +94,13 @@ First, we segment the image.
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    /home/runner/work/docs/docs/napari/examples/glasbey-colormap.py:44: FutureWarning: Parameter `min_size` is deprecated since version 0.26.0 and will be removed in 2.0.0 (or later). To avoid this warning, please use the parameter `max_size` instead. For more details, see the documentation of `remove_small_objects`. Note that the new threshold removes objects smaller than **or equal to** its value, while the previous parameter only removed smaller ones.
+      cleared = remove_small_objects(clear_border(bw), 20)
+
 
 
 
@@ -178,7 +185,7 @@ in two viewers to show both colormaps.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 13.069 seconds)
+   **Total running time of the script:** (0 minutes 12.785 seconds)
 
 
 .. _sphx_glr_download_gallery_glasbey-colormap.py:

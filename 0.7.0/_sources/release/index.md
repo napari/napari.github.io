@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: January 20, 2026*
+*Last updated: January 26, 2026*
 
 
 ## Recent Releases (Last 3 Months)
@@ -32,6 +32,11 @@ in 0.6.5 ([#8188](https://github.com/napari/napari/pull/8188)).
 If you encounter conversion issues in a plugin you rely on, please contact the
 plugin authors to encourage them to migrate their plugin to the npe2 system.
 
+This change has been a long time coming, and it's allowed us to remove thousands
+of lines of tangled and confusing legacy code. Now that we have, it's unleashed
+the potential for massive improvements to file opening and saving in `napari`,
+and exciting new features for our plugin infrastructure. Stay tuned!
+
 For more details on this change and how it affects plugins, see the [detailed
 guide](adapted-plugin-guide). If you are a plugin author and your plugin is not
 yet npe2-compatible, please see our [npe2 migration
@@ -40,15 +45,72 @@ our [Plugins Zulip chat
 channel](https://napari.zulipchat.com/#narrow/channel/309872-plugins) or by
 coming to one of our [community meetings](meeting-schedule).
 
-### Grid Overlay
+### Grid mode - bigger, better, faster 📈
+
+If you've been playing with our new grid mode since 0.6.5, you 
+may have stumbled into performance issues when progressively adding
+new layers to the viewer. Stumble no longer! Our grid mode is now wicked fast and buttery smooth 🧈.
+
+We've also fixed some issues with mouse interactions and deleting
+layers, so you can tile to your heart's content. Try it out:
+
+```py
+import napari
+
+viewer = napari.Viewer()
+
+# enable grid with stride 2 to get layers split two-by-two
+viewer.grid.enabled = True
+viewer.grid.stride = 2
+
+# set the scale bar to gridded mode so it appears in each grid box
+viewer.scale_bar.visible = True
+viewer.scale_bar.gridded = True
+
+layers = viewer.open_sample('napari', 'lily')
+
+# enable color bars
+for layer in layers:
+    layer.colorbar.visible = True
+```
+
+### What's in an angle? The truth! Fixed camera angles 🎥
+
+If you've ever set up the camera to take that perfect publication-worthy photo of 
+your data (and taken the time to query the camera angles), you may have noticed they seemed... off.
+That's because they were! Very... off. This was due to a long-standing bug in how we calculated our
+camera angles, fueled in part by some arcane vispy axis-swapping tomfoolery, and in part by napari's
+starting position of `viewer.camera.angles = (0, 0, 90)`.
+
+Good news! With [#8281](https://github.com/napari/napari/pull/8281), angles make sense again. The default camera angles are `(0, 0, 0)`, and they
+move intuitively -- so `viewer.camera.angles = (0, 0, 10)` actually represents a 10 degree
+rotation around the 0th dimension. What a time to be alive!
+
+Old versions of napari:
+
+![Image showing an old version of a napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console.](https://github.com/user-attachments/assets/9ae2040c-36f7-4c4c-8ef8-140202d7ccda)
+
+New and sane:
+
+![Image showing the 0.7.0 napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console. The layer is rotated 10 degrees in its first dimension](https://github.com/user-attachments/assets/6b972b46-5c3c-439a-8b0a-fe8a293224e5)
+
+All rotations are now right-handed (counterclockwise when the axis points towards the viewer),
+with automatic sign-flipping for flipped camera views. We've also removed the unwieldy to type
+(and confusing to reason about) `quaternion2euler_degrees` in favour of scipy's `Rotation` class.
+
+Now for the bad news... After many (and we do [mean](https://github.com/napari/napari/pull/8537)
+[**many**](https://github.com/napari/napari/pull/8557)) attempts, we realized we couldn't
+provide legacy conversion functions to get you to and from the original camera angles. Therefore,
+this is a **breaking change**.
+
+If you had scripts or notebooks setting up angles for screenshots, or if you've got workshop
+materials or tutorials with preset angles, they'll need to be updated. Any existing code
+using `viewer.camera.angles = (z, y, x)` will now produce a different view than before.
 
 ...
 
-
 - Multilayer features table ([#8189](https://github.com/napari/napari/pull/8189))
-- Fix camera angles‽ ([#8281](https://github.com/napari/napari/pull/8281))
 - Remove `numpydoc` as a base and testing dependency ([#8338](https://github.com/napari/napari/pull/8338))
-- Histogram ([#8391](https://github.com/napari/napari/pull/8391))
 - Texture tiling ([#8395](https://github.com/napari/napari/pull/8395))
 - Fix overlay initialization and layer addition slowdown ([#8443](https://github.com/napari/napari/pull/8443))
 - Remove shim setting and warning dialog ([#8448](https://github.com/napari/napari/pull/8448))
@@ -56,6 +118,7 @@ coming to one of our [community meetings](meeting-schedule).
 - Speed up the deletion of layers by deduplicating the function calls  ([#8479](https://github.com/napari/napari/pull/8479))
 - Remove `npe1` settings and theme loading ([#8540](https://github.com/napari/napari/pull/8540))
 - Use negative indexing for viewer dims axis labels ([#8565](https://github.com/napari/napari/pull/8565))
+- Add napari-metadata to napari dependencies ([#8576](https://github.com/napari/napari/pull/8576))
 
 [View full release notes →](release_0_7_0)
 
@@ -480,80 +543,12 @@ the rendered results in only two minutes!
 
 ````
 
-````{dropdown} napari 0.5.6 (January 2025)
-:open:
-
-### Faster shapes 🚀
-
-For its whole history, napari has been a pure Python package. As we go deeper
-into its performance bottlenecks, though, we're finding that we need some
-compiled code. This is a big change to the napari installation story, though,
-so we are rolling it out slowly. But if you've been waiting forever to load
-your shapes data, this release has some enhancements for you (>2x speedup)!
-([#7346](https://github.com/napari/napari/pull/7346))
-
-To use this speedup, you'll need to:
-
-- install napari core developer Grzegorz Bokota's collection of performant
-  algorithms,
-  [PartSegCore-compiled-backend](https://pypi.org/project/PartSegCore-compiled-backend/).
-  You can install it automatically by pip installing `"napari[optional,pyqt]"`
-  (or a GUI backend of your choice among pyqt, pyqt6, pyside, pyside6) or
-  `"napari[all]"`.
-- *and*, in the napari advanced settings, tick the "Use C++ code to speed up
-  creation and updates of Shapes layers" box.
-
-Please give it a try and let us know if you encounter any issues! This is the
-beginning of a new era of performance improvements in napari, to help it live
-up to its promise of a *fast* viewer for n-dimensional data in Python!
-
-### New path drawing tool
-
-Drawing paths is easier and smoother with the open-line equilavent of the
-lasso tool. If you want to draw a curve through your data, whether with a
-mouse or a tablet+stylus, it is now much easier to freehand rather than
-clicking on individual points. Try it out!
-([#7099](https://github.com/napari/napari/pull/7099))
-
-```{raw} html
-<figure>
-  <video width="100%" controls autoplay loop muted playsinline>
-    <source src="https://github.com/user-attachments/assets/978584f7-f707-4085-840f-a2f8fee12e21" type="video/mp4" />
-    <img src="https://github.com/user-attachments/assets/20892add-2382-490b-8ad8-6efc023395a7"
-      title="Your browser does not support the video tag"
-      alt="video of new path-drawing tool used to delineate a blood vessel"
-    >
-  </video>
-</figure>
-```
-
-### Other improvements
-
-Often, the important information in a layer name is at the *end* of the name
-rather than the beginning. We've improved the eliding (…) of long names by
-placing the ellipsis in the *middle* of the name rather than the end
-([#7461](https://github.com/napari/napari/pull/7461)).
-
-The default value of "flash" has been changed to `False` in
-`viewer.screenshot`, so that taking many screenshots in a script will not
-result in rapid flickering
-([#7476](https://github.com/napari/napari/pull/7476)). This is part of a
-broader accessibility initiative by recent contributor [Tim
-Monko](https://github.com/TimMonko) to improve napari for light-sensitive
-users ([#7433](https://github.com/napari/napari/issues/7433), and we are so
-grateful! 🙏
-
-Read on for the full list of changes since 0.5.5.
-
-[View full release notes →](release_0_5_6)
-
-````
-
 
 
 
 ## Older Releases
 
+- **[napari 0.5.6](release_0_5_6)** (January 2025) - ### Faster shapes 🚀
 - **[napari 0.5.5](release_0_5_5)** (December 2024) - This release continues the 0.5 tradition of churning out the bug fixes and enhancements, with 24 pull requests total in that category. If you are a us...
 - **[napari 0.5.4](release_0_5_4)** (September 2024) - Another release with a lot of bug fixes, but also some (more!) improvements to Shapes layer performance ([#7144](https://github.com/napari/napari/pull...
 - **[napari 0.5.3](release_0_5_3)** (August 2024) - This is primarily a bug-fix release, including fixes for a couple of nasty regressions in 0.5.0 ([#7184](https://github.com/napari/napari/pull/7184)) ...

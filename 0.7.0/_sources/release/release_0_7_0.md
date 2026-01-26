@@ -34,6 +34,11 @@ in 0.6.5 ([#8188](https://github.com/napari/napari/pull/8188)).
 If you encounter conversion issues in a plugin you rely on, please contact the
 plugin authors to encourage them to migrate their plugin to the npe2 system.
 
+This change has been a long time coming, and it's allowed us to remove thousands
+of lines of tangled and confusing legacy code. Now that we have, it's unleashed
+the potential for massive improvements to file opening and saving in `napari`,
+and exciting new features for our plugin infrastructure. Stay tuned!
+
 For more details on this change and how it affects plugins, see the [detailed
 guide](adapted-plugin-guide). If you are a plugin author and your plugin is not
 yet npe2-compatible, please see our [npe2 migration
@@ -42,15 +47,72 @@ our [Plugins Zulip chat
 channel](https://napari.zulipchat.com/#narrow/channel/309872-plugins) or by
 coming to one of our [community meetings](meeting-schedule).
 
-### Grid Overlay
+### Grid mode - bigger, better, faster 📈
+
+If you've been playing with our new grid mode since 0.6.5, you 
+may have stumbled into performance issues when progressively adding
+new layers to the viewer. Stumble no longer! Our grid mode is now wicked fast and buttery smooth 🧈.
+
+We've also fixed some issues with mouse interactions and deleting
+layers, so you can tile to your heart's content. Try it out:
+
+```py
+import napari
+
+viewer = napari.Viewer()
+
+# enable grid with stride 2 to get layers split two-by-two
+viewer.grid.enabled = True
+viewer.grid.stride = 2
+
+# set the scale bar to gridded mode so it appears in each grid box
+viewer.scale_bar.visible = True
+viewer.scale_bar.gridded = True
+
+layers = viewer.open_sample('napari', 'lily')
+
+# enable color bars
+for layer in layers:
+    layer.colorbar.visible = True
+```
+
+### What's in an angle? The truth! Fixed camera angles 🎥
+
+If you've ever set up the camera to take that perfect publication-worthy photo of 
+your data (and taken the time to query the camera angles), you may have noticed they seemed... off.
+That's because they were! Very... off. This was due to a long-standing bug in how we calculated our
+camera angles, fueled in part by some arcane vispy axis-swapping tomfoolery, and in part by napari's
+starting position of `viewer.camera.angles = (0, 0, 90)`.
+
+Good news! With [#8281](https://github.com/napari/napari/pull/8281), angles make sense again. The default camera angles are `(0, 0, 0)`, and they
+move intuitively -- so `viewer.camera.angles = (0, 0, 10)` actually represents a 10 degree
+rotation around the 0th dimension. What a time to be alive!
+
+Old versions of napari:
+
+![Image showing an old version of a napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console.](https://github.com/user-attachments/assets/9ae2040c-36f7-4c4c-8ef8-140202d7ccda)
+
+New and sane:
+
+![Image showing the 0.7.0 napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console. The layer is rotated 10 degrees in its first dimension](https://github.com/user-attachments/assets/6b972b46-5c3c-439a-8b0a-fe8a293224e5)
+
+All rotations are now right-handed (counterclockwise when the axis points towards the viewer),
+with automatic sign-flipping for flipped camera views. We've also removed the unwieldy to type
+(and confusing to reason about) `quaternion2euler_degrees` in favour of scipy's `Rotation` class.
+
+Now for the bad news... After many (and we do [mean](https://github.com/napari/napari/pull/8537)
+[**many**](https://github.com/napari/napari/pull/8557)) attempts, we realized we couldn't
+provide legacy conversion functions to get you to and from the original camera angles. Therefore,
+this is a **breaking change**.
+
+If you had scripts or notebooks setting up angles for screenshots, or if you've got workshop
+materials or tutorials with preset angles, they'll need to be updated. Any existing code
+using `viewer.camera.angles = (z, y, x)` will now produce a different view than before.
 
 ...
 
-
 - Multilayer features table ([#8189](https://github.com/napari/napari/pull/8189))
-- Fix camera angles‽ ([#8281](https://github.com/napari/napari/pull/8281))
 - Remove `numpydoc` as a base and testing dependency ([#8338](https://github.com/napari/napari/pull/8338))
-- Histogram ([#8391](https://github.com/napari/napari/pull/8391))
 - Texture tiling ([#8395](https://github.com/napari/napari/pull/8395))
 - Fix overlay initialization and layer addition slowdown ([#8443](https://github.com/napari/napari/pull/8443))
 - Remove shim setting and warning dialog ([#8448](https://github.com/napari/napari/pull/8448))
@@ -58,16 +120,18 @@ coming to one of our [community meetings](meeting-schedule).
 - Speed up the deletion of layers by deduplicating the function calls  ([#8479](https://github.com/napari/napari/pull/8479))
 - Remove `npe1` settings and theme loading ([#8540](https://github.com/napari/napari/pull/8540))
 - Use negative indexing for viewer dims axis labels ([#8565](https://github.com/napari/napari/pull/8565))
+- Add napari-metadata to napari dependencies ([#8576](https://github.com/napari/napari/pull/8576))
 
 ## New Features
 
 - Use information about units when calculate scale of layers when render ([#7889](https://github.com/napari/napari/pull/7889))
-- Cursor overlay ([#8017](https://github.com/napari/napari/pull/8017))
 - Welcome widget as an overlay ([#8117](https://github.com/napari/napari/pull/8117))
 - Multilayer features table ([#8189](https://github.com/napari/napari/pull/8189))
 - Better text overlay (and subclasses) ([#8236](https://github.com/napari/napari/pull/8236))
 - Allow create Shapes and Points per selected Layer ([#8357](https://github.com/napari/napari/pull/8357))
-- Histogram ([#8391](https://github.com/napari/napari/pull/8391))
+- Updating `selected_label` by `selected_data` for `Labels` layer toward multiple selection ([#8405](https://github.com/napari/napari/pull/8405))
+- Use new logos! ([#8457](https://github.com/napari/napari/pull/8457))
+- Add napari-metadata to napari dependencies ([#8576](https://github.com/napari/napari/pull/8576))
 
 ## Improvements
 
@@ -90,6 +154,7 @@ coming to one of our [community meetings](meeting-schedule).
 - Enable antialiasing on all Lines ([#8515](https://github.com/napari/napari/pull/8515))
 - Avoid materializing property views when updating points highlight ([#8517](https://github.com/napari/napari/pull/8517))
 - Add caching of outlines to reduce delay on Shapes zoom ([#8536](https://github.com/napari/napari/pull/8536))
+- Don't warn user when a Zarr array with channel axis is passed ([#8559](https://github.com/napari/napari/pull/8559))
 - Use negative indexing for viewer dims axis labels ([#8565](https://github.com/napari/napari/pull/8565))
 
 ## Performance
@@ -106,6 +171,7 @@ coming to one of our [community meetings](meeting-schedule).
 - Add caching of outlines to reduce delay on Shapes zoom ([#8536](https://github.com/napari/napari/pull/8536))
 - Fix the Shapes mode setter to use _is_creating for _finish_drawing and clear selection when going to ADD_* ([#8551](https://github.com/napari/napari/pull/8551))
 - Delay scipy imports until needed ([#8561](https://github.com/napari/napari/pull/8561))
+- Low hanging Labels painting performance improvement ([#8592](https://github.com/napari/napari/pull/8592))
 
 ## Bug Fixes
 
@@ -125,25 +191,33 @@ coming to one of our [community meetings](meeting-schedule).
 - Bump to vispy 0.16 ([#8501](https://github.com/napari/napari/pull/8501))
 - Cap point highlight size ([#8504](https://github.com/napari/napari/pull/8504))
 - Bugfix: recurse through sub-fields when making connections in EventedSettings Config ([#8520](https://github.com/napari/napari/pull/8520))
-- Fix rendering of 2D rgb data in 3D mode ([#8522](https://github.com/napari/napari/pull/8522))
+- Fix dim order of rendering of 2D rgb data in 3D mode ([#8522](https://github.com/napari/napari/pull/8522))
 - Fix numpy warning for pure python edge triangulation ([#8523](https://github.com/napari/napari/pull/8523))
 - Do not use keyword argument when creating tooltip ([#8528](https://github.com/napari/napari/pull/8528))
 - Fix angle label values in ndim popup widget ([#8535](https://github.com/napari/napari/pull/8535))
 - Fix update of shape that lead to wrong rendering ([#8543](https://github.com/napari/napari/pull/8543))
+- Close proper window on Ctrl+W ([#8548](https://github.com/napari/napari/pull/8548))
 - Fix the Shapes mode setter to use _is_creating for _finish_drawing and clear selection when going to ADD_* ([#8551](https://github.com/napari/napari/pull/8551))
 - Do not expose legacy angle ([#8557](https://github.com/napari/napari/pull/8557))
+- Fix test on PySide6 by change mocking of qt methods ([#8560](https://github.com/napari/napari/pull/8560))
+- Account for tile2data in the Labels polygon overlay ([#8563](https://github.com/napari/napari/pull/8563))
 - ensure overlays are reused properly when gridded mode is enabled ([#8569](https://github.com/napari/napari/pull/8569))
+- Stop welcome screen time on hiding of QtWiewer ([#8585](https://github.com/napari/napari/pull/8585))
+- Fix Labels layer controls contiguous checkbox to initialize to the layer state ([#8594](https://github.com/napari/napari/pull/8594))
 
 ## Build Tools
 
 - Bump urllib3 from 2.5.0 to 2.6.0 in /resources ([#8484](https://github.com/napari/napari/pull/8484))
 - Migrate overlays to psygnal ([#8492](https://github.com/napari/napari/pull/8492))
 - Bump urllib3 from 2.6.2 to 2.6.3 in /resources ([#8544](https://github.com/napari/napari/pull/8544))
+- Add napari-metadata to napari dependencies ([#8576](https://github.com/napari/napari/pull/8576))
+- Plugin dependencies for docs generation ([#8581](https://github.com/napari/napari/pull/8581))
 
 ## Documentation
 
 - Create 3D_vectors_through_time.py ([#8461](https://github.com/napari/napari/pull/8461))
 - Fix and improve `dock_widgets` docstrings ([#8494](https://github.com/napari/napari/pull/8494))
+- Plugin dependencies for docs generation ([#8581](https://github.com/napari/napari/pull/8581))
 - Remove deprecated `view_*` methods from docs materials ([docs#864](https://github.com/napari/docs/pull/864))
 - Proposed roadmap updates for Q3 ([docs#873](https://github.com/napari/docs/pull/873))
 - Enhance documentation build process with pixi integration and Windows… ([docs#876](https://github.com/napari/docs/pull/876))
@@ -162,11 +236,12 @@ coming to one of our [community meetings](meeting-schedule).
 - Improve open image section ([docs#907](https://github.com/napari/docs/pull/907))
 - Remove mention of outdated plugin from quick start ([docs#908](https://github.com/napari/docs/pull/908))
 - increase stack size to solve import recursion problem ([docs#912](https://github.com/napari/docs/pull/912))
+- Update display text copy in shapes.md ([docs#914](https://github.com/napari/docs/pull/914))
+- Update release notes for 0.7.0a1 ([docs#915](https://github.com/napari/docs/pull/915))
+- Simplify titles in App installation instructions ([docs#918](https://github.com/napari/docs/pull/918))
 
 ## Other Pull Requests
 
-- Add codespell support (config, workflow to detect/not fix) and make it fix few typos ([#7619](https://github.com/napari/napari/pull/7619))
-- Clipping planes control widget ([#7993](https://github.com/napari/napari/pull/7993))
 - Add cell tracking example ([#8051](https://github.com/napari/napari/pull/8051))
 - TYP: overload for `labeled_particles` incorrectly notes `Literal[True]=...` as default for `return_density` ([#8114](https://github.com/napari/napari/pull/8114))
 - Decompose Layer code by move slicing to specialized class ([#8254](https://github.com/napari/napari/pull/8254))
@@ -195,13 +270,13 @@ coming to one of our [community meetings](meeting-schedule).
 - Block problematic numba in docs constraints ([#8454](https://github.com/napari/napari/pull/8454))
 - Change link to getting started in Help menu ([#8455](https://github.com/napari/napari/pull/8455))
 - Update `coverage`, `dask`, `fsspec`, `hypothesis`, `ipython`, `matplotlib`, `pydantic`, `pyqt6`, `pyside6`, `pytest`, `tensorstore`, `tifffile`, `xarray` ([#8456](https://github.com/napari/napari/pull/8456))
-- Use new logos! ([#8457](https://github.com/napari/napari/pull/8457))
 - [pre-commit.ci] pre-commit autoupdate ([#8458](https://github.com/napari/napari/pull/8458))
 - ci(dependabot): bump the actions group across 1 directory with 7 updates ([#8460](https://github.com/napari/napari/pull/8460))
 - Finish typing napari.layers.image ([#8462](https://github.com/napari/napari/pull/8462))
 - Bugfix: For FeatureTable `edit` test, check the QAbstractItemView.State and not isPersistentEditorOpen ([#8463](https://github.com/napari/napari/pull/8463))
 - Move Ashley Anderson citation to core team section ([#8467](https://github.com/napari/napari/pull/8467))
 - Change `exclude` to `extend-exclude` in ruff config ([#8468](https://github.com/napari/napari/pull/8468))
+- Maint: Update test_prereleases.yml to also test on pyside6 ([#8470](https://github.com/napari/napari/pull/8470))
 - Fix constraints upgrade scripts ([#8473](https://github.com/napari/napari/pull/8473))
 - Fix coverage upload in comprehensive tests ([#8474](https://github.com/napari/napari/pull/8474))
 - Remove building of npe1 menu items for Plugins and Sample menus ([#8476](https://github.com/napari/napari/pull/8476))
@@ -215,6 +290,7 @@ coming to one of our [community meetings](meeting-schedule).
 - Move constraints calculation to script, allow upgrade subset of packages ([#8505](https://github.com/napari/napari/pull/8505))
 - Workaround for Zenodo outage by downloading data from google drive.  ([#8508](https://github.com/napari/napari/pull/8508))
 - Fix overlay tests ([#8513](https://github.com/napari/napari/pull/8513))
+- Update `certifi`, `coverage`, `dask`, `fsspec`, `hypothesis`, `ipython`, `jsonschema`, `pandas`, `pillow`, `psutil`, `psygnal`, `pyqt6`, `scikit-image`, `scipy`, `superqt`, `tifffile`, `virtualenv` ([#8518](https://github.com/napari/napari/pull/8518))
 - [pre-commit.ci] pre-commit autoupdate ([#8519](https://github.com/napari/napari/pull/8519))
 - Reduce noise in benchmark logs ([#8525](https://github.com/napari/napari/pull/8525))
 - Improve language in Citation PR Author check ([#8526](https://github.com/napari/napari/pull/8526))
@@ -225,9 +301,12 @@ coming to one of our [community meetings](meeting-schedule).
 - Fix path to constraints update script  ([#8553](https://github.com/napari/napari/pull/8553))
 - [pre-commit.ci] pre-commit autoupdate ([#8554](https://github.com/napari/napari/pull/8554))
 - Stop using `get_settings` during import time ([#8556](https://github.com/napari/napari/pull/8556))
-- Fix test on PySide6 by change mocking of qt methods ([#8560](https://github.com/napari/napari/pull/8560))
 - Remove 'axis' prefix from layer axis labels ([#8566](https://github.com/napari/napari/pull/8566))
 - [pre-commit.ci] pre-commit autoupdate ([#8571](https://github.com/napari/napari/pull/8571))
+- Remove npe1 code for reading and writing ([#8579](https://github.com/napari/napari/pull/8579))
+- Fix build constraints with circular napari dependency ([#8588](https://github.com/napari/napari/pull/8588))
+- Modify sphinx-external-toc version constraint to eliminate warnings ([#8591](https://github.com/napari/napari/pull/8591))
+- Switch logo URL used for reader test ([#8596](https://github.com/napari/napari/pull/8596))
 - ci(dependabot): bump the github-actions group with 4 updates ([docs#856](https://github.com/napari/docs/pull/856))
 - Allow to redeploy docs after merge new commits to main branch ([docs#874](https://github.com/napari/docs/pull/874))
 - Add mdformat to pre-commit config ([docs#878](https://github.com/napari/docs/pull/878))
@@ -249,11 +328,11 @@ coming to one of our [community meetings](meeting-schedule).
 
 - [Ashley Anderson](https://github.com/napari/napari/commits?author=aganders3) - @aganders3
 - [Daniel Zhang](https://github.com/napari/napari/commits?author=DanGonite57) - @DanGonite57
-- [David Stansby](https://github.com/napari/napari/commits?author=dstansby) - @dstansby
+- [David Stansby](https://github.com/napari/napari/commits?author=dstansby) ([docs](https://github.com/napari/docs/commits?author=dstansby))  - @dstansby
 - [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) ([docs](https://github.com/napari/docs/commits?author=DragaDoncila))  - @DragaDoncila
 - [Edward Andò](https://github.com/napari/napari/commits?author=edwardando) - @edwardando +
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
-- [Guillaume Witz](https://github.com/napari/docs/commits?author=guiwitz) - @guiwitz
+- [Guillaume Witz](https://github.com/napari/napari/commits?author=guiwitz) ([docs](https://github.com/napari/docs/commits?author=guiwitz))  - @guiwitz
 - [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) - @jni
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) ([docs](https://github.com/napari/docs/commits?author=brisvag))  - @brisvag
 - [Marco Edward Gorelli](https://github.com/napari/napari/commits?author=MarcoGorelli) - @MarcoGorelli +
@@ -270,14 +349,14 @@ coming to one of our [community meetings](meeting-schedule).
 (+) denotes first-time contributors 🥳
 
 - [Ashley Anderson](https://github.com/napari/napari/commits?author=aganders3) - @aganders3
+- [Carlos Mario Rodriguez Reza](https://github.com/napari/docs/commits?author=carlosmariorr) - @carlosmariorr
 - [Carol Willing](https://github.com/napari/docs/commits?author=willingc) - @willingc
 - [Daniel Zhang](https://github.com/napari/napari/commits?author=DanGonite57) - @DanGonite57
-- [David Stansby](https://github.com/napari/napari/commits?author=dstansby) - @dstansby
+- [David Stansby](https://github.com/napari/napari/commits?author=dstansby) ([docs](https://github.com/napari/docs/commits?author=dstansby))  - @dstansby
 - [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) ([docs](https://github.com/napari/docs/commits?author=DragaDoncila))  - @DragaDoncila
 - [Edward Andò](https://github.com/napari/napari/commits?author=edwardando) - @edwardando +
-- [Gabriel Selzer](https://github.com/napari/docs/commits?author=gselzer) - @gselzer
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
-- [Guillaume Witz](https://github.com/napari/docs/commits?author=guiwitz) - @guiwitz
+- [Guillaume Witz](https://github.com/napari/napari/commits?author=guiwitz) ([docs](https://github.com/napari/docs/commits?author=guiwitz))  - @guiwitz
 - [Jacopo Abramo](https://github.com/napari/docs/commits?author=jacopoabramo) - @jacopoabramo
 - [Johannes Soltwedel](https://github.com/napari/docs/commits?author=jo-mueller) - @jo-mueller
 - [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) - @jni
@@ -289,5 +368,5 @@ coming to one of our [community meetings](meeting-schedule).
 - [Rensu Theart](https://github.com/napari/docs/commits?author=rensutheart) - @rensutheart +
 - [Sesan](https://github.com/napari/docs/commits?author=Olusesan) - @Olusesan
 - [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
-- [Yaroslav Halchenko](https://github.com/napari/docs/commits?author=yarikoptic) - @yarikoptic
+- [Yohsuke T. Fukai](https://github.com/napari/napari/commits?author=yfukai) - @yfukai +
 - [Zuzana Čočková](https://github.com/napari/napari/commits?author=cockovaz) - @cockovaz +

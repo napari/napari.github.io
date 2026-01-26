@@ -242,7 +242,7 @@ pip install napari[pyqt6, optional] -c constraints_py3.10.txt
 
 (installation_bundle_conda)=
 
-## How to install the napari app
+## Install as an application
 
 napari can be installed as a bundled app on [MacOS](#macos-bundle), [Windows](#windows-bundle), and [Linux](#linux-bundle) with a simple one click download and guided installation process. This installation method is best if you mainly want to use napari as a standalone GUI app. However, certain plugins may not be supported.
 
@@ -250,8 +250,6 @@ napari can be installed as a bundled app on [MacOS](#macos-bundle), [Windows](#w
 * If you want to use napari within a Python project, please follow the [Python package installation guide](installation.md#install-as-python-package-recommended).
 * If you want to contribute code back into napari, please follow the [development installation instructions in the contributing guide](napari-contributing).
 ```
-
-### Download and install the napari app ({{ napari_version }}) for your operating system
 
 Click the tile below to jump to the installation instructions for your operating system.
 
@@ -280,7 +278,7 @@ If you are interested in an earlier version of the napari app, you may access th
 
 (macos-bundle)=
 
-### How to install the macOS app
+### macOS
 
 Download the napari app ({{ napari_version }}) for your platform:
 
@@ -341,7 +339,7 @@ Next check out our [tutorial on the viewer](viewer-tutorial) or explore any of t
 
 (windows-bundle)=
 
-### How to install the Windows app
+### Windows
 
 Download the napari app ({{ napari_version }}) for your platform:
 
@@ -385,7 +383,7 @@ Next check out our [tutorial on the viewer](viewer-tutorial) or explore any of t
 
 (linux-bundle)=
 
-### How to install the Linux app
+### Linux
 
 Download the napari app ({{ napari_version }}) for your platform:
 

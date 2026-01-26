@@ -43,6 +43,8 @@ Display a labels layer above of an image layer using the ``add_labels`` and
 
     /home/runner/work/docs/docs/napari/examples/add_labels.py:22: FutureWarning: `square` is deprecated since version 0.25 and will be removed in version 0.27. Use `skimage.morphology.footprint_rectangle` instead.
       bw = closing(image > thresh, square(4))
+    /home/runner/work/docs/docs/napari/examples/add_labels.py:25: FutureWarning: Parameter `min_size` is deprecated since version 0.26.0 and will be removed in 2.0.0 (or later). To avoid this warning, please use the parameter `max_size` instead. For more details, see the documentation of `remove_small_objects`. Note that the new threshold removes objects smaller than **or equal to** its value, while the previous parameter only removed smaller ones.
+      cleared = remove_small_objects(clear_border(bw), 20)
 
 
 

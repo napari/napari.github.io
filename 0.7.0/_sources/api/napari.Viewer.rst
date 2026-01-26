@@ -140,6 +140,7 @@ napari.Viewer
       ~Viewer.keymap
       ~Viewer.scale_bar
       ~Viewer.text_overlay
+      ~Viewer.welcome_screen
       ~Viewer.window
       
       

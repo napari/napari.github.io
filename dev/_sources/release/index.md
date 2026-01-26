@@ -32,6 +32,11 @@ in 0.6.5 ([#8188](https://github.com/napari/napari/pull/8188)).
 If you encounter conversion issues in a plugin you rely on, please contact the
 plugin authors to encourage them to migrate their plugin to the npe2 system.
 
+This change has been a long time coming, and it's allowed us to remove thousands
+of lines of tangled and confusing legacy code. Now that we have, it's unleashed
+the potential for massive improvements to file opening and saving in `napari`,
+and exciting new features for our plugin infrastructure. Stay tuned!
+
 For more details on this change and how it affects plugins, see the [detailed
 guide](adapted-plugin-guide). If you are a plugin author and your plugin is not
 yet npe2-compatible, please see our [npe2 migration
@@ -40,15 +45,72 @@ our [Plugins Zulip chat
 channel](https://napari.zulipchat.com/#narrow/channel/309872-plugins) or by
 coming to one of our [community meetings](meeting-schedule).
 
-### Grid Overlay
+### Grid mode - bigger, better, faster 📈
+
+If you've been playing with our new grid mode since 0.6.5, you 
+may have stumbled into performance issues when progressively adding
+new layers to the viewer. Stumble no longer! Our grid mode is now wicked fast and buttery smooth 🧈.
+
+We've also fixed some issues with mouse interactions and deleting
+layers, so you can tile to your heart's content. Try it out:
+
+```py
+import napari
+
+viewer = napari.Viewer()
+
+# enable grid with stride 2 to get layers split two-by-two
+viewer.grid.enabled = True
+viewer.grid.stride = 2
+
+# set the scale bar to gridded mode so it appears in each grid box
+viewer.scale_bar.visible = True
+viewer.scale_bar.gridded = True
+
+layers = viewer.open_sample('napari', 'lily')
+
+# enable color bars
+for layer in layers:
+    layer.colorbar.visible = True
+```
+
+### What's in an angle? The truth! Fixed camera angles 🎥
+
+If you've ever set up the camera to take that perfect publication-worthy photo of 
+your data (and taken the time to query the camera angles), you may have noticed they seemed... off.
+That's because they were! Very... off. This was due to a long-standing bug in how we calculated our
+camera angles, fueled in part by some arcane vispy axis-swapping tomfoolery, and in part by napari's
+starting position of `viewer.camera.angles = (0, 0, 90)`.
+
+Good news! With [#8281](https://github.com/napari/napari/pull/8281), angles make sense again. The default camera angles are `(0, 0, 0)`, and they
+move intuitively -- so `viewer.camera.angles = (0, 0, 10)` actually represents a 10 degree
+rotation around the 0th dimension. What a time to be alive!
+
+Old versions of napari:
+
+![Image showing an old version of a napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console.](https://github.com/user-attachments/assets/9ae2040c-36f7-4c4c-8ef8-140202d7ccda)
+
+New and sane:
+
+![Image showing the 0.7.0 napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console. The layer is rotated 10 degrees in its first dimension](https://github.com/user-attachments/assets/6b972b46-5c3c-439a-8b0a-fe8a293224e5)
+
+All rotations are now right-handed (counterclockwise when the axis points towards the viewer),
+with automatic sign-flipping for flipped camera views. We've also removed the unwieldy to type
+(and confusing to reason about) `quaternion2euler_degrees` in favour of scipy's `Rotation` class.
+
+Now for the bad news... After many (and we do [mean](https://github.com/napari/napari/pull/8537)
+[**many**](https://github.com/napari/napari/pull/8557)) attempts, we realized we couldn't
+provide legacy conversion functions to get you to and from the original camera angles. Therefore,
+this is a **breaking change**.
+
+If you had scripts or notebooks setting up angles for screenshots, or if you've got workshop
+materials or tutorials with preset angles, they'll need to be updated. Any existing code
+using `viewer.camera.angles = (z, y, x)` will now produce a different view than before.
 
 ...
 
-
 - Multilayer features table ([#8189](https://github.com/napari/napari/pull/8189))
-- Fix camera angles‽ ([#8281](https://github.com/napari/napari/pull/8281))
 - Remove `numpydoc` as a base and testing dependency ([#8338](https://github.com/napari/napari/pull/8338))
-- Histogram ([#8391](https://github.com/napari/napari/pull/8391))
 - Texture tiling ([#8395](https://github.com/napari/napari/pull/8395))
 - Fix overlay initialization and layer addition slowdown ([#8443](https://github.com/napari/napari/pull/8443))
 - Remove shim setting and warning dialog ([#8448](https://github.com/napari/napari/pull/8448))
@@ -56,6 +118,7 @@ coming to one of our [community meetings](meeting-schedule).
 - Speed up the deletion of layers by deduplicating the function calls  ([#8479](https://github.com/napari/napari/pull/8479))
 - Remove `npe1` settings and theme loading ([#8540](https://github.com/napari/napari/pull/8540))
 - Use negative indexing for viewer dims axis labels ([#8565](https://github.com/napari/napari/pull/8565))
+- Add napari-metadata to napari dependencies ([#8576](https://github.com/napari/napari/pull/8576))
 
 [View full release notes →](release_0_7_0)
 

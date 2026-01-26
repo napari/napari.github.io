@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=6b9a89e1"></script>
+    <script src="../_static/documentation_options.js?v=707a2dbc"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -804,6 +804,10 @@ behaviour, it may be able to replicate this using the new startup scripts functi
 in 0.6.5 (<a class="reference external" href="https://github.com/napari/napari/pull/8188">#8188</a>).</p>
 <p class="sd-card-text">If you encounter conversion issues in a plugin you rely on, please contact the
 plugin authors to encourage them to migrate their plugin to the npe2 system.</p>
+<p class="sd-card-text">This change has been a long time coming, and it’s allowed us to remove thousands
+of lines of tangled and confusing legacy code. Now that we have, it’s unleashed
+the potential for massive improvements to file opening and saving in <code class="docutils literal notranslate"><span class="pre">napari</span></code>,
+and exciting new features for our plugin infrastructure. Stay tuned!</p>
 <p class="sd-card-text">For more details on this change and how it affects plugins, see the <a class="reference internal" href="../plugins/advanced_topics/adapted_plugin_guide.html#adapted-plugin-guide"><span class="std std-ref">detailed
 guide</span></a>. If you are a plugin author and your plugin is not
 yet npe2-compatible, please see our <a class="reference internal" href="../plugins/advanced_topics/npe2_migration_guide.html#npe2-migration-guide"><span class="std std-ref">npe2 migration
@@ -811,13 +815,58 @@ guide</span></a>, and, if you encounter any issues, get in touch in
 our <a class="reference external" href="https://napari.zulipchat.com/#narrow/channel/309872-plugins">Plugins Zulip chat
 channel</a> or by
 coming to one of our <a class="reference internal" href="../community/meeting_schedule.html#meeting-schedule"><span class="std std-ref">community meetings</span></a>.</p>
-<p class="rubric" id="grid-overlay">Grid Overlay</p>
+<p class="rubric" id="grid-mode-bigger-better-faster">Grid mode - bigger, better, faster 📈</p>
+<p class="sd-card-text">If you’ve been playing with our new grid mode since 0.6.5, you
+may have stumbled into performance issues when progressively adding
+new layers to the viewer. Stumble no longer! Our grid mode is now wicked fast and buttery smooth 🧈.</p>
+<p class="sd-card-text">We’ve also fixed some issues with mouse interactions and deleting
+layers, so you can tile to your heart’s content. Try it out:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
+
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+
+<span class="c1"># enable grid with stride 2 to get layers split two-by-two</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># set the scale bar to gridded mode so it appears in each grid box</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">gridded</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">layers</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">open_sample</span><span class="p">(</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span> <span class="s1">&#39;lily&#39;</span><span class="p">)</span>
+
+<span class="c1"># enable color bars</span>
+<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
+    <span class="n">layer</span><span class="o">.</span><span class="n">colorbar</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p class="rubric" id="what-s-in-an-angle-the-truth-fixed-camera-angles">What’s in an angle? The truth! Fixed camera angles 🎥</p>
+<p class="sd-card-text">If you’ve ever set up the camera to take that perfect publication-worthy photo of
+your data (and taken the time to query the camera angles), you may have noticed they seemed… off.
+That’s because they were! Very… off. This was due to a long-standing bug in how we calculated our
+camera angles, fueled in part by some arcane vispy axis-swapping tomfoolery, and in part by napari’s
+starting position of <code class="docutils literal notranslate"><span class="pre">viewer.camera.angles</span> <span class="pre">=</span> <span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">90)</span></code>.</p>
+<p class="sd-card-text">Good news! With <a class="reference external" href="https://github.com/napari/napari/pull/8281">#8281</a>, angles make sense again. The default camera angles are <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></code>, and they
+move intuitively – so <code class="docutils literal notranslate"><span class="pre">viewer.camera.angles</span> <span class="pre">=</span> <span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">10)</span></code> actually represents a 10 degree
+rotation around the 0th dimension. What a time to be alive!</p>
+<p class="sd-card-text">Old versions of napari:</p>
+<p class="sd-card-text"><img alt="Image showing an old version of a napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console." src="https://github.com/user-attachments/assets/9ae2040c-36f7-4c4c-8ef8-140202d7ccda" /></p>
+<p class="sd-card-text">New and sane:</p>
+<p class="sd-card-text"><img alt="Image showing the 0.7.0 napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console. The layer is rotated 10 degrees in its first dimension" src="https://github.com/user-attachments/assets/6b972b46-5c3c-439a-8b0a-fe8a293224e5" /></p>
+<p class="sd-card-text">All rotations are now right-handed (counterclockwise when the axis points towards the viewer),
+with automatic sign-flipping for flipped camera views. We’ve also removed the unwieldy to type
+(and confusing to reason about) <code class="docutils literal notranslate"><span class="pre">quaternion2euler_degrees</span></code> in favour of scipy’s <code class="docutils literal notranslate"><span class="pre">Rotation</span></code> class.</p>
+<p class="sd-card-text">Now for the bad news… After many (and we do <a class="reference external" href="https://github.com/napari/napari/pull/8537">mean</a>
+<a class="reference external" href="https://github.com/napari/napari/pull/8557"><strong>many</strong></a>) attempts, we realized we couldn’t
+provide legacy conversion functions to get you to and from the original camera angles. Therefore,
+this is a <strong>breaking change</strong>.</p>
+<p class="sd-card-text">If you had scripts or notebooks setting up angles for screenshots, or if you’ve got workshop
+materials or tutorials with preset angles, they’ll need to be updated. Any existing code
+using <code class="docutils literal notranslate"><span class="pre">viewer.camera.angles</span> <span class="pre">=</span> <span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x)</span></code> will now produce a different view than before.</p>
 <p class="sd-card-text">…</p>
 <ul class="simple">
 <li><p class="sd-card-text">Multilayer features table (<a class="reference external" href="https://github.com/napari/napari/pull/8189">#8189</a>)</p></li>
-<li><p class="sd-card-text">Fix camera angles‽ (<a class="reference external" href="https://github.com/napari/napari/pull/8281">#8281</a>)</p></li>
 <li><p class="sd-card-text">Remove <code class="docutils literal notranslate"><span class="pre">numpydoc</span></code> as a base and testing dependency (<a class="reference external" href="https://github.com/napari/napari/pull/8338">#8338</a>)</p></li>
-<li><p class="sd-card-text">Histogram (<a class="reference external" href="https://github.com/napari/napari/pull/8391">#8391</a>)</p></li>
 <li><p class="sd-card-text">Texture tiling (<a class="reference external" href="https://github.com/napari/napari/pull/8395">#8395</a>)</p></li>
 <li><p class="sd-card-text">Fix overlay initialization and layer addition slowdown (<a class="reference external" href="https://github.com/napari/napari/pull/8443">#8443</a>)</p></li>
 <li><p class="sd-card-text">Remove shim setting and warning dialog (<a class="reference external" href="https://github.com/napari/napari/pull/8448">#8448</a>)</p></li>
@@ -825,6 +874,7 @@ coming to one of our <a class="reference internal" href="../community/meeting_sc
 <li><p class="sd-card-text">Speed up the deletion of layers by deduplicating the function calls  (<a class="reference external" href="https://github.com/napari/napari/pull/8479">#8479</a>)</p></li>
 <li><p class="sd-card-text">Remove <code class="docutils literal notranslate"><span class="pre">npe1</span></code> settings and theme loading (<a class="reference external" href="https://github.com/napari/napari/pull/8540">#8540</a>)</p></li>
 <li><p class="sd-card-text">Use negative indexing for viewer dims axis labels (<a class="reference external" href="https://github.com/napari/napari/pull/8565">#8565</a>)</p></li>
+<li><p class="sd-card-text">Add napari-metadata to napari dependencies (<a class="reference external" href="https://github.com/napari/napari/pull/8576">#8576</a>)</p></li>
 </ul>
 <p class="sd-card-text"><a class="reference internal" href="release_0_7_0.html"><span class="doc std std-doc">View full release notes →</span></a></p>
 </div>

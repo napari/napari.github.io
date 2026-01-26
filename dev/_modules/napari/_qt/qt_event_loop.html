@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=5d7c09b8"></script>
+    <script src="../../../_static/documentation_options.js?v=926a4267"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -819,13 +819,16 @@ window.addEventListener("load", load);
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">platform</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">warn</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">qtpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">PYQT5</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QDir</span><span class="p">,</span> <span class="n">Qt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QIcon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QDir</span><span class="p">,</span> <span class="n">QRectF</span><span class="p">,</span> <span class="n">QSize</span><span class="p">,</span> <span class="n">Qt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QIcon</span><span class="p">,</span> <span class="n">QPainter</span><span class="p">,</span> <span class="n">QPixmap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtSvg</span><span class="w"> </span><span class="kn">import</span> <span class="n">QSvgRenderer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QWidget</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari</span><span class="w"> </span><span class="kn">import</span> <span class="n">Viewer</span><span class="p">,</span> <span class="n">__version__</span>
@@ -840,19 +843,24 @@ window.addEventListener("load", load);
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">perf</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_logger_to_napari_handler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.logo</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logo_path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.notifications</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">notification_manager</span><span class="p">,</span>
     <span class="n">show_console_notification</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.perf</span><span class="w"> </span><span class="kn">import</span> <span class="n">perf_config</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.theme</span><span class="w"> </span><span class="kn">import</span> <span class="n">_themes</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.theme</span><span class="w"> </span><span class="kn">import</span> <span class="n">_themes</span><span class="p">,</span> <span class="n">get_system_theme</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">IPython</span><span class="w"> </span><span class="kn">import</span> <span class="n">InteractiveShell</span>
 
-<span class="n">NAPARI_ICON_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;resources&#39;</span><span class="p">,</span> <span class="s1">&#39;logo.png&#39;</span>
+<span class="n">NAPARI_ICON_PATH</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+    <span class="n">get_logo_path</span><span class="p">(</span>
+        <span class="n">logo</span><span class="o">=</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span>
+        <span class="n">template</span><span class="o">=</span><span class="s1">&#39;padded&#39;</span> <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Darwin&#39;</span> <span class="k">else</span> <span class="s1">&#39;plain&#39;</span><span class="p">,</span>
+        <span class="n">theme</span><span class="o">=</span><span class="n">get_system_theme</span><span class="p">(),</span>
+    <span class="p">)</span>
 <span class="p">)</span>
 <span class="n">NAPARI_APP_ID</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;napari.napari.viewer.</span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span>
 
@@ -862,6 +870,24 @@ window.addEventListener("load", load);
         <span class="kn">import</span><span class="w"> </span><span class="nn">ctypes</span>
 
         <span class="n">ctypes</span><span class="o">.</span><span class="n">windll</span><span class="o">.</span><span class="n">shell32</span><span class="o">.</span><span class="n">SetCurrentProcessExplicitAppUserModelID</span><span class="p">(</span><span class="n">app_id</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_svg_path_to_icon</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QIcon</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate QIcon object from svg file.</span>
+
+<span class="sd">    Generate icon with resolutions  16x16, 32x32, 48x48, 64x64 and 128x128</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">renderer</span> <span class="o">=</span> <span class="n">QSvgRenderer</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+    <span class="n">icon</span> <span class="o">=</span> <span class="n">QIcon</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">):</span>
+        <span class="n">pixmap</span> <span class="o">=</span> <span class="n">QPixmap</span><span class="p">(</span><span class="n">QSize</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
+        <span class="n">pixmap</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">transparent</span><span class="p">)</span>
+        <span class="n">painter</span> <span class="o">=</span> <span class="n">QPainter</span><span class="p">(</span><span class="n">pixmap</span><span class="p">)</span>
+        <span class="n">renderer</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">painter</span><span class="p">,</span> <span class="n">QRectF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
+        <span class="n">painter</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+        <span class="n">icon</span><span class="o">.</span><span class="n">addPixmap</span><span class="p">(</span><span class="n">pixmap</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">icon</span>
 
 
 <span class="n">_defaults</span> <span class="o">=</span> <span class="p">{</span>
@@ -1029,7 +1055,7 @@ window.addEventListener("load", load);
         <span class="n">app</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="n">QtToolTipEventFilter</span><span class="p">())</span>
 
     <span class="k">if</span> <span class="n">app</span><span class="o">.</span><span class="n">windowIcon</span><span class="p">()</span><span class="o">.</span><span class="n">isNull</span><span class="p">():</span>
-        <span class="n">app</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;icon&#39;</span><span class="p">)))</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">_svg_path_to_icon</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;icon&#39;</span><span class="p">]))</span>
 
     <span class="k">if</span> <span class="n">ipy_interactive</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ipy_interactive</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">ipy_interactive</span>

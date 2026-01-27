@@ -20,6 +20,7 @@ caption: With this tag
 ../gallery/add_surface_2D.rst
 ../gallery/add_vectors.rst
 ../gallery/add_vectors_image.rst
+../gallery/colorbar_tiling.rst
 ../gallery/glasbey-colormap.rst
 ../gallery/grid_mode.rst
 ../gallery/image_depth.rst

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=202f3aa7"></script>
+    <script src="../../../../_static/documentation_options.js?v=ff3a7d94"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1645,7 +1645,7 @@ window.addEventListener("load", load);</script>
 
 <div class="viewcode-block" id="Labels.swap_selected_and_background_labels">
 <a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.swap_selected_and_background_labels">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">swap_selected_and_background_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">swap_selected_and_background_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Swap between the selected label and the background label.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span>
@@ -2006,12 +2006,12 @@ window.addEventListener("load", load);</script>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">undo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">undo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_history</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_undo_history</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_redo_history</span><span class="p">,</span> <span class="n">undoing</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">redo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">redo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_history</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_redo_history</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_undo_history</span><span class="p">,</span> <span class="n">undoing</span><span class="o">=</span><span class="kc">False</span>
         <span class="p">)</span>

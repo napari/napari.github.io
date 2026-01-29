@@ -50,16 +50,16 @@ Display a surface timeseries using data from nilearn
     [fetch_surf_nki_enhanced] Downloading data from 
     https://www.nitrc.org/frs/download.php/8261/A00028185_rh_preprocessed_fsaverage5
     _fwhm6.gii ...
-    [fetch_surf_nki_enhanced] Downloaded 40984576 of 42412120 bytes (96.6%%,    0.0s
+    [fetch_surf_nki_enhanced] Downloaded 24207360 of 42412120 bytes (57.1%%,    0.8s
     remaining)
-    [fetch_surf_nki_enhanced]  ...done. (1 seconds, 0 min)
+    [fetch_surf_nki_enhanced]  ...done. (2 seconds, 0 min)
 
     [fetch_surf_nki_enhanced] Downloading data from 
     https://www.nitrc.org/frs/download.php/8260/A00028185_lh_preprocessed_fsaverage5
     _fwhm6.gii ...
-    [fetch_surf_nki_enhanced] Downloaded 41041920 of 42402060 bytes (96.8%%,    0.0s
+    [fetch_surf_nki_enhanced] Downloaded 25034752 of 42402060 bytes (59.0%%,    0.7s
     remaining)
-    [fetch_surf_nki_enhanced]  ...done. (1 seconds, 0 min)
+    [fetch_surf_nki_enhanced]  ...done. (2 seconds, 0 min)
 
 
 

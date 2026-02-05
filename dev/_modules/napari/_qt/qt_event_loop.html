@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=c16bb3e7"></script>
+    <script src="../../../_static/documentation_options.js?v=103b1e9b"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -926,14 +926,15 @@ window.addEventListener("load", load);</script>
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">IPython</span><span class="w"> </span><span class="kn">import</span> <span class="n">InteractiveShell</span>
 
-<span class="n">NAPARI_ICON_PATH</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
-    <span class="n">get_logo_path</span><span class="p">(</span>
+<span class="n">NAPARI_APP_ID</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;napari.napari.viewer.</span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_icon_path</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">get_logo_path</span><span class="p">(</span>
         <span class="n">logo</span><span class="o">=</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span>
         <span class="n">template</span><span class="o">=</span><span class="s1">&#39;padded&#39;</span> <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Darwin&#39;</span> <span class="k">else</span> <span class="s1">&#39;plain&#39;</span><span class="p">,</span>
         <span class="n">theme</span><span class="o">=</span><span class="n">get_system_theme</span><span class="p">(),</span>
     <span class="p">)</span>
-<span class="p">)</span>
-<span class="n">NAPARI_APP_ID</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;napari.napari.viewer.</span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">set_app_id</span><span class="p">(</span><span class="n">app_id</span><span class="p">):</span>
@@ -961,14 +962,15 @@ window.addEventListener("load", load);</script>
     <span class="k">return</span> <span class="n">icon</span>
 
 
-<span class="n">_defaults</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;app_name&#39;</span><span class="p">:</span> <span class="s1">&#39;napari&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;app_version&#39;</span><span class="p">:</span> <span class="n">__version__</span><span class="p">,</span>
-    <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="n">NAPARI_ICON_PATH</span><span class="p">,</span>
-    <span class="s1">&#39;org_name&#39;</span><span class="p">:</span> <span class="s1">&#39;napari&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;org_domain&#39;</span><span class="p">:</span> <span class="s1">&#39;napari.org&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;app_id&#39;</span><span class="p">:</span> <span class="n">NAPARI_APP_ID</span><span class="p">,</span>
-<span class="p">}</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_defaults</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;app_name&#39;</span><span class="p">:</span> <span class="s1">&#39;napari&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;app_version&#39;</span><span class="p">:</span> <span class="n">__version__</span><span class="p">,</span>
+        <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="n">get_icon_path</span><span class="p">(),</span>
+        <span class="s1">&#39;org_name&#39;</span><span class="p">:</span> <span class="s1">&#39;napari&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;org_domain&#39;</span><span class="p">:</span> <span class="s1">&#39;napari.org&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;app_id&#39;</span><span class="p">:</span> <span class="n">NAPARI_APP_ID</span><span class="p">,</span>
+    <span class="p">}</span>
 
 
 <span class="c1"># store reference to QApplication to prevent garbage collection</span>
@@ -1058,7 +1060,7 @@ window.addEventListener("load", load);</script>
     <span class="c1"># napari defaults are all-or nothing.  If any of the keywords are used</span>
     <span class="c1"># then they are all used.</span>
     <span class="n">set_values</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="p">}</span>
-    <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span> <span class="k">if</span> <span class="n">set_values</span> <span class="k">else</span> <span class="n">_defaults</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span> <span class="k">if</span> <span class="n">set_values</span> <span class="k">else</span> <span class="n">_get_defaults</span><span class="p">()</span>
     <span class="k">global</span> <span class="n">_app_ref</span>
 
     <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>

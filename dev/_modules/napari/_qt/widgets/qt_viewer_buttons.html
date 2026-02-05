@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=c16bb3e7"></script>
+    <script src="../../../../_static/documentation_options.js?v=103b1e9b"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -905,7 +905,7 @@ window.addEventListener("load", load);</script>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">superqt</span><span class="w"> </span><span class="kn">import</span> <span class="n">QEnumComboBox</span><span class="p">,</span> <span class="n">QLabeledDoubleSlider</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari._app_model.actions._file</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_new_points</span><span class="p">,</span> <span class="n">add_new_shapes</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari._app_model.actions._file</span><span class="w"> </span><span class="kn">import</span> <span class="n">new_points</span><span class="p">,</span> <span class="n">new_shapes</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.dialogs.qt_modal</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtPopup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_dims_sorter</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtDimsSorter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_spinbox</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtSpinBox</span>
@@ -963,13 +963,13 @@ window.addEventListener("load", load);</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;new_points&#39;</span><span class="p">,</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;New points layer&#39;</span><span class="p">),</span>
-            <span class="n">partial</span><span class="p">(</span><span class="n">add_new_points</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">),</span>
+            <span class="n">partial</span><span class="p">(</span><span class="n">new_points</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">),</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;new_shapes&#39;</span><span class="p">,</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;New shapes layer&#39;</span><span class="p">),</span>
-            <span class="n">partial</span><span class="p">(</span><span class="n">add_new_shapes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">),</span>
+            <span class="n">partial</span><span class="p">(</span><span class="n">new_shapes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;new_labels&#39;</span><span class="p">,</span>

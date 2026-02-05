@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=c16bb3e7"></script>
+    <script src="../../../_static/documentation_options.js?v=103b1e9b"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -895,7 +895,6 @@ window.addEventListener("load", load);</script>
 <span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">platform</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
@@ -947,8 +946,8 @@ window.addEventListener("load", load);</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.dialogs.qt_activity_dialog</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtActivityDialog</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.dialogs.qt_notification</span><span class="w"> </span><span class="kn">import</span> <span class="n">NapariQtNotification</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.qt_event_loop</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">NAPARI_ICON_PATH</span><span class="p">,</span>
     <span class="n">_svg_path_to_icon</span><span class="p">,</span>
+    <span class="n">get_icon_path</span><span class="p">,</span>
     <span class="n">get_qapp</span><span class="p">,</span>
     <span class="n">quit_app</span> <span class="k">as</span> <span class="n">quit_app_</span><span class="p">,</span>
 <span class="p">)</span>
@@ -1003,11 +1002,6 @@ window.addEventListener("load", load);</script>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">_QtMainWindow</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
-    <span class="c1"># This was added so that someone can patch</span>
-    <span class="c1"># `napari._qt.qt_main_window._QtMainWindow._window_icon`</span>
-    <span class="c1"># to their desired window icon</span>
-    <span class="n">_window_icon</span> <span class="o">=</span> <span class="n">NAPARI_ICON_PATH</span>
-
     <span class="c1"># To track window instances and facilitate getting the &quot;active&quot; viewer...</span>
     <span class="c1"># We use this instead of QApplication.activeWindow for compatibility with</span>
     <span class="c1"># IPython usage. When you activate IPython, it will appear that there are</span>
@@ -1033,7 +1027,7 @@ window.addEventListener("load", load);</script>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_quit_app</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="n">get_qapp</span><span class="p">()</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">_svg_path_to_icon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_window_icon</span><span class="p">))</span>
+        <span class="n">get_qapp</span><span class="p">()</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">_svg_path_to_icon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_window_icon</span><span class="p">()))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">WidgetAttribute</span><span class="o">.</span><span class="n">WA_DeleteOnClose</span><span class="p">)</span>
         <span class="n">center</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">center</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">QHBoxLayout</span><span class="p">())</span>
@@ -1086,11 +1080,10 @@ window.addEventListener("load", load);</script>
         <span class="c1"># were defined somewhere in the `_qt` module and imported in init_qactions</span>
         <span class="n">init_qactions</span><span class="p">()</span>
 
-        <span class="c1"># only after qaction are initialized we can get all shortcuts, so we have</span>
-        <span class="c1"># to force update the welcome screen here. TODO: UGLYYYY</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_overlay_to_visual</span><span class="p">[</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">welcome_screen</span>
-        <span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="c1"># only after qaction are initialized we can get all shortcuts and actions,</span>
+        <span class="c1"># so we have to force update the welcome screen here.</span>
+        <span class="n">viewer</span><span class="o">.</span><span class="n">welcome_screen</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">shortcuts</span><span class="p">()</span>
+        <span class="n">viewer</span><span class="o">.</span><span class="n">welcome_screen</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">tips</span><span class="p">()</span>
 
         <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">IndexError</span><span class="p">):</span>
             <span class="n">viewer</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span>
@@ -1109,6 +1102,14 @@ window.addEventListener("load", load);</script>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_command_palette</span> <span class="o">=</span> <span class="n">QCommandPalette</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_window_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_window_icon&#39;</span><span class="p">):</span>
+            <span class="c1"># This was added so that someone can patch</span>
+            <span class="c1"># `napari._qt.qt_main_window._QtMainWindow._window_icon`</span>
+            <span class="c1"># to their desired window icon</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_window_icon</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_icon_path</span><span class="p">())</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_toggle_status_thread</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
@@ -2559,17 +2560,8 @@ window.addEventListener("load", load);</script>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">_console</span><span class="o">.</span><span class="n">_update_theme</span><span class="p">(</span><span class="n">style_sheet</span><span class="o">=</span><span class="n">style_sheet</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.logo</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logo_path</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.theme</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_system_theme</span>
-
-        <span class="n">path</span> <span class="o">=</span> <span class="n">get_logo_path</span><span class="p">(</span>
-            <span class="n">logo</span><span class="o">=</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span>
-            <span class="n">template</span><span class="o">=</span><span class="s1">&#39;padded&#39;</span> <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Darwin&#39;</span> <span class="k">else</span> <span class="s1">&#39;plain&#39;</span><span class="p">,</span>
-            <span class="n">theme</span><span class="o">=</span><span class="n">get_system_theme</span><span class="p">(),</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">_window_icon</span> <span class="o">=</span> <span class="n">path</span>
         <span class="n">get_qapp</span><span class="p">()</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span>
-            <span class="n">_svg_path_to_icon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">_window_icon</span><span class="p">)</span>
+            <span class="n">_svg_path_to_icon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">_get_window_icon</span><span class="p">())</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_status_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>

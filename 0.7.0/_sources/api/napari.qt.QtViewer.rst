@@ -1127,6 +1127,7 @@ napari.qt.QtViewer
       ~QtViewer.layer_to_visual
       ~QtViewer.layers
       ~QtViewer.objectNameChanged
+      ~QtViewer.show_welcome_screen
       ~QtViewer.splitterMoved
       ~QtViewer.staticMetaObject
       ~QtViewer.viewerButtons

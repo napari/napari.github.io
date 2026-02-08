@@ -109,6 +109,7 @@ napari.layers.Tracks
       ~Tracks.mouse_pan
       ~Tracks.mouse_zoom
       ~Tracks.name
+      ~Tracks.name_overlay
       ~Tracks.ndim
       ~Tracks.opacity
       ~Tracks.projection_mode

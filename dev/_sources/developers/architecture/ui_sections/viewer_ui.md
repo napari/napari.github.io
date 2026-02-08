@@ -170,6 +170,7 @@ graph LR
 	napari.components.overlays.scale_bar --> napari.components.overlays.base
 	click napari.components.overlays.scale_bar "https://github.com/napari/napari/tree/main/napari/components/overlays/scale_bar.py" _blank
 	napari.components.overlays.text(napari.components.overlays.text)
+	napari.components.overlays.text --> napari.components._viewer_constants
 	napari.components.overlays.text --> napari.components.overlays.base
 	click napari.components.overlays.text "https://github.com/napari/napari/tree/main/napari/components/overlays/text.py" _blank
 	napari.components.overlays.welcome(napari.components.overlays.welcome)

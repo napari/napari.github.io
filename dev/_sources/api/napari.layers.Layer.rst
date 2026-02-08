@@ -96,6 +96,7 @@ napari.layers.Layer
       ~Layer.mouse_pan
       ~Layer.mouse_zoom
       ~Layer.name
+      ~Layer.name_overlay
       ~Layer.ndim
       ~Layer.opacity
       ~Layer.projection_mode

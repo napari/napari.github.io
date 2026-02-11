@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=b0a64a1e"></script>
+    <script src="../../../_static/documentation_options.js?v=e429815e"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -958,7 +958,8 @@ window.addEventListener("load", load);</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.tracks._tracks_key_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="n">tracks_fun_to_mode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.stack_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">split_channels</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.vectors._vectors_key_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="n">vectors_fun_to_mode</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.plugins.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_potential_readers</span><span class="p">,</span> <span class="n">get_preferred_reader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">_npe2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.plugins.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_preferred_reader</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.types</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">FullLayerData</span><span class="p">,</span>
@@ -2135,21 +2136,17 @@ window.addEventListener("load", load);</script>
 <span class="sd">        KeyError</span>
 <span class="sd">            If `plugin` does not provide a sample named `sample`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">napari.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">_npe2</span><span class="p">,</span> <span class="n">plugin_manager</span>
-
         <span class="n">plugin_spec_reader</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">data</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">SampleDataCreator</span> <span class="o">|</span> <span class="n">SampleData</span>
         <span class="c1"># try with npe2</span>
         <span class="n">data</span><span class="p">,</span> <span class="n">available</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">get_sample_data</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="n">sample</span><span class="p">)</span>
 
-        <span class="c1"># then try with npe1</span>
-        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">_sample_data</span><span class="p">[</span><span class="n">plugin</span><span class="p">][</span><span class="n">sample</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
-            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-                <span class="n">available</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">plugin_manager</span><span class="o">.</span><span class="n">available_samples</span><span class="p">())</span>
         <span class="c1"># npe2 uri sample data, extract the path so we can use viewer.open</span>
-        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;__self__&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;__self__&#39;</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">)</span>
+        <span class="p">):</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;reader_plugin&#39;</span><span class="p">)</span>
                 <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="o">.</span><span class="n">reader_plugin</span> <span class="o">!=</span> <span class="n">reader_plugin</span>
@@ -2403,7 +2400,7 @@ window.addEventListener("load", load);</script>
         <span class="n">_path</span> <span class="o">=</span> <span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="c1"># we want to display the paths nicely so make a help string here</span>
         <span class="n">path_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;[</span><span class="si">{</span><span class="n">_path</span><span class="si">}</span><span class="s1">], ...]&#39;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">_path</span>
-        <span class="n">readers</span> <span class="o">=</span> <span class="n">get_potential_readers</span><span class="p">(</span><span class="n">_path</span><span class="p">)</span>
+        <span class="n">readers</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">get_readers</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_path</span><span class="p">))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">readers</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">NoAvailableReaderError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
@@ -2523,12 +2520,12 @@ window.addEventListener("load", load);</script>
             <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">stack</span><span class="p">:</span>
-            <span class="n">layer_data</span><span class="p">,</span> <span class="n">hookimpl</span> <span class="o">=</span> <span class="n">read_data_with_plugins</span><span class="p">(</span>
+            <span class="n">layer_data</span><span class="p">,</span> <span class="n">plugin</span> <span class="o">=</span> <span class="n">read_data_with_plugins</span><span class="p">(</span>
                 <span class="n">paths</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="n">stack</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-            <span class="n">layer_data</span><span class="p">,</span> <span class="n">hookimpl</span> <span class="o">=</span> <span class="n">read_data_with_plugins</span><span class="p">(</span>
+            <span class="n">layer_data</span><span class="p">,</span> <span class="n">plugin</span> <span class="o">=</span> <span class="n">read_data_with_plugins</span><span class="p">(</span>
                 <span class="n">paths</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="n">stack</span>
             <span class="p">)</span>
 
@@ -2548,7 +2545,6 @@ window.addEventListener("load", load);</script>
 
         <span class="c1"># add each layer to the viewer</span>
         <span class="n">added</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Layer</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># for layers that get added</span>
-        <span class="n">plugin</span> <span class="o">=</span> <span class="n">hookimpl</span><span class="o">.</span><span class="n">plugin_name</span> <span class="k">if</span> <span class="n">hookimpl</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">data</span><span class="p">,</span> <span class="n">filename</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">layer_data</span><span class="p">,</span> <span class="n">filenames</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
             <span class="n">basename</span><span class="p">,</span> <span class="n">_ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
             <span class="c1"># actually add the layer</span>

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=b0a64a1e"></script>
+    <script src="../../../_static/documentation_options.js?v=e429815e"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1407,37 +1407,12 @@ window.addEventListener("load", load);</script>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Save all or only selected layers to a path using writer plugins.</span>
 
-<span class="sd">        If ``plugin`` is not provided and only one layer is targeted, then we</span>
-<span class="sd">        directly call the corresponding``napari_write_&lt;layer_type&gt;`` hook (see</span>
-<span class="sd">        :ref:`single layer writer hookspecs &lt;write-single-layer-hookspecs&gt;`)</span>
-<span class="sd">        which will loop through implementations and stop when the first one</span>
-<span class="sd">        returns a non-``None`` result. The order in which implementations are</span>
-<span class="sd">        called can be changed with the Plugin sorter in the GUI or with the</span>
-<span class="sd">        corresponding hook&#39;s</span>
-<span class="sd">        :meth:`~napari.plugins._hook_callers._HookCaller.bring_to_front`</span>
-<span class="sd">        method.</span>
-
-<span class="sd">        If ``plugin`` is not provided and multiple layers are targeted,</span>
-<span class="sd">        then we call</span>
-<span class="sd">        :meth:`~napari.plugins.hook_specifications.napari_get_writer` which</span>
-<span class="sd">        loops through plugins to find the first one that knows how to handle</span>
-<span class="sd">        the combination of layers and is able to write the file. If no plugins</span>
-<span class="sd">        offer :meth:`~napari.plugins.hook_specifications.napari_get_writer` for</span>
-<span class="sd">        that combination of layers then the default</span>
-<span class="sd">        :meth:`~napari.plugins.hook_specifications.napari_get_writer` will</span>
-<span class="sd">        create a folder and call ``napari_write_&lt;layer_type&gt;`` for each layer</span>
-<span class="sd">        using the ``Layer.name`` variable to modify the path such that the</span>
-<span class="sd">        layers are written to unique files in the folder.</span>
-
-<span class="sd">        If ``plugin`` is provided and a single layer is targeted, then we</span>
-<span class="sd">        call the ``napari_write_&lt;layer_type&gt;`` for that plugin, and if it fails</span>
-<span class="sd">        we error.</span>
-
-<span class="sd">        If ``plugin`` is provided and multiple layers are targeted, then</span>
-<span class="sd">        we call we call</span>
-<span class="sd">        :meth:`~napari.plugins.hook_specifications.napari_get_writer` for</span>
-<span class="sd">        that plugin, and if it doesn`t return a ``WriterFunction`` we error,</span>
-<span class="sd">        otherwise we call it and if that fails if it we error.</span>
+<span class="sd">        If ``plugin`` is provided, we attempt to write with that plugin.</span>
+<span class="sd">        If ``plugin`` is not provided, we call the first compatible writer for</span>
+<span class="sd">        the given layer(s) and path.</span>
+<span class="sd">        If any errors occur during writing, they are raised. If the given ``plugin``</span>
+<span class="sd">        does not provide a compatible writer or does not write any files, or</span>
+<span class="sd">        if there are no compatible writers available, a warning will be issued.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1448,9 +1423,8 @@ window.addEventListener("load", load);</script>
 <span class="sd">        selected : bool</span>
 <span class="sd">            Optional flag to only save selected layers. False by default.</span>
 <span class="sd">        plugin : str, optional</span>
-<span class="sd">            Name of the plugin to use for saving. If None then all plugins</span>
-<span class="sd">            corresponding to appropriate hook specification will be looped</span>
-<span class="sd">            through to find the first one that can save the data.</span>
+<span class="sd">            Name of the plugin to use for saving. If None then the first compatible</span>
+<span class="sd">            writer (if one exists), will be used.</span>
 <span class="sd">        _writer : WriterContribution, optional</span>
 <span class="sd">            private: npe2 specific writer override.</span>
 

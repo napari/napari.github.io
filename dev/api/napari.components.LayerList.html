@@ -55,7 +55,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=b0a64a1e"></script>
+    <script src="../_static/documentation_options.js?v=e429815e"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -969,34 +969,12 @@ Raise ValueError if the value is not present.</p>
 <dt class="sig sig-object py" id="napari.components.LayerList.save">
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selected</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plugin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_writer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">WriterContribution</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/components/layerlist.html#LayerList.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.LayerList.save" title="Link to this definition">#</a></dt>
 <dd><p>Save all or only selected layers to a path using writer plugins.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">plugin</span></code> is not provided and only one layer is targeted, then we
-directly call the corresponding``napari_write_&lt;layer_type&gt;`` hook (see
-<a class="reference internal" href="../plugins/advanced_topics/npe1.html#write-single-layer-hookspecs"><span class="std std-ref">single layer writer hookspecs</span></a>)
-which will loop through implementations and stop when the first one
-returns a non-<code class="docutils literal notranslate"><span class="pre">None</span></code> result. The order in which implementations are
-called can be changed with the Plugin sorter in the GUI or with the
-corresponding hook’s
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">bring_to_front()</span></code>
-method.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">plugin</span></code> is not provided and multiple layers are targeted,
-then we call
-<a class="reference internal" href="../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_get_writer" title="napari.plugins.hook_specifications.napari_get_writer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari_get_writer()</span></code></a> which
-loops through plugins to find the first one that knows how to handle
-the combination of layers and is able to write the file. If no plugins
-offer <a class="reference internal" href="../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_get_writer" title="napari.plugins.hook_specifications.napari_get_writer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari_get_writer()</span></code></a> for
-that combination of layers then the default
-<a class="reference internal" href="../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_get_writer" title="napari.plugins.hook_specifications.napari_get_writer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari_get_writer()</span></code></a> will
-create a folder and call <code class="docutils literal notranslate"><span class="pre">napari_write_&lt;layer_type&gt;</span></code> for each layer
-using the <code class="docutils literal notranslate"><span class="pre">Layer.name</span></code> variable to modify the path such that the
-layers are written to unique files in the folder.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">plugin</span></code> is provided and a single layer is targeted, then we
-call the <code class="docutils literal notranslate"><span class="pre">napari_write_&lt;layer_type&gt;</span></code> for that plugin, and if it fails
-we error.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">plugin</span></code> is provided and multiple layers are targeted, then
-we call we call
-<a class="reference internal" href="../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_get_writer" title="napari.plugins.hook_specifications.napari_get_writer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari_get_writer()</span></code></a> for
-that plugin, and if it doesn`t return a <code class="docutils literal notranslate"><span class="pre">WriterFunction</span></code> we error,
-otherwise we call it and if that fails if it we error.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">plugin</span></code> is provided, we attempt to write with that plugin.
+If <code class="docutils literal notranslate"><span class="pre">plugin</span></code> is not provided, we call the first compatible writer for
+the given layer(s) and path.
+If any errors occur during writing, they are raised. If the given <code class="docutils literal notranslate"><span class="pre">plugin</span></code>
+does not provide a compatible writer or does not write any files, or
+if there are no compatible writers available, a warning will be issued.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1004,9 +982,8 @@ otherwise we call it and if that fails if it we error.</p>
 specify output format (provided a plugin is available for the
 requested format).</p></li>
 <li><p><strong>selected</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Optional flag to only save selected layers. False by default.</p></li>
-<li><p><strong>plugin</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Name of the plugin to use for saving. If None then all plugins
-corresponding to appropriate hook specification will be looped
-through to find the first one that can save the data.</p></li>
+<li><p><strong>plugin</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Name of the plugin to use for saving. If None then the first compatible
+writer (if one exists), will be used.</p></li>
 <li><p><strong>_writer</strong> (<em>WriterContribution</em><em>, </em><em>optional</em>) – private: npe2 specific writer override.</p></li>
 </ul>
 </dd>

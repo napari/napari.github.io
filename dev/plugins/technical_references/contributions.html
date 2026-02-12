@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=769555d9"></script>
+    <script src="../../_static/documentation_options.js?v=0b07a7f0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -567,6 +567,12 @@ clarity, the following examples include only the specific contribution that
 is being discussed.</p>
 <section id="contributions-commands">
 <span id="id1"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.commands</span></code><a class="headerlink" href="#contributions-commands" title="Link to this heading">#</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This contribution accepts 1 schema types</p>
+</div>
+<section id="commandcontribution">
+<h3>1. CommandContribution<a class="headerlink" href="#commandcontribution" title="Link to this heading">#</a></h3>
 <p>Contribute a <strong>command</strong> (a python callable) consisting of a unique <code class="docutils literal notranslate"><span class="pre">id</span></code>,
 a <code class="docutils literal notranslate"><span class="pre">title</span></code> and (optionally) a <code class="docutils literal notranslate"><span class="pre">python_path</span></code> that points to a fully qualified python
 callable.  If a <code class="docutils literal notranslate"><span class="pre">python_path</span></code> is not included in the manifest, it <em>must</em> be
@@ -605,6 +611,7 @@ Icon used to represent this command in the UI, on buttons or in menus. These may
 <em>(Optional: default=None).</em>
 Expression which must evaluate as true to enable the command in the UI (menu and keybindings). Does not prevent executing the command by other means, like the <code class="docutils literal notranslate"><span class="pre">execute_command</span></code> api.</p></li>
 </ul>
+</section>
 <section id="commands-example">
 <h3>Commands example<a class="headerlink" href="#commands-example" title="Link to this heading">#</a></h3>
 <div class="sd-tab-set docutils">
@@ -633,6 +640,12 @@ toml</label><div class="sd-tab-content docutils">
 </section>
 <section id="contributions-readers">
 <span id="id2"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.readers</span></code><a class="headerlink" href="#contributions-readers" title="Link to this heading">#</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This contribution accepts 1 schema types</p>
+</div>
+<section id="readercontribution">
+<h3>1. ReaderContribution<a class="headerlink" href="#readercontribution" title="Link to this heading">#</a></h3>
 <p>Contribute a file reader.</p>
 <p>Readers may be associated with specific <strong>filename_patterns</strong> (e.g. “<em>.tif”,
 “</em>.zip”) and are invoked whenever <code class="docutils literal notranslate"><span class="pre">viewer.open('some/path')</span></code> is used on the
@@ -648,6 +661,7 @@ for more details on implementing this contribution.</p>
 <em>(Optional: default=False).</em>
 Whether this reader accepts directories</p></li>
 </ul>
+</section>
 <section id="readers-example">
 <h3>Readers example<a class="headerlink" href="#readers-example" title="Link to this heading">#</a></h3>
 <div class="sd-tab-set docutils">
@@ -689,6 +703,12 @@ toml</label><div class="sd-tab-content docutils">
 </section>
 <section id="contributions-writers">
 <span id="id3"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.writers</span></code><a class="headerlink" href="#contributions-writers" title="Link to this heading">#</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This contribution accepts 1 schema types</p>
+</div>
+<section id="writercontribution">
+<h3>1. WriterContribution<a class="headerlink" href="#writercontribution" title="Link to this heading">#</a></h3>
 <p>Contribute a layer writer.</p>
 <p>Writers accept data from one or more layers and write them to file. Writers declare
 support for writing one or more <strong>layer_types</strong>, may be associated with specific
@@ -708,6 +728,7 @@ List of filename extensions compatible with this writer. The first entry is used
 <em>(Optional: default=).</em>
 Brief text used to describe this writer when presented. Empty by default. When present, this string is presented in the save dialog along side the plugin name and may be used to distinguish the kind of writer for the user. E.g. “lossy” or “lossless”.</p></li>
 </ul>
+</section>
 <section id="writers-example">
 <h3>Writers example<a class="headerlink" href="#writers-example" title="Link to this heading">#</a></h3>
 <div class="sd-tab-set docutils">
@@ -752,6 +773,12 @@ toml</label><div class="sd-tab-content docutils">
 </section>
 <section id="contributions-widgets">
 <span id="id4"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.widgets</span></code><a class="headerlink" href="#contributions-widgets" title="Link to this heading">#</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This contribution accepts 1 schema types</p>
+</div>
+<section id="widgetcontribution">
+<h3>1. WidgetContribution<a class="headerlink" href="#widgetcontribution" title="Link to this heading">#</a></h3>
 <p>Contribute a widget that can be added to the napari viewer.</p>
 <p>Widget contributions point to a <strong>command</strong> that, when called, returns a widget
 <em>instance</em>; this includes functions that return a widget instance, (e.g. those
@@ -772,6 +799,7 @@ for more details on implementing this contribution.</p>
 <em>(Optional: default=False).</em>
 If true, a widget will be autogenerated from the signature of the associated command using <a class="reference external" href="https://napari.org/magicgui/">magicgui</a>.</p></li>
 </ul>
+</section>
 <section id="widgets-example">
 <h3>Widgets example<a class="headerlink" href="#widgets-example" title="Link to this heading">#</a></h3>
 <div class="sd-tab-set docutils">
@@ -834,37 +862,8 @@ toml</label><div class="sd-tab-content docutils">
 <span id="id5"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.sample_data</span></code><a class="headerlink" href="#contributions-sample-data" title="Link to this heading">#</a></h2>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>This contribution accepts 2 schema types</p>
+<p>This contribution accepts 0 schema types</p>
 </div>
-<section id="sample-data-function">
-<h3>1. Sample Data Function<a class="headerlink" href="#sample-data-function" title="Link to this heading">#</a></h3>
-<p>Contribute a callable command that creates data on demand.</p>
-<p>See the <a class="reference internal" href="../building_a_plugin/guides.html#sample-data-contribution-guide"><span class="std std-ref">Sample Data Guide</span></a>
-for more details on implementing this contribution.</p>
-<p><strong>Fields</strong></p>
-<ul class="simple">
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">sample_data.command</span></code></strong> : Identifier of a command that returns layer data tuple. Note that this command cannot return <code class="docutils literal notranslate"><span class="pre">[(None,)]</span></code>.</p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">sample_data.key</span></code></strong> : A unique key to identify this sample.</p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">sample_data.display_name</span></code></strong> : String to show in the UI when referring to this sample</p></li>
-</ul>
-</section>
-<section id="sample-data-uri">
-<h3>2. Sample Data URI<a class="headerlink" href="#sample-data-uri" title="Link to this heading">#</a></h3>
-<p>Contribute a URI to static local or remote data. This can be data included in
-the plugin package, or a URL to remote data.  The URI must be readable by either
-napari’s builtin reader, or by a plugin that is included/required.</p>
-<p>See the <a class="reference internal" href="../building_a_plugin/guides.html#sample-data-contribution-guide"><span class="std std-ref">Sample Data Guide</span></a>
-for more details on implementing this contribution.</p>
-<p><strong>Fields</strong></p>
-<ul class="simple">
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">sample_data.key</span></code></strong> : A unique key to identify this sample.</p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">sample_data.display_name</span></code></strong> : String to show in the UI when referring to this sample</p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">sample_data.uri</span></code></strong> : Path or URL to a data resource. This URI should be a valid input to <code class="docutils literal notranslate"><span class="pre">io_utils.read</span></code></p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">sample_data.reader_plugin</span></code></strong> :
-<em>(Optional: default=None).</em>
-Name of plugin to use to open URI</p></li>
-</ul>
-</section>
 <section id="sample-data-example">
 <h3>Sample Data example<a class="headerlink" href="#sample-data-example" title="Link to this heading">#</a></h3>
 <div class="sd-tab-set docutils">
@@ -911,6 +910,12 @@ toml</label><div class="sd-tab-content docutils">
 </section>
 <section id="contributions-themes">
 <span id="id6"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.themes</span></code><a class="headerlink" href="#contributions-themes" title="Link to this heading">#</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This contribution accepts 1 schema types</p>
+</div>
+<section id="themecontribution">
+<h3>1. ThemeContribution<a class="headerlink" href="#themecontribution" title="Link to this heading">#</a></h3>
 <p>Contribute a color theme to napari.</p>
 <p>You must specify an <strong>id</strong>, <strong>label</strong>, and whether the theme is a dark theme or a
 light theme <strong>type</strong> (such that the rest of napari changes to match your theme).
@@ -923,19 +928,13 @@ dark/light theme colors.</p>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.type</span></code></strong> : Base theme type, used for icons and filling in unprovided colors. Must be either <code class="docutils literal notranslate"><span class="pre">'dark'</span></code> or  <code class="docutils literal notranslate"><span class="pre">'light'</span></code>.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.syntax_style</span></code></strong> :
 <em>(Optional: default=None).</em></p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.colors</span></code></strong> : Theme colors. Valid keys include: <code class="docutils literal notranslate"><span class="pre">canvas</span></code>, <code class="docutils literal notranslate"><span class="pre">console</span></code>, <code class="docutils literal notranslate"><span class="pre">background</span></code>, <code class="docutils literal notranslate"><span class="pre">foreground</span></code>, <code class="docutils literal notranslate"><span class="pre">primary</span></code>, <code class="docutils literal notranslate"><span class="pre">secondary</span></code>, <code class="docutils literal notranslate"><span class="pre">highlight</span></code>, <code class="docutils literal notranslate"><span class="pre">text</span></code>, <code class="docutils literal notranslate"><span class="pre">icon</span></code>, <code class="docutils literal notranslate"><span class="pre">warning</span></code>, <code class="docutils literal notranslate"><span class="pre">current</span></code>. All keys are optional. Color values can be defined via:</p>
-<ul>
-<li><p>name: <code class="docutils literal notranslate"><span class="pre">&quot;Black&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;azure&quot;</span></code></p></li>
-<li><p>hexadecimal value: <code class="docutils literal notranslate"><span class="pre">&quot;0x000&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;#FFFFFF&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;7fffd4&quot;</span></code></p></li>
-<li><p>RGB/RGBA tuples: <code class="docutils literal notranslate"><span class="pre">(255,</span> <span class="pre">255,</span> <span class="pre">255)</span></code>, <code class="docutils literal notranslate"><span class="pre">(255,</span> <span class="pre">255,</span> <span class="pre">255,</span> <span class="pre">0.5)</span></code></p></li>
-<li><p>RGB/RGBA strings: <code class="docutils literal notranslate"><span class="pre">&quot;rgb(255,</span> <span class="pre">255,</span> <span class="pre">255)&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;rgba(255,</span> <span class="pre">255,</span> <span class="pre">255,</span> <span class="pre">0.5)</span></code>”</p></li>
-<li><p>HSL strings: “<code class="docutils literal notranslate"><span class="pre">hsl(270,</span> <span class="pre">60%,</span> <span class="pre">70%)&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;hsl(270,</span> <span class="pre">60%,</span> <span class="pre">70%,</span> <span class="pre">.5)</span></code>”</p></li>
-</ul>
-</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.colors</span></code></strong> : Theme colors. Valid keys include: <code class="docutils literal notranslate"><span class="pre">canvas</span></code>, <code class="docutils literal notranslate"><span class="pre">console</span></code>, <code class="docutils literal notranslate"><span class="pre">background</span></code>, <code class="docutils literal notranslate"><span class="pre">foreground</span></code>, <code class="docutils literal notranslate"><span class="pre">primary</span></code>, <code class="docutils literal notranslate"><span class="pre">secondary</span></code>, <code class="docutils literal notranslate"><span class="pre">highlight</span></code>, <code class="docutils literal notranslate"><span class="pre">text</span></code>, <code class="docutils literal notranslate"><span class="pre">icon</span></code>, <code class="docutils literal notranslate"><span class="pre">warning</span></code>, <code class="docutils literal notranslate"><span class="pre">current</span></code>. All keys are optional. Color values can be defined via:
+{_color_args}</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.font_size</span></code></strong> :
 <em>(Optional: default=9pt).</em>
 Font size (in points, pt) used in the application.</p></li>
 </ul>
+</section>
 <section id="themes-example">
 <h3>Themes example<a class="headerlink" href="#themes-example" title="Link to this heading">#</a></h3>
 <div class="sd-tab-set docutils">
@@ -1067,6 +1066,12 @@ toml</label><div class="sd-tab-content docutils">
 </section>
 <section id="contributions-submenus">
 <span id="id8"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.submenus</span></code><a class="headerlink" href="#contributions-submenus" title="Link to this heading">#</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This contribution accepts 1 schema types</p>
+</div>
+<section id="submenucontribution">
+<h3>1. SubmenuContribution<a class="headerlink" href="#submenucontribution" title="Link to this heading">#</a></h3>
 <p>Contributes a submenu that can contain menu items or other submenus.</p>
 <p>Submenus allow you to organize menu items into hierarchical structures.
 Each submenu defines an id, label, and optional icon that can be
@@ -1079,6 +1084,7 @@ referenced by menu items to create nested menu structures.</p>
 <em>(Optional: default=None).</em>
 (Optional) Icon which is used to represent the command in the UI. Either a file path, an object with file paths for dark and lightthemes, or a theme icon references, like <code class="docutils literal notranslate"><span class="pre">$(zap)</span></code></p></li>
 </ul>
+</section>
 <section id="submenus-example">
 <h3>Submenus example<a class="headerlink" href="#submenus-example" title="Link to this heading">#</a></h3>
 <div class="sd-tab-set docutils">
@@ -1155,28 +1161,31 @@ toml</label><div class="sd-tab-content docutils">
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributions-commands"><code class="docutils literal notranslate"><span class="pre">contributions.commands</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commandcontribution">1. CommandContribution</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commands-example">Commands example</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributions-readers"><code class="docutils literal notranslate"><span class="pre">contributions.readers</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#readercontribution">1. ReaderContribution</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#readers-example">Readers example</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributions-writers"><code class="docutils literal notranslate"><span class="pre">contributions.writers</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writercontribution">1. WriterContribution</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writers-example">Writers example</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributions-widgets"><code class="docutils literal notranslate"><span class="pre">contributions.widgets</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#widgetcontribution">1. WidgetContribution</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#widgets-example">Widgets example</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributions-sample-data"><code class="docutils literal notranslate"><span class="pre">contributions.sample_data</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-data-function">1. Sample Data Function</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-data-uri">2. Sample Data URI</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-data-example">Sample Data example</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributions-themes"><code class="docutils literal notranslate"><span class="pre">contributions.themes</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#themecontribution">1. ThemeContribution</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#themes-example">Themes example</a></li>
 </ul>
 </li>
@@ -1187,6 +1196,7 @@ toml</label><div class="sd-tab-content docutils">
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributions-submenus"><code class="docutils literal notranslate"><span class="pre">contributions.submenus</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submenucontribution">1. SubmenuContribution</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submenus-example">Submenus example</a></li>
 </ul>
 </li>

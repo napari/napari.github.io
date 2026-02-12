@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=769555d9"></script>
+    <script src="../../../_static/documentation_options.js?v=0b07a7f0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -887,7 +887,8 @@ window.addEventListener("load", load);</script>
                 <article class="bd-article">
                   
   <h1>Source code for napari.components.dims</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">numbers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Integral</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">Any</span><span class="p">,</span>
@@ -896,8 +897,8 @@ window.addEventListener("load", load);</script>
 <span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">field_validator</span><span class="p">,</span> <span class="n">model_validator</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari._pydantic_compat</span><span class="w"> </span><span class="kn">import</span> <span class="n">root_validator</span><span class="p">,</span> <span class="n">validator</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events</span><span class="w"> </span><span class="kn">import</span> <span class="n">EventedModel</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">argsort</span><span class="p">,</span> <span class="n">reorder_after_dim_reduction</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
@@ -996,23 +997,23 @@ window.addEventListener("load", load);</script>
     <span class="c1"># private vars</span>
     <span class="n">_play_ready</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># False if currently awaiting a draw event</span>
     <span class="n">_scroll_progress</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">_validating</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="c1"># validators</span>
     <span class="c1"># check fields is false to allow private fields to work</span>
-    <span class="nd">@validator</span><span class="p">(</span>
+    <span class="nd">@field_validator</span><span class="p">(</span>
         <span class="s1">&#39;order&#39;</span><span class="p">,</span>
         <span class="s1">&#39;axis_labels&#39;</span><span class="p">,</span>
         <span class="s1">&#39;rollable&#39;</span><span class="p">,</span>
         <span class="s1">&#39;point&#39;</span><span class="p">,</span>
         <span class="s1">&#39;margin_left&#39;</span><span class="p">,</span>
         <span class="s1">&#39;margin_right&#39;</span><span class="p">,</span>
-        <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;before&#39;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_as_tuple</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
-    <span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;before&#39;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_check_ranges</span><span class="p">(</span><span class="n">ranges</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Ensure the range values are sane.</span>
@@ -1042,8 +1043,8 @@ window.addEventListener("load", load);</script>
                 <span class="p">)</span>
         <span class="k">return</span> <span class="n">ranges</span>
 
-    <span class="nd">@root_validator</span><span class="p">(</span><span class="n">skip_on_failure</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_check_dims</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="nd">@model_validator</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;after&#39;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check the consistency of dimensionality for all attributes.</span>
 
 <span class="sd">        Parameters</span>
@@ -1051,78 +1052,81 @@ window.addEventListener("load", load);</script>
 <span class="sd">        values : dict</span>
 <span class="sd">            Values dictionary to update dims model with.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">updated</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validating</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validating_ctx</span><span class="p">():</span>
+            <span class="n">ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
 
-        <span class="n">ndim</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;ndim&#39;</span><span class="p">]</span>
+            <span class="n">range_</span> <span class="o">=</span> <span class="n">ensure_len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">pad_width</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">RangeTuple</span><span class="p">(</span><span class="o">*</span><span class="n">rng</span><span class="p">)</span> <span class="k">for</span> <span class="n">rng</span> <span class="ow">in</span> <span class="n">range_</span><span class="p">)</span>
 
-        <span class="n">range_</span> <span class="o">=</span> <span class="n">ensure_len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">],</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">pad_width</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
-        <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">RangeTuple</span><span class="p">(</span><span class="o">*</span><span class="n">rng</span><span class="p">)</span> <span class="k">for</span> <span class="n">rng</span> <span class="ow">in</span> <span class="n">range_</span><span class="p">)</span>
-
-        <span class="n">point</span> <span class="o">=</span> <span class="n">ensure_len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point&#39;</span><span class="p">],</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">pad_width</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
-        <span class="c1"># ensure point is limited to range</span>
-        <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;point&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">pt</span><span class="p">,</span> <span class="n">rng</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">],</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="p">)</span>
-
-        <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;margin_left&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ensure_len</span><span class="p">(</span>
-            <span class="n">values</span><span class="p">[</span><span class="s1">&#39;margin_left&#39;</span><span class="p">],</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">pad_width</span><span class="o">=</span><span class="mf">0.0</span>
-        <span class="p">)</span>
-        <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;margin_right&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ensure_len</span><span class="p">(</span>
-            <span class="n">values</span><span class="p">[</span><span class="s1">&#39;margin_right&#39;</span><span class="p">],</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">pad_width</span><span class="o">=</span><span class="mf">0.0</span>
-        <span class="p">)</span>
-
-        <span class="c1"># order and label default computation is too different to include in ensure_len()</span>
-        <span class="c1"># Check the order tuple has same number of elements as ndim</span>
-        <span class="n">order</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">ndim</span><span class="p">:</span>
-            <span class="n">order_ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
-            <span class="c1"># new dims are always prepended</span>
-            <span class="n">prepended_dims</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span> <span class="o">-</span> <span class="n">order_ndim</span><span class="p">))</span>
-            <span class="c1"># maintain existing order, but shift accordingly</span>
-            <span class="n">existing_order</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">o</span> <span class="o">+</span> <span class="n">ndim</span> <span class="o">-</span> <span class="n">order_ndim</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">order</span><span class="p">)</span>
-            <span class="n">order</span> <span class="o">=</span> <span class="n">prepended_dims</span> <span class="o">+</span> <span class="n">existing_order</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">ndim</span><span class="p">:</span>
-            <span class="n">order</span> <span class="o">=</span> <span class="n">reorder_after_dim_reduction</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="n">ndim</span><span class="p">:])</span>
-        <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">order</span>
-
-        <span class="c1"># Check the order is a permutation of 0, ..., ndim - 1</span>
-        <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">updated</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">])</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">)):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Invalid ordering </span><span class="si">{order}</span><span class="s1"> for </span><span class="si">{ndim}</span><span class="s1"> dimensions&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">order</span><span class="o">=</span><span class="n">updated</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">],</span>
-                    <span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">,</span>
-                <span class="p">)</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">ensure_len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">point</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">pad_width</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+            <span class="c1"># ensure point is limited to range</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">point</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">pt</span><span class="p">,</span> <span class="n">rng</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="p">)</span>
 
+            <span class="bp">self</span><span class="o">.</span><span class="n">margin_left</span> <span class="o">=</span> <span class="n">ensure_len</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">margin_left</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">pad_width</span><span class="o">=</span><span class="mf">0.0</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">margin_right</span> <span class="o">=</span> <span class="n">ensure_len</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">margin_right</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">pad_width</span><span class="o">=</span><span class="mf">0.0</span>
+            <span class="p">)</span>
+
+            <span class="c1"># order and label default computation is too different to include in ensure_len()</span>
+            <span class="c1"># Check the order tuple has same number of elements as ndim</span>
+            <span class="n">order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">ndim</span><span class="p">:</span>
+                <span class="n">order_ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+                <span class="c1"># new dims are always prepended</span>
+                <span class="n">prepended_dims</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span> <span class="o">-</span> <span class="n">order_ndim</span><span class="p">))</span>
+                <span class="c1"># maintain existing order, but shift accordingly</span>
+                <span class="n">existing_order</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">o</span> <span class="o">+</span> <span class="n">ndim</span> <span class="o">-</span> <span class="n">order_ndim</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">order</span><span class="p">)</span>
+                <span class="n">order</span> <span class="o">=</span> <span class="n">prepended_dims</span> <span class="o">+</span> <span class="n">existing_order</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">ndim</span><span class="p">:</span>
+                <span class="n">order</span> <span class="o">=</span> <span class="n">reorder_after_dim_reduction</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="n">ndim</span><span class="p">:])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">order</span>
+
+            <span class="c1"># Check the order is a permutation of 0, ..., ndim - 1</span>
+            <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                        <span class="s1">&#39;Invalid ordering </span><span class="si">{order}</span><span class="s1"> for </span><span class="si">{ndim}</span><span class="s1"> dimensions&#39;</span><span class="p">,</span>
+                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">,</span>
+                        <span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
         <span class="c1"># Check the axis labels tuple has same number of elements as ndim</span>
-        <span class="n">axis_labels</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">]</span>
+        <span class="n">axis_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis_labels</span>
         <span class="n">labels_ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_labels</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">labels_ndim</span> <span class="o">&lt;</span> <span class="n">ndim</span><span class="p">:</span>
-            <span class="c1"># Prepend negative indexed default labels to existing ones</span>
-            <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="c1"># Append new &quot;default&quot; labels to existing ones</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">axis_labels</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">ndim</span><span class="p">,</span> <span class="o">-</span><span class="n">labels_ndim</span><span class="p">)))</span> <span class="o">+</span> <span class="n">axis_labels</span>
             <span class="p">)</span>
         <span class="k">elif</span> <span class="n">labels_ndim</span> <span class="o">&gt;</span> <span class="n">ndim</span><span class="p">:</span>
-            <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">axis_labels</span><span class="p">[</span><span class="o">-</span><span class="n">ndim</span><span class="p">:]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">axis_labels</span> <span class="o">=</span> <span class="n">axis_labels</span><span class="p">[</span><span class="o">-</span><span class="n">ndim</span><span class="p">:]</span>
 
-        <span class="c1"># Check the rollable axes tuple has same number of elements as ndim</span>
-        <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;rollable&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ensure_len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;rollable&#39;</span><span class="p">],</span> <span class="n">ndim</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validating_ctx</span><span class="p">():</span>
+            <span class="c1"># Check the rollable axes tuple has same number of elements as ndim</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rollable</span> <span class="o">=</span> <span class="n">ensure_len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rollable</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># If the last used slider is no longer visible, use the first.</span>
-        <span class="n">last_used</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;last_used&#39;</span><span class="p">]</span>
-        <span class="n">ndisplay</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;ndisplay&#39;</span><span class="p">]</span>
-        <span class="n">dims_range</span> <span class="o">=</span> <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span>
-        <span class="n">nsteps</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_nsteps_from_range</span><span class="p">(</span><span class="n">dims_range</span><span class="p">)</span>
+        <span class="n">last_used</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_used</span>
+        <span class="n">ndisplay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndisplay</span>
+        <span class="n">dims_range</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span>
+        <span class="n">nsteps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nsteps_from_range</span><span class="p">(</span><span class="n">dims_range</span><span class="p">)</span>
         <span class="n">not_displayed</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">order</span><span class="p">[:</span><span class="o">-</span><span class="n">ndisplay</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nsteps</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">d</span> <span class="ow">and</span> <span class="n">nsteps</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span>
         <span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">not_displayed</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">last_used</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">not_displayed</span><span class="p">:</span>
-            <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;last_used&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">not_displayed</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_used</span> <span class="o">=</span> <span class="n">not_displayed</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">values</span><span class="p">,</span> <span class="o">**</span><span class="n">updated</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_nsteps_from_range</span><span class="p">(</span><span class="n">dims_range</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
@@ -1437,7 +1441,16 @@ window.addEventListener("load", load);</script>
 
         <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axis</span><span class="p">:</span>
             <span class="n">ensure_axis_in_bounds</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">axis</span><span class="p">,</span> <span class="n">value</span></div>
+        <span class="k">return</span> <span class="n">axis</span><span class="p">,</span> <span class="n">value</span>
+
+    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validating_ctx</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validating</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validating</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">yield</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_validating</span> <span class="o">=</span> <span class="n">prev</span></div>
 
 
 

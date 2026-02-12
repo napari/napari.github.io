@@ -41,6 +41,39 @@ napari.components.Camera
       ~Camera.json
    
    
+      ~Camera.model_construct
+   
+   
+      ~Camera.model_copy
+   
+   
+      ~Camera.model_dump
+   
+   
+      ~Camera.model_dump_json
+   
+   
+      ~Camera.model_json_schema
+   
+   
+      ~Camera.model_parametrized_name
+   
+   
+      ~Camera.model_post_init
+   
+   
+      ~Camera.model_rebuild
+   
+   
+      ~Camera.model_validate
+   
+   
+      ~Camera.model_validate_json
+   
+   
+      ~Camera.model_validate_strings
+   
+   
       ~Camera.parse_file
    
    
@@ -81,6 +114,11 @@ napari.components.Camera
    
       ~Camera.events
       ~Camera.handedness
+      ~Camera.model_computed_fields
+      ~Camera.model_config
+      ~Camera.model_extra
+      ~Camera.model_fields
+      ~Camera.model_fields_set
       ~Camera.orientation2d
       ~Camera.up_direction
       ~Camera.view_direction

@@ -77,6 +77,39 @@ napari.Viewer
       ~Viewer.json
    
    
+      ~Viewer.model_construct
+   
+   
+      ~Viewer.model_copy
+   
+   
+      ~Viewer.model_dump
+   
+   
+      ~Viewer.model_dump_json
+   
+   
+      ~Viewer.model_json_schema
+   
+   
+      ~Viewer.model_parametrized_name
+   
+   
+      ~Viewer.model_post_init
+   
+   
+      ~Viewer.model_rebuild
+   
+   
+      ~Viewer.model_validate
+   
+   
+      ~Viewer.model_validate_json
+   
+   
+      ~Viewer.model_validate_strings
+   
+   
       ~Viewer.open
    
    
@@ -138,6 +171,11 @@ napari.Viewer
       ~Viewer.events
       ~Viewer.experimental
       ~Viewer.keymap
+      ~Viewer.model_computed_fields
+      ~Viewer.model_config
+      ~Viewer.model_extra
+      ~Viewer.model_fields
+      ~Viewer.model_fields_set
       ~Viewer.scale_bar
       ~Viewer.text_overlay
       ~Viewer.welcome_screen

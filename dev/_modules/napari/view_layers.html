@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=769555d9"></script>
+    <script src="../../_static/documentation_options.js?v=0b07a7f0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -902,7 +902,6 @@ window.addEventListener("load", load);</script>
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;imshow&#39;</span><span class="p">]</span>
 
 <span class="n">_viewer_params</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">Viewer</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span>
-<span class="n">_dims_params</span> <span class="o">=</span> <span class="n">Dims</span><span class="o">.</span><span class="n">__fields__</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_make_viewer_then</span><span class="p">(</span>
@@ -951,7 +950,7 @@ window.addEventListener("load", load);</script>
         <span class="p">)</span>
     <span class="c1"># separate dims kwargs because we want to set those after adding data</span>
     <span class="n">dims_kwargs</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">k</span><span class="p">:</span> <span class="n">vkwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">vkwargs</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_dims_params</span>
+        <span class="n">k</span><span class="p">:</span> <span class="n">vkwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">vkwargs</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">Dims</span><span class="o">.</span><span class="n">model_fields</span>
     <span class="p">}</span>
     <span class="k">if</span> <span class="n">viewer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">viewer</span> <span class="o">=</span> <span class="n">Viewer</span><span class="p">(</span><span class="o">**</span><span class="n">vkwargs</span><span class="p">)</span>

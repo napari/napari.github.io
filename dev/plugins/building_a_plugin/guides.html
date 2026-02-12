@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=769555d9"></script>
+    <script src="../../_static/documentation_options.js?v=0b07a7f0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -559,15 +559,50 @@ field in a specific contribution, See the
 They are invoked whenever <code class="docutils literal notranslate"><span class="pre">viewer.open('some/path')</span></code> is used on the
 command line, or when a user opens a file in the graphical user interface by
 dropping a file into the canvas, or using <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">-&gt;</span> <span class="pre">Open...</span></code></p>
-<p>The <code class="docutils literal notranslate"><span class="pre">command</span></code> provided by a reader contribution is expected to be a function
+<section id="introduction-to-the-reader-contribution">
+<h3>Introduction to the <code class="docutils literal notranslate"><span class="pre">reader</span></code> contribution<a class="headerlink" href="#introduction-to-the-reader-contribution" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">napari</span></code>’s reading process is motivated by the idea that a plugin should
+<strong>only</strong> attempt to read a file once we are fairly confident that this process
+will not fail. The determination of whether a plugin <strong>can</strong> read a file is
+based on two checks:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">filename_patterns</span></code> field of the manifest contribution. If the given
+path does not match any of the specified <code class="docutils literal notranslate"><span class="pre">filename_patterns</span></code>, the plugin
+will never be given the file</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">command</span></code> provided by the reader contribution. The plugin developer
+should use this function, sometimes called <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> or <code class="docutils literal notranslate"><span class="pre">get_reader</span></code>,
+to check various properties and attributes of
+the file at the given path to determine whether it can be read</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_reader</span></code> <code class="docutils literal notranslate"><span class="pre">command</span></code> provided by a reader contribution is expected to be a function
 that accepts a path (<code class="docutils literal notranslate"><span class="pre">str</span></code>) or a list of paths and:</p>
 <ul class="simple">
 <li><p>returns <code class="docutils literal notranslate"><span class="pre">None</span></code> (if it does not want to accept the given path)</p></li>
-<li><p>returns a <em>new function</em> (a <code class="docutils literal notranslate"><span class="pre">ReaderFunction</span></code>) that is capable of doing the reading.</p></li>
+<li><p>returns a <em>new function</em> that is capable of doing the reading.</p></li>
 </ul>
+<div class="admonition-why-do-we-need-two-functions admonition">
+<p class="admonition-title">Why do we need two functions?</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_reader</span></code> command should make as many checks as possible
+(without loading the full file) to determine if it can read the path. For example,
+you might check for the presence of specific pointer files (like a <code class="docutils literal notranslate"><span class="pre">zarr.json</span></code>), or
+call a file format validating function to ensure the file is well-formed
+before reading, or inspect a few bytes at the beginning of the file to
+make sure it’s the right file format.</p>
+<p>Another benefit of the <code class="docutils literal notranslate"><span class="pre">get_reader</span></code> function is that it allows the plugin
+developer to define multiple different reading functions depending on
+the file format or its properties, and return the appropriate one for the given path.</p>
+<p>This function should not raise exceptions, as napari has its own handlers
+that check for available compatible readers, and surface this information
+to the user. The <code class="docutils literal notranslate"><span class="pre">ReaderFunction</span></code> (described below), <strong>can</strong> raise errors,
+and napari will surface any raised errors to the user.</p>
+</div>
 <p>The <code class="docutils literal notranslate"><span class="pre">ReaderFunction</span></code> will be passed the same path (or list of paths) and
 is expected to return a list containing <a class="reference internal" href="#layer-data-tuples"><span class="std std-ref">LayerData tuples</span></a> or
-a fully instantiated napari <code class="docutils literal notranslate"><span class="pre">Layer</span></code> objects like <code class="docutils literal notranslate"><span class="pre">Image</span></code> or <code class="docutils literal notranslate"><span class="pre">Labels</span></code>.</p>
+a fully instantiated napari <code class="docutils literal notranslate"><span class="pre">Layer</span></code> objects like <code class="docutils literal notranslate"><span class="pre">Image</span></code> or <code class="docutils literal notranslate"><span class="pre">Labels</span></code>. Formally, the
+<code class="docutils literal notranslate"><span class="pre">ReaderFunction</span></code> type is specified as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ReaderFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">PathOrPaths</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]]</span>
+</pre></div>
+</div>
 <p>In the rare case that a reader plugin would like to “claim” a file, but <em>not</em>
 actually add any data to the viewer, the <code class="docutils literal notranslate"><span class="pre">ReaderFunction</span></code> may return
 the special value <code class="docutils literal notranslate"><span class="pre">[(None,)]</span></code>.</p>
@@ -577,6 +612,7 @@ the special value <code class="docutils literal notranslate"><span class="pre">[
 setting <code class="docutils literal notranslate"><span class="pre">contributions.readers.&lt;reader&gt;.accepts_directories</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>;
 otherwise, they will not be invoked when a directory is passed to <code class="docutils literal notranslate"><span class="pre">viewer.open</span></code>.</p>
 </div>
+</section>
 <section id="reader-example">
 <h3>Reader example<a class="headerlink" href="#reader-example" title="Link to this heading">#</a></h3>
 <div class="sd-tab-set docutils">
@@ -586,8 +622,8 @@ npe2</label><div class="sd-tab-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
 <span class="n">PathLike</span> <span class="o">=</span> <span class="nb">str</span>
-<span class="n">PathOrPaths</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">PathLike</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]]</span>
-<span class="n">ReaderFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">PathOrPaths</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]]</span>
+<span class="n">PathOrPaths</span> <span class="o">=</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]</span>
+<span class="n">ReaderFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">PathOrPaths</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]]</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s2">&quot;PathOrPaths&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;ReaderFunction&quot;</span><span class="p">]:</span>
@@ -598,7 +634,7 @@ npe2</label><div class="sd-tab-content docutils">
     <span class="k">return</span> <span class="kc">None</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">xyz_file_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s2">&quot;PathOrPaths&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;LayerData&quot;</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">xyz_file_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s2">&quot;PathOrPaths&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="s2">&quot;LayerData&quot;</span><span class="p">]:</span>
     <span class="n">data</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># somehow read data from path</span>
     <span class="n">layer_attributes</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;etc...&quot;</span><span class="p">}</span>
     <span class="k">return</span> <span class="p">[(</span><span class="n">data</span><span class="p">,</span> <span class="n">layer_attributes</span><span class="p">)]</span>
@@ -750,7 +786,7 @@ and a <code class="docutils literal notranslate"><span class="pre">vectors</span
 npe2</label><div class="sd-tab-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">write_points</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">layer_data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">attributes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">write_points</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">layer_data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">attributes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">):</span>
         <span class="o">...</span>  <span class="c1"># save layer_data and attributes to file</span>
 
@@ -1120,7 +1156,7 @@ will cause an error.</p>
 npe2</label><div class="sd-tab-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">create_fractal</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;LayerData&quot;</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_fractal</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="s2">&quot;LayerData&quot;</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An example of a  Sample Data Function.</span>
 
 <span class="sd">    Note: Sample Data with URIs don&#39;t need python code.</span>
@@ -1361,6 +1397,7 @@ tuple from a given layer</p>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#readers">Readers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-the-reader-contribution">Introduction to the <code class="docutils literal notranslate"><span class="pre">reader</span></code> contribution</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reader-example">Reader example</a></li>
 </ul>
 </li>

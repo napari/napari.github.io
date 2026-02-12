@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=769555d9"></script>
+    <script src="../../../../_static/documentation_options.js?v=0b07a7f0"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -897,6 +897,8 @@ window.addEventListener("load", load);</script>
     <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span>
 
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.event</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmitterGroup</span>
+
     <span class="k">class</span><span class="w"> </span><span class="nc">Emitter</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
         <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">):</span> <span class="o">...</span>
 
@@ -908,7 +910,7 @@ window.addEventListener("load", load);</script>
 
 <div class="viewcode-block" id="disconnect_events">
 <a class="viewcode-back" href="../../../../api/napari.utils.events.html#napari.utils.events.disconnect_events">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">disconnect_events</span><span class="p">(</span><span class="n">emitter</span><span class="p">,</span> <span class="n">listener</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">disconnect_events</span><span class="p">(</span><span class="n">emitter</span><span class="p">:</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">listener</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Disconnect all events between an emitter group and a listener.</span>
 
 <span class="sd">    Parameters</span>

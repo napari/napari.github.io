@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=769555d9"></script>
+    <script src="../../../../_static/documentation_options.js?v=0b07a7f0"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -957,6 +957,7 @@ window.addEventListener("load", load);</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerDataType</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colormap</span><span class="p">,</span> <span class="n">ValidColormapArg</span><span class="p">,</span> <span class="n">ensure_colormap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps.categorical_colormap_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColorCycle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps.colormap_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColorType</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps.standardize_color</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">hex_to_name</span><span class="p">,</span>
@@ -1247,8 +1248,6 @@ window.addEventListener("load", load);</script>
     <span class="n">_edge_color_property</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">_face_color_cycle</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span>
     <span class="n">_edge_color_cycle</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span>
-    <span class="n">_face_color_cycle_values</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span>
-    <span class="n">_edge_color_cycle_values</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span>
     <span class="n">_face_color_mode</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">_edge_color_mode</span><span class="p">:</span> <span class="nb">str</span>
 
@@ -1895,7 +1894,7 @@ window.addEventListener("load", load);</script>
 
 <span class="sd">        Can be a list of colors defined by name, RGB or RGBA</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_cycle_values</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_cycle</span><span class="o">.</span><span class="n">values</span>
 
     <span class="nd">@edge_color_cycle</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">edge_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_color_cycle</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
@@ -1961,7 +1960,7 @@ window.addEventListener("load", load);</script>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Union[np.ndarray, cycle]:  Color cycle for face_color</span>
 <span class="sd">        Can be a list of colors defined by name, RGB or RGBA</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face_color_cycle_values</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face_color_cycle</span><span class="o">.</span><span class="n">values</span>
 
     <span class="nd">@face_color_cycle</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">face_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face_color_cycle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">cycle</span><span class="p">):</span>
@@ -2081,12 +2080,13 @@ window.addEventListener("load", load);</script>
 <span class="sd">            The name of the attribute to set the color of.</span>
 <span class="sd">            Should be &#39;edge&#39; for edge_color or &#39;face&#39; for face_color.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">transformed_color_cycle</span><span class="p">,</span> <span class="n">transformed_colors</span> <span class="o">=</span> <span class="n">transform_color_cycle</span><span class="p">(</span>
+        <span class="n">transformed_colors</span> <span class="o">=</span> <span class="n">transform_color_cycle</span><span class="p">(</span>
             <span class="n">color_cycle</span><span class="o">=</span><span class="n">color_cycle</span><span class="p">,</span>
             <span class="n">elem_name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle&#39;</span><span class="p">,</span>
             <span class="n">default</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle_values&#39;</span><span class="p">,</span> <span class="n">transformed_colors</span><span class="p">)</span>
+        <span class="n">transformed_color_cycle</span> <span class="o">=</span> <span class="n">ColorCycle</span><span class="p">(</span><span class="n">transformed_colors</span><span class="p">)</span>
+
         <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle&#39;</span><span class="p">,</span> <span class="n">transformed_color_cycle</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_properties</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
@@ -2527,18 +2527,18 @@ window.addEventListener("load", load);</script>
                 <span class="s1">&#39;ndim&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
                 <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
                 <span class="s1">&#39;property_choices&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">property_choices</span><span class="p">,</span>
-                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
                 <span class="s1">&#39;shape_type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape_type</span><span class="p">,</span>
                 <span class="s1">&#39;opacity&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span><span class="p">,</span>
                 <span class="s1">&#39;z_index&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_index</span><span class="p">,</span>
                 <span class="s1">&#39;edge_width&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
                 <span class="s1">&#39;face_color&#39;</span><span class="p">:</span> <span class="n">face_color</span><span class="p">,</span>
                 <span class="s1">&#39;face_color_cycle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_color_cycle</span><span class="p">,</span>
-                <span class="s1">&#39;face_colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_colormap</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
+                <span class="s1">&#39;face_colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_colormap</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
                 <span class="s1">&#39;face_contrast_limits&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_contrast_limits</span><span class="p">,</span>
                 <span class="s1">&#39;edge_color&#39;</span><span class="p">:</span> <span class="n">edge_color</span><span class="p">,</span>
                 <span class="s1">&#39;edge_color_cycle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color_cycle</span><span class="p">,</span>
-                <span class="s1">&#39;edge_colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_colormap</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
+                <span class="s1">&#39;edge_colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_colormap</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
                 <span class="s1">&#39;edge_contrast_limits&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_contrast_limits</span><span class="p">,</span>
                 <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
                 <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">,</span>

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=769555d9"></script>
+    <script src="../../../../_static/documentation_options.js?v=0b07a7f0"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -894,13 +894,14 @@ window.addEventListener("load", load);</script>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">app_model.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">KeyBinding</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari._pydantic_compat</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">BaseModel</span><span class="p">,</span>
-    <span class="n">ModelMetaclass</span><span class="p">,</span>
+    <span class="n">ConfigDict</span><span class="p">,</span>
     <span class="n">PrivateAttr</span><span class="p">,</span>
-    <span class="n">main</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic._internal._model_construction</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelMetaclass</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari._pydantic_util</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_inner_type</span><span class="p">,</span> <span class="n">get_outer_type</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.event</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">Event</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">pick_equality_operator</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
@@ -931,19 +932,22 @@ window.addEventListener("load", load);</script>
     <span class="k">def</span><span class="w"> </span><span class="fm">__new__</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">cls</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">__eq_operators__</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__fields__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">__eq_operators__</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">pick_equality_operator</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">type_</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">model_fields</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">field_type</span> <span class="o">=</span> <span class="n">get_outer_type</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">annotation</span><span class="p">)</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">__eq_operators__</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">pick_equality_operator</span><span class="p">(</span><span class="n">field_type</span><span class="p">)</span>
             <span class="c1"># If a field type has a _json_encode method, add it to the json</span>
             <span class="c1"># encoders for this model.</span>
             <span class="c1"># NOTE: a _json_encode field must return an object that can be</span>
             <span class="c1"># passed to json.dumps ... but it needn&#39;t return a string.</span>
-            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">type_</span><span class="p">,</span> <span class="s1">&#39;_json_encode&#39;</span><span class="p">):</span>
-                <span class="n">encoder</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">type_</span><span class="o">.</span><span class="n">_json_encode</span>
-                <span class="bp">cls</span><span class="o">.</span><span class="n">__config__</span><span class="o">.</span><span class="n">json_encoders</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">type_</span><span class="p">]</span> <span class="o">=</span> <span class="n">encoder</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">field_type</span><span class="p">,</span> <span class="s1">&#39;_json_encode&#39;</span><span class="p">):</span>
+                <span class="n">encoder</span> <span class="o">=</span> <span class="n">field_type</span><span class="o">.</span><span class="n">_json_encode</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">model_config</span><span class="p">[</span><span class="s1">&#39;json_encoders&#39;</span><span class="p">][</span><span class="n">field_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">encoder</span>
                 <span class="c1"># also add it to the base config</span>
                 <span class="c1"># required for pydantic&gt;=1.8.0 due to:</span>
                 <span class="c1"># https://github.com/samuelcolvin/pydantic/pull/2064</span>
-                <span class="n">EventedModel</span><span class="o">.</span><span class="n">__config__</span><span class="o">.</span><span class="n">json_encoders</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">type_</span><span class="p">]</span> <span class="o">=</span> <span class="n">encoder</span>
+                <span class="n">EventedModel</span><span class="o">.</span><span class="n">model_config</span><span class="p">[</span><span class="s1">&#39;json_encoders&#39;</span><span class="p">][</span><span class="n">field_type</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">encoder</span>
+                <span class="p">)</span>
         <span class="c1"># check for properties defined on the class, so we can allow them</span>
         <span class="c1"># in EventedModel.__setattr__ and create events</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">__properties__</span> <span class="o">=</span> <span class="p">{}</span>
@@ -974,7 +978,7 @@ window.addEventListener("load", load);</script>
 <span class="sd">    Update the given deps dictionary with the new findings.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">prop</span><span class="o">.</span><span class="n">fget</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_names</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__fields__</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">model_fields</span><span class="p">:</span>
             <span class="n">deps</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">prop_name</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__properties__</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
             <span class="c1"># to avoid infinite recursion, we shouldn&#39;t re-check getter we&#39;ve already seen</span>
@@ -1020,18 +1024,19 @@ window.addEventListener("load", load);</script>
 <span class="sd">            def d(self, val: int):</span>
 <span class="sd">                self.c = [val // 2, val // 2]</span>
 
-<span class="sd">            class Config:</span>
+<span class="sd">            model_config = ConfigDict(</span>
 <span class="sd">                dependencies={</span>
 <span class="sd">                    &#39;c&#39;: [&#39;a&#39;, &#39;b&#39;],</span>
 <span class="sd">                    &#39;d&#39;: [&#39;a&#39;, &#39;b&#39;]</span>
 <span class="sd">                }</span>
+<span class="sd">                )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__properties__</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{}</span>
 
     <span class="n">deps</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="n">_deps</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">__config__</span><span class="p">,</span> <span class="s1">&#39;dependencies&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">_deps</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">model_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dependencies&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">_deps</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">prop_name</span><span class="p">,</span> <span class="n">fields</span> <span class="ow">in</span> <span class="n">_deps</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">prop_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__properties__</span><span class="p">:</span>
@@ -1040,7 +1045,7 @@ window.addEventListener("load", load);</script>
                     <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prop_name</span><span class="si">!r}</span><span class="s1"> is not.&#39;</span>
                 <span class="p">)</span>
             <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__fields__</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">model_fields</span><span class="p">:</span>
                     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unrecognized field dependency: </span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="n">deps</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">prop_name</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -1070,29 +1075,24 @@ window.addEventListener("load", load);</script>
     <span class="n">__field_dependents__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span>
     <span class="n">__eq_operators__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]]]</span>
     <span class="n">_changes_queue</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
-    <span class="n">_primary_changes</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">set</span><span class="p">)</span>
+    <span class="n">_primary_changes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
     <span class="n">_delay_check_semaphore</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="vm">__slots__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;__weakref__&#39;</span><span class="p">}</span>  <span class="c1"># type: ignore</span>
 
     <span class="c1"># pydantic BaseModel configuration.  see:</span>
     <span class="c1"># https://pydantic-docs.helpmanual.io/usage/model_config/</span>
-    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
+    <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span>
         <span class="c1"># whether to allow arbitrary user types for fields (they are validated</span>
         <span class="c1"># simply by checking if the value is an instance of the type). If</span>
         <span class="c1"># False, RuntimeError will be raised on model declaration</span>
-        <span class="n">arbitrary_types_allowed</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="c1"># whether to perform validation on assignment to attributes</span>
-        <span class="n">validate_assignment</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="c1"># whether to treat any underscore non-class var attrs as private</span>
-        <span class="c1"># https://pydantic-docs.helpmanual.io/usage/models/#private-model-attributes</span>
-        <span class="n">underscore_attrs_are_private</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="c1"># whether to validate field defaults (default: False)</span>
-        <span class="n">validate_all</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">arbitrary_types_allowed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">validate_assignment</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">validate_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="c1"># https://pydantic-docs.helpmanual.io/usage/exporting_models/#modeljson</span>
         <span class="c1"># NOTE: json_encoders are also added EventedMetaclass.__new__ if the</span>
         <span class="c1"># field declares a _json_encode method.</span>
-        <span class="n">json_encoders</span> <span class="o">=</span> <span class="n">_BASE_JSON_ENCODERS</span>
-        <span class="c1"># extra = Extra.forbid</span>
+        <span class="n">json_encoders</span><span class="o">=</span><span class="n">_BASE_JSON_ENCODERS</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -1101,8 +1101,8 @@ window.addEventListener("load", load);</script>
         <span class="c1"># add event emitters for each field which is mutable</span>
         <span class="n">field_events</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">name</span>
-            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fields__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">field_info</span><span class="o">.</span><span class="n">allow_mutation</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">model_fields</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">field</span><span class="o">.</span><span class="n">frozen</span>
         <span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
@@ -1148,7 +1148,8 @@ window.addEventListener("load", load);</script>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="k">with</span> <span class="n">ComparisonDelayer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_primary_changes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="c1"># NOTE: this is a dict and not just a set, because we need ORDERED!</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_primary_changes</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_setattr_impl</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_check_if_values_changed_and_emit_if_needed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1160,10 +1161,16 @@ window.addEventListener("load", load);</script>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delay_check_semaphore</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># do not run whole machinery if there is no need</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delay_check_semaphore</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># it means that we finished processing changes,</span>
+                <span class="c1"># but there is no callback connected to events</span>
+                <span class="c1"># associated with changed fields, so we need</span>
+                <span class="c1"># to clear the queues to not have stale data on next changes</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_primary_changes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
             <span class="k">return</span>
         <span class="n">to_emit</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_primary_changes</span><span class="p">:</span>
-            <span class="c1"># primary changes should contains only fields that are changed directly by assignment</span>
+            <span class="c1"># primary changes should contain only fields that are changed directly by assignment</span>
             <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">old_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
@@ -1171,12 +1178,12 @@ window.addEventListener("load", load);</script>
                 <span class="n">to_emit</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">to_emit</span><span class="p">:</span>
-            <span class="c1"># If no direct changes was made then we can skip whole machinery</span>
+            <span class="c1"># If no direct changes were made then we can skip the whole machinery</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_primary_changes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
             <span class="k">return</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">old_value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="c1"># check if any of dependent properties changed</span>
+            <span class="c1"># check if any of the dependent properties changed</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_differ</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">old_value</span><span class="p">))[</span><span class="mi">0</span><span class="p">]:</span>
                 <span class="n">to_emit</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
@@ -1236,7 +1243,7 @@ window.addEventListener("load", load);</script>
         <span class="c1"># events are all messed up due to objects being probably</span>
         <span class="c1"># recreated arbitrarily during validation</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="bp">self</span>
-        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fields__</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">model_fields</span><span class="p">:</span>
             <span class="n">child</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">):</span>
                 <span class="c1"># TODO: this isinstance check should be EventedMutables in the future</span>
@@ -1253,11 +1260,11 @@ window.addEventListener("load", load);</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset the state of the model to default values.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">EventedModel</span><span class="p">):</span>
                 <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
             <span class="k">elif</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__config__</span><span class="o">.</span><span class="n">allow_mutation</span>
-                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fields__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">field_info</span><span class="o">.</span><span class="n">allow_mutation</span>
+                <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;frozen&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">model_fields</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">frozen</span>
             <span class="p">):</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
@@ -1282,7 +1289,7 @@ window.addEventListener("load", load);</script>
 <span class="sd">            different realized types with different fields.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
-            <span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
@@ -1308,17 +1315,17 @@ window.addEventListener("load", load);</script>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check equality with another object.</span>
 
 <span class="sd">        We override the pydantic approach (which just checks</span>
-<span class="sd">        ``self.dict() == other.dict()``) to accommodate more complicated types</span>
+<span class="sd">        ``self.model_dump() == other.model_dump()``) to accommodate more complicated types</span>
 <span class="sd">        like arrays, whose truth value is often ambiguous. ``__eq_operators__``</span>
 <span class="sd">        is constructed in ``EqualityMetaclass.__new__``</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span> <span class="ow">is</span> <span class="n">other</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span> <span class="o">==</span> <span class="n">other</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span> <span class="o">==</span> <span class="n">other</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">for</span> <span class="n">f_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fields__</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">f_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">model_fields</span><span class="p">:</span>
             <span class="n">eq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__eq_operators__</span><span class="p">[</span><span class="n">f_name</span><span class="p">]</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">eq</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f_name</span><span class="p">),</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">f_name</span><span class="p">)):</span>
                 <span class="k">return</span> <span class="kc">False</span>
@@ -1337,26 +1344,64 @@ window.addEventListener("load", load);</script>
 <span class="sd">            by default `True`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">null</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
-        <span class="n">before</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Config</span><span class="p">,</span> <span class="s1">&#39;use_enum_values&#39;</span><span class="p">,</span> <span class="n">null</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Config</span><span class="o">.</span><span class="n">use_enum_values</span> <span class="o">=</span> <span class="n">as_values</span>
+        <span class="n">before</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;use_enum_values&#39;</span><span class="p">,</span> <span class="n">null</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_config</span><span class="p">[</span><span class="s1">&#39;use_enum_values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">as_values</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">yield</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">before</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">null</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">Config</span><span class="o">.</span><span class="n">use_enum_values</span> <span class="o">=</span> <span class="n">before</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model_config</span><span class="p">[</span><span class="s1">&#39;use_enum_values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">before</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="nb">delattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Config</span><span class="p">,</span> <span class="s1">&#39;use_enum_values&#39;</span><span class="p">)</span></div>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_config</span><span class="p">[</span><span class="s1">&#39;use_enum_values&#39;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="EventedModel.model_json_schema">
+<a class="viewcode-back" href="../../../../api/napari.utils.events.EventedModel.html#napari.utils.events.EventedModel.model_json_schema">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">model_json_schema</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a JSON schema for this model.</span>
+
+<span class="sd">        This is required to prevent from mail formated docstring break docs build.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">model_json_schema</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
 </div>
 
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">get_defaults</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_defaults</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">BaseModel</span> <span class="o">|</span> <span class="nb">type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get possibly nested default values for a Model object.&quot;&quot;&quot;</span>
     <span class="n">dflt</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">__fields__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">):</span>
+        <span class="n">model_fields</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">model_fields</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">model_fields</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">model_fields</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">model_fields</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">exclude</span><span class="p">:</span>
+            <span class="k">continue</span>
         <span class="n">d</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">d</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">type_</span><span class="p">,</span> <span class="n">main</span><span class="o">.</span><span class="n">ModelMetaclass</span><span class="p">):</span>
-            <span class="n">d</span> <span class="o">=</span> <span class="n">get_defaults</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">type_</span><span class="p">)</span>
+        <span class="n">field_type</span> <span class="o">=</span> <span class="n">get_inner_type</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">annotation</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">d</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field_type</span><span class="p">,</span> <span class="n">ModelMetaclass</span><span class="p">):</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">get_defaults</span><span class="p">(</span><span class="n">field_type</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="c1"># pydantic require `validated_data` if `call_default_factory` is True</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get_default</span><span class="p">(</span>
+                        <span class="n">call_default_factory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">validated_data</span><span class="o">=</span><span class="p">{}</span>
+                    <span class="p">)</span>
+                <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                    <span class="c1"># pydantic 2.9 and 2.8 do not allow passing `validated_data` to `get_default`,</span>
+                    <span class="c1"># pydantic 2.10 requires it, so we need to catch the TypeError and try again</span>
+                    <span class="c1"># without it for compatibility with 2.8 and 2.9</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get_default</span><span class="p">(</span><span class="n">call_default_factory</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
         <span class="n">dflt</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
     <span class="k">return</span> <span class="n">dflt</span>
 

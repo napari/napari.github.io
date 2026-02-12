@@ -12,6 +12,7 @@ caption: With this tag
 ../gallery/add_vectors_color_by_angle.rst
 ../gallery/affine_coffee_cup.rst
 ../gallery/affine_transforms.rst
+../gallery/cell_tracking.rst
 ../gallery/dynamic-projections-dask.rst
 ../gallery/export_figure.rst
 ../gallery/export_rois.rst

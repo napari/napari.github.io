@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=922eb414"></script>
+    <script src="../../../_static/documentation_options.js?v=769555d9"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1133,15 +1133,16 @@ window.addEventListener("load", load);</script>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">worker</span><span class="o">.</span><span class="n">signals</span><span class="p">,</span> <span class="s1">&#39;aborted&#39;</span><span class="p">):</span>
             <span class="n">worker</span><span class="o">.</span><span class="n">aborted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
                 <span class="n">partial</span><span class="p">(</span>
-                    <span class="k">lambda</span> <span class="n">task_status_id</span><span class="p">,</span>
-                    <span class="n">function</span><span class="p">:</span> <span class="n">window</span><span class="o">.</span><span class="n">_update_task_status</span><span class="p">(</span>
-                        <span class="n">task_status_id</span><span class="p">,</span>
-                        <span class="n">Status</span><span class="o">.</span><span class="n">CANCELLED</span><span class="p">,</span>
-                        <span class="n">description</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                            <span class="s1">&#39;</span><span class="si">{func}</span><span class="s1"> execution cancelled&#39;</span><span class="p">,</span>
-                            <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                            <span class="n">func</span><span class="o">=</span><span class="n">function</span><span class="p">,</span>
-                        <span class="p">),</span>
+                    <span class="k">lambda</span> <span class="n">task_status_id</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="p">(</span>
+                        <span class="n">window</span><span class="o">.</span><span class="n">_update_task_status</span><span class="p">(</span>
+                            <span class="n">task_status_id</span><span class="p">,</span>
+                            <span class="n">Status</span><span class="o">.</span><span class="n">CANCELLED</span><span class="p">,</span>
+                            <span class="n">description</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                                <span class="s1">&#39;</span><span class="si">{func}</span><span class="s1"> execution cancelled&#39;</span><span class="p">,</span>
+                                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                <span class="n">func</span><span class="o">=</span><span class="n">function</span><span class="p">,</span>
+                            <span class="p">),</span>
+                        <span class="p">)</span>
                     <span class="p">),</span>
                     <span class="n">worker_status_id</span><span class="p">,</span>
                     <span class="n">func</span><span class="p">,</span>

@@ -11,6 +11,11 @@ Please [contact](contact) us if you have any queries.
 To contribute to our blog, the [Island Dispatch](https://napari.org/island-dispatch), check out https://github.com/napari/island-dispatch.
 ```
 
+```{important}
+If you want to use an AI/LLM-based tool to contribute to napari, please read
+also our [policy on AI contributions](ai-contributions).
+```
+
 ## Contributing workflow
 
 napari development occurs primarily on GitHub. If you are new to GitHub we recommend checking out the detailed [Github Docs](https://docs.github.com/en).

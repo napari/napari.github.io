@@ -851,6 +851,7 @@ window.addEventListener("load", load);</script>
   </p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../contributing/index.html">Contributing guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/ai.html">AI use policy and guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/dev_install.html">Setting up a development installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/testing.html">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/translations.html">Translations</a></li>
@@ -1185,53 +1186,53 @@ window.addEventListener("load", load);</script>
 <section id="source-code-directory-layout-related-to-modules-inside-napari">
 <h2>Source code directory layout (related to modules inside <code class="docutils literal notranslate"><span class="pre">napari</span></code>)<a class="headerlink" href="#source-code-directory-layout-related-to-modules-inside-napari" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>napari/
+├─components/
+│ └─layerlist.py
 ├─_qt/
-│ ├─qt_resources/
-│ │ └─__init__.py
 │ ├─qt_viewer.py
 │ ├─containers/
+│ │ ├─qt_list_view.py
+│ │ ├─_factory.py
+│ │ ├─qt_layer_model.py
 │ │ ├─_layer_delegate.py
 │ │ ├─_base_item_model.py
 │ │ ├─_base_item_view.py
-│ │ ├─qt_list_view.py
-│ │ ├─qt_layer_model.py
 │ │ ├─qt_layer_list.py
-│ │ ├─_factory.py
 │ │ └─qt_list_model.py
-│ ├─_qapp_model/
-│ │ ├─_menus.py
-│ │ ├─injection/
-│ │ │ ├─_qproviders.py
-│ │ │ └─_qprocessors.py
-│ │ ├─qactions/
-│ │ │ ├─_layerlist_context.py
-│ │ │ └─__init__.py
+│ ├─qt_main_window.py
+│ ├─qt_resources/
 │ │ └─__init__.py
-│ └─qt_main_window.py
-├─layers/
-│ ├─labels/
-│ │ └─__init__.py
-│ ├─utils/
-│ │ ├─_link_layers.py
-│ │ ├─layer_utils.py
-│ │ └─__init__.py
-│ ├─vectors/
-│ │ └─__init__.py
-│ ├─base/
-│ │ └─__init__.py
-│ ├─shapes/
-│ │ └─__init__.py
-│ ├─image/
-│ │ └─__init__.py
-│ ├─tracks/
-│ │ └─__init__.py
-│ ├─points/
-│ │ └─__init__.py
-│ ├─surface/
-│ │ └─__init__.py
-│ └─__init__.py
-└─components/
-  └─layerlist.py
+│ └─_qapp_model/
+│   ├─__init__.py
+│   ├─_menus.py
+│   ├─injection/
+│   │ ├─_qprocessors.py
+│   │ └─_qproviders.py
+│   └─qactions/
+│     ├─__init__.py
+│     └─_layerlist_context.py
+└─layers/
+  ├─surface/
+  │ └─__init__.py
+  ├─points/
+  │ └─__init__.py
+  ├─__init__.py
+  ├─shapes/
+  │ └─__init__.py
+  ├─utils/
+  │ ├─__init__.py
+  │ ├─layer_utils.py
+  │ └─_link_layers.py
+  ├─image/
+  │ └─__init__.py
+  ├─labels/
+  │ └─__init__.py
+  ├─base/
+  │ └─__init__.py
+  ├─tracks/
+  │ └─__init__.py
+  └─vectors/
+    └─__init__.py
 </pre></div>
 </div>
 </section>

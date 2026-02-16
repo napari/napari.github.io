@@ -446,8 +446,7 @@
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../advanced_topics/index.html">Advanced Topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../advanced_topics/npe2_migration_guide.html">Migration to <code class="docutils literal notranslate"><span class="pre">npe2</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../advanced_topics/adapted_plugin_guide.html">Changes to the plugin engine in 0.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../advanced_topics/npe1.html">First generation plugins (<em>Deprecated</em>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../advanced_topics/adapted_plugin_guide.html">Changes to the plugin engine in 0.6.0 and 0.7.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../advanced_topics/widget_communication.html">Widget communication</a></li>
 
 
@@ -891,28 +890,18 @@ Others will prevent it entirely… Be mindful and check the requirements before 
 The license details in your project metadata should also include this information!</p>
 </div>
 </section>
-<section id="outdated-npe1-only-don-t-import-heavy-dependencies-at-the-top-of-your-module">
-<h2>Outdated, npe1 only: Don’t import heavy dependencies at the top of your module<a class="headerlink" href="#outdated-npe1-only-don-t-import-heavy-dependencies-at-the-top-of-your-module" title="Link to this heading">#</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This point will be less relevant when we move to the second generation
-<a class="reference external" href="https://github.com/napari/napari/issues/3115">manifest-based plugin
-declaration</a>, but it’s still a
-good idea to delay importing your plugin-specific dependencies and modules until
-<em>after</em> your hookspec has been called.  This helps napari stay quick and
-responsive at startup.</p>
-</div>
+<section id="don-t-import-heavy-dependencies-at-the-top-of-your-module">
+<h2>Don’t import heavy dependencies at the top of your module<a class="headerlink" href="#don-t-import-heavy-dependencies-at-the-top-of-your-module" title="Link to this heading">#</a></h2>
 <p>Consider the following example plugin:</p>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[options.entry_points]</span>
-<span class="na">napari.plugin</span><span class="w"> </span><span class="o">=</span>
-<span class="w">  </span><span class="na">plugin-name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">mypackage.napari_plugin</span>
+<span class="na">napari.manifest</span><span class="w"> </span><span class="o">=</span>
+<span class="w">  </span><span class="na">plugin-name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">mypackage:napari.yaml</span>
 </pre></div>
 </div>
 <p>In this example, <code class="docutils literal notranslate"><span class="pre">my_heavy_dependency_like_tensorflow</span></code> will be imported
-<em>immediately</em> when napari is launched, and we search the entry_point
-<code class="docutils literal notranslate"><span class="pre">mypackage.napari_plugin</span></code> for decorated hook specifications.</p>
+as soon as the user tries to run any of your plugin actions.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># mypackage/napari_plugin.py</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari_plugin_engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">napari_hook_specification</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QWidget</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">my_heavy_dependency_like_tensorflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">something_amazing</span>
 
@@ -920,16 +909,20 @@ responsive at startup.</p>
     <span class="k">def</span><span class="w"> </span><span class="nf">do_something_amazing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">something_amazing</span><span class="p">()</span>
 
-<span class="nd">@napari_hook_specification</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">napari_experimental_provide_dock_widget</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">MyWidget</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FastWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">do_something_fast</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 </pre></div>
 </div>
+<p>In this case, only <code class="docutils literal notranslate"><span class="pre">MyWidget</span></code> requires the heavy dependency, but with the import
+at the top-level, <code class="docutils literal notranslate"><span class="pre">FastWidget</span></code> will also be affected by the slow import time of
+<code class="docutils literal notranslate"><span class="pre">my_heavy_dependency_like_tensorflow</span></code>.</p>
 <p>This can deterioate the end-user experience, and make napari feel slugish. Best
 practice is to delay heavy imports until right before they are used. The
-following slight modification will help napari load much faster:</p>
+following slight modification will help other bits of your plugin,
+like <code class="docutils literal notranslate"><span class="pre">FastWidget</span></code>, load much faster:</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># mypackage/napari_plugin.py</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari_plugin_engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">napari_hook_specification</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QWidget</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">MyWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
@@ -941,8 +934,6 @@ following slight modification will help napari load much faster:</p>
         <span class="k">return</span> <span class="n">something_amazing</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>(again, the second gen napari plugin engine will help improve this situation,
-but it’s still a good idea!)</p>
 </section>
 </section>
 
@@ -1005,7 +996,7 @@ but it’s still a good idea!)</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-style-for-additional-windows-in-your-plugin">Set style for additional windows in your plugin</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#do-not-package-your-tests-as-a-top-level-package">Do not package your tests as a top-level package</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license-issues-when-including-code-from-3rd-parties">License issues when including code from 3rd parties</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outdated-npe1-only-don-t-import-heavy-dependencies-at-the-top-of-your-module">Outdated, npe1 only: Don’t import heavy dependencies at the top of your module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#don-t-import-heavy-dependencies-at-the-top-of-your-module">Don’t import heavy dependencies at the top of your module</a></li>
 </ul>
   </nav></div>
 

@@ -35,8 +35,10 @@ If you've installed a plugin, restarted `napari`, and some of the plugin's optio
 menu or you're trying to save layers and can't find the plugin in the listed writers, you might have an auto-converted
 plugin using the deprecated `npe1` engine.
 
-Try turning off the `Use npe2 adaptor` setting under `Preferences -> Plugins -> Use npe2 adaptor` and restarting napari.
-This setting will be removed in version `0.7.0` of napari, so reach out to the plugin developer to update their plugin.
+You can check if this is the problem by installing `napari<=0.6.6` and turning off the `Use npe2 adaptor` setting
+ under `Preferences -> Plugins -> Use npe2 adaptor` and restarting napari.
+If this fixes your issue, you'll need reach out to the plugin developer to update their plugin in order to use it
+with `napari>=0.7.0`.
 
 Learn more about this in the [adapted plugin guide](adapted-plugin-guide).
 

@@ -66,7 +66,7 @@ Once the above goals are met, we will develop napari's capabilities for image pr
 
 - Support for reader plugins [#937](https://github.com/napari/napari/pull/937) and writer plugins [#1068](https://github.com/napari/napari/issues/1068) to allow **viewing of domain-specific data and saving of annotations**. For more details see the [`plugins` label](https://github.com/napari/napari/labels/plugins) on our repository.
 
-  > We have a stable specification for adding both [reader and writer plugins](hook-specifications-reference) that is being used in the community.
+  > We have a stable specification for adding both reader and writer plugins that is being used in the community.
 
 - Support for persistent settings [#834](https://github.com/napari/napari/pull/834) to allow **saving of preferences** between launches of the viewer.
 

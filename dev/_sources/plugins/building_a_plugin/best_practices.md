@@ -379,32 +379,22 @@ If you are vendoring other projects, please add an acknowledgement in your READM
 The license details in your project metadata should also include this information!
 ```
 
-## Outdated, npe1 only: Don't import heavy dependencies at the top of your module
-
-```{note}
-This point will be less relevant when we move to the second generation
-[manifest-based plugin
-declaration](https://github.com/napari/napari/issues/3115), but it's still a
-good idea to delay importing your plugin-specific dependencies and modules until
-*after* your hookspec has been called.  This helps napari stay quick and
-responsive at startup.
-```
+## Don't import heavy dependencies at the top of your module
 
 Consider the following example plugin:
 
 ```ini
 [options.entry_points]
-napari.plugin =
-  plugin-name = mypackage.napari_plugin
+napari.manifest =
+  plugin-name = mypackage:napari.yaml
 ```
 
 In this example, `my_heavy_dependency_like_tensorflow` will be imported
-*immediately* when napari is launched, and we search the entry_point
-`mypackage.napari_plugin` for decorated hook specifications.
+as soon as the user tries to run any of your plugin actions.
 
 ```py
 # mypackage/napari_plugin.py
-from napari_plugin_engine import napari_hook_specification
+import numpy as np
 from qtpy.QtWidgets import QWidget
 from my_heavy_dependency_like_tensorflow import something_amazing
 
@@ -412,18 +402,23 @@ class MyWidget(QWidget):
     def do_something_amazing(self):
         return something_amazing()
 
-@napari_hook_specification
-def napari_experimental_provide_dock_widget():
-    return MyWidget
+class FastWidget(QWidget):
+    def do_something_fast(self):
+        return np.zeros((10, 10))
 ```
+
+In this case, only `MyWidget` requires the heavy dependency, but with the import
+at the top-level, `FastWidget` will also be affected by the slow import time of
+`my_heavy_dependency_like_tensorflow`.
 
 This can deterioate the end-user experience, and make napari feel slugish. Best
 practice is to delay heavy imports until right before they are used. The
-following slight modification will help napari load much faster:
+following slight modification will help other bits of your plugin,
+like `FastWidget`, load much faster:
 
 ```py
 # mypackage/napari_plugin.py
-from napari_plugin_engine import napari_hook_specification
+import numpy as np
 from qtpy.QtWidgets import QWidget
 
 class MyWidget(QWidget):
@@ -434,6 +429,3 @@ class MyWidget(QWidget):
 
         return something_amazing()
 ```
-
-(again, the second gen napari plugin engine will help improve this situation,
-but it's still a good idea!)

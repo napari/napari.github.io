@@ -53,10 +53,6 @@ class MyWidget:
         def _on_mouse_move(viewer, event):
             if 'Shift' in event.modifiers:
                 ...
-
-@napari_hook_implementation
-def napari_experimental_provide_dock_widget():
-    return MyWidget
 ```
 
 You might think that you need to somehow simulate a mouse movement in napari in

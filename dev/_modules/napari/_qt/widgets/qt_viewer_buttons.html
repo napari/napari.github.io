@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=38bd6c9f"></script>
+    <script src="../../../../_static/documentation_options.js?v=9fee8a1b"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -962,29 +962,65 @@ window.addEventListener("load", load);</script>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;new_points&#39;</span><span class="p">,</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;New points layer&#39;</span><span class="p">),</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">&#39;Create a new points layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;This button is highlighted if a layer is selected;</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;the new points layer will inherit the shape and scale of this layer</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;Deselect all layers to create a new points layer with the</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;full extent of all the data.&#39;</span>
+            <span class="p">),</span>
             <span class="n">partial</span><span class="p">(</span><span class="n">new_points</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">),</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;new_shapes&#39;</span><span class="p">,</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;New shapes layer&#39;</span><span class="p">),</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">&#39;Create a new shapes layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;This button is highlighted if a layer is selected;</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;the new shapes layer will inherit the shape and scale of this layer</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;Deselect all layers to create a new shapes layer with the</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;full extent of all the data.&#39;</span>
+            <span class="p">),</span>
             <span class="n">partial</span><span class="p">(</span><span class="n">new_shapes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">),</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;new_labels&#39;</span><span class="p">,</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;New labels layer&#39;</span><span class="p">),</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">&#39;Create a new labels layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;The new layer will inherit the scale and shape of the extent</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;of all the layers.&#39;</span>
+            <span class="p">),</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_new_labels</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="n">layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addStretch</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deleteButton</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_on_selection_changed</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_selection_changed</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_selection_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update button checked state when layer selection changes.</span>
+
+<span class="sd">        When a layer is selected, some new layer buttons are checked</span>
+<span class="sd">        to indicate that creating a new layer will inherit properties from the</span>
+<span class="sd">        selected layer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">has_selection</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">has_selection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">has_selection</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">labeled_double_slider</span><span class="p">(</span>

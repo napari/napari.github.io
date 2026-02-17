@@ -297,7 +297,7 @@ class: admonition
 ```
 
 Once you have downloaded the appropriate macOS package file, you will have a file with a name like `napari-0.5.0-macOS-x86_64.pkg`, but the version number will be {{ napari_version }}.
-Double click this file to open the installer.
+Double-click or open this file to launch the Installer.
 
 ![Cropped screenshot of macOS desktop UI showing the icon of the PKG installer file, and an arrow pointing to the Welcome page in the opened PKG installer.](../_static/images/bundle_04.png)
 

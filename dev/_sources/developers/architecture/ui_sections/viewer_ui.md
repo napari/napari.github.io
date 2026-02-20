@@ -278,65 +278,65 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
-├─components/
-│ ├─grid.py
-│ ├─_viewer_constants.py
-│ ├─viewer_model.py
-│ ├─_viewer_mouse_bindings.py
-│ ├─_layer_slicer.py
-│ ├─tooltip.py
-│ ├─camera.py
-│ ├─overlays/
-│ │ ├─base.py
-│ │ ├─bounding_box.py
-│ │ ├─axes.py
-│ │ ├─__init__.py
-│ │ ├─colorbar.py
-│ │ ├─zoom.py
-│ │ ├─text.py
-│ │ ├─scale_bar.py
-│ │ ├─labels_polygon.py
-│ │ ├─brush_circle.py
-│ │ ├─interaction_box.py
-│ │ └─welcome.py
-│ ├─cursor.py
-│ ├─dims.py
-│ ├─layerlist.py
-│ └─_viewer_key_bindings.py
 ├─_qt/
-│ ├─qt_viewer.py
+│ ├─utils.py
 │ ├─threads/
 │ │ ├─status_checker.py
 │ │ └─__init__.py
 │ ├─layer_controls/
 │ │ └─__init__.py
 │ ├─qthreading.py
-│ ├─widgets/
-│ │ ├─qt_dims_sorter.py
-│ │ ├─qt_dims_slider.py
-│ │ ├─qt_scrollbar.py
-│ │ ├─qt_dims.py
-│ │ ├─qt_mirrored_sliders_popup.py
-│ │ ├─qt_spinbox.py
-│ │ ├─qt_command_palette.py
-│ │ ├─qt_viewer_buttons.py
-│ │ ├─qt_tooltip.py
-│ │ ├─qt_viewer_dock_widget.py
-│ │ └─qt_viewer_status_bar.py
-│ ├─utils.py
+│ ├─qt_viewer.py
 │ ├─containers/
 │ │ └─__init__.py
+│ ├─_qapp_model/
+│ │ ├─injection/
+│ │ │ ├─_qprocessors.py
+│ │ │ └─__init__.py
+│ │ └─qactions/
+│ │   ├─_debug.py
+│ │   ├─_layerlist_context.py
+│ │   └─__init__.py
+│ ├─widgets/
+│ │ ├─qt_viewer_status_bar.py
+│ │ ├─qt_viewer_dock_widget.py
+│ │ ├─qt_mirrored_sliders_popup.py
+│ │ ├─qt_dims_sorter.py
+│ │ ├─qt_dims.py
+│ │ ├─qt_scrollbar.py
+│ │ ├─qt_viewer_buttons.py
+│ │ ├─qt_dims_slider.py
+│ │ ├─qt_command_palette.py
+│ │ ├─qt_spinbox.py
+│ │ └─qt_tooltip.py
 │ ├─qt_main_window.py
-│ ├─dialogs/
-│ │ └─__init__.py
-│ └─_qapp_model/
-│   ├─injection/
-│   │ ├─__init__.py
-│   │ └─_qprocessors.py
-│   └─qactions/
-│     ├─__init__.py
-│     ├─_debug.py
-│     └─_layerlist_context.py
-└─layers/
-  └─__init__.py
+│ └─dialogs/
+│   └─__init__.py
+├─layers/
+│ └─__init__.py
+└─components/
+  ├─tooltip.py
+  ├─camera.py
+  ├─_viewer_key_bindings.py
+  ├─_viewer_mouse_bindings.py
+  ├─grid.py
+  ├─dims.py
+  ├─_viewer_constants.py
+  ├─cursor.py
+  ├─overlays/
+  │ ├─zoom.py
+  │ ├─interaction_box.py
+  │ ├─bounding_box.py
+  │ ├─axes.py
+  │ ├─labels_polygon.py
+  │ ├─scale_bar.py
+  │ ├─brush_circle.py
+  │ ├─text.py
+  │ ├─welcome.py
+  │ ├─__init__.py
+  │ ├─colorbar.py
+  │ └─base.py
+  ├─layerlist.py
+  ├─_layer_slicer.py
+  └─viewer_model.py
 ```

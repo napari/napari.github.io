@@ -293,10 +293,20 @@ and these changes will instantly propagate to the GUI. For more information abou
 
 ### Create Layer buttons
 
+![layer buttons with visual indicator from selected layers](../_static/images/layer-buttons.png)
+
 New empty `Points`, `Shapes`, and `Labels` layers can be added to the viewer using the layer buttons between the layer controls and layer list. This is equivalent to, for example, the following code to make an empty `Points` layer:
 
 ```python
 viewer.add_points()
+```
+
+```{admonition} Tip: New layer button behavior
+---
+class: tip
+---
+Creating a new points or shapes layer with the layer buttons will inherit the dimensions and scale of the selected layer(s), as shown by the highlight around the buttons.
+To create layers that inherit the full dimensions and mixed scale of all the layers in the layer list, either select all layers or ensure no layers are selected.
 ```
 
 Once added, either in the GUI or via the console, these layers become accessible in the layers list section of the GUI and at `viewer.layers`. For example, an empty Points layer created using the code snippet above can be accessed using `viewer.layers['Points']`.
@@ -654,7 +664,7 @@ A context-sensitive menu is available when you right-click on any of the layers.
   - **Blending:** additive
   - **Contrast_limits:** min and max values of the layer
   - All other properties, such as **Scale** and **Translate** will be propagated from the original stack.
-- *Merge to RGB*\* - combines a set of 3 image layers with the same dimensionality to a RGB layer. The layers must have one of `red`, `green`, and `blue` colormaps to indicate merging order.
+- **Merge to RGB** - combines a set of 3 image layers with the same dimensionality to a RGB layer. The layers must have one of `red`, `green`, and `blue` colormaps to indicate merging order.
 - **Merge to Stack** - combines a set of layers to a single-layer stack. The resulting layer stack will contain the layers with their original ordering in the layer list. Layers must be of the same type (e.g. An **Image** layer can be merged only with other **Image** layers.) and must have the same dimensionality. (e.g. a 1024 x 1024 layer can only be merged with another 1024 x 1024 layer.)
 - **Projection** - can be used only on a layer with more than 2 dimensions, also known as a *stack*. It creates a new layer that is a projection of the layer stack with the characteristic the user selects, reducing the number of dimensions by 1. More information about the types of projections is available [here](https://medium.com/@damiandn/an-intoduction-to-biological-image-processing-in-imagej-part-3-stacks-and-stack-projections-942aa789420f). The following projections are available:
   - **max projection** - maximum intensity projection. At each pixel position, we go through the stacks, find the pixel with the maximum intensity, and that becomes the intensity of that pixel value in the projected image.

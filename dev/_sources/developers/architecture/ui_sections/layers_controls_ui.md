@@ -410,78 +410,78 @@ graph LR
 napari/
 ├─viewer.py
 ├─_qt/
-│ ├─qt_viewer.py
 │ ├─layer_controls/
-│ │ ├─qt_points_controls.py
+│ │ ├─qt_layer_controls_container.py
+│ │ ├─qt_tracks_controls.py
 │ │ ├─qt_layer_controls_base.py
-│ │ ├─qt_image_controls_base.py
+│ │ ├─qt_points_controls.py
+│ │ ├─qt_shapes_controls.py
+│ │ ├─qt_surface_controls.py
 │ │ ├─qt_labels_controls.py
 │ │ ├─widgets/
+│ │ │ ├─_labels/
+│ │ │ │ ├─qt_ndim_spinbox.py
+│ │ │ │ ├─qt_label_color.py
+│ │ │ │ ├─qt_preserve_labels_checkbox.py
+│ │ │ │ ├─qt_brush_size_slider.py
+│ │ │ │ ├─qt_display_selected_label_checkbox.py
+│ │ │ │ ├─qt_render_control.py
+│ │ │ │ ├─qt_color_mode_combobox.py
+│ │ │ │ ├─__init__.py
+│ │ │ │ ├─qt_contour_spinbox.py
+│ │ │ │ └─qt_contiguous_checkbox.py
+│ │ │ ├─qt_widget_controls_base.py
+│ │ │ ├─_image/
+│ │ │ │ ├─qt_depiction_control.py
+│ │ │ │ ├─qt_interpolation_combobox.py
+│ │ │ │ ├─qt_render_control.py
+│ │ │ │ └─__init__.py
 │ │ │ ├─qt_gamma_slider.py
+│ │ │ ├─_vectors/
+│ │ │ │ ├─qt_vector_style_combobox.py
+│ │ │ │ ├─qt_edge_color.py
+│ │ │ │ ├─qt_line_dimension_spinbox.py
+│ │ │ │ └─__init__.py
+│ │ │ ├─_tracks/
+│ │ │ │ ├─qt_hide_completed_tracks_checkbox.py
+│ │ │ │ ├─qt_id_checkbox.py
+│ │ │ │ ├─qt_head_slider.py
+│ │ │ │ ├─qt_color_properties_combobox.py
+│ │ │ │ ├─qt_tail_control.py
+│ │ │ │ ├─qt_graph_checkbox.py
+│ │ │ │ ├─qt_colormap_control.py
+│ │ │ │ └─__init__.py
+│ │ │ ├─qt_opacity_blending_controls.py
+│ │ │ ├─_surface/
+│ │ │ │ ├─qt_shading_combobox.py
+│ │ │ │ └─__init__.py
+│ │ │ ├─qt_out_slice_checkbox.py
+│ │ │ ├─qt_face_color.py
+│ │ │ ├─qt_projection_mode_control.py
 │ │ │ ├─qt_text_visibility.py
 │ │ │ ├─qt_contrast_limits.py
-│ │ │ ├─_vectors/
-│ │ │ │ ├─qt_edge_color.py
-│ │ │ │ ├─__init__.py
-│ │ │ │ ├─qt_vector_style_combobox.py
-│ │ │ │ └─qt_line_dimension_spinbox.py
-│ │ │ ├─_surface/
-│ │ │ │ ├─__init__.py
-│ │ │ │ └─qt_shading_combobox.py
-│ │ │ ├─__init__.py
-│ │ │ ├─qt_widget_controls_base.py
-│ │ │ ├─_tracks/
-│ │ │ │ ├─qt_id_checkbox.py
-│ │ │ │ ├─qt_graph_checkbox.py
-│ │ │ │ ├─qt_tail_control.py
-│ │ │ │ ├─qt_color_properties_combobox.py
-│ │ │ │ ├─qt_hide_completed_tracks_checkbox.py
-│ │ │ │ ├─__init__.py
-│ │ │ │ ├─qt_head_slider.py
-│ │ │ │ └─qt_colormap_control.py
-│ │ │ ├─_image/
-│ │ │ │ ├─qt_render_control.py
-│ │ │ │ ├─qt_interpolation_combobox.py
-│ │ │ │ ├─__init__.py
-│ │ │ │ └─qt_depiction_control.py
-│ │ │ ├─qt_projection_mode_control.py
-│ │ │ ├─_points/
-│ │ │ │ ├─qt_symbol_combobox.py
-│ │ │ │ ├─__init__.py
-│ │ │ │ ├─qt_border_color.py
-│ │ │ │ └─qt_current_size_slider.py
+│ │ │ ├─qt_colormap_control.py
 │ │ │ ├─_shapes/
 │ │ │ │ ├─qt_edge_width_slider.py
 │ │ │ │ ├─qt_edge_color.py
 │ │ │ │ └─__init__.py
-│ │ │ ├─_labels/
-│ │ │ │ ├─qt_contour_spinbox.py
-│ │ │ │ ├─qt_render_control.py
-│ │ │ │ ├─qt_preserve_labels_checkbox.py
-│ │ │ │ ├─__init__.py
-│ │ │ │ ├─qt_brush_size_slider.py
-│ │ │ │ ├─qt_color_mode_combobox.py
-│ │ │ │ ├─qt_ndim_spinbox.py
-│ │ │ │ ├─qt_label_color.py
-│ │ │ │ ├─qt_display_selected_label_checkbox.py
-│ │ │ │ └─qt_contiguous_checkbox.py
-│ │ │ ├─qt_out_slice_checkbox.py
-│ │ │ ├─qt_opacity_blending_controls.py
-│ │ │ ├─qt_face_color.py
-│ │ │ └─qt_colormap_control.py
-│ │ ├─__init__.py
+│ │ │ ├─_points/
+│ │ │ │ ├─qt_symbol_combobox.py
+│ │ │ │ ├─qt_current_size_slider.py
+│ │ │ │ ├─qt_border_color.py
+│ │ │ │ └─__init__.py
+│ │ │ └─__init__.py
 │ │ ├─qt_vectors_controls.py
-│ │ ├─qt_layer_controls_container.py
-│ │ ├─qt_surface_controls.py
-│ │ ├─qt_shapes_controls.py
+│ │ ├─__init__.py
 │ │ ├─qt_image_controls.py
-│ │ └─qt_tracks_controls.py
+│ │ └─qt_image_controls_base.py
+│ ├─qt_viewer.py
 │ ├─widgets/
+│ │ ├─qt_viewer_dock_widget.py
 │ │ ├─qt_mode_buttons.py
-│ │ ├─qt_command_palette.py
-│ │ └─qt_viewer_dock_widget.py
-│ ├─__init__.py
-│ └─qt_main_window.py
+│ │ └─qt_command_palette.py
+│ ├─qt_main_window.py
+│ └─__init__.py
 └─layers/
   └─__init__.py
 ```

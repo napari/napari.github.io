@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=77c6a4f2"></script>
+    <script src="../../../../_static/documentation_options.js?v=954ccf12"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1066,7 +1066,9 @@ window.addEventListener("load", load);</script>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># add private attributes for event emission</span>
-    <span class="n">_events</span><span class="p">:</span> <span class="n">EmitterGroup</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">EmitterGroup</span><span class="p">)</span>
+    <span class="n">_events</span><span class="p">:</span> <span class="n">EmitterGroup</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">EmitterGroup</span><span class="p">(</span><span class="n">_connect_children</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="p">)</span>
 
     <span class="c1"># mapping of name -&gt; property obj for methods that are properties</span>
     <span class="n">__properties__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">property</span><span class="p">]]</span>
@@ -1193,6 +1195,13 @@ window.addEventListener("load", load);</script>
             <span class="c1"># Again delay comparison to avoid having events caused by callback functions</span>
             <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">new_value</span> <span class="ow">in</span> <span class="n">to_emit</span><span class="p">:</span>
                 <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="n">name</span><span class="p">)(</span><span class="n">value</span><span class="o">=</span><span class="n">new_value</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">callbacks</span><span class="p">):</span>
+                <span class="c1"># If there are callbacks connected to the obj.events itself,</span>
+                <span class="c1"># To mimic previous behavior for an object without</span>
+                <span class="c1"># dependent properties, we set type to the first changed field</span>
+                <span class="c1"># and value to the new value of that field.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">to_emit</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">value</span><span class="o">=</span><span class="n">to_emit</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_setattr_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;events&#39;</span><span class="p">,</span> <span class="p">{}):</span>

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=77c6a4f2"></script>
+    <script src="../../../../_static/documentation_options.js?v=954ccf12"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1866,11 +1866,13 @@ window.addEventListener("load", load);</script>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">source</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">auto_connect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">_connect_children</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="o">**</span><span class="n">emitters</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Event</span><span class="p">]</span> <span class="o">|</span> <span class="n">EventEmitter</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">EventEmitter</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">auto_connect</span> <span class="o">=</span> <span class="n">auto_connect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connect_children</span> <span class="o">=</span> <span class="n">_connect_children</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">auto_connect_format</span> <span class="o">=</span> <span class="s1">&#39;on_</span><span class="si">%s</span><span class="s1">&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_emitters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">EventEmitter</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># whether the sub-emitters have been connected to the group:</span>
@@ -2031,7 +2033,8 @@ window.addEventListener("load", load);</script>
 <span class="sd">        See :func:`EventEmitter.connect() &lt;vispy.event.EventEmitter.connect&gt;`</span>
 <span class="sd">        for arguments.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_connect_emitters</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect_children</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connect_emitters</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">EventEmitter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">before</span><span class="p">,</span> <span class="n">after</span>
         <span class="p">)</span></div>

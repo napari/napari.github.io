@@ -5,7 +5,7 @@
 Testing your plugin is an important step to ensure that it works as expected and to avoid breaking changes in the future.
 Once your plugin is tested and ready to go, you can publish it to any combination of PyPI, conda-forge, and the napari-hub.
 
-````{grid}
+````{grid} 2
 ```{grid-item-card} Testing guidelines
 :link: plugin-test
 :link-type: ref
@@ -18,6 +18,15 @@ Some tips and tricks for effectively testing your plugin.
 :link-type: ref
 
 The steps to publish your plugin to PyPI, conda-forge, and the napari-hub.
+```
+````
+
+````{grid}
+```{grid-item-card} Customizing your napari hub listing
+:link: hub-customization
+:link-type: ref
+
+Learn how to customize your plugin's appearance on the napari hub with metadata, descriptions, and configuration files.
 ```
 ````
 

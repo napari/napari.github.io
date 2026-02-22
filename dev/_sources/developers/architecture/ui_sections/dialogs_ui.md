@@ -36,7 +36,6 @@ graph LR
 	napari._qt._qapp_model.qactions._help --> napari._qt.widgets.qt_logger
 	click napari._qt._qapp_model.qactions._help "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_help.py" _blank
 	napari._qt._qapp_model.qactions._plugins(napari._qt._qapp_model.qactions._plugins)
-	napari._qt._qapp_model.qactions._plugins --> napari._qt.dialogs.qt_plugin_report
 	napari._qt._qapp_model.qactions._plugins --> napari._qt.qt_main_window
 	click napari._qt._qapp_model.qactions._plugins "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_plugins.py" _blank
 	napari._qt._qplugins._qnpe2(napari._qt._qplugins._qnpe2)
@@ -60,8 +59,6 @@ graph LR
 	napari._qt.dialogs.qt_notification --> napari._qt.qt_main_window
 	napari._qt.dialogs.qt_notification --> napari._qt.utils
 	click napari._qt.dialogs.qt_notification "https://github.com/napari/napari/tree/main/napari/_qt/dialogs/qt_notification.py" _blank
-	napari._qt.dialogs.qt_plugin_report(napari._qt.dialogs.qt_plugin_report)
-	click napari._qt.dialogs.qt_plugin_report "https://github.com/napari/napari/tree/main/napari/_qt/dialogs/qt_plugin_report.py" _blank
 	napari._qt.dialogs.qt_reader_dialog(napari._qt.dialogs.qt_reader_dialog)
 	click napari._qt.dialogs.qt_reader_dialog "https://github.com/napari/napari/tree/main/napari/_qt/dialogs/qt_reader_dialog.py" _blank
 	napari._qt.dialogs.screenshot_dialog(napari._qt.dialogs.screenshot_dialog)
@@ -180,7 +177,6 @@ graph LR
 		 napari._qt.dialogs.qt_activity_dialog
 		 napari._qt.dialogs.qt_modal
 		 napari._qt.dialogs.qt_notification
-		 napari._qt.dialogs.qt_plugin_report
 		 napari._qt.dialogs.qt_reader_dialog
 		 napari._qt.dialogs.screenshot_dialog
 	end
@@ -265,7 +261,6 @@ napari/
 │ ├─qt_main_window.py
 │ └─dialogs/
 │   ├─qt_about.py
-│   ├─qt_plugin_report.py
 │   ├─qt_reader_dialog.py
 │   ├─confirm_close_dialog.py
 │   ├─qt_modal.py

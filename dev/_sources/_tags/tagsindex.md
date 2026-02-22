@@ -12,7 +12,7 @@ colored 2D tracks (1) <colored-2d-tracks>
 experimental (10) <experimental>
 features-table (5) <features-table>
 gui (16) <gui>
-historical (4) <historical>
+historical (3) <historical>
 interactivity (7) <interactivity>
 layers (8) <layers>
 visualization-advanced (23) <visualization-advanced>

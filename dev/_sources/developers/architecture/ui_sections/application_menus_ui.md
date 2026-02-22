@@ -47,7 +47,6 @@ graph LR
 	napari._qt._qapp_model.qactions._layers_actions(napari._qt._qapp_model.qactions._layers_actions)
 	click napari._qt._qapp_model.qactions._layers_actions "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_layers_actions.py" _blank
 	napari._qt._qapp_model.qactions._plugins(napari._qt._qapp_model.qactions._plugins)
-	napari._qt._qapp_model.qactions._plugins --> napari._qt.dialogs.qt_plugin_report
 	napari._qt._qapp_model.qactions._plugins --> napari._qt.qt_main_window
 	click napari._qt._qapp_model.qactions._plugins "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_plugins.py" _blank
 	napari._qt._qapp_model.qactions._toggle_action(napari._qt._qapp_model.qactions._toggle_action)
@@ -68,8 +67,6 @@ graph LR
 	click napari._qt.dialogs.qt_about "https://github.com/napari/napari/tree/main/napari/_qt/dialogs/qt_about.py" _blank
 	napari._qt.dialogs.qt_modal(napari._qt.dialogs.qt_modal)
 	click napari._qt.dialogs.qt_modal "https://github.com/napari/napari/tree/main/napari/_qt/dialogs/qt_modal.py" _blank
-	napari._qt.dialogs.qt_plugin_report(napari._qt.dialogs.qt_plugin_report)
-	click napari._qt.dialogs.qt_plugin_report "https://github.com/napari/napari/tree/main/napari/_qt/dialogs/qt_plugin_report.py" _blank
 	napari._qt.dialogs.qt_reader_dialog(napari._qt.dialogs.qt_reader_dialog)
 	click napari._qt.dialogs.qt_reader_dialog "https://github.com/napari/napari/tree/main/napari/_qt/dialogs/qt_reader_dialog.py" _blank
 	napari._qt.dialogs.screenshot_dialog(napari._qt.dialogs.screenshot_dialog)
@@ -138,7 +135,6 @@ graph LR
 		 napari._qt.dialogs.preferences_dialog
 		 napari._qt.dialogs.qt_about
 		 napari._qt.dialogs.qt_modal
-		 napari._qt.dialogs.qt_plugin_report
 		 napari._qt.dialogs.qt_reader_dialog
 		 napari._qt.dialogs.screenshot_dialog
 	end
@@ -189,7 +185,6 @@ napari/
   ├─__init__.py
   └─dialogs/
     ├─qt_about.py
-    ├─qt_plugin_report.py
     ├─qt_reader_dialog.py
     ├─confirm_close_dialog.py
     ├─qt_modal.py

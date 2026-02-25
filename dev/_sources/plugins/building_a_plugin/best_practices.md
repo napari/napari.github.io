@@ -46,7 +46,7 @@ command line installation in a fresh environment. In `pyproject.toml` this would
 
     ```
     [project.optional-dependencies]
-    all = [napari["all]"]
+    all = ["napari[all]"]
     ```
 
     And then your plugin could be installed with napari and the default Qt backend using:

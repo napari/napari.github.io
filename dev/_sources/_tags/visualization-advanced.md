@@ -16,6 +16,7 @@ caption: With this tag
 ../gallery/dynamic-projections-dask.rst
 ../gallery/export_figure.rst
 ../gallery/export_rois.rst
+../gallery/heart_masks_points.rst
 ../gallery/image_border.rst
 ../gallery/layer_bounding_box.rst
 ../gallery/layer_text_scaling.rst

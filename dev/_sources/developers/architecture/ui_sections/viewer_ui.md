@@ -7,11 +7,18 @@ graph LR
 	napari._qt._qapp_model.injection(napari._qt._qapp_model.injection)
 	click napari._qt._qapp_model.injection "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/__init__.py" _blank
 	napari._qt._qapp_model.injection._qprocessors(napari._qt._qapp_model.injection._qprocessors)
+	napari._qt._qapp_model.injection._qprocessors --> napari._qt._qapp_model.injection._qproviders
 	napari._qt._qapp_model.injection._qprocessors --> napari.layers
 	click napari._qt._qapp_model.injection._qprocessors "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/_qprocessors.py" _blank
+	napari._qt._qapp_model.injection._qproviders(napari._qt._qapp_model.injection._qproviders)
+	napari._qt._qapp_model.injection._qproviders --> napari._qt.qt_main_window
+	napari._qt._qapp_model.injection._qproviders --> napari._qt.qt_viewer
+	napari._qt._qapp_model.injection._qproviders --> napari.layers
+	click napari._qt._qapp_model.injection._qproviders "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/_qproviders.py" _blank
 	napari._qt._qapp_model.qactions(napari._qt._qapp_model.qactions)
 	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.injection
 	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.injection._qprocessors
+	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.injection._qproviders
 	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.qactions._debug
 	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.qactions._layerlist_context
 	napari._qt._qapp_model.qactions --> napari._qt.qt_main_window
@@ -111,6 +118,7 @@ graph LR
 	napari.components._viewer_constants(napari.components._viewer_constants)
 	click napari.components._viewer_constants "https://github.com/napari/napari/tree/main/napari/components/_viewer_constants.py" _blank
 	napari.components._viewer_key_bindings(napari.components._viewer_key_bindings)
+	napari.components._viewer_key_bindings --> napari._qt.qt_viewer
 	napari.components._viewer_key_bindings --> napari.components.viewer_model
 	click napari.components._viewer_key_bindings "https://github.com/napari/napari/tree/main/napari/components/_viewer_key_bindings.py" _blank
 	napari.components._viewer_mouse_bindings(napari.components._viewer_mouse_bindings)
@@ -202,6 +210,7 @@ graph LR
 	class module.napari._qt._qapp_model subgraphs
 	subgraph module.napari._qt._qapp_model.injection[napari._qt._qapp_model.injection]
 		 napari._qt._qapp_model.injection._qprocessors
+		 napari._qt._qapp_model.injection._qproviders
 	end
 	class module.napari._qt._qapp_model.injection subgraphs
 	subgraph module.napari._qt._qapp_model.qactions[napari._qt._qapp_model.qactions]
@@ -332,7 +341,8 @@ napari/
 │ └─_qapp_model/
 │   ├─injection/
 │   │ ├─__init__.py
-│   │ └─_qprocessors.py
+│   │ ├─_qprocessors.py
+│   │ └─_qproviders.py
 │   └─qactions/
 │     ├─__init__.py
 │     ├─_debug.py

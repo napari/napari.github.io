@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=a3ea8e2e"></script>
+    <script src="../../../_static/documentation_options.js?v=f73f14a5"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1013,11 +1013,18 @@ window.addEventListener("load", load);</script>
 	napari._qt._qapp_model.injection(napari._qt._qapp_model.injection)
 	click napari._qt._qapp_model.injection &quot;https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/__init__.py&quot; _blank
 	napari._qt._qapp_model.injection._qprocessors(napari._qt._qapp_model.injection._qprocessors)
+	napari._qt._qapp_model.injection._qprocessors --&gt; napari._qt._qapp_model.injection._qproviders
 	napari._qt._qapp_model.injection._qprocessors --&gt; napari.layers
 	click napari._qt._qapp_model.injection._qprocessors &quot;https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/_qprocessors.py&quot; _blank
+	napari._qt._qapp_model.injection._qproviders(napari._qt._qapp_model.injection._qproviders)
+	napari._qt._qapp_model.injection._qproviders --&gt; napari._qt.qt_main_window
+	napari._qt._qapp_model.injection._qproviders --&gt; napari._qt.qt_viewer
+	napari._qt._qapp_model.injection._qproviders --&gt; napari.layers
+	click napari._qt._qapp_model.injection._qproviders &quot;https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/_qproviders.py&quot; _blank
 	napari._qt._qapp_model.qactions(napari._qt._qapp_model.qactions)
 	napari._qt._qapp_model.qactions --&gt; napari._qt._qapp_model.injection
 	napari._qt._qapp_model.qactions --&gt; napari._qt._qapp_model.injection._qprocessors
+	napari._qt._qapp_model.qactions --&gt; napari._qt._qapp_model.injection._qproviders
 	napari._qt._qapp_model.qactions --&gt; napari._qt._qapp_model.qactions._debug
 	napari._qt._qapp_model.qactions --&gt; napari._qt._qapp_model.qactions._layerlist_context
 	napari._qt._qapp_model.qactions --&gt; napari._qt.qt_main_window
@@ -1117,6 +1124,7 @@ window.addEventListener("load", load);</script>
 	napari.components._viewer_constants(napari.components._viewer_constants)
 	click napari.components._viewer_constants &quot;https://github.com/napari/napari/tree/main/napari/components/_viewer_constants.py&quot; _blank
 	napari.components._viewer_key_bindings(napari.components._viewer_key_bindings)
+	napari.components._viewer_key_bindings --&gt; napari._qt.qt_viewer
 	napari.components._viewer_key_bindings --&gt; napari.components.viewer_model
 	click napari.components._viewer_key_bindings &quot;https://github.com/napari/napari/tree/main/napari/components/_viewer_key_bindings.py&quot; _blank
 	napari.components._viewer_mouse_bindings(napari.components._viewer_mouse_bindings)
@@ -1208,6 +1216,7 @@ window.addEventListener("load", load);</script>
 	class module.napari._qt._qapp_model subgraphs
 	subgraph module.napari._qt._qapp_model.injection[napari._qt._qapp_model.injection]
 		 napari._qt._qapp_model.injection._qprocessors
+		 napari._qt._qapp_model.injection._qproviders
 	end
 	class module.napari._qt._qapp_model.injection subgraphs
 	subgraph module.napari._qt._qapp_model.qactions[napari._qt._qapp_model.qactions]
@@ -1338,7 +1347,8 @@ window.addEventListener("load", load);</script>
 │ └─_qapp_model/
 │   ├─injection/
 │   │ ├─__init__.py
-│   │ └─_qprocessors.py
+│   │ ├─_qprocessors.py
+│   │ └─_qproviders.py
 │   └─qactions/
 │     ├─__init__.py
 │     ├─_debug.py

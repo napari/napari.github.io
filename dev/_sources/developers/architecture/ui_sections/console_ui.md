@@ -18,6 +18,7 @@ graph LR
 	napari._qt.widgets.qt_viewer_buttons --> napari.viewer
 	click napari._qt.widgets.qt_viewer_buttons "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_buttons.py" _blank
 	napari.components._viewer_key_bindings(napari.components._viewer_key_bindings)
+	napari.components._viewer_key_bindings --> napari._qt.qt_viewer
 	napari.components._viewer_key_bindings --> napari.components.viewer_model
 	napari.components._viewer_key_bindings --> napari.utils.notifications
 	napari.components._viewer_key_bindings --> napari.viewer

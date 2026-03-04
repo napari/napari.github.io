@@ -24,7 +24,7 @@ Image depth
 
 .. tags:: visualization-basic
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-29
+.. GENERATED FROM PYTHON SOURCE LINES 7-31
 
 
 
@@ -58,6 +58,8 @@ Image depth
     viewer.add_points(points_data, size=4)
 
     viewer.dims.ndisplay = 3
+    viewer.camera.angles = (0, -10, 10)
+    viewer.fit_to_view()
 
     if __name__ == '__main__':
         napari.run()

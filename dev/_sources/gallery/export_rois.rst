@@ -33,7 +33,7 @@ scaled roi screenshots with scale bar and the last 4 display the unscaled roi sc
 
 .. tags:: visualization-advanced
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-88
+.. GENERATED FROM PYTHON SOURCE LINES 16-87
 
 
 
@@ -116,7 +116,6 @@ scaled roi screenshots with scale bar and the last 4 display the unscaled roi sc
 
     viewer.grid.enabled = True
     viewer.grid.shape = (3, 3)
-
 
     if __name__ == '__main__':
         napari.run()

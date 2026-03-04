@@ -6,7 +6,7 @@
 maxdepth: 1
 caption: With this tag
 ---
-../gallery/3Dimage_plane_rendering.rst
+../gallery/3D_image_plane_rendering.rst
 ../gallery/action_manager.rst
 ../gallery/bbox_annotator.rst
 ../gallery/custom_key_bindings.rst

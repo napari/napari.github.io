@@ -7,13 +7,13 @@ maxdepth: 1
 caption: With this tag
 ---
 ../gallery/3D_vectors_through_time.rst
-../gallery/add-points-3d.rst
 ../gallery/add_3D_image.rst
+../gallery/add_points_3d.rst
 ../gallery/add_points_on_nD_shapes.rst
 ../gallery/concentric-spheres.rst
 ../gallery/dask_nD_image.rst
-../gallery/image-points-3d.rst
 ../gallery/image_custom_kernel.rst
+../gallery/image_points_3d.rst
 ../gallery/labels3d.rst
 ../gallery/layer_bounding_box.rst
 ../gallery/mixed-dimensions-labels.rst

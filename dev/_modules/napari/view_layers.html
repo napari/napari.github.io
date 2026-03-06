@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=de7d020c"></script>
+    <script src="../../_static/documentation_options.js?v=cab4d2e3"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -893,7 +893,7 @@ window.addEventListener("load", load);</script>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">overload</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.dims</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dims</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
@@ -964,6 +964,88 @@ window.addEventListener("load", load);</script>
     <span class="k">return</span> <span class="n">viewer</span><span class="p">,</span> <span class="n">added</span>
 
 
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">imshow</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">channel_axis</span><span class="p">:</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">affine</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">axis_labels</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">attenuation</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">blending</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">cache</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">contrast_limits</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">custom_interpolation_kernel_2d</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">depiction</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">experimental_clipping_planes</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">gamma</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">interpolation2d</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">interpolation3d</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">iso_threshold</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">multiscale</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">opacity</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">plane</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">projection_mode</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">rendering</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">rgb</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">rotate</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">scale</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">shear</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">translate</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">units</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">visible</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">viewer</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">ndisplay</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">order</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">show</span><span class="o">=...</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Viewer</span><span class="p">,</span> <span class="n">Image</span><span class="p">]:</span> <span class="o">...</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">imshow</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">channel_axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">affine</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">axis_labels</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">attenuation</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">blending</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">cache</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">contrast_limits</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">custom_interpolation_kernel_2d</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">depiction</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">experimental_clipping_planes</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">gamma</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">interpolation2d</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">interpolation3d</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">iso_threshold</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">multiscale</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">opacity</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">plane</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">projection_mode</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">rendering</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">rgb</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">rotate</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">scale</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">shear</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">translate</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">units</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">visible</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">viewer</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">ndisplay</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">order</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">show</span><span class="o">=...</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Viewer</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Image</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span> <span class="o">...</span>
+
+
 <div class="viewcode-block" id="imshow">
 <a class="viewcode-back" href="../../api/napari.view_layers.html#napari.imshow">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">imshow</span><span class="p">(</span>
@@ -1003,7 +1085,7 @@ window.addEventListener("load", load);</script>
     <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">order</span><span class="o">=</span><span class="p">(),</span>
     <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Viewer</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="s1">&#39;Image&#39;</span><span class="p">]]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Viewer</span><span class="p">,</span> <span class="n">Image</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Image</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load data into an Image layer and return the Viewer and Layer.</span>
 
 <span class="sd">    Parameters</span>
@@ -1136,7 +1218,7 @@ window.addEventListener("load", load);</script>
 <span class="sd">    -------</span>
 <span class="sd">    viewer : napari.Viewer</span>
 <span class="sd">        The created or passed viewer.</span>
-<span class="sd">    layer(s) : napari.layers.Image or List[napari.layers.Image]</span>
+<span class="sd">    layer(s) : napari.layers.Image or tuple of napari.layers.Image</span>
 <span class="sd">        The added layer(s). (May be more than one if the ``channel_axis`` keyword</span>
 <span class="sd">        argument is given.</span>
 <span class="sd">    &quot;&quot;&quot;</span>

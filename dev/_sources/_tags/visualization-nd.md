@@ -10,6 +10,7 @@ caption: With this tag
 ../gallery/add_3D_image.rst
 ../gallery/add_points_3d.rst
 ../gallery/add_points_on_nD_shapes.rst
+../gallery/anisotropic_scale.rst
 ../gallery/concentric-spheres.rst
 ../gallery/dask_nD_image.rst
 ../gallery/image_custom_kernel.rst

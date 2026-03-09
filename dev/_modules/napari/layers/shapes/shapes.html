@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=420f1c77"></script>
+    <script src="../../../../_static/documentation_options.js?v=74f6c57a"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -2234,7 +2234,7 @@ window.addEventListener("load", load);</script>
 <span class="sd">            Should be &#39;edge&#39; for edge_color or &#39;face&#39; for face_color.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_color_mapped</span><span class="p">(</span><span class="n">color</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">guess_continuous</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">color</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="n">guess_continuous</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">color</span><span class="p">],</span> <span class="n">feature_name</span><span class="o">=</span><span class="n">color</span><span class="p">):</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_mode&#39;</span><span class="p">,</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">COLORMAP</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_mode&#39;</span><span class="p">,</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">CYCLE</span><span class="p">)</span>
@@ -2325,7 +2325,7 @@ window.addEventListener("load", load);</script>
 <span class="sd">            The calculated values for setting edge or face_color</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_color_mapped</span><span class="p">(</span><span class="n">color</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">guess_continuous</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">color</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="n">guess_continuous</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">color</span><span class="p">],</span> <span class="n">feature_name</span><span class="o">=</span><span class="n">color</span><span class="p">):</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_mode&#39;</span><span class="p">,</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">COLORMAP</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_mode&#39;</span><span class="p">,</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">CYCLE</span><span class="p">)</span>

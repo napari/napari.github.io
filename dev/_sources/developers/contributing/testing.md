@@ -143,10 +143,10 @@ in `System Settings > Privacy & Security > Accessibility` so `pyautogui` can con
 It is also possible to run tests locally using `tox`. We use `tox` to run test in CI.
 The main difference between running `pytest` locally or `tox` locally is that `tox` will create a virtual environment
 for each test environment, so it will take a bit more time. Though, `tox` will be more similar to the CI environment.
-To run test using `tox` using Python 3.10 and pyqt5 on Linux, enter:
+To run test using `tox` using Python 3.13 and pyqt6 on Linux, enter:
 
 ```sh
-tox -e py310-linux-pyqt5
+tox -e py313-linux-pyqt6
 ```
 
 To get list of all available environments that may be run:
@@ -171,7 +171,7 @@ You can avoid pop-up windows opening two different ways:
    or
 
    ```shell
-   QT_QPA_PLATFORM=offscreen tox -e py310-linux-pyqt5
+   QT_QPA_PLATFORM=offscreen tox -e py313-linux-pyqt6
    ```
 
 1. If you are using Linux or WSL (Windows Subsystem for Linux), you can use the `xvfb-run` command.
@@ -184,10 +184,10 @@ You can avoid pop-up windows opening two different ways:
    or
 
    ```sh
-   xvfb-run tox -e py310-linux-pyqt5
+   xvfb-run tox -e py313-linux-pyqt6
    ```
 
-where the tox environment selector `py310-linux-pyqt5` must match your OS and Python version.
+where the tox environment selector `py313-linux-pyqt6` must match your OS and Python version.
 
 ### Tips for speeding up local testing
 

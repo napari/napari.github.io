@@ -698,8 +698,8 @@ in <code class="docutils literal notranslate"><span class="pre">System</span> <s
 <p>It is also possible to run tests locally using <code class="docutils literal notranslate"><span class="pre">tox</span></code>. We use <code class="docutils literal notranslate"><span class="pre">tox</span></code> to run test in CI.
 The main difference between running <code class="docutils literal notranslate"><span class="pre">pytest</span></code> locally or <code class="docutils literal notranslate"><span class="pre">tox</span></code> locally is that <code class="docutils literal notranslate"><span class="pre">tox</span></code> will create a virtual environment
 for each test environment, so it will take a bit more time. Though, <code class="docutils literal notranslate"><span class="pre">tox</span></code> will be more similar to the CI environment.
-To run test using <code class="docutils literal notranslate"><span class="pre">tox</span></code> using Python 3.10 and pyqt5 on Linux, enter:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-e<span class="w"> </span>py310-linux-pyqt5
+To run test using <code class="docutils literal notranslate"><span class="pre">tox</span></code> using Python 3.13 and pyqt6 on Linux, enter:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-e<span class="w"> </span>py313-linux-pyqt6
 </pre></div>
 </div>
 <p>To get list of all available environments that may be run:</p>
@@ -719,7 +719,7 @@ This tells Qt to render windows “offscreen”, which is slower but will avoid 
 </pre></div>
 </div>
 <p>or</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">QT_QPA_PLATFORM</span><span class="o">=</span>offscreen<span class="w"> </span>tox<span class="w"> </span>-e<span class="w"> </span>py310-linux-pyqt5
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">QT_QPA_PLATFORM</span><span class="o">=</span>offscreen<span class="w"> </span>tox<span class="w"> </span>-e<span class="w"> </span>py313-linux-pyqt6
 </pre></div>
 </div>
 </li>
@@ -729,12 +729,12 @@ This will run the tests in a virtual X server.</p>
 </pre></div>
 </div>
 <p>or</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>xvfb-run<span class="w"> </span>tox<span class="w"> </span>-e<span class="w"> </span>py310-linux-pyqt5
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>xvfb-run<span class="w"> </span>tox<span class="w"> </span>-e<span class="w"> </span>py313-linux-pyqt6
 </pre></div>
 </div>
 </li>
 </ol>
-<p>where the tox environment selector <code class="docutils literal notranslate"><span class="pre">py310-linux-pyqt5</span></code> must match your OS and Python version.</p>
+<p>where the tox environment selector <code class="docutils literal notranslate"><span class="pre">py313-linux-pyqt6</span></code> must match your OS and Python version.</p>
 </section>
 <section id="tips-for-speeding-up-local-testing">
 <h3>Tips for speeding up local testing<a class="headerlink" href="#tips-for-speeding-up-local-testing" title="Link to this heading">#</a></h3>

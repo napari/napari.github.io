@@ -555,23 +555,23 @@ affect the ability to install or use your plugin effectively.</p>
 <span id="best-practices-no-qt-backend"></span><h2>Don’t include <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code>, <code class="docutils literal notranslate"><span class="pre">PySide6</span></code>, <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> or <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code> in your plugin’s default dependencies.<a class="headerlink" href="#don-t-include-napari-all-pyside6-pyqt5-or-pyqt6-in-your-plugin-s-default-dependencies" title="Link to this heading">#</a></h2>
 <p><em>This is important! Avoid including any form of Qt in your plugin’s dependencies!</em></p>
 <p>Napari supports <em>both</em> PyQt and PySide backends for Qt. It is up to the
-end-user to choose which one they want. If they installed napari with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari[all]</span></code>, then this includes <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> from PyPI as the default backend.
-If they installed via <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">napari</span> <span class="pre">pyqt</span></code>, then they’ll have <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code>,
+end-user to choose which one they want. If they installed napari with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari[all]</span></code>, then this includes <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code> from PyPI as the default backend.
+If they installed via <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">napari</span> <span class="pre">pyqt</span></code>, then they’ll have <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code>,
 but from conda-forge instead of PyPI. Meanwhile, the napari bundle installs with PySide6.
-Users are also free to install PyQt6, or PySide6 backend.</p>
+Users are also free to install PyQt5, or PySide6 backend.</p>
 <p>Here’s what can go wrong if you <em>also</em> declare one of these backends <strong>or napari[all]</strong>
 in the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code>/<code class="docutils literal notranslate"><span class="pre">install_requires</span></code> section of your plugin metadata:</p>
 <ul class="simple">
 <li><p>If they installed via <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">napari</span> <span class="pre">pyqt</span></code> and then they install your plugin
 via <code class="docutils literal notranslate"><span class="pre">pip</span></code> (or vice versa) then there <em>will</em> be a binary incompatibility between the
-conda <code class="docutils literal notranslate"><span class="pre">pyqt</span></code> installation, and the <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> installation from PyPI. <em>This will very likely
+conda <code class="docutils literal notranslate"><span class="pre">pyqt</span></code> installation, and the <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code> installation from PyPI. <em>This will very likely
 lead to a broken environment, forcing the user to re-create their entire
 environment and re-install napari</em>. This is an unfortunate consequence of
 <a class="reference external" href="https://github.com/ContinuumIO/anaconda-issues/issues/1554">package naming decisions</a>,
 and it’s not something napari can fix.</p></li>
 <li><p>Alternatively, they may end up with some combination of <em>both</em> PyQt5, PyQt6,
 and PySide6 in their environment: the Qt backend they had installed and the one your
-plugin installed as a dependency. This is will not <em>always</em> to break things, but
+plugin installed as a dependency. This will not <em>always</em> break things, but
 it will lead to unexpected and difficult to debug problems.</p></li>
 <li><p>Both of the above cases are most likely to happen with the built-in GUI napari plugin manager,
 which will install your plugin plus the base dependencies. As a result, this frequently
@@ -582,7 +582,7 @@ users, leaving them the only recourse of re-installing.</p></li>
 <p class="admonition-title">Tip</p>
 <ol class="arabic">
 <li><p>You can still include a specific Qt backend in optional <code class="docutils literal notranslate"><span class="pre">dev</span></code> or <code class="docutils literal notranslate"><span class="pre">testing</span></code> dependencies!
-Just <em>don’t</em> include a specific Qt backend (or <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code>, which currently includes PyQt5)
+Just <em>don’t</em> include a specific Qt backend (or <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code>, which currently includes PyQt6)
 in your base dependencies.</p></li>
 <li><p>You can include an optional <code class="docutils literal notranslate"><span class="pre">all</span></code> dependency on <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code> to mimic the simple,
 command line installation in a fresh environment. In <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> this would be:</p>
@@ -602,8 +602,8 @@ dependency.</p>
 </section>
 <section id="don-t-import-from-any-specific-qt-backend-e-g-pyqt5-pyqt6-pyside6-etc-in-your-plugin-use-qtpy">
 <h2>Don’t import from any specific Qt backend (e.g. <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code>, <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code>, <code class="docutils literal notranslate"><span class="pre">PySide6</span></code>, etc.) in your plugin: use <code class="docutils literal notranslate"><span class="pre">qtpy</span></code><a class="headerlink" href="#don-t-import-from-any-specific-qt-backend-e-g-pyqt5-pyqt6-pyside6-etc-in-your-plugin-use-qtpy" title="Link to this heading">#</a></h2>
-<p>If you use <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">PyQt5</span> <span class="pre">import</span> <span class="pre">QtCore</span></code> (or similar) in your plugin, but the
-end-user has chosen to use <code class="docutils literal notranslate"><span class="pre">PySide6</span></code> or <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code> for their Qt backend — or vice versa —
+<p>If you use <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">PyQt6</span> <span class="pre">import</span> <span class="pre">QtCore</span></code> (or similar) in your plugin, but the
+end-user has chosen to use <code class="docutils literal notranslate"><span class="pre">PySide6</span></code> or <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> for their Qt backend — or vice versa —
 then your plugin will fail to import. Instead use <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">qtpy</span> <span class="pre">import</span> <span class="pre">QtCore</span></code>.
 <code class="docutils literal notranslate"><span class="pre">qtpy</span></code> is a <a class="reference external" href="https://github.com/spyder-ide/qtpy">Qt compatibility layer</a>
 that will import from whatever backend is installed in the environment.</p>

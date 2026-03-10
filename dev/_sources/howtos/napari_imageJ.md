@@ -118,7 +118,7 @@ To fix this we can use either of these 3 following methods :
 Here is a plain Python script that starts up Qt and spins up ImageJ without use of napari's Qt Console.
 
 ```python
-from PyQt5 import QtCore, QtWidgets
+from PyQt6 import QtCore, QtWidgets
 
 
 def main():
@@ -159,7 +159,7 @@ def start_imagej():
     print(ij.getVersion())
 
 
-from PyQt5 import QtCore
+from PyQt6 import QtCore
 
 QtCore.QTimer.singleShot(0, start_imagej)
 ```

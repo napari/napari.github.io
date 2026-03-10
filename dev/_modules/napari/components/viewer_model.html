@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=ea2bac58"></script>
+    <script src="../../../_static/documentation_options.js?v=3a666cae"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -954,6 +954,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">Tracks</span><span class="p">,</span>
     <span class="n">Vectors</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers._scalar_field</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScalarFieldBase</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers._source</span><span class="w"> </span><span class="kn">import</span> <span class="n">Source</span><span class="p">,</span> <span class="n">layer_source</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.image._image_key_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="n">image_fun_to_mode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.image._image_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">guess_labels</span>
@@ -1529,19 +1530,48 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_new_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create new labels layer filling full world coordinates space.&quot;&quot;&quot;</span>
-        <span class="n">layers_extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span>
-        <span class="n">extent</span> <span class="o">=</span> <span class="n">layers_extent</span><span class="o">.</span><span class="n">world</span>
-        <span class="n">scale</span> <span class="o">=</span> <span class="n">layers_extent</span><span class="o">.</span><span class="n">step</span>
-        <span class="n">scene_size</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">corner</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">s</span> <span class="o">/</span> <span class="n">sc</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">sc</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">scene_size</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="p">]</span>
-        <span class="n">dtype_str</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">new_labels_dtype</span>
-        <span class="n">empty_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype_str</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">empty_labels</span><span class="p">,</span> <span class="n">translate</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">corner</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
-        <span class="c1"># We define `add_labels` dynamically, so mypy doesn&#39;t know about it.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">base_layer</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="n">ScalarFieldBase</span>
+        <span class="p">):</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">Labels</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                    <span class="n">base_layer</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span>
+                        <span class="p">:</span> <span class="n">base_layer</span><span class="o">.</span><span class="n">ndim</span>
+                    <span class="p">],</span>  <span class="c1"># use :base_layer.ndim to cut channels from rgb images</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">new_labels_dtype</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">scale</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span>
+                <span class="n">translate</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">translate</span><span class="p">,</span>
+                <span class="n">rotate</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">rotate</span><span class="p">,</span>
+                <span class="n">shear</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">shear</span><span class="p">,</span>
+                <span class="n">units</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">units</span><span class="p">,</span>
+                <span class="n">affine</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39; - Labels&#39;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
+            <span class="c1"># non scalar field layer or more than one layer selected</span>
+            <span class="n">layers_extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">get_extent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span>
+            <span class="n">extent</span> <span class="o">=</span> <span class="n">layers_extent</span><span class="o">.</span><span class="n">world</span>
+            <span class="n">scale</span> <span class="o">=</span> <span class="n">layers_extent</span><span class="o">.</span><span class="n">step</span>
+            <span class="n">scene_size</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">corner</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">s</span> <span class="o">/</span> <span class="n">sc</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">sc</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">scene_size</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="n">dtype_str</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">new_labels_dtype</span>
+            <span class="n">empty_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype_str</span><span class="p">)</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">Labels</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">empty_labels</span><span class="p">,</span> <span class="n">translate</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">corner</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">Labels</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                    <span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">new_labels_dtype</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_layer_reload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span>

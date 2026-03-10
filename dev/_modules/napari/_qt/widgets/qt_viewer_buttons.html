@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=ea2bac58"></script>
+    <script src="../../../../_static/documentation_options.js?v=3a666cae"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -911,6 +911,7 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_dims_sorter</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtDimsSorter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_spinbox</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtSpinBox</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_tooltip</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtToolTipLabel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers._scalar_field</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScalarFieldBase</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.action_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">action_manager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.camera_orientations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">DepthAxisOrientation</span><span class="p">,</span>
@@ -991,11 +992,15 @@ window.runMermaid = runMermaid;</script>
             <span class="s1">&#39;new_labels&#39;</span><span class="p">,</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                 <span class="s1">&#39;Create a new labels layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
-                <span class="s1">&#39;The new layer will inherit the scale and shape of the extent</span><span class="se">\n</span><span class="s1">&#39;</span>
-                <span class="s1">&#39;of all the layers.&#39;</span>
+                <span class="s1">&#39;If a Labels or Image layer is selected, the newly created Labels layer</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;will inherit the shape and all transforms of the selected layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;If any other layer type or multiple layers are selected, the resulting</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;Labels layer will span their extent. (Warning: could be huge!)</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;If layers are present in the Viewer but none are selected, the Labels button is disabled.</span><span class="se">\n</span><span class="s1">&#39;</span>
             <span class="p">),</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_new_labels</span><span class="p">,</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -1010,6 +1015,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_on_selection_changed</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_selection_changed</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_selection_changed</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_selection_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1022,6 +1028,13 @@ window.runMermaid = runMermaid;</script>
         <span class="n">has_selection</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">has_selection</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">has_selection</span><span class="p">)</span>
+        <span class="n">new_labels_inherit_shape</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="n">ScalarFieldBase</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">new_labels_inherit_shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span>
+            <span class="n">has_selection</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span>
+        <span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">labeled_double_slider</span><span class="p">(</span>

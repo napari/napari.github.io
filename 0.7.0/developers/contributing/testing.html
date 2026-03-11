@@ -43,7 +43,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/napari-sphinx-theme.css?v=f8f17a90" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=9ff47a26"></script>
+    <script src="../../_static/documentation_options.js?v=5cc0f6b3"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -68,7 +68,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -416,6 +416,7 @@
   </p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Contributing guide</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ai.html">AI use policy and guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dev_install.html">Setting up a development installation</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="translations.html">Translations</a></li>
@@ -697,8 +698,8 @@ in <code class="docutils literal notranslate"><span class="pre">System</span> <s
 <p>It is also possible to run tests locally using <code class="docutils literal notranslate"><span class="pre">tox</span></code>. We use <code class="docutils literal notranslate"><span class="pre">tox</span></code> to run test in CI.
 The main difference between running <code class="docutils literal notranslate"><span class="pre">pytest</span></code> locally or <code class="docutils literal notranslate"><span class="pre">tox</span></code> locally is that <code class="docutils literal notranslate"><span class="pre">tox</span></code> will create a virtual environment
 for each test environment, so it will take a bit more time. Though, <code class="docutils literal notranslate"><span class="pre">tox</span></code> will be more similar to the CI environment.
-To run test using <code class="docutils literal notranslate"><span class="pre">tox</span></code> using Python 3.10 and pyqt5 on Linux, enter:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-e<span class="w"> </span>py310-linux-pyqt5
+To run test using <code class="docutils literal notranslate"><span class="pre">tox</span></code> using Python 3.13 and pyqt6 on Linux, enter:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-e<span class="w"> </span>py313-linux-pyqt6
 </pre></div>
 </div>
 <p>To get list of all available environments that may be run:</p>
@@ -718,7 +719,7 @@ This tells Qt to render windows “offscreen”, which is slower but will avoid 
 </pre></div>
 </div>
 <p>or</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">QT_QPA_PLATFORM</span><span class="o">=</span>offscreen<span class="w"> </span>tox<span class="w"> </span>-e<span class="w"> </span>py310-linux-pyqt5
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">QT_QPA_PLATFORM</span><span class="o">=</span>offscreen<span class="w"> </span>tox<span class="w"> </span>-e<span class="w"> </span>py313-linux-pyqt6
 </pre></div>
 </div>
 </li>
@@ -728,12 +729,12 @@ This will run the tests in a virtual X server.</p>
 </pre></div>
 </div>
 <p>or</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>xvfb-run<span class="w"> </span>tox<span class="w"> </span>-e<span class="w"> </span>py310-linux-pyqt5
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>xvfb-run<span class="w"> </span>tox<span class="w"> </span>-e<span class="w"> </span>py313-linux-pyqt6
 </pre></div>
 </div>
 </li>
 </ol>
-<p>where the tox environment selector <code class="docutils literal notranslate"><span class="pre">py310-linux-pyqt5</span></code> must match your OS and Python version.</p>
+<p>where the tox environment selector <code class="docutils literal notranslate"><span class="pre">py313-linux-pyqt6</span></code> must match your OS and Python version.</p>
 </section>
 <section id="tips-for-speeding-up-local-testing">
 <h3>Tips for speeding up local testing<a class="headerlink" href="#tips-for-speeding-up-local-testing" title="Link to this heading">#</a></h3>
@@ -957,20 +958,12 @@ the napari package.
 This can be made globally true by setting the ‘NAPARI_STRICT_QT’
 environment variable.</p>
 </dd>
-<dt>block_plugin_discovery<span class="classifier">bool, optional</span></dt><dd><p>Block discovery of non-builtin plugins.  Note: plugins can still be
-manually registered by using the ‘napari_plugin_manager’ fixture and
-the <cite>napari_plugin_manager.register()</cite> method. By default, True.</p>
-</dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">test_adding_shapes</span><span class="p">(</span><span class="n">make_napari_viewer</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">viewer</span> <span class="o">=</span> <span class="n">make_napari_viewer</span><span class="p">()</span>
 <span class="gp">... </span>    <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">()</span>
 <span class="gp">... </span>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">test_something_with_plugins</span><span class="p">(</span><span class="n">make_napari_viewer</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">viewer</span> <span class="o">=</span> <span class="n">make_napari_viewer</span><span class="p">(</span><span class="n">block_plugin_discovery</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">test_something_with_strict_qt_tests</span><span class="p">(</span><span class="n">make_napari_viewer</span><span class="p">):</span>

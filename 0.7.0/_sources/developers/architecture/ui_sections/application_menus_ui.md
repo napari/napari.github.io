@@ -47,7 +47,6 @@ graph LR
 	napari._qt._qapp_model.qactions._layers_actions(napari._qt._qapp_model.qactions._layers_actions)
 	click napari._qt._qapp_model.qactions._layers_actions "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_layers_actions.py" _blank
 	napari._qt._qapp_model.qactions._plugins(napari._qt._qapp_model.qactions._plugins)
-	napari._qt._qapp_model.qactions._plugins --> napari._qt.dialogs.qt_plugin_report
 	napari._qt._qapp_model.qactions._plugins --> napari._qt.qt_main_window
 	click napari._qt._qapp_model.qactions._plugins "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_plugins.py" _blank
 	napari._qt._qapp_model.qactions._toggle_action(napari._qt._qapp_model.qactions._toggle_action)
@@ -68,8 +67,6 @@ graph LR
 	click napari._qt.dialogs.qt_about "https://github.com/napari/napari/tree/main/napari/_qt/dialogs/qt_about.py" _blank
 	napari._qt.dialogs.qt_modal(napari._qt.dialogs.qt_modal)
 	click napari._qt.dialogs.qt_modal "https://github.com/napari/napari/tree/main/napari/_qt/dialogs/qt_modal.py" _blank
-	napari._qt.dialogs.qt_plugin_report(napari._qt.dialogs.qt_plugin_report)
-	click napari._qt.dialogs.qt_plugin_report "https://github.com/napari/napari/tree/main/napari/_qt/dialogs/qt_plugin_report.py" _blank
 	napari._qt.dialogs.qt_reader_dialog(napari._qt.dialogs.qt_reader_dialog)
 	click napari._qt.dialogs.qt_reader_dialog "https://github.com/napari/napari/tree/main/napari/_qt/dialogs/qt_reader_dialog.py" _blank
 	napari._qt.dialogs.screenshot_dialog(napari._qt.dialogs.screenshot_dialog)
@@ -138,7 +135,6 @@ graph LR
 		 napari._qt.dialogs.preferences_dialog
 		 napari._qt.dialogs.qt_about
 		 napari._qt.dialogs.qt_modal
-		 napari._qt.dialogs.qt_plugin_report
 		 napari._qt.dialogs.qt_reader_dialog
 		 napari._qt.dialogs.screenshot_dialog
 	end
@@ -164,35 +160,34 @@ graph LR
 napari/
 ├─viewer.py
 └─_qt/
-  ├─qthreading.py
   ├─qt_viewer.py
-  ├─_qapp_model/
-  │ ├─injection/
-  │ │ ├─_qproviders.py
-  │ │ └─_qprocessors.py
-  │ └─qactions/
-  │   ├─_file.py
-  │   ├─_toggle_action.py
-  │   ├─_window.py
-  │   ├─_debug.py
-  │   ├─_view.py
-  │   ├─_layers_actions.py
-  │   ├─_plugins.py
-  │   ├─_layerlist_context.py
-  │   ├─__init__.py
-  │   └─_help.py
+  ├─qthreading.py
   ├─widgets/
-  │ ├─qt_logger.py
+  │ ├─qt_command_palette.py
   │ ├─qt_viewer_buttons.py
-  │ └─qt_command_palette.py
-  ├─qt_main_window.py
+  │ └─qt_logger.py
   ├─__init__.py
-  └─dialogs/
-    ├─qt_about.py
-    ├─qt_plugin_report.py
-    ├─qt_reader_dialog.py
-    ├─confirm_close_dialog.py
-    ├─qt_modal.py
-    ├─screenshot_dialog.py
-    └─preferences_dialog.py
+  ├─qt_main_window.py
+  ├─dialogs/
+  │ ├─confirm_close_dialog.py
+  │ ├─qt_reader_dialog.py
+  │ ├─screenshot_dialog.py
+  │ ├─qt_about.py
+  │ ├─preferences_dialog.py
+  │ └─qt_modal.py
+  └─_qapp_model/
+    ├─injection/
+    │ ├─_qprocessors.py
+    │ └─_qproviders.py
+    └─qactions/
+      ├─_view.py
+      ├─_toggle_action.py
+      ├─_window.py
+      ├─_file.py
+      ├─_help.py
+      ├─_layers_actions.py
+      ├─__init__.py
+      ├─_debug.py
+      ├─_layerlist_context.py
+      └─_plugins.py
 ```

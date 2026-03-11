@@ -43,7 +43,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/napari-sphinx-theme.css?v=f8f17a90" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=9ff47a26"></script>
+    <script src="../../_static/documentation_options.js?v=5cc0f6b3"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -68,13 +68,13 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="In-depth guide to plugin testing" href="../testing_workshop_docs/index.html" />
+    <link rel="next" title="Customizing your plugin’s listing on napari hub" href="hub_customization.html" />
     <link rel="prev" title="Testing guidelines" href="test.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -434,6 +434,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Testing and publishing</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="test.html">Testing guidelines</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Publish your plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hub_customization.html">Customizing your plugin’s listing on napari hub</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../testing_workshop_docs/index.html">In-depth guide to plugin testing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../testing_workshop_docs/1-pythons-assert-keyword.html">1: Python’s assert keyword</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../testing_workshop_docs/2-pytest-testing-frameworks.html">2: Pytest testing framework</a></li>
@@ -446,8 +447,7 @@
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../advanced_topics/index.html">Advanced Topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../advanced_topics/npe2_migration_guide.html">Migration to <code class="docutils literal notranslate"><span class="pre">npe2</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../advanced_topics/adapted_plugin_guide.html">Changes to the plugin engine in 0.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../advanced_topics/npe1.html">First generation plugins (<em>Deprecated</em>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../advanced_topics/adapted_plugin_guide.html">Changes to the plugin engine in 0.6.0 and 0.7.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../advanced_topics/widget_communication.html">Widget communication</a></li>
 
 
@@ -555,33 +555,21 @@
 template, this has already been done for you.)</p>
 <p>Once your package is listed on <a class="reference external" href="https://pypi.org/">PyPI</a> (and includes the <code class="docutils literal notranslate"><span class="pre">Framework</span> <span class="pre">::</span> <span class="pre">napari</span></code>
 <a class="reference external" href="https://pypi.org/classifiers/">classifier</a>), it will also be visible on the <a class="reference external" href="https://napari-hub.org/">napari
-hub</a>. To ensure you are providing the relevant metadata and
-description for your plugin, see the following documentation in the <a class="reference external" href="https://github.com/chanzuckerberg/napari-hub/wiki/Plugin-Developer's-Guide-to-the-napari-hub">napari hub
-wiki</a>:</p>
+hub</a>.</p>
+<p>To ensure you are providing the best metadata and description for your plugin,
+see our comprehensive guide: <a class="reference internal" href="hub_customization.html#hub-customization"><span class="std std-ref">Customizing your plugin’s listing on napari hub</span></a>. This guide covers:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/chanzuckerberg/napari-hub/wiki/Customizing-your-plugin's-listing">Customizing your plugin’s
-listing</a></p></li>
-<li><p><a class="reference external" href="https://github.com/chanzuckerberg/napari-hub/wiki/Writing-the-Perfect-Description-for-your-Plugin">Writing the perfect description for your
-plugin</a></p></li>
+<li><p>Setting package metadata in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></p></li>
+<li><p>Using npe2 manifest metadata for hub display</p></li>
+<li><p>Controlling plugin visibility</p></li>
 </ul>
-<div class="admonition-the-hub admonition">
-<p class="admonition-title">The hub</p>
-<p>For more about the napari hub, see the <a class="reference external" href="https://www.napari-hub.org/about">napari hub About
-page</a>. To learn more about the hub’s
-development process, see the <a class="reference external" href="https://github.com/chanzuckerberg/napari-hub/wiki">napari hub GitHub’s
-Wiki</a>.</p>
-<p>If you want your plugin to be available on PyPI, but not visible on the napari
-hub, add a <code class="docutils literal notranslate"><span class="pre">visibility</span></code> flag to your plugin manifest. For more details, see the
-<a class="reference internal" href="../technical_references/manifest.html#plugin-manifest"><span class="std std-ref">manifest reference</span></a> and napari hub <a class="reference external" href="https://github.com/chanzuckerberg/napari-hub/wiki/Customizing-your-plugin's-listing#visibility">customization
-guide</a>.</p>
-</div>
 </section>
 <section id="deployment">
 <h2>Deployment<a class="headerlink" href="#deployment" title="Link to this heading">#</a></h2>
 <p>When you are ready to share your plugin, <a class="reference external" href="https://packaging.python.org/en/latest/tutorials/packaging-projects/#uploading-the-distribution-archives">upload the Python package to
 PyPI</a> after which it will be installable using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&lt;yourpackage&gt;</span></code>, or (assuming you added the <code class="docutils literal notranslate"><span class="pre">Framework</span> <span class="pre">::</span> <span class="pre">napari</span></code> classifier)
 in the builtin plugin installer dialog.</p>
-<p>If you used the <a class="reference internal" href="../advanced_topics/npe1.html#napari-plugin-template"><span class="std std-ref">napari plugin template</span></a>, you can also
+<p>If you used the <a class="reference internal" href="../building_a_plugin/first_plugin.html#napari-plugin-template"><span class="std std-ref">Get going quickly with the napari plugin template</span></a>, you can also
 <a class="reference external" href="https://github.com/napari/napari-plugin-template#set-up-automatic-deployments">setup automated deployments</a> on GitHub for every tagged commit.</p>
 <div class="attention admonition">
 <p class="admonition-title">conda-forge</p>
@@ -615,11 +603,11 @@ forum</a>.</p>
       </div>
     </a>
     <a class="right-next"
-       href="../testing_workshop_docs/index.html"
+       href="hub_customization.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">In-depth guide to plugin testing</p>
+        <p class="prev-next-title">Customizing your plugin’s listing on napari hub</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

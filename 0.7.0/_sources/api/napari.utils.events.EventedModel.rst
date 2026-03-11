@@ -35,6 +35,39 @@ napari.utils.events.EventedModel
       ~EventedModel.json
    
    
+      ~EventedModel.model_construct
+   
+   
+      ~EventedModel.model_copy
+   
+   
+      ~EventedModel.model_dump
+   
+   
+      ~EventedModel.model_dump_json
+   
+   
+      ~EventedModel.model_json_schema
+   
+   
+      ~EventedModel.model_parametrized_name
+   
+   
+      ~EventedModel.model_post_init
+   
+   
+      ~EventedModel.model_rebuild
+   
+   
+      ~EventedModel.model_validate
+   
+   
+      ~EventedModel.model_validate_json
+   
+   
+      ~EventedModel.model_validate_strings
+   
+   
       ~EventedModel.parse_file
    
    
@@ -71,6 +104,11 @@ napari.utils.events.EventedModel
    .. autosummary::
    
       ~EventedModel.events
+      ~EventedModel.model_computed_fields
+      ~EventedModel.model_config
+      ~EventedModel.model_extra
+      ~EventedModel.model_fields
+      ~EventedModel.model_fields_set
    
    
 

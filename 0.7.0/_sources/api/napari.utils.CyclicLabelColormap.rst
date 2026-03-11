@@ -38,6 +38,39 @@ napari.utils.CyclicLabelColormap
       ~CyclicLabelColormap.map
    
    
+      ~CyclicLabelColormap.model_construct
+   
+   
+      ~CyclicLabelColormap.model_copy
+   
+   
+      ~CyclicLabelColormap.model_dump
+   
+   
+      ~CyclicLabelColormap.model_dump_json
+   
+   
+      ~CyclicLabelColormap.model_json_schema
+   
+   
+      ~CyclicLabelColormap.model_parametrized_name
+   
+   
+      ~CyclicLabelColormap.model_post_init
+   
+   
+      ~CyclicLabelColormap.model_rebuild
+   
+   
+      ~CyclicLabelColormap.model_validate
+   
+   
+      ~CyclicLabelColormap.model_validate_json
+   
+   
+      ~CyclicLabelColormap.model_validate_strings
+   
+   
       ~CyclicLabelColormap.parse_file
    
    
@@ -78,6 +111,11 @@ napari.utils.CyclicLabelColormap
    
       ~CyclicLabelColormap.colorbar
       ~CyclicLabelColormap.events
+      ~CyclicLabelColormap.model_computed_fields
+      ~CyclicLabelColormap.model_config
+      ~CyclicLabelColormap.model_extra
+      ~CyclicLabelColormap.model_fields
+      ~CyclicLabelColormap.model_fields_set
       
       
       

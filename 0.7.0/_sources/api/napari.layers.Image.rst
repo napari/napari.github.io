@@ -119,6 +119,7 @@ napari.layers.Image
       ~Image.mouse_pan
       ~Image.mouse_zoom
       ~Image.name
+      ~Image.name_overlay
       ~Image.ndim
       ~Image.opacity
       ~Image.plane

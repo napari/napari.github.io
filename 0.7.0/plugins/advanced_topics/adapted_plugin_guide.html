@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <link type="image/svg+xml" href="../../_static/favicon/logo-silhouette-dark-light.svg" rel="icon">
     <link sizes="any" href="../../_static/favicon/logo-silhouette-192.png" rel="icon" type="image/png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/logo-noborder-180.png" type="image/png"><meta property="og:title" content="Changes to the plugin engine in 0.6.0" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/logo-noborder-180.png" type="image/png"><meta property="og:title" content="Changes to the plugin engine in 0.6.0 and 0.7.0" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/plugins/advanced_topics/adapted_plugin_guide.html" />
 <meta property="og:site_name" content="napari" />
@@ -18,7 +18,7 @@
 <meta property="og:image:alt" content="napari" />
 <meta name="description" content="In napari 0.6.0 we have made some changes to napari’s default behaviour when validating legacy “npe1” plugins. This document explains those changes and how they may affect plugin users. Context: In mid-2022, we released npe2 - a new napari plugin engine. Mostly invisible to users, npe2 changed th..." />
 
-    <title>Changes to the plugin engine in 0.6.0 &#8212; napari</title>
+    <title>Changes to the plugin engine in 0.6.0 and 0.7.0 &#8212; napari</title>
   
   
   
@@ -43,7 +43,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/napari-sphinx-theme.css?v=f8f17a90" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=9ff47a26"></script>
+    <script src="../../_static/documentation_options.js?v=5cc0f6b3"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -68,13 +68,13 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="First generation plugins (Deprecated)" href="npe1.html" />
+    <link rel="next" title="Widget communication" href="widget_communication.html" />
     <link rel="prev" title="Migration to npe2" href="npe2_migration_guide.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -434,6 +434,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../testing_and_publishing/index.html">Testing and publishing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../testing_and_publishing/test.html">Testing guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing_and_publishing/deploy.html">Publish your plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing_and_publishing/hub_customization.html">Customizing your plugin’s listing on napari hub</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../testing_workshop_docs/index.html">In-depth guide to plugin testing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../testing_workshop_docs/1-pythons-assert-keyword.html">1: Python’s assert keyword</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../testing_workshop_docs/2-pytest-testing-frameworks.html">2: Pytest testing framework</a></li>
@@ -446,8 +447,7 @@
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Advanced Topics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="npe2_migration_guide.html">Migration to <code class="docutils literal notranslate"><span class="pre">npe2</span></code></a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Changes to the plugin engine in 0.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="npe1.html">First generation plugins (<em>Deprecated</em>)</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Changes to the plugin engine in 0.6.0 and 0.7.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="widget_communication.html">Widget communication</a></li>
 
 
@@ -529,7 +529,7 @@
     
     <li class="breadcrumb-item"><a href="index.html" class="nav-link">Advanced Topics</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Changes to the plugin engine in 0.6.0</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Changes to the plugin engine in 0.6.0 and 0.7.0</span></li>
   </ul>
 </nav>
 </div>
@@ -546,14 +546,14 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="changes-to-the-plugin-engine-in-0-6-0">
-<span id="adapted-plugin-guide"></span><h1>Changes to the plugin engine in 0.6.0<a class="headerlink" href="#changes-to-the-plugin-engine-in-0-6-0" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="changes-to-the-plugin-engine-in-0-6-0-and-0-7-0">
+<span id="adapted-plugin-guide"></span><h1>Changes to the plugin engine in 0.6.0 and 0.7.0<a class="headerlink" href="#changes-to-the-plugin-engine-in-0-6-0-and-0-7-0" title="Link to this heading">#</a></h1>
 <p>In napari 0.6.0 we have made some changes to napari’s default behaviour when validating legacy “npe1” plugins. This document explains those changes and how they may affect plugin users.</p>
 <section id="context">
 <h2>Context<a class="headerlink" href="#context" title="Link to this heading">#</a></h2>
 <p>In mid-2022, we released npe2 - a new napari plugin engine. Mostly invisible to users, npe2 changed the way plugins are built, and how they declare contributions to napari. Because many plugins were already released using the original plugin engine, we continued maintaining all code relating to npe1 plugins, to give developers time to migrate. We also provided <a class="reference internal" href="npe2_migration_guide.html#npe2-migration-guide"><span class="std std-ref">guides and utilities</span></a> for auto-converting npe1 plugins to the new plugin engine.</p>
-<p>Through these robust conversion utilities, the vast majority of npe1 plugins can be automatically loaded by napari in an npe2-compatible form, without any changes required from the plugin developer. By enabling the <code class="docutils literal notranslate"><span class="pre">Preferences</span> <span class="pre">-&gt;</span> <span class="pre">Plugins</span> <span class="pre">-&gt;</span> <span class="pre">Use</span> <span class="pre">npe2</span> <span class="pre">adaptor</span></code> setting, users could also make their own napari installation auto-convert plugins to the new plugin engine. Before 0.6.0, this setting was off by default; in 0.6.0, this setting will be on by default.</p>
-<p>In the intervening years, adoption of npe2 has improved, and currently, more than 80% of napari plugins are defined using the npe2 engine. As a result, we will deprecate the npe1 plugin infrastructure, so that we can simplify our codebase and improve maintainability.</p>
+<p>Through these robust conversion utilities, the vast majority of npe1 plugins can be automatically loaded by napari in an npe2-compatible form, without any changes required from the plugin developer. By enabling the <code class="docutils literal notranslate"><span class="pre">Preferences</span> <span class="pre">-&gt;</span> <span class="pre">Plugins</span> <span class="pre">-&gt;</span> <span class="pre">Use</span> <span class="pre">npe2</span> <span class="pre">adaptor</span></code> setting, users could also make their own napari installation auto-convert plugins to the new plugin engine. Before 0.6.0, this setting was off by default; in 0.6.0, this setting will be on by default. In 0.7.0, this setting will be removed entirely, and only auto-convertable plugins will be usable.</p>
+<p>In the intervening years, adoption of npe2 has improved, and currently, more than 80% of napari plugins are defined using the npe2 engine. As a result, we have deprecated the npe1 plugin infrastructure, so that we can simplify our codebase and improve maintainability.</p>
 </section>
 <section id="what-is-changing-in-0-6-0">
 <h2>What is changing in 0.6.0?<a class="headerlink" href="#what-is-changing-in-0-6-0" title="Link to this heading">#</a></h2>
@@ -565,11 +565,24 @@
 <li><p>if there is a conflict with a plugin, the <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">npe2</span> <span class="pre">adaptor</span></code> setting may be disabled. This will allow plugins to be loaded using the original npe1 plugin engine.</p></li>
 </ul>
 </section>
+<section id="what-is-changing-in-0-7-0">
+<h2>What is changing in 0.7.0<a class="headerlink" href="#what-is-changing-in-0-7-0" title="Link to this heading">#</a></h2>
+<p>In napari 0.7.0</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">npe2</span> <span class="pre">adaptor</span></code> setting will be removed.</p></li>
+<li><p>if a plugin is still declared using the npe1 engine, napari will auto-convert it to npe2 before loading it.</p></li>
+<li><p>There will be no warning dialog about npe1 plugins</p></li>
+</ul>
+</section>
 <section id="how-do-i-know-if-a-plugin-is-npe1">
 <h2>How do I know if a plugin is npe1?<a class="headerlink" href="#how-do-i-know-if-a-plugin-is-npe1" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>It will show up in the plugin warning dialog.</p></li>
-<li><p>It will be listed in the plugin manager with an <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">(adapted)</span></code> tag, if <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">npe2</span> <span class="pre">adaptor</span></code> is checked, or without any tag if <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">npe2</span> <span class="pre">adaptor</span></code> is not checked (screenshots below)</p></li>
+<li><p>It will show up in the plugin warning dialog in <code class="docutils literal notranslate"><span class="pre">napari&gt;=0.6.0</span></code> and <code class="docutils literal notranslate"><span class="pre">napari&lt;=0.7.0</span></code>.</p></li>
+<li><p>It will be listed in the plugin manager with an <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">(adapted)</span></code> tag, if <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">npe2</span> <span class="pre">adaptor</span></code> is checked, or without any tag if <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">npe2</span> <span class="pre">adaptor</span></code> is not checked (screenshots below)</p>
+<ul>
+<li><p>Note that for <code class="docutils literal notranslate"><span class="pre">napari&gt;=0.7.0</span></code> it will always be listed with the <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">(adapted)</span></code> tag</p></li>
+</ul>
+</li>
 <li><p>It is on this <a class="reference external" href="https://gist.github.com/DragaDoncila/feb87fcbadc756269fdf99000a6ea77c">list of plugins</a>. Please note that not all plugins may be listed here.</p></li>
 </ul>
 <p><img alt="Adapted npe1 plugin with tag" src="../../_images/adapted_plugin_with_tag.png" /></p>
@@ -585,12 +598,8 @@
 </ul>
 <p>In either of these cases, you can recover original plugin behaviour by going to <code class="docutils literal notranslate"><span class="pre">Preferences</span> <span class="pre">-&gt;</span> <span class="pre">Plugins</span></code> and unchecking the <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">npe2</span> <span class="pre">adaptor</span></code> setting, and restarting napari, as directed. Note that this setting is deprecated and will no longer be available in 0.7.0. In the 0.7.0 release only npe2-compatible plugins will be supported.</p>
 </section>
-<section id="when-is-0-7-0-coming-out">
-<h2>When is 0.7.0 coming out?<a class="headerlink" href="#when-is-0-7-0-coming-out" title="Link to this heading">#</a></h2>
-<p>While we don’t yet have a set release date for 0.7.0, the <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">npe2</span> <span class="pre">adaptor</span></code> setting <strong>will not</strong> be removed until the earliest, July 31, 2025. We will provide a further warning in the final minor release before 0.7.0.</p>
-</section>
-<section id="what-can-i-do-before-0-7-0">
-<h2>What can I do before 0.7.0?<a class="headerlink" href="#what-can-i-do-before-0-7-0" title="Link to this heading">#</a></h2>
+<section id="what-can-i-do-if-a-plugin-i-use-is-affected">
+<h2>What can I do if a plugin I use is affected?<a class="headerlink" href="#what-can-i-do-if-a-plugin-i-use-is-affected" title="Link to this heading">#</a></h2>
 <p><strong>If you’re a napari user,</strong> reach out to the plugin developer and ask for the plugin to be updated to npe2. You can typically find the plugin’s GitHub page by clicking on the plugin’s title in the napari plugin manager, and open an issue there. If you’re struggling to find the right place to ask, you can send a message in the <a class="reference external" href="https://napari.zulipchat.com/#narrow/channel/309872-plugins">napari plugins zulip channel</a> and we will do our best to guide you.</p>
 <p><strong>If you’re a plugin developer,</strong> you should convert your plugin to npe2. There is an <a class="reference internal" href="npe2_migration_guide.html#migrating-using-the-npe2-command-line-tool"><span class="std std-ref">automated utility</span></a> for converting your plugin, or you can look at the <a class="reference internal" href="npe2_migration_guide.html#migration-reference"><span class="std std-ref">migration guide</span></a> and <a class="reference internal" href="../building_a_plugin/guides.html"><span class="doc std std-doc">contribution guides</span></a> for more information on manually converting. You can also look at the <a class="reference external" href="https://github.com/napari/napari-plugin-template">plugin template</a> for an example of a fully-working npe2 plugin. If your plugin is already npe2, consider adding an npe2 badge: <img alt="Static Badge" src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" /> to your README using <code class="docutils literal notranslate"><span class="pre">![Static</span> <span class="pre">Badge](https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html)</span></code>.</p>
 </section>
@@ -616,11 +625,11 @@
       </div>
     </a>
     <a class="right-next"
-       href="npe1.html"
+       href="widget_communication.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">First generation plugins (<em>Deprecated</em>)</p>
+        <p class="prev-next-title">Widget communication</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -645,10 +654,10 @@
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context">Context</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-changing-in-0-6-0">What is changing in 0.6.0?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-changing-in-0-7-0">What is changing in 0.7.0</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-know-if-a-plugin-is-npe1">How do I know if a plugin is npe1?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-this-affect-plugins">How does this affect plugins?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-is-0-7-0-coming-out">When is 0.7.0 coming out?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-i-do-before-0-7-0">What can I do before 0.7.0?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-i-do-if-a-plugin-i-use-is-affected">What can I do if a plugin I use is affected?</a></li>
 </ul>
   </nav></div>
 

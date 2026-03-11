@@ -7,11 +7,18 @@ graph LR
 	napari._qt._qapp_model.injection(napari._qt._qapp_model.injection)
 	click napari._qt._qapp_model.injection "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/__init__.py" _blank
 	napari._qt._qapp_model.injection._qprocessors(napari._qt._qapp_model.injection._qprocessors)
+	napari._qt._qapp_model.injection._qprocessors --> napari._qt._qapp_model.injection._qproviders
 	napari._qt._qapp_model.injection._qprocessors --> napari.layers
 	click napari._qt._qapp_model.injection._qprocessors "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/_qprocessors.py" _blank
+	napari._qt._qapp_model.injection._qproviders(napari._qt._qapp_model.injection._qproviders)
+	napari._qt._qapp_model.injection._qproviders --> napari._qt.qt_main_window
+	napari._qt._qapp_model.injection._qproviders --> napari._qt.qt_viewer
+	napari._qt._qapp_model.injection._qproviders --> napari.layers
+	click napari._qt._qapp_model.injection._qproviders "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/_qproviders.py" _blank
 	napari._qt._qapp_model.qactions(napari._qt._qapp_model.qactions)
 	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.injection
 	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.injection._qprocessors
+	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.injection._qproviders
 	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.qactions._debug
 	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.qactions._layerlist_context
 	napari._qt._qapp_model.qactions --> napari._qt.qt_main_window
@@ -96,6 +103,7 @@ graph LR
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.widgets.qt_dims_sorter
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.widgets.qt_spinbox
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.widgets.qt_tooltip
+	napari._qt.widgets.qt_viewer_buttons --> napari.layers
 	click napari._qt.widgets.qt_viewer_buttons "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_buttons.py" _blank
 	napari._qt.widgets.qt_viewer_dock_widget(napari._qt.widgets.qt_viewer_dock_widget)
 	napari._qt.widgets.qt_viewer_dock_widget --> napari._qt.qt_viewer
@@ -111,6 +119,7 @@ graph LR
 	napari.components._viewer_constants(napari.components._viewer_constants)
 	click napari.components._viewer_constants "https://github.com/napari/napari/tree/main/napari/components/_viewer_constants.py" _blank
 	napari.components._viewer_key_bindings(napari.components._viewer_key_bindings)
+	napari.components._viewer_key_bindings --> napari._qt.qt_viewer
 	napari.components._viewer_key_bindings --> napari.components.viewer_model
 	click napari.components._viewer_key_bindings "https://github.com/napari/napari/tree/main/napari/components/_viewer_key_bindings.py" _blank
 	napari.components._viewer_mouse_bindings(napari.components._viewer_mouse_bindings)
@@ -170,6 +179,7 @@ graph LR
 	napari.components.overlays.scale_bar --> napari.components.overlays.base
 	click napari.components.overlays.scale_bar "https://github.com/napari/napari/tree/main/napari/components/overlays/scale_bar.py" _blank
 	napari.components.overlays.text(napari.components.overlays.text)
+	napari.components.overlays.text --> napari.components._viewer_constants
 	napari.components.overlays.text --> napari.components.overlays.base
 	click napari.components.overlays.text "https://github.com/napari/napari/tree/main/napari/components/overlays/text.py" _blank
 	napari.components.overlays.welcome(napari.components.overlays.welcome)
@@ -201,6 +211,7 @@ graph LR
 	class module.napari._qt._qapp_model subgraphs
 	subgraph module.napari._qt._qapp_model.injection[napari._qt._qapp_model.injection]
 		 napari._qt._qapp_model.injection._qprocessors
+		 napari._qt._qapp_model.injection._qproviders
 	end
 	class module.napari._qt._qapp_model.injection subgraphs
 	subgraph module.napari._qt._qapp_model.qactions[napari._qt._qapp_model.qactions]
@@ -277,65 +288,66 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
+├─components/
+│ ├─grid.py
+│ ├─_viewer_constants.py
+│ ├─viewer_model.py
+│ ├─_viewer_mouse_bindings.py
+│ ├─_layer_slicer.py
+│ ├─tooltip.py
+│ ├─camera.py
+│ ├─overlays/
+│ │ ├─base.py
+│ │ ├─bounding_box.py
+│ │ ├─axes.py
+│ │ ├─__init__.py
+│ │ ├─colorbar.py
+│ │ ├─zoom.py
+│ │ ├─text.py
+│ │ ├─scale_bar.py
+│ │ ├─labels_polygon.py
+│ │ ├─brush_circle.py
+│ │ ├─interaction_box.py
+│ │ └─welcome.py
+│ ├─cursor.py
+│ ├─dims.py
+│ ├─layerlist.py
+│ └─_viewer_key_bindings.py
 ├─_qt/
-│ ├─utils.py
+│ ├─qt_viewer.py
 │ ├─threads/
 │ │ ├─status_checker.py
 │ │ └─__init__.py
 │ ├─layer_controls/
 │ │ └─__init__.py
 │ ├─qthreading.py
-│ ├─qt_viewer.py
+│ ├─widgets/
+│ │ ├─qt_dims_sorter.py
+│ │ ├─qt_dims_slider.py
+│ │ ├─qt_scrollbar.py
+│ │ ├─qt_dims.py
+│ │ ├─qt_mirrored_sliders_popup.py
+│ │ ├─qt_spinbox.py
+│ │ ├─qt_command_palette.py
+│ │ ├─qt_viewer_buttons.py
+│ │ ├─qt_tooltip.py
+│ │ ├─qt_viewer_dock_widget.py
+│ │ └─qt_viewer_status_bar.py
+│ ├─utils.py
 │ ├─containers/
 │ │ └─__init__.py
-│ ├─_qapp_model/
-│ │ ├─injection/
-│ │ │ ├─_qprocessors.py
-│ │ │ └─__init__.py
-│ │ └─qactions/
-│ │   ├─_debug.py
-│ │   ├─_layerlist_context.py
-│ │   └─__init__.py
-│ ├─widgets/
-│ │ ├─qt_viewer_status_bar.py
-│ │ ├─qt_viewer_dock_widget.py
-│ │ ├─qt_mirrored_sliders_popup.py
-│ │ ├─qt_dims_sorter.py
-│ │ ├─qt_dims.py
-│ │ ├─qt_scrollbar.py
-│ │ ├─qt_viewer_buttons.py
-│ │ ├─qt_dims_slider.py
-│ │ ├─qt_command_palette.py
-│ │ ├─qt_spinbox.py
-│ │ └─qt_tooltip.py
 │ ├─qt_main_window.py
-│ └─dialogs/
-│   └─__init__.py
-├─layers/
-│ └─__init__.py
-└─components/
-  ├─tooltip.py
-  ├─camera.py
-  ├─_viewer_key_bindings.py
-  ├─_viewer_mouse_bindings.py
-  ├─grid.py
-  ├─dims.py
-  ├─_viewer_constants.py
-  ├─cursor.py
-  ├─overlays/
-  │ ├─zoom.py
-  │ ├─interaction_box.py
-  │ ├─bounding_box.py
-  │ ├─axes.py
-  │ ├─labels_polygon.py
-  │ ├─scale_bar.py
-  │ ├─brush_circle.py
-  │ ├─text.py
-  │ ├─welcome.py
-  │ ├─__init__.py
-  │ ├─colorbar.py
-  │ └─base.py
-  ├─layerlist.py
-  ├─_layer_slicer.py
-  └─viewer_model.py
+│ ├─dialogs/
+│ │ └─__init__.py
+│ └─_qapp_model/
+│   ├─injection/
+│   │ ├─__init__.py
+│   │ ├─_qprocessors.py
+│   │ └─_qproviders.py
+│   └─qactions/
+│     ├─__init__.py
+│     ├─_debug.py
+│     └─_layerlist_context.py
+└─layers/
+  └─__init__.py
 ```

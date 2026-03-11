@@ -190,8 +190,10 @@ the current release {{ napari_version }}, using the command: `napari --version` 
 
 napari needs a library called [Qt](https://www.qt.io/) to run its user interface
 (UI). In Python, there are three alternative libraries to run this, called
-[PyQt5](https://www.riverbankcomputing.com/software/pyqt/download) for Qt5, [PyQt6](https://www.riverbankcomputing.com/software/pyqt/download) and
-[PySide6](https://doc.qt.io/qtforpython-6/) for Qt6. By default, we don't choose for you,
+[PyQt6](https://www.riverbankcomputing.com/software/pyqt/download) and
+[PySide6](https://doc.qt.io/qtforpython-6/) for Qt6. There is also an older version,
+[PyQt5](https://www.riverbankcomputing.com/software/pyqt/download) for Qt5.
+By default, we don't choose for you,
 and simply running `python -m pip install napari` will not install either. You *might*
 already have one of them installed in your environment, thanks to other
 scientific packages such as Spyder or matplotlib. If neither is available,
@@ -199,7 +201,7 @@ running napari will result in an error message asking you to install one of
 them.
 
 Running `python -m pip install "napari[all]"` will install the default framework, which is currently
-PyQt5--but this could change in the future.
+PyQt6--but this could change in the future.
 
 To install napari with a specific framework, you can use:
 
@@ -218,7 +220,7 @@ you're not using.
 ```
 
 ```{note}
-As PySide2 is not maintained, and we dropped support for it in napari 0.7.0. PyQt5 is still supported, as there is no PyQt6 on conda-forge yet.
+As PySide2 is not maintained, and we dropped support for it in napari 0.7.0. PyQt5 is still supported, but PyQt6 is the default installation.
 ```
 
 #### Using constraints files
@@ -297,7 +299,7 @@ class: admonition
 ```
 
 Once you have downloaded the appropriate macOS package file, you will have a file with a name like `napari-0.5.0-macOS-x86_64.pkg`, but the version number will be {{ napari_version }}.
-Double click this file to open the installer.
+Double-click or open this file to launch the Installer.
 
 ![Cropped screenshot of macOS desktop UI showing the icon of the PKG installer file, and an arrow pointing to the Welcome page in the opened PKG installer.](../_static/images/bundle_04.png)
 

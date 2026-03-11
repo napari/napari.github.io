@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/napari-sphinx-theme.css?v=f8f17a90" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=9ff47a26"></script>
+    <script src="../../../_static/documentation_options.js?v=5cc0f6b3"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -487,12 +487,13 @@ mermaid.initialize(
     }
 );
 
-window.addEventListener("load", load);</script>
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/napari/_qt/qt_main_window';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -963,7 +964,6 @@ window.addEventListener("load", load);</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_viewer_status_bar</span><span class="w"> </span><span class="kn">import</span> <span class="n">ViewerStatusBar</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">menu_item_template</span> <span class="k">as</span> <span class="n">plugin_menu_item_template</span><span class="p">,</span>
-    <span class="n">plugin_manager</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.plugins._npe2</span><span class="w"> </span><span class="kn">import</span> <span class="n">index_npe1_adapters</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span>
@@ -1988,18 +1988,6 @@ window.addEventListener("load", load);</script>
         <span class="k">if</span> <span class="n">result</span> <span class="o">:=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">get_widget_contribution</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">,</span> <span class="n">widget_name</span><span class="p">):</span>
             <span class="n">widget_class</span><span class="p">,</span> <span class="n">widget_name</span> <span class="o">=</span> <span class="n">result</span>
 
-        <span class="k">if</span> <span class="n">widget_class</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">widget_class</span><span class="p">,</span> <span class="n">dock_kwargs</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">get_widget</span><span class="p">(</span>
-                <span class="n">plugin_name</span><span class="p">,</span> <span class="n">widget_name</span>
-            <span class="p">)</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">widget_name</span><span class="p">:</span>
-            <span class="c1"># if widget_name wasn&#39;t provided, `get_widget` will have</span>
-            <span class="c1"># ensured that there is a single widget available.</span>
-            <span class="n">widget_name</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
-                <span class="nb">iter</span><span class="p">(</span><span class="n">plugin_manager</span><span class="o">.</span><span class="n">_wrapped_dock_widgets</span><span class="p">[</span><span class="n">plugin_name</span><span class="p">])</span>
-            <span class="p">)</span>
-
         <span class="n">full_name</span> <span class="o">=</span> <span class="n">plugin_menu_item_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">,</span> <span class="n">widget_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">full_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wrapped_dock_widgets</span><span class="p">:</span>
             <span class="n">dock_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wrapped_dock_widgets</span><span class="p">[</span><span class="n">full_name</span><span class="p">]</span>
@@ -2016,29 +2004,6 @@ window.addEventListener("load", load);</script>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">dock_widget</span><span class="p">,</span> <span class="n">wdg</span></div>
 
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_add_plugin_function_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plugin_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">widget_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add plugin function widget if not already added.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        plugin_name : str</span>
-<span class="sd">            Name of a plugin providing a widget</span>
-<span class="sd">        widget_name : str, optional</span>
-<span class="sd">            Name of a widget provided by `plugin_name`. If `None`, and the</span>
-<span class="sd">            specified plugin provides only a single widget, that widget will be</span>
-<span class="sd">            returned, otherwise a ValueError will be raised, by default None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">full_name</span> <span class="o">=</span> <span class="n">plugin_menu_item_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">,</span> <span class="n">widget_name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">full_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wrapped_dock_widgets</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-
-        <span class="n">func</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">_function_widgets</span><span class="p">[</span><span class="n">plugin_name</span><span class="p">][</span><span class="n">widget_name</span><span class="p">]</span>
-
-        <span class="c1"># Add function widget</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_function_widget</span><span class="p">(</span>
-            <span class="n">func</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">full_name</span><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allowed_areas</span><span class="o">=</span><span class="kc">None</span>
-        <span class="p">)</span>
 
 <div class="viewcode-block" id="Window.add_dock_widget">
 <a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.add_dock_widget">[docs]</a>

@@ -10,5 +10,6 @@ caption: With this tag
 ../gallery/add_points_with_features.rst
 ../gallery/add_shapes_with_features.rst
 ../gallery/features_table_widget.rst
+../gallery/heart_masks_points.rst
 ../gallery/nD_points_with_features.rst
 ```

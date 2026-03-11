@@ -112,6 +112,7 @@ napari.layers.Surface
       ~Surface.mouse_pan
       ~Surface.mouse_zoom
       ~Surface.name
+      ~Surface.name_overlay
       ~Surface.ndim
       ~Surface.normals
       ~Surface.opacity

@@ -35,6 +35,39 @@ napari.components.Dims
       ~Dims.json
    
    
+      ~Dims.model_construct
+   
+   
+      ~Dims.model_copy
+   
+   
+      ~Dims.model_dump
+   
+   
+      ~Dims.model_dump_json
+   
+   
+      ~Dims.model_json_schema
+   
+   
+      ~Dims.model_parametrized_name
+   
+   
+      ~Dims.model_post_init
+   
+   
+      ~Dims.model_rebuild
+   
+   
+      ~Dims.model_validate
+   
+   
+      ~Dims.model_validate_json
+   
+   
+      ~Dims.model_validate_strings
+   
+   
       ~Dims.parse_file
    
    
@@ -94,10 +127,16 @@ napari.components.Dims
       ~Dims.events
       ~Dims.margin_left_step
       ~Dims.margin_right_step
+      ~Dims.model_computed_fields
+      ~Dims.model_config
+      ~Dims.model_extra
+      ~Dims.model_fields
+      ~Dims.model_fields_set
       ~Dims.not_displayed
       ~Dims.nsteps
       ~Dims.thickness
       ~Dims.thickness_step
+      
       
       
       

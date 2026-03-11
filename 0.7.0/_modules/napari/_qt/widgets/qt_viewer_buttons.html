@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/css/napari-sphinx-theme.css?v=f8f17a90" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=9ff47a26"></script>
+    <script src="../../../../_static/documentation_options.js?v=5cc0f6b3"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -487,12 +487,13 @@ mermaid.initialize(
     }
 );
 
-window.addEventListener("load", load);</script>
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/napari/_qt/widgets/qt_viewer_buttons';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -910,6 +911,7 @@ window.addEventListener("load", load);</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_dims_sorter</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtDimsSorter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_spinbox</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtSpinBox</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_tooltip</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtToolTipLabel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers._scalar_field</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScalarFieldBase</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.action_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">action_manager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.camera_orientations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">DepthAxisOrientation</span><span class="p">,</span>
@@ -919,6 +921,7 @@ window.addEventListener("load", load);</script>
     <span class="n">VerticalAxisOrientation</span><span class="p">,</span>
     <span class="n">VerticalAxisOrientationStr</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.compat</span><span class="w"> </span><span class="kn">import</span> <span class="n">StrEnum</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">in_ipython</span><span class="p">,</span> <span class="n">in_jupyter</span><span class="p">,</span> <span class="n">in_python_repl</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
@@ -962,29 +965,111 @@ window.addEventListener("load", load);</script>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;new_points&#39;</span><span class="p">,</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;New points layer&#39;</span><span class="p">),</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">&#39;Create a new points layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;This button is highlighted if a layer is selected;</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;the new points layer will inherit the shape and all transforms of this layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;If multiple layers are selected, the new points layer will span their extent.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;If no layers are selected, the new points layer will have no scale/transform.</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="p">),</span>
             <span class="n">partial</span><span class="p">(</span><span class="n">new_points</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">),</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;new_shapes&#39;</span><span class="p">,</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;New shapes layer&#39;</span><span class="p">),</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">&#39;Create a new shapes layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;This button is highlighted if a layer is selected;</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;the new shapes layer will inherit the shape and all transforms of this layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;If multiple layers are selected, the new shapes layer will span their extent.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;If no layers are selected, the new points layer will have no scale/transform.</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="p">),</span>
             <span class="n">partial</span><span class="p">(</span><span class="n">new_shapes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">),</span>
         <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;new_labels&#39;</span><span class="p">,</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;New labels layer&#39;</span><span class="p">),</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">&#39;Create a new labels layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;If a Labels or Image layer is selected, the newly created Labels layer</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;will inherit the shape and all transforms of the selected layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;If any other layer type or multiple layers are selected, the resulting</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;Labels layer will span their extent. (Warning: could be huge!)</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;If layers are present in the Viewer but none are selected, the Labels button is disabled.</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="p">),</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_new_labels</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Labels button disabled when there are layers present but none are selected</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span>
+            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layers_present_and_none_selected</span><span class="p">()</span>
         <span class="p">)</span>
 
         <span class="n">layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addStretch</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deleteButton</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_on_selection_changed</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_selection_changed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_selection_changed</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_selection_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update button selection/enablement state based on the layer selection.</span>
+
+<span class="sd">        This allows indicating which mode of buttons will be triggered after</span>
+<span class="sd">        clicking on it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">FULL</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">FULL</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="n">ScalarFieldBase</span>
+            <span class="p">):</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">FULL</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">PARTIAL</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">PARTIAL</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">PARTIAL</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">PARTIAL</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">NONE</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">NONE</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">NONE</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span>
+            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layers_present_and_none_selected</span><span class="p">()</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_layers_present_and_none_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if there are layers present but none selected.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span>
+        <span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">labeled_double_slider</span><span class="p">(</span>
@@ -1179,13 +1264,15 @@ window.addEventListener("load", load);</script>
             <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Controls perspective projection strength. 0 is orthographic, larger values increase perspective effect.&#39;</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">rx</span> <span class="o">=</span> <span class="n">labeled_double_slider</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rz</span> <span class="o">=</span> <span class="n">labeled_double_slider</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
             <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
             <span class="n">value_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
             <span class="n">callback</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_angles</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
         <span class="p">)</span>
 
+        <span class="c1"># value_range is [-89, 89] because at &gt;=+/-90 gimbal locks the camera.</span>
+        <span class="c1"># this is a known complication of calculation with Euler angles</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ry</span> <span class="o">=</span> <span class="n">labeled_double_slider</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
             <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
@@ -1193,7 +1280,7 @@ window.addEventListener("load", load);</script>
             <span class="n">callback</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_angles</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">rz</span> <span class="o">=</span> <span class="n">labeled_double_slider</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rx</span> <span class="o">=</span> <span class="n">labeled_double_slider</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
             <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
             <span class="n">value_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
@@ -1209,15 +1296,15 @@ window.addEventListener("load", load);</script>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">perspective</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">perspective_help_symbol</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Angles    X:&#39;</span><span class="p">)),</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Angles    Z:&#39;</span><span class="p">)),</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rz</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">angle_help_symbol</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;             Y:&#39;</span><span class="p">)),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;               Y:&#39;</span><span class="p">)),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ry</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;             Z:&#39;</span><span class="p">)),</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rz</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;               X:&#39;</span><span class="p">)),</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_add_shared_camera_controls</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1385,7 +1472,7 @@ window.addEventListener("load", load);</script>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        idx : int</span>
-<span class="sd">            Index of the angle to update. In the order of (rx, ry, rz).</span>
+<span class="sd">            Index of the angle to update. In the euler order of (rz, ry, rx).</span>
 <span class="sd">        value : float</span>
 <span class="sd">            New angle value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1464,52 +1551,39 @@ window.addEventListener("load", load);</script>
             <span class="s1">&#39;If equal or greater than 1, it is interpreted as screen pixels.&#39;</span>
         <span class="p">)</span>
 
-        <span class="n">stride_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">__fields__</span><span class="p">[</span><span class="s1">&#39;stride&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type_</span><span class="o">.</span><span class="n">ge</span>
-        <span class="n">stride_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">__fields__</span><span class="p">[</span><span class="s1">&#39;stride&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type_</span><span class="o">.</span><span class="n">le</span>
-        <span class="n">stride_not</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">__fields__</span><span class="p">[</span><span class="s1">&#39;stride&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type_</span><span class="o">.</span><span class="n">ne</span>
         <span class="n">grid_stride</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">&#39;gridStrideBox&#39;</span><span class="p">)</span>
         <span class="n">grid_stride</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
-        <span class="n">grid_stride</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="n">stride_min</span><span class="p">,</span> <span class="n">stride_max</span><span class="p">)</span>
-        <span class="n">grid_stride</span><span class="o">.</span><span class="n">setProhibitValue</span><span class="p">(</span><span class="n">stride_not</span><span class="p">)</span>
+        <span class="n">grid_stride</span><span class="o">.</span><span class="n">setProhibitValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_stride</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span>
         <span class="n">grid_stride</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_grid_stride</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_stride_box</span> <span class="o">=</span> <span class="n">grid_stride</span>
 
-        <span class="n">width_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">__fields__</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sub_fields</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">type_</span><span class="o">.</span><span class="n">ge</span>
-        <span class="n">width_not</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">__fields__</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sub_fields</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">type_</span><span class="o">.</span><span class="n">ne</span>
         <span class="n">grid_width</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">&#39;gridWidthBox&#39;</span><span class="p">)</span>
         <span class="n">grid_width</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
-        <span class="n">grid_width</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="n">width_min</span><span class="p">)</span>
-        <span class="n">grid_width</span><span class="o">.</span><span class="n">setProhibitValue</span><span class="p">(</span><span class="n">width_not</span><span class="p">)</span>
+        <span class="n">grid_width</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">grid_width</span><span class="o">.</span><span class="n">setProhibitValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_width</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">grid_width</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_grid_width</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_width_box</span> <span class="o">=</span> <span class="n">grid_width</span>
 
-        <span class="n">height_min</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">__fields__</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sub_fields</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">type_</span><span class="o">.</span><span class="n">ge</span>
-        <span class="p">)</span>
-        <span class="n">height_not</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">__fields__</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sub_fields</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">type_</span><span class="o">.</span><span class="n">ne</span>
-        <span class="p">)</span>
         <span class="n">grid_height</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">&#39;gridStrideBox&#39;</span><span class="p">)</span>
         <span class="n">grid_height</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
-        <span class="n">grid_height</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="n">height_min</span><span class="p">)</span>
-        <span class="n">grid_height</span><span class="o">.</span><span class="n">setProhibitValue</span><span class="p">(</span><span class="n">height_not</span><span class="p">)</span>
+        <span class="n">grid_height</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">grid_height</span><span class="o">.</span><span class="n">setProhibitValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_height</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">grid_height</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_grid_height</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_height_box</span> <span class="o">=</span> <span class="n">grid_height</span>
 
         <span class="c1"># set up spacing</span>
-        <span class="n">spacing_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">__fields__</span><span class="p">[</span><span class="s1">&#39;spacing&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type_</span><span class="o">.</span><span class="n">ge</span>
-        <span class="n">spacing_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">__fields__</span><span class="p">[</span><span class="s1">&#39;spacing&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type_</span><span class="o">.</span><span class="n">le</span>
-        <span class="n">spacing_step</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">__fields__</span><span class="p">[</span><span class="s1">&#39;spacing&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type_</span><span class="o">.</span><span class="n">step</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings._application</span><span class="w"> </span><span class="kn">import</span> <span class="n">MAX_GRID_SPACING</span>
+
         <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">&#39;gridSpacingBox&#39;</span><span class="p">)</span>
         <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
-        <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="n">spacing_min</span><span class="p">)</span>
-        <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setMaximum</span><span class="p">(</span><span class="n">spacing_max</span><span class="p">)</span>
+        <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setMaximum</span><span class="p">(</span><span class="n">MAX_GRID_SPACING</span><span class="p">)</span>
         <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">spacing</span><span class="p">)</span>
         <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setDecimals</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-        <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setSingleStep</span><span class="p">(</span><span class="n">spacing_step</span><span class="p">)</span>
+        <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setSingleStep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
         <span class="n">grid_spacing</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_grid_spacing</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_spacing_box</span> <span class="o">=</span> <span class="n">grid_spacing</span>
 
@@ -1615,6 +1689,12 @@ window.addEventListener("load", load);</script>
     <span class="k">return</span> <span class="n">_func</span>
 
 
+<span class="k">class</span><span class="w"> </span><span class="nc">LayerCreationState</span><span class="p">(</span><span class="n">StrEnum</span><span class="p">):</span>
+    <span class="n">NONE</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span>
+    <span class="n">FULL</span> <span class="o">=</span> <span class="s1">&#39;full&#39;</span>
+    <span class="n">PARTIAL</span> <span class="o">=</span> <span class="s1">&#39;partial&#39;</span>
+
+
 <span class="k">class</span><span class="w"> </span><span class="nc">QtViewerPushButton</span><span class="p">(</span><span class="n">QPushButton</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Push button.</span>
 
@@ -1649,6 +1729,17 @@ window.addEventListener("load", load);</script>
             <span class="n">action_manager</span><span class="o">.</span><span class="n">bind_button</span><span class="p">(</span>
                 <span class="n">action</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">extra_tooltip_text</span><span class="o">=</span><span class="n">extra_tooltip_text</span>
             <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_change_selection_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">LayerCreationState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Change the selection state of a new-layer button.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;creation_state&#39;</span><span class="p">,</span> <span class="n">LayerCreationState</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_qss</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_refresh_qss</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Refresh the button&#39;s QSS (Qt Style Sheet).&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">unpolish</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">polish</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </pre></div>
 
                 </article>

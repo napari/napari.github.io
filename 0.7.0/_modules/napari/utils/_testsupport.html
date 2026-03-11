@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/napari-sphinx-theme.css?v=f8f17a90" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=9ff47a26"></script>
+    <script src="../../../_static/documentation_options.js?v=5cc0f6b3"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -487,12 +487,13 @@ mermaid.initialize(
     }
 );
 
-window.addEventListener("load", load);</script>
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/napari/utils/_testsupport';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -972,37 +973,6 @@ window.addEventListener("load", load);</script>
         <span class="p">)</span>
 
 
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">napari_plugin_manager</span><span class="p">(</span><span class="n">monkeypatch</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A napari plugin manager that blocks discovery by default.</span>
-
-<span class="sd">    Note you can still use `napari_plugin_manager.register()` to directly</span>
-<span class="sd">    register a plugin module, class or dict for testing.</span>
-
-<span class="sd">    Or, to re-enable global discovery, use:</span>
-<span class="sd">    `napari_plugin_manager.discovery_blocker.stop()`</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">napari.plugins.io</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.plugins._plugin_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">NapariPluginManager</span>
-
-    <span class="n">pm</span> <span class="o">=</span> <span class="n">NapariPluginManager</span><span class="p">()</span>
-
-    <span class="c1"># make it so that internal requests for the plugin_manager</span>
-    <span class="c1"># get this test version for the duration of the test.</span>
-    <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setattr</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">plugins</span><span class="p">,</span> <span class="s1">&#39;plugin_manager&#39;</span><span class="p">,</span> <span class="n">pm</span><span class="p">)</span>
-    <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setattr</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">io</span><span class="p">,</span> <span class="s1">&#39;plugin_manager&#39;</span><span class="p">,</span> <span class="n">pm</span><span class="p">)</span>
-    <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
-        <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setattr</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">_qt</span><span class="o">.</span><span class="n">qt_main_window</span><span class="p">,</span> <span class="s1">&#39;plugin_manager&#39;</span><span class="p">,</span> <span class="n">pm</span><span class="p">)</span>
-    <span class="c1"># prevent discovery of plugins in the environment</span>
-    <span class="c1"># you can still use `pm.register` to explicitly register something.</span>
-    <span class="n">pm</span><span class="o">.</span><span class="n">discovery_blocker</span> <span class="o">=</span> <span class="n">patch</span><span class="o">.</span><span class="n">object</span><span class="p">(</span><span class="n">pm</span><span class="p">,</span> <span class="s1">&#39;discover&#39;</span><span class="p">)</span>
-    <span class="n">pm</span><span class="o">.</span><span class="n">discovery_blocker</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-    <span class="n">pm</span><span class="o">.</span><span class="n">_initialize</span><span class="p">()</span>  <span class="c1"># register our builtins</span>
-    <span class="k">yield</span> <span class="n">pm</span>
-    <span class="n">pm</span><span class="o">.</span><span class="n">discovery_blocker</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-
-
 <span class="n">GCPASS</span> <span class="o">=</span> <span class="mi">0</span>
 
 
@@ -1088,7 +1058,6 @@ window.addEventListener("load", load);</script>
     <span class="n">qtbot</span><span class="p">,</span>
     <span class="n">request</span><span class="p">:</span> <span class="s1">&#39;FixtureRequest&#39;</span><span class="p">,</span>
     <span class="n">mock_app_model</span><span class="p">,</span>
-    <span class="n">napari_plugin_manager</span><span class="p">,</span>
     <span class="n">monkeypatch</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A pytest fixture function that creates a napari viewer for use in testing.</span>
@@ -1122,10 +1091,6 @@ window.addEventListener("load", load);</script>
 <span class="sd">        the napari package.</span>
 <span class="sd">        This can be made globally true by setting the &#39;NAPARI_STRICT_QT&#39;</span>
 <span class="sd">        environment variable.</span>
-<span class="sd">    block_plugin_discovery : bool, optional</span>
-<span class="sd">        Block discovery of non-builtin plugins.  Note: plugins can still be</span>
-<span class="sd">        manually registered by using the &#39;napari_plugin_manager&#39; fixture and</span>
-<span class="sd">        the `napari_plugin_manager.register()` method. By default, True.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -1133,9 +1098,6 @@ window.addEventListener("load", load);</script>
 <span class="sd">    ...     viewer = make_napari_viewer()</span>
 <span class="sd">    ...     viewer.add_shapes()</span>
 <span class="sd">    ...     assert len(viewer.layers) == 1</span>
-
-<span class="sd">    &gt;&gt;&gt; def test_something_with_plugins(make_napari_viewer):</span>
-<span class="sd">    ...     viewer = make_napari_viewer(block_plugin_discovery=False)</span>
 
 <span class="sd">    &gt;&gt;&gt; def test_something_with_strict_qt_tests(make_napari_viewer):</span>
 <span class="sd">    ...     viewer = make_napari_viewer(strict_qt=True)</span>
@@ -1206,16 +1168,12 @@ window.addEventListener("load", load);</script>
         <span class="o">*</span><span class="n">model_args</span><span class="p">,</span>
         <span class="n">ViewerClass</span><span class="o">=</span><span class="n">Viewer</span><span class="p">,</span>
         <span class="n">strict_qt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">block_plugin_discovery</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="o">**</span><span class="n">model_kwargs</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="n">strict_qt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">strict_qt</span> <span class="o">=</span> <span class="n">is_internal_test</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NAPARI_STRICT_QT&#39;</span><span class="p">)</span>
         <span class="k">nonlocal</span> <span class="n">_strict</span>
         <span class="n">_strict</span> <span class="o">=</span> <span class="n">strict_qt</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">block_plugin_discovery</span><span class="p">:</span>
-            <span class="n">napari_plugin_manager</span><span class="o">.</span><span class="n">discovery_blocker</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 
         <span class="n">should_show</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s1">&#39;--show-napari-viewer&#39;</span><span class="p">)</span>
         <span class="n">model_kwargs</span><span class="p">[</span><span class="s1">&#39;show&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;show&#39;</span><span class="p">,</span> <span class="n">should_show</span><span class="p">)</span>

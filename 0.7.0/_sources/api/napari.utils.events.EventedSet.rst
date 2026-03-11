@@ -68,9 +68,6 @@ napari.utils.events.EventedSet
       ~EventedSet.update
    
    
-      ~EventedSet.validate
-   
-   
    
 
    

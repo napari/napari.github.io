@@ -74,9 +74,6 @@ napari.utils.events.Selection
       ~Selection.update
    
    
-      ~Selection.validate
-   
-   
    
 
    

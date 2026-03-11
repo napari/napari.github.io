@@ -17,8 +17,14 @@ foremost, you should familiarize yourself with the project's
 doubt, always refer back there.
 
 As a core team member, you gain the responsibility of shepherding
-other contributors through the review process; here are some
+other contributors through the review process; below are some
 guidelines for how to do that.
+
+You also gain the responsibility of collaborating with the Steering Council and
+the rest of the team in shaping the project's goals and future direction as
+aligned with the mission and values. Please read our
+[governance](../../community/governance.md) documentation for more information
+on our governance process, and the Steering Council's role.
 
 ## All contributors are treated the same
 
@@ -213,7 +219,25 @@ Core team members can choose to become emeritus core team members and suspend
 their approval and voting rights until they become active again. Emeritus core
 team members can request **or** be invited to become active core team members at
 a later date, and active core team members will vote on this status-change as
-above.
+above. Core team members must reaffirm their membership every January. Core
+team members who do not reaffirm their membership will automatically become
+emeritus.
+
+## Expulsion of core team members
+
+Any core team member or SC member can request the explusion of a core team
+member whom they believe has acted in a manner contrary to the project's
+mission and values. This may be done by approaching an SC member, who is then
+responsible for calling a vote and managing the process, as detailed below.
+Written notice of the proposed expulsion must be given to the member at least
+21 days before a vote is held. As soon as a removal request has been made, the
+member's permissions will be reduced to prohibit destructive actions on
+relevant platforms. Before the vote, the member must be given reasonable
+opportunity to appeal. The member will be expelled if the vote, by secret
+ballot, of the core team members and Steering Council achieves a 75% majority.
+An expelled member may not be readmitted unless a vote for readmission, by
+secret ballot, of the core team members and Steering Council achieves a 75%
+majority.
 
 ## Contribute to this guide (!)
 

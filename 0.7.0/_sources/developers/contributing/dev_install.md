@@ -60,22 +60,16 @@ In order to make changes to `napari`, you will need to [fork](https://docs.githu
    napari supports different Qt backends and Qt versions. In this step, choose one of the following
    commands to install the developer tools and your preferred Qt backend.
 
-   For PyQt5, the default Qt backend, use:
+   For PyQt6, the default Qt backend, use:
 
    ```sh
    pip install -e ".[pyqt]" --group dev  # (quotes only needed for zsh shell)
    ```
 
-   To use PySide6 instead of the PyQt5, use:
+   To use PySide6 instead of the PyQt6, use:
 
    ```sh
    pip install -e ".[pyside]" --group dev  # (quotes only needed for zsh shell)
-   ```
-
-   For PyQt6, use:
-
-   ```sh
-   pip install -e ".[pyqt6]" --group dev  # (quotes only needed for zsh shell)
    ```
 
    If you wish to install the developer tools only, use the following. Choose

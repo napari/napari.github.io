@@ -41,22 +41,6 @@ Testing your plugin is an important step before publishing. Once your plugin is 
 ```
 ````
 
-```{admonition} Introducing npe2
----
-class: important
----
-We introduced a new plugin engine [`npe2`](https://github.com/napari/npe2) in December 2021.
-
-Unless otherwise stated, most of the documentation herein pertains
-to the new npe2 format (which uses a static `napari.yaml` manifest)
-
-Plugins targeting the first generation `napari-plugin-engine` 
-(using `@napari_hook_implementation` decorators, see [npe1](https://github.com/napari/napari-plugin-engine)) will
-continue to work for at least the first half of 2022, but we
-recommend migrating to `npe2`. See the
-[migration guide](npe2-migration-guide) for details.
-```
-
 [readers]: contributions-readers
 [sample_data]: contributions-sample-data
 [theme]: contributions-themes

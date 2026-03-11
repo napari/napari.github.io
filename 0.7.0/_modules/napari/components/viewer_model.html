@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/napari-sphinx-theme.css?v=f8f17a90" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=9ff47a26"></script>
+    <script src="../../../_static/documentation_options.js?v=5cc0f6b3"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -487,12 +487,13 @@ mermaid.initialize(
     }
 );
 
-window.addEventListener("load", load);</script>
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/napari/components/viewer_model';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -893,7 +894,12 @@ window.addEventListener("load", load);</script>
 <span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Iterator</span><span class="p">,</span>
+    <span class="n">Mapping</span><span class="p">,</span>
+    <span class="n">MutableMapping</span><span class="p">,</span>
+    <span class="n">Sequence</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">lru_cache</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -908,9 +914,9 @@ window.addEventListener("load", load);</script>
 <span class="c1"># This cannot be condition to TYPE_CHECKING or the stubgen fails</span>
 <span class="c1"># with undefined Context.</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">app_model.expressions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Context</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">PrivateAttr</span><span class="p">,</span> <span class="n">field_validator</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari</span><span class="w"> </span><span class="kn">import</span> <span class="n">layers</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari._pydantic_compat</span><span class="w"> </span><span class="kn">import</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">PrivateAttr</span><span class="p">,</span> <span class="n">validator</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components._layer_slicer</span><span class="w"> </span><span class="kn">import</span> <span class="n">_LayerSlicer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components._viewer_mouse_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">dims_scroll</span><span class="p">,</span>
@@ -925,6 +931,7 @@ window.addEventListener("load", load);</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.overlays</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">AxesOverlay</span><span class="p">,</span>
     <span class="n">BrushCircleOverlay</span><span class="p">,</span>
+    <span class="n">CurrentSliceOverlay</span><span class="p">,</span>
     <span class="n">Overlay</span><span class="p">,</span>
     <span class="n">ScaleBarOverlay</span><span class="p">,</span>
     <span class="n">TextOverlay</span><span class="p">,</span>
@@ -947,6 +954,7 @@ window.addEventListener("load", load);</script>
     <span class="n">Tracks</span><span class="p">,</span>
     <span class="n">Vectors</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers._scalar_field</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScalarFieldBase</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers._source</span><span class="w"> </span><span class="kn">import</span> <span class="n">Source</span><span class="p">,</span> <span class="n">layer_source</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.image._image_key_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="n">image_fun_to_mode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.image._image_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">guess_labels</span>
@@ -957,7 +965,8 @@ window.addEventListener("load", load);</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.tracks._tracks_key_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="n">tracks_fun_to_mode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.stack_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">split_channels</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.vectors._vectors_key_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="n">vectors_fun_to_mode</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.plugins.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_potential_readers</span><span class="p">,</span> <span class="n">get_preferred_reader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">_npe2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.plugins.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_preferred_reader</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.types</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">FullLayerData</span><span class="p">,</span>
@@ -978,7 +987,7 @@ window.addEventListener("load", load);</script>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.key_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="n">KeymapProvider</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ensure_list_of_layer_data_tuple</span><span class="p">,</span> <span class="n">is_sequence</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.mouse_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="n">MousemapProvider</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.mouse_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="n">MousemapProviderPydantic</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.progress</span><span class="w"> </span><span class="kn">import</span> <span class="n">progress</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.theme</span><span class="w"> </span><span class="kn">import</span> <span class="n">available_themes</span><span class="p">,</span> <span class="n">is_theme_available</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
@@ -1014,13 +1023,14 @@ window.addEventListener("load", load);</script>
     <span class="s1">&#39;axes&#39;</span><span class="p">:</span> <span class="n">AxesOverlay</span><span class="p">,</span>
     <span class="s1">&#39;brush_circle&#39;</span><span class="p">:</span> <span class="n">BrushCircleOverlay</span><span class="p">,</span>
     <span class="s1">&#39;zoom&#39;</span><span class="p">:</span> <span class="n">ZoomOverlay</span><span class="p">,</span>
+    <span class="s1">&#39;current_slice&#39;</span><span class="p">:</span> <span class="n">CurrentSliceOverlay</span><span class="p">,</span>
 <span class="p">}</span>
 
 
 <span class="c1"># KeymapProvider &amp; MousemapProvider should eventually be moved off the ViewerModel</span>
 <div class="viewcode-block" id="ViewerModel">
 <a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">ViewerModel</span><span class="p">(</span><span class="n">KeymapProvider</span><span class="p">,</span> <span class="n">MousemapProvider</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ViewerModel</span><span class="p">(</span><span class="n">KeymapProvider</span><span class="p">,</span> <span class="n">MousemapProviderPydantic</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Viewer containing the rendered scene, layers, and controlling elements</span>
 <span class="sd">    including dimension sliders, and control bars for color limits.</span>
 
@@ -1072,18 +1082,18 @@ window.addEventListener("load", load);</script>
 <span class="sd">        objects.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># Using allow_mutation=False means these attributes aren&#39;t settable and don&#39;t</span>
+    <span class="c1"># Using frozen=True means these attributes aren&#39;t settable and don&#39;t</span>
     <span class="c1"># have an event emitter associated with them</span>
-    <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Camera</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Cursor</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Dims</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">grid</span><span class="p">:</span> <span class="n">GridCanvas</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">GridCanvas</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Camera</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Cursor</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Dims</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">grid</span><span class="p">:</span> <span class="n">GridCanvas</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">GridCanvas</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">layers</span><span class="p">:</span> <span class="n">LayerList</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">default_factory</span><span class="o">=</span><span class="n">LayerList</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">LayerList</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">)</span>  <span class="c1"># Need to create custom JSON encoder for layer!</span>
     <span class="n">help</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-    <span class="n">status</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Ready&#39;</span>
-    <span class="n">tooltip</span><span class="p">:</span> <span class="n">Tooltip</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Tooltip</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">status</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;Ready&#39;</span>
+    <span class="n">tooltip</span><span class="p">:</span> <span class="n">Tooltip</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Tooltip</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">_current_theme</span><span class="p">)</span>
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span>
     <span class="c1"># private track of overlays, only expose the old ones for backward compatibility</span>
@@ -1092,7 +1102,7 @@ window.addEventListener("load", load);</script>
     <span class="p">)</span>
     <span class="c1"># 2-tuple indicating height and width</span>
     <span class="n">_canvas_size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
-    <span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span>
+    <span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">()</span>
     <span class="c1"># To check if mouse is over canvas to avoid race conditions between</span>
     <span class="c1"># different events systems</span>
     <span class="n">mouse_over_canvas</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1105,13 +1115,12 @@ window.addEventListener("load", load);</script>
         <span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(),</span> <span class="n">axis_labels</span><span class="o">=</span><span class="p">()</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># max_depth=0 means don&#39;t look for parent contexts.</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">napari._app_model.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_context</span>
 
         <span class="c1"># FIXME: just like the LayerList, this object should ideally be created</span>
         <span class="c1"># elsewhere.  The app should know about the ViewerModel, but not vice versa.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span> <span class="o">=</span> <span class="n">create_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># self._ctx = create_context(self, max_depth=0)</span>
         <span class="c1"># allow extra attributes during model initialization, useful for mixins</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__config__</span><span class="o">.</span><span class="n">extra</span> <span class="o">=</span> <span class="n">Extra</span><span class="o">.</span><span class="n">allow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_config</span><span class="p">[</span><span class="s1">&#39;extra&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;allow&#39;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
             <span class="n">dims</span><span class="o">=</span><span class="p">{</span>
@@ -1121,7 +1130,7 @@ window.addEventListener("load", load);</script>
                 <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="n">order</span><span class="p">,</span>
             <span class="p">},</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__config__</span><span class="o">.</span><span class="n">extra</span> <span class="o">=</span> <span class="n">Extra</span><span class="o">.</span><span class="n">ignore</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_config</span><span class="p">[</span><span class="s1">&#39;extra&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ignore&#39;</span>
 
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">layer_tooltip_visibility</span>
@@ -1180,6 +1189,7 @@ window.addEventListener("load", load);</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_remove_layer</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">reordered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_active_layer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
 
         <span class="c1"># Add mouse callback</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mouse_wheel_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dims_scroll</span><span class="p">)</span>
@@ -1190,28 +1200,28 @@ window.addEventListener("load", load);</script>
 
     <span class="c1"># simple properties exposing overlays for backward compatibility</span>
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">axes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;axes&#39;</span><span class="p">]</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">axes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AxesOverlay</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;axes&#39;</span><span class="p">]</span>  <span class="c1"># type: ignore[return-value]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">scale_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;scale_bar&#39;</span><span class="p">]</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">scale_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ScaleBarOverlay</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;scale_bar&#39;</span><span class="p">]</span>  <span class="c1"># type: ignore[return-value]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">text_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">text_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TextOverlay</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>  <span class="c1"># type: ignore[return-value]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">welcome_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;welcome&#39;</span><span class="p">]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_zoom_box</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;zoom&#39;</span><span class="p">]</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_zoom_box</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ZoomOverlay</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;zoom&#39;</span><span class="p">]</span>  <span class="c1"># type: ignore[return-value]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_brush_circle_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;brush_circle&#39;</span><span class="p">]</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_brush_circle_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BrushCircleOverlay</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;brush_circle&#39;</span><span class="p">]</span>  <span class="c1"># type: ignore[return-value]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_tooltip_visible_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
@@ -1238,7 +1248,8 @@ window.addEventListener("load", load);</script>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">spacing</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">grid_spacing</span>
 
-    <span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;theme&#39;</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">&#39;theme&#39;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_valid_theme</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_theme_available</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -1265,9 +1276,9 @@ window.addEventListener("load", load);</script>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="n">exclude</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ViewerModel.dict">
-<a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.dict">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ViewerModel.model_dump">
+<a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.model_dump">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">model_dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert to a dictionary.&quot;&quot;&quot;</span>
         <span class="c1"># Manually exclude the layer list and active layer which cannot be serialized at this point</span>
         <span class="c1"># and mouse and keybindings don&#39;t belong on model</span>
@@ -1275,7 +1286,19 @@ window.addEventListener("load", load);</script>
         <span class="c1"># https://github.com/samuelcolvin/pydantic/issues/660#issuecomment-642211017</span>
         <span class="n">exclude</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;exclude&#39;</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
         <span class="n">exclude</span> <span class="o">=</span> <span class="n">exclude</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">EXCLUDE_DICT</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="n">exclude</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="n">exclude</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ViewerModel.dict">
+<a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert to a dictionary.</span>
+
+<span class="sd">        .. deprecated:: 0.7.0</span>
+<span class="sd">             `dict` will be removed in napari 0.8.0 it is replaced by</span>
+<span class="sd">             `model_dump` following pydantic 1 to 2 changes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1508,21 +1531,55 @@ window.addEventListener("load", load);</script>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_new_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create new labels layer filling full world coordinates space.&quot;&quot;&quot;</span>
-        <span class="n">layers_extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span>
-        <span class="n">extent</span> <span class="o">=</span> <span class="n">layers_extent</span><span class="o">.</span><span class="n">world</span>
-        <span class="n">scale</span> <span class="o">=</span> <span class="n">layers_extent</span><span class="o">.</span><span class="n">step</span>
-        <span class="n">scene_size</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">corner</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">s</span> <span class="o">/</span> <span class="n">sc</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">sc</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">scene_size</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="p">]</span>
-        <span class="n">dtype_str</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">new_labels_dtype</span>
-        <span class="n">empty_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype_str</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">empty_labels</span><span class="p">,</span> <span class="n">translate</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">corner</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
-        <span class="c1"># We define `add_labels` dynamically, so mypy doesn&#39;t know about it.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">base_layer</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="n">ScalarFieldBase</span>
+        <span class="p">):</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">Labels</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                    <span class="n">base_layer</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span>
+                        <span class="p">:</span> <span class="n">base_layer</span><span class="o">.</span><span class="n">ndim</span>
+                    <span class="p">],</span>  <span class="c1"># use :base_layer.ndim to cut channels from rgb images</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">new_labels_dtype</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">scale</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span>
+                <span class="n">translate</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">translate</span><span class="p">,</span>
+                <span class="n">rotate</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">rotate</span><span class="p">,</span>
+                <span class="n">shear</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">shear</span><span class="p">,</span>
+                <span class="n">units</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">units</span><span class="p">,</span>
+                <span class="n">affine</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39; - Labels&#39;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
+            <span class="c1"># non scalar field layer or more than one layer selected</span>
+            <span class="n">layers_extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">get_extent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span>
+            <span class="n">extent</span> <span class="o">=</span> <span class="n">layers_extent</span><span class="o">.</span><span class="n">world</span>
+            <span class="n">scale</span> <span class="o">=</span> <span class="n">layers_extent</span><span class="o">.</span><span class="n">step</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="n">layers_extent</span><span class="o">.</span><span class="n">units</span>
+            <span class="n">scene_size</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">corner</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">s</span> <span class="o">/</span> <span class="n">sc</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">sc</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">scene_size</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="n">dtype_str</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">new_labels_dtype</span>
+            <span class="n">empty_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype_str</span><span class="p">)</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">Labels</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">empty_labels</span><span class="p">,</span>
+                <span class="n">translate</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">corner</span><span class="p">),</span>
+                <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+                <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">Labels</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                    <span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">new_labels_dtype</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_layer_reload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">units</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span>
             <span class="n">layers</span><span class="o">=</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">layer</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
@@ -1536,6 +1593,7 @@ window.addEventListener("load", load);</script>
 <span class="sd">            List of layers to update. If none provided updates all.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">units</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">layers</span><span class="o">=</span><span class="n">layers</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
         <span class="c1"># If the currently selected layer is sliced asynchronously, then the value</span>
         <span class="c1"># shown with this position may be incorrect. See the discussion for more details:</span>
@@ -1582,6 +1640,7 @@ window.addEventListener("load", load);</script>
             <span class="c1"># TODO: can be optimized with dims.update(), but events need fixing</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ranges</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="n">ranges</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">units</span>
 
         <span class="n">new_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span>
         <span class="n">dim_diff</span> <span class="o">=</span> <span class="n">new_dim</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
@@ -1742,6 +1801,7 @@ window.addEventListener("load", load);</script>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">cursor_size</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_cursor_size</span><span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">scale</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">translate</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">rotate</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">shear</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
@@ -2133,21 +2193,17 @@ window.addEventListener("load", load);</script>
 <span class="sd">        KeyError</span>
 <span class="sd">            If `plugin` does not provide a sample named `sample`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">napari.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">_npe2</span><span class="p">,</span> <span class="n">plugin_manager</span>
-
         <span class="n">plugin_spec_reader</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">data</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">SampleDataCreator</span> <span class="o">|</span> <span class="n">SampleData</span>
         <span class="c1"># try with npe2</span>
         <span class="n">data</span><span class="p">,</span> <span class="n">available</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">get_sample_data</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="n">sample</span><span class="p">)</span>
 
-        <span class="c1"># then try with npe1</span>
-        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">_sample_data</span><span class="p">[</span><span class="n">plugin</span><span class="p">][</span><span class="n">sample</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
-            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-                <span class="n">available</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">plugin_manager</span><span class="o">.</span><span class="n">available_samples</span><span class="p">())</span>
         <span class="c1"># npe2 uri sample data, extract the path so we can use viewer.open</span>
-        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;__self__&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;__self__&#39;</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">)</span>
+        <span class="p">):</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;reader_plugin&#39;</span><span class="p">)</span>
                 <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="o">.</span><span class="n">reader_plugin</span> <span class="o">!=</span> <span class="n">reader_plugin</span>
@@ -2401,7 +2457,7 @@ window.addEventListener("load", load);</script>
         <span class="n">_path</span> <span class="o">=</span> <span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="c1"># we want to display the paths nicely so make a help string here</span>
         <span class="n">path_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;[</span><span class="si">{</span><span class="n">_path</span><span class="si">}</span><span class="s1">], ...]&#39;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">_path</span>
-        <span class="n">readers</span> <span class="o">=</span> <span class="n">get_potential_readers</span><span class="p">(</span><span class="n">_path</span><span class="p">)</span>
+        <span class="n">readers</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">get_readers</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_path</span><span class="p">))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">readers</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">NoAvailableReaderError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
@@ -2521,12 +2577,12 @@ window.addEventListener("load", load);</script>
             <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">stack</span><span class="p">:</span>
-            <span class="n">layer_data</span><span class="p">,</span> <span class="n">hookimpl</span> <span class="o">=</span> <span class="n">read_data_with_plugins</span><span class="p">(</span>
+            <span class="n">layer_data</span><span class="p">,</span> <span class="n">plugin</span> <span class="o">=</span> <span class="n">read_data_with_plugins</span><span class="p">(</span>
                 <span class="n">paths</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="n">stack</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-            <span class="n">layer_data</span><span class="p">,</span> <span class="n">hookimpl</span> <span class="o">=</span> <span class="n">read_data_with_plugins</span><span class="p">(</span>
+            <span class="n">layer_data</span><span class="p">,</span> <span class="n">plugin</span> <span class="o">=</span> <span class="n">read_data_with_plugins</span><span class="p">(</span>
                 <span class="n">paths</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="n">stack</span>
             <span class="p">)</span>
 
@@ -2546,7 +2602,6 @@ window.addEventListener("load", load);</script>
 
         <span class="c1"># add each layer to the viewer</span>
         <span class="n">added</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Layer</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># for layers that get added</span>
-        <span class="n">plugin</span> <span class="o">=</span> <span class="n">hookimpl</span><span class="o">.</span><span class="n">plugin_name</span> <span class="k">if</span> <span class="n">hookimpl</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">data</span><span class="p">,</span> <span class="n">filename</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">layer_data</span><span class="p">,</span> <span class="n">filenames</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
             <span class="n">basename</span><span class="p">,</span> <span class="n">_ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
             <span class="c1"># actually add the layer</span>

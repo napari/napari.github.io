@@ -45,7 +45,7 @@ Notable folders in the root directory:
 
 [Qt](https://doc.qt.io/) is a C++ framework to build graphical user interfaces (GUIs)
 that is available in Python from a number of libraries, such as
-[PyQt5](https://www.riverbankcomputing.com/static/Docs/PyQt5/).
+[PyQt6](https://www.riverbankcomputing.com/static/Docs/PyQt6/).
 Napari uses Qt to build its GUI, but we want to remain flexible to offer other GUI
 frameworks (such as a web-based GUI) in the future. Therefore,
 we try to confine code that directly imports Qt (currently the only supported GUI

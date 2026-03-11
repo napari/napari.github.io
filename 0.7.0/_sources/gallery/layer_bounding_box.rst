@@ -92,7 +92,7 @@ see :ref:`sphx_glr_gallery_image_border.py`.
 
     # set the view to 3D and rotate camera
     viewer.dims.ndisplay = 3
-    viewer.camera.angles = (2, 15, 150)
+    viewer.camera.angles = (-27, 8, -58)
 
     if __name__ == '__main__':
         napari.run()
@@ -100,7 +100,7 @@ see :ref:`sphx_glr_gallery_image_border.py`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 15.263 seconds)
+   **Total running time of the script:** (0 minutes 13.202 seconds)
 
 
 .. _sphx_glr_download_gallery_layer_bounding_box.py:

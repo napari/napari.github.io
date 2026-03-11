@@ -43,7 +43,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/napari-sphinx-theme.css?v=f8f17a90" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=9ff47a26"></script>
+    <script src="../../_static/documentation_options.js?v=5cc0f6b3"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -68,7 +68,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -434,6 +434,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../testing_and_publishing/index.html">Testing and publishing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../testing_and_publishing/test.html">Testing guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing_and_publishing/deploy.html">Publish your plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing_and_publishing/hub_customization.html">Customizing your plugin’s listing on napari hub</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../testing_workshop_docs/index.html">In-depth guide to plugin testing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../testing_workshop_docs/1-pythons-assert-keyword.html">1: Python’s assert keyword</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../testing_workshop_docs/2-pytest-testing-frameworks.html">2: Pytest testing framework</a></li>
@@ -446,8 +447,7 @@
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Advanced Topics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="npe2_migration_guide.html">Migration to <code class="docutils literal notranslate"><span class="pre">npe2</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="adapted_plugin_guide.html">Changes to the plugin engine in 0.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="npe1.html">First generation plugins (<em>Deprecated</em>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adapted_plugin_guide.html">Changes to the plugin engine in 0.6.0 and 0.7.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="widget_communication.html">Widget communication</a></li>
 
 
@@ -547,9 +547,9 @@
 <h1>Advanced Topics<a class="headerlink" href="#advanced-topics" title="Link to this heading">#</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>In napari 0.6.0 we have made some changes to napari’s default behaviour when validating legacy “npe1” plugins.
-You may see a warning when starting <code class="docutils literal notranslate"><span class="pre">napari</span></code> if you have legacy “npe1” plugins installed.
-You can learn more about this change in the <a class="reference internal" href="adapted_plugin_guide.html#adapted-plugin-guide"><span class="std std-ref">Changes to the plugin engine in 0.6.0</span></a> document.</p>
+<p>In napari 0.7.0, legacy “npe1” plugins will only work by auto-conversion to the new plugin engine, <code class="docutils literal notranslate"><span class="pre">npe2</span></code>.
+The vast majority of plugins will continue working as before. If you notice any issues with a plugin, check out the
+<a class="reference internal" href="adapted_plugin_guide.html#adapted-plugin-guide"><span class="std std-ref">Changes to the plugin engine in 0.6.0</span></a> document to see if this is affecting you.</p>
 </div>
 <p>Some plugin developers may find more <strong>in-depth, technical information</strong> helpful. This section describes topics, such as:</p>
 <ul class="simple">
@@ -577,27 +577,6 @@ npe2 contributions reference</div>
 <p class="sd-card-text">A technical specification for how plugins can contribute additional functionality and features to napari.</p>
 </div>
 <a class="sd-stretched-link sd-hide-link-text reference internal" href="../technical_references/contributions.html#contributions-ref"><span class="std std-ref">Contributions Reference</span></a></div>
-</div>
-</div>
-</div>
-</section>
-<section id="deprecated-napari-plugin-engine-v1">
-<h2>Deprecated: napari plugin engine v1<a class="headerlink" href="#deprecated-napari-plugin-engine-v1" title="Link to this heading">#</a></h2>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>New plugins should use the <code class="docutils literal notranslate"><span class="pre">npe2</span></code> standard.
-We encourage first generation plugin authors to migrate their plugin to the <code class="docutils literal notranslate"><span class="pre">npe2</span></code> standard.</p>
-</div>
-<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
-<div class="sd-row docutils">
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-Napari plugin engine v1 reference</div>
-<p class="sd-card-text">These documents provide background on the first generation plugin system which is now deprecated.</p>
-</div>
-<a class="sd-stretched-link sd-hide-link-text reference internal" href="npe1.html#napari-plugin-engine"><span class="std std-ref">First generation plugins (Deprecated)</span></a></div>
 </div>
 <div class="sd-col sd-d-flex-row docutils">
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
@@ -663,7 +642,6 @@ Migration guide to npe2</div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#npe2-napari-plugin-engine-v2">npe2: napari plugin engine v2</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deprecated-napari-plugin-engine-v1">Deprecated: napari plugin engine v1</a></li>
 </ul>
   </nav></div>
 

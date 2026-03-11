@@ -170,6 +170,7 @@ napari.layers.Shapes
       ~Shapes.mouse_pan
       ~Shapes.mouse_zoom
       ~Shapes.name
+      ~Shapes.name_overlay
       ~Shapes.ndim
       ~Shapes.nshapes
       ~Shapes.opacity

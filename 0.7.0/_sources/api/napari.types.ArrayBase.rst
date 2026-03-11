@@ -193,13 +193,10 @@ napari.types.ArrayBase
       ~ArrayBase.flags
       ~ArrayBase.flat
       ~ArrayBase.imag
-      ~ArrayBase.itemset
       ~ArrayBase.itemsize
       ~ArrayBase.mT
       ~ArrayBase.nbytes
       ~ArrayBase.ndim
-      ~ArrayBase.newbyteorder
-      ~ArrayBase.ptp
       ~ArrayBase.real
       ~ArrayBase.shape
       ~ArrayBase.size

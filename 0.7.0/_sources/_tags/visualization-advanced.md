@@ -6,15 +6,17 @@
 maxdepth: 1
 caption: With this tag
 ---
+../gallery/3D_image_plane_rendering.rst
 ../gallery/3D_paths.rst
-../gallery/3Dimage_plane_rendering.rst
 ../gallery/add_multiscale_image.rst
 ../gallery/add_vectors_color_by_angle.rst
 ../gallery/affine_coffee_cup.rst
 ../gallery/affine_transforms.rst
+../gallery/cell_tracking.rst
 ../gallery/dynamic-projections-dask.rst
 ../gallery/export_figure.rst
 ../gallery/export_rois.rst
+../gallery/heart_masks_points.rst
 ../gallery/image_border.rst
 ../gallery/layer_bounding_box.rst
 ../gallery/layer_text_scaling.rst

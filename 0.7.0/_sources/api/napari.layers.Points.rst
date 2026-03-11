@@ -146,6 +146,7 @@ napari.layers.Points
       ~Points.mouse_zoom
       ~Points.n_dimensional
       ~Points.name
+      ~Points.name_overlay
       ~Points.ndim
       ~Points.opacity
       ~Points.out_of_slice_display

@@ -141,6 +141,7 @@ napari.layers.Labels
       ~Labels.mouse_zoom
       ~Labels.n_edit_dimensions
       ~Labels.name
+      ~Labels.name_overlay
       ~Labels.ndim
       ~Labels.opacity
       ~Labels.plane

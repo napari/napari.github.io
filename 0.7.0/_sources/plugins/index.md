@@ -3,9 +3,9 @@
 # Plugins
 
 ```{warning}
-In napari 0.6.0 we have made some changes to napari's default behaviour when validating legacy "npe1" plugins.
-You may see a warning when starting `napari` if you have legacy "npe1" plugins installed.
-You can learn more about this change in the [Changes to the plugin engine in 0.6.0](adapted-plugin-guide) document.
+In napari 0.7.0, legacy "npe1" plugins will only work by auto-conversion to the new plugin engine, `npe2`.
+The vast majority of plugins will continue working as before. If you notice any issues with a plugin, check out the
+[Changes to the plugin engine in 0.6.0](adapted-plugin-guide) document to see if this is affecting you.
 ```
 
 Plugins extend napari's functionality, allowing for customization and sharing with the community.

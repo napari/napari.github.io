@@ -303,6 +303,7 @@ which you can upload to [PyPI](https://pypi.org/) or share with others.
 However, you may wish to automate distribution of your plugin using Github,
 see below and the [Publishing](plugin-deploy) guide for more details.
 
+(napari-plugin-template)=
 ## Get going quickly with the napari plugin template
 
 Now that you've learned all of the critical steps for creating a plugin,

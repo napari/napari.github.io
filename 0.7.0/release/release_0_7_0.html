@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/release/release_0_7_0.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="⚠️ Note: these release notes are still in draft while 0.7.0 is in release candidate testing. ⚠️ Tue, Jan 27, 2026 We’re happy to announce the release of napari 0.7.0! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing la..." />
+<meta property="og:description" content="⚠️ Note: these release notes are still in draft while 0.7.0 is in release candidate testing. ⚠️ Tue, Mar 10, 2026 We’re happy to announce the release of napari 0.7.0! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing la..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="⚠️ Note: these release notes are still in draft while 0.7.0 is in release candidate testing. ⚠️ Tue, Jan 27, 2026 We’re happy to announce the release of napari 0.7.0! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing la..." />
+<meta name="description" content="⚠️ Note: these release notes are still in draft while 0.7.0 is in release candidate testing. ⚠️ Tue, Mar 10, 2026 We’re happy to announce the release of napari 0.7.0! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing la..." />
 
     <title>napari 0.7.0 &#8212; napari</title>
   
@@ -43,7 +43,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../_static/css/napari-sphinx-theme.css?v=f8f17a90" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=9ff47a26"></script>
+    <script src="../_static/documentation_options.js?v=5cc0f6b3"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -68,7 +68,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -457,6 +457,7 @@
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../guides/index.html">In-depth explanations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../guides/3D_interactivity.html">3D interactivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/axis-names.html">Axis names in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/handedness.html">Axis directions, data, and handedness</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/triangulation.html">Triangulation backends for the napari Shapes layer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/rendering.html">Rendering</a></li>
@@ -481,6 +482,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../gallery/paint-nd.html">Paint nD</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/colored-2d-tracks.html">colored 2D tracks (1)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/cell_tracking.html">Cell tracking example</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/experimental.html">experimental (10)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/action_manager.html">Action manager</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/interaction_box_image.html">Interaction box image</a></li>
@@ -494,16 +499,17 @@
 <li class="toctree-l4"><a class="reference internal" href="../gallery/viewer_fps_label.html">Viewer FPS label</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/features-table.html">features-table (5)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/features-table.html">features-table (6)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/add_labels_with_features.html">Add labels with features</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/add_points_with_features.html">Add points with features</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/add_shapes_with_features.html">Add shapes with features</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/features_table_widget.html">Features table widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/heart_masks_points.html">Heart with multiple annotations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/nD_points_with_features.html">nD points with features</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/gui.html">gui (16)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="../gallery/3Dimage_plane_rendering.html">3D image plane rendering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/3D_image_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/action_manager.html">Action manager</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/bbox_annotator.html">bbox annotator</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/custom_key_bindings.html">Custom key bindings</a></li>
@@ -521,8 +527,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../gallery/set_theme.html">Set theme</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/historical.html">historical (4)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="../gallery/reader_plugin.html">Reader plugin</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/historical.html">historical (3)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/shapes_to_labels.html">Shapes to labels</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/update_console.html">Update console</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/without_gui_qt.html">napari without gui_qt</a></li>
@@ -538,27 +543,30 @@
 <li class="toctree-l4"><a class="reference internal" href="../gallery/mouse_drag_image_warping.html">Image warping with mouse event callbacks</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/layers.html">layers (8)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/layers.html">layers (9)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/3D_image_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/3D_paths.html">3D Paths</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../gallery/3Dimage_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/add_3D_image.html">Add 3D image</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/add_labels.html">Add labels</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/add_labels_with_features.html">Add labels with features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/anisotropic_scale.html">Anisotropic data with scale</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/glasbey-colormap.html">Glasbey colormap</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/vortex.html">Visualizing optical flow in napari</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/xarray-latlon-timeseries.html">Displaying xarray data in napari</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-advanced.html">visualization-advanced (22)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-advanced.html">visualization-advanced (24)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/3D_image_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/3D_paths.html">3D Paths</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../gallery/3Dimage_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/add_multiscale_image.html">Add multiscale image</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/add_vectors_color_by_angle.html">Add vectors color by angle</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/affine_coffee_cup.html">Affine Transforms 3D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/affine_transforms.html">Affine transforms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/cell_tracking.html">Cell tracking example</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/dynamic-projections-dask.html">Dynamic projections dask</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/export_figure.html">Export Figure</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/export_rois.html">Export regions of interest (ROIs) to png</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/heart_masks_points.html">Heart with multiple annotations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/image_border.html">Layer Bounding Box (Border) Overlay</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/layer_bounding_box.html">3D Layer Bounding Box Overlay</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/layer_text_scaling.html">Layer Text Scaling</a></li>
@@ -603,15 +611,16 @@
 <li class="toctree-l4"><a class="reference internal" href="../gallery/tracks_2d.html">Tracks 2D</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-nd.html">visualization-nD (23)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-nd.html">visualization-nD (24)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/3D_vectors_through_time.html">3D vector field and image across time</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../gallery/add-points-3d.html">Add points 3D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/add_3D_image.html">Add 3D image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/add_points_3d.html">Add points 3D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/add_points_on_nD_shapes.html">Add points on nD shapes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/anisotropic_scale.html">Anisotropic data with scale</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/concentric-spheres.html">Concentric spheres</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/dask_nD_image.html">Dask nD image</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../gallery/image-points-3d.html">Image points 3D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/image_custom_kernel.html">Custom image interpolation kernels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/image_points_3d.html">Image points 3D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/labels3d.html">Labels 3D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/layer_bounding_box.html">3D Layer Bounding Box Overlay</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/mixed-dimensions-labels.html">Mixed dimensions labels</a></li>
@@ -788,7 +797,7 @@
   <section class="tex2jax_ignore mathjax_ignore" id="napari-0-7-0">
 <h1>napari 0.7.0<a class="headerlink" href="#napari-0-7-0" title="Link to this heading">#</a></h1>
 <p>⚠️ <em>Note: these release notes are still in draft while 0.7.0 is in release candidate testing.</em> ⚠️</p>
-<p><em>Tue, Jan 27, 2026</em></p>
+<p><em>Tue, Mar 10, 2026</em></p>
 <p>We’re happy to announce the release of napari 0.7.0!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
 It’s designed for browsing, annotating, and analyzing large multi-dimensional
@@ -799,14 +808,16 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <p>napari follows <a class="reference external" href="https://effver.org/">EffVer (Intended Effort Versioning)</a>; this is a <strong>Macro</strong> release containing awesome new features, but may require dedication of some significant time when upgrading projects to use this version.</p>
 <section id="highlights">
 <h2>Highlights<a class="headerlink" href="#highlights" title="Link to this heading">#</a></h2>
-<p>More detail coming soon…</p>
+<section id="breaking-changes">
+<h3>Breaking Changes<a class="headerlink" href="#breaking-changes" title="Link to this heading">#</a></h3>
 <section id="transition-to-npe2-plugin-engine">
-<h3>Transition to npe2 plugin engine 🔌<a class="headerlink" href="#transition-to-npe2-plugin-engine" title="Link to this heading">#</a></h3>
+<h4>Transition to npe2 plugin engine 🔌<a class="headerlink" href="#transition-to-npe2-plugin-engine" title="Link to this heading">#</a></h4>
 <p>In 0.6.0 we began the process of deprecating npe1 (napari-plugin-engine).
 In all 0.6.x releases, npe1 plugins were automatically converted to npe2 by default,
 and users could turn off the <code class="docutils literal notranslate"><span class="pre">use_npe2_adaptor</span></code> setting to continue using npe1 plugins
 without auto-conversion.</p>
-<p>In 0.7.0 this setting is being removed, and plugins will <em>only</em> continue to function if
+<p>In 0.7.0 this setting is being removed (<a class="reference external" href="https://github.com/napari/napari/pull/8448">PR #8448</a>),
+and plugins will <em>only</em> continue to function if
 they can be auto-converted to npe2. Most plugins will be unaffected, but those that rely
 on import-time behaviour may not work as expected. If a plugin is relying on import-time
 behaviour, it may be able to replicate this using the new startup scripts functionality added
@@ -825,8 +836,274 @@ our <a class="reference external" href="https://napari.zulipchat.com/#narrow/cha
 channel</a> or by
 coming to one of our <a class="reference internal" href="../community/meeting_schedule.html#meeting-schedule"><span class="std std-ref">community meetings</span></a>.</p>
 </section>
+<section id="negative-axis-labels-a-real-positive">
+<h4>Negative axis labels? A real positive<a class="headerlink" href="#negative-axis-labels-a-real-positive" title="Link to this heading">#</a></h4>
+<p>If you’ve ever loaded data of mixed dimensionality in napari, like a TYX volume
+alongside a YX segmentation, you may have noticed the default axis labels didn’t
+quite line up:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>axes</p></th>
+<th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>volume</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>segmt</p></td>
+<td><p></p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>That’s because napari used 0-based indexing for its viewer axis labels, which breaks
+down when layers have different numbers of dimensions. With
+<a class="reference external" href="https://github.com/napari/napari/pull/8565">#8565</a>,
+viewer axis labels now use negative indexing by default, combining Python’s negative indexing
+semantics with NumPy’s array broadcasting semantics. The last axis is always <code class="docutils literal notranslate"><span class="pre">-1</span></code>,
+the second-to-last is always <code class="docutils literal notranslate"><span class="pre">-2</span></code>, and so on:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>axes</p></th>
+<th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>volume</p></td>
+<td><p>-3</p></td>
+<td><p>-2</p></td>
+<td><p>-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>segmt</p></td>
+<td><p></p></td>
+<td><p>-2</p></td>
+<td><p>-1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>This means axis labels stay consistent as you add or remove layers of different
+dimensionality – axis <code class="docutils literal notranslate"><span class="pre">-1</span></code> is always your last axis. This also fixes
+a long-standing bug where axis labels could end up duplicated when mixing layers of
+different dimensionality (<a class="reference external" href="https://github.com/napari/napari/issues/6569">#6569</a>).</p>
+<p>You’ll notice this change in the dims slider labels, the axis overlay, and the dims
+popup widget. If you already label your axes with your own names (e.g. <code class="docutils literal notranslate"><span class="pre">z</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>),
+nothing’s changed. For everyone else, we have consistency at last!</p>
+</section>
+<section id="what-s-in-an-angle-the-truth-fixed-camera-angles">
+<h4>What’s in an angle? The truth! Fixed camera angles 🎥<a class="headerlink" href="#what-s-in-an-angle-the-truth-fixed-camera-angles" title="Link to this heading">#</a></h4>
+<p>If you’ve ever set up the camera to take that perfect publication-worthy photo of
+your data (and taken the time to query the camera angles), you may have noticed they seemed… off.
+That’s because they were! Very… off. This was due to a long-standing bug in how we calculated our
+camera angles, fueled in part by some arcane vispy axis-swapping tomfoolery, and in part by napari’s
+starting position of <code class="docutils literal notranslate"><span class="pre">viewer.camera.angles</span> <span class="pre">=</span> <span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">90)</span></code>.</p>
+<p>Good news! With <a class="reference external" href="https://github.com/napari/napari/pull/8281">#8281</a>, angles make sense again. The default camera angles are <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></code>, and they
+move intuitively – so <code class="docutils literal notranslate"><span class="pre">viewer.camera.angles</span> <span class="pre">=</span> <span class="pre">(10,</span> <span class="pre">0,</span> <span class="pre">0)</span></code> actually represents a 10 degree
+rotation around the <a class="reference internal" href="#negative-axis-labels-a-real-positive">-3rd</a> dimension. What a time to be alive!</p>
+<p>Old versions of napari:</p>
+<p><img alt="Image showing an old version of a napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console." src="https://github.com/user-attachments/assets/9ae2040c-36f7-4c4c-8ef8-140202d7ccda" /></p>
+<p>New and sane:</p>
+<p><img alt="Image showing the 0.7.0 napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console. The layer is rotated 10 degrees in its first dimension" src="https://github.com/user-attachments/assets/6b972b46-5c3c-439a-8b0a-fe8a293224e5" /></p>
+<p>All rotations are now right-handed (counterclockwise when the axis points towards the viewer),
+with automatic sign-flipping for flipped camera views.</p>
+<p>Now for the bad news… After many (and we do <a class="reference external" href="https://github.com/napari/napari/pull/8537">mean</a>
+<a class="reference external" href="https://github.com/napari/napari/pull/8557"><strong>many</strong></a>) attempts, we realized we couldn’t
+provide legacy conversion functions to get you to and from the original camera angles. Therefore,
+this is a <strong>breaking change</strong>.</p>
+<p>If you had scripts or notebooks setting up angles for screenshots, or if you’ve got workshop
+materials or tutorials with preset angles, they’ll need to be updated. Any existing code
+using <code class="docutils literal notranslate"><span class="pre">viewer.camera.angles</span> <span class="pre">=</span> <span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x)</span></code> will now produce a different view than before.</p>
+</section>
+<section id="limiting-self-events-callbacks">
+<h4>Limiting <code class="docutils literal notranslate"><span class="pre">self.events</span></code> callbacks<a class="headerlink" href="#limiting-self-events-callbacks" title="Link to this heading">#</a></h4>
+<p>In <a class="reference external" href="https://github.com/napari/napari/pull/8672">#8672</a>, we changed how we emit events from
+the parent <code class="docutils literal notranslate"><span class="pre">self.events</span></code> group.</p>
+<p>Previously, connecting a callback to an <code class="docutils literal notranslate"><span class="pre">EventedModel</span></code>’s top-level event group
+(e.g. <code class="docutils literal notranslate"><span class="pre">model.events.connect(callback)</span></code>) would cause that callback to fire multiple times
+when a single assignment triggered multiple dependent fields. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyModel</span><span class="p">(</span><span class="n">EventedModel</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">b</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="mi">2</span>
+
+    <span class="nd">@b</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">b</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">value</span> <span class="o">//</span> <span class="mi">2</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">my_callback</span><span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># previously called my_callback twice (once for &#39;a&#39;, once for &#39;b&#39;)</span>
+             <span class="c1"># now calls my_callback once</span>
+</pre></div>
+</div>
+<p>The callback connected to <code class="docutils literal notranslate"><span class="pre">model.events</span></code> will now be called exactly once, with the event <code class="docutils literal notranslate"><span class="pre">type</span></code>
+set to the first changed field and <code class="docutils literal notranslate"><span class="pre">value</span></code> set to its new value. Callbacks connected to specific
+field events (e.g. <code class="docutils literal notranslate"><span class="pre">model.events.a.connect(...)</span></code>) are unaffected and continue to work as before.</p>
+<p>If you connect to <code class="docutils literal notranslate"><span class="pre">model.events</span></code> directly and relied on receiving one call per dependent field
+change, you will need to connect to the individual field events instead.</p>
+</section>
+</section>
+<section id="new-features-widgets">
+<h3>New features &amp; widgets<a class="headerlink" href="#new-features-widgets" title="Link to this heading">#</a></h3>
+<section id="what-s-my-metadata-where-s-my-metadata-napari-metadata-to-the-rescue">
+<h4>What’s my metadata? Where’s my metadata? <code class="docutils literal notranslate"><span class="pre">napari-metadata</span></code> to the rescue<a class="headerlink" href="#what-s-my-metadata-where-s-my-metadata-napari-metadata-to-the-rescue" title="Link to this heading">#</a></h4>
+<p>With a lot of work from our community contributor, Carlos Mario Rodriguez Reza
+(<a class="github reference external" href="https://github.com/carlosmariorr">carlosmariorr</a>), and
+our venerable community manager Tim Monko (<a class="github reference external" href="https://github.com/timmonko">timmonko</a>),
+<code class="docutils literal notranslate"><span class="pre">napari</span></code> now has a metadata viewing and editing plugin
+included in our <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code> installation and our bundle (<a class="reference external" href="https://github.com/napari/napari/pull/8576">PR #8576</a>).</p>
+<p><img alt="Screenshot of napari displaying an image of neurons, with the napari-metadata Layer Metadata widget across the bottom of the viewer." src="https://raw.githubusercontent.com/napari/napari-metadata/main/docs/images/horizontal-widget.png" /></p>
+<p>Open the <code class="docutils literal notranslate"><span class="pre">Layer</span> <span class="pre">metadata</span></code> widget from the <code class="docutils literal notranslate"><span class="pre">Plugins</span></code> menu and you can view File information, and view and edit Axes metadata such as
+axis labels, translation and scale! You can also use the widget to copy specified metadata across to other layers.</p>
+<p>Check out the <a class="reference external" href="https://github.com/napari/napari-metadata">README</a> for some usage documentation, and feel
+free to open an issue to request new features – we’re actively improving this plugin so, more to come!</p>
+</section>
+<section id="layer-features-galore">
+<h4>(Layer) Features galore<a class="headerlink" href="#layer-features-galore" title="Link to this heading">#</a></h4>
+<p>Prior to 0.7.0, our Features table widget only supported showing individual selected layer features.</p>
+<p>With <a class="reference external" href="https://github.com/napari/napari/pull/8189">#8189</a>, courtesy of Marcelo Zoccoler
+(<a class="github reference external" href="https://github.com/zoccoler">zoccoler</a>), the widget will display
+features of all selected layers! The layer’s name is displayed in an additional column, so you
+always know what you’re looking at, and you can choose to display only the shared feature columns
+across all layers. Pretty slick!</p>
+<p><img alt="GIF displaying the usage of the features table with multiple selected layers." src="https://github.com/user-attachments/assets/e06fd403-ed03-4edd-9192-a4e287d25ff7" /></p>
+</section>
+<section id="smarter-new-layer-buttons-inheriting-from-selected-layers">
+<h4>Smarter new layer buttons - inheriting from selected layers<a class="headerlink" href="#smarter-new-layer-buttons-inheriting-from-selected-layers" title="Link to this heading">#</a></h4>
+<p>Prior to 0.7.0, creating a new layer Points, Shapes or Labels layer would give you a layer
+with extent and dimensionality equal to the union of all currently open layers, and with
+none of the other spatial information (scale, units, etc.) inherited.</p>
+<p>Now, with <a class="reference external" href="https://github.com/napari/napari/pull/8357">#8357</a> and <a class="reference external" href="https://github.com/napari/napari/pull/8702">#8702</a>
+you can create new Shapes, Points or Labels layer that inherits from a selected layer
+(or a combination of selected layers).</p>
+<section id="shapes-points">
+<h5>Shapes &amp; Points<a class="headerlink" href="#shapes-points" title="Link to this heading">#</a></h5>
+<p>If you have one layer selected, your new <code class="docutils literal notranslate"><span class="pre">Shapes</span></code> or <code class="docutils literal notranslate"><span class="pre">Points</span></code> layer will copy
+all spatial information from its ancestor, ready for annotating!
+If you have multiple layers selected, only scale is copied.</p>
+<p>If you wish to recover the original behavior, select all existing layers before creating your new layer.
+Deselecting all layers gives you a layer with only the number of dimensions inherited,
+and no other properties.</p>
+</section>
+<section id="labels">
+<h5>Labels<a class="headerlink" href="#labels" title="Link to this heading">#</a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">Labels</span></code> layers inherit all spatial information when a single <code class="docutils literal notranslate"><span class="pre">Image</span></code> or <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layer is selected.
+When multiple <code class="docutils literal notranslate"><span class="pre">Image</span></code> or <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layers are selected, or the selection includes any combination of
+other layer types, the new <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layer will span their extent – take note, this layer could be
+huge!</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Labels</span></code> button is disabled when layers are present in the viewer and none are selected.
+(You can still create a (512 x 512) <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layer when there are no layers present).</p>
+</section>
+<section id="visual-cues">
+<h5>Visual cues<a class="headerlink" href="#visual-cues" title="Link to this heading">#</a></h5>
+<p><a class="reference external" href="https://github.com/napari/napari/pull/8723">#8723</a> ensures this change is not invisible!
+When your selection will result in full inheritance of spatial information for the new layer,
+the new layer button will be highlighted.
+The highlight color will become brighter when your selection will result in the new layer only
+inheriting the extent of your existing selection. If you’re lost
+in the inheritance madness, you can also hover over the buttons to get details about the behavior.</p>
+<p><img alt="GIF displaying the highlights on the Shapes, Points and Labels new layer buttons when one or more layers are selected in the layerlist" src="https://github.com/user-attachments/assets/7f71c6a8-173e-4734-869a-3ba41d7b37e9" /></p>
+<p>PS – You can now also create these new layers from the <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">-&gt;</span> <span class="pre">New</span> <span class="pre">Layer</span></code> menu!</p>
+</section>
+</section>
+<section id="better-text-overalys">
+<h4>Better text overalys 🔡<a class="headerlink" href="#better-text-overalys" title="Link to this heading">#</a></h4>
+<p>With <a class="reference external" href="https://github.com/napari/napari/pull/8236">#8236</a>, we’ve not only refactored text overlays
+so they’re easier to implement, but we’ve also introduced two new long-requested overlays:
+the layer name overlay, and an overlay for the current slice. Together, they make generating
+publication-ready figures much easier!</p>
+<p><img alt="Image showing the napari viewer with two layers in grid mode. Each layer has its name displayed in the top left, and the current slice displayed in the bottom right." src="https://github.com/user-attachments/assets/3c96b38d-44c1-432b-b294-aa9c0934a553" /></p>
+<p>Try it yourself:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="n">v</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">ll</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">open_sample</span><span class="p">(</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span> <span class="s1">&#39;cells3d&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">ll</span><span class="p">:</span>
+    <span class="n">l</span><span class="o">.</span><span class="n">name_overlay</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">v</span><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">v</span><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">gridded</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">v</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;current_slice&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">v</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;current_slice&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">gridded</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">v</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">axis_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Note</strong>: the <code class="docutils literal notranslate"><span class="pre">v._overlays</span></code> attribute is still private as we’re working out the best API.</p>
+</section>
+</section>
+<section id="rendering-display">
+<h3>Rendering &amp; display<a class="headerlink" href="#rendering-display" title="Link to this heading">#</a></h3>
+<section id="more-pixels-to-play-with-texture-tiling">
+<h4>More pixels to play with - texture tiling<a class="headerlink" href="#more-pixels-to-play-with-texture-tiling" title="Link to this heading">#</a></h4>
+<p>Ever loaded a large 2D image in napari just to zoom in and feel like you’re not
+really getting a lot of bang for your pixel bucks? That’s because we were
+downsampling images that were too large to send the whole thing to the GPU.</p>
+<p>Courtesy of Guillaume Witz (<a class="github reference external" href="https://github.com/guiwitz">guiwitz</a>), and his PR for
+texture tiling (<a class="reference external" href="https://github.com/napari/napari/pull/8395">PR #8395</a>) 2D
+images that exceed OpenGL’s maximum texture size will be split into multiple
+tiles, each small enough to fit on the GPU.</p>
+<p><img alt="Image with a screenshot of napari 0.6.6 on the left and napari 0.7.0 on the right displaying a DeCAM image of the Milky Way. The image on the left is pixelated, while the image on the right is displayed at full resolution." src="https://github.com/user-attachments/assets/d0a115a8-49d5-432c-b561-f29fe9ac8116" /></p>
+</section>
+<section id="rendering-layers-in-physical-space-units-matter">
+<h4>Rendering layers in physical space - units matter!<a class="headerlink" href="#rendering-layers-in-physical-space-units-matter" title="Link to this heading">#</a></h4>
+<p>In 0.6.6 and below, units were stored in metadata, but not used for rendering.
+Adding two layers that represented the same physical space, but had different
+units, e.g. a layer with <code class="docutils literal notranslate"><span class="pre">scale=500,</span> <span class="pre">units='nm'</span></code> and one with <code class="docutils literal notranslate"><span class="pre">scale=0.5,</span> <span class="pre">units='μm'</span></code>
+wouldn’t overlap correctly, even though they should.</p>
+<p>Thanks to <a class="reference external" href="https://github.com/napari/napari/pull/8395">#7889</a>, layers with
+compatible units (i.e. those that share the same physical dimension per axis,
+like all spatial), will make use of <code class="docutils literal notranslate"><span class="pre">units</span></code> and <code class="docutils literal notranslate"><span class="pre">scale</span></code> to overlap correctly,
+using the smallest unit as the rendering space.</p>
+<p>Units can also be set globally on the layer list using <code class="docutils literal notranslate"><span class="pre">viewer.layers.units</span> <span class="pre">=</span> <span class="pre">('nm',</span> <span class="pre">'nm')</span></code>,
+forcing layers to be rendered in this space. If a new layer is added with more dimensions
+than the current layers, this global override is dropped with a warning.</p>
+</section>
+<section id="points-any-size-you-like">
+<h4>Points - any size you like 🟣<a class="headerlink" href="#points-any-size-you-like" title="Link to this heading">#</a></h4>
+<p>On macOS, the points layer has never been able to reach its full potential, as OpenGL
+drivers limit the size of an individual marker to a certain number of screen pixels.</p>
+<p>With <a class="reference external" href="https://github.com/napari/napari/pull/8552">#8552</a> and the release of <code class="docutils literal notranslate"><span class="pre">vispy</span> <span class="pre">v0.16</span></code>,
+this long-standing issue has finally been resolved. Across all operating systems, you can
+make your points as big as you want!</p>
+<p>This change has also propagated to the zoom behaviour on macOS – points now zoom
+proportionally to the data, rather than staying the same size in screen pixels.</p>
+<p>Here’s the behaviour pre 0.7.0:</p>
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline> 
+    <source src="../_static/images/points_zoom_066.webm" type="video/webm" /> 
+    <source src="../_static/images/points_zoom_066.mp4" type="video/mp4" /> 
+    <img src="../_static/images/points_zoom_066.png" 
+      title="Your browser does not support the video tag" 
+      alt="Video with a points layer on a grid of white squares. When zooming, the points stay the same size in screen pixels." 
+    > 
+  </video> 
+</figure> <p>And now:</p>
+<figure> 
+  <video width="100%" controls autoplay loop muted playsinline> 
+    <source src="../_static/images/points_zoom_070.webm" type="video/webm" /> 
+    <source src="../_static/images/points_zoom_070.mp4" type="video/mp4" /> 
+    <img src="../_static/images/points_zoom_070.png" 
+      title="Your browser does not support the video tag" 
+      alt="Video with a points layer on a grid of white squares. When zooming, the points scale proportionally to the data." 
+    > 
+  </video> 
+</figure> </section>
+</section>
+<section id="performance">
+<h3>Performance<a class="headerlink" href="#performance" title="Link to this heading">#</a></h3>
 <section id="grid-mode-bigger-better-faster">
-<h3>Grid mode - bigger, better, faster 📈<a class="headerlink" href="#grid-mode-bigger-better-faster" title="Link to this heading">#</a></h3>
+<h4>Grid mode – bigger, better, faster 📈<a class="headerlink" href="#grid-mode-bigger-better-faster" title="Link to this heading">#</a></h4>
 <p>If you’ve been playing with our new grid mode since 0.6.5, you
 may have stumbled into performance issues when progressively adding
 new layers to the viewer. Stumble no longer! Our grid mode is now wicked fast and buttery smooth 🧈.</p>
@@ -852,42 +1129,76 @@ layers, so you can tile to your heart’s content. Try it out:</p>
 </pre></div>
 </div>
 </section>
-<section id="what-s-in-an-angle-the-truth-fixed-camera-angles">
-<h3>What’s in an angle? The truth! Fixed camera angles 🎥<a class="headerlink" href="#what-s-in-an-angle-the-truth-fixed-camera-angles" title="Link to this heading">#</a></h3>
-<p>If you’ve ever set up the camera to take that perfect publication-worthy photo of
-your data (and taken the time to query the camera angles), you may have noticed they seemed… off.
-That’s because they were! Very… off. This was due to a long-standing bug in how we calculated our
-camera angles, fueled in part by some arcane vispy axis-swapping tomfoolery, and in part by napari’s
-starting position of <code class="docutils literal notranslate"><span class="pre">viewer.camera.angles</span> <span class="pre">=</span> <span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">90)</span></code>.</p>
-<p>Good news! With <a class="reference external" href="https://github.com/napari/napari/pull/8281">#8281</a>, angles make sense again. The default camera angles are <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></code>, and they
-move intuitively – so <code class="docutils literal notranslate"><span class="pre">viewer.camera.angles</span> <span class="pre">=</span> <span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">10)</span></code> actually represents a 10 degree
-rotation around the 0th dimension. What a time to be alive!</p>
-<p>Old versions of napari:</p>
-<p><img alt="Image showing an old version of a napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console." src="https://github.com/user-attachments/assets/9ae2040c-36f7-4c4c-8ef8-140202d7ccda" /></p>
-<p>New and sane:</p>
-<p><img alt="Image showing the 0.7.0 napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console. The layer is rotated 10 degrees in its first dimension" src="https://github.com/user-attachments/assets/6b972b46-5c3c-439a-8b0a-fe8a293224e5" /></p>
-<p>All rotations are now right-handed (counterclockwise when the axis points towards the viewer),
-with automatic sign-flipping for flipped camera views. We’ve also removed the unwieldy to type
-(and confusing to reason about) <code class="docutils literal notranslate"><span class="pre">quaternion2euler_degrees</span></code> in favour of scipy’s <code class="docutils literal notranslate"><span class="pre">Rotation</span></code> class.</p>
-<p>Now for the bad news… After many (and we do <a class="reference external" href="https://github.com/napari/napari/pull/8537">mean</a>
-<a class="reference external" href="https://github.com/napari/napari/pull/8557"><strong>many</strong></a>) attempts, we realized we couldn’t
-provide legacy conversion functions to get you to and from the original camera angles. Therefore,
-this is a <strong>breaking change</strong>.</p>
-<p>If you had scripts or notebooks setting up angles for screenshots, or if you’ve got workshop
-materials or tutorials with preset angles, they’ll need to be updated. Any existing code
-using <code class="docutils literal notranslate"><span class="pre">viewer.camera.angles</span> <span class="pre">=</span> <span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x)</span></code> will now produce a different view than before.</p>
-<p>…</p>
+<section id="add-delete-layers-without-delay">
+<h4>Add &amp; delete layers without delay<a class="headerlink" href="#add-delete-layers-without-delay" title="Link to this heading">#</a></h4>
+<p><a class="reference external" href="https://github.com/napari/napari/pull/8479">#8479</a> and <a class="reference external" href="https://github.com/napari/napari/pull/8443">#8443</a>
+made a number of improvements to
+our layer and overlay clean-up, addressing a number of issues with large numbers of layers
+in the viewer - adding them, deleting them, and even closing the viewer is now snappy
+and smooth!</p>
+</section>
+<section id="shapes-layers-select-zoom-delete-repeat">
+<h4>Shapes layers – select, zoom, delete, repeat<a class="headerlink" href="#shapes-layers-select-zoom-delete-repeat" title="Link to this heading">#</a></h4>
+<p>If you’ve ever tried working with thousands of shapes in napari, you’ll know
+it could get… painful. Selecting 10,000 shapes with a box took over 50 seconds,
+deleting 5,000 shapes took over a minute, and zooming with shapes selected
+would lock up the viewer entirely. Not anymore!</p>
+<p>0.7.0 brings a flurry of performance improvements:</p>
 <ul class="simple">
-<li><p>Multilayer features table (<a class="reference external" href="https://github.com/napari/napari/pull/8189">#8189</a>)</p></li>
-<li><p>Remove <code class="docutils literal notranslate"><span class="pre">numpydoc</span></code> as a base and testing dependency (<a class="reference external" href="https://github.com/napari/napari/pull/8338">#8338</a>)</p></li>
-<li><p>Texture tiling (<a class="reference external" href="https://github.com/napari/napari/pull/8395">#8395</a>)</p></li>
-<li><p>Fix overlay initialization and layer addition slowdown (<a class="reference external" href="https://github.com/napari/napari/pull/8443">#8443</a>)</p></li>
-<li><p>Remove shim setting and warning dialog (<a class="reference external" href="https://github.com/napari/napari/pull/8448">#8448</a>)</p></li>
-<li><p>Remove PySide2 support (<a class="reference external" href="https://github.com/napari/napari/pull/8450">#8450</a>)</p></li>
-<li><p>Speed up the deletion of layers by deduplicating the function calls  (<a class="reference external" href="https://github.com/napari/napari/pull/8479">#8479</a>)</p></li>
-<li><p>Remove <code class="docutils literal notranslate"><span class="pre">npe1</span></code> settings and theme loading (<a class="reference external" href="https://github.com/napari/napari/pull/8540">#8540</a>)</p></li>
-<li><p>Use negative indexing for viewer dims axis labels (<a class="reference external" href="https://github.com/napari/napari/pull/8565">#8565</a>)</p></li>
-<li><p>Add napari-metadata to napari dependencies (<a class="reference external" href="https://github.com/napari/napari/pull/8576">#8576</a>)</p></li>
+<li><p>Box selection now uses bounding boxes and vectorized intersection tests,
+delivering a more than 100x speedup (<a class="reference external" href="https://github.com/napari/napari/pull/8378">#8378</a>).
+Selecting 10,000 shapes goes from &gt;50s to ~0.3s.</p></li>
+<li><p>Batch deletion replaces one-by-one removal for another 100x speedup
+(<a class="reference external" href="https://github.com/napari/napari/pull/8375">#8375</a>)! Deleting 50,000 shapes
+now takes under half a second.</p></li>
+<li><p>Outline computation is batched and cached, so zooming and panning with
+selected shapes no longer blocks
+(<a class="reference external" href="https://github.com/napari/napari/pull/8403">#8403</a>,
+<a class="reference external" href="https://github.com/napari/napari/pull/8536">#8536</a>).</p></li>
+<li><p>Highlight updates are throttled for large layers, enabling smooth zoom
+even with 200,000+ shapes (<a class="reference external" href="https://github.com/napari/napari/pull/8404">#8404</a>).</p></li>
+<li><p>Mode switching no longer triggers unnecessary redraws, giving another
+~3x speedup when many shapes are selected
+(<a class="reference external" href="https://github.com/napari/napari/pull/8551">#8551</a>).</p></li>
+</ul>
+<p>Beware: there’s still more to do, because drawing and drag-moving large selections
+remain slow!</p>
+</section>
+<section id="multiscale-less-to-update-more-to-celebrate">
+<h4>Multiscale – less to update, more to celebrate<a class="headerlink" href="#multiscale-less-to-update-more-to-celebrate" title="Link to this heading">#</a></h4>
+<p>PR <a class="reference external" href="https://github.com/napari/napari/pull/8678">#8678</a> introduced a small change
+with a big effect! Now, zooming in (and panning while zoomed in), will only trigger
+a data refresh if the multiscale level has changed <strong>or</strong> if the new view falls outside
+of already loaded data.</p>
+</section>
+<section id="delete-the-launch-codes-no-more-macos-hacks-on-launch">
+<h4>Delete the launch codes – no more macOS hacks on launch<a class="headerlink" href="#delete-the-launch-codes-no-more-macos-hacks-on-launch" title="Link to this heading">#</a></h4>
+<p>In 0.6.6 and below, we had some macOS specific launch code that skirted around some
+issues (which are now no longer relevant), and hackily “relaunched” napari to make
+sure the application name was correct.</p>
+<p>This code added up to a whole second to our launch time, as well as being potentially
+problematic for some users. PR <a class="reference external" href="https://github.com/napari/napari/pull/8705">#8705</a>
+removed this code, making our start-up a little less hacky and a little more snappy.
+The downside is that when launching napari on macOS, the app name may be listed as
+Python, instead of napari. We think the trade-off is worth it.</p>
+</section>
+</section>
+<section id="infrastructure-dependencies">
+<h3>Infrastructure &amp; dependencies<a class="headerlink" href="#infrastructure-dependencies" title="Link to this heading">#</a></h3>
+<p>A couple of notes on big changes in our dependencies:</p>
+<ul class="simple">
+<li><p>With #8509 we improved our support for <code class="docutils literal notranslate"><span class="pre">pydantic</span> <span class="pre">v2</span></code>, allowing us to enable support for Python 3.14!
+This brings us one step closer to fully adopting <code class="docutils literal notranslate"><span class="pre">psygnal</span></code> as our event library.</p></li>
+<li><p>In <a class="reference external" href="https://github.com/napari/napari/pull/8450">#8450</a> we dropped support for PySide2. If you
+were using napari with PySide for your Qt bindings, you’ll need to upgrade to PySide6. Good news
+is that PySide6 is looking pretty stable, while PySide2 had some compatibility issues with numpy2,
+and had to be built from source for Python 3.11+.</p></li>
+<li><p>In (<a class="reference external" href="https://github.com/napari/napari/pull/8665">#8665</a>) we updated the default qt
+binding to PyQt6. PyQt6 will now be installed with <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code> installations. Windows users
+should see improvements to their display with better support for fractional scaling!</p></li>
+<li><p>In <a class="reference external" href="https://github.com/napari/napari/pull/8338">#8338</a> we replaced <code class="docutils literal notranslate"><span class="pre">numpydoc</span></code> with <code class="docutils literal notranslate"><span class="pre">docstring_parser</span></code>
+for parsing our docstrings. This will be a pretty invisible change from a user’s perspective, but
+it saves more than 50MB of disk space for a napari install!</p></li>
 </ul>
 </section>
 </section>
@@ -899,7 +1210,6 @@ using <code class="docutils literal notranslate"><span class="pre">viewer.camera
 <li><p>Multilayer features table (<a class="reference external" href="https://github.com/napari/napari/pull/8189">#8189</a>)</p></li>
 <li><p>Better text overlay (and subclasses) (<a class="reference external" href="https://github.com/napari/napari/pull/8236">#8236</a>)</p></li>
 <li><p>Allow create Shapes and Points per selected Layer (<a class="reference external" href="https://github.com/napari/napari/pull/8357">#8357</a>)</p></li>
-<li><p>Updating <code class="docutils literal notranslate"><span class="pre">selected_label</span></code> by <code class="docutils literal notranslate"><span class="pre">selected_data</span></code> for <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layer toward multiple selection (<a class="reference external" href="https://github.com/napari/napari/pull/8405">#8405</a>)</p></li>
 <li><p>Use new logos! (<a class="reference external" href="https://github.com/napari/napari/pull/8457">#8457</a>)</p></li>
 <li><p>Add napari-metadata to napari dependencies (<a class="reference external" href="https://github.com/napari/napari/pull/8576">#8576</a>)</p></li>
 </ul>
@@ -908,6 +1218,7 @@ using <code class="docutils literal notranslate"><span class="pre">viewer.camera
 <h2>Improvements<a class="headerlink" href="#improvements" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>perf: reallocate instead of clearing and repopulating set of selected points (<a class="reference external" href="https://github.com/napari/napari/pull/6895">#6895</a>)</p></li>
+<li><p>Add cell tracking example (<a class="reference external" href="https://github.com/napari/napari/pull/8051">#8051</a>)</p></li>
 <li><p>Add a seed argument to built-in samples with random seeds (<a class="reference external" href="https://github.com/napari/napari/pull/8317">#8317</a>)</p></li>
 <li><p>Enh: clarify Points selection keybinding behavior: select_in_slice not append by default, add new select_append_in_slice (<a class="reference external" href="https://github.com/napari/napari/pull/8339">#8339</a>)</p></li>
 <li><p>Enh: Improve zarr reading by builtins (<a class="reference external" href="https://github.com/napari/napari/pull/8355">#8355</a>)</p></li>
@@ -928,10 +1239,25 @@ using <code class="docutils literal notranslate"><span class="pre">viewer.camera
 <li><p>Add caching of outlines to reduce delay on Shapes zoom (<a class="reference external" href="https://github.com/napari/napari/pull/8536">#8536</a>)</p></li>
 <li><p>Don’t warn user when a Zarr array with channel axis is passed (<a class="reference external" href="https://github.com/napari/napari/pull/8559">#8559</a>)</p></li>
 <li><p>Use negative indexing for viewer dims axis labels (<a class="reference external" href="https://github.com/napari/napari/pull/8565">#8565</a>)</p></li>
+<li><p>Add colorbar &amp; bounding box overlays to Layers menu (<a class="reference external" href="https://github.com/napari/napari/pull/8611">#8611</a>)</p></li>
+<li><p>Add visual for new points/shapes button on selected layers (<a class="reference external" href="https://github.com/napari/napari/pull/8649">#8649</a>)</p></li>
+<li><p>Limit <code class="docutils literal notranslate"><span class="pre">self.events</span></code> callbacks trigger to only once per assignment (<a class="reference external" href="https://github.com/napari/napari/pull/8672">#8672</a>)</p></li>
+<li><p>[multiscale] Only update/refresh when level has changed or view is outside current corner_pixels (<a class="reference external" href="https://github.com/napari/napari/pull/8678">#8678</a>)</p></li>
+<li><p>Warn users when features data looks categorical (<a class="reference external" href="https://github.com/napari/napari/pull/8685">#8685</a>)</p></li>
+<li><p>Fix type annotation in viewer keybindings, use QtViewer for console (<a class="reference external" href="https://github.com/napari/napari/pull/8694">#8694</a>)</p></li>
+<li><p>Do not inherit scale for points and shapes if no layer is selected (<a class="reference external" href="https://github.com/napari/napari/pull/8701">#8701</a>)</p></li>
+<li><p>Inherit spatial information for new <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layers when only one other <code class="docutils literal notranslate"><span class="pre">Labels</span></code> or <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer is selected (<a class="reference external" href="https://github.com/napari/napari/pull/8702">#8702</a>)</p></li>
+<li><p>[UI, UX] Make dock widget title bar icons bigger and text more legible (<a class="reference external" href="https://github.com/napari/napari/pull/8714">#8714</a>)</p></li>
+<li><p>Perf, enh: defer dask.array loading by moving import into functions (<a class="reference external" href="https://github.com/napari/napari/pull/8720">#8720</a>)</p></li>
+<li><p>Change look of new layer buttons to mark that there are 3 modes (<a class="reference external" href="https://github.com/napari/napari/pull/8723">#8723</a>)</p></li>
+<li><p>If path arg is passed to CLI napari, don’t show welcome overlay (<a class="reference external" href="https://github.com/napari/napari/pull/8725">#8725</a>)</p></li>
+<li><p>Use capitalized name of source layer type when adding layer (<a class="reference external" href="https://github.com/napari/napari/pull/8740">#8740</a>)</p></li>
+<li><p>Add scale example for anisotropic 3D data (<a class="reference external" href="https://github.com/napari/napari/pull/8742">#8742</a>)</p></li>
+<li><p>Use custom Font manager to use Qt discovery mechanism (<a class="reference external" href="https://github.com/napari/napari/pull/8751">#8751</a>)</p></li>
 </ul>
 </section>
-<section id="performance">
-<h2>Performance<a class="headerlink" href="#performance" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h2>Performance<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>perf: reallocate instead of clearing and repopulating set of selected points (<a class="reference external" href="https://github.com/napari/napari/pull/6895">#6895</a>)</p></li>
 <li><p>ENH: Speedup multiple shapes removal by concat’ing and np.deleting as a batch (<a class="reference external" href="https://github.com/napari/napari/pull/8375">#8375</a>)</p></li>
@@ -946,6 +1272,9 @@ using <code class="docutils literal notranslate"><span class="pre">viewer.camera
 <li><p>Fix the Shapes mode setter to use _is_creating for <em>finish_drawing and clear selection when going to ADD</em>* (<a class="reference external" href="https://github.com/napari/napari/pull/8551">#8551</a>)</p></li>
 <li><p>Delay scipy imports until needed (<a class="reference external" href="https://github.com/napari/napari/pull/8561">#8561</a>)</p></li>
 <li><p>Low hanging Labels painting performance improvement (<a class="reference external" href="https://github.com/napari/napari/pull/8592">#8592</a>)</p></li>
+<li><p>[multiscale] Only update/refresh when level has changed or view is outside current corner_pixels (<a class="reference external" href="https://github.com/napari/napari/pull/8678">#8678</a>)</p></li>
+<li><p>[Perf] Remove napari splash screen (<a class="reference external" href="https://github.com/napari/napari/pull/8686">#8686</a>)</p></li>
+<li><p>[Maint] Remove all macOS specific launch code as it’s out-dated or problematic (re-running with symlink) (<a class="reference external" href="https://github.com/napari/napari/pull/8705">#8705</a>)</p></li>
 </ul>
 </section>
 <section id="bug-fixes">
@@ -956,7 +1285,6 @@ using <code class="docutils literal notranslate"><span class="pre">viewer.camera
 <li><p>Fix conversion of vector images to coordinates of vectors (<a class="reference external" href="https://github.com/napari/napari/pull/8366">#8366</a>)</p></li>
 <li><p>initialize label selection spinbox to a correct value (<a class="reference external" href="https://github.com/napari/napari/pull/8382">#8382</a>)</p></li>
 <li><p>Bugfix: fix erratic Shape sorting (<a class="reference external" href="https://github.com/napari/napari/pull/8408">#8408</a>)</p></li>
-<li><p>Bugfix: update magicgui layer combobox if a layer is renamed (<a class="reference external" href="https://github.com/napari/napari/pull/8412">#8412</a>)</p></li>
 <li><p>bugfix: Ensure that edge_width is accounted for when using polygon lasso (<a class="reference external" href="https://github.com/napari/napari/pull/8414">#8414</a>)</p></li>
 <li><p>Fix Shapes thumbnail z ordering (<a class="reference external" href="https://github.com/napari/napari/pull/8417">#8417</a>)</p></li>
 <li><p>Fix unnecessary overlay initialization on scenegraph update (<a class="reference external" href="https://github.com/napari/napari/pull/8423">#8423</a>)</p></li>
@@ -970,23 +1298,42 @@ using <code class="docutils literal notranslate"><span class="pre">viewer.camera
 <li><p>Fix dim order of rendering of 2D rgb data in 3D mode (<a class="reference external" href="https://github.com/napari/napari/pull/8522">#8522</a>)</p></li>
 <li><p>Fix numpy warning for pure python edge triangulation (<a class="reference external" href="https://github.com/napari/napari/pull/8523">#8523</a>)</p></li>
 <li><p>Do not use keyword argument when creating tooltip (<a class="reference external" href="https://github.com/napari/napari/pull/8528">#8528</a>)</p></li>
-<li><p>Fix angle label values in ndim popup widget (<a class="reference external" href="https://github.com/napari/napari/pull/8535">#8535</a>)</p></li>
 <li><p>Fix update of shape that lead to wrong rendering (<a class="reference external" href="https://github.com/napari/napari/pull/8543">#8543</a>)</p></li>
 <li><p>Close proper window on Ctrl+W (<a class="reference external" href="https://github.com/napari/napari/pull/8548">#8548</a>)</p></li>
 <li><p>Fix the Shapes mode setter to use _is_creating for <em>finish_drawing and clear selection when going to ADD</em>* (<a class="reference external" href="https://github.com/napari/napari/pull/8551">#8551</a>)</p></li>
+<li><p>Enable instanced markers if available. (<a class="reference external" href="https://github.com/napari/napari/pull/8552">#8552</a>)</p></li>
 <li><p>Do not expose legacy angle (<a class="reference external" href="https://github.com/napari/napari/pull/8557">#8557</a>)</p></li>
 <li><p>Fix test on PySide6 by change mocking of qt methods (<a class="reference external" href="https://github.com/napari/napari/pull/8560">#8560</a>)</p></li>
 <li><p>Account for tile2data in the Labels polygon overlay (<a class="reference external" href="https://github.com/napari/napari/pull/8563">#8563</a>)</p></li>
 <li><p>ensure overlays are reused properly when gridded mode is enabled (<a class="reference external" href="https://github.com/napari/napari/pull/8569">#8569</a>)</p></li>
 <li><p>Stop welcome screen time on hiding of QtWiewer (<a class="reference external" href="https://github.com/napari/napari/pull/8585">#8585</a>)</p></li>
 <li><p>Fix Labels layer controls contiguous checkbox to initialize to the layer state (<a class="reference external" href="https://github.com/napari/napari/pull/8594">#8594</a>)</p></li>
+<li><p>Proper cleanup and reuse of existing overlays (<a class="reference external" href="https://github.com/napari/napari/pull/8610">#8610</a>)</p></li>
+<li><p>[UI] Update the viewer button tooltips to use the new axis labels (-3, -2, -1) (<a class="reference external" href="https://github.com/napari/napari/pull/8614">#8614</a>)</p></li>
+<li><p>Fix scale bar padding (<a class="reference external" href="https://github.com/napari/napari/pull/8616">#8616</a>)</p></li>
+<li><p>Fix empty thumbnail (<a class="reference external" href="https://github.com/napari/napari/pull/8620">#8620</a>)</p></li>
+<li><p>Reverse overlay tiling order (<a class="reference external" href="https://github.com/napari/napari/pull/8623">#8623</a>)</p></li>
+<li><p>Fix welcome screen timer (<a class="reference external" href="https://github.com/napari/napari/pull/8627">#8627</a>)</p></li>
+<li><p>Reinitialize welcome screen shortcuts in a less ugly way (<a class="reference external" href="https://github.com/napari/napari/pull/8634">#8634</a>)</p></li>
+<li><p>Fix empty points tiny point (<a class="reference external" href="https://github.com/napari/napari/pull/8639">#8639</a>)</p></li>
+<li><p>Fix labels of angle order of camera widget (<a class="reference external" href="https://github.com/napari/napari/pull/8644">#8644</a>)</p></li>
+<li><p>Add a opaque background Rectangle to Welcome overlay (<a class="reference external" href="https://github.com/napari/napari/pull/8645">#8645</a>)</p></li>
+<li><p>Do not start welcome widget timer until QtViewer is visible (<a class="reference external" href="https://github.com/napari/napari/pull/8652">#8652</a>)</p></li>
+<li><p>Allow selection in feature table widget with empty features (<a class="reference external" href="https://github.com/napari/napari/pull/8653">#8653</a>)</p></li>
+<li><p>Fix event triggering start of welcome screen (<a class="reference external" href="https://github.com/napari/napari/pull/8660">#8660</a>)</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">_disconnect_child_emitters</span></code> for <code class="docutils literal notranslate"><span class="pre">PsygnalModel</span></code> dict elements (<a class="reference external" href="https://github.com/napari/napari/pull/8674">#8674</a>)</p></li>
+<li><p>Increase minimum version of pyopengl to allow start napari (<a class="reference external" href="https://github.com/napari/napari/pull/8679">#8679</a>)</p></li>
+<li><p>Fix colorbar for int/bool dtypes (<a class="reference external" href="https://github.com/napari/napari/pull/8684">#8684</a>)</p></li>
+<li><p>Correctly hide welcome screen when layers are present (<a class="reference external" href="https://github.com/napari/napari/pull/8688">#8688</a>)</p></li>
+<li><p>Fix assign tuple of None to <code class="docutils literal notranslate"><span class="pre">layer.units</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8700">#8700</a>)</p></li>
+<li><p>Fix error raised when <code class="docutils literal notranslate"><span class="pre">out_of_slice_display</span> <span class="pre">=</span> <span class="pre">True</span></code> and update highlight (<a class="reference external" href="https://github.com/napari/napari/pull/8717">#8717</a>)</p></li>
+<li><p>fix: fix <code class="docutils literal notranslate"><span class="pre">napari.imshow</span></code> return type hint (<a class="reference external" href="https://github.com/napari/napari/pull/8726">#8726</a>)</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">--plugin</span></code> startup args (<a class="reference external" href="https://github.com/napari/napari/pull/8729">#8729</a>)</p></li>
 </ul>
 </section>
 <section id="build-tools">
 <h2>Build Tools<a class="headerlink" href="#build-tools" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Bump urllib3 from 2.5.0 to 2.6.0 in /resources (<a class="reference external" href="https://github.com/napari/napari/pull/8484">#8484</a>)</p></li>
-<li><p>Migrate overlays to psygnal (<a class="reference external" href="https://github.com/napari/napari/pull/8492">#8492</a>)</p></li>
 <li><p>Bump urllib3 from 2.6.2 to 2.6.3 in /resources (<a class="reference external" href="https://github.com/napari/napari/pull/8544">#8544</a>)</p></li>
 <li><p>Add napari-metadata to napari dependencies (<a class="reference external" href="https://github.com/napari/napari/pull/8576">#8576</a>)</p></li>
 <li><p>Plugin dependencies for docs generation (<a class="reference external" href="https://github.com/napari/napari/pull/8581">#8581</a>)</p></li>
@@ -995,9 +1342,14 @@ using <code class="docutils literal notranslate"><span class="pre">viewer.camera
 <section id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p>Add colorbar and overlay tiling example (<a class="reference external" href="https://github.com/napari/napari/pull/8433">#8433</a>)</p></li>
 <li><p>Create 3D_vectors_through_time.py (<a class="reference external" href="https://github.com/napari/napari/pull/8461">#8461</a>)</p></li>
 <li><p>Fix and improve <code class="docutils literal notranslate"><span class="pre">dock_widgets</span></code> docstrings (<a class="reference external" href="https://github.com/napari/napari/pull/8494">#8494</a>)</p></li>
 <li><p>Plugin dependencies for docs generation (<a class="reference external" href="https://github.com/napari/napari/pull/8581">#8581</a>)</p></li>
+<li><p>Adding a new example of a multiplexed immunofluorescent image of a murine heart (<a class="reference external" href="https://github.com/napari/napari/pull/8680">#8680</a>)</p></li>
+<li><p>Add sphinxext-rediraffe to docs requirements (<a class="reference external" href="https://github.com/napari/napari/pull/8690">#8690</a>)</p></li>
+<li><p>Update examples gallery for 0.7.0 angles (<a class="reference external" href="https://github.com/napari/napari/pull/8709">#8709</a>)</p></li>
+<li><p>Update contributing info and include AI policy and guidelines (<a class="reference external" href="https://github.com/napari/napari/pull/8754">#8754</a>)</p></li>
 <li><p>Remove deprecated <code class="docutils literal notranslate"><span class="pre">view_*</span></code> methods from docs materials (<a class="reference external" href="https://github.com/napari/docs/pull/864">docs#864</a>)</p></li>
 <li><p>Proposed roadmap updates for Q3 (<a class="reference external" href="https://github.com/napari/docs/pull/873">docs#873</a>)</p></li>
 <li><p>Enhance documentation build process with pixi integration and Windows… (<a class="reference external" href="https://github.com/napari/docs/pull/876">docs#876</a>)</p></li>
@@ -1015,37 +1367,47 @@ using <code class="docutils literal notranslate"><span class="pre">viewer.camera
 <li><p>Migrate and update hub customization from wiki to docs (<a class="reference external" href="https://github.com/napari/docs/pull/906">docs#906</a>)</p></li>
 <li><p>Improve open image section (<a class="reference external" href="https://github.com/napari/docs/pull/907">docs#907</a>)</p></li>
 <li><p>Remove mention of outdated plugin from quick start (<a class="reference external" href="https://github.com/napari/docs/pull/908">docs#908</a>)</p></li>
+<li><p>Update governance documentation (<a class="reference external" href="https://github.com/napari/docs/pull/911">docs#911</a>)</p></li>
 <li><p>increase stack size to solve import recursion problem (<a class="reference external" href="https://github.com/napari/docs/pull/912">docs#912</a>)</p></li>
 <li><p>Update display text copy in <a class="reference external" href="http://shapes.md">shapes.md</a> (<a class="reference external" href="https://github.com/napari/docs/pull/914">docs#914</a>)</p></li>
 <li><p>Update release notes for 0.7.0a1 (<a class="reference external" href="https://github.com/napari/docs/pull/915">docs#915</a>)</p></li>
 <li><p>Simplify titles in App installation instructions (<a class="reference external" href="https://github.com/napari/docs/pull/918">docs#918</a>)</p></li>
+<li><p>Remove mention of double click in macOS app instructions (<a class="reference external" href="https://github.com/napari/docs/pull/920">docs#920</a>)</p></li>
+<li><p>Update release notes for 0.7.0a2 (<a class="reference external" href="https://github.com/napari/docs/pull/922">docs#922</a>)</p></li>
+<li><p>Move code for setting recursion limit (<a class="reference external" href="https://github.com/napari/docs/pull/927">docs#927</a>)</p></li>
+<li><p>Update scripts to pydantic v2 (<a class="reference external" href="https://github.com/napari/docs/pull/928">docs#928</a>)</p></li>
+<li><p>Remove npe1-related docs (<a class="reference external" href="https://github.com/napari/docs/pull/929">docs#929</a>)</p></li>
+<li><p>Add intersphinx mapping for pydantic (<a class="reference external" href="https://github.com/napari/docs/pull/930">docs#930</a>)</p></li>
+<li><p>Add policy on LLM contributions based on Zulip’s (<a class="reference external" href="https://github.com/napari/docs/pull/932">docs#932</a>)</p></li>
+<li><p>Expand on 0.7.0 highlights (<a class="reference external" href="https://github.com/napari/docs/pull/933">docs#933</a>)</p></li>
+<li><p>Fix camera angles in handedness guide (<a class="reference external" href="https://github.com/napari/docs/pull/940">docs#940</a>)</p></li>
+<li><p>Add guide explaining default axis names (<a class="reference external" href="https://github.com/napari/docs/pull/942">docs#942</a>)</p></li>
+<li><p>Add info about new points/shapes layer button behavior (<a class="reference external" href="https://github.com/napari/docs/pull/943">docs#943</a>)</p></li>
+<li><p>Add final? 0.7.0 highlights and group by topic (<a class="reference external" href="https://github.com/napari/docs/pull/944">docs#944</a>)</p></li>
+<li><p>Add redirects to pages moved in Usage section (<a class="reference external" href="https://github.com/napari/docs/pull/946">docs#946</a>)</p></li>
+<li><p>Fix typo in optional-dependencies (<a class="reference external" href="https://github.com/napari/docs/pull/947">docs#947</a>)</p></li>
+<li><p>Update references to PyQt5 as default backend to PyQt6 (<a class="reference external" href="https://github.com/napari/docs/pull/950">docs#950</a>)</p></li>
+<li><p>Update 0.7.0 highlights for rc0 (<a class="reference external" href="https://github.com/napari/docs/pull/951">docs#951</a>)</p></li>
 </ul>
 </section>
 <section id="other-pull-requests">
 <h2>Other Pull Requests<a class="headerlink" href="#other-pull-requests" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Add cell tracking example (<a class="reference external" href="https://github.com/napari/napari/pull/8051">#8051</a>)</p></li>
 <li><p>TYP: overload for <code class="docutils literal notranslate"><span class="pre">labeled_particles</span></code> incorrectly notes <code class="docutils literal notranslate"><span class="pre">Literal[True]=...</span></code> as default for <code class="docutils literal notranslate"><span class="pre">return_density</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8114">#8114</a>)</p></li>
 <li><p>Decompose Layer code by move slicing to specialized class (<a class="reference external" href="https://github.com/napari/napari/pull/8254">#8254</a>)</p></li>
-<li><p>Update <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">psygnal</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8310">#8310</a>)</p></li>
 <li><p>Add information about pyside 6 in error information (<a class="reference external" href="https://github.com/napari/napari/pull/8313">#8313</a>)</p></li>
-<li><p>Remove <code class="docutils literal notranslate"><span class="pre">numpydoc</span></code> as core dependency, instead use <code class="docutils literal notranslate"><span class="pre">docstring_parser</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8334">#8334</a>)</p></li>
 <li><p>Remove deprecated <code class="docutils literal notranslate"><span class="pre">napari.view_*</span></code> methods (<a class="reference external" href="https://github.com/napari/napari/pull/8337">#8337</a>)</p></li>
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8354">#8354</a>)</p></li>
 <li><p>Remove string translation from PR checklist (<a class="reference external" href="https://github.com/napari/napari/pull/8362">#8362</a>)</p></li>
 <li><p>Use coverage upload from shared workflows (<a class="reference external" href="https://github.com/napari/napari/pull/8367">#8367</a>)</p></li>
 <li><p>Specify napari revision in build and deploy docs workflow (<a class="reference external" href="https://github.com/napari/napari/pull/8368">#8368</a>)</p></li>
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8369">#8369</a>)</p></li>
-<li><p>Switch PyPI downloads badge in README (<a class="reference external" href="https://github.com/napari/napari/pull/8374">#8374</a>)</p></li>
 <li><p>Update citation file for 0.7.0 (<a class="reference external" href="https://github.com/napari/napari/pull/8384">#8384</a>)</p></li>
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8386">#8386</a>)</p></li>
 <li><p>Add check if PR author is in citation.cff (<a class="reference external" href="https://github.com/napari/napari/pull/8388">#8388</a>)</p></li>
 <li><p>skip check if author in citation.cff if bot created  PR (<a class="reference external" href="https://github.com/napari/napari/pull/8392">#8392</a>)</p></li>
 <li><p>Explicitly turn on full checkout for CircleCI (<a class="reference external" href="https://github.com/napari/napari/pull/8396">#8396</a>)</p></li>
-<li><p>ci(dependabot): bump the actions group with 3 updates (<a class="reference external" href="https://github.com/napari/napari/pull/8400">#8400</a>)</p></li>
-<li><p>Exclude dependabot from PR author check (<a class="reference external" href="https://github.com/napari/napari/pull/8409">#8409</a>)</p></li>
 <li><p>Fix cff check for bots (<a class="reference external" href="https://github.com/napari/napari/pull/8420">#8420</a>)</p></li>
-<li><p>Add colorbar and overlay tiling example (<a class="reference external" href="https://github.com/napari/napari/pull/8433">#8433</a>)</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">certifi</span></code>, <code class="docutils literal notranslate"><span class="pre">coverage</span></code>, <code class="docutils literal notranslate"><span class="pre">dask</span></code>, <code class="docutils literal notranslate"><span class="pre">fsspec</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">imageio</span></code>, <code class="docutils literal notranslate"><span class="pre">ipython</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">pillow</span></code>, <code class="docutils literal notranslate"><span class="pre">pint</span></code>, <code class="docutils literal notranslate"><span class="pre">psutil</span></code>, <code class="docutils literal notranslate"><span class="pre">psygnal</span></code>, <code class="docutils literal notranslate"><span class="pre">pydantic</span></code>, <code class="docutils literal notranslate"><span class="pre">pyqt6</span></code>, <code class="docutils literal notranslate"><span class="pre">pyside6</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest-rerunfailures</span></code>, <code class="docutils literal notranslate"><span class="pre">pyyaml</span></code>, <code class="docutils literal notranslate"><span class="pre">rich</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>, <code class="docutils literal notranslate"><span class="pre">tensorstore</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code>, <code class="docutils literal notranslate"><span class="pre">toolz</span></code>, <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code>, <code class="docutils literal notranslate"><span class="pre">wrapt</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8441">#8441</a>)</p></li>
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8442">#8442</a>)</p></li>
 <li><p>Stop updating python 3.10 docs constraints (<a class="reference external" href="https://github.com/napari/napari/pull/8444">#8444</a>)</p></li>
@@ -1071,15 +1433,18 @@ using <code class="docutils literal notranslate"><span class="pre">viewer.camera
 <li><p>Test on macos-15-intel without numba (<a class="reference external" href="https://github.com/napari/napari/pull/8503">#8503</a>)</p></li>
 <li><p>Move constraints calculation to script, allow upgrade subset of packages (<a class="reference external" href="https://github.com/napari/napari/pull/8505">#8505</a>)</p></li>
 <li><p>Workaround for Zenodo outage by downloading data from google drive.  (<a class="reference external" href="https://github.com/napari/napari/pull/8508">#8508</a>)</p></li>
+<li><p>Migrate EventedModel to pydantic v2 and overlays to psygnal to support python 3.14  (<a class="reference external" href="https://github.com/napari/napari/pull/8509">#8509</a>)</p></li>
 <li><p>Fix overlay tests (<a class="reference external" href="https://github.com/napari/napari/pull/8513">#8513</a>)</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">certifi</span></code>, <code class="docutils literal notranslate"><span class="pre">coverage</span></code>, <code class="docutils literal notranslate"><span class="pre">dask</span></code>, <code class="docutils literal notranslate"><span class="pre">fsspec</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">ipython</span></code>, <code class="docutils literal notranslate"><span class="pre">jsonschema</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">pillow</span></code>, <code class="docutils literal notranslate"><span class="pre">psutil</span></code>, <code class="docutils literal notranslate"><span class="pre">psygnal</span></code>, <code class="docutils literal notranslate"><span class="pre">pyqt6</span></code>, <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>, <code class="docutils literal notranslate"><span class="pre">superqt</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code>, <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8518">#8518</a>)</p></li>
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8519">#8519</a>)</p></li>
 <li><p>Reduce noise in benchmark logs (<a class="reference external" href="https://github.com/napari/napari/pull/8525">#8525</a>)</p></li>
 <li><p>Improve language in Citation PR Author check (<a class="reference external" href="https://github.com/napari/napari/pull/8526">#8526</a>)</p></li>
 <li><p>ci(dependabot): bump the actions group with 4 updates (<a class="reference external" href="https://github.com/napari/napari/pull/8533">#8533</a>)</p></li>
+<li><p>Remove <code class="docutils literal notranslate"><span class="pre">npe1</span></code> settings and theme loading (<a class="reference external" href="https://github.com/napari/napari/pull/8540">#8540</a>)</p></li>
 <li><p>Enforce unix line endings (<a class="reference external" href="https://github.com/napari/napari/pull/8541">#8541</a>)</p></li>
 <li><p>Add temporary tox plugin for fix installation of dependency groups (<a class="reference external" href="https://github.com/napari/napari/pull/8545">#8545</a>)</p></li>
 <li><p>Revert: Add temporary tox plugin for fix installation of dependency groups (#8545) (<a class="reference external" href="https://github.com/napari/napari/pull/8546">#8546</a>)</p></li>
+<li><p>Fix typing in layers.points and layers.labels utilities (<a class="reference external" href="https://github.com/napari/napari/pull/8549">#8549</a>)</p></li>
 <li><p>Fix path to constraints update script  (<a class="reference external" href="https://github.com/napari/napari/pull/8553">#8553</a>)</p></li>
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8554">#8554</a>)</p></li>
 <li><p>Stop using <code class="docutils literal notranslate"><span class="pre">get_settings</span></code> during import time (<a class="reference external" href="https://github.com/napari/napari/pull/8556">#8556</a>)</p></li>
@@ -1089,6 +1454,35 @@ using <code class="docutils literal notranslate"><span class="pre">viewer.camera
 <li><p>Fix build constraints with circular napari dependency (<a class="reference external" href="https://github.com/napari/napari/pull/8588">#8588</a>)</p></li>
 <li><p>Modify sphinx-external-toc version constraint to eliminate warnings (<a class="reference external" href="https://github.com/napari/napari/pull/8591">#8591</a>)</p></li>
 <li><p>Switch logo URL used for reader test (<a class="reference external" href="https://github.com/napari/napari/pull/8596">#8596</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">coverage</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">rich</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8597">#8597</a>)</p></li>
+<li><p>Move comment trigger of constraints update to a separate workflow (<a class="reference external" href="https://github.com/napari/napari/pull/8600">#8600</a>)</p></li>
+<li><p>Fix running benchmarks by label by fix condition (<a class="reference external" href="https://github.com/napari/napari/pull/8601">#8601</a>)</p></li>
+<li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8602">#8602</a>)</p></li>
+<li><p>ci(dependabot): bump the actions group with 5 updates (<a class="reference external" href="https://github.com/napari/napari/pull/8613">#8613</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">babel</span></code>, <code class="docutils literal notranslate"><span class="pre">dask</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">pooch</span></code>, <code class="docutils literal notranslate"><span class="pre">psutil</span></code>, <code class="docutils literal notranslate"><span class="pre">rich</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code>, <code class="docutils literal notranslate"><span class="pre">tqdm</span></code>, <code class="docutils literal notranslate"><span class="pre">wrapt</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8615">#8615</a>)</p></li>
+<li><p>Postpone QtViewer deprecation to 0.8.0 (<a class="reference external" href="https://github.com/napari/napari/pull/8617">#8617</a>)</p></li>
+<li><p>Remove settings call on import in qt_event_loop (<a class="reference external" href="https://github.com/napari/napari/pull/8619">#8619</a>)</p></li>
+<li><p>Remove remaining <code class="docutils literal notranslate"><span class="pre">npe1</span></code> usage (<a class="reference external" href="https://github.com/napari/napari/pull/8622">#8622</a>)</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">uv.lock</span></code> and leak graphs to gitignore (<a class="reference external" href="https://github.com/napari/napari/pull/8637">#8637</a>)</p></li>
+<li><p>Fix pint warning about deprecation of getitem (<a class="reference external" href="https://github.com/napari/napari/pull/8638">#8638</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">coverage</span></code>, <code class="docutils literal notranslate"><span class="pre">fsspec</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">ipython</span></code>, <code class="docutils literal notranslate"><span class="pre">pillow</span></code>, <code class="docutils literal notranslate"><span class="pre">pyside6</span></code>, <code class="docutils literal notranslate"><span class="pre">qtconsole</span></code>, <code class="docutils literal notranslate"><span class="pre">tensorstore</span></code>, <code class="docutils literal notranslate"><span class="pre">tqdm</span></code>, <code class="docutils literal notranslate"><span class="pre">wrapt</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8641">#8641</a>)</p></li>
+<li><p>Bump superqt to 0.7.8 (<a class="reference external" href="https://github.com/napari/napari/pull/8646">#8646</a>)</p></li>
+<li><p>Bump napari plugin manager (<a class="reference external" href="https://github.com/napari/napari/pull/8647">#8647</a>)</p></li>
+<li><p>Add/unify background box for canvas overlays (<a class="reference external" href="https://github.com/napari/napari/pull/8654">#8654</a>)</p></li>
+<li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8655">#8655</a>)</p></li>
+<li><p>Upload triangulation artifacts if benchmarks fails (<a class="reference external" href="https://github.com/napari/napari/pull/8664">#8664</a>)</p></li>
+<li><p>Maint: Have triangle only on py313 and lower (<a class="reference external" href="https://github.com/napari/napari/pull/8668">#8668</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">pydantic-settings</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8671">#8671</a>)</p></li>
+<li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8675">#8675</a>)</p></li>
+<li><p>Add pregenerated data to stabilize shapes triangulation benchmarks (<a class="reference external" href="https://github.com/napari/napari/pull/8676">#8676</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">pydantic-settings</span></code>, <code class="docutils literal notranslate"><span class="pre">rich</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code>, <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8692">#8692</a>)</p></li>
+<li><p>Add python 3.14 classifier to project metadata (<a class="reference external" href="https://github.com/napari/napari/pull/8693">#8693</a>)</p></li>
+<li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8697">#8697</a>)</p></li>
+<li><p>ci(dependabot): bump the actions group with 3 updates (<a class="reference external" href="https://github.com/napari/napari/pull/8713">#8713</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">certifi</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code>, <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8716">#8716</a>)</p></li>
+<li><p>Update pyqt5 default references to pyqt6 (<a class="reference external" href="https://github.com/napari/napari/pull/8732">#8732</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">superqt</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code>, <code class="docutils literal notranslate"><span class="pre">wrapt</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8748">#8748</a>)</p></li>
+<li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8753">#8753</a>)</p></li>
 <li><p>ci(dependabot): bump the github-actions group with 4 updates (<a class="reference external" href="https://github.com/napari/docs/pull/856">docs#856</a>)</p></li>
 <li><p>Allow to redeploy docs after merge new commits to main branch (<a class="reference external" href="https://github.com/napari/docs/pull/874">docs#874</a>)</p></li>
 <li><p>Add mdformat to pre-commit config (<a class="reference external" href="https://github.com/napari/docs/pull/878">docs#878</a>)</p></li>
@@ -1102,33 +1496,43 @@ using <code class="docutils literal notranslate"><span class="pre">viewer.camera
 <li><p>Stop tracking <code class="docutils literal notranslate"><span class="pre">docs/release/index.md</span></code> so that it is ignored (<a class="reference external" href="https://github.com/napari/docs/pull/905">docs#905</a>)</p></li>
 <li><p>Maint Update PIP_CONSTRAINT to UV_CONSTRAINT in config (<a class="reference external" href="https://github.com/napari/docs/pull/909">docs#909</a>)</p></li>
 <li><p>Remove pixi configuration for macos intel (<a class="reference external" href="https://github.com/napari/docs/pull/913">docs#913</a>)</p></li>
+<li><p>Prepare on migration to <code class="docutils literal notranslate"><span class="pre">sphinxcontrib-mermaid</span></code> (<a class="reference external" href="https://github.com/napari/docs/pull/923">docs#923</a>)</p></li>
+<li><p>ci(dependabot): bump the github-actions group with 2 updates (<a class="reference external" href="https://github.com/napari/docs/pull/925">docs#925</a>)</p></li>
+<li><p>ci(dependabot): bump actions/download-artifact from 7.0.0 to 8.0.0 in the github-actions group (<a class="reference external" href="https://github.com/napari/docs/pull/948">docs#948</a>)</p></li>
 </ul>
 </section>
 <section id="authors-added-to-this-release-alphabetical">
-<h2>17 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>24 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
 <p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=aganders3">Ashley Anderson</a> - &#64;aganders3</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=cnstt">Constantin Aronssohn</a> - &#64;cnstt</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DanGonite57">Daniel Zhang</a> - &#64;DanGonite57</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=dstansby">David Stansby</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=dstansby">docs</a>)  - &#64;dstansby</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">docs</a>)  - &#64;DragaDoncila</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=edwardando">Edward Andò</a> - &#64;edwardando +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=Czaki">docs</a>)  - &#64;Czaki</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=guiwitz">Guillaume Witz</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=guiwitz">docs</a>)  - &#64;guiwitz</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=hiroalchem">hiroalchem</a> - &#64;hiroalchem +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=jni">docs</a>)  - &#64;jni</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=brisvag">docs</a>)  - &#64;brisvag</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=zoccoler">Marcelo Zoccoler</a> - &#64;zoccoler</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=MarcoGorelli">Marco Edward Gorelli</a> - &#64;MarcoGorelli +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=MargotCh">Margot Chazotte</a> - &#64;MargotCh +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=melissawm">Melissa Weber Mendonça</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=melissawm">docs</a>)  - &#64;melissawm</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=ns-rse">Neil Shephard</a> - &#64;ns-rse +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=psobolewskiPhD">docs</a>)  - &#64;psobolewskiPhD</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=qin-yu">Qin Yu</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=qin-yu">docs</a>)  - &#64;qin-yu +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=rensutheart">Rensu Theart</a> - &#64;rensutheart +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=sdiebolt">Samuel Le Meur-Diebolt</a> - &#64;sdiebolt +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Olusesan">Sesan</a> - &#64;Olusesan</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=TimMonko">Tim Monko</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=TimMonko">docs</a>)  - &#64;TimMonko</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=yfukai">Yohsuke T. Fukai</a> - &#64;yfukai +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=cockovaz">Zuzana Čočková</a> - &#64;cockovaz +</p></li>
 </ul>
 </section>
 <section id="reviewers-added-to-this-release-alphabetical">
-<h2>22 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>25 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
 <p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=aganders3">Ashley Anderson</a> - &#64;aganders3</p></li>
@@ -1140,16 +1544,19 @@ using <code class="docutils literal notranslate"><span class="pre">viewer.camera
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=edwardando">Edward Andò</a> - &#64;edwardando +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=Czaki">docs</a>)  - &#64;Czaki</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=guiwitz">Guillaume Witz</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=guiwitz">docs</a>)  - &#64;guiwitz</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=hiroalchem">hiroalchem</a> - &#64;hiroalchem +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=jacopoabramo">Jacopo Abramo</a> - &#64;jacopoabramo</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=jo-mueller">Johannes Soltwedel</a> - &#64;jo-mueller</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=jni">docs</a>)  - &#64;jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=kephale">Kyle I. S. Harrington</a> - &#64;kephale</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=brisvag">docs</a>)  - &#64;brisvag</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=zoccoler">Marcelo Zoccoler</a> - &#64;zoccoler</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=zoccoler">Marcelo Zoccoler</a> - &#64;zoccoler</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=MarcoGorelli">Marco Edward Gorelli</a> - &#64;MarcoGorelli +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=MargotCh">Margot Chazotte</a> - &#64;MargotCh +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=melissawm">Melissa Weber Mendonça</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=melissawm">docs</a>)  - &#64;melissawm</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=psobolewskiPhD">docs</a>)  - &#64;psobolewskiPhD</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=rensutheart">Rensu Theart</a> - &#64;rensutheart +</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=Olusesan">Sesan</a> - &#64;Olusesan</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Olusesan">Sesan</a> - &#64;Olusesan</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=TimMonko">Tim Monko</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=TimMonko">docs</a>)  - &#64;TimMonko</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=yfukai">Yohsuke T. Fukai</a> - &#64;yfukai +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=cockovaz">Zuzana Čočková</a> - &#64;cockovaz +</p></li>
@@ -1205,20 +1612,51 @@ using <code class="docutils literal notranslate"><span class="pre">viewer.camera
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highlights">Highlights</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transition-to-npe2-plugin-engine">Transition to npe2 plugin engine 🔌</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-mode-bigger-better-faster">Grid mode - bigger, better, faster 📈</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-in-an-angle-the-truth-fixed-camera-angles">What’s in an angle? The truth! Fixed camera angles 🎥</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#breaking-changes">Breaking Changes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#transition-to-npe2-plugin-engine">Transition to npe2 plugin engine 🔌</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#negative-axis-labels-a-real-positive">Negative axis labels? A real positive</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-in-an-angle-the-truth-fixed-camera-angles">What’s in an angle? The truth! Fixed camera angles 🎥</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#limiting-self-events-callbacks">Limiting <code class="docutils literal notranslate"><span class="pre">self.events</span></code> callbacks</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#new-features-widgets">New features &amp; widgets</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-my-metadata-where-s-my-metadata-napari-metadata-to-the-rescue">What’s my metadata? Where’s my metadata? <code class="docutils literal notranslate"><span class="pre">napari-metadata</span></code> to the rescue</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-features-galore">(Layer) Features galore</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#smarter-new-layer-buttons-inheriting-from-selected-layers">Smarter new layer buttons - inheriting from selected layers</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#shapes-points">Shapes &amp; Points</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#labels">Labels</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-cues">Visual cues</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#better-text-overalys">Better text overalys 🔡</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendering-display">Rendering &amp; display</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#more-pixels-to-play-with-texture-tiling">More pixels to play with - texture tiling</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rendering-layers-in-physical-space-units-matter">Rendering layers in physical space - units matter!</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#points-any-size-you-like">Points - any size you like 🟣</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-mode-bigger-better-faster">Grid mode – bigger, better, faster 📈</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#add-delete-layers-without-delay">Add &amp; delete layers without delay</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#shapes-layers-select-zoom-delete-repeat">Shapes layers – select, zoom, delete, repeat</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multiscale-less-to-update-more-to-celebrate">Multiscale – less to update, more to celebrate</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#delete-the-launch-codes-no-more-macos-hacks-on-launch">Delete the launch codes – no more macOS hacks on launch</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#infrastructure-dependencies">Infrastructure &amp; dependencies</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-features">New Features</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#improvements">Improvements</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Performance</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bug-fixes">Bug Fixes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-tools">Build Tools</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-pull-requests">Other Pull Requests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">17 authors added to this release (alphabetical)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">22 reviewers added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">24 authors added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">25 reviewers added to this release (alphabetical)</a></li>
 </ul>
   </nav></div>
 

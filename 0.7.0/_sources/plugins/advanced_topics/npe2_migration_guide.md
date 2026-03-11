@@ -439,16 +439,18 @@ contributions:
 
 ## The npe2 adapter
 
-Starting with napari v0.4.17+ napari will begin allowing users to use their
-npe1 plugins as if they were npe2 plugins using a "npe1 -> npe2 adaptor"
-(this option is at `Preferences > Plugins > Use npe2 adaptor`)
+Starting with napari v0.4.17+ napari has been allowing users to use their
+npe1 plugins as if they were npe2 plugins using a "npe1 -> npe2 adaptor".
 
-When this option is enabled and a plugin using the legacy plugin manager API
+When a plugin using the legacy plugin manager API
 is loaded for the first time, the plugin will be imported as usual and
 contributions will be discovered. A "shim" npe2 manifest representing the
 plugin's contributions will be created and cached locally. On all future
 launches of napari, that cached manifest will be used and the plugin will
 *not* be imported immediately when napari boots.
+
+With napari v0.7.0, legacy npe1 plugins will **only** be usable through
+this adaptor; plugins relying on import-time behaviour may malfunction. 
 
 ### Benefits
 
@@ -468,17 +470,9 @@ The benefits for an end-user opting in to the npe2 adaptor are:
 There are a couple npe1 features that are no longer supported in npe2, and the
 following things will be "ignored" for a user using the npe2 adaptor:
 
-- The "plugin sort order" preference is deprecated, and will not be used when
-  loading npe2 plugins or npe1 plugins loaded with the npe2 adaptor.
 - arguments for `add_dock_widget` returned from
   `napari_experimental_provide_dock_widget` (such as `area=` or
   `add_vertical_stretch=`) will no longer do anything: `area` will always be
   `'right'` and `add_vertical_stretch` will always be `True`.
-
-There is nothing a plugin can do to prevent a user from using the npe2 adaptor,
-it is a user decision. Furthermore, as we deprecate the legacy
-napari-plugin-engine API, the npe2 adapter will likely become the only way that
-npe1 plugins are supported in the future, and the option to *not* use the npe2
-adaptor will be removed.
 
 [magicgui]: https://napari.org/magicgui

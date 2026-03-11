@@ -38,6 +38,39 @@ napari.utils.DirectLabelColormap
       ~DirectLabelColormap.map
    
    
+      ~DirectLabelColormap.model_construct
+   
+   
+      ~DirectLabelColormap.model_copy
+   
+   
+      ~DirectLabelColormap.model_dump
+   
+   
+      ~DirectLabelColormap.model_dump_json
+   
+   
+      ~DirectLabelColormap.model_json_schema
+   
+   
+      ~DirectLabelColormap.model_parametrized_name
+   
+   
+      ~DirectLabelColormap.model_post_init
+   
+   
+      ~DirectLabelColormap.model_rebuild
+   
+   
+      ~DirectLabelColormap.model_validate
+   
+   
+      ~DirectLabelColormap.model_validate_json
+   
+   
+      ~DirectLabelColormap.model_validate_strings
+   
+   
       ~DirectLabelColormap.parse_file
    
    
@@ -76,6 +109,11 @@ napari.utils.DirectLabelColormap
       ~DirectLabelColormap.colorbar
       ~DirectLabelColormap.default_color
       ~DirectLabelColormap.events
+      ~DirectLabelColormap.model_computed_fields
+      ~DirectLabelColormap.model_config
+      ~DirectLabelColormap.model_extra
+      ~DirectLabelColormap.model_fields
+      ~DirectLabelColormap.model_fields_set
       
       
       

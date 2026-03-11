@@ -1,7 +1,7 @@
 # napari 0.7.0
 ⚠️ *Note: these release notes are still in draft while 0.7.0 is in release candidate testing.* ⚠️
 
-*Tue, Jan 27, 2026*
+*Tue, Mar 10, 2026*
 
 We're happy to announce the release of napari 0.7.0!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
@@ -16,16 +16,17 @@ napari follows [EffVer (Intended Effort Versioning)](https://effver.org/); this 
 
 ## Highlights
 
-More detail coming soon...
+### Breaking Changes
 
-### Transition to npe2 plugin engine 🔌
+#### Transition to npe2 plugin engine 🔌
 
 In 0.6.0 we began the process of deprecating npe1 (napari-plugin-engine).
 In all 0.6.x releases, npe1 plugins were automatically converted to npe2 by default,
 and users could turn off the `use_npe2_adaptor` setting to continue using npe1 plugins
 without auto-conversion.
 
-In 0.7.0 this setting is being removed, and plugins will *only* continue to function if
+In 0.7.0 this setting is being removed ([PR #8448](https://github.com/napari/napari/pull/8448)),
+and plugins will *only* continue to function if
 they can be auto-converted to npe2. Most plugins will be unaffected, but those that rely
 on import-time behaviour may not work as expected. If a plugin is relying on import-time
 behaviour, it may be able to replicate this using the new startup scripts functionality added
@@ -47,9 +48,284 @@ our [Plugins Zulip chat
 channel](https://napari.zulipchat.com/#narrow/channel/309872-plugins) or by
 coming to one of our [community meetings](meeting-schedule).
 
-### Grid mode - bigger, better, faster 📈
+#### Negative axis labels? A real positive
 
-If you've been playing with our new grid mode since 0.6.5, you 
+If you've ever loaded data of mixed dimensionality in napari, like a TYX volume
+alongside a YX segmentation, you may have noticed the default axis labels didn't
+quite line up:
+
+| axes   | 0 | 1 | 2 |
+|--------|---|---|---|
+| volume | 0 | 1 | 2 |
+| segmt  |   | 0 | 1 |
+
+That's because napari used 0-based indexing for its viewer axis labels, which breaks
+down when layers have different numbers of dimensions. With
+[#8565](https://github.com/napari/napari/pull/8565),
+viewer axis labels now use negative indexing by default, combining Python's negative indexing
+semantics with NumPy's array broadcasting semantics. The last axis is always `-1`,
+the second-to-last is always `-2`, and so on:
+
+| axes   | 0  | 1  | 2  |
+|--------|----|----|----|
+| volume | -3 | -2 | -1 |
+| segmt  |    | -2 | -1 |
+
+This means axis labels stay consistent as you add or remove layers of different
+dimensionality -- axis `-1` is always your last axis. This also fixes
+a long-standing bug where axis labels could end up duplicated when mixing layers of
+different dimensionality ([#6569](https://github.com/napari/napari/issues/6569)).
+
+You'll notice this change in the dims slider labels, the axis overlay, and the dims
+popup widget. If you already label your axes with your own names (e.g. `z`, `y`, `x`),
+nothing's changed. For everyone else, we have consistency at last!
+
+
+#### What's in an angle? The truth! Fixed camera angles 🎥
+
+If you've ever set up the camera to take that perfect publication-worthy photo of
+your data (and taken the time to query the camera angles), you may have noticed they seemed... off.
+That's because they were! Very... off. This was due to a long-standing bug in how we calculated our
+camera angles, fueled in part by some arcane vispy axis-swapping tomfoolery, and in part by napari's
+starting position of `viewer.camera.angles = (0, 0, 90)`.
+
+Good news! With [#8281](https://github.com/napari/napari/pull/8281), angles make sense again. The default camera angles are `(0, 0, 0)`, and they
+move intuitively -- so `viewer.camera.angles = (10, 0, 0)` actually represents a 10 degree
+rotation around the [-3rd](#negative-axis-labels-a-real-positive) dimension. What a time to be alive!
+
+Old versions of napari:
+
+![Image showing an old version of a napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console.](https://github.com/user-attachments/assets/9ae2040c-36f7-4c4c-8ef8-140202d7ccda)
+
+New and sane:
+
+![Image showing the 0.7.0 napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console. The layer is rotated 10 degrees in its first dimension](https://github.com/user-attachments/assets/6b972b46-5c3c-439a-8b0a-fe8a293224e5)
+
+All rotations are now right-handed (counterclockwise when the axis points towards the viewer),
+with automatic sign-flipping for flipped camera views.
+
+Now for the bad news... After many (and we do [mean](https://github.com/napari/napari/pull/8537)
+[**many**](https://github.com/napari/napari/pull/8557)) attempts, we realized we couldn't
+provide legacy conversion functions to get you to and from the original camera angles. Therefore,
+this is a **breaking change**.
+
+If you had scripts or notebooks setting up angles for screenshots, or if you've got workshop
+materials or tutorials with preset angles, they'll need to be updated. Any existing code
+using `viewer.camera.angles = (z, y, x)` will now produce a different view than before.
+
+#### Limiting `self.events` callbacks
+
+In [#8672](https://github.com/napari/napari/pull/8672), we changed how we emit events from
+the parent `self.events` group.
+
+Previously, connecting a callback to an `EventedModel`'s top-level event group
+(e.g. `model.events.connect(callback)`) would cause that callback to fire multiple times
+when a single assignment triggered multiple dependent fields. For example:
+
+```python
+class MyModel(EventedModel):
+    a: int
+
+    @property
+    def b(self):
+        return self.a * 2
+
+    @b.setter
+    def b(self, value):
+        self.a = value // 2
+
+model = MyModel(a=1)
+model.events.connect(my_callback)
+
+model.a = 4  # previously called my_callback twice (once for 'a', once for 'b')
+             # now calls my_callback once
+```
+
+The callback connected to `model.events` will now be called exactly once, with the event `type`
+set to the first changed field and `value` set to its new value. Callbacks connected to specific
+field events (e.g. `model.events.a.connect(...)`) are unaffected and continue to work as before.
+
+If you connect to `model.events` directly and relied on receiving one call per dependent field
+change, you will need to connect to the individual field events instead.
+
+### New features & widgets
+
+#### What's my metadata? Where's my metadata? `napari-metadata` to the rescue
+
+With a lot of work from our community contributor, Carlos Mario Rodriguez Reza
+(https://github.com/carlosmariorr), and
+our venerable community manager Tim Monko (https://github.com/timmonko),
+`napari` now has a metadata viewing and editing plugin
+included in our `napari[all]` installation and our bundle ([PR #8576](https://github.com/napari/napari/pull/8576)).
+
+![Screenshot of napari displaying an image of neurons, with the napari-metadata Layer Metadata widget across the bottom of the viewer.](https://raw.githubusercontent.com/napari/napari-metadata/main/docs/images/horizontal-widget.png)
+
+Open the `Layer metadata` widget from the `Plugins` menu and you can view File information, and view and edit Axes metadata such as
+axis labels, translation and scale! You can also use the widget to copy specified metadata across to other layers.
+
+Check out the [README](https://github.com/napari/napari-metadata) for some usage documentation, and feel
+free to open an issue to request new features -- we're actively improving this plugin so, more to come!
+
+#### (Layer) Features galore
+
+Prior to 0.7.0, our Features table widget only supported showing individual selected layer features.
+
+With [#8189](https://github.com/napari/napari/pull/8189), courtesy of Marcelo Zoccoler
+(https://github.com/zoccoler), the widget will display
+features of all selected layers! The layer's name is displayed in an additional column, so you
+always know what you're looking at, and you can choose to display only the shared feature columns
+across all layers. Pretty slick!
+
+![GIF displaying the usage of the features table with multiple selected layers.](https://github.com/user-attachments/assets/e06fd403-ed03-4edd-9192-a4e287d25ff7)
+
+#### Smarter new layer buttons - inheriting from selected layers
+
+Prior to 0.7.0, creating a new layer Points, Shapes or Labels layer would give you a layer
+with extent and dimensionality equal to the union of all currently open layers, and with
+none of the other spatial information (scale, units, etc.) inherited.
+
+Now, with [#8357](https://github.com/napari/napari/pull/8357) and [#8702](https://github.com/napari/napari/pull/8702)
+you can create new Shapes, Points or Labels layer that inherits from a selected layer
+(or a combination of selected layers).
+
+##### Shapes & Points
+
+If you have one layer selected, your new `Shapes` or `Points` layer will copy
+all spatial information from its ancestor, ready for annotating!
+If you have multiple layers selected, only scale is copied.
+
+If you wish to recover the original behavior, select all existing layers before creating your new layer.
+Deselecting all layers gives you a layer with only the number of dimensions inherited,
+and no other properties.
+
+##### Labels
+
+`Labels` layers inherit all spatial information when a single `Image` or `Labels` layer is selected.
+When multiple `Image` or `Labels` layers are selected, or the selection includes any combination of
+other layer types, the new `Labels` layer will span their extent -- take note, this layer could be
+huge!
+
+The `Labels` button is disabled when layers are present in the viewer and none are selected.
+(You can still create a (512 x 512) `Labels` layer when there are no layers present).
+
+##### Visual cues
+
+[#8723](https://github.com/napari/napari/pull/8723) ensures this change is not invisible!
+When your selection will result in full inheritance of spatial information for the new layer,
+the new layer button will be highlighted.
+The highlight color will become brighter when your selection will result in the new layer only
+inheriting the extent of your existing selection. If you're lost
+in the inheritance madness, you can also hover over the buttons to get details about the behavior.
+
+![GIF displaying the highlights on the Shapes, Points and Labels new layer buttons when one or more layers are selected in the layerlist](https://github.com/user-attachments/assets/7f71c6a8-173e-4734-869a-3ba41d7b37e9)
+
+PS -- You can now also create these new layers from the `File -> New Layer` menu!
+
+#### Better text overalys 🔡
+
+With [#8236](https://github.com/napari/napari/pull/8236), we've not only refactored text overlays
+so they're easier to implement, but we've also introduced two new long-requested overlays:
+the layer name overlay, and an overlay for the current slice. Together, they make generating
+publication-ready figures much easier!
+
+![Image showing the napari viewer with two layers in grid mode. Each layer has its name displayed in the top left, and the current slice displayed in the bottom right.](https://github.com/user-attachments/assets/3c96b38d-44c1-432b-b294-aa9c0934a553)
+
+Try it yourself:
+
+```python
+import napari
+v = napari.Viewer()
+v.grid.enabled = True
+ll = v.open_sample('napari', 'cells3d')
+for l in ll:
+    l.name_overlay.visible = True
+v.scale_bar.visible = True
+v.scale_bar.gridded = True
+v._overlays['current_slice'].visible = True
+v._overlays['current_slice'].gridded = True
+v.dims.axis_labels = ['z', 'y', 'x']
+```
+
+**Note**: the `v._overlays` attribute is still private as we're working out the best API.
+
+### Rendering & display
+
+#### More pixels to play with - texture tiling
+
+Ever loaded a large 2D image in napari just to zoom in and feel like you're not
+really getting a lot of bang for your pixel bucks? That's because we were
+downsampling images that were too large to send the whole thing to the GPU.
+
+Courtesy of Guillaume Witz (https://github.com/guiwitz), and his PR for
+texture tiling ([PR #8395](https://github.com/napari/napari/pull/8395)) 2D
+images that exceed OpenGL's maximum texture size will be split into multiple
+tiles, each small enough to fit on the GPU.
+
+![Image with a screenshot of napari 0.6.6 on the left and napari 0.7.0 on the right displaying a DeCAM image of the Milky Way. The image on the left is pixelated, while the image on the right is displayed at full resolution.](https://github.com/user-attachments/assets/d0a115a8-49d5-432c-b561-f29fe9ac8116)
+
+#### Rendering layers in physical space - units matter!
+
+In 0.6.6 and below, units were stored in metadata, but not used for rendering.
+Adding two layers that represented the same physical space, but had different
+units, e.g. a layer with `scale=500, units='nm'` and one with `scale=0.5, units='μm'`
+wouldn't overlap correctly, even though they should.
+
+Thanks to [#7889](https://github.com/napari/napari/pull/8395), layers with
+compatible units (i.e. those that share the same physical dimension per axis,
+like all spatial), will make use of `units` and `scale` to overlap correctly,
+using the smallest unit as the rendering space.
+
+Units can also be set globally on the layer list using `viewer.layers.units = ('nm', 'nm')`,
+forcing layers to be rendered in this space. If a new layer is added with more dimensions
+than the current layers, this global override is dropped with a warning.
+
+#### Points - any size you like 🟣
+
+On macOS, the points layer has never been able to reach its full potential, as OpenGL
+drivers limit the size of an individual marker to a certain number of screen pixels.
+
+With [#8552](https://github.com/napari/napari/pull/8552) and the release of `vispy v0.16`,
+this long-standing issue has finally been resolved. Across all operating systems, you can
+make your points as big as you want!
+
+This change has also propagated to the zoom behaviour on macOS -- points now zoom
+proportionally to the data, rather than staying the same size in screen pixels.
+
+Here's the behaviour pre 0.7.0:
+
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline> 
+    <source src="../_static/images/points_zoom_066.webm" type="video/webm" /> 
+    <source src="../_static/images/points_zoom_066.mp4" type="video/mp4" /> 
+    <img src="../_static/images/points_zoom_066.png" 
+      title="Your browser does not support the video tag" 
+      alt="Video with a points layer on a grid of white squares. When zooming, the points stay the same size in screen pixels." 
+    > 
+  </video> 
+</figure> 
+``` 
+
+And now:
+
+```{raw} html
+<figure> 
+  <video width="100%" controls autoplay loop muted playsinline> 
+    <source src="../_static/images/points_zoom_070.webm" type="video/webm" /> 
+    <source src="../_static/images/points_zoom_070.mp4" type="video/mp4" /> 
+    <img src="../_static/images/points_zoom_070.png" 
+      title="Your browser does not support the video tag" 
+      alt="Video with a points layer on a grid of white squares. When zooming, the points scale proportionally to the data." 
+    > 
+  </video> 
+</figure> 
+```
+
+### Performance
+
+#### Grid mode -- bigger, better, faster 📈
+
+If you've been playing with our new grid mode since 0.6.5, you
 may have stumbled into performance issues when progressively adding
 new layers to the viewer. Stumble no longer! Our grid mode is now wicked fast and buttery smooth 🧈.
 
@@ -76,51 +352,78 @@ for layer in layers:
     layer.colorbar.visible = True
 ```
 
-### What's in an angle? The truth! Fixed camera angles 🎥
+#### Add & delete layers without delay
 
-If you've ever set up the camera to take that perfect publication-worthy photo of 
-your data (and taken the time to query the camera angles), you may have noticed they seemed... off.
-That's because they were! Very... off. This was due to a long-standing bug in how we calculated our
-camera angles, fueled in part by some arcane vispy axis-swapping tomfoolery, and in part by napari's
-starting position of `viewer.camera.angles = (0, 0, 90)`.
+[#8479](https://github.com/napari/napari/pull/8479) and [#8443](https://github.com/napari/napari/pull/8443)
+made a number of improvements to
+our layer and overlay clean-up, addressing a number of issues with large numbers of layers
+in the viewer - adding them, deleting them, and even closing the viewer is now snappy
+and smooth!
 
-Good news! With [#8281](https://github.com/napari/napari/pull/8281), angles make sense again. The default camera angles are `(0, 0, 0)`, and they
-move intuitively -- so `viewer.camera.angles = (0, 0, 10)` actually represents a 10 degree
-rotation around the 0th dimension. What a time to be alive!
+#### Shapes layers -- select, zoom, delete, repeat
 
-Old versions of napari:
+If you've ever tried working with thousands of shapes in napari, you'll know
+it could get... painful. Selecting 10,000 shapes with a box took over 50 seconds,
+deleting 5,000 shapes took over a minute, and zooming with shapes selected
+would lock up the viewer entirely. Not anymore!
 
-![Image showing an old version of a napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console.](https://github.com/user-attachments/assets/9ae2040c-36f7-4c4c-8ef8-140202d7ccda)
+0.7.0 brings a flurry of performance improvements:
 
-New and sane:
+- Box selection now uses bounding boxes and vectorized intersection tests,
+  delivering a more than 100x speedup ([#8378](https://github.com/napari/napari/pull/8378)).
+  Selecting 10,000 shapes goes from >50s to ~0.3s.
+- Batch deletion replaces one-by-one removal for another 100x speedup
+  ([#8375](https://github.com/napari/napari/pull/8375))! Deleting 50,000 shapes
+  now takes under half a second.
+- Outline computation is batched and cached, so zooming and panning with
+  selected shapes no longer blocks
+  ([#8403](https://github.com/napari/napari/pull/8403),
+  [#8536](https://github.com/napari/napari/pull/8536)).
+- Highlight updates are throttled for large layers, enabling smooth zoom
+  even with 200,000+ shapes ([#8404](https://github.com/napari/napari/pull/8404)).
+- Mode switching no longer triggers unnecessary redraws, giving another
+  ~3x speedup when many shapes are selected
+  ([#8551](https://github.com/napari/napari/pull/8551)).
 
-![Image showing the 0.7.0 napari viewer with a layer opened and its camera angle (10, 0, 0) displayed in the console. The layer is rotated 10 degrees in its first dimension](https://github.com/user-attachments/assets/6b972b46-5c3c-439a-8b0a-fe8a293224e5)
+Beware: there's still more to do, because drawing and drag-moving large selections
+remain slow!
 
-All rotations are now right-handed (counterclockwise when the axis points towards the viewer),
-with automatic sign-flipping for flipped camera views. We've also removed the unwieldy to type
-(and confusing to reason about) `quaternion2euler_degrees` in favour of scipy's `Rotation` class.
+#### Multiscale -- less to update, more to celebrate
 
-Now for the bad news... After many (and we do [mean](https://github.com/napari/napari/pull/8537)
-[**many**](https://github.com/napari/napari/pull/8557)) attempts, we realized we couldn't
-provide legacy conversion functions to get you to and from the original camera angles. Therefore,
-this is a **breaking change**.
+PR [#8678](https://github.com/napari/napari/pull/8678) introduced a small change
+with a big effect! Now, zooming in (and panning while zoomed in), will only trigger
+a data refresh if the multiscale level has changed **or** if the new view falls outside
+of already loaded data.
 
-If you had scripts or notebooks setting up angles for screenshots, or if you've got workshop
-materials or tutorials with preset angles, they'll need to be updated. Any existing code
-using `viewer.camera.angles = (z, y, x)` will now produce a different view than before.
+#### Delete the launch codes -- no more macOS hacks on launch
 
-...
+In 0.6.6 and below, we had some macOS specific launch code that skirted around some
+issues (which are now no longer relevant), and hackily "relaunched" napari to make
+sure the application name was correct.
 
-- Multilayer features table ([#8189](https://github.com/napari/napari/pull/8189))
-- Remove `numpydoc` as a base and testing dependency ([#8338](https://github.com/napari/napari/pull/8338))
-- Texture tiling ([#8395](https://github.com/napari/napari/pull/8395))
-- Fix overlay initialization and layer addition slowdown ([#8443](https://github.com/napari/napari/pull/8443))
-- Remove shim setting and warning dialog ([#8448](https://github.com/napari/napari/pull/8448))
-- Remove PySide2 support ([#8450](https://github.com/napari/napari/pull/8450))
-- Speed up the deletion of layers by deduplicating the function calls  ([#8479](https://github.com/napari/napari/pull/8479))
-- Remove `npe1` settings and theme loading ([#8540](https://github.com/napari/napari/pull/8540))
-- Use negative indexing for viewer dims axis labels ([#8565](https://github.com/napari/napari/pull/8565))
-- Add napari-metadata to napari dependencies ([#8576](https://github.com/napari/napari/pull/8576))
+This code added up to a whole second to our launch time, as well as being potentially
+problematic for some users. PR [#8705](https://github.com/napari/napari/pull/8705)
+removed this code, making our start-up a little less hacky and a little more snappy.
+The downside is that when launching napari on macOS, the app name may be listed as
+Python, instead of napari. We think the trade-off is worth it.
+
+
+### Infrastructure & dependencies
+
+A couple of notes on big changes in our dependencies:
+
+- With #8509 we improved our support for `pydantic v2`, allowing us to enable support for Python 3.14!
+This brings us one step closer to fully adopting `psygnal` as our event library.
+- In [#8450](https://github.com/napari/napari/pull/8450) we dropped support for PySide2. If you
+were using napari with PySide for your Qt bindings, you'll need to upgrade to PySide6. Good news
+is that PySide6 is looking pretty stable, while PySide2 had some compatibility issues with numpy2,
+and had to be built from source for Python 3.11+.
+- In ([#8665](https://github.com/napari/napari/pull/8665)) we updated the default qt
+binding to PyQt6. PyQt6 will now be installed with `napari[all]` installations. Windows users
+should see improvements to their display with better support for fractional scaling!
+- In [#8338](https://github.com/napari/napari/pull/8338) we replaced `numpydoc` with `docstring_parser`
+for parsing our docstrings. This will be a pretty invisible change from a user's perspective, but
+it saves more than 50MB of disk space for a napari install!
 
 ## New Features
 
@@ -129,13 +432,13 @@ using `viewer.camera.angles = (z, y, x)` will now produce a different view than 
 - Multilayer features table ([#8189](https://github.com/napari/napari/pull/8189))
 - Better text overlay (and subclasses) ([#8236](https://github.com/napari/napari/pull/8236))
 - Allow create Shapes and Points per selected Layer ([#8357](https://github.com/napari/napari/pull/8357))
-- Updating `selected_label` by `selected_data` for `Labels` layer toward multiple selection ([#8405](https://github.com/napari/napari/pull/8405))
 - Use new logos! ([#8457](https://github.com/napari/napari/pull/8457))
 - Add napari-metadata to napari dependencies ([#8576](https://github.com/napari/napari/pull/8576))
 
 ## Improvements
 
 - perf: reallocate instead of clearing and repopulating set of selected points ([#6895](https://github.com/napari/napari/pull/6895))
+- Add cell tracking example ([#8051](https://github.com/napari/napari/pull/8051))
 - Add a seed argument to built-in samples with random seeds ([#8317](https://github.com/napari/napari/pull/8317))
 - Enh: clarify Points selection keybinding behavior: select_in_slice not append by default, add new select_append_in_slice ([#8339](https://github.com/napari/napari/pull/8339))
 - Enh: Improve zarr reading by builtins ([#8355](https://github.com/napari/napari/pull/8355))
@@ -156,6 +459,21 @@ using `viewer.camera.angles = (z, y, x)` will now produce a different view than 
 - Add caching of outlines to reduce delay on Shapes zoom ([#8536](https://github.com/napari/napari/pull/8536))
 - Don't warn user when a Zarr array with channel axis is passed ([#8559](https://github.com/napari/napari/pull/8559))
 - Use negative indexing for viewer dims axis labels ([#8565](https://github.com/napari/napari/pull/8565))
+- Add colorbar & bounding box overlays to Layers menu ([#8611](https://github.com/napari/napari/pull/8611))
+- Add visual for new points/shapes button on selected layers ([#8649](https://github.com/napari/napari/pull/8649))
+- Limit `self.events` callbacks trigger to only once per assignment ([#8672](https://github.com/napari/napari/pull/8672))
+- [multiscale] Only update/refresh when level has changed or view is outside current corner_pixels ([#8678](https://github.com/napari/napari/pull/8678))
+- Warn users when features data looks categorical ([#8685](https://github.com/napari/napari/pull/8685))
+- Fix type annotation in viewer keybindings, use QtViewer for console ([#8694](https://github.com/napari/napari/pull/8694))
+- Do not inherit scale for points and shapes if no layer is selected ([#8701](https://github.com/napari/napari/pull/8701))
+- Inherit spatial information for new `Labels` layers when only one other `Labels` or `Image` layer is selected ([#8702](https://github.com/napari/napari/pull/8702))
+- [UI, UX] Make dock widget title bar icons bigger and text more legible ([#8714](https://github.com/napari/napari/pull/8714))
+- Perf, enh: defer dask.array loading by moving import into functions ([#8720](https://github.com/napari/napari/pull/8720))
+- Change look of new layer buttons to mark that there are 3 modes ([#8723](https://github.com/napari/napari/pull/8723))
+- If path arg is passed to CLI napari, don't show welcome overlay ([#8725](https://github.com/napari/napari/pull/8725))
+- Use capitalized name of source layer type when adding layer ([#8740](https://github.com/napari/napari/pull/8740))
+- Add scale example for anisotropic 3D data ([#8742](https://github.com/napari/napari/pull/8742))
+- Use custom Font manager to use Qt discovery mechanism ([#8751](https://github.com/napari/napari/pull/8751))
 
 ## Performance
 
@@ -172,6 +490,9 @@ using `viewer.camera.angles = (z, y, x)` will now produce a different view than 
 - Fix the Shapes mode setter to use _is_creating for _finish_drawing and clear selection when going to ADD_* ([#8551](https://github.com/napari/napari/pull/8551))
 - Delay scipy imports until needed ([#8561](https://github.com/napari/napari/pull/8561))
 - Low hanging Labels painting performance improvement ([#8592](https://github.com/napari/napari/pull/8592))
+- [multiscale] Only update/refresh when level has changed or view is outside current corner_pixels ([#8678](https://github.com/napari/napari/pull/8678))
+- [Perf] Remove napari splash screen ([#8686](https://github.com/napari/napari/pull/8686))
+- [Maint] Remove all macOS specific launch code as it's out-dated or problematic (re-running with symlink) ([#8705](https://github.com/napari/napari/pull/8705))
 
 ## Bug Fixes
 
@@ -180,7 +501,6 @@ using `viewer.camera.angles = (z, y, x)` will now produce a different view than 
 - Fix conversion of vector images to coordinates of vectors ([#8366](https://github.com/napari/napari/pull/8366))
 - initialize label selection spinbox to a correct value ([#8382](https://github.com/napari/napari/pull/8382))
 - Bugfix: fix erratic Shape sorting ([#8408](https://github.com/napari/napari/pull/8408))
-- Bugfix: update magicgui layer combobox if a layer is renamed ([#8412](https://github.com/napari/napari/pull/8412))
 - bugfix: Ensure that edge_width is accounted for when using polygon lasso ([#8414](https://github.com/napari/napari/pull/8414))
 - Fix Shapes thumbnail z ordering ([#8417](https://github.com/napari/napari/pull/8417))
 - Fix unnecessary overlay initialization on scenegraph update ([#8423](https://github.com/napari/napari/pull/8423))
@@ -194,30 +514,54 @@ using `viewer.camera.angles = (z, y, x)` will now produce a different view than 
 - Fix dim order of rendering of 2D rgb data in 3D mode ([#8522](https://github.com/napari/napari/pull/8522))
 - Fix numpy warning for pure python edge triangulation ([#8523](https://github.com/napari/napari/pull/8523))
 - Do not use keyword argument when creating tooltip ([#8528](https://github.com/napari/napari/pull/8528))
-- Fix angle label values in ndim popup widget ([#8535](https://github.com/napari/napari/pull/8535))
 - Fix update of shape that lead to wrong rendering ([#8543](https://github.com/napari/napari/pull/8543))
 - Close proper window on Ctrl+W ([#8548](https://github.com/napari/napari/pull/8548))
 - Fix the Shapes mode setter to use _is_creating for _finish_drawing and clear selection when going to ADD_* ([#8551](https://github.com/napari/napari/pull/8551))
+- Enable instanced markers if available. ([#8552](https://github.com/napari/napari/pull/8552))
 - Do not expose legacy angle ([#8557](https://github.com/napari/napari/pull/8557))
 - Fix test on PySide6 by change mocking of qt methods ([#8560](https://github.com/napari/napari/pull/8560))
 - Account for tile2data in the Labels polygon overlay ([#8563](https://github.com/napari/napari/pull/8563))
 - ensure overlays are reused properly when gridded mode is enabled ([#8569](https://github.com/napari/napari/pull/8569))
 - Stop welcome screen time on hiding of QtWiewer ([#8585](https://github.com/napari/napari/pull/8585))
 - Fix Labels layer controls contiguous checkbox to initialize to the layer state ([#8594](https://github.com/napari/napari/pull/8594))
+- Proper cleanup and reuse of existing overlays ([#8610](https://github.com/napari/napari/pull/8610))
+- [UI] Update the viewer button tooltips to use the new axis labels (-3, -2, -1) ([#8614](https://github.com/napari/napari/pull/8614))
+- Fix scale bar padding ([#8616](https://github.com/napari/napari/pull/8616))
+- Fix empty thumbnail ([#8620](https://github.com/napari/napari/pull/8620))
+- Reverse overlay tiling order ([#8623](https://github.com/napari/napari/pull/8623))
+- Fix welcome screen timer ([#8627](https://github.com/napari/napari/pull/8627))
+- Reinitialize welcome screen shortcuts in a less ugly way ([#8634](https://github.com/napari/napari/pull/8634))
+- Fix empty points tiny point ([#8639](https://github.com/napari/napari/pull/8639))
+- Fix labels of angle order of camera widget ([#8644](https://github.com/napari/napari/pull/8644))
+- Add a opaque background Rectangle to Welcome overlay ([#8645](https://github.com/napari/napari/pull/8645))
+- Do not start welcome widget timer until QtViewer is visible ([#8652](https://github.com/napari/napari/pull/8652))
+- Allow selection in feature table widget with empty features ([#8653](https://github.com/napari/napari/pull/8653))
+- Fix event triggering start of welcome screen ([#8660](https://github.com/napari/napari/pull/8660))
+- Fix `_disconnect_child_emitters` for `PsygnalModel` dict elements ([#8674](https://github.com/napari/napari/pull/8674))
+- Increase minimum version of pyopengl to allow start napari ([#8679](https://github.com/napari/napari/pull/8679))
+- Fix colorbar for int/bool dtypes ([#8684](https://github.com/napari/napari/pull/8684))
+- Correctly hide welcome screen when layers are present ([#8688](https://github.com/napari/napari/pull/8688))
+- Fix assign tuple of None to `layer.units` ([#8700](https://github.com/napari/napari/pull/8700))
+- Fix error raised when `out_of_slice_display = True` and update highlight ([#8717](https://github.com/napari/napari/pull/8717))
+- fix: fix `napari.imshow` return type hint ([#8726](https://github.com/napari/napari/pull/8726))
+- Fix `--plugin` startup args ([#8729](https://github.com/napari/napari/pull/8729))
 
 ## Build Tools
 
-- Bump urllib3 from 2.5.0 to 2.6.0 in /resources ([#8484](https://github.com/napari/napari/pull/8484))
-- Migrate overlays to psygnal ([#8492](https://github.com/napari/napari/pull/8492))
 - Bump urllib3 from 2.6.2 to 2.6.3 in /resources ([#8544](https://github.com/napari/napari/pull/8544))
 - Add napari-metadata to napari dependencies ([#8576](https://github.com/napari/napari/pull/8576))
 - Plugin dependencies for docs generation ([#8581](https://github.com/napari/napari/pull/8581))
 
 ## Documentation
 
+- Add colorbar and overlay tiling example ([#8433](https://github.com/napari/napari/pull/8433))
 - Create 3D_vectors_through_time.py ([#8461](https://github.com/napari/napari/pull/8461))
 - Fix and improve `dock_widgets` docstrings ([#8494](https://github.com/napari/napari/pull/8494))
 - Plugin dependencies for docs generation ([#8581](https://github.com/napari/napari/pull/8581))
+- Adding a new example of a multiplexed immunofluorescent image of a murine heart ([#8680](https://github.com/napari/napari/pull/8680))
+- Add sphinxext-rediraffe to docs requirements ([#8690](https://github.com/napari/napari/pull/8690))
+- Update examples gallery for 0.7.0 angles ([#8709](https://github.com/napari/napari/pull/8709))
+- Update contributing info and include AI policy and guidelines ([#8754](https://github.com/napari/napari/pull/8754))
 - Remove deprecated `view_*` methods from docs materials ([docs#864](https://github.com/napari/docs/pull/864))
 - Proposed roadmap updates for Q3 ([docs#873](https://github.com/napari/docs/pull/873))
 - Enhance documentation build process with pixi integration and Windows… ([docs#876](https://github.com/napari/docs/pull/876))
@@ -235,35 +579,45 @@ using `viewer.camera.angles = (z, y, x)` will now produce a different view than 
 - Migrate and update hub customization from wiki to docs ([docs#906](https://github.com/napari/docs/pull/906))
 - Improve open image section ([docs#907](https://github.com/napari/docs/pull/907))
 - Remove mention of outdated plugin from quick start ([docs#908](https://github.com/napari/docs/pull/908))
+- Update governance documentation ([docs#911](https://github.com/napari/docs/pull/911))
 - increase stack size to solve import recursion problem ([docs#912](https://github.com/napari/docs/pull/912))
 - Update display text copy in shapes.md ([docs#914](https://github.com/napari/docs/pull/914))
 - Update release notes for 0.7.0a1 ([docs#915](https://github.com/napari/docs/pull/915))
 - Simplify titles in App installation instructions ([docs#918](https://github.com/napari/docs/pull/918))
+- Remove mention of double click in macOS app instructions ([docs#920](https://github.com/napari/docs/pull/920))
+- Update release notes for 0.7.0a2 ([docs#922](https://github.com/napari/docs/pull/922))
+- Move code for setting recursion limit ([docs#927](https://github.com/napari/docs/pull/927))
+- Update scripts to pydantic v2 ([docs#928](https://github.com/napari/docs/pull/928))
+- Remove npe1-related docs ([docs#929](https://github.com/napari/docs/pull/929))
+- Add intersphinx mapping for pydantic ([docs#930](https://github.com/napari/docs/pull/930))
+- Add policy on LLM contributions based on Zulip's ([docs#932](https://github.com/napari/docs/pull/932))
+- Expand on 0.7.0 highlights ([docs#933](https://github.com/napari/docs/pull/933))
+- Fix camera angles in handedness guide ([docs#940](https://github.com/napari/docs/pull/940))
+- Add guide explaining default axis names ([docs#942](https://github.com/napari/docs/pull/942))
+- Add info about new points/shapes layer button behavior ([docs#943](https://github.com/napari/docs/pull/943))
+- Add final? 0.7.0 highlights and group by topic ([docs#944](https://github.com/napari/docs/pull/944))
+- Add redirects to pages moved in Usage section ([docs#946](https://github.com/napari/docs/pull/946))
+- Fix typo in optional-dependencies ([docs#947](https://github.com/napari/docs/pull/947))
+- Update references to PyQt5 as default backend to PyQt6 ([docs#950](https://github.com/napari/docs/pull/950))
+- Update 0.7.0 highlights for rc0 ([docs#951](https://github.com/napari/docs/pull/951))
 
 ## Other Pull Requests
 
-- Add cell tracking example ([#8051](https://github.com/napari/napari/pull/8051))
 - TYP: overload for `labeled_particles` incorrectly notes `Literal[True]=...` as default for `return_density` ([#8114](https://github.com/napari/napari/pull/8114))
 - Decompose Layer code by move slicing to specialized class ([#8254](https://github.com/napari/napari/pull/8254))
-- Update `hypothesis`, `psygnal` ([#8310](https://github.com/napari/napari/pull/8310))
 - Add information about pyside 6 in error information ([#8313](https://github.com/napari/napari/pull/8313))
-- Remove `numpydoc` as core dependency, instead use `docstring_parser` ([#8334](https://github.com/napari/napari/pull/8334))
 - Remove deprecated `napari.view_*` methods ([#8337](https://github.com/napari/napari/pull/8337))
 - [pre-commit.ci] pre-commit autoupdate ([#8354](https://github.com/napari/napari/pull/8354))
 - Remove string translation from PR checklist ([#8362](https://github.com/napari/napari/pull/8362))
 - Use coverage upload from shared workflows ([#8367](https://github.com/napari/napari/pull/8367))
 - Specify napari revision in build and deploy docs workflow ([#8368](https://github.com/napari/napari/pull/8368))
 - [pre-commit.ci] pre-commit autoupdate ([#8369](https://github.com/napari/napari/pull/8369))
-- Switch PyPI downloads badge in README ([#8374](https://github.com/napari/napari/pull/8374))
 - Update citation file for 0.7.0 ([#8384](https://github.com/napari/napari/pull/8384))
 - [pre-commit.ci] pre-commit autoupdate ([#8386](https://github.com/napari/napari/pull/8386))
 - Add check if PR author is in citation.cff ([#8388](https://github.com/napari/napari/pull/8388))
 - skip check if author in citation.cff if bot created  PR ([#8392](https://github.com/napari/napari/pull/8392))
 - Explicitly turn on full checkout for CircleCI ([#8396](https://github.com/napari/napari/pull/8396))
-- ci(dependabot): bump the actions group with 3 updates ([#8400](https://github.com/napari/napari/pull/8400))
-- Exclude dependabot from PR author check ([#8409](https://github.com/napari/napari/pull/8409))
 - Fix cff check for bots ([#8420](https://github.com/napari/napari/pull/8420))
-- Add colorbar and overlay tiling example ([#8433](https://github.com/napari/napari/pull/8433))
 - Update `certifi`, `coverage`, `dask`, `fsspec`, `hypothesis`, `imageio`, `ipython`, `matplotlib`, `numpy`, `pandas`, `pillow`, `pint`, `psutil`, `psygnal`, `pydantic`, `pyqt6`, `pyside6`, `pytest`, `pytest-rerunfailures`, `pyyaml`, `rich`, `scipy`, `tensorstore`, `tifffile`, `toolz`, `virtualenv`, `wrapt`, `xarray` ([#8441](https://github.com/napari/napari/pull/8441))
 - [pre-commit.ci] pre-commit autoupdate ([#8442](https://github.com/napari/napari/pull/8442))
 - Stop updating python 3.10 docs constraints ([#8444](https://github.com/napari/napari/pull/8444))
@@ -289,15 +643,18 @@ using `viewer.camera.angles = (z, y, x)` will now produce a different view than 
 - Test on macos-15-intel without numba ([#8503](https://github.com/napari/napari/pull/8503))
 - Move constraints calculation to script, allow upgrade subset of packages ([#8505](https://github.com/napari/napari/pull/8505))
 - Workaround for Zenodo outage by downloading data from google drive.  ([#8508](https://github.com/napari/napari/pull/8508))
+- Migrate EventedModel to pydantic v2 and overlays to psygnal to support python 3.14  ([#8509](https://github.com/napari/napari/pull/8509))
 - Fix overlay tests ([#8513](https://github.com/napari/napari/pull/8513))
 - Update `certifi`, `coverage`, `dask`, `fsspec`, `hypothesis`, `ipython`, `jsonschema`, `pandas`, `pillow`, `psutil`, `psygnal`, `pyqt6`, `scikit-image`, `scipy`, `superqt`, `tifffile`, `virtualenv` ([#8518](https://github.com/napari/napari/pull/8518))
 - [pre-commit.ci] pre-commit autoupdate ([#8519](https://github.com/napari/napari/pull/8519))
 - Reduce noise in benchmark logs ([#8525](https://github.com/napari/napari/pull/8525))
 - Improve language in Citation PR Author check ([#8526](https://github.com/napari/napari/pull/8526))
 - ci(dependabot): bump the actions group with 4 updates ([#8533](https://github.com/napari/napari/pull/8533))
+- Remove `npe1` settings and theme loading ([#8540](https://github.com/napari/napari/pull/8540))
 - Enforce unix line endings ([#8541](https://github.com/napari/napari/pull/8541))
 - Add temporary tox plugin for fix installation of dependency groups ([#8545](https://github.com/napari/napari/pull/8545))
 - Revert: Add temporary tox plugin for fix installation of dependency groups (#8545) ([#8546](https://github.com/napari/napari/pull/8546))
+- Fix typing in layers.points and layers.labels utilities ([#8549](https://github.com/napari/napari/pull/8549))
 - Fix path to constraints update script  ([#8553](https://github.com/napari/napari/pull/8553))
 - [pre-commit.ci] pre-commit autoupdate ([#8554](https://github.com/napari/napari/pull/8554))
 - Stop using `get_settings` during import time ([#8556](https://github.com/napari/napari/pull/8556))
@@ -307,6 +664,35 @@ using `viewer.camera.angles = (z, y, x)` will now produce a different view than 
 - Fix build constraints with circular napari dependency ([#8588](https://github.com/napari/napari/pull/8588))
 - Modify sphinx-external-toc version constraint to eliminate warnings ([#8591](https://github.com/napari/napari/pull/8591))
 - Switch logo URL used for reader test ([#8596](https://github.com/napari/napari/pull/8596))
+- Update `coverage`, `hypothesis`, `rich` ([#8597](https://github.com/napari/napari/pull/8597))
+- Move comment trigger of constraints update to a separate workflow ([#8600](https://github.com/napari/napari/pull/8600))
+- Fix running benchmarks by label by fix condition ([#8601](https://github.com/napari/napari/pull/8601))
+- [pre-commit.ci] pre-commit autoupdate ([#8602](https://github.com/napari/napari/pull/8602))
+- ci(dependabot): bump the actions group with 5 updates ([#8613](https://github.com/napari/napari/pull/8613))
+- Update `babel`, `dask`, `hypothesis`, `pooch`, `psutil`, `rich`, `tifffile`, `tqdm`, `wrapt`, `xarray` ([#8615](https://github.com/napari/napari/pull/8615))
+- Postpone QtViewer deprecation to 0.8.0 ([#8617](https://github.com/napari/napari/pull/8617))
+- Remove settings call on import in qt_event_loop ([#8619](https://github.com/napari/napari/pull/8619))
+- Remove remaining `npe1` usage ([#8622](https://github.com/napari/napari/pull/8622))
+- Add `uv.lock` and leak graphs to gitignore ([#8637](https://github.com/napari/napari/pull/8637))
+- Fix pint warning about deprecation of getitem ([#8638](https://github.com/napari/napari/pull/8638))
+- Update `coverage`, `fsspec`, `hypothesis`, `ipython`, `pillow`, `pyside6`, `qtconsole`, `tensorstore`, `tqdm`, `wrapt`, `xarray` ([#8641](https://github.com/napari/napari/pull/8641))
+- Bump superqt to 0.7.8 ([#8646](https://github.com/napari/napari/pull/8646))
+- Bump napari plugin manager ([#8647](https://github.com/napari/napari/pull/8647))
+- Add/unify background box for canvas overlays ([#8654](https://github.com/napari/napari/pull/8654))
+- [pre-commit.ci] pre-commit autoupdate ([#8655](https://github.com/napari/napari/pull/8655))
+- Upload triangulation artifacts if benchmarks fails ([#8664](https://github.com/napari/napari/pull/8664))
+- Maint: Have triangle only on py313 and lower ([#8668](https://github.com/napari/napari/pull/8668))
+- Update `pydantic-settings`, `tifffile` ([#8671](https://github.com/napari/napari/pull/8671))
+- [pre-commit.ci] pre-commit autoupdate ([#8675](https://github.com/napari/napari/pull/8675))
+- Add pregenerated data to stabilize shapes triangulation benchmarks ([#8676](https://github.com/napari/napari/pull/8676))
+- Update `hypothesis`, `numpy`, `pandas`, `pydantic-settings`, `rich`, `scipy`, `tifffile`, `virtualenv` ([#8692](https://github.com/napari/napari/pull/8692))
+- Add python 3.14 classifier to project metadata ([#8693](https://github.com/napari/napari/pull/8693))
+- [pre-commit.ci] pre-commit autoupdate ([#8697](https://github.com/napari/napari/pull/8697))
+- ci(dependabot): bump the actions group with 3 updates ([#8713](https://github.com/napari/napari/pull/8713))
+- Update `certifi`, `tifffile`, `virtualenv` ([#8716](https://github.com/napari/napari/pull/8716))
+- Update pyqt5 default references to pyqt6 ([#8732](https://github.com/napari/napari/pull/8732))
+- Update `numpy`, `superqt`, `tifffile`, `wrapt` ([#8748](https://github.com/napari/napari/pull/8748))
+- [pre-commit.ci] pre-commit autoupdate ([#8753](https://github.com/napari/napari/pull/8753))
 - ci(dependabot): bump the github-actions group with 4 updates ([docs#856](https://github.com/napari/docs/pull/856))
 - Allow to redeploy docs after merge new commits to main branch ([docs#874](https://github.com/napari/docs/pull/874))
 - Add mdformat to pre-commit config ([docs#878](https://github.com/napari/docs/pull/878))
@@ -320,31 +706,41 @@ using `viewer.camera.angles = (z, y, x)` will now produce a different view than 
 - Stop tracking `docs/release/index.md` so that it is ignored ([docs#905](https://github.com/napari/docs/pull/905))
 - Maint Update PIP_CONSTRAINT to UV_CONSTRAINT in config ([docs#909](https://github.com/napari/docs/pull/909))
 - Remove pixi configuration for macos intel ([docs#913](https://github.com/napari/docs/pull/913))
+- Prepare on migration to `sphinxcontrib-mermaid` ([docs#923](https://github.com/napari/docs/pull/923))
+- ci(dependabot): bump the github-actions group with 2 updates ([docs#925](https://github.com/napari/docs/pull/925))
+- ci(dependabot): bump actions/download-artifact from 7.0.0 to 8.0.0 in the github-actions group ([docs#948](https://github.com/napari/docs/pull/948))
 
 
-## 17 authors added to this release (alphabetical)
+## 24 authors added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
 - [Ashley Anderson](https://github.com/napari/napari/commits?author=aganders3) - @aganders3
+- [Constantin Aronssohn](https://github.com/napari/napari/commits?author=cnstt) - @cnstt
 - [Daniel Zhang](https://github.com/napari/napari/commits?author=DanGonite57) - @DanGonite57
 - [David Stansby](https://github.com/napari/napari/commits?author=dstansby) ([docs](https://github.com/napari/docs/commits?author=dstansby))  - @dstansby
 - [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) ([docs](https://github.com/napari/docs/commits?author=DragaDoncila))  - @DragaDoncila
 - [Edward Andò](https://github.com/napari/napari/commits?author=edwardando) - @edwardando +
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
 - [Guillaume Witz](https://github.com/napari/napari/commits?author=guiwitz) ([docs](https://github.com/napari/docs/commits?author=guiwitz))  - @guiwitz
-- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) - @jni
+- [hiroalchem](https://github.com/napari/napari/commits?author=hiroalchem) - @hiroalchem +
+- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni))  - @jni
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) ([docs](https://github.com/napari/docs/commits?author=brisvag))  - @brisvag
+- [Marcelo Zoccoler](https://github.com/napari/napari/commits?author=zoccoler) - @zoccoler
 - [Marco Edward Gorelli](https://github.com/napari/napari/commits?author=MarcoGorelli) - @MarcoGorelli +
+- [Margot Chazotte](https://github.com/napari/napari/commits?author=MargotCh) - @MargotCh +
 - [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) ([docs](https://github.com/napari/docs/commits?author=melissawm))  - @melissawm
+- [Neil Shephard](https://github.com/napari/docs/commits?author=ns-rse) - @ns-rse +
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) ([docs](https://github.com/napari/docs/commits?author=psobolewskiPhD))  - @psobolewskiPhD
 - [Qin Yu](https://github.com/napari/napari/commits?author=qin-yu) ([docs](https://github.com/napari/docs/commits?author=qin-yu))  - @qin-yu +
 - [Rensu Theart](https://github.com/napari/docs/commits?author=rensutheart) - @rensutheart +
+- [Samuel Le Meur-Diebolt](https://github.com/napari/napari/commits?author=sdiebolt) - @sdiebolt +
+- [Sesan](https://github.com/napari/napari/commits?author=Olusesan) - @Olusesan
 - [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
 - [Yohsuke T. Fukai](https://github.com/napari/napari/commits?author=yfukai) - @yfukai +
 - [Zuzana Čočková](https://github.com/napari/napari/commits?author=cockovaz) - @cockovaz +
 
-## 22 reviewers added to this release (alphabetical)
+## 25 reviewers added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
@@ -357,16 +753,19 @@ using `viewer.camera.angles = (z, y, x)` will now produce a different view than 
 - [Edward Andò](https://github.com/napari/napari/commits?author=edwardando) - @edwardando +
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
 - [Guillaume Witz](https://github.com/napari/napari/commits?author=guiwitz) ([docs](https://github.com/napari/docs/commits?author=guiwitz))  - @guiwitz
+- [hiroalchem](https://github.com/napari/napari/commits?author=hiroalchem) - @hiroalchem +
 - [Jacopo Abramo](https://github.com/napari/docs/commits?author=jacopoabramo) - @jacopoabramo
 - [Johannes Soltwedel](https://github.com/napari/docs/commits?author=jo-mueller) - @jo-mueller
-- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) - @jni
+- [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni))  - @jni
+- [Kyle I. S. Harrington](https://github.com/napari/docs/commits?author=kephale) - @kephale
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) ([docs](https://github.com/napari/docs/commits?author=brisvag))  - @brisvag
-- [Marcelo Zoccoler](https://github.com/napari/docs/commits?author=zoccoler) - @zoccoler
+- [Marcelo Zoccoler](https://github.com/napari/napari/commits?author=zoccoler) - @zoccoler
 - [Marco Edward Gorelli](https://github.com/napari/napari/commits?author=MarcoGorelli) - @MarcoGorelli +
+- [Margot Chazotte](https://github.com/napari/napari/commits?author=MargotCh) - @MargotCh +
 - [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) ([docs](https://github.com/napari/docs/commits?author=melissawm))  - @melissawm
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) ([docs](https://github.com/napari/docs/commits?author=psobolewskiPhD))  - @psobolewskiPhD
 - [Rensu Theart](https://github.com/napari/docs/commits?author=rensutheart) - @rensutheart +
-- [Sesan](https://github.com/napari/docs/commits?author=Olusesan) - @Olusesan
+- [Sesan](https://github.com/napari/napari/commits?author=Olusesan) - @Olusesan
 - [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
 - [Yohsuke T. Fukai](https://github.com/napari/napari/commits?author=yfukai) - @yfukai +
 - [Zuzana Čočková](https://github.com/napari/napari/commits?author=cockovaz) - @cockovaz +

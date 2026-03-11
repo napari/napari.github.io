@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/css/napari-sphinx-theme.css?v=f8f17a90" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=9ff47a26"></script>
+    <script src="../../../../_static/documentation_options.js?v=5cc0f6b3"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -487,12 +487,13 @@ mermaid.initialize(
     }
 );
 
-window.addEventListener("load", load);</script>
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/napari/utils/colormaps/colormap';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -892,6 +893,7 @@ window.addEventListener("load", load);</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">cached_property</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">TYPE_CHECKING</span><span class="p">,</span>
+    <span class="n">Annotated</span><span class="p">,</span>
     <span class="n">Any</span><span class="p">,</span>
     <span class="n">Literal</span><span class="p">,</span>
     <span class="n">cast</span><span class="p">,</span>
@@ -900,9 +902,15 @@ window.addEventListener("load", load);</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">warn</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ConfigDict</span><span class="p">,</span>
+    <span class="n">Field</span><span class="p">,</span>
+    <span class="n">PrivateAttr</span><span class="p">,</span>
+    <span class="n">ValidationInfo</span><span class="p">,</span>
+    <span class="n">field_validator</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Self</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari._pydantic_compat</span><span class="w"> </span><span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">PrivateAttr</span><span class="p">,</span> <span class="n">validator</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.color</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColorArray</span><span class="p">,</span> <span class="n">ColorValue</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps</span><span class="w"> </span><span class="kn">import</span> <span class="n">_accelerated_cmap</span> <span class="k">as</span> <span class="n">_accel_cmap</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps.colorbars</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_colorbar</span>
@@ -972,7 +980,9 @@ window.addEventListener("load", load);</script>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;custom&#39;</span>
     <span class="n">_display_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">interpolation</span><span class="p">:</span> <span class="n">ColormapInterpolationMode</span> <span class="o">=</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">LINEAR</span>
-    <span class="n">controls</span><span class="p">:</span> <span class="n">Array</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">cast</span><span class="p">(</span><span class="n">Array</span><span class="p">,</span> <span class="p">[]))</span>
+    <span class="n">controls</span><span class="p">:</span> <span class="n">Array</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">cast</span><span class="p">(</span><span class="n">Array</span><span class="p">,</span> <span class="p">[]),</span> <span class="n">validate_default</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
     <span class="n">nan_color</span><span class="p">:</span> <span class="n">ColorValue</span> <span class="o">=</span> <span class="n">ColorValue</span><span class="p">(</span><span class="s1">&#39;transparent&#39;</span><span class="p">)</span>
     <span class="n">high_color</span><span class="p">:</span> <span class="n">ColorValue</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">low_color</span><span class="p">:</span> <span class="n">ColorValue</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -987,12 +997,13 @@ window.addEventListener("load", load);</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span> <span class="o">=</span> <span class="n">display_name</span>
 
     <span class="c1"># controls validator must be called even if None for correct initialization</span>
-    <span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;controls&#39;</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">always</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_check_controls</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">&#39;controls&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;after&#39;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_controls</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
         <span class="c1"># If no control points provided generate defaults</span>
         <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">n_controls</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;colors&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span>
-                <span class="n">values</span><span class="p">[</span><span class="s1">&#39;interpolation&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">ZERO</span>
+            <span class="n">n_controls</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;colors&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span>
+                <span class="n">info</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;interpolation&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">ZERO</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_controls</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
@@ -1018,8 +1029,8 @@ window.addEventListener("load", load);</script>
             <span class="p">)</span>
 
         <span class="c1"># Check number of control points is correct</span>
-        <span class="n">n_controls_target</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;colors&#39;</span><span class="p">,</span> <span class="p">[]))</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span>
-            <span class="n">values</span><span class="p">[</span><span class="s1">&#39;interpolation&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">ZERO</span>
+        <span class="n">n_controls_target</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;colors&#39;</span><span class="p">,</span> <span class="p">[]))</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">info</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;interpolation&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">ZERO</span>
         <span class="p">)</span>
         <span class="n">n_controls</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">n_controls</span> <span class="o">!=</span> <span class="n">n_controls_target</span><span class="p">:</span>
@@ -1091,12 +1102,14 @@ window.addEventListener("load", load);</script>
     <span class="p">)</span>
     <span class="n">_cache_other</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{})</span>
 
-    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">(</span><span class="n">Colormap</span><span class="o">.</span><span class="n">Config</span><span class="p">):</span>
+    <span class="n">model_config</span> <span class="o">=</span> <span class="n">EventedModel</span><span class="o">.</span><span class="n">model_config</span> <span class="o">|</span> <span class="n">ConfigDict</span><span class="p">(</span>
         <span class="c1"># this config is to avoid deepcopy of cached_property</span>
         <span class="c1"># see https://github.com/pydantic/pydantic/issues/2763</span>
         <span class="c1"># it is required until we drop Pydantic 1 or Python 3.11 and older</span>
         <span class="c1"># need to validate after drop pydantic 1</span>
-        <span class="n">keep_untouched</span> <span class="o">=</span> <span class="p">(</span><span class="n">cached_property</span><span class="p">,)</span>
+        <span class="n">ignored_types</span><span class="o">=</span><span class="p">(</span><span class="n">cached_property</span><span class="p">,)</span>
+        <span class="c1"># TODO: ensure that this is actually needed</span>
+    <span class="p">)</span>
 
     <span class="nd">@overload</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_data_to_texture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span> <span class="o">...</span>
@@ -1112,7 +1125,7 @@ window.addEventListener("load", load);</script>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_cmap_without_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_selection</span><span class="p">:</span>
-            <span class="n">cmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+            <span class="n">cmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">model_dump</span><span class="p">())</span>
             <span class="n">cmap</span><span class="o">.</span><span class="n">use_selection</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">return</span> <span class="n">cmap</span>
         <span class="k">return</span> <span class="bp">self</span>
@@ -1191,7 +1204,8 @@ window.addEventListener("load", load);</script>
 
     <span class="n">seed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
 
-    <span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;colors&#39;</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">&#39;colors&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;after&#39;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_validate_color</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -1312,9 +1326,10 @@ window.addEventListener("load", load);</script>
 <span class="sd">        Exist because of implementation details. Please do not use it.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">color_dict</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-    <span class="p">)</span>
+    <span class="n">color_dict</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">[</span>
+        <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">4</span><span class="p">))],</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">4</span><span class="p">)))</span>
     <span class="n">use_selection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">selection</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -1331,8 +1346,9 @@ window.addEventListener("load", load);</script>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_unique_colors</span> <span class="o">+</span> <span class="mi">2</span>
 
-    <span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;color_dict&#39;</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">always</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_color_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">&#39;color_dict&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;before&#39;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_color_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">ValidationInfo</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Ensure colors are RGBA arrays, not strings.</span>
 
 <span class="sd">        Parameters</span>
@@ -1344,10 +1360,8 @@ window.addEventListener("load", load);</script>
 <span class="sd">            which indicates the color to map items not in the dictionary.</span>
 <span class="sd">            Alternatively, it could be a defaultdict. If neither is provided,</span>
 <span class="sd">            missing colors are not rendered (rendered as fully transparent).</span>
-<span class="sd">        values : dict[str, Any]</span>
-<span class="sd">            A dictionary mapping previously-validated attributes to their</span>
-<span class="sd">            validated values. Attributes are validated in the order in which</span>
-<span class="sd">            they are defined.</span>
+<span class="sd">        values : ValidationInfo</span>
+<span class="sd">            A structure with information about previously validated attributes</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1367,8 +1381,8 @@ window.addEventListener("load", load);</script>
             <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">color_str</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="p">(</span>
-            <span class="s1">&#39;background_value&#39;</span> <span class="ow">in</span> <span class="n">values</span>
-            <span class="ow">and</span> <span class="p">(</span><span class="n">bg</span> <span class="o">:=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;background_value&#39;</span><span class="p">])</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">res</span>
+            <span class="s1">&#39;background_value&#39;</span> <span class="ow">in</span> <span class="n">values</span><span class="o">.</span><span class="n">data</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="n">bg</span> <span class="o">:=</span> <span class="n">values</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;background_value&#39;</span><span class="p">])</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">res</span>
         <span class="p">):</span>
             <span class="n">res</span><span class="p">[</span><span class="n">bg</span><span class="p">]</span> <span class="o">=</span> <span class="n">transform_color</span><span class="p">(</span><span class="s1">&#39;transparent&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">defaultdict</span><span class="p">):</span>
@@ -1844,7 +1858,7 @@ window.addEventListener("load", load);</script>
     <span class="p">):</span>
         <span class="k">return</span> <span class="n">any_colormap_like</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">any_colormap_like</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">CyclicLabelColormap</span><span class="p">(</span><span class="n">any_colormap_like</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">CyclicLabelColormap</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="n">any_colormap_like</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">any_colormap_like</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">DirectLabelColormap</span><span class="p">(</span><span class="n">color_dict</span><span class="o">=</span><span class="n">any_colormap_like</span><span class="p">)</span>
     <span class="k">if</span> <span class="p">(</span>
@@ -1852,7 +1866,7 @@ window.addEventListener("load", load);</script>
         <span class="ow">and</span> <span class="n">any_colormap_like</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span>
         <span class="ow">and</span> <span class="n">any_colormap_like</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
     <span class="p">):</span>
-        <span class="k">return</span> <span class="n">CyclicLabelColormap</span><span class="p">(</span><span class="n">any_colormap_like</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">CyclicLabelColormap</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="n">any_colormap_like</span><span class="p">)</span>
     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
         <span class="sa">f</span><span class="s1">&#39;Unable to interpret as labels colormap: </span><span class="si">{</span><span class="n">any_colormap_like</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="p">)</span>

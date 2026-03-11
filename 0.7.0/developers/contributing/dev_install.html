@@ -43,7 +43,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/napari-sphinx-theme.css?v=f8f17a90" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=9ff47a26"></script>
+    <script src="../../_static/documentation_options.js?v=5cc0f6b3"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -68,14 +68,14 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Testing" href="testing.html" />
-    <link rel="prev" title="Contributing guide" href="index.html" />
+    <link rel="prev" title="AI use policy and guidelines" href="ai.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.7.0" />
@@ -412,6 +412,7 @@
   </p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Contributing guide</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ai.html">AI use policy and guidelines</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Setting up a development installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="testing.html">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="translations.html">Translations</a></li>
@@ -610,22 +611,18 @@ and optionally a Qt backend (<code class="docutils literal notranslate"><span cl
 <p class="admonition-title">Note</p>
 <p>If you only want to use napari and do not wish to develop napari itself,
 you can install napari on most macOS, Linux and
-Windows systems with Python 3.10-3.13
+Windows systems with Python 3.10-3.14
 by following the steps on the
 <a class="reference internal" href="../../getting_started/installation.html#install-python-package"><span class="std std-ref">instructions page</span></a>.</p>
 </div>
 <p>napari supports different Qt backends and Qt versions. In this step, choose one of the following
 commands to install the developer tools and your preferred Qt backend.</p>
-<p>For PyQt5, the default Qt backend, use:</p>
+<p>For PyQt6, the default Qt backend, use:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[pyqt]&quot;</span><span class="w"> </span>--group<span class="w"> </span>dev<span class="w">  </span><span class="c1"># (quotes only needed for zsh shell)</span>
 </pre></div>
 </div>
-<p>To use PySide6 instead of the PyQt5, use:</p>
+<p>To use PySide6 instead of the PyQt6, use:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[pyside]&quot;</span><span class="w"> </span>--group<span class="w"> </span>dev<span class="w">  </span><span class="c1"># (quotes only needed for zsh shell)</span>
-</pre></div>
-</div>
-<p>For PyQt6, use:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[pyqt6]&quot;</span><span class="w"> </span>--group<span class="w"> </span>dev<span class="w">  </span><span class="c1"># (quotes only needed for zsh shell)</span>
 </pre></div>
 </div>
 <p>If you wish to install the developer tools only, use the following. Choose
@@ -678,12 +675,12 @@ please do not ignore errors lightly.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="ai.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Contributing guide</p>
+        <p class="prev-next-title">AI use policy and guidelines</p>
       </div>
     </a>
     <a class="right-next"

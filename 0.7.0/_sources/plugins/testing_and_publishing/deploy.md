@@ -10,26 +10,14 @@ template, this has already been done for you.)
 
 Once your package is listed on [PyPI] (and includes the `Framework :: napari`
 [classifier]), it will also be visible on the [napari
-hub](https://napari-hub.org/). To ensure you are providing the relevant metadata and
-description for your plugin, see the following documentation in the [napari hub
-wiki](https://github.com/chanzuckerberg/napari-hub/wiki/Plugin-Developer's-Guide-to-the-napari-hub):
+hub](https://napari-hub.org/).
 
-- [Customizing your plugin’s
-  listing](https://github.com/chanzuckerberg/napari-hub/wiki/Customizing-your-plugin's-listing)
-- [Writing the perfect description for your
-  plugin](https://github.com/chanzuckerberg/napari-hub/wiki/Writing-the-Perfect-Description-for-your-Plugin)
+To ensure you are providing the best metadata and description for your plugin,
+see our comprehensive guide: [](hub-customization). This guide covers:
 
-```{admonition} The hub
-For more about the napari hub, see the [napari hub About
-page](https://www.napari-hub.org/about). To learn more about the hub’s
-development process, see the [napari hub GitHub’s
-Wiki](https://github.com/chanzuckerberg/napari-hub/wiki).
-
-If you want your plugin to be available on PyPI, but not visible on the napari
-hub, add a `visibility` flag to your plugin manifest. For more details, see the 
-[manifest reference](plugin-manifest) and napari hub [customization
-guide](https://github.com/chanzuckerberg/napari-hub/wiki/Customizing-your-plugin's-listing#visibility).
-```
+- Setting package metadata in `pyproject.toml`
+- Using npe2 manifest metadata for hub display
+- Controlling plugin visibility
 
 ## Deployment
 

@@ -13,24 +13,24 @@ affect the ability to install or use your plugin effectively.
 *This is important! Avoid including any form of Qt in your plugin's dependencies!*
 
 Napari supports *both* PyQt and PySide backends for Qt. It is up to the
-end-user to choose which one they want. If they installed napari with `pip install napari[all]`, then this includes `PyQt5` from PyPI as the default backend.
-If they installed via `conda install napari pyqt`, then they'll have `PyQt5`,
+end-user to choose which one they want. If they installed napari with `pip install napari[all]`, then this includes `PyQt6` from PyPI as the default backend.
+If they installed via `conda install napari pyqt`, then they'll have `PyQt6`,
 but from conda-forge instead of PyPI. Meanwhile, the napari bundle installs with PySide6.
-Users are also free to install PyQt6, or PySide6 backend.
+Users are also free to install PyQt5, or PySide6 backend.
 
 Here's what can go wrong if you *also* declare one of these backends **or napari[all]**
 in the `dependencies`/`install_requires` section of your plugin metadata:
 
 - If they installed via `conda install napari pyqt` and then they install your plugin
   via `pip` (or vice versa) then there *will* be a binary incompatibility between the
-  conda `pyqt` installation, and the `PyQt5` installation from PyPI. *This will very likely
+  conda `pyqt` installation, and the `PyQt6` installation from PyPI. *This will very likely
   lead to a broken environment, forcing the user to re-create their entire
   environment and re-install napari*. This is an unfortunate consequence of
   [package naming decisions](https://github.com/ContinuumIO/anaconda-issues/issues/1554),
   and it's not something napari can fix.
 - Alternatively, they may end up with some combination of *both* PyQt5, PyQt6,
   and PySide6 in their environment: the Qt backend they had installed and the one your
-  plugin installed as a dependency. This is will not *always* to break things, but
+  plugin installed as a dependency. This will not *always* break things, but
   it will lead to unexpected and difficult to debug problems.
 - Both of the above cases are most likely to happen with the built-in GUI napari plugin manager,
   which will install your plugin plus the base dependencies. As a result, this frequently
@@ -39,14 +39,14 @@ in the `dependencies`/`install_requires` section of your plugin metadata:
 
 ````{tip}
 1. You can still include a specific Qt backend in optional `dev` or `testing` dependencies!
-Just *don't* include a specific Qt backend (or `napari[all]`, which currently includes PyQt5)
+Just *don't* include a specific Qt backend (or `napari[all]`, which currently includes PyQt6)
 in your base dependencies.
 2. You can include an optional `all` dependency on `napari[all]` to mimic the simple,
 command line installation in a fresh environment. In `pyproject.toml` this would be:
 
     ```
     [project.optional-dependencies]
-    all = [napari["all]"]
+    all = ["napari[all]"]
     ```
 
     And then your plugin could be installed with napari and the default Qt backend using:
@@ -60,8 +60,8 @@ command line installation in a fresh environment. In `pyproject.toml` this would
 
 ## Don't import from any specific Qt backend (e.g. `PyQt5`, `PyQt6`, `PySide6`, etc.) in your plugin: use `qtpy`
 
-If you use `from PyQt5 import QtCore` (or similar) in your plugin, but the
-end-user has chosen to use `PySide6` or `PyQt6` for their Qt backend — or vice versa —
+If you use `from PyQt6 import QtCore` (or similar) in your plugin, but the
+end-user has chosen to use `PySide6` or `PyQt5` for their Qt backend — or vice versa —
 then your plugin will fail to import. Instead use `from qtpy import QtCore`.
 `qtpy` is a [Qt compatibility layer](https://github.com/spyder-ide/qtpy)
 that will import from whatever backend is installed in the environment.
@@ -379,32 +379,22 @@ If you are vendoring other projects, please add an acknowledgement in your READM
 The license details in your project metadata should also include this information!
 ```
 
-## Outdated, npe1 only: Don't import heavy dependencies at the top of your module
-
-```{note}
-This point will be less relevant when we move to the second generation
-[manifest-based plugin
-declaration](https://github.com/napari/napari/issues/3115), but it's still a
-good idea to delay importing your plugin-specific dependencies and modules until
-*after* your hookspec has been called.  This helps napari stay quick and
-responsive at startup.
-```
+## Don't import heavy dependencies at the top of your module
 
 Consider the following example plugin:
 
 ```ini
 [options.entry_points]
-napari.plugin =
-  plugin-name = mypackage.napari_plugin
+napari.manifest =
+  plugin-name = mypackage:napari.yaml
 ```
 
 In this example, `my_heavy_dependency_like_tensorflow` will be imported
-*immediately* when napari is launched, and we search the entry_point
-`mypackage.napari_plugin` for decorated hook specifications.
+as soon as the user tries to run any of your plugin actions.
 
 ```py
 # mypackage/napari_plugin.py
-from napari_plugin_engine import napari_hook_specification
+import numpy as np
 from qtpy.QtWidgets import QWidget
 from my_heavy_dependency_like_tensorflow import something_amazing
 
@@ -412,18 +402,23 @@ class MyWidget(QWidget):
     def do_something_amazing(self):
         return something_amazing()
 
-@napari_hook_specification
-def napari_experimental_provide_dock_widget():
-    return MyWidget
+class FastWidget(QWidget):
+    def do_something_fast(self):
+        return np.zeros((10, 10))
 ```
+
+In this case, only `MyWidget` requires the heavy dependency, but with the import
+at the top-level, `FastWidget` will also be affected by the slow import time of
+`my_heavy_dependency_like_tensorflow`.
 
 This can deterioate the end-user experience, and make napari feel slugish. Best
 practice is to delay heavy imports until right before they are used. The
-following slight modification will help napari load much faster:
+following slight modification will help other bits of your plugin,
+like `FastWidget`, load much faster:
 
 ```py
 # mypackage/napari_plugin.py
-from napari_plugin_engine import napari_hook_specification
+import numpy as np
 from qtpy.QtWidgets import QWidget
 
 class MyWidget(QWidget):
@@ -434,6 +429,3 @@ class MyWidget(QWidget):
 
         return something_amazing()
 ```
-
-(again, the second gen napari plugin engine will help improve this situation,
-but it's still a good idea!)

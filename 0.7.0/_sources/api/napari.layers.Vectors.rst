@@ -108,6 +108,7 @@ napari.layers.Vectors
       ~Vectors.mouse_pan
       ~Vectors.mouse_zoom
       ~Vectors.name
+      ~Vectors.name_overlay
       ~Vectors.ndim
       ~Vectors.opacity
       ~Vectors.out_of_slice_display

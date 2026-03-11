@@ -38,6 +38,39 @@ napari.utils.Colormap
       ~Colormap.map
    
    
+      ~Colormap.model_construct
+   
+   
+      ~Colormap.model_copy
+   
+   
+      ~Colormap.model_dump
+   
+   
+      ~Colormap.model_dump_json
+   
+   
+      ~Colormap.model_json_schema
+   
+   
+      ~Colormap.model_parametrized_name
+   
+   
+      ~Colormap.model_post_init
+   
+   
+      ~Colormap.model_rebuild
+   
+   
+      ~Colormap.model_validate
+   
+   
+      ~Colormap.model_validate_json
+   
+   
+      ~Colormap.model_validate_strings
+   
+   
       ~Colormap.parse_file
    
    
@@ -75,6 +108,11 @@ napari.utils.Colormap
    
       ~Colormap.colorbar
       ~Colormap.events
+      ~Colormap.model_computed_fields
+      ~Colormap.model_config
+      ~Colormap.model_extra
+      ~Colormap.model_fields
+      ~Colormap.model_fields_set
       
       
       

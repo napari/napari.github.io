@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/css/napari-sphinx-theme.css?v=f8f17a90" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=9ff47a26"></script>
+    <script src="../../../../_static/documentation_options.js?v=5cc0f6b3"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -487,12 +487,13 @@ mermaid.initialize(
     }
 );
 
-window.addEventListener("load", load);</script>
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/napari/layers/points/points';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0a3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -927,7 +928,10 @@ window.addEventListener("load", load);</script>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.points._slice</span><span class="w"> </span><span class="kn">import</span> <span class="n">_PointSliceRequest</span><span class="p">,</span> <span class="n">_PointSliceResponse</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils._color_manager_constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColorMode</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils._slice_input</span><span class="w"> </span><span class="kn">import</span> <span class="n">_SliceInput</span><span class="p">,</span> <span class="n">_ThickNDSlice</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils._slice_input</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_SliceInput</span><span class="p">,</span>
+    <span class="n">_ThickNDSlice</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.color_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColorManager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.color_transformations</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColorType</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.interactivity_utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -1311,6 +1315,7 @@ window.addEventListener("load", load);</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_value_stored</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_index</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># indices of highlighted points in current view</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_box</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span>
@@ -2237,7 +2242,7 @@ window.addEventListener("load", load);</script>
                     <span class="k">else</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">current_face_color</span><span class="p">]</span>
                 <span class="p">),</span>
                 <span class="s1">&#39;face_color_cycle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_color_cycle</span><span class="p">,</span>
-                <span class="s1">&#39;face_colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_colormap</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
+                <span class="s1">&#39;face_colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_colormap</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
                 <span class="s1">&#39;face_contrast_limits&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_contrast_limits</span><span class="p">,</span>
                 <span class="s1">&#39;border_color&#39;</span><span class="p">:</span> <span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">border_color</span>
@@ -2245,11 +2250,11 @@ window.addEventListener("load", load);</script>
                     <span class="k">else</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">current_border_color</span><span class="p">]</span>
                 <span class="p">),</span>
                 <span class="s1">&#39;border_color_cycle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_color_cycle</span><span class="p">,</span>
-                <span class="s1">&#39;border_colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_colormap</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
+                <span class="s1">&#39;border_colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_colormap</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
                 <span class="s1">&#39;border_contrast_limits&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_contrast_limits</span><span class="p">,</span>
                 <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
                 <span class="s1">&#39;property_choices&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">property_choices</span><span class="p">,</span>
-                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
                 <span class="s1">&#39;out_of_slice_display&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_of_slice_display</span><span class="p">,</span>
                 <span class="s1">&#39;n_dimensional&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_of_slice_display</span><span class="p">,</span>
                 <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
@@ -2370,15 +2375,25 @@ window.addEventListener("load", load);</script>
         <span class="k">return</span> <span class="n">mode</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_indices_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_indices_view</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Indices of points in view.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_indices_view</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_selected_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_selected_view</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Indices of selected points within the currently viewed slice&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_selected_view</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_view_size_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_view_size_scale</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Scale factor for view size calculations</span>
+
+<span class="sd">        It is 1 if out_of_slice_display is False.</span>
+<span class="sd">        For out_of_slice_display=True, it is the scale factor for the</span>
+<span class="sd">        points to reduce size of visible points out of rendering slice</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_view_size_scale</span>
 
     <span class="nd">@property</span>
@@ -3359,7 +3374,9 @@ window.addEventListener("load", load);</script>
         <span class="c1"># Indices of selected points within the currently viewed slice</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_view</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># initialize view data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span><span class="p">:</span> <span class="p">(</span>
+            <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]]</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="mf">1.0</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the view given the indices to slice with.&quot;&quot;&quot;</span>
@@ -3378,7 +3395,7 @@ window.addEventListener("load", load);</script>
         <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_slice_input</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
         <span class="c1"># See Image._make_slice_request to understand why we evaluate this here</span>
         <span class="c1"># instead of using `self._data_slice`.</span>
-        <span class="n">data_slice</span> <span class="o">=</span> <span class="n">slice_input</span><span class="o">.</span><span class="n">data_slice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
+        <span class="n">data_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">(</span><span class="n">slice_input</span><span class="p">,</span> <span class="n">dims</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_slice_request_internal</span><span class="p">(</span><span class="n">slice_input</span><span class="p">,</span> <span class="n">data_slice</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">make_slice_request_internal</span><span class="p">(</span>
@@ -3430,6 +3447,7 @@ window.addEventListener("load", load);</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_indices_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Indices of the points in the currently viewed slice.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__indices_view</span>
 
     <span class="nd">@_indices_view</span><span class="o">.</span><span class="n">setter</span>

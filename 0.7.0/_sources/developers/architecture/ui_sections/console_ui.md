@@ -18,6 +18,7 @@ graph LR
 	napari._qt.widgets.qt_viewer_buttons --> napari.viewer
 	click napari._qt.widgets.qt_viewer_buttons "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_buttons.py" _blank
 	napari.components._viewer_key_bindings(napari.components._viewer_key_bindings)
+	napari.components._viewer_key_bindings --> napari._qt.qt_viewer
 	napari.components._viewer_key_bindings --> napari.components.viewer_model
 	napari.components._viewer_key_bindings --> napari.utils.notifications
 	napari.components._viewer_key_bindings --> napari.viewer
@@ -69,15 +70,15 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
+├─components/
+│ ├─viewer_model.py
+│ └─_viewer_key_bindings.py
+├─viewer.py
 ├─utils/
 │ └─notifications.py
-├─viewer.py
-├─_qt/
-│ ├─qt_viewer.py
-│ ├─widgets/
-│ │ └─qt_viewer_buttons.py
-│ └─qt_main_window.py
-└─components/
-  ├─_viewer_key_bindings.py
-  └─viewer_model.py
+└─_qt/
+  ├─qt_viewer.py
+  ├─widgets/
+  │ └─qt_viewer_buttons.py
+  └─qt_main_window.py
 ```

@@ -142,7 +142,7 @@ layer = viewer.add_surface((vertices, faces), name='1BNA', shading='smooth')
 ---
 tags: [remove-input]
 ---
-viewer.camera.angles = (90, 0, 90)
+viewer.camera.angles = (90, 0, 0)
 viewer.camera.zoom = 16
 viewer.axes.visible = True
 

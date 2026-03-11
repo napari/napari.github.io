@@ -569,7 +569,7 @@ improvements. Please see below for the full list of changes since 0.4.19.
 - Type `_WeakCounter` ([#6246](https://github.com/napari/napari/pull/6246))
 - Fix typing in napari.utils.theme ([#6247](https://github.com/napari/napari/pull/6247))
 - remove: napari.qt.progress (deprecated in 0.4.11) ([#6252](https://github.com/napari/napari/pull/6252))
-- Restore 'V' keybinding for layer visibiltiy toggle ([#6261](https://github.com/napari/napari/pull/6261))
+- Restore 'V' keybinding for layer visibility toggle ([#6261](https://github.com/napari/napari/pull/6261))
 - Update `app-model`, `dask`, `fsspec`, `hypothesis`, `imageio`, `ipython`, `jsonschema`, `matplotlib`, `numpy`, `pandas`, `pillow`, `psygnal`, `pytest`, `qtconsole`, `qtpy`, `rich`, `scipy`, `superqt`, `tensorstore`, `tifffile`, `virtualenv`, `xarray`, `zarr` ([#6265](https://github.com/napari/napari/pull/6265))
 - [pre-commit.ci] pre-commit autoupdate ([#6266](https://github.com/napari/napari/pull/6266))
 - Fix nitpicks in `id` and `title` `Action` fields in samples menu ([#6267](https://github.com/napari/napari/pull/6267))

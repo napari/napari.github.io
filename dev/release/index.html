@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/release/index.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: March 11, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.7.0 (February 2026) Breaking Changes Transition to npe2 plugin engine 🔌 I..." />
+<meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: March 11, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.7.0 (March 2026) Breaking Changes Transition to npe2 plugin engine 🔌 In 0..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: March 11, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.7.0 (February 2026) Breaking Changes Transition to npe2 plugin engine 🔌 I..." />
+<meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: March 11, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.7.0 (March 2026) Breaking Changes Transition to npe2 plugin engine 🔌 In 0..." />
 
     <title>Release Notes &#8212; napari</title>
   
@@ -800,7 +800,7 @@
 <p>Latest features and improvements:</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
 <summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text">napari 0.7.0 (February 2026)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<span class="sd-summary-text">napari 0.7.0 (March 2026)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <p class="rubric" id="breaking-changes">Breaking Changes</p>
 <p class="rubric" id="transition-to-npe2-plugin-engine">Transition to npe2 plugin engine 🔌</p>
 <p class="sd-card-text">In 0.6.0 we began the process of deprecating npe1 (napari-plugin-engine).
@@ -909,6 +909,35 @@ this is a <strong>breaking change</strong>.</p>
 <p class="sd-card-text">If you had scripts or notebooks setting up angles for screenshots, or if you’ve got workshop
 materials or tutorials with preset angles, they’ll need to be updated. Any existing code
 using <code class="docutils literal notranslate"><span class="pre">viewer.camera.angles</span> <span class="pre">=</span> <span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x)</span></code> will now produce a different view than before.</p>
+<p class="rubric" id="limiting-self-events-callbacks">Limiting <code class="docutils literal notranslate"><span class="pre">self.events</span></code> callbacks</p>
+<p class="sd-card-text">In <a class="reference external" href="https://github.com/napari/napari/pull/8672">#8672</a>, we changed how we emit events from
+the parent <code class="docutils literal notranslate"><span class="pre">self.events</span></code> group.</p>
+<p class="sd-card-text">Previously, connecting a callback to an <code class="docutils literal notranslate"><span class="pre">EventedModel</span></code>’s top-level event group
+(e.g. <code class="docutils literal notranslate"><span class="pre">model.events.connect(callback)</span></code>) would cause that callback to fire multiple times
+when a single assignment triggered multiple dependent fields. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyModel</span><span class="p">(</span><span class="n">EventedModel</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">b</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="mi">2</span>
+
+    <span class="nd">@b</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">b</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">value</span> <span class="o">//</span> <span class="mi">2</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">my_callback</span><span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># previously called my_callback twice (once for &#39;a&#39;, once for &#39;b&#39;)</span>
+             <span class="c1"># now calls my_callback once</span>
+</pre></div>
+</div>
+<p class="sd-card-text">The callback connected to <code class="docutils literal notranslate"><span class="pre">model.events</span></code> will now be called exactly once, with the event <code class="docutils literal notranslate"><span class="pre">type</span></code>
+set to the first changed field and <code class="docutils literal notranslate"><span class="pre">value</span></code> set to its new value. Callbacks connected to specific
+field events (e.g. <code class="docutils literal notranslate"><span class="pre">model.events.a.connect(...)</span></code>) are unaffected and continue to work as before.</p>
+<p class="sd-card-text">If you connect to <code class="docutils literal notranslate"><span class="pre">model.events</span></code> directly and relied on receiving one call per dependent field
+change, you will need to connect to the individual field events instead.</p>
 <p class="rubric" id="new-features-widgets">New features &amp; widgets</p>
 <p class="rubric" id="what-s-my-metadata-where-s-my-metadata-napari-metadata-to-the-rescue">What’s my metadata? Where’s my metadata? <code class="docutils literal notranslate"><span class="pre">napari-metadata</span></code> to the rescue</p>
 <p class="sd-card-text">With a lot of work from our community contributor, Carlos Mario Rodriguez Reza
@@ -933,16 +962,31 @@ across all layers. Pretty slick!</p>
 <p class="sd-card-text">Prior to 0.7.0, creating a new layer Points, Shapes or Labels layer would give you a layer
 with extent and dimensionality equal to the union of all currently open layers, and with
 none of the other spatial information (scale, units, etc.) inherited.</p>
-<p class="sd-card-text">Now, with <a class="reference external" href="https://github.com/napari/napari/pull/8357">#8357</a> you can create a new Shapes
-or Points layer (Labels coming soon!) that inherits from a selected layer
-(or a combination of selected layers). If you have one layer selected,
-your new layer will copy all spatial information from its ancestor, ready for annotating!
+<p class="sd-card-text">Now, with <a class="reference external" href="https://github.com/napari/napari/pull/8357">#8357</a> and <a class="reference external" href="https://github.com/napari/napari/pull/8702">#8702</a>
+you can create new Shapes, Points or Labels layer that inherits from a selected layer
+(or a combination of selected layers).</p>
+<p class="rubric" id="shapes-points">Shapes &amp; Points</p>
+<p class="sd-card-text">If you have one layer selected, your new <code class="docutils literal notranslate"><span class="pre">Shapes</span></code> or <code class="docutils literal notranslate"><span class="pre">Points</span></code> layer will copy
+all spatial information from its ancestor, ready for annotating!
 If you have multiple layers selected, only scale is copied.</p>
-<p class="sd-card-text">If you wish to recover the original behavior, deselect all existing layers before creating your new layer.</p>
-<p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari/pull/8649">#8649</a> ensures this change is not invisible!
-When you have layers selected, the Points and Shapes buttons will be highlighted. You
-can also hover over the buttons to get details about the behaviour.</p>
-<p class="sd-card-text"><img alt="GIF displaying the highlights on the Shapes and Points new layer buttons when one or more layers are selected in the layerlist" src="https://github.com/user-attachments/assets/dba88d45-baa9-47df-80e9-5c7b1f2a711d" /></p>
+<p class="sd-card-text">If you wish to recover the original behavior, select all existing layers before creating your new layer.
+Deselecting all layers gives you a layer with only the number of dimensions inherited,
+and no other properties.</p>
+<p class="rubric" id="labels">Labels</p>
+<p class="sd-card-text"><code class="docutils literal notranslate"><span class="pre">Labels</span></code> layers inherit all spatial information when a single <code class="docutils literal notranslate"><span class="pre">Image</span></code> or <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layer is selected.
+When multiple <code class="docutils literal notranslate"><span class="pre">Image</span></code> or <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layers are selected, or the selection includes any combination of
+other layer types, the new <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layer will span their extent – take note, this layer could be
+huge!</p>
+<p class="sd-card-text">The <code class="docutils literal notranslate"><span class="pre">Labels</span></code> button is disabled when layers are present in the viewer and none are selected.
+(You can still create a (512 x 512) <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layer when there are no layers present).</p>
+<p class="rubric" id="visual-cues">Visual cues</p>
+<p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari/pull/8723">#8723</a> ensures this change is not invisible!
+When your selection will result in full inheritance of spatial information for the new layer,
+the new layer button will be highlighted.
+The highlight color will become brighter when your selection will result in the new layer only
+inheriting the extent of your existing selection. If you’re lost
+in the inheritance madness, you can also hover over the buttons to get details about the behavior.</p>
+<p class="sd-card-text"><img alt="GIF displaying the highlights on the Shapes, Points and Labels new layer buttons when one or more layers are selected in the layerlist" src="https://github.com/user-attachments/assets/7f71c6a8-173e-4734-869a-3ba41d7b37e9" /></p>
 <p class="sd-card-text">PS – You can now also create these new layers from the <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">-&gt;</span> <span class="pre">New</span> <span class="pre">Layer</span></code> menu!</p>
 <p class="rubric" id="better-text-overalys">Better text overalys 🔡</p>
 <p class="sd-card-text">With <a class="reference external" href="https://github.com/napari/napari/pull/8236">#8236</a>, we’ve not only refactored text overlays
@@ -975,6 +1019,18 @@ texture tiling (<a class="reference external" href="https://github.com/napari/na
 images that exceed OpenGL’s maximum texture size will be split into multiple
 tiles, each small enough to fit on the GPU.</p>
 <p class="sd-card-text"><img alt="Image with a screenshot of napari 0.6.6 on the left and napari 0.7.0 on the right displaying a DeCAM image of the Milky Way. The image on the left is pixelated, while the image on the right is displayed at full resolution." src="https://github.com/user-attachments/assets/d0a115a8-49d5-432c-b561-f29fe9ac8116" /></p>
+<p class="rubric" id="rendering-layers-in-physical-space-units-matter">Rendering layers in physical space - units matter!</p>
+<p class="sd-card-text">In 0.6.6 and below, units were stored in metadata, but not used for rendering.
+Adding two layers that represented the same physical space, but had different
+units, e.g. a layer with <code class="docutils literal notranslate"><span class="pre">scale=500,</span> <span class="pre">units='nm'</span></code> and one with <code class="docutils literal notranslate"><span class="pre">scale=0.5,</span> <span class="pre">units='μm'</span></code>
+wouldn’t overlap correctly, even though they should.</p>
+<p class="sd-card-text">Thanks to <a class="reference external" href="https://github.com/napari/napari/pull/8395">#7889</a>, layers with
+compatible units (i.e. those that share the same physical dimension per axis,
+like all spatial), will make use of <code class="docutils literal notranslate"><span class="pre">units</span></code> and <code class="docutils literal notranslate"><span class="pre">scale</span></code> to overlap correctly,
+using the smallest unit as the rendering space.</p>
+<p class="sd-card-text">Units can also be set globally on the layer list using <code class="docutils literal notranslate"><span class="pre">viewer.layers.units</span> <span class="pre">=</span> <span class="pre">('nm',</span> <span class="pre">'nm')</span></code>,
+forcing layers to be rendered in this space. If a new layer is added with more dimensions
+than the current layers, this global override is dropped with a warning.</p>
 <p class="rubric" id="points-any-size-you-like">Points - any size you like 🟣</p>
 <p class="sd-card-text">On macOS, the points layer has never been able to reach its full potential, as OpenGL
 drivers limit the size of an individual marker to a certain number of screen pixels.</p>
@@ -1060,6 +1116,20 @@ even with 200,000+ shapes (<a class="reference external" href="https://github.co
 </ul>
 <p class="sd-card-text">Beware: there’s still more to do, because drawing and drag-moving large selections
 remain slow!</p>
+<p class="rubric" id="multiscale-less-to-update-more-to-celebrate">Multiscale – less to update, more to celebrate</p>
+<p class="sd-card-text">PR <a class="reference external" href="https://github.com/napari/napari/pull/8678">#8678</a> introduced a small change
+with a big effect! Now, zooming in (and panning while zoomed in), will only trigger
+a data refresh if the multiscale level has changed <strong>or</strong> if the new view falls outside
+of already loaded data.</p>
+<p class="rubric" id="delete-the-launch-codes-no-more-macos-hacks-on-launch">Delete the launch codes – no more macOS hacks on launch</p>
+<p class="sd-card-text">In 0.6.6 and below, we had some macOS specific launch code that skirted around some
+issues (which are now no longer relevant), and hackily “relaunched” napari to make
+sure the application name was correct.</p>
+<p class="sd-card-text">This code added up to a whole second to our launch time, as well as being potentially
+problematic for some users. PR <a class="reference external" href="https://github.com/napari/napari/pull/8705">#8705</a>
+removed this code, making our start-up a little less hacky and a little more snappy.
+The downside is that when launching napari on macOS, the app name may be listed as
+Python, instead of napari. We think the trade-off is worth it.</p>
 <p class="rubric" id="infrastructure-dependencies">Infrastructure &amp; dependencies</p>
 <p class="sd-card-text">A couple of notes on big changes in our dependencies:</p>
 <ul class="simple">

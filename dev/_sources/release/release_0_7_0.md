@@ -1,7 +1,7 @@
 # napari 0.7.0
 ⚠️ *Note: these release notes are still in draft while 0.7.0 is in release candidate testing.* ⚠️
 
-*Fri, Feb 20, 2026*
+*Tue, Mar 10, 2026*
 
 We're happy to announce the release of napari 0.7.0!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
@@ -113,6 +113,41 @@ If you had scripts or notebooks setting up angles for screenshots, or if you've 
 materials or tutorials with preset angles, they'll need to be updated. Any existing code
 using `viewer.camera.angles = (z, y, x)` will now produce a different view than before.
 
+#### Limiting `self.events` callbacks
+
+In [#8672](https://github.com/napari/napari/pull/8672), we changed how we emit events from
+the parent `self.events` group.
+
+Previously, connecting a callback to an `EventedModel`'s top-level event group
+(e.g. `model.events.connect(callback)`) would cause that callback to fire multiple times
+when a single assignment triggered multiple dependent fields. For example:
+
+```python
+class MyModel(EventedModel):
+    a: int
+
+    @property
+    def b(self):
+        return self.a * 2
+
+    @b.setter
+    def b(self, value):
+        self.a = value // 2
+
+model = MyModel(a=1)
+model.events.connect(my_callback)
+
+model.a = 4  # previously called my_callback twice (once for 'a', once for 'b')
+             # now calls my_callback once
+```
+
+The callback connected to `model.events` will now be called exactly once, with the event `type`
+set to the first changed field and `value` set to its new value. Callbacks connected to specific
+field events (e.g. `model.events.a.connect(...)`) are unaffected and continue to work as before.
+
+If you connect to `model.events` directly and relied on receiving one call per dependent field
+change, you will need to connect to the individual field events instead.
+
 ### New features & widgets
 
 #### What's my metadata? Where's my metadata? `napari-metadata` to the rescue
@@ -149,19 +184,40 @@ Prior to 0.7.0, creating a new layer Points, Shapes or Labels layer would give y
 with extent and dimensionality equal to the union of all currently open layers, and with
 none of the other spatial information (scale, units, etc.) inherited.
 
-Now, with [#8357](https://github.com/napari/napari/pull/8357) you can create a new Shapes
-or Points layer (Labels coming soon!) that inherits from a selected layer
-(or a combination of selected layers). If you have one layer selected,
-your new layer will copy all spatial information from its ancestor, ready for annotating!
+Now, with [#8357](https://github.com/napari/napari/pull/8357) and [#8702](https://github.com/napari/napari/pull/8702)
+you can create new Shapes, Points or Labels layer that inherits from a selected layer
+(or a combination of selected layers).
+
+##### Shapes & Points
+
+If you have one layer selected, your new `Shapes` or `Points` layer will copy
+all spatial information from its ancestor, ready for annotating!
 If you have multiple layers selected, only scale is copied.
 
-If you wish to recover the original behavior, deselect all existing layers before creating your new layer.
+If you wish to recover the original behavior, select all existing layers before creating your new layer.
+Deselecting all layers gives you a layer with only the number of dimensions inherited,
+and no other properties.
 
-[#8649](https://github.com/napari/napari/pull/8649) ensures this change is not invisible!
-When you have layers selected, the Points and Shapes buttons will be highlighted. You
-can also hover over the buttons to get details about the behaviour.
+##### Labels
 
-![GIF displaying the highlights on the Shapes and Points new layer buttons when one or more layers are selected in the layerlist](https://github.com/user-attachments/assets/dba88d45-baa9-47df-80e9-5c7b1f2a711d)
+`Labels` layers inherit all spatial information when a single `Image` or `Labels` layer is selected.
+When multiple `Image` or `Labels` layers are selected, or the selection includes any combination of
+other layer types, the new `Labels` layer will span their extent -- take note, this layer could be
+huge!
+
+The `Labels` button is disabled when layers are present in the viewer and none are selected.
+(You can still create a (512 x 512) `Labels` layer when there are no layers present).
+
+##### Visual cues
+
+[#8723](https://github.com/napari/napari/pull/8723) ensures this change is not invisible!
+When your selection will result in full inheritance of spatial information for the new layer,
+the new layer button will be highlighted.
+The highlight color will become brighter when your selection will result in the new layer only
+inheriting the extent of your existing selection. If you're lost
+in the inheritance madness, you can also hover over the buttons to get details about the behavior.
+
+![GIF displaying the highlights on the Shapes, Points and Labels new layer buttons when one or more layers are selected in the layerlist](https://github.com/user-attachments/assets/7f71c6a8-173e-4734-869a-3ba41d7b37e9)
 
 PS -- You can now also create these new layers from the `File -> New Layer` menu!
 
@@ -206,6 +262,22 @@ images that exceed OpenGL's maximum texture size will be split into multiple
 tiles, each small enough to fit on the GPU.
 
 ![Image with a screenshot of napari 0.6.6 on the left and napari 0.7.0 on the right displaying a DeCAM image of the Milky Way. The image on the left is pixelated, while the image on the right is displayed at full resolution.](https://github.com/user-attachments/assets/d0a115a8-49d5-432c-b561-f29fe9ac8116)
+
+#### Rendering layers in physical space - units matter!
+
+In 0.6.6 and below, units were stored in metadata, but not used for rendering.
+Adding two layers that represented the same physical space, but had different
+units, e.g. a layer with `scale=500, units='nm'` and one with `scale=0.5, units='μm'`
+wouldn't overlap correctly, even though they should.
+
+Thanks to [#7889](https://github.com/napari/napari/pull/8395), layers with
+compatible units (i.e. those that share the same physical dimension per axis,
+like all spatial), will make use of `units` and `scale` to overlap correctly,
+using the smallest unit as the rendering space.
+
+Units can also be set globally on the layer list using `viewer.layers.units = ('nm', 'nm')`,
+forcing layers to be rendered in this space. If a new layer is added with more dimensions
+than the current layers, this global override is dropped with a warning.
 
 #### Points - any size you like 🟣
 
@@ -316,6 +388,26 @@ would lock up the viewer entirely. Not anymore!
 Beware: there's still more to do, because drawing and drag-moving large selections
 remain slow!
 
+#### Multiscale -- less to update, more to celebrate
+
+PR [#8678](https://github.com/napari/napari/pull/8678) introduced a small change
+with a big effect! Now, zooming in (and panning while zoomed in), will only trigger
+a data refresh if the multiscale level has changed **or** if the new view falls outside
+of already loaded data.
+
+#### Delete the launch codes -- no more macOS hacks on launch
+
+In 0.6.6 and below, we had some macOS specific launch code that skirted around some
+issues (which are now no longer relevant), and hackily "relaunched" napari to make
+sure the application name was correct.
+
+This code added up to a whole second to our launch time, as well as being potentially
+problematic for some users. PR [#8705](https://github.com/napari/napari/pull/8705)
+removed this code, making our start-up a little less hacky and a little more snappy.
+The downside is that when launching napari on macOS, the app name may be listed as
+Python, instead of napari. We think the trade-off is worth it.
+
+
 ### Infrastructure & dependencies
 
 A couple of notes on big changes in our dependencies:
@@ -333,7 +425,6 @@ should see improvements to their display with better support for fractional scal
 for parsing our docstrings. This will be a pretty invisible change from a user's perspective, but
 it saves more than 50MB of disk space for a napari install!
 
-
 ## New Features
 
 - Use information about units when calculate scale of layers when render ([#7889](https://github.com/napari/napari/pull/7889))
@@ -341,7 +432,6 @@ it saves more than 50MB of disk space for a napari install!
 - Multilayer features table ([#8189](https://github.com/napari/napari/pull/8189))
 - Better text overlay (and subclasses) ([#8236](https://github.com/napari/napari/pull/8236))
 - Allow create Shapes and Points per selected Layer ([#8357](https://github.com/napari/napari/pull/8357))
-- Updating `selected_label` by `selected_data` for `Labels` layer toward multiple selection ([#8405](https://github.com/napari/napari/pull/8405))
 - Use new logos! ([#8457](https://github.com/napari/napari/pull/8457))
 - Add napari-metadata to napari dependencies ([#8576](https://github.com/napari/napari/pull/8576))
 
@@ -372,6 +462,18 @@ it saves more than 50MB of disk space for a napari install!
 - Add colorbar & bounding box overlays to Layers menu ([#8611](https://github.com/napari/napari/pull/8611))
 - Add visual for new points/shapes button on selected layers ([#8649](https://github.com/napari/napari/pull/8649))
 - Limit `self.events` callbacks trigger to only once per assignment ([#8672](https://github.com/napari/napari/pull/8672))
+- [multiscale] Only update/refresh when level has changed or view is outside current corner_pixels ([#8678](https://github.com/napari/napari/pull/8678))
+- Warn users when features data looks categorical ([#8685](https://github.com/napari/napari/pull/8685))
+- Fix type annotation in viewer keybindings, use QtViewer for console ([#8694](https://github.com/napari/napari/pull/8694))
+- Do not inherit scale for points and shapes if no layer is selected ([#8701](https://github.com/napari/napari/pull/8701))
+- Inherit spatial information for new `Labels` layers when only one other `Labels` or `Image` layer is selected ([#8702](https://github.com/napari/napari/pull/8702))
+- [UI, UX] Make dock widget title bar icons bigger and text more legible ([#8714](https://github.com/napari/napari/pull/8714))
+- Perf, enh: defer dask.array loading by moving import into functions ([#8720](https://github.com/napari/napari/pull/8720))
+- Change look of new layer buttons to mark that there are 3 modes ([#8723](https://github.com/napari/napari/pull/8723))
+- If path arg is passed to CLI napari, don't show welcome overlay ([#8725](https://github.com/napari/napari/pull/8725))
+- Use capitalized name of source layer type when adding layer ([#8740](https://github.com/napari/napari/pull/8740))
+- Add scale example for anisotropic 3D data ([#8742](https://github.com/napari/napari/pull/8742))
+- Use custom Font manager to use Qt discovery mechanism ([#8751](https://github.com/napari/napari/pull/8751))
 
 ## Performance
 
@@ -388,6 +490,9 @@ it saves more than 50MB of disk space for a napari install!
 - Fix the Shapes mode setter to use _is_creating for _finish_drawing and clear selection when going to ADD_* ([#8551](https://github.com/napari/napari/pull/8551))
 - Delay scipy imports until needed ([#8561](https://github.com/napari/napari/pull/8561))
 - Low hanging Labels painting performance improvement ([#8592](https://github.com/napari/napari/pull/8592))
+- [multiscale] Only update/refresh when level has changed or view is outside current corner_pixels ([#8678](https://github.com/napari/napari/pull/8678))
+- [Perf] Remove napari splash screen ([#8686](https://github.com/napari/napari/pull/8686))
+- [Maint] Remove all macOS specific launch code as it's out-dated or problematic (re-running with symlink) ([#8705](https://github.com/napari/napari/pull/8705))
 
 ## Bug Fixes
 
@@ -434,6 +539,12 @@ it saves more than 50MB of disk space for a napari install!
 - Fix event triggering start of welcome screen ([#8660](https://github.com/napari/napari/pull/8660))
 - Fix `_disconnect_child_emitters` for `PsygnalModel` dict elements ([#8674](https://github.com/napari/napari/pull/8674))
 - Increase minimum version of pyopengl to allow start napari ([#8679](https://github.com/napari/napari/pull/8679))
+- Fix colorbar for int/bool dtypes ([#8684](https://github.com/napari/napari/pull/8684))
+- Correctly hide welcome screen when layers are present ([#8688](https://github.com/napari/napari/pull/8688))
+- Fix assign tuple of None to `layer.units` ([#8700](https://github.com/napari/napari/pull/8700))
+- Fix error raised when `out_of_slice_display = True` and update highlight ([#8717](https://github.com/napari/napari/pull/8717))
+- fix: fix `napari.imshow` return type hint ([#8726](https://github.com/napari/napari/pull/8726))
+- Fix `--plugin` startup args ([#8729](https://github.com/napari/napari/pull/8729))
 
 ## Build Tools
 
@@ -447,6 +558,10 @@ it saves more than 50MB of disk space for a napari install!
 - Create 3D_vectors_through_time.py ([#8461](https://github.com/napari/napari/pull/8461))
 - Fix and improve `dock_widgets` docstrings ([#8494](https://github.com/napari/napari/pull/8494))
 - Plugin dependencies for docs generation ([#8581](https://github.com/napari/napari/pull/8581))
+- Adding a new example of a multiplexed immunofluorescent image of a murine heart ([#8680](https://github.com/napari/napari/pull/8680))
+- Add sphinxext-rediraffe to docs requirements ([#8690](https://github.com/napari/napari/pull/8690))
+- Update examples gallery for 0.7.0 angles ([#8709](https://github.com/napari/napari/pull/8709))
+- Update contributing info and include AI policy and guidelines ([#8754](https://github.com/napari/napari/pull/8754))
 - Remove deprecated `view_*` methods from docs materials ([docs#864](https://github.com/napari/docs/pull/864))
 - Proposed roadmap updates for Q3 ([docs#873](https://github.com/napari/docs/pull/873))
 - Enhance documentation build process with pixi integration and Windows… ([docs#876](https://github.com/napari/docs/pull/876))
@@ -481,6 +596,10 @@ it saves more than 50MB of disk space for a napari install!
 - Add guide explaining default axis names ([docs#942](https://github.com/napari/docs/pull/942))
 - Add info about new points/shapes layer button behavior ([docs#943](https://github.com/napari/docs/pull/943))
 - Add final? 0.7.0 highlights and group by topic ([docs#944](https://github.com/napari/docs/pull/944))
+- Add redirects to pages moved in Usage section ([docs#946](https://github.com/napari/docs/pull/946))
+- Fix typo in optional-dependencies ([docs#947](https://github.com/napari/docs/pull/947))
+- Update references to PyQt5 as default backend to PyQt6 ([docs#950](https://github.com/napari/docs/pull/950))
+- Update 0.7.0 highlights for rc0 ([docs#951](https://github.com/napari/docs/pull/951))
 
 ## Other Pull Requests
 
@@ -566,6 +685,14 @@ it saves more than 50MB of disk space for a napari install!
 - Update `pydantic-settings`, `tifffile` ([#8671](https://github.com/napari/napari/pull/8671))
 - [pre-commit.ci] pre-commit autoupdate ([#8675](https://github.com/napari/napari/pull/8675))
 - Add pregenerated data to stabilize shapes triangulation benchmarks ([#8676](https://github.com/napari/napari/pull/8676))
+- Update `hypothesis`, `numpy`, `pandas`, `pydantic-settings`, `rich`, `scipy`, `tifffile`, `virtualenv` ([#8692](https://github.com/napari/napari/pull/8692))
+- Add python 3.14 classifier to project metadata ([#8693](https://github.com/napari/napari/pull/8693))
+- [pre-commit.ci] pre-commit autoupdate ([#8697](https://github.com/napari/napari/pull/8697))
+- ci(dependabot): bump the actions group with 3 updates ([#8713](https://github.com/napari/napari/pull/8713))
+- Update `certifi`, `tifffile`, `virtualenv` ([#8716](https://github.com/napari/napari/pull/8716))
+- Update pyqt5 default references to pyqt6 ([#8732](https://github.com/napari/napari/pull/8732))
+- Update `numpy`, `superqt`, `tifffile`, `wrapt` ([#8748](https://github.com/napari/napari/pull/8748))
+- [pre-commit.ci] pre-commit autoupdate ([#8753](https://github.com/napari/napari/pull/8753))
 - ci(dependabot): bump the github-actions group with 4 updates ([docs#856](https://github.com/napari/docs/pull/856))
 - Allow to redeploy docs after merge new commits to main branch ([docs#874](https://github.com/napari/docs/pull/874))
 - Add mdformat to pre-commit config ([docs#878](https://github.com/napari/docs/pull/878))
@@ -581,9 +708,10 @@ it saves more than 50MB of disk space for a napari install!
 - Remove pixi configuration for macos intel ([docs#913](https://github.com/napari/docs/pull/913))
 - Prepare on migration to `sphinxcontrib-mermaid` ([docs#923](https://github.com/napari/docs/pull/923))
 - ci(dependabot): bump the github-actions group with 2 updates ([docs#925](https://github.com/napari/docs/pull/925))
+- ci(dependabot): bump actions/download-artifact from 7.0.0 to 8.0.0 in the github-actions group ([docs#948](https://github.com/napari/docs/pull/948))
 
 
-## 20 authors added to this release (alphabetical)
+## 24 authors added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
@@ -595,20 +723,24 @@ it saves more than 50MB of disk space for a napari install!
 - [Edward Andò](https://github.com/napari/napari/commits?author=edwardando) - @edwardando +
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
 - [Guillaume Witz](https://github.com/napari/napari/commits?author=guiwitz) ([docs](https://github.com/napari/docs/commits?author=guiwitz))  - @guiwitz
+- [hiroalchem](https://github.com/napari/napari/commits?author=hiroalchem) - @hiroalchem +
 - [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni))  - @jni
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) ([docs](https://github.com/napari/docs/commits?author=brisvag))  - @brisvag
 - [Marcelo Zoccoler](https://github.com/napari/napari/commits?author=zoccoler) - @zoccoler
 - [Marco Edward Gorelli](https://github.com/napari/napari/commits?author=MarcoGorelli) - @MarcoGorelli +
+- [Margot Chazotte](https://github.com/napari/napari/commits?author=MargotCh) - @MargotCh +
 - [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) ([docs](https://github.com/napari/docs/commits?author=melissawm))  - @melissawm
+- [Neil Shephard](https://github.com/napari/docs/commits?author=ns-rse) - @ns-rse +
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) ([docs](https://github.com/napari/docs/commits?author=psobolewskiPhD))  - @psobolewskiPhD
 - [Qin Yu](https://github.com/napari/napari/commits?author=qin-yu) ([docs](https://github.com/napari/docs/commits?author=qin-yu))  - @qin-yu +
 - [Rensu Theart](https://github.com/napari/docs/commits?author=rensutheart) - @rensutheart +
+- [Samuel Le Meur-Diebolt](https://github.com/napari/napari/commits?author=sdiebolt) - @sdiebolt +
 - [Sesan](https://github.com/napari/napari/commits?author=Olusesan) - @Olusesan
 - [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
 - [Yohsuke T. Fukai](https://github.com/napari/napari/commits?author=yfukai) - @yfukai +
 - [Zuzana Čočková](https://github.com/napari/napari/commits?author=cockovaz) - @cockovaz +
 
-## 24 reviewers added to this release (alphabetical)
+## 25 reviewers added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
@@ -621,6 +753,7 @@ it saves more than 50MB of disk space for a napari install!
 - [Edward Andò](https://github.com/napari/napari/commits?author=edwardando) - @edwardando +
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
 - [Guillaume Witz](https://github.com/napari/napari/commits?author=guiwitz) ([docs](https://github.com/napari/docs/commits?author=guiwitz))  - @guiwitz
+- [hiroalchem](https://github.com/napari/napari/commits?author=hiroalchem) - @hiroalchem +
 - [Jacopo Abramo](https://github.com/napari/docs/commits?author=jacopoabramo) - @jacopoabramo
 - [Johannes Soltwedel](https://github.com/napari/docs/commits?author=jo-mueller) - @jo-mueller
 - [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni))  - @jni
@@ -628,11 +761,11 @@ it saves more than 50MB of disk space for a napari install!
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) ([docs](https://github.com/napari/docs/commits?author=brisvag))  - @brisvag
 - [Marcelo Zoccoler](https://github.com/napari/napari/commits?author=zoccoler) - @zoccoler
 - [Marco Edward Gorelli](https://github.com/napari/napari/commits?author=MarcoGorelli) - @MarcoGorelli +
+- [Margot Chazotte](https://github.com/napari/napari/commits?author=MargotCh) - @MargotCh +
 - [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) ([docs](https://github.com/napari/docs/commits?author=melissawm))  - @melissawm
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) ([docs](https://github.com/napari/docs/commits?author=psobolewskiPhD))  - @psobolewskiPhD
 - [Rensu Theart](https://github.com/napari/docs/commits?author=rensutheart) - @rensutheart +
 - [Sesan](https://github.com/napari/napari/commits?author=Olusesan) - @Olusesan
-- [Talley Lambert](https://github.com/napari/docs/commits?author=tlambert03) - @tlambert03
 - [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
 - [Yohsuke T. Fukai](https://github.com/napari/napari/commits?author=yfukai) - @yfukai +
 - [Zuzana Čočková](https://github.com/napari/napari/commits?author=cockovaz) - @cockovaz +

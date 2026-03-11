@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=ec955ffc"></script>
+    <script src="../../../../_static/documentation_options.js?v=053426a1"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -921,6 +921,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">VerticalAxisOrientation</span><span class="p">,</span>
     <span class="n">VerticalAxisOrientationStr</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.compat</span><span class="w"> </span><span class="kn">import</span> <span class="n">StrEnum</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">in_ipython</span><span class="p">,</span> <span class="n">in_jupyter</span><span class="p">,</span> <span class="n">in_python_repl</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
@@ -973,7 +974,6 @@ window.runMermaid = runMermaid;</script>
             <span class="p">),</span>
             <span class="n">partial</span><span class="p">(</span><span class="n">new_points</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">),</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;new_shapes&#39;</span><span class="p">,</span>
@@ -986,7 +986,6 @@ window.runMermaid = runMermaid;</script>
             <span class="p">),</span>
             <span class="n">partial</span><span class="p">(</span><span class="n">new_shapes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">),</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;new_labels&#39;</span><span class="p">,</span>
@@ -1000,7 +999,10 @@ window.runMermaid = runMermaid;</script>
             <span class="p">),</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_new_labels</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># Labels button disabled when there are layers present but none are selected</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span>
+            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layers_present_and_none_selected</span><span class="p">()</span>
+        <span class="p">)</span>
 
         <span class="n">layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -1019,21 +1021,54 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_selection_changed</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_selection_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update button checked state when layer selection changes.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update button selection/enablement state based on the layer selection.</span>
 
-<span class="sd">        When a layer is selected, some new layer buttons are checked</span>
-<span class="sd">        to indicate that creating a new layer will inherit properties from the</span>
-<span class="sd">        selected layer.</span>
+<span class="sd">        This allows indicating which mode of buttons will be triggered after</span>
+<span class="sd">        clicking on it.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">has_selection</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">has_selection</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">has_selection</span><span class="p">)</span>
-        <span class="n">new_labels_inherit_shape</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="n">ScalarFieldBase</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">new_labels_inherit_shape</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">FULL</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">FULL</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="n">ScalarFieldBase</span>
+            <span class="p">):</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">FULL</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">PARTIAL</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">PARTIAL</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">PARTIAL</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">PARTIAL</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">NONE</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">NONE</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
+                <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">NONE</span>
+            <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span>
-            <span class="n">has_selection</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span>
+            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layers_present_and_none_selected</span><span class="p">()</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_layers_present_and_none_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if there are layers present but none selected.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span>
         <span class="p">)</span>
 
 
@@ -1654,6 +1689,12 @@ window.runMermaid = runMermaid;</script>
     <span class="k">return</span> <span class="n">_func</span>
 
 
+<span class="k">class</span><span class="w"> </span><span class="nc">LayerCreationState</span><span class="p">(</span><span class="n">StrEnum</span><span class="p">):</span>
+    <span class="n">NONE</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span>
+    <span class="n">FULL</span> <span class="o">=</span> <span class="s1">&#39;full&#39;</span>
+    <span class="n">PARTIAL</span> <span class="o">=</span> <span class="s1">&#39;partial&#39;</span>
+
+
 <span class="k">class</span><span class="w"> </span><span class="nc">QtViewerPushButton</span><span class="p">(</span><span class="n">QPushButton</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Push button.</span>
 
@@ -1688,6 +1729,17 @@ window.runMermaid = runMermaid;</script>
             <span class="n">action_manager</span><span class="o">.</span><span class="n">bind_button</span><span class="p">(</span>
                 <span class="n">action</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">extra_tooltip_text</span><span class="o">=</span><span class="n">extra_tooltip_text</span>
             <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_change_selection_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">LayerCreationState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Change the selection state of a new-layer button.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;creation_state&#39;</span><span class="p">,</span> <span class="n">LayerCreationState</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_qss</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_refresh_qss</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Refresh the button&#39;s QSS (Qt Style Sheet).&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">unpolish</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">polish</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </pre></div>
 
                 </article>

@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=3a666cae"></script>
+    <script src="../_static/documentation_options.js?v=ec955ffc"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -848,7 +848,7 @@ before displaying it in napari.</p>
     <span class="n">dims</span> <span class="o">=</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span> <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">array</span><span class="o">.</span><span class="n">dims</span><span class="p">]</span>
     <span class="n">translate</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dims</span><span class="p">]</span>
     <span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dims</span><span class="p">]</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;scale&#39;</span><span class="p">:</span> <span class="n">scale</span><span class="p">,</span> <span class="s1">&#39;translate&#39;</span><span class="p">:</span> <span class="n">translate</span><span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;scale&#39;</span><span class="p">:</span> <span class="n">scale</span><span class="p">,</span> <span class="s1">&#39;translate&#39;</span><span class="p">:</span> <span class="n">translate</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">:(</span><span class="s1">&#39;ns&#39;</span><span class="p">,</span> <span class="s1">&#39;degrees&#39;</span><span class="p">,</span> <span class="s1">&#39;degrees&#39;</span><span class="p">)}</span>
 
 
 <span class="c1"># Show the raw (not resampled) model data</span>
@@ -869,6 +869,7 @@ before displaying it in napari.</p>
         <span class="n">contrast_limits</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">23</span> <span class="o">+</span> <span class="mi">273</span><span class="p">,</span> <span class="mi">32</span> <span class="o">+</span> <span class="mi">273</span><span class="p">),</span>  <span class="c1"># data are in degrees Kelvin</span>
         <span class="p">)</span>
 
+<a href="../api/napari.components.LayerList.html#napari.components.LayerList.units" title="napari.components.LayerList.units" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-property"><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">units</span></a> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;degrees&#39;</span><span class="p">,</span> <span class="s1">&#39;degrees&#39;</span><span class="p">)</span>
 <span class="c1"># set a time that overlaps both datasets</span>
 <a href="../api/napari.components.Dims.html#napari.components.Dims.set_point" title="napari.components.Dims.set_point" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">set_point</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.datetime64" title="numpy.datetime64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class"><span class="n">np</span><span class="o">.</span><span class="n">datetime64</span></a><span class="p">(</span><span class="s1">&#39;2013-03-10T18:00:00.000000000&#39;</span><span class="p">))</span>
 

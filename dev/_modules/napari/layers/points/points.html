@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=3a666cae"></script>
+    <script src="../../../../_static/documentation_options.js?v=ec955ffc"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -928,7 +928,10 @@ window.runMermaid = runMermaid;</script>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.points._slice</span><span class="w"> </span><span class="kn">import</span> <span class="n">_PointSliceRequest</span><span class="p">,</span> <span class="n">_PointSliceResponse</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils._color_manager_constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColorMode</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils._slice_input</span><span class="w"> </span><span class="kn">import</span> <span class="n">_SliceInput</span><span class="p">,</span> <span class="n">_ThickNDSlice</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils._slice_input</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_SliceInput</span><span class="p">,</span>
+    <span class="n">_ThickNDSlice</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.color_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColorManager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.color_transformations</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColorType</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.interactivity_utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -3392,7 +3395,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_slice_input</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
         <span class="c1"># See Image._make_slice_request to understand why we evaluate this here</span>
         <span class="c1"># instead of using `self._data_slice`.</span>
-        <span class="n">data_slice</span> <span class="o">=</span> <span class="n">slice_input</span><span class="o">.</span><span class="n">data_slice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
+        <span class="n">data_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">(</span><span class="n">slice_input</span><span class="p">,</span> <span class="n">dims</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_slice_request_internal</span><span class="p">(</span><span class="n">slice_input</span><span class="p">,</span> <span class="n">data_slice</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">make_slice_request_internal</span><span class="p">(</span>

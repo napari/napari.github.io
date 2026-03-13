@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=a5c2db35"></script>
+    <script src="../../../_static/documentation_options.js?v=596e3956"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -923,6 +923,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">QtViewerButtons</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_viewer_dock_widget</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtViewerDockWidget</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari._vispy.utils.qt_font</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtFontManager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.camera</span><span class="w"> </span><span class="kn">import</span> <span class="n">Camera</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.layerlist</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerList</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultipleReaderError</span><span class="p">,</span> <span class="n">ReaderPluginError</span>
@@ -1093,11 +1094,15 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dockConsole</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dockPerformance</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_show_welcome_screen</span> <span class="o">=</span> <span class="n">show_welcome_screen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_font_manager</span> <span class="o">=</span> <span class="n">QtFontManager</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlay_font</span> <span class="o">=</span> <span class="n">QGuiApplication</span><span class="o">.</span><span class="n">font</span><span class="p">()</span><span class="o">.</span><span class="n">family</span><span class="p">()</span>
 
         <span class="c1"># This dictionary holds the corresponding vispy visual for each layer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span> <span class="o">=</span> <span class="n">canvas_class</span><span class="p">(</span>
             <span class="n">viewer</span><span class="o">=</span><span class="n">viewer</span><span class="p">,</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">font_manager</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_font_manager</span><span class="p">,</span>
+            <span class="n">font_family</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_overlay_font</span><span class="p">,</span>
             <span class="n">key_map_handler</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_map_handler</span><span class="p">,</span>
             <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_canvas_size</span><span class="p">,</span>
             <span class="n">autoswap</span><span class="o">=</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">autoswap_buffers</span><span class="p">,</span>  <span class="c1"># see #5734</span>
@@ -2381,6 +2386,20 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">imsave</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">img</span></div>
+
+
+<div class="viewcode-block" id="QtViewer.font_manager">
+<a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.font_manager">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">font_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtFontManager</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the font manager for this viewer.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_font_manager</span></div>
+
+
+<div class="viewcode-block" id="QtViewer.overlay_font">
+<a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.overlay_font">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">overlay_font</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the font used for overlays.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlay_font</span></div>
 </div>
 
 

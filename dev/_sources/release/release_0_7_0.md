@@ -1,7 +1,7 @@
 # napari 0.7.0
 ⚠️ *Note: these release notes are still in draft while 0.7.0 is in release candidate testing.* ⚠️
 
-*Tue, Mar 10, 2026*
+*Fri, Mar 20, 2026*
 
 We're happy to announce the release of napari 0.7.0!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
@@ -210,14 +210,14 @@ The `Labels` button is disabled when layers are present in the viewer and none a
 
 ##### Visual cues
 
-[#8723](https://github.com/napari/napari/pull/8723) ensures this change is not invisible!
+[#8768](https://github.com/napari/napari/pull/8768) ensures this change is not invisible!
 When your selection will result in full inheritance of spatial information for the new layer,
-the new layer button will be highlighted.
-The highlight color will become brighter when your selection will result in the new layer only
+the new layer buttons will be highlighted.
+The highlight color will become dimmer when your selection will result in the new layer only
 inheriting the extent of your existing selection. If you're lost
 in the inheritance madness, you can also hover over the buttons to get details about the behavior.
 
-![GIF displaying the highlights on the Shapes, Points and Labels new layer buttons when one or more layers are selected in the layerlist](https://github.com/user-attachments/assets/7f71c6a8-173e-4734-869a-3ba41d7b37e9)
+![GIF displaying the highlights on the Shapes, Points and Labels new layer buttons when one or more layers are selected in the layerlist](https://github.com/user-attachments/assets/17361e45-dbca-4770-be11-d74c882eedb5)
 
 PS -- You can now also create these new layers from the `File -> New Layer` menu!
 
@@ -471,9 +471,15 @@ it saves more than 50MB of disk space for a napari install!
 - Perf, enh: defer dask.array loading by moving import into functions ([#8720](https://github.com/napari/napari/pull/8720))
 - Change look of new layer buttons to mark that there are 3 modes ([#8723](https://github.com/napari/napari/pull/8723))
 - If path arg is passed to CLI napari, don't show welcome overlay ([#8725](https://github.com/napari/napari/pull/8725))
+- UI: Add keybinding for Image layer reset_contrast_limits ([#8730](https://github.com/napari/napari/pull/8730))
+- Perf: Deferring pandas import to speedup napari startup ([#8733](https://github.com/napari/napari/pull/8733))
+- Perf: Instead of trying to import, check if IPython is already imported ([#8734](https://github.com/napari/napari/pull/8734))
 - Use capitalized name of source layer type when adding layer ([#8740](https://github.com/napari/napari/pull/8740))
 - Add scale example for anisotropic 3D data ([#8742](https://github.com/napari/napari/pull/8742))
+- Raise FileNotFoundError early when opening nonexistent paths ([#8747](https://github.com/napari/napari/pull/8747))
+- Ensure that layers are unlinked after deletion from layerlist  ([#8749](https://github.com/napari/napari/pull/8749))
 - Use custom Font manager to use Qt discovery mechanism ([#8751](https://github.com/napari/napari/pull/8751))
+- Restyle new_layer button creation state visuals ([#8768](https://github.com/napari/napari/pull/8768))
 
 ## Performance
 
@@ -493,6 +499,8 @@ it saves more than 50MB of disk space for a napari install!
 - [multiscale] Only update/refresh when level has changed or view is outside current corner_pixels ([#8678](https://github.com/napari/napari/pull/8678))
 - [Perf] Remove napari splash screen ([#8686](https://github.com/napari/napari/pull/8686))
 - [Maint] Remove all macOS specific launch code as it's out-dated or problematic (re-running with symlink) ([#8705](https://github.com/napari/napari/pull/8705))
+- Perf: Deferring pandas import to speedup napari startup ([#8733](https://github.com/napari/napari/pull/8733))
+- Perf: Instead of trying to import, check if IPython is already imported ([#8734](https://github.com/napari/napari/pull/8734))
 
 ## Bug Fixes
 
@@ -541,10 +549,15 @@ it saves more than 50MB of disk space for a napari install!
 - Increase minimum version of pyopengl to allow start napari ([#8679](https://github.com/napari/napari/pull/8679))
 - Fix colorbar for int/bool dtypes ([#8684](https://github.com/napari/napari/pull/8684))
 - Correctly hide welcome screen when layers are present ([#8688](https://github.com/napari/napari/pull/8688))
+- Ensure that errors are propagated during async loading ([#8691](https://github.com/napari/napari/pull/8691))
 - Fix assign tuple of None to `layer.units` ([#8700](https://github.com/napari/napari/pull/8700))
 - Fix error raised when `out_of_slice_display = True` and update highlight ([#8717](https://github.com/napari/napari/pull/8717))
 - fix: fix `napari.imshow` return type hint ([#8726](https://github.com/napari/napari/pull/8726))
+- Fix harvesting plugins from CLI ([#8728](https://github.com/napari/napari/pull/8728))
 - Fix `--plugin` startup args ([#8729](https://github.com/napari/napari/pull/8729))
+- Update box and position of text overlay on font size change ([#8759](https://github.com/napari/napari/pull/8759))
+- Fix welcome spacing ([#8760](https://github.com/napari/napari/pull/8760))
+- Fix: Move world unit updates to LayerList add/remove events ([#8772](https://github.com/napari/napari/pull/8772))
 
 ## Build Tools
 
@@ -561,7 +574,10 @@ it saves more than 50MB of disk space for a napari install!
 - Adding a new example of a multiplexed immunofluorescent image of a murine heart ([#8680](https://github.com/napari/napari/pull/8680))
 - Add sphinxext-rediraffe to docs requirements ([#8690](https://github.com/napari/napari/pull/8690))
 - Update examples gallery for 0.7.0 angles ([#8709](https://github.com/napari/napari/pull/8709))
+- Add 3D points to add_points_3d example ([#8746](https://github.com/napari/napari/pull/8746))
 - Update contributing info and include AI policy and guidelines ([#8754](https://github.com/napari/napari/pull/8754))
+- Fix `image_depth.py` example by setting `blending` to `translucent` ([#8764](https://github.com/napari/napari/pull/8764))
+- Update units rendering example for docs gallery ([#8767](https://github.com/napari/napari/pull/8767))
 - Remove deprecated `view_*` methods from docs materials ([docs#864](https://github.com/napari/docs/pull/864))
 - Proposed roadmap updates for Q3 ([docs#873](https://github.com/napari/docs/pull/873))
 - Enhance documentation build process with pixi integration and Windows… ([docs#876](https://github.com/napari/docs/pull/876))
@@ -600,6 +616,8 @@ it saves more than 50MB of disk space for a napari install!
 - Fix typo in optional-dependencies ([docs#947](https://github.com/napari/docs/pull/947))
 - Update references to PyQt5 as default backend to PyQt6 ([docs#950](https://github.com/napari/docs/pull/950))
 - Update 0.7.0 highlights for rc0 ([docs#951](https://github.com/napari/docs/pull/951))
+- Restructure homepage and add rotating featured examples ([docs#953](https://github.com/napari/docs/pull/953))
+- Wayland Debug information ([docs#956](https://github.com/napari/docs/pull/956))
 
 ## Other Pull Requests
 
@@ -691,8 +709,11 @@ it saves more than 50MB of disk space for a napari install!
 - ci(dependabot): bump the actions group with 3 updates ([#8713](https://github.com/napari/napari/pull/8713))
 - Update `certifi`, `tifffile`, `virtualenv` ([#8716](https://github.com/napari/napari/pull/8716))
 - Update pyqt5 default references to pyqt6 ([#8732](https://github.com/napari/napari/pull/8732))
+- Remove usage of `partial` from `qt_viewer_buttons` ([#8741](https://github.com/napari/napari/pull/8741))
 - Update `numpy`, `superqt`, `tifffile`, `wrapt` ([#8748](https://github.com/napari/napari/pull/8748))
 - [pre-commit.ci] pre-commit autoupdate ([#8753](https://github.com/napari/napari/pull/8753))
+- Update `imageio`, `pydantic-extra-types`, `tensorstore`, `virtualenv` ([#8773](https://github.com/napari/napari/pull/8773))
+- [pre-commit.ci] pre-commit autoupdate ([#8774](https://github.com/napari/napari/pull/8774))
 - ci(dependabot): bump the github-actions group with 4 updates ([docs#856](https://github.com/napari/docs/pull/856))
 - Allow to redeploy docs after merge new commits to main branch ([docs#874](https://github.com/napari/docs/pull/874))
 - Add mdformat to pre-commit config ([docs#878](https://github.com/napari/docs/pull/878))
@@ -711,7 +732,7 @@ it saves more than 50MB of disk space for a napari install!
 - ci(dependabot): bump actions/download-artifact from 7.0.0 to 8.0.0 in the github-actions group ([docs#948](https://github.com/napari/docs/pull/948))
 
 
-## 24 authors added to this release (alphabetical)
+## 25 authors added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
@@ -725,6 +746,7 @@ it saves more than 50MB of disk space for a napari install!
 - [Guillaume Witz](https://github.com/napari/napari/commits?author=guiwitz) ([docs](https://github.com/napari/docs/commits?author=guiwitz))  - @guiwitz
 - [hiroalchem](https://github.com/napari/napari/commits?author=hiroalchem) - @hiroalchem +
 - [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni))  - @jni
+- [LiudengZhang](https://github.com/napari/napari/commits?author=LiudengZhang) - @LiudengZhang +
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) ([docs](https://github.com/napari/docs/commits?author=brisvag))  - @brisvag
 - [Marcelo Zoccoler](https://github.com/napari/napari/commits?author=zoccoler) - @zoccoler
 - [Marco Edward Gorelli](https://github.com/napari/napari/commits?author=MarcoGorelli) - @MarcoGorelli +

@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=9c4091f2"></script>
+    <script src="../_static/documentation_options.js?v=efe69e5d"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -539,7 +539,7 @@
 <li class="toctree-l4"><a class="reference internal" href="mouse_drag_image_warping.html">Image warping with mouse event callbacks</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/layers.html">layers (9)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/layers.html">layers (10)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="3D_image_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="3D_paths.html">3D Paths</a></li>
 <li class="toctree-l4"><a class="reference internal" href="add_3D_image.html">Add 3D image</a></li>
@@ -547,11 +547,12 @@
 <li class="toctree-l4"><a class="reference internal" href="add_labels_with_features.html">Add labels with features</a></li>
 <li class="toctree-l4"><a class="reference internal" href="anisotropic_scale.html">Anisotropic data with scale</a></li>
 <li class="toctree-l4"><a class="reference internal" href="glasbey-colormap.html">Glasbey colormap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="units_impact_rendering.html">Layer units impact rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="vortex.html">Visualizing optical flow in napari</a></li>
 <li class="toctree-l4"><a class="reference internal" href="xarray-latlon-timeseries.html">Displaying xarray data in napari</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 current active has-children"><a class="reference internal" href="../_tags/visualization-advanced.html">visualization-advanced (24)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="../_tags/visualization-advanced.html">visualization-advanced (25)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="3D_image_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="3D_paths.html">3D Paths</a></li>
 <li class="toctree-l4"><a class="reference internal" href="add_multiscale_image.html">Add multiscale image</a></li>
@@ -574,6 +575,7 @@
 <li class="toctree-l4"><a class="reference internal" href="to_screenshot.html">To screenshot</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tracks_3d.html">Tracks 3D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tracks_3d_with_graph.html">Tracks 3D with graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="units_impact_rendering.html">Layer units impact rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="vortex.html">Visualizing optical flow in napari</a></li>
 <li class="toctree-l4"><a class="reference internal" href="xarray-latlon-timeseries.html">Displaying xarray data in napari</a></li>
 </ul>
@@ -815,7 +817,13 @@ on the canvas, such as the scale bar. Exported figures also move the scale bar
 to within the margins of the canvas.</p>
 <p>In the final grid state shown below, the first row represents exported images. The first two show that zoom is not reflected in the exported figure. The final one shows how the exported figure adapts to change in the layer extent. In the second row are the screenshots, showing the fact that the entire canvas is captured and that zoom is preserved.</p>
 <p class="tags"><span>Tags: </span><a class="reference external" href="../_tags/visualization-advanced.html">visualization-advanced</a></p>
-<img src="../_images/sphx_glr_screenshot_and_export_figure_001.png" srcset="../_images/sphx_glr_screenshot_and_export_figure_001.png" alt="screenshot and export figure" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<img src="../_images/sphx_glr_screenshot_and_export_figure_001.png" srcset="../_images/sphx_glr_screenshot_and_export_figure_001.png" alt="screenshot and export figure" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>WARNING: Inconsistent units across layers; units will not be used for rendering.
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">skimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">data</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>

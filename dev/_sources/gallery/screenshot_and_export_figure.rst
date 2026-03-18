@@ -46,8 +46,18 @@ In the final grid state shown below, the first row represents exported images. T
    :class: sphx-glr-single-img
 
 
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    WARNING: Inconsistent units across layers; units will not be used for rendering.
 
 
+
+
+
+
+|
 
 .. code-block:: Python
 

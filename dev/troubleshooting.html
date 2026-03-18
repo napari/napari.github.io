@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=020e8383"></script>
+    <script src="_static/documentation_options.js?v=b8ae58b1"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -882,6 +882,24 @@ In some rare situations this solution may not fix the environment,
 so you may need to recreate, as described in the first option.</p></li>
 </ol>
 </section>
+<section id="running-napari-on-wayland-with-nvidia-cards">
+<h3>Running napari on Wayland with Nvidia cards<a class="headerlink" href="#running-napari-on-wayland-with-nvidia-cards" title="Link to this heading">#</a></h3>
+<p>The Nvidia driver is not yet fully ready for Wayland.
+We found that on computers with Nvidia cards and a wayland-based desktop environment, napari fails to start with errors such as this:</p>
+<div class="highlight-pytb notranslate"><div class="highlight"><pre><span></span><span class="x">OpenGL.error.GLError: GLError(</span>
+<span class="x">    err = 1280,</span>
+<span class="x">    baseOperation = glGetString,</span>
+<span class="x">    cArguments = (GL_VERSION,),</span>
+<span class="x">    result = b&#39;OpenGL ES 3.2 NVIDIA 580.126.09&#39;</span>
+<span class="x">)</span>
+</pre></div>
+</div>
+<p>The problem might be solved by setting following environment variables:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">QT_QPA_PLATFORM</span><span class="o">=</span>xcb
+<span class="nv">PYOPENGL_PLATFORM</span><span class="o">=</span>glx
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -942,6 +960,7 @@ so you may need to recreate, as described in the first option.</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#my-image-renders-as-all-black-all-white">My image renders as all black/all white</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permissionerror-when-trying-to-launch-napari-on-windows">PermissionError when trying to launch napari on Windows</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-napari-installations">Mixed napari installations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-napari-on-wayland-with-nvidia-cards">Running napari on Wayland with Nvidia cards</a></li>
 </ul>
 </li>
 </ul>

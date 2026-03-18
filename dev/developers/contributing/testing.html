@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=020e8383"></script>
+    <script src="../../_static/documentation_options.js?v=b8ae58b1"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1033,6 +1033,29 @@ To use these custom skip decorators, import the decorator and apply it to a test
 <p>There are several known issues with displaying GUI tests on windows in CI, and
 so certain tests have been disabled from windows in CI, see
 <a class="reference external" href="https://github.com/napari/napari/pull/1377">#1377</a> for more discussion.</p>
+<section id="running-napari-tests-on-wayland">
+<h3>Running napari tests on Wayland<a class="headerlink" href="#running-napari-tests-on-wayland" title="Link to this heading">#</a></h3>
+<p>In the napari test suite we use <code class="docutils literal notranslate"><span class="pre">pyautogui</span></code> to simulate mouse and keyboard events.
+On Linux it uses <code class="docutils literal notranslate"><span class="pre">python-xlib</span></code> to implement this utility.
+Unfortunately it might not work out of the box on Wayland (even with <code class="docutils literal notranslate"><span class="pre">xwayland</span></code> installed). We observed this with (for example) the GNOME desktop.</p>
+<div class="highlight-pytb notranslate"><div class="highlight"><pre><span></span><span class="x">...</span>
+<span class="x">.venv/lib/python3.12/site-packages/Xlib/protocol/display.py:129: in __init__</span>
+<span class="x">    raise error.DisplayConnectionError(self.display_name, r.reason)</span>
+<span class="x">E   Xlib.error.DisplayConnectionError: Can&#39;t connect to display &quot;:0&quot;: b&#39;Authorization required, but no authorization protocol specified\n&#39;</span>
+</pre></div>
+</div>
+<p>Based on experiments we found that executing <code class="docutils literal notranslate"><span class="pre">xhost</span> <span class="pre">+SI:localuser:$USER</span></code> solves the problem.
+It can be done automatically on startup by adding the above line to <code class="docutils literal notranslate"><span class="pre">~/.config/autostart/xhost.desktop</span></code>.</p>
+<div class="highlight-desktop notranslate"><div class="highlight"><pre><span></span><span class="k">[Desktop Entry]</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">Application</span>
+<span class="na">Name</span><span class="o">=</span><span class="s">Xhost Fix for XWayland</span>
+<span class="na">Exec</span><span class="o">=</span><span class="s">xhost +SI:localuser:grzegorz</span>
+<span class="na">Terminal</span><span class="o">=</span><span class="s">false</span>
+<span class="na">NoDisplay</span><span class="o">=</span><span class="s">true</span>
+</pre></div>
+</div>
+<p>This file also needs to be made executable with <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">~/.config/autostart/xhost.desktop</span></code>.</p>
+</section>
 </section>
 </section>
 
@@ -1127,7 +1150,10 @@ so certain tests have been disabled from windows in CI, see
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skipping-tests-with-gui-elements-or-need-window-focus">Skipping tests with GUI elements or need window focus</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-testing-issues">Known testing issues</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-testing-issues">Known testing issues</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-napari-tests-on-wayland">Running napari tests on Wayland</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

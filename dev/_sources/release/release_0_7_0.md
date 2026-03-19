@@ -557,7 +557,9 @@ it saves more than 50MB of disk space for a napari install!
 - Fix `--plugin` startup args ([#8729](https://github.com/napari/napari/pull/8729))
 - Update box and position of text overlay on font size change ([#8759](https://github.com/napari/napari/pull/8759))
 - Fix welcome spacing ([#8760](https://github.com/napari/napari/pull/8760))
-- Fix: Move world unit updates to LayerList add/remove events ([#8772](https://github.com/napari/napari/pull/8772))
+- Fix: Fire world unit updates after removing layer ([#8772](https://github.com/napari/napari/pull/8772))
+- Do not emit warning about units if there is no layer in viewer ([#8779](https://github.com/napari/napari/pull/8779))
+- Fix colorbar box offset ([#8780](https://github.com/napari/napari/pull/8780))
 
 ## Build Tools
 
@@ -618,6 +620,8 @@ it saves more than 50MB of disk space for a napari install!
 - Update 0.7.0 highlights for rc0 ([docs#951](https://github.com/napari/docs/pull/951))
 - Restructure homepage and add rotating featured examples ([docs#953](https://github.com/napari/docs/pull/953))
 - Wayland Debug information ([docs#956](https://github.com/napari/docs/pull/956))
+- Update release notes for 0.7.0rc1 ([docs#957](https://github.com/napari/docs/pull/957))
+- Refresh installation guide, with focus on bundled app instructions ([docs#958](https://github.com/napari/docs/pull/958))
 
 ## Other Pull Requests
 

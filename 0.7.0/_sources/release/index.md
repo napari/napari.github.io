@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: March 11, 2026*
+*Last updated: March 19, 2026*
 
 
 ## Recent Releases (Last 3 Months)
@@ -208,14 +208,14 @@ The `Labels` button is disabled when layers are present in the viewer and none a
 
 ##### Visual cues
 
-[#8723](https://github.com/napari/napari/pull/8723) ensures this change is not invisible!
+[#8768](https://github.com/napari/napari/pull/8768) ensures this change is not invisible!
 When your selection will result in full inheritance of spatial information for the new layer,
-the new layer button will be highlighted.
-The highlight color will become brighter when your selection will result in the new layer only
+the new layer buttons will be highlighted.
+The highlight color will become dimmer when your selection will result in the new layer only
 inheriting the extent of your existing selection. If you're lost
 in the inheritance madness, you can also hover over the buttons to get details about the behavior.
 
-![GIF displaying the highlights on the Shapes, Points and Labels new layer buttons when one or more layers are selected in the layerlist](https://github.com/user-attachments/assets/7f71c6a8-173e-4734-869a-3ba41d7b37e9)
+![GIF displaying the highlights on the Shapes, Points and Labels new layer buttons when one or more layers are selected in the layerlist](https://github.com/user-attachments/assets/17361e45-dbca-4770-be11-d74c882eedb5)
 
 PS -- You can now also create these new layers from the `File -> New Layer` menu!
 

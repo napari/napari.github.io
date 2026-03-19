@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=5cc0f6b3"></script>
+    <script src="_static/documentation_options.js?v=683bcd98"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -68,7 +68,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc2';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -539,7 +539,7 @@
 <li class="toctree-l4"><a class="reference internal" href="gallery/mouse_drag_image_warping.html">Image warping with mouse event callbacks</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="_tags/layers.html">layers (9)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_tags/layers.html">layers (10)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="gallery/3D_image_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gallery/3D_paths.html">3D Paths</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gallery/add_3D_image.html">Add 3D image</a></li>
@@ -547,11 +547,12 @@
 <li class="toctree-l4"><a class="reference internal" href="gallery/add_labels_with_features.html">Add labels with features</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gallery/anisotropic_scale.html">Anisotropic data with scale</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gallery/glasbey-colormap.html">Glasbey colormap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gallery/units_impact_rendering.html">Layer units impact rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gallery/vortex.html">Visualizing optical flow in napari</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gallery/xarray-latlon-timeseries.html">Displaying xarray data in napari</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="_tags/visualization-advanced.html">visualization-advanced (24)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_tags/visualization-advanced.html">visualization-advanced (25)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="gallery/3D_image_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gallery/3D_paths.html">3D Paths</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gallery/add_multiscale_image.html">Add multiscale image</a></li>
@@ -574,6 +575,7 @@
 <li class="toctree-l4"><a class="reference internal" href="gallery/to_screenshot.html">To screenshot</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gallery/tracks_3d.html">Tracks 3D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gallery/tracks_3d_with_graph.html">Tracks 3D with graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gallery/units_impact_rendering.html">Layer units impact rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gallery/vortex.html">Visualizing optical flow in napari</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gallery/xarray-latlon-timeseries.html">Displaying xarray data in napari</a></li>
 </ul>
@@ -842,7 +844,7 @@ on using napari in Jupyter notebooks.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Display a points layer on top of an image layer using the add_points and add_image APIs"><img alt="" src="_images/sphx_glr_add_points_thumb.png" />
 <p><a class="reference internal" href="gallery/add_points.html"><span class="doc">Add points</span></a></p>
   <div class="sphx-glr-thumbnail-title">Add points</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and add_image APIs, then add points in 3D"><img alt="" src="_images/sphx_glr_add_points_3d_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and add_image APIs, then add points at the centroids of detected blobs in 3D"><img alt="" src="_images/sphx_glr_add_points_3d_thumb.png" />
 <p><a class="reference internal" href="gallery/add_points_3d.html"><span class="doc">Add points 3D</span></a></p>
   <div class="sphx-glr-thumbnail-title">Add points 3D</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Add points on nD shapes in 3D using a mouse callback"><img alt="" src="_images/sphx_glr_add_points_on_nD_shapes_thumb.png" />
@@ -956,7 +958,7 @@ on using napari in Jupyter notebooks.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Display a multiplexed immunofluorescent image of a murine heart with preset contrast limits and colormap, as well as a segmentation mask and points with features."><img alt="" src="_images/sphx_glr_heart_masks_points_thumb.png" />
 <p><a class="reference internal" href="gallery/heart_masks_points.html"><span class="doc">Heart with multiple annotations</span></a></p>
   <div class="sphx-glr-thumbnail-title">Heart with multiple annotations</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Image depth"><img alt="" src="_images/sphx_glr_image_depth_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Display a 3D image and 3D points layer to show how napari handles depth."><img alt="" src="_images/sphx_glr_image_depth_thumb.png" />
 <p><a class="reference internal" href="gallery/image_depth.html"><span class="doc">Image depth</span></a></p>
   <div class="sphx-glr-thumbnail-title">Image depth</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Display points overlaid on a 3D image"><img alt="" src="_images/sphx_glr_image_points_3d_thumb.png" />
@@ -989,6 +991,9 @@ on using napari in Jupyter notebooks.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Display points layer with text features. By using the scaling property of the text layer, the text is scaled with the layers as canvas zoom changes. Scaling can also be thought of as fixing the height of the text in world coordinates, whereas no scaling fixes the height of the text in screen / canvas pixels. This world scaling is useful when there are many points and the text would otherwise overlap when zoomed out, or become illegible when zoomed in."><img alt="" src="_images/sphx_glr_layer_text_scaling_thumb.png" />
 <p><a class="reference internal" href="gallery/layer_text_scaling.html"><span class="doc">Layer Text Scaling</span></a></p>
   <div class="sphx-glr-thumbnail-title">Layer Text Scaling</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how units can impact rendering in napari. Two layers are added with different scales, however by specifying the units, napari is able to render them in the same physical space using the unit-aware library Pint [1]_. The first layer is in nanometers and the second layer is in micrometers, but they are rendered in the same physical space because 1 μm = 1000 nm."><img alt="" src="_images/sphx_glr_units_impact_rendering_thumb.png" />
+<p><a class="reference internal" href="gallery/units_impact_rendering.html"><span class="doc">Layer units impact rendering</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Layer units impact rendering</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Display multiple image layers using the add_image API and then reorder them using the layers swap method and remove one"><img alt="" src="_images/sphx_glr_layers_thumb.png" />
 <p><a class="reference internal" href="gallery/layers.html"><span class="doc">Layers</span></a></p>
   <div class="sphx-glr-thumbnail-title">Layers</div>

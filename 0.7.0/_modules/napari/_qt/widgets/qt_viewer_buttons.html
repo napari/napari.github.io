@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=5cc0f6b3"></script>
+    <script src="../../../../_static/documentation_options.js?v=683bcd98"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -493,7 +493,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc2';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -890,7 +890,7 @@ window.runMermaid = runMermaid;</script>
   <h1>Source code for napari._qt.widgets.qt_viewer_buttons</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">EnumMeta</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span><span class="p">,</span> <span class="n">wraps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wraps</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QEvent</span><span class="p">,</span> <span class="n">Qt</span>
@@ -972,7 +972,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="s1">&#39;If multiple layers are selected, the new points layer will span their extent.</span><span class="se">\n</span><span class="s1">&#39;</span>
                 <span class="s1">&#39;If no layers are selected, the new points layer will have no scale/transform.</span><span class="se">\n</span><span class="s1">&#39;</span>
             <span class="p">),</span>
-            <span class="n">partial</span><span class="p">(</span><span class="n">new_points</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_new_points</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
@@ -984,7 +984,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="s1">&#39;If multiple layers are selected, the new shapes layer will span their extent.</span><span class="se">\n</span><span class="s1">&#39;</span>
                 <span class="s1">&#39;If no layers are selected, the new points layer will have no scale/transform.</span><span class="se">\n</span><span class="s1">&#39;</span>
             <span class="p">),</span>
-            <span class="n">partial</span><span class="p">(</span><span class="n">new_shapes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_new_shapes</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
@@ -1019,6 +1019,12 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_selection_changed</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_selection_changed</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_new_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">new_points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_new_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">new_shapes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_selection_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update button selection/enablement state based on the layer selection.</span>
@@ -1094,7 +1100,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">parent</span><span class="p">:</span> <span class="n">QtPopup</span><span class="p">,</span>
     <span class="n">enum_class</span><span class="p">:</span> <span class="n">EnumMeta</span><span class="p">,</span>
     <span class="n">current_enum</span><span class="p">:</span> <span class="n">Enum</span><span class="p">,</span>
-    <span class="n">callback</span><span class="p">:</span> <span class="s1">&#39;Callable[[],Any] | Callable[[Enum],Any]&#39;</span><span class="p">,</span>
+    <span class="n">callback</span><span class="p">:</span> <span class="s1">&#39;Callable[[],Any] | Callable[[Enum],Any] | Callable[[str],Any]&#39;</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QEnumComboBox</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an enum combobox widget.&quot;&quot;&quot;</span>
     <span class="n">combo</span> <span class="o">=</span> <span class="n">QEnumComboBox</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">enum_class</span><span class="o">=</span><span class="n">enum_class</span><span class="p">)</span>
@@ -1246,6 +1252,18 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
         <span class="n">popup</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_first_camera_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the camera angle along axis 0.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_angles</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_second_camera_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the camera angle along axis 1.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_angles</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_third_camera_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the camera angle along axis 2.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_angles</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
     <span class="k">def</span><span class="w"> </span><span class="nf">_add_3d_camera_controls</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">popup</span><span class="p">:</span> <span class="n">QtPopup</span><span class="p">,</span>
@@ -1268,7 +1286,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
             <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
             <span class="n">value_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
-            <span class="n">callback</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_angles</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_first_camera_angle</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># value_range is [-89, 89] because at &gt;=+/-90 gimbal locks the camera.</span>
@@ -1277,14 +1295,14 @@ window.runMermaid = runMermaid;</script>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
             <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
             <span class="n">value_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">89</span><span class="p">,</span> <span class="mi">89</span><span class="p">),</span>
-            <span class="n">callback</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_angles</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_second_camera_angle</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">rx</span> <span class="o">=</span> <span class="n">labeled_double_slider</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
             <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
             <span class="n">value_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
-            <span class="n">callback</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_angles</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_third_camera_angle</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="n">angle_help_symbol</span> <span class="o">=</span> <span class="n">help_tooltip</span><span class="p">(</span>
@@ -1329,6 +1347,24 @@ window.runMermaid = runMermaid;</script>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">zoom_help_symbol</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_verical_axis_orientation</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">VerticalAxisOrientationStr</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the vertical axis orientation of the camera.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_orientation</span><span class="p">(</span><span class="n">VerticalAxisOrientation</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_horizontal_axis_orientation</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">HorizontalAxisOrientationStr</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the horizontal axis orientation of the camera.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_orientation</span><span class="p">(</span><span class="n">HorizontalAxisOrientation</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_depth_axis_orientation</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">DepthAxisOrientationStr</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the depth axis orientation of the camera.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_orientation</span><span class="p">(</span><span class="n">DepthAxisOrientation</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
     <span class="k">def</span><span class="w"> </span><span class="nf">_add_orientation_controls</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">popup</span><span class="p">:</span> <span class="n">QtPopup</span><span class="p">,</span>
@@ -1343,18 +1379,14 @@ window.runMermaid = runMermaid;</script>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
             <span class="n">enum_class</span><span class="o">=</span><span class="n">VerticalAxisOrientation</span><span class="p">,</span>
             <span class="n">current_enum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-            <span class="n">callback</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_update_orientation</span><span class="p">,</span> <span class="n">VerticalAxisOrientation</span>
-            <span class="p">),</span>
+            <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_verical_axis_orientation</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">horizontal_combo</span> <span class="o">=</span> <span class="n">enum_combobox</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
             <span class="n">enum_class</span><span class="o">=</span><span class="n">HorizontalAxisOrientation</span><span class="p">,</span>
             <span class="n">current_enum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-            <span class="n">callback</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_update_orientation</span><span class="p">,</span> <span class="n">HorizontalAxisOrientation</span>
-            <span class="p">),</span>
+            <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_horizontal_axis_orientation</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
@@ -1370,9 +1402,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
                 <span class="n">enum_class</span><span class="o">=</span><span class="n">DepthAxisOrientation</span><span class="p">,</span>
                 <span class="n">current_enum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                <span class="n">callback</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_update_orientation</span><span class="p">,</span> <span class="n">DepthAxisOrientation</span>
-                <span class="p">),</span>
+                <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_depth_axis_orientation</span><span class="p">,</span>
             <span class="p">)</span>
 
             <span class="n">orientation_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">depth_combo</span><span class="p">)</span>

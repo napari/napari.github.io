@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=5cc0f6b3"></script>
+    <script src="../_static/documentation_options.js?v=683bcd98"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -68,7 +68,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc2';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -543,7 +543,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../gallery/mouse_drag_image_warping.html">Image warping with mouse event callbacks</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/layers.html">layers (9)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/layers.html">layers (10)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/3D_image_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/3D_paths.html">3D Paths</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/add_3D_image.html">Add 3D image</a></li>
@@ -551,11 +551,12 @@
 <li class="toctree-l4"><a class="reference internal" href="../gallery/add_labels_with_features.html">Add labels with features</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/anisotropic_scale.html">Anisotropic data with scale</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/glasbey-colormap.html">Glasbey colormap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/units_impact_rendering.html">Layer units impact rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/vortex.html">Visualizing optical flow in napari</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/xarray-latlon-timeseries.html">Displaying xarray data in napari</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-advanced.html">visualization-advanced (24)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-advanced.html">visualization-advanced (25)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/3D_image_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/3D_paths.html">3D Paths</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/add_multiscale_image.html">Add multiscale image</a></li>
@@ -578,6 +579,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../gallery/to_screenshot.html">To screenshot</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/tracks_3d.html">Tracks 3D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/tracks_3d_with_graph.html">Tracks 3D with graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/units_impact_rendering.html">Layer units impact rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/vortex.html">Visualizing optical flow in napari</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/xarray-latlon-timeseries.html">Displaying xarray data in napari</a></li>
 </ul>
@@ -881,7 +883,7 @@ accessed in the <strong>napari</strong> menu.</p>
 <li><p class="sd-card-text"><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.dask</span></code>.</small></p></li>
 <li><p class="sd-card-text"><small>Environmental variable: <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_DASK</span></code></small></p></li>
 <li><p class="sd-card-text"><small>Type: <code class="docutils literal notranslate"><span class="pre">&lt;class</span> <span class="pre">'napari.settings._application.DaskSettings'&gt;</span></code></small></p></li>
-<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">DaskSettings(enabled=True,</span> <span class="pre">cache=4.191808512)</span></code>.</small></p></li>
+<li><p class="sd-card-text"><small>Default: <code class="docutils literal notranslate"><span class="pre">DaskSettings(enabled=True,</span> <span class="pre">cache=4.19289088)</span></code>.</small></p></li>
 </ul>
 <p class="rubric" id="depth-axis-orientation">Depth Axis Orientation</p>
 <p class="sd-card-text"><em>Orientation of the depth axis in 3D view.
@@ -1118,235 +1120,238 @@ Default is “Down”.</em></p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p class="sd-card-text">napari:toggle_console_visibility</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10c920: Ctrl+Shift+C&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97553bc0: Ctrl+Shift+C&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:toggle_ndisplay</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10d190: Ctrl+Y&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97553f20: Ctrl+Y&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:toggle_theme</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10fc50: Ctrl+Shift+T&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97553fe0: Ctrl+Shift+T&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:reset_view</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10c860: Ctrl+R&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97553e90: Ctrl+R&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:delete_selected_layers</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10fe00: Ctrl+Delete&gt;, &lt;KeyBinding at 0x7f0c3c10fd40: Ctrl+Backspace&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97560050: Ctrl+Delete&gt;, &lt;KeyBinding at 0x7fbb975601a0: Ctrl+Backspace&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:show_shortcuts</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10d640: Ctrl+Alt+/&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975609e0: Ctrl+Alt+/&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:increment_dims_left</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10d730: Left&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975602f0: Left&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:increment_dims_right</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10d820: Right&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975609b0: Right&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:focus_axes_up</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10d910: Alt+Up&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97560b00: Alt+Up&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:focus_axes_down</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10da00: Alt+Down&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97560b30: Alt+Down&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:roll_axes</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10daf0: Ctrl+E&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97560f20: Ctrl+E&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:transpose_axes</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10db50: Ctrl+T&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561160: Ctrl+T&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:rotate_layers</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10dbe0: Ctrl+Alt+T&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97560c50: Ctrl+Alt+T&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:toggle_grid</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10dcd0: Ctrl+G&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561220: Ctrl+G&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:toggle_selected_visibility</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10c050: V&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975611c0: V&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:toggle_unselected_visibility</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10d040: Shift+V&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561100: Shift+V&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:select_layer_above</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10c170: Ctrl+Up&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561250: Ctrl+Up&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:select_layer_below</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c10c200: Ctrl+Down&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97560cb0: Ctrl+Down&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:show_only_layer_above</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1a8890: Shift+Alt+Up&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975612b0: Shift+Alt+Up&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:show_only_layer_below</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1a8920: Shift+Alt+Down&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561340: Shift+Alt+Down&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:hold_for_pan_zoom</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1a8980: Space&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975613a0: Space&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:activate_labels_erase_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1a8a10: 1&gt;, &lt;KeyBinding at 0x7f0c3c1a8a70: E&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97560dd0: 1&gt;, &lt;KeyBinding at 0x7fbb97561400: E&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:activate_labels_paint_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1a8b60: 2&gt;, &lt;KeyBinding at 0x7f0c3c1a8bc0: P&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975614c0: 2&gt;, &lt;KeyBinding at 0x7fbb97561520: P&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:activate_labels_polygon_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1a8c50: 3&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561580: 3&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:activate_labels_fill_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1a8ce0: 4&gt;, &lt;KeyBinding at 0x7f0c3c1a8d70: F&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975615e0: 4&gt;, &lt;KeyBinding at 0x7fbb97561640: F&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:activate_labels_picker_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1a8e30: 5&gt;, &lt;KeyBinding at 0x7f0c3c1a8ec0: L&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975616a0: 5&gt;, &lt;KeyBinding at 0x7fbb97561700: L&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:activate_labels_pan_zoom_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1a8f80: 6&gt;, &lt;KeyBinding at 0x7f0c3c1a9010: Z&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561760: 6&gt;, &lt;KeyBinding at 0x7fbb975617c0: Z&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:activate_labels_transform_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1a8170: 7&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561820: 7&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:new_label</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1a8380: M&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561880: M&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:swap_selected_and_background_labels</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1a8410: X&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561190: X&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:decrease_label_id</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1a84a0: -&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97560fe0: -&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:increase_label_id</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1a8530: =&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97560e00: =&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:decrease_brush_size</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1a9280: [&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561370: [&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:increase_brush_size</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1aa060: ]&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561910: ]&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:toggle_preserve_labels</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391c4740: B&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561970: B&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:reset_polygon</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1aa120: Escape&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97520c80: Escape&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:complete_polygon</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1aa2a0: Enter&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975619a0: Enter&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:activate_points_add_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3c1aa3f0: 2&gt;, &lt;KeyBinding at 0x7f0c3c1a8b30: P&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561a00: 2&gt;, &lt;KeyBinding at 0x7fbb97561a60: P&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:activate_points_select_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c3b5cae70: 3&gt;, &lt;KeyBinding at 0x7f0c391d9460: S&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561ac0: 3&gt;, &lt;KeyBinding at 0x7fbb97561b20: S&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:activate_points_pan_zoom_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391d9580: 4&gt;, &lt;KeyBinding at 0x7f0c391d9370: Z&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561b80: 4&gt;, &lt;KeyBinding at 0x7fbb97561be0: Z&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:activate_points_transform_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391d9940: 5&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561c40: 5&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:select_all_in_slice</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391d99d0: A&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561ca0: A&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:select_append_all_in_slice</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391d9af0: Shift+A&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561d00: Shift+A&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:select_all_data</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391d9bb0: Ctrl+A&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561d60: Ctrl+A&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:delete_selected_points</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391d9b20: 1&gt;, &lt;KeyBinding at 0x7f0c391da450: Delete&gt;, &lt;KeyBinding at 0x7f0c391da570: Backspace&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561dc0: 1&gt;, &lt;KeyBinding at 0x7fbb97561e20: Delete&gt;, &lt;KeyBinding at 0x7fbb97561e80: Backspace&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:activate_add_rectangle_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391da690: R&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561ee0: R&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:activate_add_ellipse_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391da7b0: E&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561f40: E&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:activate_add_line_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391da8d0: L&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97561fa0: L&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:activate_add_path_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391daa20: T&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562000: T&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:activate_add_polyline_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391dab10: Shift+L&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562060: Shift+L&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:activate_add_polygon_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391dac60: P&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975620c0: P&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:activate_add_polygon_lasso_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391dad50: Shift+P&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562120: Shift+P&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:activate_direct_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391daea0: 4&gt;, &lt;KeyBinding at 0x7f0c391dafc0: D&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562180: 4&gt;, &lt;KeyBinding at 0x7fbb975621e0: D&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:activate_select_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391db0b0: 5&gt;, &lt;KeyBinding at 0x7f0c391db1d0: S&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562240: 5&gt;, &lt;KeyBinding at 0x7fbb975622a0: S&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:activate_shapes_pan_zoom_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391db2f0: 6&gt;, &lt;KeyBinding at 0x7f0c391db410: Z&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562300: 6&gt;, &lt;KeyBinding at 0x7fbb97562360: Z&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:activate_shapes_transform_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391db560: 7&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975623c0: 7&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:activate_vertex_insert_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391db650: 2&gt;, &lt;KeyBinding at 0x7f0c391db7a0: I&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562420: 2&gt;, &lt;KeyBinding at 0x7fbb97562480: I&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:activate_vertex_remove_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391db8c0: 1&gt;, &lt;KeyBinding at 0x7f0c391db9b0: X&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975624e0: 1&gt;, &lt;KeyBinding at 0x7fbb97562540: X&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:copy_selected_shapes</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391dbad0: Ctrl+C&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975625a0: Ctrl+C&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:paste_shape</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391dbc20: Ctrl+V&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562600: Ctrl+V&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:move_shapes_selection_to_front</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391dbd40: F&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562660: F&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:move_shapes_selection_to_back</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391dbe60: B&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975626c0: B&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:select_shapes_in_slice</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391dbf80: A&gt;, &lt;KeyBinding at 0x7f0c391dbfb0: Ctrl+A&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562720: A&gt;, &lt;KeyBinding at 0x7fbb97562780: Ctrl+A&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:delete_selected_shapes</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391d9670: 3&gt;, &lt;KeyBinding at 0x7f0c391d97f0: Delete&gt;, &lt;KeyBinding at 0x7f0c391da5d0: Backspace&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975627e0: 3&gt;, &lt;KeyBinding at 0x7fbb97562840: Delete&gt;, &lt;KeyBinding at 0x7fbb975628a0: Backspace&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:finish_drawing_shape</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391dabd0: Enter&gt;, &lt;KeyBinding at 0x7f0c391dac00: Escape&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562900: Enter&gt;, &lt;KeyBinding at 0x7fbb97562960: Escape&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:orient_plane_normal_along_x</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391dae40: X&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb975629c0: X&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:orient_plane_normal_along_y</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391dacc0: Y&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562a20: Y&gt;]</p></td>
 </tr>
 <tr class="row-odd"><td><p class="sd-card-text">napari:orient_plane_normal_along_z</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391dadb0: Z&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562a80: Z&gt;]</p></td>
 </tr>
 <tr class="row-even"><td><p class="sd-card-text">napari:orient_plane_normal_along_view_direction</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391dae70: O&gt;]</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562ae0: O&gt;]</p></td>
 </tr>
-<tr class="row-odd"><td><p class="sd-card-text">napari:activate_image_pan_zoom_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391db6b0: 1&gt;]</p></td>
+<tr class="row-odd"><td><p class="sd-card-text">napari:auto_contrast_once</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562b40: C&gt;]</p></td>
 </tr>
-<tr class="row-even"><td><p class="sd-card-text">napari:activate_image_transform_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391daf90: 2&gt;]</p></td>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_image_pan_zoom_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562ba0: 1&gt;]</p></td>
 </tr>
-<tr class="row-odd"><td><p class="sd-card-text">napari:activate_vectors_pan_zoom_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391db050: 1&gt;]</p></td>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_image_transform_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562c00: 2&gt;]</p></td>
 </tr>
-<tr class="row-even"><td><p class="sd-card-text">napari:activate_vectors_transform_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391db020: 2&gt;]</p></td>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_vectors_pan_zoom_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562c60: 1&gt;]</p></td>
 </tr>
-<tr class="row-odd"><td><p class="sd-card-text">napari:activate_tracks_pan_zoom_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391db110: 1&gt;]</p></td>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_vectors_transform_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562cc0: 2&gt;]</p></td>
 </tr>
-<tr class="row-even"><td><p class="sd-card-text">napari:activate_tracks_transform_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391db170: 2&gt;]</p></td>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_tracks_pan_zoom_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562d20: 1&gt;]</p></td>
 </tr>
-<tr class="row-odd"><td><p class="sd-card-text">napari:activate_surface_pan_zoom_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391db3b0: 1&gt;]</p></td>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_tracks_transform_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562d80: 2&gt;]</p></td>
 </tr>
-<tr class="row-even"><td><p class="sd-card-text">napari:activate_surface_transform_mode</p></td>
-<td><p class="sd-card-text">[&lt;KeyBinding at 0x7f0c391db290: 2&gt;]</p></td>
+<tr class="row-even"><td><p class="sd-card-text">napari:activate_surface_pan_zoom_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562de0: 1&gt;]</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">napari:activate_surface_transform_mode</p></td>
+<td><p class="sd-card-text">[&lt;KeyBinding at 0x7fbb97562e40: 2&gt;]</p></td>
 </tr>
 </tbody>
 </table>

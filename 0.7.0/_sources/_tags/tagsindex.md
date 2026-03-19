@@ -14,8 +14,8 @@ features-table (6) <features-table>
 gui (16) <gui>
 historical (3) <historical>
 interactivity (7) <interactivity>
-layers (9) <layers>
-visualization-advanced (24) <visualization-advanced>
+layers (10) <layers>
+visualization-advanced (25) <visualization-advanced>
 visualization-basic (26) <visualization-basic>
 visualization-nD (24) <visualization-nd>
 xarray (1) <xarray>

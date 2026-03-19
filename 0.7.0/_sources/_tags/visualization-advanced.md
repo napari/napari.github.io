@@ -28,6 +28,7 @@ caption: With this tag
 ../gallery/to_screenshot.rst
 ../gallery/tracks_3d.rst
 ../gallery/tracks_3d_with_graph.rst
+../gallery/units_impact_rendering.rst
 ../gallery/vortex.rst
 ../gallery/xarray-latlon-timeseries.rst
 ```

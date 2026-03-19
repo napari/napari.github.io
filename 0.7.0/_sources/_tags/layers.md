@@ -13,6 +13,7 @@ caption: With this tag
 ../gallery/add_labels_with_features.rst
 ../gallery/anisotropic_scale.rst
 ../gallery/glasbey-colormap.rst
+../gallery/units_impact_rendering.rst
 ../gallery/vortex.rst
 ../gallery/xarray-latlon-timeseries.rst
 ```

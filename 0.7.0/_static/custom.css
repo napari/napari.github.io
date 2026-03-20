@@ -62,3 +62,181 @@ html[data-theme="dark"] div.sphx-glr-download a:hover {
   color: var(--napari-color-text-base);
   font-weight: 700;
 }
+
+/* ── Homepage featured example ─────────────────────────────────────── */
+
+.homepage-featured-example {
+  display: grid;
+  align-items: center;
+  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+  margin: 1.5rem 0 2rem;
+}
+
+.homepage-featured-example__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.homepage-featured-example__title {
+  margin-top: 0;
+}
+
+.homepage-featured-example__title a {
+  text-decoration: none;
+}
+
+.homepage-featured-example__title a:hover {
+  text-decoration: underline;
+}
+
+.homepage-featured-example__media {
+  display: block;
+}
+
+.homepage-featured-example__media img {
+  border-radius: 5px;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+  display: block;
+  width: 100%;
+}
+
+.homepage-featured-example__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .homepage-featured-example {
+    grid-template-columns: 1fr;
+  }
+
+  .homepage-featured-example__media {
+    order: -1;
+  }
+}
+
+/* ── Homepage quicklinks (icon columns) ──────────────────────────────── */
+
+.homepage-quicklinks {
+  border-top: 1px solid var(--napari-dark-gray);
+  border-bottom: 1px solid var(--napari-dark-gray);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.75rem 0;
+  justify-content: center;
+  margin: 1rem 0 1.5rem;
+  padding: 1rem 0;
+}
+
+.homepage-quicklinks a {
+  align-items: center;
+  border-right: 1px solid var(--napari-dark-gray);
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  font-weight: 500;
+  gap: 0.5rem;
+  padding: 0.25rem 2rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.homepage-quicklinks a:last-child {
+  border-right: none;
+}
+
+.homepage-quicklinks a:hover {
+  text-decoration: underline;
+}
+
+.homepage-quicklinks i {
+  color: var(--pst-color-primary);
+  font-size: 4rem;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .homepage-quicklinks {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem 0;
+  }
+
+  .homepage-quicklinks a {
+    padding: 0.5rem 1.5rem;
+  }
+
+  .homepage-quicklinks a:nth-child(2n) {
+    border-right: none;
+  }
+}
+
+/* ── Homepage accent cards ───────────────────────────────────────────
+   Install, Download cards with theme-aware napari blue.
+   sphinx-design marks every property !important, so we must too.     */
+
+html[data-theme="light"] .homepage-card-accent,
+html[data-theme="light"] .homepage-card-accent .sd-card-body {
+  background-color: var(--napari-light-blue) !important;
+  border-color: var(--napari-primary-blue) !important;
+}
+
+html[data-theme="dark"] .homepage-card-accent,
+html[data-theme="dark"] .homepage-card-accent .sd-card-body {
+  background-color: color-mix(in srgb, var(--napari-deep-blue), transparent 75%) !important;
+  border-color: var(--napari-deep-blue) !important;
+}
+
+/* ── Homepage featured example buttons ───────────────────────────────
+   "Examples gallery" (sd-btn-primary) matches the accent card napari blue.
+   "Show another example" (sd-btn-outline-primary) is a neutral card-style button.
+   background-image reset prevents any sphinx-design gradient from bleeding through. */
+
+html[data-theme="light"] .homepage-featured-example__actions .sd-btn-primary {
+  background-color: var(--napari-light-blue) !important;
+  background-image: none !important;
+  border-color: var(--napari-primary-blue) !important;
+  color: var(--napari-color-text-base) !important;
+}
+
+html[data-theme="light"] .homepage-featured-example__actions .sd-btn-primary:hover,
+html[data-theme="light"] .homepage-featured-example__actions .sd-btn-primary:focus {
+  background-color: var(--napari-primary-blue) !important;
+  background-image: none !important;
+  border-color: var(--napari-primary-blue) !important;
+  color: var(--napari-color-text-base) !important;
+}
+
+html[data-theme="dark"] .homepage-featured-example__actions .sd-btn-primary {
+  background-color: color-mix(in srgb, var(--napari-deep-blue), transparent 75%) !important;
+  background-image: none !important;
+  border-color: var(--napari-deep-blue) !important;
+  color: var(--napari-color-text-base) !important;
+}
+
+html[data-theme="dark"] .homepage-featured-example__actions .sd-btn-primary:hover,
+html[data-theme="dark"] .homepage-featured-example__actions .sd-btn-primary:focus {
+  background-color: var(--napari-deep-blue) !important;
+  background-image: none !important;
+  border-color: var(--napari-deep-blue) !important;
+  color: var(--napari-color-text-base) !important;
+}
+
+.homepage-featured-example__actions .sd-btn-outline-primary {
+  background-color: var(--pst-color-on-background) !important;
+  background-image: none !important;
+  border-color: var(--pst-color-border) !important;
+  color: var(--napari-color-text-base) !important;
+}
+
+.homepage-featured-example__actions .sd-btn-outline-primary:hover,
+.homepage-featured-example__actions .sd-btn-outline-primary:focus {
+  background-color: var(--pst-color-border) !important;
+  background-image: none !important;
+  border-color: var(--pst-color-border) !important;
+  color: var(--napari-color-text-base) !important;
+}

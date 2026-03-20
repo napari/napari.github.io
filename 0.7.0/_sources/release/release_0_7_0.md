@@ -480,6 +480,7 @@ it saves more than 50MB of disk space for a napari install!
 - Ensure that layers are unlinked after deletion from layerlist  ([#8749](https://github.com/napari/napari/pull/8749))
 - Use custom Font manager to use Qt discovery mechanism ([#8751](https://github.com/napari/napari/pull/8751))
 - Restyle new_layer button creation state visuals ([#8768](https://github.com/napari/napari/pull/8768))
+- Disable opacity slider for multiplicative blending ([#8776](https://github.com/napari/napari/pull/8776))
 
 ## Performance
 
@@ -560,6 +561,8 @@ it saves more than 50MB of disk space for a napari install!
 - Fix: Fire world unit updates after removing layer ([#8772](https://github.com/napari/napari/pull/8772))
 - Do not emit warning about units if there is no layer in viewer ([#8779](https://github.com/napari/napari/pull/8779))
 - Fix colorbar box offset ([#8780](https://github.com/napari/napari/pull/8780))
+- Fix: Qt6 font error on Windows when adding layers or widgets ([#8782](https://github.com/napari/napari/pull/8782))
+- Fix: ValidationError in Drag to Zoom with data ndim>2 ([#8784](https://github.com/napari/napari/pull/8784))
 
 ## Build Tools
 
@@ -622,6 +625,7 @@ it saves more than 50MB of disk space for a napari install!
 - Wayland Debug information ([docs#956](https://github.com/napari/docs/pull/956))
 - Update release notes for 0.7.0rc1 ([docs#957](https://github.com/napari/docs/pull/957))
 - Refresh installation guide, with focus on bundled app instructions ([docs#958](https://github.com/napari/docs/pull/958))
+- Update notes for 0.7.0rc2 ([docs#959](https://github.com/napari/docs/pull/959))
 
 ## Other Pull Requests
 
@@ -718,6 +722,7 @@ it saves more than 50MB of disk space for a napari install!
 - [pre-commit.ci] pre-commit autoupdate ([#8753](https://github.com/napari/napari/pull/8753))
 - Update `imageio`, `pydantic-extra-types`, `tensorstore`, `virtualenv` ([#8773](https://github.com/napari/napari/pull/8773))
 - [pre-commit.ci] pre-commit autoupdate ([#8774](https://github.com/napari/napari/pull/8774))
+- Update plugin manager constraint ([#8781](https://github.com/napari/napari/pull/8781))
 - ci(dependabot): bump the github-actions group with 4 updates ([docs#856](https://github.com/napari/docs/pull/856))
 - Allow to redeploy docs after merge new commits to main branch ([docs#874](https://github.com/napari/docs/pull/874))
 - Add mdformat to pre-commit config ([docs#878](https://github.com/napari/docs/pull/878))

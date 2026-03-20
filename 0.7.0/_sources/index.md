@@ -46,10 +46,10 @@ theme:
 
 # napari: a fast, interactive viewer for multi-dimensional images in Python
 
-`````{grid} 1 1 3 3
+`````{grid} 1 1 2 2
 
 ````{grid-item}
-:columns: 12 12 4 4
+:columns: 12 12 5 5
 
 - **view and explore** 2D, 3D, and higher-dimensional arrays on a canvas;
 - **overlay** derived data such as *points*, *polygons*, *segmentations*, and
@@ -61,7 +61,7 @@ theme:
 ````
 
 ````{grid-item}
-:columns: 12 12 8 8
+:columns: 12 12 7 7
 
 ```{raw} html
 <figure>
@@ -82,55 +82,76 @@ theme:
 
 `````
 
-`````{grid}
+`````{grid} 1 2 2 4
+:gutter: 3
 
-````{grid-item-card} Examples
-:link: gallery
+````{grid-item-card} Install with Python
+:link: install-python-package
 :link-type: ref
+:class-card: homepage-card-accent
 
-See some of the things napari can do.
+Install napari in a Python environment for the most customizable experience.
 ````
 
-````{grid-item-card} Installation
-:link: napari-installation
+````{grid-item-card} Download napari app
+:link: installation_bundle_conda
 :link-type: ref
+:class-card: homepage-card-accent
 
-How to install napari.
+A standalone installer for when you want napari without setting up Python first.
 ````
 
-````{grid-item-card} Getting started
-:link: launch
+````{grid-item-card} Quick start
+:link: napari-quick-start
 :link-type: ref
 
-Get started with napari.
-````
-
-`````
-
-`````{grid}
-
-````{grid-item-card} Community
-:link: community
-:link-type: ref
-
-Forums, web chat, video chat, where to ask questions and more! Join us!
-````
-
-````{grid-item-card} Governance
-:link: napari-governance
-:link-type: ref
-
-napari is developed by a global community. See how.
+Launch napari, open images, and learn the core interactions of the viewer.
 ````
 
 ````{grid-item-card} Plugins
 :link: plugins-index
 :link-type: ref
 
-napari is extensible! Find plugins, or develop your own!
+Discover how plugins extend napari and learn to build your own.
 ````
 
 `````
+
+```{raw} html
+<div class="homepage-quicklinks">
+  <a href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments"></i><span>Community chat</span></a>
+  <a href="community/meeting_schedule.html"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
+  <a href="release/index.html"><i class="fa-solid fa-newspaper"></i><span>Release notes</span></a>
+  <a href="troubleshooting.html"><i class="fa-solid fa-circle-question"></i><span>Troubleshooting</span></a>
+  <a href="roadmaps/index.html"><i class="fa-solid fa-map"></i><span>Roadmap</span></a>
+  <a href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss"></i><span>Blog</span></a>
+</div>
+```
+
+```{raw} html
+<section class="homepage-featured-example" aria-labelledby="homepage-featured-example-title">
+  <div class="homepage-featured-example__copy">
+    <h3 id="homepage-featured-example-title" class="homepage-featured-example__title">
+      <a id="homepage-featured-example-link" href="gallery/add_image.html">Add image</a>
+    </h3>
+    <p id="homepage-featured-example-description" class="homepage-featured-example__description">
+      Display an image in napari and explore the viewer with a minimal example.
+    </p>
+    <div class="homepage-featured-example__actions">
+      <a class="sd-btn sd-btn-primary sd-shadow-sm" href="gallery.html">Examples gallery</a>
+      <button class="sd-btn sd-btn-outline-primary sd-shadow-sm" id="homepage-featured-example-reroll" type="button">Show another example</button>
+    </div>
+  </div>
+  <a class="homepage-featured-example__media" href="gallery/add_image.html" aria-label="View the featured napari example">
+    <img
+      id="homepage-featured-example-image"
+      src="_images/sphx_glr_add_image_001.png"
+      alt="Screenshot preview of the add image example"
+      loading="lazy"
+    >
+  </a>
+</section>
+```
 
 ## funding
 

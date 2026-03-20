@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=06d214e2" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=8434ccff" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=a53443ab"></script>
+    <script src="../_static/documentation_options.js?v=9ffed32d"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -68,17 +68,18 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0rc3';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
+    <script src="../_static/random_example.js?v=309bf8a8"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="napari 0.6.6" href="release_0_6_6.html" />
     <link rel="prev" title="Release Notes" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="dev" />
+  <meta name="docsearch:version" content="0.7.0" />
   </head>
   
   
@@ -211,6 +212,14 @@
     
     <div class="navbar-header-items__end">
       
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
       
         <div class="navbar-item">
 <div class="version-switcher__container dropdown pst-js-only">
@@ -260,6 +269,13 @@
     
   </div>
   
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
   
 
   
@@ -1262,6 +1278,7 @@ it saves more than 50MB of disk space for a napari install!</p></li>
 <li><p>Ensure that layers are unlinked after deletion from layerlist  (<a class="reference external" href="https://github.com/napari/napari/pull/8749">#8749</a>)</p></li>
 <li><p>Use custom Font manager to use Qt discovery mechanism (<a class="reference external" href="https://github.com/napari/napari/pull/8751">#8751</a>)</p></li>
 <li><p>Restyle new_layer button creation state visuals (<a class="reference external" href="https://github.com/napari/napari/pull/8768">#8768</a>)</p></li>
+<li><p>Disable opacity slider for multiplicative blending (<a class="reference external" href="https://github.com/napari/napari/pull/8776">#8776</a>)</p></li>
 </ul>
 </section>
 <section id="id1">
@@ -1346,6 +1363,8 @@ it saves more than 50MB of disk space for a napari install!</p></li>
 <li><p>Fix: Fire world unit updates after removing layer (<a class="reference external" href="https://github.com/napari/napari/pull/8772">#8772</a>)</p></li>
 <li><p>Do not emit warning about units if there is no layer in viewer (<a class="reference external" href="https://github.com/napari/napari/pull/8779">#8779</a>)</p></li>
 <li><p>Fix colorbar box offset (<a class="reference external" href="https://github.com/napari/napari/pull/8780">#8780</a>)</p></li>
+<li><p>Fix: Qt6 font error on Windows when adding layers or widgets (<a class="reference external" href="https://github.com/napari/napari/pull/8782">#8782</a>)</p></li>
+<li><p>Fix: ValidationError in Drag to Zoom with data ndim&gt;2 (<a class="reference external" href="https://github.com/napari/napari/pull/8784">#8784</a>)</p></li>
 </ul>
 </section>
 <section id="build-tools">
@@ -1412,6 +1431,7 @@ it saves more than 50MB of disk space for a napari install!</p></li>
 <li><p>Wayland Debug information (<a class="reference external" href="https://github.com/napari/docs/pull/956">docs#956</a>)</p></li>
 <li><p>Update release notes for 0.7.0rc1 (<a class="reference external" href="https://github.com/napari/docs/pull/957">docs#957</a>)</p></li>
 <li><p>Refresh installation guide, with focus on bundled app instructions (<a class="reference external" href="https://github.com/napari/docs/pull/958">docs#958</a>)</p></li>
+<li><p>Update notes for 0.7.0rc2 (<a class="reference external" href="https://github.com/napari/docs/pull/959">docs#959</a>)</p></li>
 </ul>
 </section>
 <section id="other-pull-requests">
@@ -1510,6 +1530,7 @@ it saves more than 50MB of disk space for a napari install!</p></li>
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8753">#8753</a>)</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">imageio</span></code>, <code class="docutils literal notranslate"><span class="pre">pydantic-extra-types</span></code>, <code class="docutils literal notranslate"><span class="pre">tensorstore</span></code>, <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8773">#8773</a>)</p></li>
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8774">#8774</a>)</p></li>
+<li><p>Update plugin manager constraint (<a class="reference external" href="https://github.com/napari/napari/pull/8781">#8781</a>)</p></li>
 <li><p>ci(dependabot): bump the github-actions group with 4 updates (<a class="reference external" href="https://github.com/napari/docs/pull/856">docs#856</a>)</p></li>
 <li><p>Allow to redeploy docs after merge new commits to main branch (<a class="reference external" href="https://github.com/napari/docs/pull/874">docs#874</a>)</p></li>
 <li><p>Add mdformat to pre-commit config (<a class="reference external" href="https://github.com/napari/docs/pull/878">docs#878</a>)</p></li>

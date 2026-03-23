@@ -563,6 +563,7 @@ it saves more than 50MB of disk space for a napari install!
 - Fix colorbar box offset ([#8780](https://github.com/napari/napari/pull/8780))
 - Fix: Qt6 font error on Windows when adding layers or widgets ([#8782](https://github.com/napari/napari/pull/8782))
 - Fix: ValidationError in Drag to Zoom with data ndim>2 ([#8784](https://github.com/napari/napari/pull/8784))
+- Ensure that visible icon when dialog ask to select plugin to open file ([#8788](https://github.com/napari/napari/pull/8788))
 
 ## Build Tools
 
@@ -626,6 +627,8 @@ it saves more than 50MB of disk space for a napari install!
 - Update release notes for 0.7.0rc1 ([docs#957](https://github.com/napari/docs/pull/957))
 - Refresh installation guide, with focus on bundled app instructions ([docs#958](https://github.com/napari/docs/pull/958))
 - Update notes for 0.7.0rc2 ([docs#959](https://github.com/napari/docs/pull/959))
+- Update release notes for 0.7.0rc3 ([docs#961](https://github.com/napari/docs/pull/961))
+- Cleanup viewers in `open images` guide to fix squashed viewers ([docs#963](https://github.com/napari/docs/pull/963))
 
 ## Other Pull Requests
 

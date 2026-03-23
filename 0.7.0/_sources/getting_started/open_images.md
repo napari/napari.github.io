@@ -74,6 +74,13 @@ _split_stack(viewer.layers)
 nbscreenshot(viewer, alt_text="napari viewer showing a multi-channel tif microscopy image of a Drosophila embryo with channels split into layers.")
 ```
 
+```{code-cell} python
+---
+tags: [remove-cell]
+---
+viewer.close()
+```
+
 As mentioned above, there are situations where the builtin reader will not be sufficient. For example, `imageio` typically does not support custom commercial/proprietary formats such as those used in microscopy (e.g. CZI, LIF, ND2) or remote sensing (e.g. ENVI). In these cases, napari's reading capabilities need to be extended using an appropriate reader plugin.
 
 ## Using a plugin reader
@@ -111,6 +118,13 @@ viewer.camera.angles = (92, -24, 15)
 nbscreenshot(viewer, alt_text="napari viewer showing a 3D mesh of an airplane opened via napari-meshio.")
 ```
 
+```{code-cell} python
+---
+tags: [remove-cell]
+---
+viewer.close()
+```
+
 ### General-purpose reader plugins
 
 There are a few examples of plugins bundling multiple readers. One example is [ndevio](https://napari-hub.org/plugins/ndevio.html) which wraps the family of [bioio](https://bioio.readthedocs.io/en/latest/) packages to provide support for multiple microscopy file formats. Often such bundled reader plugins come with a set of formats supported by default, and allow the users to add optional formats, typically by installing additional dependencies. 
@@ -130,6 +144,13 @@ viewer.window.resize(width, height)
 nbscreenshot(viewer, alt_text="napari viewer showing a multi-channel zarr image opened via ndevio of a in situ genome sequencing in a fibroblast.")
 ```
 
+```{code-cell} python
+---
+tags: [remove-cell]
+---
+viewer.close()
+```
+
 ## Using the napari console to open an image
 
 There are a few cases, where it is necessary to resort to some coding in the console (or notebook) to open an image. You can find the console in the bottom panel of napari:
@@ -147,14 +168,27 @@ file_path_tiff2 = pooch.retrieve(
     fname="coli_nucl_ori_ter.tif",
     path=download_folder
 )
+viewer = napari.Viewer()
 ```
 
 ```{code-cell} ipython3
+# Open the downloaded data with dimensions CZYX
+viewer.open(file_path_tiff2)
+
+# Switch to viewing the first channel
+viewer.dims.set_point(0, 0)
+```
+```{code-cell} ipython3
 :tags: [remove-input]
 
-viewer = napari.Viewer()
-viewer.open(file_path_tiff2)
 nbscreenshot(viewer, alt_text="napari viewer showing a multi-channel TIFF image of E. coli cells.")
+```
+
+```{code-cell} python
+---
+tags: [remove-cell]
+---
+viewer.close()
 ```
 
 Instead we can now first read the data for example with `imageio`, and add it to the viewer while specifying which axis of the array should be split into individual layers, using the `channel_axis` argument:
@@ -175,6 +209,13 @@ viewer.add_image(image, channel_axis=0);
 nbscreenshot(viewer, alt_text="napari viewer showing a multi-channel TIFF image of E. coli cells with a layer per channel.")
 ```
 
+```{code-cell} python
+---
+tags: [remove-cell]
+---
+viewer.close()
+```
+
 Note that different reader plugins might interpret your data in different ways. With the same data as above where the builtin `imageio` reader did not split the channels into layers, the `ndevio` plugin identified the channels from the metadata and assigned them separate layers:
 
 ```{code-cell} ipython3
@@ -185,11 +226,18 @@ viewer.open(file_path_tiff2, plugin='ndevio')
 nbscreenshot(viewer, alt_text="napari viewer showing a multi-channel TIFF image of E. coli cells opened via ndevio.")
 ```
 
+```{code-cell} python
+---
+tags: [remove-cell]
+---
+viewer.close()
+```
+
 ## Using plugins to improve image display
 
 With the release of napari 0.7.0, [napari-metadata](https://napari.org/napari-metadata) is included with the bundle, conda-forge and with `pip install "napari[optional]"` (or `napari[all]`) installations. This plugin provides a widget to view and edit the metadata of layers. This can be useful to check if the metadata was correctly read, and to edit it if necessary. 
 
-![napari metadata widget](https://raw.githubusercontent.com/napari/napari-metadata/main/resources/horizontal-widget.png)
+![napari metadata widget](https://raw.githubusercontent.com/napari/napari-metadata/main/docs/images/horizontal-widget.png)
 
 In the case of badly interpreted dimensions, one can also reshape the data using certain plugins. For example the [napari-skimage](https://napari-hub.org/plugins/napari-skimage.html) plugin provides a tool to reshape layers via the `Plugins -> napari skimage -> Axis operations` menu. Here we use the `swap axes` function to exchange the X and Y axes:
 
@@ -212,4 +260,11 @@ viewer.grid.enabled = True
 
 viewer.reset_view()
 nbscreenshot(viewer, alt_text="napari viewer showing twice the same multi-channel TIFF images in grid mode, the second with X and Y axes swapped via napari-skimage.")
+```
+
+```{code-cell} python
+---
+tags: [remove-cell]
+---
+viewer.close()
 ```

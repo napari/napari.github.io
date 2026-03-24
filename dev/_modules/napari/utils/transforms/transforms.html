@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=30955e03"></script>
+    <script src="../../../../_static/documentation_options.js?v=9d11c640"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -493,7 +493,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -502,7 +502,7 @@ window.runMermaid = runMermaid;</script>
     <link rel="search" title="Search" href="../../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.7.0" />
+  <meta name="docsearch:version" content="dev" />
   </head>
   
   
@@ -904,8 +904,9 @@ window.runMermaid = runMermaid;</script>
                 <article class="bd-article">
                   
   <h1>Source code for napari.utils.transforms.transforms</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Sequence</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">overload</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">overload</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy.typing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npt</span>
@@ -929,6 +930,9 @@ window.runMermaid = runMermaid;</script>
     <span class="n">translate_to_vector</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Sequence</span>
 
 
 <div class="viewcode-block" id="Transform">
@@ -962,7 +966,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Transform&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transform</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inverse_func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Inverse function was not provided.&#39;</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -975,14 +979,14 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="Transform.compose">
 <a class="viewcode-back" href="../../../../api/napari.utils.transforms.Transform.html#napari.utils.transforms.Transform.compose">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">compose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transform</span><span class="p">:</span> <span class="s1">&#39;Transform&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Transform&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transform</span><span class="p">:</span> <span class="n">Transform</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transform</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the composite of this transform and the provided one.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">TransformChain</span><span class="p">([</span><span class="bp">self</span><span class="p">,</span> <span class="n">transform</span><span class="p">])</span></div>
 
 
 <div class="viewcode-block" id="Transform.set_slice">
 <a class="viewcode-back" href="../../../../api/napari.utils.transforms.Transform.html#napari.utils.transforms.Transform.set_slice">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;Transform&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Transform</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a transform subset to the visible dimensions.</span>
 
 <span class="sd">        Parameters</span>
@@ -1002,7 +1006,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="Transform.expand_dims">
 <a class="viewcode-back" href="../../../../api/napari.utils.transforms.Transform.html#napari.utils.transforms.Transform.expand_dims">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;Transform&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Transform</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a transform with added axes for non-visible dimensions.</span>
 
 <span class="sd">        Parameters</span>
@@ -1072,7 +1076,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_T</span><span class="p">:</span> <span class="o">...</span>
 
     <span class="nd">@overload</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">slice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TransformChain[_T]&#39;</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">slice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TransformChain</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span> <span class="o">...</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="k">if</span> <span class="sa">f</span><span class="s1">&#39;getitem_</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_dict</span><span class="p">:</span>
@@ -1095,7 +1099,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TransformChain&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TransformChain</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the inverse transform chain.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="s1">&#39;inverse&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_dict</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cache_dict</span><span class="p">[</span><span class="s1">&#39;inverse&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">TransformChain</span><span class="p">(</span>
@@ -1135,7 +1139,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="TransformChain.set_slice">
 <a class="viewcode-back" href="../../../../api/napari.utils.transforms.TransformChain.html#napari.utils.transforms.TransformChain.set_slice">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;TransformChain&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">TransformChain</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a transform chain subset to the visible dimensions.</span>
 
 <span class="sd">        Parameters</span>
@@ -1153,7 +1157,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="TransformChain.expand_dims">
 <a class="viewcode-back" href="../../../../api/napari.utils.transforms.TransformChain.html#napari.utils.transforms.TransformChain.expand_dims">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;TransformChain&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">TransformChain</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a transform chain with added axes for non-visible dimensions.</span>
 
 <span class="sd">        Parameters</span>
@@ -1233,13 +1237,13 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">out</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ScaleTranslate&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ScaleTranslate</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the inverse transform.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">ScaleTranslate</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">translate</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ScaleTranslate.compose">
 <a class="viewcode-back" href="../../../../api/napari.utils.transforms.ScaleTranslate.html#napari.utils.transforms.ScaleTranslate.compose">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">compose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transform</span><span class="p">:</span> <span class="s1">&#39;Transform&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Transform&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transform</span><span class="p">:</span> <span class="n">Transform</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transform</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the composite of this transform and the provided one.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">ScaleTranslate</span><span class="p">):</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">transform</span><span class="p">)</span>
@@ -1250,7 +1254,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="ScaleTranslate.set_slice">
 <a class="viewcode-back" href="../../../../api/napari.utils.transforms.ScaleTranslate.html#napari.utils.transforms.ScaleTranslate.set_slice">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ScaleTranslate&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ScaleTranslate</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a transform subset to the visible dimensions.</span>
 
 <span class="sd">        Parameters</span>
@@ -1270,7 +1274,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="ScaleTranslate.expand_dims">
 <a class="viewcode-back" href="../../../../api/napari.utils.transforms.ScaleTranslate.html#napari.utils.transforms.ScaleTranslate.expand_dims">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ScaleTranslate&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ScaleTranslate</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a transform with added axes for non-visible dimensions.</span>
 
 <span class="sd">        Parameters</span>
@@ -1595,7 +1599,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">affine_matrix</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Affine&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Affine</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the inverse transform.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="s1">&#39;inverse&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_dict</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cache_dict</span><span class="p">[</span><span class="s1">&#39;inverse&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Affine</span><span class="p">(</span>
@@ -1605,10 +1609,10 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_dict</span><span class="p">[</span><span class="s1">&#39;inverse&#39;</span><span class="p">]</span>
 
     <span class="nd">@overload</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">compose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transform</span><span class="p">:</span> <span class="s1">&#39;Affine&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Affine&#39;</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transform</span><span class="p">:</span> <span class="n">Affine</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Affine</span><span class="p">:</span> <span class="o">...</span>
 
     <span class="nd">@overload</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">compose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transform</span><span class="p">:</span> <span class="s1">&#39;Transform&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Transform&#39;</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transform</span><span class="p">:</span> <span class="n">Transform</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transform</span><span class="p">:</span> <span class="o">...</span>
 
 <div class="viewcode-block" id="Affine.compose">
 <a class="viewcode-back" href="../../../../api/napari.utils.transforms.Affine.html#napari.utils.transforms.Affine.compose">[docs]</a>
@@ -1622,7 +1626,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="Affine.set_slice">
 <a class="viewcode-back" href="../../../../api/napari.utils.transforms.Affine.html#napari.utils.transforms.Affine.set_slice">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;Affine&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Affine</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a transform subset to the visible dimensions.</span>
 
 <span class="sd">        Parameters</span>
@@ -1654,9 +1658,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="Affine.replace_slice">
 <a class="viewcode-back" href="../../../../api/napari.utils.transforms.Affine.html#napari.utils.transforms.Affine.replace_slice">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">replace_slice</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">transform</span><span class="p">:</span> <span class="s1">&#39;Affine&#39;</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Affine&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">replace_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">transform</span><span class="p">:</span> <span class="n">Affine</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Affine</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a transform where the transform at the indicated n dimensions is replaced with another n-dimensional transform</span>
 
 <span class="sd">        Parameters</span>
@@ -1694,7 +1696,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="Affine.expand_dims">
 <a class="viewcode-back" href="../../../../api/napari.utils.transforms.Affine.html#napari.utils.transforms.Affine.expand_dims">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;Affine&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Affine</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a transform with added axes for non-visible dimensions.</span>
 
 <span class="sd">        Parameters</span>
@@ -1878,7 +1880,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="CompositeAffine.set_slice">
 <a class="viewcode-back" href="../../../../api/napari.utils.transforms.CompositeAffine.html#napari.utils.transforms.CompositeAffine.set_slice">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;CompositeAffine&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">CompositeAffine</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">CompositeAffine</span><span class="p">(</span>
             <span class="n">scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_scale</span><span class="p">[</span><span class="n">axes</span><span class="p">],</span>
             <span class="n">translate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_translate</span><span class="p">[</span><span class="n">axes</span><span class="p">],</span>
@@ -1893,7 +1895,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="CompositeAffine.expand_dims">
 <a class="viewcode-back" href="../../../../api/napari.utils.transforms.CompositeAffine.html#napari.utils.transforms.CompositeAffine.expand_dims">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;CompositeAffine&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">CompositeAffine</span><span class="p">:</span>
         <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
         <span class="n">not_axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">]</span>
         <span class="n">rotate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>

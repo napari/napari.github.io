@@ -221,7 +221,7 @@ in the inheritance madness, you can also hover over the buttons to get details a
 
 PS -- You can now also create these new layers from the `File -> New Layer` menu!
 
-#### Better text overalys 🔡
+#### Better text overlays 🔡
 
 With [#8236](https://github.com/napari/napari/pull/8236), we've not only refactored text overlays
 so they're easier to implement, but we've also introduced two new long-requested overlays:

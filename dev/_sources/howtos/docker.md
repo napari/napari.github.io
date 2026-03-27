@@ -66,7 +66,7 @@ This image features a series of environment variables you can use to customize i
 ## For development
 
 The Docker images are also useful for developers who need to debug issues on Linux.
-The images include the latest napari version published on PyPI by default, but you can also install your own local version of napari if needed.
+The images include the most recent stable napari version published on PyPI by default, but you can also install your own local version of napari if needed.
 For this, you need to mount a volume as part of the `docker run` command and make sure you land in a `bash` session:
 
 ```bash

@@ -44,7 +44,7 @@ through several CI workflows detailed below.
        to GitHub pages at the `gh-pages` branch of
        [napari/napari.github.io](https://github.com/napari/napari.github.io/tree/gh-pages).
      - Always deploys to the `dev/` folder on `napari.github.io` (version
-       "latest" on the website).
+       "dev" on the website).
      - Deployment is triggered by any commit to the `main` branch on `napari/docs`
        (and consequently triggers a new deployment of the `napari.org`
        website.)

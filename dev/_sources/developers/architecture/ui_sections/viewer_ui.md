@@ -289,65 +289,65 @@ graph LR
 ```
 napari/
 ├─components/
-│ ├─grid.py
-│ ├─_viewer_constants.py
 │ ├─viewer_model.py
-│ ├─_viewer_mouse_bindings.py
-│ ├─_layer_slicer.py
 │ ├─tooltip.py
-│ ├─camera.py
 │ ├─overlays/
-│ │ ├─base.py
-│ │ ├─bounding_box.py
-│ │ ├─axes.py
-│ │ ├─__init__.py
-│ │ ├─colorbar.py
 │ │ ├─zoom.py
-│ │ ├─text.py
-│ │ ├─scale_bar.py
-│ │ ├─labels_polygon.py
-│ │ ├─brush_circle.py
+│ │ ├─__init__.py
 │ │ ├─interaction_box.py
-│ │ └─welcome.py
-│ ├─cursor.py
+│ │ ├─welcome.py
+│ │ ├─text.py
+│ │ ├─labels_polygon.py
+│ │ ├─base.py
+│ │ ├─axes.py
+│ │ ├─brush_circle.py
+│ │ ├─colorbar.py
+│ │ ├─scale_bar.py
+│ │ └─bounding_box.py
+│ ├─_viewer_key_bindings.py
 │ ├─dims.py
+│ ├─_layer_slicer.py
+│ ├─grid.py
 │ ├─layerlist.py
-│ └─_viewer_key_bindings.py
+│ ├─_viewer_constants.py
+│ ├─camera.py
+│ ├─_viewer_mouse_bindings.py
+│ └─cursor.py
 ├─_qt/
-│ ├─qt_viewer.py
-│ ├─threads/
-│ │ ├─status_checker.py
-│ │ └─__init__.py
-│ ├─layer_controls/
-│ │ └─__init__.py
-│ ├─qthreading.py
-│ ├─widgets/
-│ │ ├─qt_dims_sorter.py
-│ │ ├─qt_dims_slider.py
-│ │ ├─qt_scrollbar.py
-│ │ ├─qt_dims.py
-│ │ ├─qt_mirrored_sliders_popup.py
-│ │ ├─qt_spinbox.py
-│ │ ├─qt_command_palette.py
-│ │ ├─qt_viewer_buttons.py
-│ │ ├─qt_tooltip.py
-│ │ ├─qt_viewer_dock_widget.py
-│ │ └─qt_viewer_status_bar.py
-│ ├─utils.py
 │ ├─containers/
 │ │ └─__init__.py
+│ ├─qthreading.py
+│ ├─utils.py
+│ ├─_qapp_model/
+│ │ ├─injection/
+│ │ │ ├─__init__.py
+│ │ │ ├─_qproviders.py
+│ │ │ └─_qprocessors.py
+│ │ └─qactions/
+│ │   ├─__init__.py
+│ │   ├─_layerlist_context.py
+│ │   └─_debug.py
+│ ├─widgets/
+│ │ ├─qt_spinbox.py
+│ │ ├─qt_mirrored_sliders_popup.py
+│ │ ├─qt_tooltip.py
+│ │ ├─qt_command_palette.py
+│ │ ├─qt_viewer_buttons.py
+│ │ ├─qt_viewer_dock_widget.py
+│ │ ├─qt_scrollbar.py
+│ │ ├─qt_dims_slider.py
+│ │ ├─qt_dims.py
+│ │ ├─qt_dims_sorter.py
+│ │ └─qt_viewer_status_bar.py
+│ ├─layer_controls/
+│ │ └─__init__.py
 │ ├─qt_main_window.py
+│ ├─threads/
+│ │ ├─__init__.py
+│ │ └─status_checker.py
 │ ├─dialogs/
 │ │ └─__init__.py
-│ └─_qapp_model/
-│   ├─injection/
-│   │ ├─__init__.py
-│   │ ├─_qprocessors.py
-│   │ └─_qproviders.py
-│   └─qactions/
-│     ├─__init__.py
-│     ├─_debug.py
-│     └─_layerlist_context.py
+│ └─qt_viewer.py
 └─layers/
   └─__init__.py
 ```

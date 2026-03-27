@@ -77,8 +77,8 @@ napari/
 ├─utils/
 │ └─notifications.py
 └─_qt/
-  ├─qt_viewer.py
   ├─widgets/
   │ └─qt_viewer_buttons.py
-  └─qt_main_window.py
+  ├─qt_main_window.py
+  └─qt_viewer.py
 ```

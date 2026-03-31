@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: March 27, 2026*
+*Last updated: March 31, 2026*
 
 
 ## Recent Releases (Last 3 Months)
@@ -453,6 +453,11 @@ PS: Since we did quite a few changes behind the scenes on this new version of th
 
 ````
 
+
+
+
+## Releases from 6-12 Months Ago
+
 ````{dropdown} napari 0.6.5 (October 2025)
 :open:
 
@@ -517,11 +522,6 @@ A note for our contributors and plugin developers: we transferred our dev-relate
 [View full release notes →](release_0_6_5)
 
 ````
-
-
-
-
-## Releases from 6-12 Months Ago
 
 ````{dropdown} napari 0.6.4 (August 2025)
 :open:

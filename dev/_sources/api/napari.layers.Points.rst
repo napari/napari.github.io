@@ -111,6 +111,7 @@ napari.layers.Points
       ~Points.border_color
       ~Points.border_color_cycle
       ~Points.border_color_mode
+      ~Points.border_colorbar
       ~Points.border_colormap
       ~Points.border_contrast_limits
       ~Points.border_width
@@ -133,6 +134,7 @@ napari.layers.Points
       ~Points.face_color
       ~Points.face_color_cycle
       ~Points.face_color_mode
+      ~Points.face_colorbar
       ~Points.face_colormap
       ~Points.face_contrast_limits
       ~Points.feature_defaults

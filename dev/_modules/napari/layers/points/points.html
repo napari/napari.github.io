@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=223a76e9"></script>
+    <script src="../../../../_static/documentation_options.js?v=0d048e0a"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1382,6 +1382,8 @@ window.runMermaid = runMermaid;</script>
             <span class="n">border_width_is_relative</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">face_color</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">current_face_color</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">face_contrast_limits</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">face_colormap</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">border_color</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">current_border_color</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">properties</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -1470,6 +1472,19 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># Trigger generation of view slice and thumbnail</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">extent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">slice_done</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_refresh_highlight</span><span class="p">)</span>
+
+        <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.overlays</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColorBarOverlay</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;face_colorbar&#39;</span><span class="p">:</span> <span class="n">ColorBarOverlay</span><span class="p">(</span>
+                    <span class="n">colormanager_attribute</span><span class="o">=</span><span class="s1">&#39;_face&#39;</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;border_colorbar&#39;</span><span class="p">:</span> <span class="n">ColorBarOverlay</span><span class="p">(</span>
+                    <span class="n">colormanager_attribute</span><span class="o">=</span><span class="s1">&#39;_border&#39;</span>
+                <span class="p">),</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -1635,6 +1650,16 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_update_current_properties</span><span class="p">(</span><span class="n">current_properties</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_properties</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">feature_defaults</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">border_colorbar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The colorbar associated with this layer&#39;s color manager.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;border_colorbar&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">face_colorbar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The colorbar associated with this layer&#39;s color manager.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;face_colorbar&#39;</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">property_choices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>

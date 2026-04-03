@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=223a76e9"></script>
+    <script src="../../../_static/documentation_options.js?v=0d048e0a"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -926,6 +926,7 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QSplitter</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QWidget</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">superqt</span><span class="w"> </span><span class="kn">import</span> <span class="n">ensure_main_thread</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari._app_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_app_model</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.containers</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtLayerList</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.dialogs.qt_reader_dialog</span><span class="w"> </span><span class="kn">import</span> <span class="n">handle_gui_reading</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.dialogs.screenshot_dialog</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScreenshotDialog</span>
@@ -1158,7 +1159,9 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
         <span class="c1"># bind shortcuts stored in settings last.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_bind_shortcuts</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">get_app_model</span><span class="p">()</span><span class="o">.</span><span class="n">register_with_namespace</span><span class="p">(</span><span class="s1">&#39;QtViewer&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">):</span>
+            <span class="c1"># we overwrite global injection namespace to ensure that correct QtViewer will be provided.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_bind_shortcuts</span><span class="p">()</span>
 
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dask_cache_settings</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">dask</span><span class="p">)</span>

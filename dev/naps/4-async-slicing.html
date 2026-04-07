@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/naps/4-async-slicing.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Author, Andy Sweet &lt; andrewdsweet@gmail.com&gt;, Jun Xi Ni, Eric Perlman, Kim Pevey,, Created, 2022-06-23,, Resolution, napari/napari#5052,, Resolved, 2022-09-19,, Status, Accepted,, Type, Standards Track,, Version effective, 0.5,. Abstract: Slicing a layer in napari generates a partial view o..." />
+<meta property="og:description" content="Author, Andy Sweet &lt; andrewdsweet@gmail.com&gt;, Jun Xi Ni, Eric Perlman, Kim Pevey,, Created, 2022-06-23,, Resolution, https://github.com/napari/napari/pull/5052,, Resolved, 2022-09-19,, Status, Accepted,, Type, Standards Track,, Version effective, 0.5,. Abstract: Slicing a layer in napari ge..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="Author, Andy Sweet &lt; andrewdsweet@gmail.com&gt;, Jun Xi Ni, Eric Perlman, Kim Pevey,, Created, 2022-06-23,, Resolution, napari/napari#5052,, Resolved, 2022-09-19,, Status, Accepted,, Type, Standards Track,, Version effective, 0.5,. Abstract: Slicing a layer in napari generates a partial view o..." />
+<meta name="description" content="Author, Andy Sweet &lt; andrewdsweet@gmail.com&gt;, Jun Xi Ni, Eric Perlman, Kim Pevey,, Created, 2022-06-23,, Resolution, https://github.com/napari/napari/pull/5052,, Resolved, 2022-09-19,, Status, Accepted,, Type, Standards Track,, Version effective, 0.5,. Abstract: Slicing a layer in napari ge..." />
 
     <title>NAP-4 — Asynchronous slicing &#8212; napari</title>
   
@@ -37,8 +37,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../_static/css/napari-sphinx-theme.css?v=f8f17a90" />
@@ -52,12 +52,12 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=91c000b7" />
   
   <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
 
-    <script src="../_static/documentation_options.js?v=198cb40b"></script>
+    <script src="../_static/documentation_options.js?v=84835f98"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -66,12 +66,13 @@
     <script data-domain="napari.org" defer="defer" src="https://plausible.io/js/plausible.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'naps/4-async-slicing';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <script src="../_static/random_example.js?v=309bf8a8"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -80,14 +81,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="auto">
-
+  <body data-default-mode="auto">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
 
@@ -116,7 +121,7 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
@@ -590,7 +595,7 @@
 <dd class="field-even"><p>2022-06-23</p>
 </dd>
 <dt class="field-odd">Resolution<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="github reference external" href="https://github.com/napari/napari/pull/5052">napari/napari#5052</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://github.com/napari/napari/pull/5052">https://github.com/napari/napari/pull/5052</a></p>
 </dd>
 <dt class="field-even">Resolved<span class="colon">:</span></dt>
 <dd class="field-even"><p>2022-09-19</p>
@@ -1497,27 +1502,27 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0-by" id="id16" role="doc
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="issue-792" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>napari issue 792, <a class="github reference external" href="https://github.com/napari/napari/issues/792">napari/napari#792</a></p>
+<p>napari issue 792, <a class="reference external" href="https://github.com/napari/napari/issues/792">https://github.com/napari/napari/issues/792</a></p>
 </aside>
 <aside class="footnote brackets" id="issue-1353" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
-<p>napari issue 1353, <a class="github reference external" href="https://github.com/napari/napari/issues/1353">napari/napari#1353</a></p>
+<p>napari issue 1353, <a class="reference external" href="https://github.com/napari/napari/issues/1353">https://github.com/napari/napari/issues/1353</a></p>
 </aside>
 <aside class="footnote brackets" id="issue-1775" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
-<p>napari issue 1775, <a class="github reference external" href="https://github.com/napari/napari/issues/1775">napari/napari#1775</a></p>
+<p>napari issue 1775, <a class="reference external" href="https://github.com/napari/napari/issues/1775">https://github.com/napari/napari/issues/1775</a></p>
 </aside>
 <aside class="footnote brackets" id="issue-2156" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
-<p>napari issue 2156, <a class="github reference external" href="https://github.com/napari/napari/issues/2156">napari/napari#2156</a></p>
+<p>napari issue 2156, <a class="reference external" href="https://github.com/napari/napari/issues/2156">https://github.com/napari/napari/issues/2156</a></p>
 </aside>
 <aside class="footnote brackets" id="issue-1574" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
-<p>napari issue 1574, <a class="github reference external" href="https://github.com/napari/napari/issues/1574">napari/napari#1574</a></p>
+<p>napari issue 1574, <a class="reference external" href="https://github.com/napari/napari/issues/1574">https://github.com/napari/napari/issues/1574</a></p>
 </aside>
 <aside class="footnote brackets" id="pull-4334" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">6</a><span class="fn-bracket">]</span></span>
-<p>napari pull request 4334, <a class="github reference external" href="https://github.com/napari/napari/pull/4334">napari/napari#4334</a></p>
+<p>napari pull request 4334, <a class="reference external" href="https://github.com/napari/napari/pull/4334">https://github.com/napari/napari/pull/4334</a></p>
 </aside>
 <aside class="footnote brackets" id="slice-class-diagram" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">7</a><span class="fn-bracket">]</span></span>
@@ -1529,19 +1534,19 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0-by" id="id16" role="doc
 </aside>
 <aside class="footnote brackets" id="tracking-issue" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">9</a><span class="fn-bracket">]</span></span>
-<p>The tracking issue for this work, <a class="github reference external" href="https://github.com/napari/napari/issues/4795">napari/napari#4795</a></p>
+<p>The tracking issue for this work, <a class="reference external" href="https://github.com/napari/napari/issues/4795">https://github.com/napari/napari/issues/4795</a></p>
 </aside>
 <aside class="footnote brackets" id="prototype-pr" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">10</a><span class="fn-bracket">]</span></span>
-<p>A PR that implements a prototype for the approach described here, <a class="github reference external" href="https://github.com/andy-sweet/napari/pull/21">andy-sweet/napari#21</a></p>
+<p>A PR that implements a prototype for the approach described here, <a class="reference external" href="https://github.com/andy-sweet/napari/pull/21">https://github.com/andy-sweet/napari/pull/21</a></p>
 </aside>
 <aside class="footnote brackets" id="issue-2862" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">11</a><span class="fn-bracket">]</span></span>
-<p>napari issue 2862, <a class="github reference external" href="https://github.com/napari/napari/issues/2862">napari/napari#2862</a></p>
+<p>napari issue 2862, <a class="reference external" href="https://github.com/napari/napari/issues/2862">https://github.com/napari/napari/issues/2862</a></p>
 </aside>
 <aside class="footnote brackets" id="pull-4969" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id12">12</a><span class="fn-bracket">]</span></span>
-<p>napari pull request 4969, <a class="github reference external" href="https://github.com/napari/napari/issues/4969">napari/napari#4969</a></p>
+<p>napari pull request 4969, <a class="reference external" href="https://github.com/napari/napari/issues/4969">https://github.com/napari/napari/issues/4969</a></p>
 </aside>
 <aside class="footnote brackets" id="cc0" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>13<span class="fn-bracket">]</span></span>
@@ -1600,8 +1605,8 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0-by" id="id16" role="doc
     class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> On this page
   </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abstract">Abstract</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-and-scope">Motivation and scope</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#goals">Goals</a><ul class="nav section-nav flex-column">
@@ -1667,8 +1672,8 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0-by" id="id16" role="doc
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
 
   <footer class="napari-footer">
 <div class="bd-footer__inner bd-page-width">

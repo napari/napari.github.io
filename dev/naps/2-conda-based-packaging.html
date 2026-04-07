@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/naps/2-conda-based-packaging.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Author, Jaime Rodríguez-Guerra,, Author, Gonzalo Peña-Castellanos,, Created, 2022-05-05,, Resolution, napari/napari#4602,, Resolved, 2022-07-14,, Status, Accepted,, Type,&lt;Standards Track | Process&gt;,, Version effective, 0.4.17, 0.5,. Abstract: napari can be installed through different means,..." />
+<meta property="og:description" content="Author, Jaime Rodríguez-Guerra,, Author, Gonzalo Peña-Castellanos,, Created, 2022-05-05,, Resolution, https://github.com/napari/napari/pull/4602#pullrequestreview-1028720579,, Resolved, 2022-07-14,, Status, Accepted,, Type,&lt;Standards Track | Process&gt;,, Version effective, 0.4.17, 0.5,. Abstr..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="Author, Jaime Rodríguez-Guerra,, Author, Gonzalo Peña-Castellanos,, Created, 2022-05-05,, Resolution, napari/napari#4602,, Resolved, 2022-07-14,, Status, Accepted,, Type,&lt;Standards Track | Process&gt;,, Version effective, 0.4.17, 0.5,. Abstract: napari can be installed through different means,..." />
+<meta name="description" content="Author, Jaime Rodríguez-Guerra,, Author, Gonzalo Peña-Castellanos,, Created, 2022-05-05,, Resolution, https://github.com/napari/napari/pull/4602#pullrequestreview-1028720579,, Resolved, 2022-07-14,, Status, Accepted,, Type,&lt;Standards Track | Process&gt;,, Version effective, 0.4.17, 0.5,. Abstr..." />
 
     <title>NAP-2 — Distributing napari with conda-based packaging &#8212; napari</title>
   
@@ -37,8 +37,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../_static/css/napari-sphinx-theme.css?v=f8f17a90" />
@@ -52,12 +52,12 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=91c000b7" />
   
   <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
 
-    <script src="../_static/documentation_options.js?v=198cb40b"></script>
+    <script src="../_static/documentation_options.js?v=84835f98"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -66,12 +66,13 @@
     <script data-domain="napari.org" defer="defer" src="https://plausible.io/js/plausible.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'naps/2-conda-based-packaging';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <script src="../_static/random_example.js?v=309bf8a8"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -80,14 +81,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="auto">
-
+  <body data-default-mode="auto">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
 
@@ -116,7 +121,7 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
@@ -593,7 +598,7 @@
 <dd class="field-odd"><p>2022-05-05</p>
 </dd>
 <dt class="field-even">Resolution<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="github reference external" href="https://github.com/napari/napari/pull/4602#pullrequestreview-1028720579">napari/napari#4602</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/napari/napari/pull/4602#pullrequestreview-1028720579">https://github.com/napari/napari/pull/4602#pullrequestreview-1028720579</a></p>
 </dd>
 <dt class="field-odd">Resolved<span class="colon">:</span></dt>
 <dd class="field-odd"><p>2022-07-14</p>
@@ -1189,7 +1194,7 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id49" role="doc-
 <aside class="footnote brackets" id="napari-feedstock" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id45">2</a>)</span>
-<p><a class="github reference external" href="https://github.com/conda-forge/napari-feedstock">conda-forge/napari-feedstock</a></p>
+<p><a class="reference external" href="https://github.com/conda-forge/napari-feedstock">https://github.com/conda-forge/napari-feedstock</a></p>
 </aside>
 <aside class="footnote brackets" id="briefcase" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
@@ -1197,19 +1202,19 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id49" role="doc-
 </aside>
 <aside class="footnote brackets" id="cibuildwheel" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/pypa/cibuildwheel">pypa/cibuildwheel</a></p>
+<p><a class="reference external" href="https://github.com/pypa/cibuildwheel">https://github.com/pypa/cibuildwheel</a></p>
 </aside>
 <aside class="footnote brackets" id="audithwheel" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/pypa/auditwheel">pypa/auditwheel</a></p>
+<p><a class="reference external" href="https://github.com/pypa/auditwheel">https://github.com/pypa/auditwheel</a></p>
 </aside>
 <aside class="footnote brackets" id="delocate" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">6</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/matthew-brett/delocate">matthew-brett/delocate</a></p>
+<p><a class="reference external" href="https://github.com/matthew-brett/delocate">https://github.com/matthew-brett/delocate</a></p>
 </aside>
 <aside class="footnote brackets" id="delvewheel" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">7</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/adang1345/delvewheel">adang1345/delvewheel</a></p>
+<p><a class="reference external" href="https://github.com/adang1345/delvewheel">https://github.com/adang1345/delvewheel</a></p>
 </aside>
 <aside class="footnote brackets" id="pypi-parallelism-abi" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">8</a><span class="fn-bracket">]</span></span>
@@ -1221,19 +1226,19 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id49" role="doc-
 </aside>
 <aside class="footnote brackets" id="appimage-crash" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">10</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/napari/napari/issues/3487">napari/napari#3487</a></p>
+<p><a class="reference external" href="https://github.com/napari/napari/issues/3487">https://github.com/napari/napari/issues/3487</a></p>
 </aside>
 <aside class="footnote brackets" id="appimage-crash2" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">11</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/napari/napari/issues/3816">napari/napari#3816</a></p>
+<p><a class="reference external" href="https://github.com/napari/napari/issues/3816">https://github.com/napari/napari/issues/3816</a></p>
 </aside>
 <aside class="footnote brackets" id="staged-recipes-napari" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id12">12</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/conda-forge/staged-recipes/pull/9983">conda-forge/staged-recipes#9983</a></p>
+<p><a class="reference external" href="https://github.com/conda-forge/staged-recipes/pull/9983">https://github.com/conda-forge/staged-recipes/pull/9983</a></p>
 </aside>
 <aside class="footnote brackets" id="napari-feedstock-creation" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id13">13</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/conda-forge/napari-feedstock/commit/815a24cadb9522f4fc81a41c9eb89d45b2e284eb">conda-forge/napari-feedstock</a></p>
+<p><a class="reference external" href="https://github.com/conda-forge/napari-feedstock/commit/815a24cadb9522f4fc81a41c9eb89d45b2e284eb">https://github.com/conda-forge/napari-feedstock/commit/815a24cadb9522f4fc81a41c9eb89d45b2e284eb</a></p>
 </aside>
 <aside class="footnote brackets" id="release-guide" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id14">14</a><span class="fn-bracket">]</span></span>
@@ -1245,39 +1250,39 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id49" role="doc-
 </aside>
 <aside class="footnote brackets" id="staged-recipes-all-plugins" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id16">16</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/conda-forge/staged-recipes/pulls?q=is%3Apr+author%3Agoanpeca+created%3A2022-01-01..2022-05-01">conda-forge/staged-recipes</a></p>
+<p><a class="reference external" href="https://github.com/conda-forge/staged-recipes/pulls?q=is%3Apr+author%3Agoanpeca+created%3A2022-01-01..2022-05-01">https://github.com/conda-forge/staged-recipes/pulls?q=is%3Apr+author%3Agoanpeca+created%3A2022-01-01..2022-05-01</a></p>
 </aside>
 <aside class="footnote brackets" id="scijava-pinnings" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id17">17</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/scijava/pom-scijava/blob/ff35ca810a8717c4f461ef24df4986bf1914c673/pom.xml#L307">scijava/pom-scijava</a></p>
+<p><a class="reference external" href="https://github.com/scijava/pom-scijava/blob/ff35ca810a8717c4f461ef24df4986bf1914c673/pom.xml#L307">https://github.com/scijava/pom-scijava/blob/ff35ca810a8717c4f461ef24df4986bf1914c673/pom.xml#L307</a></p>
 </aside>
 <aside class="footnote brackets" id="conda-forge-pinnings" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id18">18</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/conda-forge/conda-forge-pinning-feedstock/blob/32f93dd/recipe/conda_build_config.yaml">conda-forge/conda-forge-pinning-feedstock</a></p>
+<p><a class="reference external" href="https://github.com/conda-forge/conda-forge-pinning-feedstock/blob/32f93dd/recipe/conda_build_config.yaml">https://github.com/conda-forge/conda-forge-pinning-feedstock/blob/32f93dd/recipe/conda_build_config.yaml</a></p>
 </aside>
 <aside class="footnote brackets" id="maxiconda" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id19">19</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/Semi-ATE/maxiconda-envs">Semi-ATE/maxiconda-envs</a></p>
+<p><a class="reference external" href="https://github.com/Semi-ATE/maxiconda-envs">https://github.com/Semi-ATE/maxiconda-envs</a></p>
 </aside>
 <aside class="footnote brackets" id="constructor" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id20">20</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/conda/constructor">conda/constructor</a></p>
+<p><a class="reference external" href="https://github.com/conda/constructor">https://github.com/conda/constructor</a></p>
 </aside>
 <aside class="footnote brackets" id="constructor-upstream" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id21">21</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/napari/packaging/issues/15#issuecomment-1203806825">napari/packaging#15</a></p>
+<p><a class="reference external" href="https://github.com/napari/packaging/issues/15#issuecomment-1203806825">https://github.com/napari/packaging/issues/15#issuecomment-1203806825</a></p>
 </aside>
 <aside class="footnote brackets" id="menuinst" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id22">22</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/conda/menuinst">conda/menuinst</a></p>
+<p><a class="reference external" href="https://github.com/conda/menuinst">https://github.com/conda/menuinst</a></p>
 </aside>
 <aside class="footnote brackets" id="briefcase-utilities-example" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id24">23</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/napari/napari/blob/be43e127a079f999d830c457d6d69b7c2b56875d/napari/utils/misc.py#L49">napari/napari</a></p>
+<p><a class="reference external" href="https://github.com/napari/napari/blob/be43e127a079f999d830c457d6d69b7c2b56875d/napari/utils/misc.py#L49">https://github.com/napari/napari/blob/be43e127a079f999d830c457d6d69b7c2b56875d/napari/utils/misc.py#L49</a></p>
 </aside>
 <aside class="footnote brackets" id="briefcase-workaround-example" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id25">24</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/napari/napari/blob/be43e127a079f999d830c457d6d69b7c2b56875d/napari/plugins/__init__.py#L34-L42">napari/napari</a></p>
+<p><a class="reference external" href="https://github.com/napari/napari/blob/be43e127a079f999d830c457d6d69b7c2b56875d/napari/plugins/__init__.py#L34-L42">https://github.com/napari/napari/blob/be43e127a079f999d830c457d6d69b7c2b56875d/napari/plugins/__init__.py#L34-L42</a></p>
 </aside>
 <aside class="footnote brackets" id="pyoxidizer" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id26">25</a><span class="fn-bracket">]</span></span>
@@ -1297,7 +1302,7 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id49" role="doc-
 </aside>
 <aside class="footnote brackets" id="napari-installer-class" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id35">29</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/napari/napari/blob/5c10022337601f350ad64ce56eddf6664306e40e/napari/_qt/dialogs/qt_plugin_dialog.py#L64">napari/napari</a></p>
+<p><a class="reference external" href="https://github.com/napari/napari/blob/5c10022337601f350ad64ce56eddf6664306e40e/napari/_qt/dialogs/qt_plugin_dialog.py#L64">https://github.com/napari/napari/blob/5c10022337601f350ad64ce56eddf6664306e40e/napari/_qt/dialogs/qt_plugin_dialog.py#L64</a></p>
 </aside>
 <aside class="footnote brackets" id="napari-hub-api" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id36">30</a><span class="fn-bracket">]</span></span>
@@ -1305,15 +1310,15 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id49" role="doc-
 </aside>
 <aside class="footnote brackets" id="conda-pip-issue-comment" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id37">31</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/napari/napari/issues/3223#issuecomment-972189348">napari/napari#3223</a></p>
+<p><a class="reference external" href="https://github.com/napari/napari/issues/3223#issuecomment-972189348">https://github.com/napari/napari/issues/3223#issuecomment-972189348</a></p>
 </aside>
 <aside class="footnote brackets" id="pamba" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id38">32</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/tlambert03/pamba">tlambert03/pamba</a></p>
+<p><a class="reference external" href="https://github.com/tlambert03/pamba">https://github.com/tlambert03/pamba</a></p>
 </aside>
 <aside class="footnote brackets" id="in-app-update-pr" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id40">33</a><span class="fn-bracket">]</span></span>
-<p><a class="github reference external" href="https://github.com/napari/napari/pull/4422">napari/napari#4422</a></p>
+<p><a class="reference external" href="https://github.com/napari/napari/pull/4422">https://github.com/napari/napari/pull/4422</a></p>
 </aside>
 <aside class="footnote brackets" id="napari-releases-json" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id43">34</a><span class="fn-bracket">]</span></span>
@@ -1383,8 +1388,8 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id49" role="doc-
     class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> On this page
   </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abstract">Abstract</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-and-scope">Motivation and Scope</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-description">Detailed Description</a><ul class="nav section-nav flex-column">
@@ -1445,8 +1450,8 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id49" role="doc-
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
 
   <footer class="napari-footer">
 <div class="bd-footer__inner bd-page-width">

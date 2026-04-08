@@ -55,7 +55,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
 
-    <script src="../_static/documentation_options.js?v=2a0733a1"></script>
+    <script src="../_static/documentation_options.js?v=ddf7819a"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -660,8 +660,10 @@ In 2D viewing the last two values are used.</p>
 <span class="sig-name descname"><span class="pre">angles</span></span><a class="headerlink" href="#napari.components.Camera.angles" title="Link to this definition">#</a></dt>
 <dd><p>Euler angles of camera in 3D viewing (rx, ry, rz), in degrees.
 Only used during 3D viewing.
-Note that Euler angles’s intrinsic degeneracy means different
-sets of Euler angles may lead to the same view.</p>
+Euler angles in 3D do not uniquely represent an orientation, so
+different angle triplets can produce the same view.
+Stored or returned angle values may differ from those that were set,
+while still representing an equivalent camera orientation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>3-tuple</p>

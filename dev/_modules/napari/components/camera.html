@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
 
-    <script src="../../../_static/documentation_options.js?v=2a0733a1"></script>
+    <script src="../../../_static/documentation_options.js?v=ddf7819a"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -947,8 +947,10 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    angles : 3-tuple</span>
 <span class="sd">        Euler angles of camera in 3D viewing (rx, ry, rz), in degrees.</span>
 <span class="sd">        Only used during 3D viewing.</span>
-<span class="sd">        Note that Euler angles&#39;s intrinsic degeneracy means different</span>
-<span class="sd">        sets of Euler angles may lead to the same view.</span>
+<span class="sd">        Euler angles in 3D do not uniquely represent an orientation, so</span>
+<span class="sd">        different angle triplets can produce the same view.</span>
+<span class="sd">        Stored or returned angle values may differ from those that were set,</span>
+<span class="sd">        while still representing an equivalent camera orientation.</span>
 <span class="sd">    perspective : float</span>
 <span class="sd">        Perspective (aka &quot;field of view&quot; in vispy) of the camera (if 3D).</span>
 <span class="sd">    mouse_pan : bool</span>

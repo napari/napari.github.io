@@ -227,55 +227,55 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
-├─_qt/
-│ ├─utils.py
-│ ├─_qplugins/
-│ │ └─_qnpe2.py
-│ ├─_qapp_model/
-│ │ ├─injection/
-│ │ │ ├─_qproviders.py
-│ │ │ └─_qprocessors.py
-│ │ ├─_menus.py
-│ │ └─qactions/
-│ │   ├─__init__.py
-│ │   ├─_file.py
-│ │   ├─_debug.py
-│ │   ├─_help.py
-│ │   └─_plugins.py
-│ ├─widgets/
-│ │ ├─qt_highlight_preview.py
-│ │ ├─qt_progress_bar.py
-│ │ ├─qt_color_swatch.py
-│ │ ├─qt_logger.py
-│ │ ├─qt_font_size.py
-│ │ ├─qt_spinbox.py
-│ │ ├─qt_tooltip.py
-│ │ ├─qt_command_palette.py
-│ │ ├─qt_extension2reader.py
-│ │ ├─qt_scrollbar.py
-│ │ ├─qt_dims_slider.py
-│ │ ├─qt_dims.py
-│ │ ├─qt_dims_sorter.py
-│ │ └─qt_viewer_status_bar.py
-│ ├─qt_main_window.py
-│ ├─dialogs/
-│ │ ├─confirm_close_dialog.py
-│ │ ├─qt_about.py
-│ │ ├─qt_notification.py
-│ │ ├─preferences_dialog.py
-│ │ ├─qt_modal.py
-│ │ ├─qt_activity_dialog.py
-│ │ ├─screenshot_dialog.py
-│ │ └─qt_reader_dialog.py
-│ └─qt_viewer.py
-└─_vendor/
-  └─qt_json_builder/
-    ├─qt_jsonschema_form/
-    │ ├─__init__.py
-    │ ├─widgets.py
-    │ ├─utils.py
-    │ ├─defaults.py
-    │ ├─form.py
-    │ └─signal.py
-    └─__init__.py
+├─_vendor/
+│ └─qt_json_builder/
+│   ├─qt_jsonschema_form/
+│   │ ├─utils.py
+│   │ ├─form.py
+│   │ ├─defaults.py
+│   │ ├─widgets.py
+│   │ ├─signal.py
+│   │ └─__init__.py
+│   └─__init__.py
+└─_qt/
+  ├─qt_main_window.py
+  ├─widgets/
+  │ ├─qt_dims_sorter.py
+  │ ├─qt_dims_slider.py
+  │ ├─qt_scrollbar.py
+  │ ├─qt_spinbox.py
+  │ ├─qt_viewer_status_bar.py
+  │ ├─qt_tooltip.py
+  │ ├─qt_font_size.py
+  │ ├─qt_command_palette.py
+  │ ├─qt_highlight_preview.py
+  │ ├─qt_color_swatch.py
+  │ ├─qt_extension2reader.py
+  │ ├─qt_progress_bar.py
+  │ ├─qt_logger.py
+  │ └─qt_dims.py
+  ├─utils.py
+  ├─_qplugins/
+  │ └─_qnpe2.py
+  ├─qt_viewer.py
+  ├─dialogs/
+  │ ├─qt_about.py
+  │ ├─qt_modal.py
+  │ ├─confirm_close_dialog.py
+  │ ├─preferences_dialog.py
+  │ ├─screenshot_dialog.py
+  │ ├─qt_notification.py
+  │ ├─qt_activity_dialog.py
+  │ └─qt_reader_dialog.py
+  └─_qapp_model/
+    ├─injection/
+    │ ├─_qprocessors.py
+    │ └─_qproviders.py
+    ├─_menus.py
+    └─qactions/
+      ├─_help.py
+      ├─_debug.py
+      ├─_plugins.py
+      ├─_file.py
+      └─__init__.py
 ```

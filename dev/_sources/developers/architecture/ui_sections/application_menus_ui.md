@@ -158,36 +158,36 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
-├─viewer.py
-└─_qt/
-  ├─__init__.py
-  ├─qthreading.py
-  ├─_qapp_model/
-  │ ├─injection/
-  │ │ ├─_qproviders.py
-  │ │ └─_qprocessors.py
-  │ └─qactions/
-  │   ├─__init__.py
-  │   ├─_layerlist_context.py
-  │   ├─_file.py
-  │   ├─_debug.py
-  │   ├─_help.py
-  │   ├─_plugins.py
-  │   ├─_layers_actions.py
-  │   ├─_view.py
-  │   ├─_window.py
-  │   └─_toggle_action.py
-  ├─widgets/
-  │ ├─qt_logger.py
-  │ ├─qt_command_palette.py
-  │ └─qt_viewer_buttons.py
-  ├─qt_main_window.py
-  ├─dialogs/
-  │ ├─confirm_close_dialog.py
-  │ ├─qt_about.py
-  │ ├─preferences_dialog.py
-  │ ├─qt_modal.py
-  │ ├─screenshot_dialog.py
-  │ └─qt_reader_dialog.py
-  └─qt_viewer.py
+├─_qt/
+│ ├─qt_main_window.py
+│ ├─widgets/
+│ │ ├─qt_command_palette.py
+│ │ ├─qt_viewer_buttons.py
+│ │ └─qt_logger.py
+│ ├─qt_viewer.py
+│ ├─dialogs/
+│ │ ├─qt_about.py
+│ │ ├─qt_modal.py
+│ │ ├─confirm_close_dialog.py
+│ │ ├─preferences_dialog.py
+│ │ ├─screenshot_dialog.py
+│ │ └─qt_reader_dialog.py
+│ ├─qthreading.py
+│ ├─_qapp_model/
+│ │ ├─injection/
+│ │ │ ├─_qprocessors.py
+│ │ │ └─_qproviders.py
+│ │ └─qactions/
+│ │   ├─_help.py
+│ │   ├─_debug.py
+│ │   ├─_layers_actions.py
+│ │   ├─_view.py
+│ │   ├─_toggle_action.py
+│ │   ├─_window.py
+│ │   ├─_plugins.py
+│ │   ├─_file.py
+│ │   ├─_layerlist_context.py
+│ │   └─__init__.py
+│ └─__init__.py
+└─viewer.py
 ```

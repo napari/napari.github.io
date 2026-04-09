@@ -145,6 +145,23 @@ the corresponding docstring to contain the `.. versionadded::` or
 Please also consider documenting any major features/changes in our
 [tutorials](tutorials) and other [usage documentation](usage).
 
+#### Deprecation Warnings
+
+When deprecating a feature, use `DeprecationWarning` instead of `FutureWarning`.
+`FutureWarning` is silenced by Python's default warning filters, making it invisible
+to library users. `DeprecationWarning` is the correct signal for developer-facing deprecations.
+
+**In the code**, always pass `stacklevel=2` to `warnings.warn()` so the warning
+points to the caller's location rather than inside napari's internals.
+
+In the docstring below the short summary, use the [`.. deprecated::` directive](https://numpydoc.readthedocs.io/en/latest/format.html#deprecation-warning) alongside any related
+`.. versionadded::` notes:
+
+```rst
+.. deprecated:: X.Y.Z
+   :func:`old_function` is deprecated. Use :func:`new_function` instead.
+```
+
 ### Tests
 
 We use unit tests, integration tests, and functional tests to ensure that

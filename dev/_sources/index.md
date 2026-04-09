@@ -19,7 +19,7 @@ theme:
       content: See what’s been updated in the latest releases
       url: /release/index.html
 
-    - title: API reference
+    - title: API
       content: Information on specific functions, classes, and methods
       url: /api/index.html
 

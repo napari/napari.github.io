@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
 
-    <script src="../../_static/documentation_options.js?v=ddf7819a"></script>
+    <script src="../../_static/documentation_options.js?v=9c748327"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -77,7 +77,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="AI use policy and guidelines" href="ai.html" />
-    <link rel="prev" title="Contributing" href="../index.html" />
+    <link rel="prev" title="Contribute" href="../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="dev" />
@@ -191,14 +191,14 @@
 
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="../index.html">
-    Contributing
+    Contribute
   </a>
 </li>
 
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../api/index.html">
-    API Reference
+    API
   </a>
 </li>
 
@@ -337,14 +337,14 @@
 
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="../index.html">
-    Contributing
+    Contribute
   </a>
 </li>
 
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../api/index.html">
-    API Reference
+    API
   </a>
 </li>
 
@@ -563,7 +563,7 @@
       </a>
     </li>
     
-    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Contributing</a></li>
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Contribute</a></li>
     
     <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Contributing guide</span></li>
   </ul>
@@ -709,6 +709,20 @@ the corresponding docstring to contain the <code class="docutils literal notrans
 <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#describing-changes-between-versions">Sphinx documentation</a>.
 Please also consider documenting any major features/changes in our
 <a class="reference internal" href="../../tutorials/index.html#tutorials"><span class="std std-ref">tutorials</span></a> and other <a class="reference internal" href="../../usage.html#usage"><span class="std std-ref">usage documentation</span></a>.</p>
+<section id="deprecation-warnings">
+<h4>Deprecation Warnings<a class="headerlink" href="#deprecation-warnings" title="Link to this heading">#</a></h4>
+<p>When deprecating a feature, use <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code> instead of <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code>.
+<code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> is silenced by Python’s default warning filters, making it invisible
+to library users. <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code> is the correct signal for developer-facing deprecations.</p>
+<p><strong>In the code</strong>, always pass <code class="docutils literal notranslate"><span class="pre">stacklevel=2</span></code> to <code class="docutils literal notranslate"><span class="pre">warnings.warn()</span></code> so the warning
+points to the caller’s location rather than inside napari’s internals.</p>
+<p>In the docstring below the short summary, use the <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html#deprecation-warning"><code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">deprecated::</span></code> directive</a> alongside any related
+<code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">versionadded::</span></code> notes:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">deprecated</span><span class="p">::</span> X.Y.Z
+   <span class="na">:func:</span><span class="nv">`old_function`</span> is deprecated. Use <span class="na">:func:</span><span class="nv">`new_function`</span> instead.
+</pre></div>
+</div>
+</section>
 </section>
 <section id="tests">
 <h3>Tests<a class="headerlink" href="#tests" title="Link to this heading">#</a></h3>
@@ -755,7 +769,7 @@ highlights basics about the GitHub Actions used in the project.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Contributing</p>
+        <p class="prev-next-title">Contribute</p>
       </div>
     </a>
     <a class="right-next"
@@ -800,7 +814,10 @@ highlights basics about the GitHub Actions used in the project.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#translations">Translations</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api">API</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api">API</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deprecation-warnings">Deprecation Warnings</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests">Tests</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automation-and-ci">Automation and CI</a></li>
@@ -808,6 +825,22 @@ highlights basics about the GitHub Actions used in the project.</p>
 </li>
 </ul>
   </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/napari/docs/blob/main/docs/developers/contributing/index.md">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
 
 </div></div>
               

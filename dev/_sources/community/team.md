@@ -6,7 +6,6 @@ napari is a consensus-based community project. Anyone with an interest in the pr
 
 - [Ashley Anderson](https://github.com/napari/napari/commits?author=aganders3) - [@aganders3](https://github.com/aganders3)
 - [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) - [@DragaDoncila](https://github.com/DragaDoncila)
-- [Genevieve Buckley](https://github.com/napari/napari/commits?author=GenevieveBuckley) - [@GenevieveBuckley](https://github.com/GenevieveBuckley)
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) - [@Czaki](https://github.com/Czaki)
 - [Jaime Rodríguez-Guerra](https://github.com/napari/napari/commits?author=jaimergp) - [@jaimergp](https://github.com/jaimergp)
 - [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) - [@jni](https://github.com/jni)
@@ -25,6 +24,7 @@ napari is a consensus-based community project. Anyone with an interest in the pr
 - [Ahmet Can Solak](https://github.com/napari/napari/commits?author=AhmetCanSolak) - [@AhmetCanSolak](https://github.com/AhmetCanSolak)
 - [Alister Burt](https://github.com/napari/napari/commits?author=alisterburt) - [@alisterburt](https://github.com/alisterburt)
 - [Andy Sweet](https://github.com/napari/napari/commits?author=andy-sweet) - [@andy-sweet](https://github.com/andy-sweet)
+- [Genevieve Buckley](https://github.com/napari/napari/commits?author=GenevieveBuckley) - [@GenevieveBuckley](https://github.com/GenevieveBuckley)
 - [Justine Larsen](https://github.com/napari/napari/commits?author=justinelarsen) - [@justinelarsen](https://github.com/justinelarsen)
 - [Loic Royer](https://github.com/napari/napari/commits?author=royerloic) - [@royerloic](https://github.com/royerloic)
 - [Lucy Liu](https://github.com/napari/napari/commits?author=lucyleeow) - [@lucyleeow](https://github.com/lucyleeow)
@@ -37,11 +37,11 @@ napari is a consensus-based community project. Anyone with an interest in the pr
 
 - [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) - [@DragaDoncila](https://github.com/DragaDoncila)
 - [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) - [@jni](https://github.com/jni)
-- [Kevin Yamauchi](https://github.com/napari/napari/commits?author=kevinyamauchi) - [@kevinyamauchi](https://github.com/kevinyamauchi)
 - [Kyle Harrington](https://github.com/napari/napari/commits?author=kephale) - [@kephale](https://github.com/kephale)
 
 ## Emeritus Steering Council Members
 
+- [Kevin Yamauchi](https://github.com/napari/napari/commits?author=kevinyamauchi) - [@kevinyamauchi](https://github.com/kevinyamauchi)
 - [Loic Royer](https://github.com/napari/napari/commits?author=royerloic) - [@royerloic](https://github.com/royerloic)
 - [Nicholas Sofroniew](https://github.com/napari/napari/commits?author=sofroniewn) - [@sofroniewn](https://github.com/sofroniewn)
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - [@tlambert03](https://github.com/tlambert03)
@@ -50,9 +50,10 @@ napari is a consensus-based community project. Anyone with an interest in the pr
 
 To best serve napari's development, operations, and community, several team roles are contracted. Currently contracted roles are listed below:
 
-- Developers-in-Residence: Grezgorz Bokota, Lorenzo Gaifas, Draga Doncila Pop
+- Developers-in-Residence: Grezgorz Bokota, Lorenzo Gaifas, Tim Monko
 - Community Managers: Tim Monko, Lorenzo Gaifas
-- Operations Manager: Draga Doncila Pop
+- Communications Lead: Tim Monko
+- Operations Manager: Draga Doncila Pop, Tim Monko
 - Release Manager: Rotating role. For current release manager see the Zulip [#release](https://napari.zulipchat.com/#narrow/channel/215289-release) channel.
 
 We are also contracting with [Quansight](https://quansight.com/) for some key maintenance items:

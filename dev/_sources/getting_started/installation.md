@@ -255,7 +255,7 @@ pip install napari[pyqt6, optional] -c constraints_py3.10.txt
 
 napari can be installed as a standalone application on macOS, Windows, and Linux — no Python knowledge required. This is the simplest way to get started and works best if you want to use napari as a standalone GUI app. Note that some plugins may not be available without a full Python environment.
 
-Select your platform below to download napari {{ release }} directly:
+Select your platform below to download napari {{ bundle_version }} directly:
 
 ````{grid} 1 2 2 4
 :gutter: 2
@@ -263,15 +263,15 @@ Select your platform below to download napari {{ release }} directly:
 ```{grid-item-card} Windows
 :text-align: center
 
-{{ '[Download (.exe)](https://github.com/napari/napari/releases/download/vREL/napari-REL-Windows-x86_64.exe)'.replace('REL', release) }}
+{{ '[Download (.exe)](https://github.com/napari/napari/releases/download/vREL/napari-REL-Windows-x86_64.exe)'.replace('REL', bundle_version) }}
 +++
 {ref}`Installation steps <windows-bundle>`
 ```
 
-```{grid-item-card} macOS Apple Silicon (arm64)
+```{grid-item-card} macOS Apple Silicon (ARM)
 :text-align: center
 
-{{ '[Download (.pkg)](https://github.com/napari/napari/releases/download/vREL/napari-REL-macOS-arm64.pkg)'.replace('REL', release) }}
+{{ '[Download (.pkg)](https://github.com/napari/napari/releases/download/vREL/napari-REL-macOS-arm64.pkg)'.replace('REL', bundle_version) }}
 +++
 {ref}`Installation steps <macos-bundle>`
 ```
@@ -279,7 +279,7 @@ Select your platform below to download napari {{ release }} directly:
 ```{grid-item-card} macOS Intel (x86_64)
 :text-align: center
 
-{{ '[Download (.pkg)](https://github.com/napari/napari/releases/download/vREL/napari-REL-macOS-x86_64.pkg)'.replace('REL', release) }}
+{{ '[Download (.pkg)](https://github.com/napari/napari/releases/download/vREL/napari-REL-macOS-x86_64.pkg)'.replace('REL', bundle_version) }}
 +++
 {ref}`Installation steps <macos-bundle>`
 ```
@@ -287,20 +287,22 @@ Select your platform below to download napari {{ release }} directly:
 ```{grid-item-card} Linux
 :text-align: center
 
-{{ '[Download (.sh)](https://github.com/napari/napari/releases/download/vREL/napari-REL-Linux-x86_64.sh)'.replace('REL', release) }}
+{{ '[Download (.sh)](https://github.com/napari/napari/releases/download/vREL/napari-REL-Linux-x86_64.sh)'.replace('REL', bundle_version) }}
 +++
 {ref}`Installation steps <linux-bundle>`
 ```
 
 ````
 
-For earlier versions of the napari app, scroll below the latest release on the [napari GitHub releases page](https://github.com/napari/napari/releases). Each release (0.4.15 and above) includes installers for all platforms under the "Assets" section.
+For pre-release versions or earlier stable versions of the napari app,
+scroll below the latest release on the [napari GitHub releases page](https://github.com/napari/napari/releases).
+Each release (0.4.15 and above) includes installers for all platforms under the "Assets" section.
 
 (windows-bundle)=
 
 ### Windows
 
-Download from Github: {{ '[napari-REL-Windows-x86_64.exe](https://github.com/napari/napari/releases/download/vREL/napari-REL-Windows-x86_64.exe)'.replace('REL', release) }}
+Download from GitHub: {{ '[napari-REL-Windows-x86_64.exe](https://github.com/napari/napari/releases/download/vREL/napari-REL-Windows-x86_64.exe)'.replace('REL', bundle_version) }}
 
 Double-click the downloaded `.exe` file to begin setup.
 
@@ -336,10 +338,13 @@ Next, check out our [tutorial on the viewer](viewer-tutorial) or explore the [Us
 
 ### macOS
 
-Download the installer for your Mac:
+Download the installer for your Mac. If you are unsure which version to choose,
+check "About this Mac" from the Apple menu or check the
+[official Apple documentation](https://support.apple.com/en-us/116943)
+to identify if your machine is Apple Silicon (ARM).
 
-- {{ '[napari-REL-macOS-arm64.pkg](https://github.com/napari/napari/releases/download/vREL/napari-REL-macOS-arm64.pkg)'.replace('REL', release) }} — Apple Silicon (M1 and later)
-- {{ '[napari-REL-macOS-x86_64.pkg](https://github.com/napari/napari/releases/download/vREL/napari-REL-macOS-x86_64.pkg)'.replace('REL', release) }} — Intel
+- {{ '[napari-REL-macOS-arm64.pkg](https://github.com/napari/napari/releases/download/vREL/napari-REL-macOS-arm64.pkg)'.replace('REL', bundle_version) }} — Apple Silicon (ARM)
+- {{ '[napari-REL-macOS-x86_64.pkg](https://github.com/napari/napari/releases/download/vREL/napari-REL-macOS-x86_64.pkg)'.replace('REL', bundle_version) }} — Intel
 
 Double-click the downloaded `.pkg` file to launch the Installer.
 
@@ -383,7 +388,7 @@ Next, check out our [tutorial on the viewer](viewer-tutorial) or explore the [Us
 
 ### Linux
 
-Download from Github: {{ '[napari-REL-Linux-x86_64.sh](https://github.com/napari/napari/releases/download/vREL/napari-REL-Linux-x86_64.sh)'.replace('REL', release) }}
+Download from GitHub: {{ '[napari-REL-Linux-x86_64.sh](https://github.com/napari/napari/releases/download/vREL/napari-REL-Linux-x86_64.sh)'.replace('REL', bundle_version) }}
 
 Open a terminal, navigate to your downloads folder (`cd ~/Downloads`), and run:
 

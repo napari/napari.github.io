@@ -79,7 +79,6 @@ napari natively supports tiff and many other formats supported by [skimage.io.im
 Try with your own images or download [this ome tiff file](https://downloads.openmicroscopy.org/images/OME-TIFF/2016-06/MitoCheck/00001_01.ome.tiff).
 
 Additional input file formats may be supported [by plugins](https://www.napari-hub.org/).
-Try [napari-aicsimageio](https://www.napari-hub.org/plugins/napari-aicsimageio) if you have czi, lif, or nd2 files.
 
 Once you have the proper plugin installed, use File > Open Files(s)
 and select the image file, or simply drag and drop the image into napari.

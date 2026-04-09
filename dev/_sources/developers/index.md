@@ -1,6 +1,6 @@
 (contributing-index)=
 
-# Contributing
+# Contribute
 
 We welcome your contributions! Here you will find resources to help you contribute
 to napari.

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
 
-    <script src="../../../_static/documentation_options.js?v=9c748327"></script>
+    <script src="../../../_static/documentation_options.js?v=7893b92a"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -985,6 +985,12 @@ window.runMermaid = runMermaid;</script>
     <span class="k">return</span> <span class="s1">&#39;&#39;</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_desktop_env</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;linux&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;XDG_SESSION_TYPE&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;XDG_SESSION_DESKTOP&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+
+
 <span class="k">def</span><span class="w"> </span><span class="nf">_napari_from_conda</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Try to check if napari was installed using conda.</span>
@@ -1100,6 +1106,9 @@ window.runMermaid = runMermaid;</script>
     <span class="n">__sys_name</span> <span class="o">=</span> <span class="n">_sys_name</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">__sys_name</span><span class="p">:</span>
         <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;System&lt;/b&gt;: </span><span class="si">{</span><span class="n">__sys_name</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+    <span class="n">__desktop_env</span> <span class="o">=</span> <span class="n">_desktop_env</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">__desktop_env</span><span class="p">:</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;Session&lt;/b&gt;: </span><span class="si">{</span><span class="n">__desktop_env</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
 
     <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;Python&lt;/b&gt;: </span><span class="si">{</span><span class="n">sys_version</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
 

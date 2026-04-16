@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
 
-    <script src="../../../_static/documentation_options.js?v=45bbc238"></script>
+    <script src="../../../_static/documentation_options.js?v=cfd07cf2"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -966,7 +966,6 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.naming</span><span class="w"> </span><span class="kn">import</span> <span class="n">CallerFrame</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.notifications</span><span class="w"> </span><span class="kn">import</span> <span class="n">show_info</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari_builtins.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">imsave_extensions</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._vispy</span><span class="w"> </span><span class="kn">import</span> <span class="n">VispyCanvas</span><span class="p">,</span> <span class="n">create_vispy_layer</span>  <span class="c1"># isort:skip</span>
 
@@ -1001,52 +1000,6 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">selected_filter</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">writer</span>
     <span class="k">return</span> <span class="kc">None</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">_extension_string_for_layers</span><span class="p">(</span>
-    <span class="n">layers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Layer</span><span class="p">],</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">WriterContribution</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return an extension string and the list of corresponding writers.</span>
-
-<span class="sd">    The extension string is a &quot;;;&quot; delimeted string of entries. Each entry</span>
-<span class="sd">    has a brief description of the file type and a list of extensions.</span>
-
-<span class="sd">    The writers, when provided, are the npe2.manifest.io.WriterContribution</span>
-<span class="sd">    objects. There is one writer per entry in the extension string. If npe2</span>
-<span class="sd">    is not importable, the list of writers will be empty.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># try to use npe2</span>
-    <span class="n">ext_str</span><span class="p">,</span> <span class="n">writers</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">file_extensions_string_for_layers</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">ext_str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">ext_str</span><span class="p">,</span> <span class="n">writers</span>
-
-    <span class="c1"># fallback to old behavior</span>
-
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">selected_layer</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="c1"># single selected layer.</span>
-        <span class="k">if</span> <span class="n">selected_layer</span><span class="o">.</span><span class="n">_type_string</span> <span class="o">==</span> <span class="s1">&#39;image&#39;</span><span class="p">:</span>
-            <span class="n">ext</span> <span class="o">=</span> <span class="n">imsave_extensions</span><span class="p">()</span>
-
-            <span class="n">ext_list</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;*</span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">ext</span><span class="p">]</span>
-            <span class="n">ext_str</span> <span class="o">=</span> <span class="s1">&#39;;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ext_list</span><span class="p">)</span>
-
-            <span class="n">ext_str</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s1">&#39;All Files (*);; Image file types:;;</span><span class="si">{ext_str}</span><span class="s1">&#39;</span><span class="p">,</span>
-                <span class="n">ext_str</span><span class="o">=</span><span class="n">ext_str</span><span class="p">,</span>
-            <span class="p">)</span>
-
-        <span class="k">elif</span> <span class="n">selected_layer</span><span class="o">.</span><span class="n">_type_string</span> <span class="o">==</span> <span class="s1">&#39;points&#39;</span><span class="p">:</span>
-            <span class="n">ext_str</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;All Files (*);; *.csv;;&#39;</span><span class="p">)</span>
-
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># layer other than image or points</span>
-            <span class="n">ext_str</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;All Files (*);;&#39;</span><span class="p">)</span>
-
-    <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># multiple layers.</span>
-        <span class="n">ext_str</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;All Files (*);;&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">ext_str</span><span class="p">,</span> <span class="p">[]</span>
 
 
 <div class="viewcode-block" id="QtViewer">
@@ -1707,7 +1660,7 @@ window.runMermaid = runMermaid;</script>
             <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Nothing to save&#39;</span><span class="p">))</span>
 
         <span class="c1"># prepare list of extensions for drop down menu.</span>
-        <span class="n">ext_str</span><span class="p">,</span> <span class="n">writers</span> <span class="o">=</span> <span class="n">_extension_string_for_layers</span><span class="p">(</span>
+        <span class="n">ext_str</span><span class="p">,</span> <span class="n">writers</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">file_extensions_string_for_layers</span><span class="p">(</span>
             <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">selected</span>
             <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span>

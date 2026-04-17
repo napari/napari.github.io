@@ -119,16 +119,16 @@ Download the model
     downloading data into /home/runner/work/docs/docs/.cache/napari-surface-texture-example
     Downloading...
     From: https://drive.google.com/uc?id=1yuPHWlLzowlfWzVMUg-mvAEe_Tmvpzy4
-    To: /home/runner/work/docs/docs/.cache/pooch/tmp5wcaq8mx
-      0%|          | 0.00/93.8M [00:00<?, ?B/s]      1%|          | 1.05M/93.8M [00:00<00:09, 10.3MB/s]      6%|▌         | 5.24M/93.8M [00:00<00:03, 27.0MB/s]      9%|▉         | 8.39M/93.8M [00:00<00:04, 18.5MB/s]     13%|█▎        | 12.6M/93.8M [00:00<00:03, 25.1MB/s]     18%|█▊        | 17.3M/93.8M [00:00<00:02, 28.5MB/s]     22%|██▏       | 20.4M/93.8M [00:00<00:03, 21.6MB/s]     25%|██▍       | 23.1M/93.8M [00:01<00:03, 20.5MB/s]     27%|██▋       | 25.7M/93.8M [00:01<00:03, 20.4MB/s]     30%|███       | 28.3M/93.8M [00:01<00:03, 17.3MB/s]     34%|███▍      | 32.0M/93.8M [00:01<00:03, 16.9MB/s]     39%|███▊      | 36.2M/93.8M [00:01<00:03, 16.1MB/s]     41%|████      | 38.3M/93.8M [00:02<00:04, 13.7MB/s]     45%|████▌     | 42.5M/93.8M [00:02<00:02, 17.9MB/s]     50%|████▉     | 46.7M/93.8M [00:02<00:02, 22.1MB/s]     53%|█████▎    | 49.8M/93.8M [00:02<00:01, 23.0MB/s]     56%|█████▋    | 53.0M/93.8M [00:02<00:02, 18.2MB/s]     62%|██████▏   | 58.2M/93.8M [00:02<00:01, 24.5MB/s]     65%|██████▌   | 61.3M/93.8M [00:03<00:02, 14.8MB/s]     72%|███████▏  | 67.1M/93.8M [00:03<00:01, 20.8MB/s]     75%|███████▌  | 70.8M/93.8M [00:03<00:01, 20.6MB/s]     79%|███████▉  | 73.9M/93.8M [00:03<00:01, 15.1MB/s]     85%|████████▍ | 79.7M/93.8M [00:04<00:00, 21.0MB/s]     90%|█████████ | 84.4M/93.8M [00:04<00:00, 20.6MB/s]     96%|█████████▌| 90.2M/93.8M [00:04<00:00, 26.2MB/s]    100%|██████████| 93.8M/93.8M [00:04<00:00, 20.8MB/s]
+    To: /home/runner/work/docs/docs/.cache/pooch/tmpctqvb1vg
+      0%|          | 0.00/93.8M [00:00<?, ?B/s]      2%|▏         | 1.57M/93.8M [00:00<00:06, 14.8MB/s]      7%|▋         | 6.82M/93.8M [00:00<00:02, 32.3MB/s]     16%|█▌        | 15.2M/93.8M [00:00<00:02, 37.6MB/s]     26%|██▌       | 24.1M/93.8M [00:00<00:01, 52.2MB/s]     32%|███▏      | 29.9M/93.8M [00:00<00:01, 46.9MB/s]     37%|███▋      | 35.1M/93.8M [00:00<00:01, 46.4MB/s]     47%|████▋     | 44.0M/93.8M [00:00<00:00, 57.8MB/s]     54%|█████▎    | 50.3M/93.8M [00:01<00:00, 51.2MB/s]     63%|██████▎   | 59.2M/93.8M [00:01<00:00, 52.2MB/s]     74%|███████▍  | 69.7M/93.8M [00:01<00:00, 55.1MB/s]     90%|█████████ | 84.4M/93.8M [00:01<00:00, 59.8MB/s]    100%|██████████| 93.8M/93.8M [00:01<00:00, 56.2MB/s]
     Downloading...
     From: https://drive.google.com/uc?id=17tG44rMPWjAIoO_AlH9BaQkPY7GxxEN9
-    To: /home/runner/work/docs/docs/.cache/pooch/tmpd01ebczd
-      0%|          | 0.00/17.3M [00:00<?, ?B/s]     15%|█▌        | 2.62M/17.3M [00:00<00:00, 25.7MB/s]     39%|███▉      | 6.82M/17.3M [00:00<00:00, 27.8MB/s]     58%|█████▊    | 9.96M/17.3M [00:00<00:00, 24.6MB/s]     85%|████████▍ | 14.7M/17.3M [00:00<00:00, 31.8MB/s]    100%|██████████| 17.3M/17.3M [00:00<00:00, 28.1MB/s]
+    To: /home/runner/work/docs/docs/.cache/pooch/tmpzn2dpjat
+      0%|          | 0.00/17.3M [00:00<?, ?B/s]      9%|▉         | 1.57M/17.3M [00:00<00:01, 14.6MB/s]     52%|█████▏    | 8.91M/17.3M [00:00<00:00, 26.0MB/s]     88%|████████▊ | 15.2M/17.3M [00:00<00:00, 27.8MB/s]    100%|██████████| 17.3M/17.3M [00:00<00:00, 30.0MB/s]
     Downloading...
     From: https://drive.google.com/uc?id=1l_hGxDg6JARAyFMgWXuoIZs49qKXBv01
-    To: /home/runner/work/docs/docs/.cache/pooch/tmpjufixyde
-      0%|          | 0.00/120k [00:00<?, ?B/s]    100%|██████████| 120k/120k [00:00<00:00, 2.90MB/s]
+    To: /home/runner/work/docs/docs/.cache/pooch/tmpsdgo4rm7
+      0%|          | 0.00/120k [00:00<?, ?B/s]    100%|██████████| 120k/120k [00:00<00:00, 2.94MB/s]
 
 
 
@@ -282,7 +282,7 @@ sphinx_gallery_thumbnail_number = 2
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 26.133 seconds)
+   **Total running time of the script:** (0 minutes 24.853 seconds)
 
 
 .. _sphx_glr_download_gallery_surface_multi_texture.py:

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
 
-    <script src="../../../../_static/documentation_options.js?v=9e941bd7"></script>
+    <script src="../../../../_static/documentation_options.js?v=7e8e6502"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -901,6 +901,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">TYPE_CHECKING</span><span class="p">,</span>
     <span class="n">Any</span><span class="p">,</span>
     <span class="n">ClassVar</span><span class="p">,</span>
+    <span class="n">TypeAlias</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -967,6 +968,8 @@ window.runMermaid = runMermaid;</script>
     <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Labels&#39;</span><span class="p">,)</span>
+
+<span class="n">HistoryItem</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="Labels">
@@ -1312,12 +1315,17 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">use_selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_selected_label</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_prev_selected_label</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_label</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">colormap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_preserve_labels</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_undo_history</span><span class="p">:</span> <span class="n">deque</span><span class="p">[</span><span class="n">HistoryItem</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_redo_history</span><span class="p">:</span> <span class="n">deque</span><span class="p">[</span><span class="n">HistoryItem</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">HistoryItem</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_block_history</span><span class="p">:</span> <span class="nb">bool</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_slice_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate dtype of data view based on data dtype and current colormap&quot;&quot;&quot;</span>
@@ -1421,7 +1429,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursor_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_cursor_size</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">brush_size</span><span class="p">()</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_calculate_cursor_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_calculate_cursor_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="c1"># Convert from brush size in data coordinates to</span>
         <span class="c1"># cursor size in world coordinates</span>
         <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">scale</span>
@@ -1539,7 +1547,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">label_index</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])}</span>
         <span class="k">return</span> <span class="n">label_index</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_is_default_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_is_default_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns True if color contains only default colors, otherwise False.</span>
 
 <span class="sd">        Default colors are black for `None` and transparent for</span>
@@ -1698,12 +1706,13 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        In ERASE mode the cursor functions similarly to PAINT mode, but to</span>
 <span class="sd">        paint with background label, which effectively removes the label.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Layer</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">fget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">mode</span>
 
     <span class="c1"># Only overriding to change the docstring of the setter above</span>
     <span class="nd">@mode</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
-        <span class="n">Layer</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+        <span class="c1"># See https://github.com/python/mypy/issues/16426 for type ignore reason</span>
+        <span class="n">Layer</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_mode_setter_helper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
         <span class="n">mode</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_mode_setter_helper</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
@@ -1749,7 +1758,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">vispy_texture_dtype</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_partial_labels_refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_partial_labels_refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepares and displays only an updated part of the labels.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">loaded</span><span class="p">:</span>
@@ -1915,7 +1924,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">col</span></div>
 
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_reset_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_reset_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_undo_history</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_history_limit</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_redo_history</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_history_limit</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2010,7 +2019,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">after</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">history_item</span><span class="p">)))</span>
         <span class="k">for</span> <span class="n">prev_indices</span><span class="p">,</span> <span class="n">prev_values</span><span class="p">,</span> <span class="n">next_values</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">history_item</span><span class="p">):</span>
             <span class="n">values</span> <span class="o">=</span> <span class="n">prev_values</span> <span class="k">if</span> <span class="n">undoing</span> <span class="k">else</span> <span class="n">next_values</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">prev_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">prev_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>  <span class="c1"># type: ignore[index]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
@@ -2026,7 +2035,9 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="Labels.fill">
 <a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.fill">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fill</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">coord</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">new_label</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">refresh</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Replace an existing label with a new label, either just at the</span>
 <span class="sd">        connected component if the `contiguous` flag is `True` or everywhere</span>
 <span class="sd">        if it is `False`, working in the number of dimensions specified by</span>
@@ -2088,6 +2099,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="p">)</span>
 
         <span class="n">match_indices_local</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+        <span class="n">match_indices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">]]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span><span class="p">}:</span>
             <span class="n">n_idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">match_indices_local</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="n">match_indices</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2101,11 +2113,11 @@ window.runMermaid = runMermaid;</script>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">match_indices</span> <span class="o">=</span> <span class="n">match_indices_local</span>
 
-        <span class="n">match_indices</span> <span class="o">=</span> <span class="n">_coerce_indices_for_vectorization</span><span class="p">(</span>
+        <span class="n">match_indices_tuple</span> <span class="o">=</span> <span class="n">_coerce_indices_for_vectorization</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">match_indices</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_setitem</span><span class="p">(</span><span class="n">match_indices</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_setitem</span><span class="p">(</span><span class="n">match_indices_tuple</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="p">)</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">last_cursor_coord</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">):</span>
@@ -2373,7 +2385,7 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
         <span class="c1"># update the labels image</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>  <span class="c1"># type: ignore[index]</span>
 
         <span class="n">pt_not_disp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_pt_not_disp</span><span class="p">()</span>
         <span class="n">displayed_indices</span> <span class="o">=</span> <span class="n">index_in_slice</span><span class="p">(</span>
@@ -2591,7 +2603,9 @@ window.runMermaid = runMermaid;</script>
     <span class="n">_slice_request_class</span> <span class="o">=</span> <span class="n">_LabelsSliceRequest</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_coerce_indices_for_vectorization</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_coerce_indices_for_vectorization</span><span class="p">(</span>
+    <span class="n">array</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">]]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Coerces indices so that they can be used for vectorized indexing in the given data array.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">_is_array_type</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="s1">&#39;xarray.DataArray&#39;</span><span class="p">):</span>
         <span class="c1"># Fix indexing for xarray if necessary</span>

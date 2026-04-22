@@ -2,12 +2,6 @@
 
 # Plugins
 
-```{warning}
-In napari 0.7.0, legacy "npe1" plugins will only work by auto-conversion to the new plugin engine, `npe2`.
-The vast majority of plugins will continue working as before. If you notice any issues with a plugin, check out the
-[Changes to the plugin engine in 0.6.0](adapted-plugin-guide) document to see if this is affecting you.
-```
-
 Plugins extend napari's functionality, allowing for customization and sharing with the community.
 While you can use scripts and widgets to extend napari, plugins provide great flexibility.
 Existing plugins extend napari to add:
@@ -18,7 +12,7 @@ Existing plugins extend napari to add:
 
 Share and discover napari plugins on [napari hub](https://napari-hub.org),
 [PyPI](https://pypi.org/search/?q=napari), or [conda-forge](https://conda-forge.org/packages/).
-Interested in creating a plugin? A [napari-plugin-template](https://github.com/napari/napari-plugin-template),
+Interested in creating a plugin? [napari-plugin-template](https://github.com/napari/napari-plugin-template),
 a [copier](https://copier.readthedocs.io/en/stable/) template, bootstraps authoring
 [npe](https://github.com/napari/npe2)-based napari plugins.
 
@@ -96,3 +90,9 @@ Submit issues to the [napari github repository][napari_issues].
 
 [napari_issues]: https://github.com/napari/napari/issues/new/choose
 [napari_zulip]: https://napari.zulipchat.com/
+
+```{warning}
+In napari 0.7.0, legacy "npe1" plugins will only work by auto-conversion to the new plugin engine, `npe2`.
+The vast majority of plugins will continue working as before. If you notice any issues with a plugin, check out the
+[Changes to the plugin engine in 0.6.0](adapted-plugin-guide) document to see if this is affecting you.
+```

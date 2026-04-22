@@ -70,15 +70,15 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
-├─utils/
-│ └─notifications.py
 ├─components/
-│ ├─_viewer_key_bindings.py
-│ └─viewer_model.py
+│ ├─viewer_model.py
+│ └─_viewer_key_bindings.py
+├─viewer.py
 ├─_qt/
+│ ├─qt_viewer.py
 │ ├─qt_main_window.py
-│ ├─widgets/
-│ │ └─qt_viewer_buttons.py
-│ └─qt_viewer.py
-└─viewer.py
+│ └─widgets/
+│   └─qt_viewer_buttons.py
+└─utils/
+  └─notifications.py
 ```

@@ -147,9 +147,10 @@ Please also consider documenting any major features/changes in our
 
 #### Deprecation Warnings
 
-When deprecating a feature, use `DeprecationWarning` instead of `FutureWarning`.
-`FutureWarning` is silenced by Python's default warning filters, making it invisible
-to library users. `DeprecationWarning` is the correct signal for developer-facing deprecations.
+When deprecating a feature, use `FutureWarning` instead of `DeprecationWarning`.
+`DeprecationWarning` is
+[silenced by Python's default warning filters](https://docs.python.org/3/library/warnings.html#warning-categories),
+making it invisible to library users.
 
 **In the code**, always pass `stacklevel=2` to `warnings.warn()` so the warning
 points to the caller's location rather than inside napari's internals.

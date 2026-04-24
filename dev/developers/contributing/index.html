@@ -684,9 +684,10 @@ Please also consider documenting any major features/changes in our
 <a class="reference internal" href="../../tutorials/index.html#tutorials"><span class="std std-ref">tutorials</span></a> and other <a class="reference internal" href="../../usage.html#usage"><span class="std std-ref">usage documentation</span></a>.</p>
 <section id="deprecation-warnings">
 <h4>Deprecation Warnings<a class="headerlink" href="#deprecation-warnings" title="Link to this heading">#</a></h4>
-<p>When deprecating a feature, use <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code> instead of <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code>.
-<code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> is silenced by Python’s default warning filters, making it invisible
-to library users. <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code> is the correct signal for developer-facing deprecations.</p>
+<p>When deprecating a feature, use <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> instead of <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code>.
+<code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code> is
+<a class="reference external" href="https://docs.python.org/3/library/warnings.html#warning-categories">silenced by Python’s default warning filters</a>,
+making it invisible to library users.</p>
 <p><strong>In the code</strong>, always pass <code class="docutils literal notranslate"><span class="pre">stacklevel=2</span></code> to <code class="docutils literal notranslate"><span class="pre">warnings.warn()</span></code> so the warning
 points to the caller’s location rather than inside napari’s internals.</p>
 <p>In the docstring below the short summary, use the <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html#deprecation-warning"><code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">deprecated::</span></code> directive</a> alongside any related

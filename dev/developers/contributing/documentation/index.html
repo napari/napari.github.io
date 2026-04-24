@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
 
-    <script src="../../../_static/documentation_options.js?v=28071e67"></script>
+    <script src="../../../_static/documentation_options.js?v=6b8ac44a"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1262,7 +1262,7 @@ help you edit your document and find the right spot!</p>
 <span id="add-examples"></span><h2>Adding examples to the <a class="reference internal" href="../../../gallery.html#gallery"><span class="std std-ref">Gallery</span></a><a class="headerlink" href="#adding-examples-to-the-gallery" title="Link to this heading">#</a></h2>
 <p>All of the examples in the <a class="reference internal" href="../../../gallery.html#gallery"><span class="std std-ref">examples Gallery</span></a> are Python scripts that
 live under <a class="reference external" href="https://github.com/napari/napari/tree/main/examples">the <code class="docutils literal notranslate"><span class="pre">examples</span></code> folder of the napari repository</a>.
-Because of how this gallery is built, every such Python script needs a docstring
+Any example that should appear in the generated gallery needs a docstring
 containing at least a title (following the <code class="docutils literal notranslate"><span class="pre">.rst</span></code> format of docstrings in
 Python) and one or more <em>tags</em>. This ensures the example will be shown in the
 correct place in the table of contents for the gallery (see, for example, the
@@ -1294,6 +1294,29 @@ below is a short description of the example, and the tags are assigned by the
 use of the <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">tags::</span></code> directive. In this case, the only tag associated with
 this example is <code class="docutils literal notranslate"><span class="pre">visualization-basic</span></code>. Multiple tags can be separated with a
 comma.</p>
+<p>Tags are generated into the <a class="reference internal" href="../../../_tags/tagsindex.html#tagoverview"><span class="std std-ref">Tags</span></a> pages by <code class="docutils literal notranslate"><span class="pre">sphinx-tags</span></code>. They are
+descriptive labels, not execution flags.
+Tags do not hide an example from the gallery or change how it is built.
+To stop displaying an example in the public gallery,
+add an underscore _ after the example’s name.
+microscopy_example.py would be displayed in the public gallery;
+while, microscopy_example_.py would not be displayed in the public gallery
+due to the trailing underscore in the name.</p>
+<p>Before creating a new tag, check <a class="reference internal" href="../../../_tags/tagsindex.html#tagoverview"><span class="std std-ref">Tags</span></a> and reuse an existing tag
+when possible. New tags automatically create new tag pages, so the tag set is
+easier to navigate when it stays small and intentional.</p>
+<p>The most common tags currently mean:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">visualization-basic</span></code>: introductory examples centered on core viewer or layer usage</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">visualization-nD</span></code>: examples that focus on higher-dimensional, 3D, or multiscale data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">visualization-advanced</span></code>: more complex rendering, transforms, or advanced viewer composition</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gui</span></code>: Qt widgets, dock widgets, window integration, or other UI customization</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">interactivity</span></code>: mouse callbacks, key bindings, and interactive viewer behavior</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">analysis</span></code>: analysis, annotation, or measurement-oriented workflows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">layers</span></code>: examples that emphasize layer properties or layer interactions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">experimental</span></code>: examples that rely on experimental napari APIs or behavior that may still change</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">historical</span></code>: legacy or reference examples that remain useful to publish, but are not the best starting point for new code</p></li>
+</ul>
 <p>Note that the examples are <code class="docutils literal notranslate"><span class="pre">.py</span></code> source files, and any outputs and images will
 be autogenerated when the documentation site is built.</p>
 <div class="admonition note">

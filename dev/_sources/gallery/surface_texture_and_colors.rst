@@ -25,11 +25,12 @@ Surface with texture and vertex_colors
 Display a 3D surface with both texture and color maps.
 
 This example demonstrates how surfaces may be colored by:
-    * setting `vertex_values`, which colors the surface with the selected
-      `colormap`
+    * setting `vertex_values` as the 3rd element of the `data` tuple,
+      which colors the surface with the selected `colormap`
     * setting `vertex_colors`, which replaces/overrides any color from
-      `vertex_values`
-    * setting both `texture` and `texcoords`, which blends a the value from
+      `vertex_values`, resulting in colormap-based controls such as contrast limits and
+      gamma no longer affecting the rendered surface
+    * setting both `texture` and `texcoords`, which blends the value from
       a texture (image) with the underlying color from `vertex_values` or
       `vertex_colors`. Blending is achieved by multiplying the texture color by
       the underlying color - an underlying value of "white" will result in the
@@ -37,7 +38,7 @@ This example demonstrates how surfaces may be colored by:
 
 .. tags:: visualization-nD
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-76
+.. GENERATED FROM PYTHON SOURCE LINES 21-79
 
 
 
@@ -72,6 +73,7 @@ This example demonstrates how surfaces may be colored by:
     from vispy.io import imread, load_data_file, read_mesh
 
     import napari
+    from napari.layers import Surface
 
     # load the model and texture
     mesh_path = load_data_file('spot/spot.obj.gz')
@@ -80,7 +82,7 @@ This example demonstrates how surfaces may be colored by:
     texture_path = load_data_file('spot/spot.png')
     texture = imread(texture_path)
 
-    flat_spot = napari.layers.Surface(
+    flat_spot = Surface(
         (vertices, faces),
         translate=(1, 0, 0),
         texture=texture,
@@ -90,7 +92,7 @@ This example demonstrates how surfaces may be colored by:
     )
 
     np.random.seed(0)
-    plasma_spot = napari.layers.Surface(
+    plasma_spot = Surface(
         (vertices, faces, np.random.random((3, 3, n))),
         texture=texture,
         texcoords=texcoords,
@@ -99,11 +101,12 @@ This example demonstrates how surfaces may be colored by:
         name='vertex_values and texture',
     )
 
-    rainbow_spot = napari.layers.Surface(
+    rainbow_spot = Surface(
         (vertices, faces),
         translate=(-1, 0, 0),
         texture=texture,
         texcoords=texcoords,
+        # Direct vertex colors override colormap-based coloring.
         # the vertices are _roughly_ in [-1, 1] for this model and RGB values just
         # get clipped to [0, 1], adding 0.5 brightens it up a little :)
         vertex_colors=vertices + 0.5,

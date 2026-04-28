@@ -9,7 +9,6 @@ graph LR
 	click napari._qt "https://github.com/napari/napari/tree/main/napari/_qt/__init__.py" _blank
 	napari._qt.dialogs.qt_activity_dialog(napari._qt.dialogs.qt_activity_dialog)
 	napari._qt.dialogs.qt_activity_dialog --> napari._qt.widgets.qt_progress_bar
-	napari._qt.dialogs.qt_activity_dialog --> napari.utils.progress
 	click napari._qt.dialogs.qt_activity_dialog "https://github.com/napari/napari/tree/main/napari/_qt/dialogs/qt_activity_dialog.py" _blank
 	napari._qt.qt_main_window(napari._qt.qt_main_window)
 	napari._qt.qt_main_window --> napari._qt.dialogs.qt_activity_dialog
@@ -24,14 +23,11 @@ graph LR
 	napari._qt.widgets.qt_command_palette --> napari._qt.qt_main_window
 	click napari._qt.widgets.qt_command_palette "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_command_palette.py" _blank
 	napari._qt.widgets.qt_progress_bar(napari._qt.widgets.qt_progress_bar)
-	napari._qt.widgets.qt_progress_bar --> napari.utils.progress
 	click napari._qt.widgets.qt_progress_bar "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_progress_bar.py" _blank
 	napari._qt.widgets.qt_viewer_status_bar(napari._qt.widgets.qt_viewer_status_bar)
 	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.dialogs.qt_activity_dialog
 	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.qt_main_window
 	click napari._qt.widgets.qt_viewer_status_bar "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_status_bar.py" _blank
-	napari.utils.progress(napari.utils.progress)
-	click napari.utils.progress "https://github.com/napari/napari/tree/main/napari/utils/progress.py" _blank
 	napari.viewer(napari.viewer)
 	napari.viewer --> napari._qt
 	napari.viewer --> napari._qt.qt_main_window
@@ -59,10 +55,6 @@ graph LR
 		 napari._qt.widgets.qt_viewer_status_bar
 	end
 	class module.napari._qt.widgets subgraphs
-	subgraph module.napari.utils[napari.utils]
-		 napari.utils.progress
-	end
-	class module.napari.utils subgraphs
 	classDef subgraphs fill:white,strock:black,color:black;	classDef default fill:#00c3ff,color:black;
 	linkStyle default stroke:#00c3ff
 	classDef external fill:#ffa600,color:black;
@@ -70,18 +62,16 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
-├─utils/
-│ └─progress.py
-├─_qt/
-│ ├─qt_main_window.py
-│ ├─widgets/
-│ │ ├─qt_viewer_status_bar.py
-│ │ ├─qt_command_palette.py
-│ │ └─qt_progress_bar.py
-│ ├─dialogs/
-│ │ └─qt_activity_dialog.py
-│ ├─threads/
-│ │ └─status_checker.py
-│ └─__init__.py
-└─viewer.py
+├─viewer.py
+└─_qt/
+  ├─dialogs/
+  │ └─qt_activity_dialog.py
+  ├─threads/
+  │ └─status_checker.py
+  ├─qt_main_window.py
+  ├─widgets/
+  │ ├─qt_viewer_status_bar.py
+  │ ├─qt_progress_bar.py
+  │ └─qt_command_palette.py
+  └─__init__.py
 ```

@@ -4,32 +4,14 @@
 graph LR
 	accTitle: Dependencies between modules in the napari Viewer UI section
 	accDescr: Diagram showing the dependencies between the modules involved in the definition of the napari Viewer UI section
-	napari._qt._qapp_model.injection(napari._qt._qapp_model.injection)
-	click napari._qt._qapp_model.injection "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/__init__.py" _blank
-	napari._qt._qapp_model.injection._qprocessors(napari._qt._qapp_model.injection._qprocessors)
-	napari._qt._qapp_model.injection._qprocessors --> napari._qt._qapp_model.injection._qproviders
-	napari._qt._qapp_model.injection._qprocessors --> napari.layers
-	click napari._qt._qapp_model.injection._qprocessors "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/_qprocessors.py" _blank
-	napari._qt._qapp_model.injection._qproviders(napari._qt._qapp_model.injection._qproviders)
-	napari._qt._qapp_model.injection._qproviders --> napari._qt.qt_main_window
-	napari._qt._qapp_model.injection._qproviders --> napari._qt.qt_viewer
-	napari._qt._qapp_model.injection._qproviders --> napari.layers
-	click napari._qt._qapp_model.injection._qproviders "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/_qproviders.py" _blank
 	napari._qt._qapp_model.qactions(napari._qt._qapp_model.qactions)
-	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.injection
-	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.injection._qprocessors
-	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.injection._qproviders
 	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.qactions._debug
-	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.qactions._layerlist_context
 	napari._qt._qapp_model.qactions --> napari._qt.qt_main_window
 	napari._qt._qapp_model.qactions --> napari._qt.qt_viewer
 	click napari._qt._qapp_model.qactions "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/__init__.py" _blank
 	napari._qt._qapp_model.qactions._debug(napari._qt._qapp_model.qactions._debug)
 	napari._qt._qapp_model.qactions._debug --> napari._qt.qt_viewer
 	click napari._qt._qapp_model.qactions._debug "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_debug.py" _blank
-	napari._qt._qapp_model.qactions._layerlist_context(napari._qt._qapp_model.qactions._layerlist_context)
-	napari._qt._qapp_model.qactions._layerlist_context --> napari.layers
-	click napari._qt._qapp_model.qactions._layerlist_context "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_layerlist_context.py" _blank
 	napari._qt.containers(napari._qt.containers)
 	click napari._qt.containers "https://github.com/napari/napari/tree/main/napari/_qt/containers/__init__.py" _blank
 	napari._qt.dialogs(napari._qt.dialogs)
@@ -60,11 +42,6 @@ graph LR
 	napari._qt.qt_viewer --> napari.components.layerlist
 	napari._qt.qt_viewer --> napari.layers
 	click napari._qt.qt_viewer "https://github.com/napari/napari/tree/main/napari/_qt/qt_viewer.py" _blank
-	napari._qt.qthreading(napari._qt.qthreading)
-	napari._qt.qthreading --> napari._qt._qapp_model.injection
-	napari._qt.qthreading --> napari._qt._qapp_model.injection._qprocessors
-	napari._qt.qthreading --> napari.layers
-	click napari._qt.qthreading "https://github.com/napari/napari/tree/main/napari/_qt/qthreading.py" _blank
 	napari._qt.threads(napari._qt.threads)
 	click napari._qt.threads "https://github.com/napari/napari/tree/main/napari/_qt/threads/__init__.py" _blank
 	napari._qt.threads.status_checker(napari._qt.threads.status_checker)
@@ -90,7 +67,6 @@ graph LR
 	napari._qt.widgets.qt_dims_sorter --> napari._qt.widgets.qt_tooltip
 	click napari._qt.widgets.qt_dims_sorter "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_dims_sorter.py" _blank
 	napari._qt.widgets.qt_mirrored_sliders_popup(napari._qt.widgets.qt_mirrored_sliders_popup)
-	napari._qt.widgets.qt_mirrored_sliders_popup --> napari._qt.dialogs
 	click napari._qt.widgets.qt_mirrored_sliders_popup "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_mirrored_sliders_popup.py" _blank
 	napari._qt.widgets.qt_scrollbar(napari._qt.widgets.qt_scrollbar)
 	click napari._qt.widgets.qt_scrollbar "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_scrollbar.py" _blank
@@ -99,18 +75,15 @@ graph LR
 	napari._qt.widgets.qt_tooltip(napari._qt.widgets.qt_tooltip)
 	click napari._qt.widgets.qt_tooltip "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_tooltip.py" _blank
 	napari._qt.widgets.qt_viewer_buttons(napari._qt.widgets.qt_viewer_buttons)
-	napari._qt.widgets.qt_viewer_buttons --> napari._qt.dialogs
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.widgets.qt_dims_sorter
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.widgets.qt_spinbox
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.widgets.qt_tooltip
-	napari._qt.widgets.qt_viewer_buttons --> napari.layers
 	click napari._qt.widgets.qt_viewer_buttons "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_buttons.py" _blank
 	napari._qt.widgets.qt_viewer_dock_widget(napari._qt.widgets.qt_viewer_dock_widget)
 	napari._qt.widgets.qt_viewer_dock_widget --> napari._qt.qt_viewer
 	napari._qt.widgets.qt_viewer_dock_widget --> napari._qt.utils
 	click napari._qt.widgets.qt_viewer_dock_widget "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_dock_widget.py" _blank
 	napari._qt.widgets.qt_viewer_status_bar(napari._qt.widgets.qt_viewer_status_bar)
-	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.dialogs
 	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.qt_main_window
 	click napari._qt.widgets.qt_viewer_status_bar "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_status_bar.py" _blank
 	napari.components._layer_slicer(napari.components._layer_slicer)
@@ -138,56 +111,7 @@ graph LR
 	napari.components.layerlist --> napari.layers
 	click napari.components.layerlist "https://github.com/napari/napari/tree/main/napari/components/layerlist.py" _blank
 	napari.components.overlays(napari.components.overlays)
-	napari.components.overlays --> napari.components.overlays.axes
-	napari.components.overlays --> napari.components.overlays.base
-	napari.components.overlays --> napari.components.overlays.bounding_box
-	napari.components.overlays --> napari.components.overlays.brush_circle
-	napari.components.overlays --> napari.components.overlays.colorbar
-	napari.components.overlays --> napari.components.overlays.interaction_box
-	napari.components.overlays --> napari.components.overlays.labels_polygon
-	napari.components.overlays --> napari.components.overlays.scale_bar
-	napari.components.overlays --> napari.components.overlays.text
-	napari.components.overlays --> napari.components.overlays.welcome
-	napari.components.overlays --> napari.components.overlays.zoom
 	click napari.components.overlays "https://github.com/napari/napari/tree/main/napari/components/overlays/__init__.py" _blank
-	napari.components.overlays.axes(napari.components.overlays.axes)
-	napari.components.overlays.axes --> napari.components.overlays.base
-	click napari.components.overlays.axes "https://github.com/napari/napari/tree/main/napari/components/overlays/axes.py" _blank
-	napari.components.overlays.base(napari.components.overlays.base)
-	napari.components.overlays.base --> napari.components._viewer_constants
-	napari.components.overlays.base --> napari.layers
-	click napari.components.overlays.base "https://github.com/napari/napari/tree/main/napari/components/overlays/base.py" _blank
-	napari.components.overlays.bounding_box(napari.components.overlays.bounding_box)
-	napari.components.overlays.bounding_box --> napari.components.overlays.base
-	click napari.components.overlays.bounding_box "https://github.com/napari/napari/tree/main/napari/components/overlays/bounding_box.py" _blank
-	napari.components.overlays.brush_circle(napari.components.overlays.brush_circle)
-	napari.components.overlays.brush_circle --> napari.components.overlays.base
-	click napari.components.overlays.brush_circle "https://github.com/napari/napari/tree/main/napari/components/overlays/brush_circle.py" _blank
-	napari.components.overlays.colorbar(napari.components.overlays.colorbar)
-	napari.components.overlays.colorbar --> napari.components._viewer_constants
-	napari.components.overlays.colorbar --> napari.components.overlays.base
-	click napari.components.overlays.colorbar "https://github.com/napari/napari/tree/main/napari/components/overlays/colorbar.py" _blank
-	napari.components.overlays.interaction_box(napari.components.overlays.interaction_box)
-	napari.components.overlays.interaction_box --> napari.components.overlays.base
-	napari.components.overlays.interaction_box --> napari.layers
-	click napari.components.overlays.interaction_box "https://github.com/napari/napari/tree/main/napari/components/overlays/interaction_box.py" _blank
-	napari.components.overlays.labels_polygon(napari.components.overlays.labels_polygon)
-	napari.components.overlays.labels_polygon --> napari.components.overlays.base
-	napari.components.overlays.labels_polygon --> napari.layers
-	click napari.components.overlays.labels_polygon "https://github.com/napari/napari/tree/main/napari/components/overlays/labels_polygon.py" _blank
-	napari.components.overlays.scale_bar(napari.components.overlays.scale_bar)
-	napari.components.overlays.scale_bar --> napari.components.overlays.base
-	click napari.components.overlays.scale_bar "https://github.com/napari/napari/tree/main/napari/components/overlays/scale_bar.py" _blank
-	napari.components.overlays.text(napari.components.overlays.text)
-	napari.components.overlays.text --> napari.components._viewer_constants
-	napari.components.overlays.text --> napari.components.overlays.base
-	click napari.components.overlays.text "https://github.com/napari/napari/tree/main/napari/components/overlays/text.py" _blank
-	napari.components.overlays.welcome(napari.components.overlays.welcome)
-	napari.components.overlays.welcome --> napari.components.overlays.base
-	click napari.components.overlays.welcome "https://github.com/napari/napari/tree/main/napari/components/overlays/welcome.py" _blank
-	napari.components.overlays.zoom(napari.components.overlays.zoom)
-	napari.components.overlays.zoom --> napari.components.overlays.base
-	click napari.components.overlays.zoom "https://github.com/napari/napari/tree/main/napari/components/overlays/zoom.py" _blank
 	napari.components.tooltip(napari.components.tooltip)
 	click napari.components.tooltip "https://github.com/napari/napari/tree/main/napari/components/tooltip.py" _blank
 	napari.components.viewer_model(napari.components.viewer_model)
@@ -205,18 +129,11 @@ graph LR
 	napari.layers(napari.layers)
 	click napari.layers "https://github.com/napari/napari/tree/main/napari/layers/__init__.py" _blank
 	subgraph module.napari._qt._qapp_model[napari._qt._qapp_model]
-		 napari._qt._qapp_model.injection
 		 napari._qt._qapp_model.qactions
 	end
 	class module.napari._qt._qapp_model subgraphs
-	subgraph module.napari._qt._qapp_model.injection[napari._qt._qapp_model.injection]
-		 napari._qt._qapp_model.injection._qprocessors
-		 napari._qt._qapp_model.injection._qproviders
-	end
-	class module.napari._qt._qapp_model.injection subgraphs
 	subgraph module.napari._qt._qapp_model.qactions[napari._qt._qapp_model.qactions]
 		 napari._qt._qapp_model.qactions._debug
-		 napari._qt._qapp_model.qactions._layerlist_context
 	end
 	class module.napari._qt._qapp_model.qactions subgraphs
 	subgraph module.napari._qt[napari._qt]
@@ -225,7 +142,6 @@ graph LR
 		 napari._qt.layer_controls
 		 napari._qt.qt_main_window
 		 napari._qt.qt_viewer
-		 napari._qt.qthreading
 		 napari._qt.threads
 		 napari._qt.utils
 	end
@@ -263,20 +179,6 @@ graph LR
 		 napari.components.viewer_model
 	end
 	class module.napari.components subgraphs
-	subgraph module.napari.components.overlays[napari.components.overlays]
-		 napari.components.overlays.axes
-		 napari.components.overlays.base
-		 napari.components.overlays.bounding_box
-		 napari.components.overlays.brush_circle
-		 napari.components.overlays.colorbar
-		 napari.components.overlays.interaction_box
-		 napari.components.overlays.labels_polygon
-		 napari.components.overlays.scale_bar
-		 napari.components.overlays.text
-		 napari.components.overlays.welcome
-		 napari.components.overlays.zoom
-	end
-	class module.napari.components.overlays subgraphs
 	subgraph module.napari[napari]
 		 napari.layers
 	end
@@ -289,65 +191,48 @@ graph LR
 ```
 napari/
 ├─components/
-│ ├─_viewer_key_bindings.py
-│ ├─tooltip.py
 │ ├─_viewer_constants.py
-│ ├─_viewer_mouse_bindings.py
-│ ├─camera.py
-│ ├─viewer_model.py
-│ ├─cursor.py
 │ ├─dims.py
+│ ├─cursor.py
+│ ├─viewer_model.py
+│ ├─tooltip.py
+│ ├─layerlist.py
 │ ├─overlays/
-│ │ ├─colorbar.py
-│ │ ├─bounding_box.py
-│ │ ├─base.py
-│ │ ├─scale_bar.py
-│ │ ├─welcome.py
-│ │ ├─text.py
-│ │ ├─zoom.py
-│ │ ├─axes.py
-│ │ ├─brush_circle.py
-│ │ ├─labels_polygon.py
-│ │ ├─__init__.py
-│ │ └─interaction_box.py
-│ ├─grid.py
+│ │ └─__init__.py
 │ ├─_layer_slicer.py
-│ └─layerlist.py
-├─_qt/
-│ ├─qt_main_window.py
-│ ├─containers/
-│ │ └─__init__.py
-│ ├─widgets/
-│ │ ├─qt_dims_sorter.py
-│ │ ├─qt_dims_slider.py
-│ │ ├─qt_scrollbar.py
-│ │ ├─qt_spinbox.py
-│ │ ├─qt_mirrored_sliders_popup.py
-│ │ ├─qt_viewer_status_bar.py
-│ │ ├─qt_tooltip.py
-│ │ ├─qt_command_palette.py
-│ │ ├─qt_viewer_buttons.py
-│ │ ├─qt_viewer_dock_widget.py
-│ │ └─qt_dims.py
-│ ├─utils.py
-│ ├─layer_controls/
-│ │ └─__init__.py
-│ ├─qt_viewer.py
-│ ├─dialogs/
-│ │ └─__init__.py
-│ ├─qthreading.py
-│ ├─_qapp_model/
-│ │ ├─injection/
-│ │ │ ├─_qprocessors.py
-│ │ │ ├─__init__.py
-│ │ │ └─_qproviders.py
-│ │ └─qactions/
-│ │   ├─_debug.py
-│ │   ├─_layerlist_context.py
-│ │   └─__init__.py
-│ └─threads/
-│   ├─status_checker.py
-│   └─__init__.py
-└─layers/
-  └─__init__.py
+│ ├─_viewer_key_bindings.py
+│ ├─_viewer_mouse_bindings.py
+│ ├─grid.py
+│ └─camera.py
+├─layers/
+│ └─__init__.py
+└─_qt/
+  ├─qt_viewer.py
+  ├─dialogs/
+  │ └─__init__.py
+  ├─threads/
+  │ ├─status_checker.py
+  │ └─__init__.py
+  ├─layer_controls/
+  │ └─__init__.py
+  ├─containers/
+  │ └─__init__.py
+  ├─_qapp_model/
+  │ └─qactions/
+  │   ├─_debug.py
+  │   └─__init__.py
+  ├─qt_main_window.py
+  ├─widgets/
+  │ ├─qt_dims.py
+  │ ├─qt_dims_slider.py
+  │ ├─qt_viewer_status_bar.py
+  │ ├─qt_viewer_dock_widget.py
+  │ ├─qt_viewer_buttons.py
+  │ ├─qt_scrollbar.py
+  │ ├─qt_mirrored_sliders_popup.py
+  │ ├─qt_dims_sorter.py
+  │ ├─qt_command_palette.py
+  │ ├─qt_spinbox.py
+  │ └─qt_tooltip.py
+  └─utils.py
 ```

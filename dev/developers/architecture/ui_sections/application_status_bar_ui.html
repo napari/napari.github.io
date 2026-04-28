@@ -37,14 +37,14 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/napari-sphinx-theme.css?v=9078da35" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=fd6457a4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -52,16 +52,17 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=91c000b7" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
-    <script src="../../../_static/documentation_options.js?v=d5130524"></script>
+    <script src="../../../_static/documentation_options.js?v=07df1944"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/sg-tags.js?v=d80f6fa4"></script>
     <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script data-domain="napari.org" defer="defer" src="https://plausible.io/js/plausible.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
@@ -502,7 +503,7 @@ window.addEventListener("load", load);
 window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'developers/architecture/ui_sections/application_status_bar_ui';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
@@ -531,7 +532,9 @@ window.runMermaid = runMermaid;</script>
 
   
   <div id="pst-scroll-pixel-helper"></div>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -1010,7 +1013,6 @@ window.runMermaid = runMermaid;</script>
 	click napari._qt &quot;https://github.com/napari/napari/tree/main/napari/_qt/__init__.py&quot; _blank
 	napari._qt.dialogs.qt_activity_dialog(napari._qt.dialogs.qt_activity_dialog)
 	napari._qt.dialogs.qt_activity_dialog --&gt; napari._qt.widgets.qt_progress_bar
-	napari._qt.dialogs.qt_activity_dialog --&gt; napari.utils.progress
 	click napari._qt.dialogs.qt_activity_dialog &quot;https://github.com/napari/napari/tree/main/napari/_qt/dialogs/qt_activity_dialog.py&quot; _blank
 	napari._qt.qt_main_window(napari._qt.qt_main_window)
 	napari._qt.qt_main_window --&gt; napari._qt.dialogs.qt_activity_dialog
@@ -1025,14 +1027,11 @@ window.runMermaid = runMermaid;</script>
 	napari._qt.widgets.qt_command_palette --&gt; napari._qt.qt_main_window
 	click napari._qt.widgets.qt_command_palette &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_command_palette.py&quot; _blank
 	napari._qt.widgets.qt_progress_bar(napari._qt.widgets.qt_progress_bar)
-	napari._qt.widgets.qt_progress_bar --&gt; napari.utils.progress
 	click napari._qt.widgets.qt_progress_bar &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_progress_bar.py&quot; _blank
 	napari._qt.widgets.qt_viewer_status_bar(napari._qt.widgets.qt_viewer_status_bar)
 	napari._qt.widgets.qt_viewer_status_bar --&gt; napari._qt.dialogs.qt_activity_dialog
 	napari._qt.widgets.qt_viewer_status_bar --&gt; napari._qt.qt_main_window
 	click napari._qt.widgets.qt_viewer_status_bar &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_status_bar.py&quot; _blank
-	napari.utils.progress(napari.utils.progress)
-	click napari.utils.progress &quot;https://github.com/napari/napari/tree/main/napari/utils/progress.py&quot; _blank
 	napari.viewer(napari.viewer)
 	napari.viewer --&gt; napari._qt
 	napari.viewer --&gt; napari._qt.qt_main_window
@@ -1060,10 +1059,6 @@ window.runMermaid = runMermaid;</script>
 		 napari._qt.widgets.qt_viewer_status_bar
 	end
 	class module.napari._qt.widgets subgraphs
-	subgraph module.napari.utils[napari.utils]
-		 napari.utils.progress
-	end
-	class module.napari.utils subgraphs
 	classDef subgraphs fill:white,strock:black,color:black;	classDef default fill:#00c3ff,color:black;
 	linkStyle default stroke:#00c3ff
 	classDef external fill:#ffa600,color:black;
@@ -1071,20 +1066,18 @@ window.runMermaid = runMermaid;</script>
 <section id="source-code-directory-layout-related-to-modules-inside-napari">
 <h2>Source code directory layout (related to modules inside <code class="docutils literal notranslate"><span class="pre">napari</span></code>)<a class="headerlink" href="#source-code-directory-layout-related-to-modules-inside-napari" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>napari/
-├─utils/
-│ └─progress.py
-├─_qt/
-│ ├─qt_main_window.py
-│ ├─widgets/
-│ │ ├─qt_viewer_status_bar.py
-│ │ ├─qt_command_palette.py
-│ │ └─qt_progress_bar.py
-│ ├─dialogs/
-│ │ └─qt_activity_dialog.py
-│ ├─threads/
-│ │ └─status_checker.py
-│ └─__init__.py
-└─viewer.py
+├─viewer.py
+└─_qt/
+  ├─dialogs/
+  │ └─qt_activity_dialog.py
+  ├─threads/
+  │ └─status_checker.py
+  ├─qt_main_window.py
+  ├─widgets/
+  │ ├─qt_viewer_status_bar.py
+  │ ├─qt_progress_bar.py
+  │ └─qt_command_palette.py
+  └─__init__.py
 </pre></div>
 </div>
 </section>
@@ -1171,8 +1164,8 @@ window.runMermaid = runMermaid;</script>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
 
   <footer class="napari-footer">
 <div class="bd-footer__inner bd-page-width">

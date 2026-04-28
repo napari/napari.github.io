@@ -37,14 +37,14 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/napari-sphinx-theme.css?v=9078da35" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=fd6457a4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -52,16 +52,17 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=91c000b7" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
-    <script src="../../../_static/documentation_options.js?v=d5130524"></script>
+    <script src="../../../_static/documentation_options.js?v=07df1944"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/sg-tags.js?v=d80f6fa4"></script>
     <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script data-domain="napari.org" defer="defer" src="https://plausible.io/js/plausible.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
@@ -502,7 +503,7 @@ window.addEventListener("load", load);
 window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'developers/architecture/ui_sections/viewer_ui';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
@@ -531,7 +532,9 @@ window.runMermaid = runMermaid;</script>
 
   
   <div id="pst-scroll-pixel-helper"></div>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -1005,32 +1008,14 @@ window.runMermaid = runMermaid;</script>
         graph LR
 	accTitle: Dependencies between modules in the napari Viewer UI section
 	accDescr: Diagram showing the dependencies between the modules involved in the definition of the napari Viewer UI section
-	napari._qt._qapp_model.injection(napari._qt._qapp_model.injection)
-	click napari._qt._qapp_model.injection &quot;https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/__init__.py&quot; _blank
-	napari._qt._qapp_model.injection._qprocessors(napari._qt._qapp_model.injection._qprocessors)
-	napari._qt._qapp_model.injection._qprocessors --&gt; napari._qt._qapp_model.injection._qproviders
-	napari._qt._qapp_model.injection._qprocessors --&gt; napari.layers
-	click napari._qt._qapp_model.injection._qprocessors &quot;https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/_qprocessors.py&quot; _blank
-	napari._qt._qapp_model.injection._qproviders(napari._qt._qapp_model.injection._qproviders)
-	napari._qt._qapp_model.injection._qproviders --&gt; napari._qt.qt_main_window
-	napari._qt._qapp_model.injection._qproviders --&gt; napari._qt.qt_viewer
-	napari._qt._qapp_model.injection._qproviders --&gt; napari.layers
-	click napari._qt._qapp_model.injection._qproviders &quot;https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/_qproviders.py&quot; _blank
 	napari._qt._qapp_model.qactions(napari._qt._qapp_model.qactions)
-	napari._qt._qapp_model.qactions --&gt; napari._qt._qapp_model.injection
-	napari._qt._qapp_model.qactions --&gt; napari._qt._qapp_model.injection._qprocessors
-	napari._qt._qapp_model.qactions --&gt; napari._qt._qapp_model.injection._qproviders
 	napari._qt._qapp_model.qactions --&gt; napari._qt._qapp_model.qactions._debug
-	napari._qt._qapp_model.qactions --&gt; napari._qt._qapp_model.qactions._layerlist_context
 	napari._qt._qapp_model.qactions --&gt; napari._qt.qt_main_window
 	napari._qt._qapp_model.qactions --&gt; napari._qt.qt_viewer
 	click napari._qt._qapp_model.qactions &quot;https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/__init__.py&quot; _blank
 	napari._qt._qapp_model.qactions._debug(napari._qt._qapp_model.qactions._debug)
 	napari._qt._qapp_model.qactions._debug --&gt; napari._qt.qt_viewer
 	click napari._qt._qapp_model.qactions._debug &quot;https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_debug.py&quot; _blank
-	napari._qt._qapp_model.qactions._layerlist_context(napari._qt._qapp_model.qactions._layerlist_context)
-	napari._qt._qapp_model.qactions._layerlist_context --&gt; napari.layers
-	click napari._qt._qapp_model.qactions._layerlist_context &quot;https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_layerlist_context.py&quot; _blank
 	napari._qt.containers(napari._qt.containers)
 	click napari._qt.containers &quot;https://github.com/napari/napari/tree/main/napari/_qt/containers/__init__.py&quot; _blank
 	napari._qt.dialogs(napari._qt.dialogs)
@@ -1061,11 +1046,6 @@ window.runMermaid = runMermaid;</script>
 	napari._qt.qt_viewer --&gt; napari.components.layerlist
 	napari._qt.qt_viewer --&gt; napari.layers
 	click napari._qt.qt_viewer &quot;https://github.com/napari/napari/tree/main/napari/_qt/qt_viewer.py&quot; _blank
-	napari._qt.qthreading(napari._qt.qthreading)
-	napari._qt.qthreading --&gt; napari._qt._qapp_model.injection
-	napari._qt.qthreading --&gt; napari._qt._qapp_model.injection._qprocessors
-	napari._qt.qthreading --&gt; napari.layers
-	click napari._qt.qthreading &quot;https://github.com/napari/napari/tree/main/napari/_qt/qthreading.py&quot; _blank
 	napari._qt.threads(napari._qt.threads)
 	click napari._qt.threads &quot;https://github.com/napari/napari/tree/main/napari/_qt/threads/__init__.py&quot; _blank
 	napari._qt.threads.status_checker(napari._qt.threads.status_checker)
@@ -1091,7 +1071,6 @@ window.runMermaid = runMermaid;</script>
 	napari._qt.widgets.qt_dims_sorter --&gt; napari._qt.widgets.qt_tooltip
 	click napari._qt.widgets.qt_dims_sorter &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_dims_sorter.py&quot; _blank
 	napari._qt.widgets.qt_mirrored_sliders_popup(napari._qt.widgets.qt_mirrored_sliders_popup)
-	napari._qt.widgets.qt_mirrored_sliders_popup --&gt; napari._qt.dialogs
 	click napari._qt.widgets.qt_mirrored_sliders_popup &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_mirrored_sliders_popup.py&quot; _blank
 	napari._qt.widgets.qt_scrollbar(napari._qt.widgets.qt_scrollbar)
 	click napari._qt.widgets.qt_scrollbar &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_scrollbar.py&quot; _blank
@@ -1100,18 +1079,15 @@ window.runMermaid = runMermaid;</script>
 	napari._qt.widgets.qt_tooltip(napari._qt.widgets.qt_tooltip)
 	click napari._qt.widgets.qt_tooltip &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_tooltip.py&quot; _blank
 	napari._qt.widgets.qt_viewer_buttons(napari._qt.widgets.qt_viewer_buttons)
-	napari._qt.widgets.qt_viewer_buttons --&gt; napari._qt.dialogs
 	napari._qt.widgets.qt_viewer_buttons --&gt; napari._qt.widgets.qt_dims_sorter
 	napari._qt.widgets.qt_viewer_buttons --&gt; napari._qt.widgets.qt_spinbox
 	napari._qt.widgets.qt_viewer_buttons --&gt; napari._qt.widgets.qt_tooltip
-	napari._qt.widgets.qt_viewer_buttons --&gt; napari.layers
 	click napari._qt.widgets.qt_viewer_buttons &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_buttons.py&quot; _blank
 	napari._qt.widgets.qt_viewer_dock_widget(napari._qt.widgets.qt_viewer_dock_widget)
 	napari._qt.widgets.qt_viewer_dock_widget --&gt; napari._qt.qt_viewer
 	napari._qt.widgets.qt_viewer_dock_widget --&gt; napari._qt.utils
 	click napari._qt.widgets.qt_viewer_dock_widget &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_dock_widget.py&quot; _blank
 	napari._qt.widgets.qt_viewer_status_bar(napari._qt.widgets.qt_viewer_status_bar)
-	napari._qt.widgets.qt_viewer_status_bar --&gt; napari._qt.dialogs
 	napari._qt.widgets.qt_viewer_status_bar --&gt; napari._qt.qt_main_window
 	click napari._qt.widgets.qt_viewer_status_bar &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_status_bar.py&quot; _blank
 	napari.components._layer_slicer(napari.components._layer_slicer)
@@ -1139,56 +1115,7 @@ window.runMermaid = runMermaid;</script>
 	napari.components.layerlist --&gt; napari.layers
 	click napari.components.layerlist &quot;https://github.com/napari/napari/tree/main/napari/components/layerlist.py&quot; _blank
 	napari.components.overlays(napari.components.overlays)
-	napari.components.overlays --&gt; napari.components.overlays.axes
-	napari.components.overlays --&gt; napari.components.overlays.base
-	napari.components.overlays --&gt; napari.components.overlays.bounding_box
-	napari.components.overlays --&gt; napari.components.overlays.brush_circle
-	napari.components.overlays --&gt; napari.components.overlays.colorbar
-	napari.components.overlays --&gt; napari.components.overlays.interaction_box
-	napari.components.overlays --&gt; napari.components.overlays.labels_polygon
-	napari.components.overlays --&gt; napari.components.overlays.scale_bar
-	napari.components.overlays --&gt; napari.components.overlays.text
-	napari.components.overlays --&gt; napari.components.overlays.welcome
-	napari.components.overlays --&gt; napari.components.overlays.zoom
 	click napari.components.overlays &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/__init__.py&quot; _blank
-	napari.components.overlays.axes(napari.components.overlays.axes)
-	napari.components.overlays.axes --&gt; napari.components.overlays.base
-	click napari.components.overlays.axes &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/axes.py&quot; _blank
-	napari.components.overlays.base(napari.components.overlays.base)
-	napari.components.overlays.base --&gt; napari.components._viewer_constants
-	napari.components.overlays.base --&gt; napari.layers
-	click napari.components.overlays.base &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/base.py&quot; _blank
-	napari.components.overlays.bounding_box(napari.components.overlays.bounding_box)
-	napari.components.overlays.bounding_box --&gt; napari.components.overlays.base
-	click napari.components.overlays.bounding_box &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/bounding_box.py&quot; _blank
-	napari.components.overlays.brush_circle(napari.components.overlays.brush_circle)
-	napari.components.overlays.brush_circle --&gt; napari.components.overlays.base
-	click napari.components.overlays.brush_circle &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/brush_circle.py&quot; _blank
-	napari.components.overlays.colorbar(napari.components.overlays.colorbar)
-	napari.components.overlays.colorbar --&gt; napari.components._viewer_constants
-	napari.components.overlays.colorbar --&gt; napari.components.overlays.base
-	click napari.components.overlays.colorbar &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/colorbar.py&quot; _blank
-	napari.components.overlays.interaction_box(napari.components.overlays.interaction_box)
-	napari.components.overlays.interaction_box --&gt; napari.components.overlays.base
-	napari.components.overlays.interaction_box --&gt; napari.layers
-	click napari.components.overlays.interaction_box &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/interaction_box.py&quot; _blank
-	napari.components.overlays.labels_polygon(napari.components.overlays.labels_polygon)
-	napari.components.overlays.labels_polygon --&gt; napari.components.overlays.base
-	napari.components.overlays.labels_polygon --&gt; napari.layers
-	click napari.components.overlays.labels_polygon &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/labels_polygon.py&quot; _blank
-	napari.components.overlays.scale_bar(napari.components.overlays.scale_bar)
-	napari.components.overlays.scale_bar --&gt; napari.components.overlays.base
-	click napari.components.overlays.scale_bar &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/scale_bar.py&quot; _blank
-	napari.components.overlays.text(napari.components.overlays.text)
-	napari.components.overlays.text --&gt; napari.components._viewer_constants
-	napari.components.overlays.text --&gt; napari.components.overlays.base
-	click napari.components.overlays.text &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/text.py&quot; _blank
-	napari.components.overlays.welcome(napari.components.overlays.welcome)
-	napari.components.overlays.welcome --&gt; napari.components.overlays.base
-	click napari.components.overlays.welcome &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/welcome.py&quot; _blank
-	napari.components.overlays.zoom(napari.components.overlays.zoom)
-	napari.components.overlays.zoom --&gt; napari.components.overlays.base
-	click napari.components.overlays.zoom &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/zoom.py&quot; _blank
 	napari.components.tooltip(napari.components.tooltip)
 	click napari.components.tooltip &quot;https://github.com/napari/napari/tree/main/napari/components/tooltip.py&quot; _blank
 	napari.components.viewer_model(napari.components.viewer_model)
@@ -1206,18 +1133,11 @@ window.runMermaid = runMermaid;</script>
 	napari.layers(napari.layers)
 	click napari.layers &quot;https://github.com/napari/napari/tree/main/napari/layers/__init__.py&quot; _blank
 	subgraph module.napari._qt._qapp_model[napari._qt._qapp_model]
-		 napari._qt._qapp_model.injection
 		 napari._qt._qapp_model.qactions
 	end
 	class module.napari._qt._qapp_model subgraphs
-	subgraph module.napari._qt._qapp_model.injection[napari._qt._qapp_model.injection]
-		 napari._qt._qapp_model.injection._qprocessors
-		 napari._qt._qapp_model.injection._qproviders
-	end
-	class module.napari._qt._qapp_model.injection subgraphs
 	subgraph module.napari._qt._qapp_model.qactions[napari._qt._qapp_model.qactions]
 		 napari._qt._qapp_model.qactions._debug
-		 napari._qt._qapp_model.qactions._layerlist_context
 	end
 	class module.napari._qt._qapp_model.qactions subgraphs
 	subgraph module.napari._qt[napari._qt]
@@ -1226,7 +1146,6 @@ window.runMermaid = runMermaid;</script>
 		 napari._qt.layer_controls
 		 napari._qt.qt_main_window
 		 napari._qt.qt_viewer
-		 napari._qt.qthreading
 		 napari._qt.threads
 		 napari._qt.utils
 	end
@@ -1264,20 +1183,6 @@ window.runMermaid = runMermaid;</script>
 		 napari.components.viewer_model
 	end
 	class module.napari.components subgraphs
-	subgraph module.napari.components.overlays[napari.components.overlays]
-		 napari.components.overlays.axes
-		 napari.components.overlays.base
-		 napari.components.overlays.bounding_box
-		 napari.components.overlays.brush_circle
-		 napari.components.overlays.colorbar
-		 napari.components.overlays.interaction_box
-		 napari.components.overlays.labels_polygon
-		 napari.components.overlays.scale_bar
-		 napari.components.overlays.text
-		 napari.components.overlays.welcome
-		 napari.components.overlays.zoom
-	end
-	class module.napari.components.overlays subgraphs
 	subgraph module.napari[napari]
 		 napari.layers
 	end
@@ -1290,67 +1195,50 @@ window.runMermaid = runMermaid;</script>
 <h2>Source code directory layout (related to modules inside <code class="docutils literal notranslate"><span class="pre">napari</span></code>)<a class="headerlink" href="#source-code-directory-layout-related-to-modules-inside-napari" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>napari/
 ├─components/
-│ ├─_viewer_key_bindings.py
-│ ├─tooltip.py
 │ ├─_viewer_constants.py
-│ ├─_viewer_mouse_bindings.py
-│ ├─camera.py
-│ ├─viewer_model.py
-│ ├─cursor.py
 │ ├─dims.py
+│ ├─cursor.py
+│ ├─viewer_model.py
+│ ├─tooltip.py
+│ ├─layerlist.py
 │ ├─overlays/
-│ │ ├─colorbar.py
-│ │ ├─bounding_box.py
-│ │ ├─base.py
-│ │ ├─scale_bar.py
-│ │ ├─welcome.py
-│ │ ├─text.py
-│ │ ├─zoom.py
-│ │ ├─axes.py
-│ │ ├─brush_circle.py
-│ │ ├─labels_polygon.py
-│ │ ├─__init__.py
-│ │ └─interaction_box.py
-│ ├─grid.py
+│ │ └─__init__.py
 │ ├─_layer_slicer.py
-│ └─layerlist.py
-├─_qt/
-│ ├─qt_main_window.py
-│ ├─containers/
-│ │ └─__init__.py
-│ ├─widgets/
-│ │ ├─qt_dims_sorter.py
-│ │ ├─qt_dims_slider.py
-│ │ ├─qt_scrollbar.py
-│ │ ├─qt_spinbox.py
-│ │ ├─qt_mirrored_sliders_popup.py
-│ │ ├─qt_viewer_status_bar.py
-│ │ ├─qt_tooltip.py
-│ │ ├─qt_command_palette.py
-│ │ ├─qt_viewer_buttons.py
-│ │ ├─qt_viewer_dock_widget.py
-│ │ └─qt_dims.py
-│ ├─utils.py
-│ ├─layer_controls/
-│ │ └─__init__.py
-│ ├─qt_viewer.py
-│ ├─dialogs/
-│ │ └─__init__.py
-│ ├─qthreading.py
-│ ├─_qapp_model/
-│ │ ├─injection/
-│ │ │ ├─_qprocessors.py
-│ │ │ ├─__init__.py
-│ │ │ └─_qproviders.py
-│ │ └─qactions/
-│ │   ├─_debug.py
-│ │   ├─_layerlist_context.py
-│ │   └─__init__.py
-│ └─threads/
-│   ├─status_checker.py
-│   └─__init__.py
-└─layers/
-  └─__init__.py
+│ ├─_viewer_key_bindings.py
+│ ├─_viewer_mouse_bindings.py
+│ ├─grid.py
+│ └─camera.py
+├─layers/
+│ └─__init__.py
+└─_qt/
+  ├─qt_viewer.py
+  ├─dialogs/
+  │ └─__init__.py
+  ├─threads/
+  │ ├─status_checker.py
+  │ └─__init__.py
+  ├─layer_controls/
+  │ └─__init__.py
+  ├─containers/
+  │ └─__init__.py
+  ├─_qapp_model/
+  │ └─qactions/
+  │   ├─_debug.py
+  │   └─__init__.py
+  ├─qt_main_window.py
+  ├─widgets/
+  │ ├─qt_dims.py
+  │ ├─qt_dims_slider.py
+  │ ├─qt_viewer_status_bar.py
+  │ ├─qt_viewer_dock_widget.py
+  │ ├─qt_viewer_buttons.py
+  │ ├─qt_scrollbar.py
+  │ ├─qt_mirrored_sliders_popup.py
+  │ ├─qt_dims_sorter.py
+  │ ├─qt_command_palette.py
+  │ ├─qt_spinbox.py
+  │ └─qt_tooltip.py
+  └─utils.py
 </pre></div>
 </div>
 </section>
@@ -1437,8 +1325,8 @@ window.runMermaid = runMermaid;</script>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
 
   <footer class="napari-footer">
 <div class="bd-footer__inner bd-page-width">

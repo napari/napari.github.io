@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
 
-    <script src="../../../../_static/documentation_options.js?v=6b8ac44a"></script>
+    <script src="../../../../_static/documentation_options.js?v=9abf1f80"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -2960,8 +2960,10 @@ window.runMermaid = runMermaid;</script>
         <span class="n">front_face_normal</span><span class="p">,</span> <span class="n">back_face_normal</span> <span class="o">=</span> <span class="n">find_front_back_face</span><span class="p">(</span>
             <span class="n">click_pos_data</span><span class="p">,</span> <span class="n">bounding_box</span><span class="p">,</span> <span class="n">view_dir</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">front_face_normal</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">back_face_normal</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">front_face_normal</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">back_face_normal</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># click does not intersect the data bounding box</span>
+            <span class="c1"># we use &quot;or&quot; above instead of &quot;and&quot; because is some literal</span>
+            <span class="c1"># edge cases one face might be found but not the other</span>
             <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
 
         <span class="c1"># Calculate ray-bounding box face intersections</span>

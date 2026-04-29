@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
-    <script src="../../../../_static/documentation_options.js?v=6a6ed7eb"></script>
+    <script src="../../../../_static/documentation_options.js?v=adde2332"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1296,22 +1296,11 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">attenuation</span><span class="p">()</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LayerDataProtocol</span> <span class="o">|</span> <span class="n">MultiScaleData</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Data, possibly in multiscale wrapper. Obeys LayerDataProtocol.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
-
-    <span class="nd">@data</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@ScalarFieldBase</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">setter</span>  <span class="c1"># type: ignore[attr-defined]</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LayerDataProtocol</span> <span class="o">|</span> <span class="n">MultiScaleData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_data_raw</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="c1"># note, we don&#39;t support changing multiscale in an Image instance</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">MultiScaleData</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="n">data</span>  <span class="c1"># type: ignore</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_thumbnail_level_data</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
+        <span class="n">ScalarFieldBase</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keep_auto_contrast</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_editable</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">interpolation2d</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InterpolationStr</span><span class="p">:</span>
@@ -1449,7 +1438,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">input_data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span>
-            <span class="n">input_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># type: ignore[assignment]</span>
+            <span class="n">input_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
         <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;slice&#39;</span><span class="p">:</span>
             <span class="n">input_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">raw</span>  <span class="c1"># ugh</span>
         <span class="k">else</span><span class="p">:</span>

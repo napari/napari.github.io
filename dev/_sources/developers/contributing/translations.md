@@ -85,7 +85,7 @@ The word **Tab** can mean different things in the english language:
 
 - A spacer, when the `Tab` key of a keyboard is used inside a text editor.
 - A tablature, a simplified version of sheet music used for stringed
-  insruments.
+  instruments.
 - A user interface graphical element, like the one provide by `QTabWidget`.
 
 ```python

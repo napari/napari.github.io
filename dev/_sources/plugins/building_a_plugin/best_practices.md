@@ -411,7 +411,7 @@ In this case, only `MyWidget` requires the heavy dependency, but with the import
 at the top-level, `FastWidget` will also be affected by the slow import time of
 `my_heavy_dependency_like_tensorflow`.
 
-This can deterioate the end-user experience, and make napari feel slugish. Best
+This can deteriorate the end-user experience, and make napari feel sluggish. Best
 practice is to delay heavy imports until right before they are used. The
 following slight modification will help other bits of your plugin,
 like `FastWidget`, load much faster:

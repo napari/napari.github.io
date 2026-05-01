@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: April 29, 2026*
+*Last updated: May 01, 2026*
 
 
 ## Recent Releases (Last 3 Months)
@@ -638,6 +638,7 @@ Have you ever tried to use the `dims` pop-up widget (accessed by right clicking 
 
 ## Older Releases
 
+- **[napari 0.6.0](release_0_6_0)** (May 2025) - ### Summary
 - **[napari 0.5.6](release_0_5_6)** (January 2025) - ### Faster shapes 🚀
 - **[napari 0.5.5](release_0_5_5)** (December 2024) - This release continues the 0.5 tradition of churning out the bug fixes and enhancements, with 24 pull requests total in that category. If you are a us...
 - **[napari 0.5.4](release_0_5_4)** (September 2024) - Another release with a lot of bug fixes, but also some (more!) improvements to Shapes layer performance ([#7144](https://github.com/napari/napari/pull...

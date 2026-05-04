@@ -28,7 +28,7 @@ by the changes. Threading is used to smoothly animate the waves.
 
 .. tags:: interactivity, gui
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-179
+.. GENERATED FROM PYTHON SOURCE LINES 11-180
 
 
 
@@ -204,6 +204,7 @@ by the changes. Threading is used to smoothly animate the waves.
 
     # wait for the layers to be added before running the viewer
     wait_for_layers(viewer, ['wave 0'])
+    viewer.fit_to_view()
 
     if __name__ == '__main__':
         napari.run()

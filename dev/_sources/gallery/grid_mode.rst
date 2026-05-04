@@ -29,7 +29,7 @@ scale_bar can also be shown in a gridded manner.
 
 .. tags:: visualization-basic
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-38
+.. GENERATED FROM PYTHON SOURCE LINES 12-39
 
 
 
@@ -67,6 +67,7 @@ scale_bar can also be shown in a gridded manner.
     viewer.scale_bar.box = True
     # show scalebar in each grid instead of just once
     viewer.scale_bar.gridded = True
+    viewer.fit_to_view()
 
     if __name__ == '__main__':
         napari.run()

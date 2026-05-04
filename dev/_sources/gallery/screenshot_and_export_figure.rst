@@ -36,7 +36,7 @@ In the final grid state shown below, the first row represents exported images. T
 
 .. tags:: visualization-advanced
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-101
+.. GENERATED FROM PYTHON SOURCE LINES 19-102
 
 
 
@@ -130,6 +130,7 @@ In the final grid state shown below, the first row represents exported images. T
 
     viewer.grid.enabled = True
     viewer.grid.shape = (2, 3)
+    viewer.fit_to_view()
 
     if __name__ == '__main__':
         napari.run()

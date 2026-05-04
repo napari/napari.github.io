@@ -30,7 +30,7 @@ toggling the grid mode off, the auto-tiling behavior can be seen.
 
 .. tags:: visualization-basic
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-35
+.. GENERATED FROM PYTHON SOURCE LINES 13-36
 
 
 
@@ -64,6 +64,7 @@ toggling the grid mode off, the auto-tiling behavior can be seen.
     # enable grid with stride 2 to get layers split two-by-two
     viewer.grid.enabled = True
     viewer.grid.stride = 2
+    viewer.fit_to_view()
 
     if __name__ == '__main__':
         napari.run()

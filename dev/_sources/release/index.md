@@ -4,12 +4,21 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: May 05, 2026*
+*Last updated: May 06, 2026*
 
 
 ## Recent Releases (Last 3 Months)
 
 Latest features and improvements:
+
+````{dropdown} napari 0.7.1 (May 2026)
+:open:
+
+- Add points layer face and border colorbar ([#8624](https://github.com/napari/napari/pull/8624))
+
+[View full release notes →](release_0_7_1)
+
+````
 
 ````{dropdown} napari 0.7.0 (March 2026)
 :open:

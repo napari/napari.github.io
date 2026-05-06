@@ -1,0 +1,182 @@
+napari.layers.Points
+====================
+
+.. currentmodule:: napari.layers
+
+.. autoclass:: Points
+   :members:
+   :show-inheritance:
+   :inherited-members:
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+   
+   
+      ~Points.add
+   
+   
+      ~Points.as_layer_data_tuple
+   
+   
+      ~Points.bind_key
+   
+   
+      ~Points.block_update_properties
+   
+   
+      ~Points.click_plane_from_click_data
+   
+   
+      ~Points.create
+   
+   
+      ~Points.data_to_world
+   
+   
+      ~Points.get_point_info
+   
+   
+      ~Points.get_ray_intersections
+   
+   
+      ~Points.get_source_str
+   
+   
+      ~Points.get_status
+   
+   
+      ~Points.get_value
+   
+   
+      ~Points.interaction_box
+   
+   
+      ~Points.pop
+   
+   
+      ~Points.projected_distance_from_mouse_drag
+   
+   
+      ~Points.refresh
+   
+   
+      ~Points.refresh_colors
+   
+   
+      ~Points.refresh_text
+   
+   
+      ~Points.remove
+   
+   
+      ~Points.remove_selected
+   
+   
+      ~Points.save
+   
+   
+      ~Points.set_view_slice
+   
+   
+      ~Points.to_mask
+   
+   
+      ~Points.update_highlight_visibility
+   
+   
+      ~Points.update_transform_box_visibility
+   
+   
+      ~Points.world_to_data
+   
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Points.ModeCallable
+      ~Points.affine
+      ~Points.antialiasing
+      ~Points.axis_labels
+      ~Points.blending
+      ~Points.border_color
+      ~Points.border_color_cycle
+      ~Points.border_color_mode
+      ~Points.border_colorbar
+      ~Points.border_colormap
+      ~Points.border_contrast_limits
+      ~Points.border_width
+      ~Points.border_width_is_relative
+      ~Points.bounding_box
+      ~Points.canvas_size_limits
+      ~Points.class_keymap
+      ~Points.current_border_color
+      ~Points.current_border_width
+      ~Points.current_face_color
+      ~Points.current_properties
+      ~Points.current_size
+      ~Points.current_symbol
+      ~Points.cursor
+      ~Points.cursor_size
+      ~Points.data
+      ~Points.editable
+      ~Points.experimental_clipping_planes
+      ~Points.extent
+      ~Points.face_color
+      ~Points.face_color_cycle
+      ~Points.face_color_mode
+      ~Points.face_colorbar
+      ~Points.face_colormap
+      ~Points.face_contrast_limits
+      ~Points.feature_defaults
+      ~Points.features
+      ~Points.help
+      ~Points.keymap
+      ~Points.loaded
+      ~Points.metadata
+      ~Points.mode
+      ~Points.mouse_pan
+      ~Points.mouse_zoom
+      ~Points.n_dimensional
+      ~Points.name
+      ~Points.name_overlay
+      ~Points.ndim
+      ~Points.opacity
+      ~Points.out_of_slice_display
+      ~Points.projection_mode
+      ~Points.properties
+      ~Points.property_choices
+      ~Points.rotate
+      ~Points.scale
+      ~Points.scale_factor
+      ~Points.selected_data
+      ~Points.shading
+      ~Points.shear
+      ~Points.shown
+      ~Points.size
+      ~Points.source
+      ~Points.symbol
+      ~Points.text
+      ~Points.thumbnail
+      ~Points.translate
+      ~Points.unique_id
+      ~Points.units
+      ~Points.visible
+      
+      
+      
+      
+      
+   
+   
+
+   .. rubric:: Details

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
-    <script src="../../../../_static/documentation_options.js?v=24ebdb42"></script>
+    <script src="../../../../_static/documentation_options.js?v=25c82844"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1432,9 +1432,14 @@ window.runMermaid = runMermaid;</script>
             <span class="n">seed</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">32</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
 
         <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_original_random_colormap</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="n">shuffle_and_extend_colormap</span><span class="p">(</span>
+        <span class="n">new_cmap</span> <span class="o">=</span> <span class="n">shuffle_and_extend_colormap</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_original_random_colormap</span><span class="p">,</span> <span class="n">seed</span>
         <span class="p">)</span>
+        <span class="c1"># Sync from the layer (source of truth) before assignment, so</span>
+        <span class="c1"># `events.colormap` listeners observe the correct `use_selection`.</span>
+        <span class="n">new_cmap</span><span class="o">.</span><span class="n">use_selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_selected_label</span>
+        <span class="n">new_cmap</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="n">new_cmap</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_original_random_colormap</span> <span class="o">=</span> <span class="n">orig</span>
 
     <span class="nd">@property</span>

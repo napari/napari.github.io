@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
-    <script src="../../../../_static/documentation_options.js?v=601455a9"></script>
+    <script src="../../../../_static/documentation_options.js?v=e7682b2a"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -939,9 +939,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Image data. Can be N &gt;= 2 dimensional. If the last dimension has length</span>
 <span class="sd">        3 or 4 can be interpreted as RGB or RGBA if rgb is `True`. If a</span>
 <span class="sd">        list and arrays are decreasing in shape then the data is treated as</span>
-<span class="sd">        a multiscale image. Please note multiscale rendering is only</span>
-<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
-<span class="sd">        displayed.</span>
+<span class="sd">        a multiscale image. In 2D, the displayed resolution is chosen</span>
+<span class="sd">        automatically based on the viewport. In 3D, the lowest resolution</span>
+<span class="sd">        scale is displayed by default. The resolution level can be locked</span>
+<span class="sd">        via ``locked_data_level`` or the resolution control in the layer</span>
+<span class="sd">        controls UI.</span>
 <span class="sd">    affine : n-D array or napari.utils.transforms.Affine</span>
 <span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
 <span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
@@ -1002,9 +1004,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        represented by a list of array-like image data. If not specified by</span>
 <span class="sd">        the user and if the data is a list of arrays that decrease in shape,</span>
 <span class="sd">        then it will be taken to be multiscale. The first image in the list</span>
-<span class="sd">        should be the largest. Please note multiscale rendering is only</span>
-<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
-<span class="sd">        displayed.</span>
+<span class="sd">        should be the largest. In 2D, the displayed resolution is chosen</span>
+<span class="sd">        automatically based on the viewport. In 3D, the lowest resolution</span>
+<span class="sd">        scale is displayed by default. The resolution level can be locked</span>
+<span class="sd">        via ``locked_data_level`` or the resolution control in the layer</span>
+<span class="sd">        controls UI.</span>
 <span class="sd">    name : str</span>
 <span class="sd">        Name of the layer.</span>
 <span class="sd">    opacity : float</span>
@@ -1049,9 +1053,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Image data. Can be N dimensional. If the last dimension has length</span>
 <span class="sd">        3 or 4 can be interpreted as RGB or RGBA if rgb is `True`. If a list</span>
 <span class="sd">        and arrays are decreasing in shape then the data is treated as a</span>
-<span class="sd">        multiscale image. Please note multiscale rendering is only</span>
-<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
-<span class="sd">        displayed.</span>
+<span class="sd">        multiscale image. In 2D, the displayed resolution is chosen</span>
+<span class="sd">        automatically based on the viewport. In 3D, the lowest resolution</span>
+<span class="sd">        scale is displayed by default. The resolution level can be locked</span>
+<span class="sd">        via ``locked_data_level`` or the resolution control in the layer</span>
+<span class="sd">        controls UI.</span>
 <span class="sd">    axis_labels : tuple of str</span>
 <span class="sd">        Dimension names of the layer data.</span>
 <span class="sd">    metadata : dict</span>
@@ -1064,9 +1070,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    multiscale : bool</span>
 <span class="sd">        Whether the data is a multiscale image or not. Multiscale data is</span>
 <span class="sd">        represented by a list of array like image data. The first image in the</span>
-<span class="sd">        list should be the largest. Please note multiscale rendering is only</span>
-<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
-<span class="sd">        displayed.</span>
+<span class="sd">        list should be the largest. In 2D, the displayed resolution is chosen</span>
+<span class="sd">        automatically based on the viewport. In 3D, the lowest resolution</span>
+<span class="sd">        scale is displayed by default. The resolution level can be locked</span>
+<span class="sd">        via ``locked_data_level`` or the resolution control in the layer</span>
+<span class="sd">        controls UI.</span>
 <span class="sd">    mode : str</span>
 <span class="sd">        Interactive mode. The normal, default mode is PAN_ZOOM, which</span>
 <span class="sd">        allows for normal interactivity with the canvas.</span>

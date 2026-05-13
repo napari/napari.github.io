@@ -114,6 +114,7 @@ napari.layers.Image
       ~Image.keymap
       ~Image.level_shapes
       ~Image.loaded
+      ~Image.locked_data_level
       ~Image.metadata
       ~Image.mode
       ~Image.mouse_pan

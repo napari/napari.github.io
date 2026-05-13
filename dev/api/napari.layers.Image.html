@@ -55,7 +55,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
-    <script src="../_static/documentation_options.js?v=601455a9"></script>
+    <script src="../_static/documentation_options.js?v=e7682b2a"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -618,9 +618,11 @@
 <li><p><strong>data</strong> (<em>array</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> of </em><em>array</em>) – Image data. Can be N &gt;= 2 dimensional. If the last dimension has length
 3 or 4 can be interpreted as RGB or RGBA if rgb is <cite>True</cite>. If a
 list and arrays are decreasing in shape then the data is treated as
-a multiscale image. Please note multiscale rendering is only
-supported in 2D. In 3D, only the lowest resolution scale is
-displayed.</p></li>
+a multiscale image. In 2D, the displayed resolution is chosen
+automatically based on the viewport. In 3D, the lowest resolution
+scale is displayed by default. The resolution level can be locked
+via <code class="docutils literal notranslate"><span class="pre">locked_data_level</span></code> or the resolution control in the layer
+controls UI.</p></li>
 <li><p><strong>affine</strong> (<em>n-D array</em><em> or </em><a class="reference internal" href="napari.utils.transforms.Affine.html#napari.utils.transforms.Affine" title="napari.utils.transforms.Affine"><em>napari.utils.transforms.Affine</em></a>) – (N+1, N+1) affine transformation matrix in homogeneous coordinates.
 The first (N, N) entries correspond to a linear transform and
 the final column is a length N translation vector and a 1 or a napari
@@ -665,9 +667,11 @@ interpolation before being multiplied with a custom interpolation kernel
 represented by a list of array-like image data. If not specified by
 the user and if the data is a list of arrays that decrease in shape,
 then it will be taken to be multiscale. The first image in the list
-should be the largest. Please note multiscale rendering is only
-supported in 2D. In 3D, only the lowest resolution scale is
-displayed.</p></li>
+should be the largest. In 2D, the displayed resolution is chosen
+automatically based on the viewport. In 3D, the lowest resolution
+scale is displayed by default. The resolution level can be locked
+via <code class="docutils literal notranslate"><span class="pre">locked_data_level</span></code> or the resolution control in the layer
+controls UI.</p></li>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Name of the layer.</p></li>
 <li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
 <li><p><strong>plane</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em> or </em><em>SlicingPlane</em>) – Properties defining plane rendering in 3D. Properties are defined in
@@ -702,9 +706,11 @@ If not provided, the default units are assumed to be pixels.</p></li>
 <dd><p>Image data. Can be N dimensional. If the last dimension has length
 3 or 4 can be interpreted as RGB or RGBA if rgb is <cite>True</cite>. If a list
 and arrays are decreasing in shape then the data is treated as a
-multiscale image. Please note multiscale rendering is only
-supported in 2D. In 3D, only the lowest resolution scale is
-displayed.</p>
+multiscale image. In 2D, the displayed resolution is chosen
+automatically based on the viewport. In 3D, the lowest resolution
+scale is displayed by default. The resolution level can be locked
+via <code class="docutils literal notranslate"><span class="pre">locked_data_level</span></code> or the resolution control in the layer
+controls UI.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>array or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a> of array</p>
@@ -753,9 +759,11 @@ luminance image.</p>
 <span class="sig-name descname"><span class="pre">multiscale</span></span><a class="headerlink" href="#napari.layers.Image.multiscale" title="Link to this definition">#</a></dt>
 <dd><p>Whether the data is a multiscale image or not. Multiscale data is
 represented by a list of array like image data. The first image in the
-list should be the largest. Please note multiscale rendering is only
-supported in 2D. In 3D, only the lowest resolution scale is
-displayed.</p>
+list should be the largest. In 2D, the displayed resolution is chosen
+automatically based on the viewport. In 3D, the lowest resolution
+scale is displayed by default. The resolution level can be locked
+via <code class="docutils literal notranslate"><span class="pre">locked_data_level</span></code> or the resolution control in the layer
+controls UI.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
@@ -1120,67 +1128,70 @@ can be multidimensional for RGB or RGBA images if multidimensional is
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.loaded" title="napari.layers.Image.loaded"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loaded</span></code></a></p></td>
 <td><p>Whether the layer has been loaded into memory.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id9" title="napari.layers.Image.metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metadata</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.locked_data_level" title="napari.layers.Image.locked_data_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">locked_data_level</span></code></a></p></td>
+<td><p>Locked multiscale resolution level.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#id9" title="napari.layers.Image.metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metadata</span></code></a></p></td>
 <td><p>Key/value map for user-stored data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id10" title="napari.layers.Image.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mode</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id10" title="napari.layers.Image.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mode</span></code></a></p></td>
 <td><p>Interactive mode</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.mouse_pan" title="napari.layers.Image.mouse_pan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mouse_pan</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.mouse_pan" title="napari.layers.Image.mouse_pan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mouse_pan</span></code></a></p></td>
 <td><p>Determine if canvas interactive panning is enabled with the mouse.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.mouse_zoom" title="napari.layers.Image.mouse_zoom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mouse_zoom</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.mouse_zoom" title="napari.layers.Image.mouse_zoom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mouse_zoom</span></code></a></p></td>
 <td><p>Determine if canvas interactive zooming is enabled with the mouse.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.name" title="napari.layers.Image.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.name" title="napari.layers.Image.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
 <td><p>Unique name of the layer.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">name_overlay</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">name_overlay</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.ndim" title="napari.layers.Image.ndim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.ndim" title="napari.layers.Image.ndim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></a></p></td>
 <td><p>Number of dimensions in the data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.opacity" title="napari.layers.Image.opacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">opacity</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.opacity" title="napari.layers.Image.opacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">opacity</span></code></a></p></td>
 <td><p>Opacity value between 0.0 and 1.0.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.plane" title="napari.layers.Image.plane"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plane</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.plane" title="napari.layers.Image.plane"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plane</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.projection_mode" title="napari.layers.Image.projection_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">projection_mode</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.projection_mode" title="napari.layers.Image.projection_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">projection_mode</span></code></a></p></td>
 <td><p>Mode of projection of the thick slice onto the viewed dimensions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id11" title="napari.layers.Image.rendering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rendering</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id11" title="napari.layers.Image.rendering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rendering</span></code></a></p></td>
 <td><p>Return current rendering mode.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.rotate" title="napari.layers.Image.rotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.rotate" title="napari.layers.Image.rotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code></a></p></td>
 <td><p>Rotation matrix in world coordinates.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.scale" title="napari.layers.Image.scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.scale" title="napari.layers.Image.scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale</span></code></a></p></td>
 <td><p>Anisotropy factors to scale data into world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.scale_factor" title="napari.layers.Image.scale_factor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale_factor</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.scale_factor" title="napari.layers.Image.scale_factor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale_factor</span></code></a></p></td>
 <td><p>Conversion factor from canvas coordinates to image coordinates.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.shear" title="napari.layers.Image.shear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shear</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.shear" title="napari.layers.Image.shear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shear</span></code></a></p></td>
 <td><p>Shear matrix in world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.thumbnail" title="napari.layers.Image.thumbnail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thumbnail</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.thumbnail" title="napari.layers.Image.thumbnail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thumbnail</span></code></a></p></td>
 <td><p>Integer array of thumbnail for the layer</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.translate" title="napari.layers.Image.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.translate" title="napari.layers.Image.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
 <td><p>Factors to shift the layer by in units of world coordinates.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.unique_id" title="napari.layers.Image.unique_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique_id</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.unique_id" title="napari.layers.Image.unique_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique_id</span></code></a></p></td>
 <td><p>Unique ID of the layer.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id12" title="napari.layers.Image.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id12" title="napari.layers.Image.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
 <td><p>List of units for the layer.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.visible" title="napari.layers.Image.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.visible" title="napari.layers.Image.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
 <td><p>Whether the visual is currently being displayed.</p></td>
 </tr>
 </tbody>
@@ -1664,6 +1675,23 @@ and converted into data coordinates. False by default.</p></li>
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="napari.layers.Image.locked_data_level">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">locked_data_level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#napari.layers.Image.locked_data_level" title="Link to this definition">#</a></dt>
+<dd><p>Locked multiscale resolution level.</p>
+<p>When set to an integer, forces rendering at the given multiscale
+level instead of automatic level selection based on the viewport.
+Set to <code class="docutils literal notranslate"><span class="pre">None</span></code> to restore automatic behaviour.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 0.7.1.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a> or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="id9">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a></em><a class="headerlink" href="#id9" title="Link to this definition">#</a></dt>
 <dd><p>Key/value map for user-stored data.</p>
@@ -2090,6 +2118,7 @@ dimensions will be used.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8"><code class="docutils literal notranslate"><span class="pre">Image.iso_threshold</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.level_shapes"><code class="docutils literal notranslate"><span class="pre">Image.level_shapes</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.loaded"><code class="docutils literal notranslate"><span class="pre">Image.loaded</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.locked_data_level"><code class="docutils literal notranslate"><span class="pre">Image.locked_data_level</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><code class="docutils literal notranslate"><span class="pre">Image.metadata</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10"><code class="docutils literal notranslate"><span class="pre">Image.mode</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.mouse_pan"><code class="docutils literal notranslate"><span class="pre">Image.mouse_pan</span></code></a></li>

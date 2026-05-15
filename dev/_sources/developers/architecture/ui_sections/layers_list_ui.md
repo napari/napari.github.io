@@ -182,49 +182,49 @@ graph LR
 napari/
 ├─components/
 │ └─layerlist.py
-├─_qt/
-│ ├─qt_main_window.py
-│ ├─containers/
-│ │ ├─qt_list_view.py
-│ │ ├─_base_item_view.py
-│ │ ├─qt_layer_list.py
-│ │ ├─_base_item_model.py
-│ │ ├─_layer_delegate.py
-│ │ ├─_factory.py
-│ │ ├─qt_layer_model.py
-│ │ └─qt_list_model.py
-│ ├─qt_viewer.py
-│ ├─_qapp_model/
-│ │ ├─injection/
-│ │ │ ├─_qprocessors.py
-│ │ │ └─_qproviders.py
-│ │ ├─_menus.py
+├─layers/
+│ ├─tracks/
+│ │ └─__init__.py
+│ ├─shapes/
+│ │ └─__init__.py
+│ ├─surface/
+│ │ └─__init__.py
+│ ├─image/
+│ │ └─__init__.py
+│ ├─utils/
 │ │ ├─__init__.py
-│ │ └─qactions/
-│ │   ├─_layerlist_context.py
-│ │   └─__init__.py
-│ └─qt_resources/
+│ │ ├─_link_layers.py
+│ │ └─layer_utils.py
+│ ├─__init__.py
+│ ├─labels/
+│ │ └─__init__.py
+│ ├─base/
+│ │ └─__init__.py
+│ ├─vectors/
+│ │ └─__init__.py
+│ └─points/
 │   └─__init__.py
-└─layers/
-  ├─utils/
-  │ ├─_link_layers.py
-  │ ├─layer_utils.py
-  │ └─__init__.py
-  ├─tracks/
-  │ └─__init__.py
-  ├─labels/
-  │ └─__init__.py
-  ├─points/
-  │ └─__init__.py
-  ├─image/
-  │ └─__init__.py
-  ├─base/
-  │ └─__init__.py
-  ├─vectors/
-  │ └─__init__.py
-  ├─shapes/
-  │ └─__init__.py
-  ├─surface/
-  │ └─__init__.py
-  └─__init__.py
+└─_qt/
+  ├─qt_main_window.py
+  ├─_qapp_model/
+  │ ├─_menus.py
+  │ ├─qactions/
+  │ │ ├─__init__.py
+  │ │ └─_layerlist_context.py
+  │ ├─__init__.py
+  │ └─injection/
+  │   ├─_qprocessors.py
+  │   └─_qproviders.py
+  ├─containers/
+  │ ├─qt_list_view.py
+  │ ├─qt_layer_list.py
+  │ ├─qt_list_model.py
+  │ ├─_layer_delegate.py
+  │ ├─_base_item_model.py
+  │ ├─qt_layer_model.py
+  │ ├─_base_item_view.py
+  │ └─_factory.py
+  ├─qt_viewer.py
+  └─qt_resources/
+    └─__init__.py
 ```

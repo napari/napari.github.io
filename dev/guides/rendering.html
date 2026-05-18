@@ -839,8 +839,8 @@ or someone who wants to contribute to and help improve the clarity or performanc
   from .autonotebook import tqdm as notebook_tqdm
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;Image layer &#39;membrane&#39; at 0x7fafe47f5be0&gt;,
- &lt;Image layer &#39;nuclei&#39; at 0x7fafe47cfd10&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;Image layer &#39;membrane&#39; at 0x7f7ed43d1f10&gt;,
+ &lt;Image layer &#39;nuclei&#39; at 0x7f7ed43463c0&gt;]
 </pre></div>
 </div>
 </div>
@@ -1147,6 +1147,9 @@ uses the canvas’ field of view and the canvas’ size in screen pixels to find
 As a part of these calculations, <a class="reference internal" href="../api/napari.layers.Layer.html#napari.layers.Layer.corner_pixels" title="napari.layers.Layer.corner_pixels"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Layer.corner_pixels</span></code></a> is updated to store the top-left and bottom-right corner of the canvas’ field of view in the data coordinates of the currently rendered level.</p>
 <p>This means that whenever the canvas’ camera is panned or zoomed, napari fetches all the data needed to draw the current field of view.
 While this can work well with local data, it will be slow with remote or other high latency data.</p>
+<p>This automatic level selection can be overridden by setting <a class="reference internal" href="../api/napari.layers.Image.html#napari.layers.Image.locked_data_level" title="napari.layers.Image.locked_data_level"><code class="xref py py-attr docutils literal notranslate"><span class="pre">locked_data_level</span></code></a> on the layer.
+When set, the layer always renders at that specific level and <code class="docutils literal notranslate"><span class="pre">corner_pixels</span></code> spans the full extent of that level, bypassing the automatic computation described above.
+Setting it back to <code class="docutils literal notranslate"><span class="pre">None</span></code> restores automatic behavior.</p>
 </section>
 <section id="loading-non-image-data">
 <h3>Loading non-image data<a class="headerlink" href="#loading-non-image-data" title="Link to this heading">#</a></h3>

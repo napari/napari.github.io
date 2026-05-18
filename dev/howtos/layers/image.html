@@ -1150,11 +1150,31 @@ multiscale image and the part of the image that needs to be displayed:</p>
 </figure><p>This example had precomputed multiscale images stored in a <code class="docutils literal notranslate"><span class="pre">zarr</span></code> file, which is
 best for performance. If you don’t have a precomputed multiscale image but try
 and show an exceptionally large image, napari will try and compute the
-multiscale image for you unless you tell it not to.</p>
+best for performance.</p>
 <p>You can use the boolean <code class="docutils literal notranslate"><span class="pre">multiscale</span></code> keyword argument when creating an image
 layer to specify if your data is a multiscale image or not. If you don’t provide
 this value, then napari will try and guess whether your data is or needs to be a
 multiscale image.</p>
+<section id="locking-the-multiscale-level">
+<h3>Locking the multiscale level<a class="headerlink" href="#locking-the-multiscale-level" title="Link to this heading">#</a></h3>
+<p>By default, napari automatically selects which resolution level to display based
+on the current zoom and viewport. In 2D this means zooming in loads
+higher-resolution data, while in 3D the coarsest level is used for performance.</p>
+<p>If you want to force a specific resolution level — for example, to keep a
+consistent view while panning or to inspect a particular level — you can set
+the <code class="docutils literal notranslate"><span class="pre">locked_data_level</span></code> property, or using the resolution dropdown in the layer controls:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lock rendering to level 0 (highest resolution)</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">locked_data_level</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># Restore automatic level selection</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">locked_data_level</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<p>When a level is locked, napari loads the full extent of that level on the currently
+displayed dimensions regardless of zoom or display mode. The lock is automatically
+reset to <code class="docutils literal notranslate"><span class="pre">None</span></code> when the layer’s data is replaced.</p>
+<p>This property is available on both <code class="docutils literal notranslate"><span class="pre">Image</span></code> and <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layers.</p>
+</section>
 </section>
 <section id="loading-multichannel-images">
 <h2>Loading multichannel images<a class="headerlink" href="#loading-multichannel-images" title="Link to this heading">#</a></h2>
@@ -1505,7 +1525,10 @@ outlined in the following locations for
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arguments-of-imshow-and-add-image">Arguments of <code class="docutils literal notranslate"><span class="pre">imshow</span></code> and <code class="docutils literal notranslate"><span class="pre">add_image</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-data-and-numpy-like-arrays">Image data and NumPy-like arrays</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiscale-images">Multiscale images</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiscale-images">Multiscale images</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#locking-the-multiscale-level">Locking the multiscale level</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-multichannel-images">Loading multichannel images</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-rgb-vs-luminance-grayscale-images">Viewing RGB vs luminance (grayscale) images</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-colormaps">Working with colormaps</a></li>

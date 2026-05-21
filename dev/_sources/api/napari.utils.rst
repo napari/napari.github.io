@@ -20,7 +20,6 @@
       DirectLabelColormap
       NotebookScreenshot
       cancelable_progress
-      nbscreenshot
       progress
    
    
@@ -30,6 +29,7 @@
    .. rubric:: Functions
 
    
+   .. autofunction:: nbscreenshot
    .. autofunction:: progrange
    .. autofunction:: resize_dask_cache
    .. autofunction:: sys_info

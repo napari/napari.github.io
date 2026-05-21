@@ -557,15 +557,15 @@ affect the ability to install or use your plugin effectively.</p>
 <p><em>This is important! Avoid including any form of Qt in your plugin’s dependencies!</em></p>
 <p>Napari supports <em>both</em> PyQt and PySide backends for Qt. It is up to the
 end-user to choose which one they want. If they installed napari with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari[all]</span></code>, then this includes <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code> from PyPI as the default backend.
-If they installed via <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">napari</span> <span class="pre">pyqt</span></code>, then they’ll have <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code>,
+If they installed via <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">napari</span> <span class="pre">pyqt6</span></code>, then they’ll have <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code>,
 but from conda-forge instead of PyPI. Meanwhile, the napari bundle installs with PySide6.
 Users are also free to install PyQt5, or PySide6 backend.</p>
 <p>Here’s what can go wrong if you <em>also</em> declare one of these backends <strong>or napari[all]</strong>
 in the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code>/<code class="docutils literal notranslate"><span class="pre">install_requires</span></code> section of your plugin metadata:</p>
 <ul class="simple">
-<li><p>If they installed via <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">napari</span> <span class="pre">pyqt</span></code> and then they install your plugin
+<li><p>If they installed via <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">napari</span> <span class="pre">pyqt6</span></code> and then they install your plugin
 via <code class="docutils literal notranslate"><span class="pre">pip</span></code> (or vice versa) then there <em>will</em> be a binary incompatibility between the
-conda <code class="docutils literal notranslate"><span class="pre">pyqt</span></code> installation, and the <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code> installation from PyPI. <em>This will very likely
+conda <code class="docutils literal notranslate"><span class="pre">pyqt6</span></code> installation, and the <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code> installation from PyPI. <em>This will very likely
 lead to a broken environment, forcing the user to re-create their entire
 environment and re-install napari</em>. This is an unfortunate consequence of
 <a class="reference external" href="https://github.com/ContinuumIO/anaconda-issues/issues/1554">package naming decisions</a>,

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
-    <script src="../../../_static/documentation_options.js?v=5114bbf8"></script>
+    <script src="../../../_static/documentation_options.js?v=286b78dc"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1532,8 +1532,17 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># clipping in perspective projection, while still preserving enough</span>
         <span class="c1"># bit depth in the depth buffer to avoid artifacts. See discussion at:</span>
         <span class="c1"># https://github.com/napari/napari/pull/7529#issuecomment-2594203871</span>
+        <span class="c1">#</span>
+        <span class="c1"># If depth_value becomes too large, the projection matrix entry</span>
+        <span class="c1"># M[2,2] = -(f+n)/(f-n) rounds to exactly -1.0 in float32</span>
+        <span class="c1"># (vispy builds the frustum in float32), making the far-plane</span>
+        <span class="c1"># inverse singular and breaking volume raycasting (renders black).</span>
+        <span class="c1"># Vispy sets far/near = depth_value * 10, so we cap at</span>
+        <span class="c1"># depth_value &lt; 2 / (10 * float32_eps). See</span>
+        <span class="c1"># https://github.com/vispy/vispy/blob/0a6da357/vispy/scene/cameras/perspective.py#L322</span>
+        <span class="n">max_depth</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">10.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">camera</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">camera</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid_cameras</span><span class="p">:</span>
-            <span class="n">camera</span><span class="o">.</span><span class="n">_3D_camera</span><span class="o">.</span><span class="n">depth_value</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">*</span> <span class="n">diameter</span>
+            <span class="n">camera</span><span class="o">.</span><span class="n">_3D_camera</span><span class="o">.</span><span class="n">depth_value</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">128</span> <span class="o">*</span> <span class="n">diameter</span><span class="p">,</span> <span class="n">max_depth</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_add_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;When a layer is added, set its parent and order.</span>

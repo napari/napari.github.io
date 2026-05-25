@@ -57,6 +57,7 @@ graph LR
 	napari._qt.containers.qt_layer_model(napari._qt.containers.qt_layer_model)
 	napari._qt.containers.qt_layer_model --> napari._qt.containers.qt_list_model
 	napari._qt.containers.qt_layer_model --> napari.layers
+	napari._qt.containers.qt_layer_model --> napari.layers.base
 	click napari._qt.containers.qt_layer_model "https://github.com/napari/napari/tree/main/napari/_qt/containers/qt_layer_model.py" _blank
 	napari._qt.containers.qt_list_model(napari._qt.containers.qt_list_model)
 	napari._qt.containers.qt_list_model --> napari._qt.containers._base_item_model

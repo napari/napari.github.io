@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../../../_static/documentation_options.js?v=762df3bc"></script>
+    <script src="../../../_static/documentation_options.js?v=18adcf5f"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1084,8 +1084,12 @@ window.runMermaid = runMermaid;</script>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_delete_item</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
         <span class="n">item</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">)</span>
         <span class="n">item</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_extent_augmented</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">)</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">locked</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_refresh_selection_ctx_keys</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unlink_layers</span><span class="p">([</span><span class="n">item</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_refresh_selection_ctx_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="p">(</span><span class="n">added</span><span class="o">=</span><span class="p">{},</span> <span class="n">removed</span><span class="o">=</span><span class="p">{})</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_clean_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">cached_properties</span> <span class="o">=</span> <span class="p">(</span>
@@ -1169,6 +1173,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">new_layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_trigger_check_ndim_and_maybe_clean_units</span>
         <span class="p">)</span>
+        <span class="n">new_layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">locked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_refresh_selection_ctx_keys</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">new_layer</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_ndim_and_maybe_clean_units</span><span class="p">(</span><span class="n">new_layer</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span></div>
 
@@ -1179,9 +1184,31 @@ window.runMermaid = runMermaid;</script>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove selected layers from LayerList, but first unlink them.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
             <span class="k">return</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unlink_layers</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span>
+        <span class="n">deletable</span> <span class="o">=</span> <span class="p">{</span><span class="n">layer</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">layer</span><span class="o">.</span><span class="n">locked</span><span class="p">}</span>
+        <span class="n">locked</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="o">-</span> <span class="n">deletable</span>
+        <span class="k">if</span> <span class="n">locked</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.notifications</span><span class="w"> </span><span class="kn">import</span> <span class="n">show_info</span>
+
+            <span class="n">names</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="nb">repr</span><span class="p">(</span><span class="n">lay</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">lay</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">locked</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">show_info</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s1">&#39;Layer(s) </span><span class="si">{names}</span><span class="s1"> are locked and cannot be deleted.&#39;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">deletable</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unlink_layers</span><span class="p">(</span><span class="n">deletable</span><span class="p">)</span>
+        <span class="n">remaining_locked</span> <span class="o">=</span> <span class="n">locked</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">intersection_update</span><span class="p">(</span><span class="n">deletable</span><span class="p">)</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">batched_update</span><span class="p">():</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">remove_selected</span><span class="p">()</span></div>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">remove_selected</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">remaining_locked</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">remaining_locked</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="LayerList.toggle_selected_visibility">

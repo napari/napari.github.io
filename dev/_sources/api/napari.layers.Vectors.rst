@@ -103,6 +103,7 @@ napari.layers.Vectors
       ~Vectors.keymap
       ~Vectors.length
       ~Vectors.loaded
+      ~Vectors.locked
       ~Vectors.metadata
       ~Vectors.mode
       ~Vectors.mouse_pan

@@ -165,6 +165,7 @@ napari.layers.Shapes
       ~Shapes.help
       ~Shapes.keymap
       ~Shapes.loaded
+      ~Shapes.locked
       ~Shapes.metadata
       ~Shapes.mode
       ~Shapes.mouse_pan

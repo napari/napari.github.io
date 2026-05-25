@@ -104,6 +104,7 @@ napari.layers.Tracks
       ~Tracks.hide_completed_tracks
       ~Tracks.keymap
       ~Tracks.loaded
+      ~Tracks.locked
       ~Tracks.metadata
       ~Tracks.mode
       ~Tracks.mouse_pan

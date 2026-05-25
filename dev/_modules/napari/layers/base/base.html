@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../../../../_static/documentation_options.js?v=762df3bc"></script>
+    <script src="../../../../_static/documentation_options.js?v=18adcf5f"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -917,6 +917,7 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.base._base_constants</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">BaseProjectionMode</span><span class="p">,</span>
     <span class="n">Blending</span><span class="p">,</span>
+    <span class="n">LayerLock</span><span class="p">,</span>
     <span class="n">Mode</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.base._base_mouse_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -1387,8 +1388,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        of a viewer.</span>
 <span class="sd">    visible : bool</span>
 <span class="sd">        Whether the layer visual is currently being displayed.</span>
-<span class="sd">    units: tuple of pint.Unit</span>
+<span class="sd">    units : tuple of pint.Unit</span>
 <span class="sd">        Units of the layer data in world coordinates.</span>
+<span class="sd">        If not explicitly set, these default to pixel.</span>
 <span class="sd">    z_index : int</span>
 <span class="sd">        Depth of the layer visual relative to other visuals in the scenecanvas.</span>
 
@@ -1427,7 +1429,7 @@ window.runMermaid = runMermaid;</script>
     <span class="p">}</span>
     <span class="n">events</span><span class="p">:</span> <span class="n">EmitterGroup</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>  <span class="c1"># type: ignore[no-untyped-def]</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">data</span><span class="p">,</span>
         <span class="n">ndim</span><span class="p">,</span>
@@ -1449,7 +1451,8 @@ window.runMermaid = runMermaid;</script>
         <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="p">):</span>
+        <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">LayerLock</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1469,14 +1472,14 @@ window.runMermaid = runMermaid;</script>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers._source</span><span class="w"> </span><span class="kn">import</span> <span class="n">current_source</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_visible</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_unique_id</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unique_id</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="o">=</span> <span class="n">current_source</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dask_optimized_slicing</span> <span class="o">=</span> <span class="n">configure_dask</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cache</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">metadata</span> <span class="ow">or</span> <span class="p">{})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_opacity</span> <span class="o">=</span> <span class="n">opacity</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_blending</span> <span class="o">=</span> <span class="n">Blending</span><span class="p">(</span><span class="n">blending</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_visible</span> <span class="o">=</span> <span class="n">visible</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_visible_mode</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_visible_mode</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_freeze</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="s1">&#39;Ready&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_help</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -1532,6 +1535,7 @@ window.runMermaid = runMermaid;</script>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="n">ndim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_editable</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_locked</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coerce_lock</span><span class="p">(</span><span class="n">locked</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_array_like</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
@@ -1560,6 +1564,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">cursor</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">cursor_size</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">editable</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">locked</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">extent</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">loaded</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -1885,6 +1890,29 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_editable</span> <span class="o">=</span> <span class="n">editable</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_editable_changed</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">editable</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">locked</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LayerLock</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;LayerLock: which UI operations are locked on this layer.</span>
+
+<span class="sd">        ``bool(layer.locked)`` is truthy when any lock flag is set. Setting</span>
+<span class="sd">        ``True``/``False`` is equivalent to ``LayerLock.ALL``/``LayerLock.NONE``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_locked</span>
+
+    <span class="nd">@locked</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">locked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">LayerLock</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">new_lock</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coerce_lock</span><span class="p">(</span><span class="n">locked</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_locked</span> <span class="o">==</span> <span class="n">new_lock</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_locked</span> <span class="o">=</span> <span class="n">new_lock</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">locked</span><span class="p">()</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_coerce_lock</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">LayerLock</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LayerLock</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">LayerLock</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">LayerLock</span><span class="o">.</span><span class="n">ALL</span> <span class="k">if</span> <span class="n">value</span> <span class="k">else</span> <span class="n">LayerLock</span><span class="o">.</span><span class="n">NONE</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_reset_editable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset this layer&#39;s editable state based on layer properties.&quot;&quot;&quot;</span>

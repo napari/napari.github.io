@@ -142,6 +142,7 @@ napari.layers.Points
       ~Points.help
       ~Points.keymap
       ~Points.loaded
+      ~Points.locked
       ~Points.metadata
       ~Points.mode
       ~Points.mouse_pan

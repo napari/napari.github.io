@@ -9,6 +9,7 @@ caption: With this tag
 ../gallery/3D_image_plane_rendering.rst
 ../gallery/3D_paths.rst
 ../gallery/add_multiscale_image.rst
+../gallery/add_multiscale_volume.rst
 ../gallery/add_vectors_color_by_angle.rst
 ../gallery/affine_coffee_cup.rst
 ../gallery/affine_transforms.rst

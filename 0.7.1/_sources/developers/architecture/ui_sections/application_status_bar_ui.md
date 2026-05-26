@@ -62,16 +62,16 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
-├─_qt/
-│ ├─qt_main_window.py
-│ ├─widgets/
-│ │ ├─qt_viewer_status_bar.py
-│ │ ├─qt_command_palette.py
-│ │ └─qt_progress_bar.py
-│ ├─dialogs/
-│ │ └─qt_activity_dialog.py
-│ ├─threads/
-│ │ └─status_checker.py
-│ └─__init__.py
-└─viewer.py
+├─viewer.py
+└─_qt/
+  ├─qt_main_window.py
+  ├─widgets/
+  │ ├─qt_viewer_status_bar.py
+  │ ├─qt_progress_bar.py
+  │ └─qt_command_palette.py
+  ├─dialogs/
+  │ └─qt_activity_dialog.py
+  ├─__init__.py
+  └─threads/
+    └─status_checker.py
 ```

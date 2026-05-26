@@ -15,7 +15,6 @@
       :nosignatures:
       :toctree:
    
-      ArrayBase
       SampleDict
    
    

@@ -107,6 +107,7 @@ napari.layers.Surface
       ~Surface.help
       ~Surface.keymap
       ~Surface.loaded
+      ~Surface.locked
       ~Surface.metadata
       ~Surface.mode
       ~Surface.mouse_pan

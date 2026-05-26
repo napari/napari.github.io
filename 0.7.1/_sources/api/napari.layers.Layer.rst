@@ -91,6 +91,7 @@ napari.layers.Layer
       ~Layer.help
       ~Layer.keymap
       ~Layer.loaded
+      ~Layer.locked
       ~Layer.metadata
       ~Layer.mode
       ~Layer.mouse_pan

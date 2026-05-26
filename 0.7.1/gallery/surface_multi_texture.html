@@ -37,11 +37,11 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/napari-sphinx-theme.css?v=9078da35" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/napari-sphinx-theme.css?v=3779b88c" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
@@ -49,17 +49,17 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=91c000b7" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e7b8c359" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../_static/documentation_options.js?v=627a829e"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=57dfddea"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
     <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -67,9 +67,9 @@
     <script data-domain="napari.org" defer="defer" src="https://plausible.io/js/plausible.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'gallery/surface_multi_texture';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.17.1';
+        DOCUMENTATION_OPTIONS.theme_version = '0.18.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.1a6';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.1rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -216,8 +216,10 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
 </button>
         </div>
       
@@ -253,18 +255,24 @@
           
           
           
-          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
       
         <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
       
     </div>
     
@@ -273,8 +281,10 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
 </button>
     </div>
   
@@ -385,18 +395,24 @@
           
           
           
-          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
         
           <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
         
       </div>
     
@@ -551,10 +567,11 @@
 <li class="toctree-l4"><a class="reference internal" href="xarray-latlon-timeseries.html">Displaying xarray data in napari</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-advanced.html">visualization-advanced (25)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-advanced.html">visualization-advanced (26)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="3D_image_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="3D_paths.html">3D Paths</a></li>
 <li class="toctree-l4"><a class="reference internal" href="add_multiscale_image.html">Add multiscale image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="add_multiscale_volume.html">Set multiscale resolution level</a></li>
 <li class="toctree-l4"><a class="reference internal" href="add_vectors_color_by_angle.html">Add vectors color by angle</a></li>
 <li class="toctree-l4"><a class="reference internal" href="affine_coffee_cup.html">Affine Transforms 3D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="affine_transforms.html">Affine transforms</a></li>
@@ -873,41 +890,37 @@ coordinates, and may require resizing the textures to match each other.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>downloading data into /home/runner/work/docs/docs/.cache/napari-surface-texture-example
 Downloading...
 From: https://drive.google.com/uc?id=1yuPHWlLzowlfWzVMUg-mvAEe_Tmvpzy4
-To: /home/runner/work/docs/docs/.cache/pooch/tmp2n5op_g4
+To: /home/runner/work/docs/docs/.cache/pooch/tmpcs4mvr5p
 
   0%|          | 0.00/93.8M [00:00&lt;?, ?B/s]
-  1%|          | 524k/93.8M [00:00&lt;00:23, 3.97MB/s]
-  3%|▎         | 3.15M/93.8M [00:00&lt;00:06, 15.0MB/s]
- 10%|▉         | 8.91M/93.8M [00:00&lt;00:03, 22.2MB/s]
- 16%|█▌        | 15.2M/93.8M [00:00&lt;00:02, 28.3MB/s]
- 21%|██        | 19.4M/93.8M [00:00&lt;00:02, 26.7MB/s]
- 27%|██▋       | 25.7M/93.8M [00:01&lt;00:02, 28.3MB/s]
- 32%|███▏      | 29.9M/93.8M [00:01&lt;00:02, 26.7MB/s]
- 39%|███▊      | 36.2M/93.8M [00:01&lt;00:01, 30.8MB/s]
- 52%|█████▏    | 48.8M/93.8M [00:01&lt;00:01, 42.7MB/s]
- 59%|█████▊    | 55.1M/93.8M [00:01&lt;00:00, 40.6MB/s]
- 68%|██████▊   | 63.4M/93.8M [00:01&lt;00:00, 46.3MB/s]
- 74%|███████▍  | 69.7M/93.8M [00:01&lt;00:00, 49.7MB/s]
- 88%|████████▊ | 82.3M/93.8M [00:02&lt;00:00, 63.1MB/s]
- 95%|█████████▌| 89.1M/93.8M [00:02&lt;00:00, 63.1MB/s]
-100%|██████████| 93.8M/93.8M [00:02&lt;00:00, 42.9MB/s]
+  1%|          | 524k/93.8M [00:00&lt;00:21, 4.32MB/s]
+  7%|▋         | 6.82M/93.8M [00:00&lt;00:02, 33.3MB/s]
+ 16%|█▌        | 15.2M/93.8M [00:00&lt;00:02, 33.3MB/s]
+ 23%|██▎       | 21.5M/93.8M [00:00&lt;00:02, 33.5MB/s]
+ 30%|██▉       | 27.8M/93.8M [00:00&lt;00:02, 32.4MB/s]
+ 39%|███▊      | 36.2M/93.8M [00:01&lt;00:01, 37.4MB/s]
+ 45%|████▍     | 41.9M/93.8M [00:01&lt;00:01, 41.6MB/s]
+ 52%|█████▏    | 48.8M/93.8M [00:01&lt;00:01, 43.3MB/s]
+ 59%|█████▉    | 55.6M/93.8M [00:01&lt;00:00, 48.8MB/s]
+ 65%|██████▍   | 60.8M/93.8M [00:01&lt;00:00, 33.6MB/s]
+ 74%|███████▍  | 69.7M/93.8M [00:01&lt;00:00, 38.8MB/s]
+ 86%|████████▌ | 80.2M/93.8M [00:02&lt;00:00, 42.7MB/s]
+100%|██████████| 93.8M/93.8M [00:02&lt;00:00, 43.2MB/s]
 Downloading...
 From: https://drive.google.com/uc?id=17tG44rMPWjAIoO_AlH9BaQkPY7GxxEN9
-To: /home/runner/work/docs/docs/.cache/pooch/tmpah5neoj_
+To: /home/runner/work/docs/docs/.cache/pooch/tmp2i29gpmy
 
   0%|          | 0.00/17.3M [00:00&lt;?, ?B/s]
-  3%|▎         | 524k/17.3M [00:00&lt;00:04, 3.75MB/s]
- 18%|█▊        | 3.15M/17.3M [00:00&lt;00:00, 14.7MB/s]
- 52%|█████▏    | 8.91M/17.3M [00:00&lt;00:00, 25.0MB/s]
- 76%|███████▌  | 13.1M/17.3M [00:00&lt;00:00, 24.4MB/s]
- 91%|█████████ | 15.7M/17.3M [00:00&lt;00:00, 23.4MB/s]
-100%|██████████| 17.3M/17.3M [00:00&lt;00:00, 23.8MB/s]
+ 15%|█▌        | 2.62M/17.3M [00:00&lt;00:01, 10.4MB/s]
+ 39%|███▉      | 6.82M/17.3M [00:00&lt;00:00, 20.8MB/s]
+ 55%|█████▍    | 9.44M/17.3M [00:00&lt;00:00, 21.3MB/s]
+100%|██████████| 17.3M/17.3M [00:00&lt;00:00, 31.3MB/s]
 Downloading...
 From: https://drive.google.com/uc?id=1l_hGxDg6JARAyFMgWXuoIZs49qKXBv01
-To: /home/runner/work/docs/docs/.cache/pooch/tmpp_b4ibhr
+To: /home/runner/work/docs/docs/.cache/pooch/tmp3qah3wk0
 
   0%|          | 0.00/120k [00:00&lt;?, ?B/s]
-100%|██████████| 120k/120k [00:00&lt;00:00, 1.67MB/s]
+100%|██████████| 120k/120k [00:00&lt;00:00, 2.88MB/s]
 </pre></div>
 </div>
 </section>
@@ -983,7 +996,7 @@ sphinx_gallery_thumbnail_number = 2</p>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_surface_multi_texture_002.png" srcset="../_images/sphx_glr_surface_multi_texture_002.png" alt="surface multi texture" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 25.783 seconds)</p>
+<img src="../_images/sphx_glr_surface_multi_texture_002.png" srcset="../_images/sphx_glr_surface_multi_texture_002.png" alt="surface multi texture" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 22.868 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-surface-multi-texture-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/5cad0060d7849fbe4473ff3a108a0774/surface_multi_texture.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">surface_multi_texture.ipynb</span></code></a></p>
@@ -1084,8 +1097,8 @@ sphinx_gallery_thumbnail_number = 2</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
 
   <footer class="napari-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1743,7 +1756,7 @@ sphinx_gallery_thumbnail_number = 2</p>
     </div>
 
     
-      <span>7.4.7</span>
+      <span>9.1.0</span>
     
   </div>
 </div></div>

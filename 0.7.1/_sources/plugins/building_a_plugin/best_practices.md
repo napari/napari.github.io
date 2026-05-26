@@ -14,16 +14,16 @@ affect the ability to install or use your plugin effectively.
 
 Napari supports *both* PyQt and PySide backends for Qt. It is up to the
 end-user to choose which one they want. If they installed napari with `pip install napari[all]`, then this includes `PyQt6` from PyPI as the default backend.
-If they installed via `conda install napari pyqt`, then they'll have `PyQt6`,
+If they installed via `conda install napari pyqt6`, then they'll have `PyQt6`,
 but from conda-forge instead of PyPI. Meanwhile, the napari bundle installs with PySide6.
 Users are also free to install PyQt5, or PySide6 backend.
 
 Here's what can go wrong if you *also* declare one of these backends **or napari[all]**
 in the `dependencies`/`install_requires` section of your plugin metadata:
 
-- If they installed via `conda install napari pyqt` and then they install your plugin
+- If they installed via `conda install napari pyqt6` and then they install your plugin
   via `pip` (or vice versa) then there *will* be a binary incompatibility between the
-  conda `pyqt` installation, and the `PyQt6` installation from PyPI. *This will very likely
+  conda `pyqt6` installation, and the `PyQt6` installation from PyPI. *This will very likely
   lead to a broken environment, forcing the user to re-create their entire
   environment and re-install napari*. This is an unfortunate consequence of
   [package naming decisions](https://github.com/ContinuumIO/anaconda-issues/issues/1554),

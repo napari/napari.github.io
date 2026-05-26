@@ -87,7 +87,7 @@ conda-forge channel. We also recommend this path for users of arm64 macOS machin
 ([Apple Silicon](https://support.apple.com/en-us/116943), meaning a processor with a name like "M1"). You can install it with:
 
 ```sh
-conda install -c conda-forge napari pyqt
+conda install -c conda-forge napari pyqt6
 ```
 
 You can then upgrade to a new version of napari using:
@@ -305,6 +305,18 @@ Each release (0.4.15 and above) includes installers for all platforms under the 
 Download from GitHub: {{ '[napari-REL-Windows-x86_64.exe](https://github.com/napari/napari/releases/download/vREL/napari-REL-Windows-x86_64.exe)'.replace('REL', bundle_version) }}
 
 Double-click the downloaded `.exe` file to begin setup.
+
+```{admonition} Windows Security Warning
+:class: important
+The napari Windows installer is code-signed. Microsoft Defender SmartScreen 
+may trigger a warning when a new app version is newly released until the cooling
+period ends.
+
+If Windows shows a warning for an installer downloaded from the official
+napari GitHub releases page, click **More info** and confirm that the publisher
+is **NumFOCUS, Inc.** before choosing **Run anyway**. If you continue
+seeing the warning on managed devices, contact your IT department.
+```
 
 ![Montage of the napari EXE installer icon with an arrow pointing to the Welcome page of the napari EXE installer on Windows.](../_static/images/bundle_17.png)
 

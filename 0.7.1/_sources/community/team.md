@@ -5,6 +5,8 @@ napari is a consensus-based community project. Anyone with an interest in the pr
 ## Current Core Team Members
 
 - [Ashley Anderson](https://github.com/napari/napari/commits?author=aganders3) - [@aganders3](https://github.com/aganders3)
+- [Carlos M. Rodríguez-Reza](https://github.com/napari/napari/commits?author=carlosmariorr) - [@carlosmariorr](https://github.com/carlosmariorr)
+- [Carol Willing](https://github.com/napari/napari/commits?author=willingc) - [@willingc](https://github.com/willingc)
 - [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) - [@DragaDoncila](https://github.com/DragaDoncila)
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) - [@Czaki](https://github.com/Czaki)
 - [Jaime Rodríguez-Guerra](https://github.com/napari/napari/commits?author=jaimergp) - [@jaimergp](https://github.com/jaimergp)
@@ -15,9 +17,8 @@ napari is a consensus-based community project. Anyone with an interest in the pr
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - [@brisvag](https://github.com/brisvag)
 - [Melissa Weber Mendonça](https://github.com/napari/napari/commits?author=melissawm) - [@melissawm](https://github.com/melissawm)
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - [@psobolewskiPhD](https://github.com/psobolewskiPhD)
-- [Tim Monko](https://github.com/napari/napari/commits?author:timmonko) - [@TimMonko](https://github.com/TimMonko)
+- [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) - [@TimMonko](https://github.com/TimMonko)
 - [Wouter-Michiel Vierdag](https://github.com/napari/napari/commits?author=melonora) - [@melonora](https://github.com/melonora)
-- [Carol Willing](https://github.com/napari/napari/commits?author=willingc) - [@willingc](https://github.com/willingc)
 
 ## Emeritus Core Team Members
 
@@ -31,10 +32,12 @@ napari is a consensus-based community project. Anyone with an interest in the pr
 - [Nicholas Sofroniew](https://github.com/napari/napari/commits?author=sofroniewn) - [@sofroniewn](https://github.com/sofroniewn)
 - [Shannon Axelrod](https://github.com/napari/napari/commits?author=shanaxel42) - [@shanaxel42](https://github.com/shanaxel42)
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - [@tlambert03](https://github.com/tlambert03)
-- [Ziyang Liu](https://github.com/napari/napari/commits?author=potating-potato) - [@potating-potato](https://github.com/potating-potato)
+- [Ziyang Liu](https://github.com/napari/napari/commits?author=liu-ziyang) - [@liu-ziyang](https://github.com/liu-ziyang)
 
 ## Current Steering Council Members
 
+- [Brian Northan](https://github.com/napari/napari/commits?author=bnorthan) - [@bnorthan](https://github.com/bnorthan)
+- [Curtis Rueden](https://github.com/napari/napari/commits?author=ctrueden) - [@ctrueden](https://github.com/ctrueden)
 - [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) - [@DragaDoncila](https://github.com/DragaDoncila)
 - [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) - [@jni](https://github.com/jni)
 - [Kyle Harrington](https://github.com/napari/napari/commits?author=kephale) - [@kephale](https://github.com/kephale)

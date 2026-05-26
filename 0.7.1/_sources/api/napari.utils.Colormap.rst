@@ -83,6 +83,9 @@ napari.utils.Colormap
       ~Colormap.reset
    
    
+      ~Colormap.same_colors
+   
+   
       ~Colormap.schema
    
    

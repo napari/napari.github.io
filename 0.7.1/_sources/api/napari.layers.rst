@@ -18,6 +18,7 @@
       Image
       Labels
       Layer
+      LayerLock
       Points
       Shapes
       Surface

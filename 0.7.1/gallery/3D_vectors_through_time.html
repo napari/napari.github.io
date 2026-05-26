@@ -37,11 +37,11 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/napari-sphinx-theme.css?v=9078da35" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/napari-sphinx-theme.css?v=3779b88c" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
@@ -49,17 +49,17 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=91c000b7" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e7b8c359" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../_static/documentation_options.js?v=627a829e"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=57dfddea"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
     <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -67,9 +67,9 @@
     <script data-domain="napari.org" defer="defer" src="https://plausible.io/js/plausible.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'gallery/3D_vectors_through_time';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.17.1';
+        DOCUMENTATION_OPTIONS.theme_version = '0.18.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.1a6';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.1rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -216,8 +216,10 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
 </button>
         </div>
       
@@ -253,18 +255,24 @@
           
           
           
-          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
       
         <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
       
     </div>
     
@@ -273,8 +281,10 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
 </button>
     </div>
   
@@ -385,18 +395,24 @@
           
           
           
-          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/napari/napari" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
         
           <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
         
       </div>
     
@@ -551,10 +567,11 @@
 <li class="toctree-l4"><a class="reference internal" href="xarray-latlon-timeseries.html">Displaying xarray data in napari</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-advanced.html">visualization-advanced (25)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-advanced.html">visualization-advanced (26)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="3D_image_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="3D_paths.html">3D Paths</a></li>
 <li class="toctree-l4"><a class="reference internal" href="add_multiscale_image.html">Add multiscale image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="add_multiscale_volume.html">Set multiscale resolution level</a></li>
 <li class="toctree-l4"><a class="reference internal" href="add_vectors_color_by_angle.html">Add vectors color by angle</a></li>
 <li class="toctree-l4"><a class="reference internal" href="affine_coffee_cup.html">Affine Transforms 3D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="affine_transforms.html">Affine transforms</a></li>
@@ -854,78 +871,133 @@ Although we’re also measuring rotations (and strains), but here we’re intere
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading...
 From (original): https://drive.google.com/uc?id=1UZEoOtHMMeJMXVoWr6IZraZnvQe8ExNJ
-From (redirected): https://drive.google.com/uc?id=1UZEoOtHMMeJMXVoWr6IZraZnvQe8ExNJ&amp;confirm=t&amp;uuid=6c8a55bc-e3fa-4827-9a1e-22e1b37c7be1
-To: /home/runner/work/docs/docs/.cache/pooch/tmpj2i07bao
+From (redirected): https://drive.google.com/uc?id=1UZEoOtHMMeJMXVoWr6IZraZnvQe8ExNJ&amp;confirm=t&amp;uuid=1e9a72c2-aa78-4947-bca7-029082655233
+To: /home/runner/work/docs/docs/.cache/pooch/tmpcbyx2g9p
 
   0%|          | 0.00/549M [00:00&lt;?, ?B/s]
-  0%|          | 524k/549M [00:00&lt;02:39, 3.44MB/s]
-  0%|          | 2.62M/549M [00:00&lt;00:47, 11.4MB/s]
-  1%|          | 6.82M/549M [00:00&lt;00:36, 14.8MB/s]
-  2%|▏         | 8.91M/549M [00:00&lt;00:35, 15.1MB/s]
-  2%|▏         | 13.1M/549M [00:00&lt;00:34, 15.4MB/s]
-  3%|▎         | 15.2M/549M [00:01&lt;00:49, 10.8MB/s]
-  4%|▎         | 19.4M/549M [00:01&lt;00:44, 11.8MB/s]
-  4%|▍         | 23.6M/549M [00:01&lt;00:41, 12.8MB/s]
-  5%|▌         | 27.8M/549M [00:01&lt;00:31, 16.5MB/s]
-  6%|▌         | 32.0M/549M [00:02&lt;00:31, 16.3MB/s]
-  7%|▋         | 38.3M/549M [00:02&lt;00:24, 20.5MB/s]
-  7%|▋         | 40.9M/549M [00:02&lt;00:24, 20.4MB/s]
-  8%|▊         | 43.5M/549M [00:02&lt;00:23, 21.4MB/s]
-  9%|▉         | 49.3M/549M [00:02&lt;00:17, 28.6MB/s]
- 10%|▉         | 53.0M/549M [00:03&lt;00:22, 22.5MB/s]
- 11%|█         | 59.2M/549M [00:03&lt;00:21, 22.9MB/s]
- 12%|█▏        | 63.4M/549M [00:03&lt;00:20, 23.3MB/s]
- 13%|█▎        | 69.7M/549M [00:03&lt;00:15, 30.0MB/s]
- 13%|█▎        | 73.4M/549M [00:03&lt;00:16, 28.2MB/s]
- 15%|█▍        | 80.2M/549M [00:03&lt;00:13, 33.8MB/s]
- 15%|█▌        | 84.4M/549M [00:04&lt;00:14, 33.0MB/s]
- 16%|█▌        | 88.6M/549M [00:04&lt;00:14, 30.7MB/s]
- 19%|█▊        | 102M/549M [00:04&lt;00:08, 52.5MB/s]
- 20%|█▉        | 110M/549M [00:04&lt;00:10, 42.8MB/s]
- 22%|██▏       | 120M/549M [00:04&lt;00:10, 42.5MB/s]
- 24%|██▍       | 133M/549M [00:04&lt;00:08, 47.6MB/s]
- 26%|██▋       | 145M/549M [00:05&lt;00:07, 52.8MB/s]
- 29%|██▊       | 157M/549M [00:05&lt;00:06, 64.6MB/s]
- 30%|███       | 165M/549M [00:05&lt;00:05, 66.2MB/s]
- 32%|███▏      | 174M/549M [00:05&lt;00:05, 69.9MB/s]
- 33%|███▎      | 181M/549M [00:05&lt;00:06, 56.6MB/s]
- 35%|███▍      | 191M/549M [00:06&lt;00:07, 47.0MB/s]
- 38%|███▊      | 208M/549M [00:06&lt;00:06, 54.2MB/s]
- 41%|████      | 223M/549M [00:06&lt;00:04, 68.4MB/s]
- 42%|████▏     | 231M/549M [00:06&lt;00:04, 67.4MB/s]
- 44%|████▎     | 239M/549M [00:06&lt;00:04, 68.0MB/s]
- 45%|████▌     | 247M/549M [00:06&lt;00:04, 67.0MB/s]
- 48%|████▊     | 263M/549M [00:06&lt;00:04, 68.0MB/s]
- 51%|█████     | 278M/549M [00:07&lt;00:03, 85.8MB/s]
- 53%|█████▎    | 288M/549M [00:07&lt;00:03, 73.2MB/s]
- 56%|█████▌    | 305M/549M [00:07&lt;00:03, 76.4MB/s]
- 57%|█████▋    | 313M/549M [00:07&lt;00:03, 77.5MB/s]
- 59%|█████▉    | 323M/549M [00:07&lt;00:02, 77.2MB/s]
- 61%|██████    | 332M/549M [00:07&lt;00:02, 74.0MB/s]
- 64%|██████▍   | 351M/549M [00:08&lt;00:04, 41.3MB/s]
- 68%|██████▊   | 374M/549M [00:08&lt;00:03, 53.8MB/s]
- 70%|███████   | 386M/549M [00:08&lt;00:02, 62.9MB/s]
- 73%|███████▎  | 399M/549M [00:09&lt;00:02, 64.7MB/s]
- 74%|███████▍  | 407M/549M [00:09&lt;00:02, 55.3MB/s]
- 78%|███████▊  | 426M/549M [00:09&lt;00:01, 75.5MB/s]
- 80%|███████▉  | 436M/549M [00:09&lt;00:01, 63.3MB/s]
- 83%|████████▎ | 454M/549M [00:09&lt;00:01, 68.2MB/s]
- 84%|████████▍ | 462M/549M [00:09&lt;00:01, 68.7MB/s]
- 87%|████████▋ | 475M/549M [00:10&lt;00:00, 80.4MB/s]
- 88%|████████▊ | 484M/549M [00:10&lt;00:00, 76.8MB/s]
- 91%|█████████ | 498M/549M [00:10&lt;00:01, 39.7MB/s]
- 95%|█████████▌| 523M/549M [00:11&lt;00:00, 65.7MB/s]
- 98%|█████████▊| 535M/549M [00:11&lt;00:00, 57.6MB/s]
-100%|██████████| 549M/549M [00:11&lt;00:00, 48.2MB/s]
+  1%|          | 4.72M/549M [00:00&lt;00:24, 22.1MB/s]
+  1%|▏         | 7.34M/549M [00:00&lt;00:24, 21.8MB/s]
+  2%|▏         | 11.0M/549M [00:00&lt;00:26, 20.2MB/s]
+  3%|▎         | 15.2M/549M [00:00&lt;00:20, 26.0MB/s]
+  3%|▎         | 18.4M/549M [00:00&lt;00:19, 26.9MB/s]
+  4%|▍         | 21.5M/549M [00:00&lt;00:18, 28.1MB/s]
+  4%|▍         | 24.6M/549M [00:01&lt;00:21, 24.0MB/s]
+  5%|▌         | 29.9M/549M [00:01&lt;00:17, 30.1MB/s]
+  6%|▌         | 33.6M/549M [00:01&lt;00:19, 25.9MB/s]
+  7%|▋         | 39.8M/549M [00:01&lt;00:15, 33.7MB/s]
+  8%|▊         | 44.0M/549M [00:01&lt;00:23, 21.5MB/s]
+  9%|▉         | 50.3M/549M [00:01&lt;00:17, 28.2MB/s]
+ 10%|▉         | 54.5M/549M [00:02&lt;00:21, 23.0MB/s]
+ 11%|█         | 59.2M/549M [00:02&lt;00:19, 24.6MB/s]
+ 12%|█▏        | 64.0M/549M [00:02&lt;00:17, 28.2MB/s]
+ 13%|█▎        | 69.7M/549M [00:02&lt;00:17, 27.9MB/s]
+ 14%|█▍        | 76.0M/549M [00:02&lt;00:13, 34.1MB/s]
+ 15%|█▍        | 80.2M/549M [00:02&lt;00:15, 30.8MB/s]
+ 15%|█▌        | 84.4M/549M [00:03&lt;00:15, 29.2MB/s]
+ 16%|█▌        | 88.6M/549M [00:03&lt;00:14, 31.0MB/s]
+ 17%|█▋        | 92.3M/549M [00:03&lt;00:14, 30.5MB/s]
+ 18%|█▊        | 97.0M/549M [00:03&lt;00:14, 31.0MB/s]
+ 19%|█▉        | 103M/549M [00:03&lt;00:11, 37.5MB/s]
+ 20%|█▉        | 107M/549M [00:03&lt;00:11, 38.1MB/s]
+ 20%|██        | 112M/549M [00:03&lt;00:11, 38.0MB/s]
+ 21%|██        | 116M/549M [00:04&lt;00:13, 31.3MB/s]
+ 22%|██▏       | 121M/549M [00:04&lt;00:12, 35.3MB/s]
+ 23%|██▎       | 125M/549M [00:04&lt;00:15, 27.6MB/s]
+ 24%|██▍       | 131M/549M [00:04&lt;00:13, 31.7MB/s]
+ 24%|██▍       | 134M/549M [00:04&lt;00:15, 26.4MB/s]
+ 25%|██▌       | 137M/549M [00:04&lt;00:17, 23.4MB/s]
+ 26%|██▌       | 143M/549M [00:04&lt;00:13, 29.3MB/s]
+ 27%|██▋       | 147M/549M [00:05&lt;00:16, 24.6MB/s]
+ 28%|██▊       | 152M/549M [00:05&lt;00:15, 25.5MB/s]
+ 28%|██▊       | 156M/549M [00:05&lt;00:13, 28.1MB/s]
+ 30%|██▉       | 162M/549M [00:05&lt;00:13, 28.4MB/s]
+ 31%|███       | 168M/549M [00:05&lt;00:11, 34.0MB/s]
+ 31%|███▏      | 172M/549M [00:05&lt;00:11, 32.6MB/s]
+ 33%|███▎      | 179M/549M [00:06&lt;00:09, 38.0MB/s]
+ 33%|███▎      | 183M/549M [00:06&lt;00:10, 34.0MB/s]
+ 34%|███▍      | 187M/549M [00:06&lt;00:10, 34.7MB/s]
+ 35%|███▍      | 192M/549M [00:06&lt;00:09, 37.3MB/s]
+ 36%|███▌      | 196M/549M [00:06&lt;00:10, 35.1MB/s]
+ 37%|███▋      | 201M/549M [00:06&lt;00:09, 37.8MB/s]
+ 37%|███▋      | 205M/549M [00:06&lt;00:10, 33.3MB/s]
+ 38%|███▊      | 209M/549M [00:06&lt;00:09, 34.0MB/s]
+ 39%|███▉      | 214M/549M [00:07&lt;00:09, 36.8MB/s]
+ 40%|███▉      | 219M/549M [00:07&lt;00:09, 36.2MB/s]
+ 41%|████      | 223M/549M [00:07&lt;00:15, 21.2MB/s]
+ 42%|████▏     | 229M/549M [00:07&lt;00:11, 27.2MB/s]
+ 42%|████▏     | 233M/549M [00:07&lt;00:11, 27.0MB/s]
+ 43%|████▎     | 238M/549M [00:08&lt;00:09, 31.7MB/s]
+ 44%|████▍     | 242M/549M [00:08&lt;00:12, 24.7MB/s]
+ 45%|████▍     | 246M/549M [00:08&lt;00:10, 27.7MB/s]
+ 46%|████▌     | 250M/549M [00:08&lt;00:11, 26.5MB/s]
+ 46%|████▋     | 255M/549M [00:08&lt;00:09, 30.9MB/s]
+ 47%|████▋     | 260M/549M [00:08&lt;00:08, 35.6MB/s]
+ 48%|████▊     | 264M/549M [00:08&lt;00:08, 33.1MB/s]
+ 49%|████▉     | 270M/549M [00:09&lt;00:07, 37.8MB/s]
+ 50%|████▉     | 274M/549M [00:09&lt;00:10, 25.8MB/s]
+ 51%|█████     | 279M/549M [00:09&lt;00:08, 30.0MB/s]
+ 52%|█████▏    | 284M/549M [00:09&lt;00:09, 28.5MB/s]
+ 53%|█████▎    | 290M/549M [00:09&lt;00:07, 32.8MB/s]
+ 54%|█████▎    | 294M/549M [00:09&lt;00:07, 33.8MB/s]
+ 55%|█████▍    | 300M/549M [00:09&lt;00:06, 39.2MB/s]
+ 56%|█████▌    | 305M/549M [00:10&lt;00:06, 39.8MB/s]
+ 56%|█████▋    | 309M/549M [00:10&lt;00:05, 41.2MB/s]
+ 57%|█████▋    | 314M/549M [00:10&lt;00:05, 40.4MB/s]
+ 58%|█████▊    | 319M/549M [00:10&lt;00:06, 37.9MB/s]
+ 59%|█████▉    | 325M/549M [00:10&lt;00:05, 42.2MB/s]
+ 60%|██████    | 330M/549M [00:10&lt;00:05, 39.9MB/s]
+ 61%|██████    | 334M/549M [00:10&lt;00:06, 35.6MB/s]
+ 62%|██████▏   | 341M/549M [00:10&lt;00:04, 42.7MB/s]
+ 63%|██████▎   | 347M/549M [00:11&lt;00:04, 46.3MB/s]
+ 64%|██████▍   | 352M/549M [00:11&lt;00:05, 34.0MB/s]
+ 65%|██████▌   | 358M/549M [00:11&lt;00:04, 40.1MB/s]
+ 66%|██████▌   | 363M/549M [00:11&lt;00:04, 37.3MB/s]
+ 67%|██████▋   | 368M/549M [00:11&lt;00:05, 32.4MB/s]
+ 68%|██████▊   | 374M/549M [00:11&lt;00:05, 33.5MB/s]
+ 69%|██████▉   | 377M/549M [00:12&lt;00:07, 23.6MB/s]
+ 70%|███████   | 384M/549M [00:12&lt;00:05, 30.7MB/s]
+ 71%|███████   | 388M/549M [00:12&lt;00:06, 23.9MB/s]
+ 71%|███████▏  | 392M/549M [00:12&lt;00:06, 22.8MB/s]
+ 73%|███████▎  | 398M/549M [00:12&lt;00:05, 27.8MB/s]
+ 73%|███████▎  | 402M/549M [00:13&lt;00:07, 20.8MB/s]
+ 74%|███████▍  | 408M/549M [00:13&lt;00:05, 27.3MB/s]
+ 75%|███████▌  | 412M/549M [00:13&lt;00:04, 27.6MB/s]
+ 76%|███████▌  | 416M/549M [00:13&lt;00:04, 27.0MB/s]
+ 77%|███████▋  | 422M/549M [00:13&lt;00:03, 33.8MB/s]
+ 78%|███████▊  | 426M/549M [00:13&lt;00:03, 33.9MB/s]
+ 78%|███████▊  | 430M/549M [00:14&lt;00:03, 35.7MB/s]
+ 80%|███████▉  | 437M/549M [00:14&lt;00:03, 35.4MB/s]
+ 80%|████████  | 441M/549M [00:14&lt;00:05, 17.9MB/s]
+ 82%|████████▏ | 447M/549M [00:14&lt;00:04, 23.6MB/s]
+ 82%|████████▏ | 451M/549M [00:15&lt;00:04, 21.2MB/s]
+ 83%|████████▎ | 456M/549M [00:15&lt;00:03, 24.8MB/s]
+ 84%|████████▍ | 460M/549M [00:15&lt;00:03, 27.6MB/s]
+ 85%|████████▍ | 466M/549M [00:15&lt;00:02, 33.2MB/s]
+ 86%|████████▌ | 472M/549M [00:15&lt;00:01, 39.2MB/s]
+ 87%|████████▋ | 477M/549M [00:15&lt;00:01, 36.5MB/s]
+ 88%|████████▊ | 481M/549M [00:15&lt;00:01, 36.9MB/s]
+ 89%|████████▊ | 485M/549M [00:15&lt;00:01, 37.8MB/s]
+ 90%|████████▉ | 491M/549M [00:16&lt;00:01, 39.9MB/s]
+ 90%|█████████ | 495M/549M [00:16&lt;00:01, 39.2MB/s]
+ 91%|█████████ | 500M/549M [00:16&lt;00:01, 31.4MB/s]
+ 92%|█████████▏| 507M/549M [00:16&lt;00:01, 40.2MB/s]
+ 93%|█████████▎| 512M/549M [00:16&lt;00:01, 27.4MB/s]
+ 94%|█████████▍| 518M/549M [00:16&lt;00:00, 33.2MB/s]
+ 95%|█████████▌| 523M/549M [00:16&lt;00:00, 36.9MB/s]
+ 96%|█████████▋| 529M/549M [00:17&lt;00:00, 36.2MB/s]
+ 97%|█████████▋| 533M/549M [00:17&lt;00:00, 24.4MB/s]
+ 98%|█████████▊| 537M/549M [00:17&lt;00:00, 25.6MB/s]
+ 99%|█████████▊| 542M/549M [00:17&lt;00:00, 29.4MB/s]
+100%|█████████▉| 548M/549M [00:17&lt;00:00, 36.1MB/s]
+100%|██████████| 549M/549M [00:17&lt;00:00, 30.7MB/s]
 Downloading...
 From: https://drive.google.com/uc?id=1-AAkBUXykxXG3Ve20jPk43co-m3f9ZWB
-To: /home/runner/work/docs/docs/.cache/pooch/tmpoxt1ayq1
+To: /home/runner/work/docs/docs/.cache/pooch/tmpw7r43n6p
 
   0%|          | 0.00/6.72M [00:00&lt;?, ?B/s]
-  8%|▊         | 524k/6.72M [00:00&lt;00:01, 3.43MB/s]
- 39%|███▉      | 2.62M/6.72M [00:00&lt;00:00, 7.79MB/s]
-100%|██████████| 6.72M/6.72M [00:00&lt;00:00, 16.7MB/s]
-100%|██████████| 6.72M/6.72M [00:00&lt;00:00, 13.7MB/s]
+ 39%|███▉      | 2.62M/6.72M [00:00&lt;00:00, 15.3MB/s]
+100%|██████████| 6.72M/6.72M [00:00&lt;00:00, 21.0MB/s]
+100%|██████████| 6.72M/6.72M [00:00&lt;00:00, 20.1MB/s]
 </pre></div>
 </div>
 </section>
@@ -995,7 +1067,7 @@ To: /home/runner/work/docs/docs/.cache/pooch/tmpoxt1ayq1
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_3D_vectors_through_time_001.png" srcset="../_images/sphx_glr_3D_vectors_through_time_001.png" alt="3D vectors through time" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 27.114 seconds)</p>
+<img src="../_images/sphx_glr_3D_vectors_through_time_001.png" srcset="../_images/sphx_glr_3D_vectors_through_time_001.png" alt="3D vectors through time" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 35.533 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-3d-vectors-through-time-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/86d7f2e6204fe93e93d52e0c33205c62/3D_vectors_through_time.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">3D_vectors_through_time.ipynb</span></code></a></p>
@@ -1092,8 +1164,8 @@ To: /home/runner/work/docs/docs/.cache/pooch/tmpoxt1ayq1
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
 
   <footer class="napari-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1751,7 +1823,7 @@ To: /home/runner/work/docs/docs/.cache/pooch/tmpoxt1ayq1
     </div>
 
     
-      <span>7.4.7</span>
+      <span>9.1.0</span>
     
   </div>
 </div></div>

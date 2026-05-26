@@ -273,6 +273,10 @@ As a part of these calculations, {attr}`Layer.corner_pixels<napari.layers.Layer.
 This means that whenever the canvas' camera is panned or zoomed, napari fetches all the data needed to draw the current field of view.
 While this can work well with local data, it will be slow with remote or other high latency data.
 
+This automatic level selection can be overridden by setting {attr}`locked_data_level<napari.layers.Image.locked_data_level>` on the layer.
+When set, the layer always renders at that specific level and `corner_pixels` spans the full extent of that level, bypassing the automatic computation described above.
+Setting it back to `None` restores automatic behavior.
+
 ### Loading non-image data
 
 Other layer types, like {class}`Points<napari.layers.Points>` and {class}`Shapes<napari.layers.Shapes>`, have layer specific data structures.

@@ -135,6 +135,8 @@ napari.layers.Labels
       ~Labels.keymap
       ~Labels.level_shapes
       ~Labels.loaded
+      ~Labels.locked
+      ~Labels.locked_data_level
       ~Labels.metadata
       ~Labels.mode
       ~Labels.mouse_pan

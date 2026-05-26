@@ -64,7 +64,7 @@ theme:
 :color: primary
 :ref-type: myst
 :shadow:
-:class: homepage-button
+:class: button-primary
 
 {material-regular}`arrow_forward;1.2em` **Get started**
 ```
@@ -133,8 +133,8 @@ A standalone installer for when you want napari without setting up Python first.
       Display an image in napari and explore the viewer with a minimal example.
     </p>
     <div class="homepage-featured-example__actions">
-      <a class="sd-btn sd-btn-primary sd-shadow-sm homepage-button" href="gallery.html">Examples gallery</a>
-      <button class="sd-btn sd-btn-outline-primary sd-shadow-sm homepage-example-button" id="homepage-featured-example-reroll" type="button">Show another example</button>
+      <a class="sd-btn sd-btn-primary sd-shadow-sm button-primary" href="gallery.html">Examples gallery</a>
+      <button class="sd-btn sd-btn-outline-primary sd-shadow-sm button-alt" id="homepage-featured-example-reroll" type="button">Show another example</button>
     </div>
   </div>
   <a class="homepage-featured-example__media" href="gallery/add_image.html" aria-label="View the featured napari example">

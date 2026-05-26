@@ -83,6 +83,9 @@ napari.utils.DirectLabelColormap
       ~DirectLabelColormap.reset
    
    
+      ~DirectLabelColormap.same_colors
+   
+   
       ~DirectLabelColormap.schema
    
    

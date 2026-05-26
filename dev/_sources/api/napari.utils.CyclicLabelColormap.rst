@@ -83,6 +83,9 @@ napari.utils.CyclicLabelColormap
       ~CyclicLabelColormap.reset
    
    
+      ~CyclicLabelColormap.same_colors
+   
+   
       ~CyclicLabelColormap.schema
    
    

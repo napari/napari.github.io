@@ -306,6 +306,18 @@ Download from GitHub: {{ '[napari-REL-Windows-x86_64.exe](https://github.com/nap
 
 Double-click the downloaded `.exe` file to begin setup.
 
+```{admonition} Windows Security Warning
+:class: important
+The napari Windows installer is code-signed. Microsoft Defender SmartScreen 
+may trigger a warning when a new app version is newly released until the cooling
+period ends.
+
+If Windows shows a warning for an installer downloaded from the official
+napari GitHub releases page, click **More info** and confirm that the publisher
+is **NumFOCUS, Inc.** before choosing **Run anyway**. If you continue
+seeing the warning on managed devices, contact your IT department.
+```
+
 ![Montage of the napari EXE installer icon with an arrow pointing to the Welcome page of the napari EXE installer on Windows.](../_static/images/bundle_17.png)
 
 Click **Next** to proceed to the License Agreement. Read the license and click **I Agree** to continue.

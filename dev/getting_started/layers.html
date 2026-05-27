@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../_static/documentation_options.js?v=f20a8c14"></script>
+    <script src="../_static/documentation_options.js?v=57dfddea"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,19 +69,20 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.18.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.1rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = true;</script>
     <script src="../_static/random_example.js?v=309bf8a8"></script>
+    <link rel="canonical" href="https://napari.org/stable/getting_started/layers.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Feature highlights" href="features.html" />
     <link rel="prev" title="Tour of the napari viewer" href="viewer.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="dev" />
+  <meta name="docsearch:version" content="0.7.1" />
   
     
     <script src="../_static/searchtools.js"></script>
@@ -869,6 +870,26 @@ button. Note that you can Option/Alt-click on the <code class="docutils literal 
 <code class="docutils literal notranslate"><span class="pre">visibility</span></code> button of a layer a second time, the visibility state of all layers
 will be restored.</p>
 </section>
+<section id="layer-locking">
+<h2>Layer locking<a class="headerlink" href="#layer-locking" title="Link to this heading">#</a></h2>
+<p>All our layers support a <code class="docutils literal notranslate"><span class="pre">locked</span></code> property that protects a layer from
+destructive layer-list actions.</p>
+<p>You can lock or unlock selected layers from the layer list by right-clicking and
+choosing <strong>Toggle lock</strong>, or in Python by setting <code class="docutils literal notranslate"><span class="pre">layer.locked</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span><span class="o">.</span><span class="n">locked</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># or a napari.layers.base.LayerLock enum value</span>
+
+<span class="c1"># unlock again</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">locked</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>When a layer is locked, you will not be able to delete it from the layer list
+with the napari UI. Actions that delete the original layer as part of their workflow
+are also disabled, including converting between image and labels layers and
+splitting or merging image stacks.</p>
+<p>Locking currently applies only to these destructive layer-list operations. It does
+not make the layer data read-only or disable other non-destructive changes, such as use of the layer
+controls. Finally, you may still programmatically interact with the layer regardless of the lock state.</p>
+</section>
 <section id="layer-opacity">
 <span id="id2"></span><h2>Layer opacity<a class="headerlink" href="#layer-opacity" title="Link to this heading">#</a></h2>
 <p>All our layers support an opacity slider and <code class="docutils literal notranslate"><span class="pre">opacity</span></code> property that allow you
@@ -1061,6 +1082,7 @@ can use to store an arbitrary metadata dictionary on the layer.</p>
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-mode">Layer mode</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-visibility">Layer visibility</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-locking">Layer locking</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-opacity">Layer opacity</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blending-layers">Blending layers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-overlays">Layer overlays</a></li>

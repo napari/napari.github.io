@@ -163,6 +163,11 @@ Nat Cardiovasc Res 4, 1345-1362 (2025). https://doi.org/10.1038/s44161-025-00717
         napari.run()
 
 
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** (0 minutes 11.982 seconds)
+
+
 .. _sphx_glr_download_gallery_heart_masks_points.py:
 
 .. only:: html

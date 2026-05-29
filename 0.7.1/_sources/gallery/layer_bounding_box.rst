@@ -5,15 +5,6 @@
 .. "gallery/layer_bounding_box.py"
 .. LINE NUMBERS ARE GIVEN BELOW.
 
-.. only:: html
-
-    .. note::
-        :class: sphx-glr-download-link-note
-
-        :ref:`Go to the end <sphx_glr_download_gallery_layer_bounding_box.py>`
-        to download the full example as a Python script or as a
-        Jupyter notebook..
-
 .. rst-class:: sphx-glr-example-title
 
 .. _sphx_glr_gallery_layer_bounding_box.py:
@@ -96,6 +87,11 @@ see :ref:`sphx_glr_gallery_image_border.py`.
 
     if __name__ == '__main__':
         napari.run()
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** (0 minutes 14.094 seconds)
 
 
 .. _sphx_glr_download_gallery_layer_bounding_box.py:

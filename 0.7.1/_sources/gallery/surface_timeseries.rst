@@ -5,15 +5,6 @@
 .. "gallery/surface_timeseries.py"
 .. LINE NUMBERS ARE GIVEN BELOW.
 
-.. only:: html
-
-    .. note::
-        :class: sphx-glr-download-link-note
-
-        :ref:`Go to the end <sphx_glr_download_gallery_surface_timeseries.py>`
-        to download the full example as a Python script or as a
-        Jupyter notebook..
-
 .. rst-class:: sphx-glr-example-title
 
 .. _sphx_glr_gallery_surface_timeseries.py:
@@ -50,16 +41,12 @@ Display a surface timeseries using data from nilearn
     [fetch_surf_nki_enhanced] Downloading data from 
     https://www.nitrc.org/frs/download.php/8261/A00028185_rh_preprocessed_fsaverage5
     _fwhm6.gii ...
-    [fetch_surf_nki_enhanced] Downloaded 8347648 of 42412120 bytes (19.7%%,    4.3s 
-    remaining)
-    [fetch_surf_nki_enhanced]  ...done. (2 seconds, 0 min)
+    [fetch_surf_nki_enhanced]  ...done. (0 seconds, 0 min)
 
     [fetch_surf_nki_enhanced] Downloading data from 
     https://www.nitrc.org/frs/download.php/8260/A00028185_lh_preprocessed_fsaverage5
     _fwhm6.gii ...
-    [fetch_surf_nki_enhanced] Downloaded 6971392 of 42402060 bytes (16.4%%,    5.4s 
-    remaining)
-    [fetch_surf_nki_enhanced]  ...done. (2 seconds, 0 min)
+    [fetch_surf_nki_enhanced]  ...done. (0 seconds, 0 min)
 
 
 

@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=e7b8c359" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=ab111b50" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../../../_static/documentation_options.js?v=57dfddea"></script>
+    <script src="../../../_static/documentation_options.js?v=94e1f874"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -505,12 +505,13 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.18.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.1rc1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.1rc2';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = true;</script>
     <script src="../../../_static/random_example.js?v=309bf8a8"></script>
+    <link rel="canonical" href="https://napari.org/stable/developers/architecture/ui_sections/layers_controls_ui.html" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Layers list" href="layers_list_ui.html" />
@@ -554,6 +555,7 @@ window.runMermaid = runMermaid;</script>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form>
   </dialog>
+  <div class="pst-sticky-header">
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -734,6 +736,7 @@ window.runMermaid = runMermaid;</script>
 
     </header>
   
+  </div>
 
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
@@ -1427,83 +1430,83 @@ window.runMermaid = runMermaid;</script>
 <section id="source-code-directory-layout-related-to-modules-inside-napari">
 <h2>Source code directory layout (related to modules inside <code class="docutils literal notranslate"><span class="pre">napari</span></code>)<a class="headerlink" href="#source-code-directory-layout-related-to-modules-inside-napari" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>napari/
-├─viewer.py
 ├─layers/
 │ └─__init__.py
+├─viewer.py
 └─_qt/
   ├─layer_controls/
+  │ ├─qt_layer_controls_container.py
+  │ ├─qt_layer_controls_base.py
   │ ├─qt_tracks_controls.py
+  │ ├─qt_image_controls_base.py
+  │ ├─qt_vectors_controls.py
   │ ├─widgets/
-  │ │ ├─qt_multiscale_level_control.py
-  │ │ ├─qt_text_visibility.py
-  │ │ ├─qt_opacity_blending_controls.py
+  │ │ ├─qt_out_slice_checkbox.py
+  │ │ ├─_vectors/
+  │ │ │ ├─qt_edge_color.py
+  │ │ │ ├─__init__.py
+  │ │ │ ├─qt_vector_style_combobox.py
+  │ │ │ └─qt_line_dimension_spinbox.py
+  │ │ ├─_image/
+  │ │ │ ├─qt_render_control.py
+  │ │ │ ├─qt_interpolation_combobox.py
+  │ │ │ ├─__init__.py
+  │ │ │ └─qt_depiction_control.py
   │ │ ├─qt_face_color.py
-  │ │ ├─qt_projection_mode_control.py
+  │ │ ├─_points/
+  │ │ │ ├─qt_current_size_slider.py
+  │ │ │ ├─__init__.py
+  │ │ │ ├─qt_border_color.py
+  │ │ │ └─qt_symbol_combobox.py
+  │ │ ├─qt_opacity_blending_controls.py
+  │ │ ├─_labels/
+  │ │ │ ├─qt_render_control.py
+  │ │ │ ├─qt_brush_size_slider.py
+  │ │ │ ├─qt_preserve_labels_checkbox.py
+  │ │ │ ├─qt_label_color.py
+  │ │ │ ├─qt_contiguous_checkbox.py
+  │ │ │ ├─qt_display_selected_label_checkbox.py
+  │ │ │ ├─qt_ndim_spinbox.py
+  │ │ │ ├─__init__.py
+  │ │ │ ├─qt_contour_spinbox.py
+  │ │ │ └─qt_color_mode_combobox.py
   │ │ ├─_shapes/
-  │ │ │ ├─qt_edge_width_slider.py
+  │ │ │ ├─qt_edge_color.py
   │ │ │ ├─__init__.py
-  │ │ │ └─qt_edge_color.py
-  │ │ ├─_tracks/
-  │ │ │ ├─qt_graph_checkbox.py
-  │ │ │ ├─qt_tail_control.py
-  │ │ │ ├─qt_id_checkbox.py
-  │ │ │ ├─qt_colormap_control.py
-  │ │ │ ├─qt_hide_completed_tracks_checkbox.py
-  │ │ │ ├─__init__.py
-  │ │ │ ├─qt_head_slider.py
-  │ │ │ └─qt_color_properties_combobox.py
+  │ │ │ └─qt_edge_width_slider.py
   │ │ ├─qt_widget_controls_base.py
+  │ │ ├─qt_contrast_limits.py
+  │ │ ├─__init__.py
+  │ │ ├─qt_multiscale_level_control.py
+  │ │ ├─qt_projection_mode_control.py
+  │ │ ├─qt_text_visibility.py
+  │ │ ├─qt_gamma_slider.py
+  │ │ ├─_tracks/
+  │ │ │ ├─qt_hide_completed_tracks_checkbox.py
+  │ │ │ ├─qt_tail_control.py
+  │ │ │ ├─qt_head_slider.py
+  │ │ │ ├─qt_graph_checkbox.py
+  │ │ │ ├─qt_id_checkbox.py
+  │ │ │ ├─qt_color_properties_combobox.py
+  │ │ │ ├─__init__.py
+  │ │ │ └─qt_colormap_control.py
   │ │ ├─_surface/
   │ │ │ ├─qt_shading_combobox.py
   │ │ │ └─__init__.py
-  │ │ ├─qt_contrast_limits.py
-  │ │ ├─_image/
-  │ │ │ ├─qt_interpolation_combobox.py
-  │ │ │ ├─qt_depiction_control.py
-  │ │ │ ├─__init__.py
-  │ │ │ └─qt_render_control.py
-  │ │ ├─qt_out_slice_checkbox.py
-  │ │ ├─qt_colormap_control.py
-  │ │ ├─__init__.py
-  │ │ ├─qt_gamma_slider.py
-  │ │ ├─_labels/
-  │ │ │ ├─qt_preserve_labels_checkbox.py
-  │ │ │ ├─qt_display_selected_label_checkbox.py
-  │ │ │ ├─qt_label_color.py
-  │ │ │ ├─qt_brush_size_slider.py
-  │ │ │ ├─qt_color_mode_combobox.py
-  │ │ │ ├─__init__.py
-  │ │ │ ├─qt_render_control.py
-  │ │ │ ├─qt_contour_spinbox.py
-  │ │ │ ├─qt_ndim_spinbox.py
-  │ │ │ └─qt_contiguous_checkbox.py
-  │ │ ├─_points/
-  │ │ │ ├─qt_border_color.py
-  │ │ │ ├─qt_current_size_slider.py
-  │ │ │ ├─__init__.py
-  │ │ │ └─qt_symbol_combobox.py
-  │ │ └─_vectors/
-  │ │   ├─qt_line_dimension_spinbox.py
-  │ │   ├─__init__.py
-  │ │   ├─qt_edge_color.py
-  │ │   └─qt_vector_style_combobox.py
-  │ ├─qt_image_controls.py
-  │ ├─qt_shapes_controls.py
-  │ ├─qt_layer_controls_base.py
-  │ ├─qt_image_controls_base.py
-  │ ├─qt_labels_controls.py
-  │ ├─qt_points_controls.py
+  │ │ └─qt_colormap_control.py
   │ ├─__init__.py
-  │ ├─qt_vectors_controls.py
-  │ ├─qt_layer_controls_container.py
-  │ └─qt_surface_controls.py
-  ├─qt_main_window.py
+  │ ├─qt_shapes_controls.py
+  │ ├─qt_points_controls.py
+  │ ├─qt_labels_controls.py
+  │ ├─qt_surface_controls.py
+  │ └─qt_image_controls.py
+  ├─qt_viewer.py
   ├─widgets/
-  │ ├─qt_viewer_dock_widget.py
   │ ├─qt_command_palette.py
-  │ └─qt_mode_buttons.py
+  │ ├─qt_mode_buttons.py
+  │ └─qt_viewer_dock_widget.py
   ├─__init__.py
-  └─qt_viewer.py
+  └─qt_main_window.py
 </pre></div>
 </div>
 </section>

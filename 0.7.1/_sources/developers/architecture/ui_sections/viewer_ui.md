@@ -190,49 +190,49 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
-├─components/
-│ ├─_layer_slicer.py
-│ ├─viewer_model.py
-│ ├─camera.py
-│ ├─tooltip.py
-│ ├─dims.py
-│ ├─grid.py
-│ ├─layerlist.py
-│ ├─_viewer_constants.py
-│ ├─_viewer_key_bindings.py
-│ ├─_viewer_mouse_bindings.py
-│ ├─overlays/
-│ │ └─__init__.py
-│ └─cursor.py
 ├─layers/
 │ └─__init__.py
-└─_qt/
-  ├─layer_controls/
+├─_qt/
+│ ├─containers/
+│ │ └─__init__.py
+│ ├─layer_controls/
+│ │ └─__init__.py
+│ ├─qt_viewer.py
+│ ├─utils.py
+│ ├─_qapp_model/
+│ │ └─qactions/
+│ │   ├─_debug.py
+│ │   └─__init__.py
+│ ├─widgets/
+│ │ ├─qt_viewer_buttons.py
+│ │ ├─qt_tooltip.py
+│ │ ├─qt_spinbox.py
+│ │ ├─qt_command_palette.py
+│ │ ├─qt_viewer_status_bar.py
+│ │ ├─qt_dims_sorter.py
+│ │ ├─qt_dims_slider.py
+│ │ ├─qt_dims.py
+│ │ ├─qt_scrollbar.py
+│ │ ├─qt_mirrored_sliders_popup.py
+│ │ └─qt_viewer_dock_widget.py
+│ ├─qt_main_window.py
+│ ├─dialogs/
+│ │ └─__init__.py
+│ └─threads/
+│   ├─__init__.py
+│   └─status_checker.py
+└─components/
+  ├─viewer_model.py
+  ├─_viewer_key_bindings.py
+  ├─tooltip.py
+  ├─overlays/
   │ └─__init__.py
-  ├─qt_main_window.py
-  ├─widgets/
-  │ ├─qt_dims.py
-  │ ├─qt_tooltip.py
-  │ ├─qt_viewer_status_bar.py
-  │ ├─qt_viewer_buttons.py
-  │ ├─qt_viewer_dock_widget.py
-  │ ├─qt_scrollbar.py
-  │ ├─qt_dims_slider.py
-  │ ├─qt_command_palette.py
-  │ ├─qt_mirrored_sliders_popup.py
-  │ ├─qt_spinbox.py
-  │ └─qt_dims_sorter.py
-  ├─_qapp_model/
-  │ └─qactions/
-  │   ├─__init__.py
-  │   └─_debug.py
-  ├─dialogs/
-  │ └─__init__.py
-  ├─containers/
-  │ └─__init__.py
-  ├─utils.py
-  ├─threads/
-  │ ├─__init__.py
-  │ └─status_checker.py
-  └─qt_viewer.py
+  ├─grid.py
+  ├─_layer_slicer.py
+  ├─dims.py
+  ├─layerlist.py
+  ├─camera.py
+  ├─cursor.py
+  ├─_viewer_constants.py
+  └─_viewer_mouse_bindings.py
 ```

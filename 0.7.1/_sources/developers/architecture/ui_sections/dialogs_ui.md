@@ -227,55 +227,55 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
-├─_qt/
-│ ├─qt_main_window.py
-│ ├─widgets/
-│ │ ├─qt_dims.py
-│ │ ├─qt_logger.py
-│ │ ├─qt_color_swatch.py
-│ │ ├─qt_tooltip.py
-│ │ ├─qt_highlight_preview.py
-│ │ ├─qt_viewer_status_bar.py
-│ │ ├─qt_progress_bar.py
-│ │ ├─qt_scrollbar.py
-│ │ ├─qt_extension2reader.py
-│ │ ├─qt_dims_slider.py
-│ │ ├─qt_command_palette.py
-│ │ ├─qt_font_size.py
-│ │ ├─qt_spinbox.py
-│ │ └─qt_dims_sorter.py
-│ ├─_qapp_model/
-│ │ ├─_menus.py
-│ │ ├─qactions/
-│ │ │ ├─_file.py
-│ │ │ ├─__init__.py
-│ │ │ ├─_help.py
-│ │ │ ├─_debug.py
-│ │ │ └─_plugins.py
-│ │ └─injection/
-│ │   ├─_qprocessors.py
-│ │   └─_qproviders.py
-│ ├─dialogs/
-│ │ ├─confirm_close_dialog.py
-│ │ ├─preferences_dialog.py
-│ │ ├─qt_modal.py
-│ │ ├─screenshot_dialog.py
-│ │ ├─qt_notification.py
-│ │ ├─qt_about.py
-│ │ ├─qt_reader_dialog.py
-│ │ └─qt_activity_dialog.py
-│ ├─utils.py
-│ ├─qt_viewer.py
-│ └─_qplugins/
-│   └─_qnpe2.py
-└─_vendor/
-  └─qt_json_builder/
-    ├─qt_jsonschema_form/
-    │ ├─signal.py
-    │ ├─form.py
-    │ ├─widgets.py
-    │ ├─__init__.py
-    │ ├─utils.py
-    │ └─defaults.py
-    └─__init__.py
+├─_vendor/
+│ └─qt_json_builder/
+│   ├─qt_jsonschema_form/
+│   │ ├─signal.py
+│   │ ├─form.py
+│   │ ├─defaults.py
+│   │ ├─utils.py
+│   │ ├─__init__.py
+│   │ └─widgets.py
+│   └─__init__.py
+└─_qt/
+  ├─qt_viewer.py
+  ├─utils.py
+  ├─_qapp_model/
+  │ ├─_menus.py
+  │ ├─qactions/
+  │ │ ├─_plugins.py
+  │ │ ├─_file.py
+  │ │ ├─_debug.py
+  │ │ ├─_help.py
+  │ │ └─__init__.py
+  │ └─injection/
+  │   ├─_qproviders.py
+  │   └─_qprocessors.py
+  ├─widgets/
+  │ ├─qt_font_size.py
+  │ ├─qt_tooltip.py
+  │ ├─qt_logger.py
+  │ ├─qt_spinbox.py
+  │ ├─qt_command_palette.py
+  │ ├─qt_viewer_status_bar.py
+  │ ├─qt_highlight_preview.py
+  │ ├─qt_progress_bar.py
+  │ ├─qt_dims_sorter.py
+  │ ├─qt_dims_slider.py
+  │ ├─qt_dims.py
+  │ ├─qt_extension2reader.py
+  │ ├─qt_color_swatch.py
+  │ └─qt_scrollbar.py
+  ├─_qplugins/
+  │ └─_qnpe2.py
+  ├─qt_main_window.py
+  └─dialogs/
+    ├─preferences_dialog.py
+    ├─screenshot_dialog.py
+    ├─confirm_close_dialog.py
+    ├─qt_modal.py
+    ├─qt_notification.py
+    ├─qt_reader_dialog.py
+    ├─qt_activity_dialog.py
+    └─qt_about.py
 ```

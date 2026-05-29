@@ -5,15 +5,6 @@
 .. "gallery/image_custom_kernel.py"
 .. LINE NUMBERS ARE GIVEN BELOW.
 
-.. only:: html
-
-    .. note::
-        :class: sphx-glr-download-link-note
-
-        :ref:`Go to the end <sphx_glr_download_gallery_image_custom_kernel.py>`
-        to download the full example as a Python script or as a
-        Jupyter notebook..
-
 .. rst-class:: sphx-glr-example-title
 
 .. _sphx_glr_gallery_image_custom_kernel.py:

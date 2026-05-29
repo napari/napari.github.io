@@ -5,15 +5,6 @@
 .. "gallery/drag_and_drop_python_code.py"
 .. LINE NUMBERS ARE GIVEN BELOW.
 
-.. only:: html
-
-    .. note::
-        :class: sphx-glr-download-link-note
-
-        :ref:`Go to the end <sphx_glr_download_gallery_drag_and_drop_python_code.py>`
-        to download the full example as a Python script or as a
-        Jupyter notebook..
-
 .. rst-class:: sphx-glr-example-title
 
 .. _sphx_glr_gallery_drag_and_drop_python_code.py:
@@ -43,7 +34,7 @@ To use this example, open napari and drag this file into the viewer.
  .. code-block:: none
 
 
-    <napari._qt.widgets.qt_viewer_dock_widget.QtViewerDockWidget object at 0x7f1451b3ab10>
+    <napari._qt.widgets.qt_viewer_dock_widget.QtViewerDockWidget object at 0x7f0e87d5ab10>
 
 
 

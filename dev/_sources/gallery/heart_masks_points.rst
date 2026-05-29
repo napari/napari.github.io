@@ -5,15 +5,6 @@
 .. "gallery/heart_masks_points.py"
 .. LINE NUMBERS ARE GIVEN BELOW.
 
-.. only:: html
-
-    .. note::
-        :class: sphx-glr-download-link-note
-
-        :ref:`Go to the end <sphx_glr_download_gallery_heart_masks_points.py>`
-        to download the full example as a Python script or as a
-        Jupyter notebook..
-
 .. rst-class:: sphx-glr-example-title
 
 .. _sphx_glr_gallery_heart_masks_points.py:
@@ -165,7 +156,7 @@ Nat Cardiovasc Res 4, 1345-1362 (2025). https://doi.org/10.1038/s44161-025-00717
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 11.982 seconds)
+   **Total running time of the script:** (0 minutes 12.577 seconds)
 
 
 .. _sphx_glr_download_gallery_heart_masks_points.py:

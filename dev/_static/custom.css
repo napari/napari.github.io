@@ -2,7 +2,7 @@
 
 .button-primary,
 .button-alt,
-div.sphx-glr-download a {
+.napari-gallery-downloads .sphx-glr-download a {
   background-image: none !important;
   border-radius: 4px;
   text-align: center;
@@ -15,14 +15,14 @@ div.sphx-glr-download a {
 }
 
 /* Allow border override to show through on example buttons */
-div.sphx-glr-download a {
+.napari-gallery-downloads .sphx-glr-download a {
   border: 1px solid transparent;
   display: inline-block;
   padding: 0.45rem 0.8rem;
 }
 
 /* force sphinx-gallery download code to inherit text color */
-div.sphx-glr-download a code.download {
+.napari-gallery-downloads .sphx-glr-download a code.download {
   color: inherit !important;
 }
 
@@ -39,28 +39,36 @@ div.sphx-glr-download a code.download {
   margin: 0;
 }
 
+/* Remove the sphinx-gallery downloads note and buttons */
+.sphx-glr-download-link-note,
+.sphx-glr-download-jupyter,
+.sphx-glr-download-python,
+.sphx-glr-download-zip {
+  display: none;
+}
+
 html[data-theme="light"] .button-primary,
-html[data-theme="light"] div.sphx-glr-download a {
+html[data-theme="light"] .napari-gallery-downloads .sphx-glr-download a {
   background-color: var(--napari-primary-blue) !important;
   border-color: var(--napari-primary-blue) !important;
   color: var(--napari-color-text-base) !important;
 }
 
 html[data-theme="dark"] .button-primary,
-html[data-theme="dark"] div.sphx-glr-download a {
+html[data-theme="dark"] .napari-gallery-downloads .sphx-glr-download a {
   background-color: var(--napari-purple) !important;
   border-color: var(--napari-purple) !important;
   color: var(--napari-color-text-base) !important;
 }
 
 html[data-theme="light"] .button-primary:hover,
-html[data-theme="light"] div.sphx-glr-download a:hover {
+html[data-theme="light"] .napari-gallery-downloads .sphx-glr-download a:hover {
   background-color: color-mix(in srgb, var(--napari-primary-blue), transparent 25%) !important;
   text-decoration: underline;
 }
 
 html[data-theme="dark"] .button-primary:hover,
-html[data-theme="dark"] div.sphx-glr-download a:hover {
+html[data-theme="dark"] .napari-gallery-downloads .sphx-glr-download a:hover {
   background-color: color-mix(in srgb, var(--napari-purple), transparent 25%) !important;
   text-decoration: underline;
 }

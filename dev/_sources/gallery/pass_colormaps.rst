@@ -5,15 +5,6 @@
 .. "gallery/pass_colormaps.py"
 .. LINE NUMBERS ARE GIVEN BELOW.
 
-.. only:: html
-
-    .. note::
-        :class: sphx-glr-download-link-note
-
-        :ref:`Go to the end <sphx_glr_download_gallery_pass_colormaps.py>`
-        to download the full example as a Python script or as a
-        Jupyter notebook..
-
 .. rst-class:: sphx-glr-example-title
 
 .. _sphx_glr_gallery_pass_colormaps.py:

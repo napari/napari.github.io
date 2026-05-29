@@ -5,15 +5,6 @@
 .. "gallery/action_manager.py"
 .. LINE NUMBERS ARE GIVEN BELOW.
 
-.. only:: html
-
-    .. note::
-        :class: sphx-glr-download-link-note
-
-        :ref:`Go to the end <sphx_glr_download_gallery_action_manager.py>`
-        to download the full example as a Python script or as a
-        Jupyter notebook..
-
 .. rst-class:: sphx-glr-example-title
 
 .. _sphx_glr_gallery_action_manager.py:
@@ -43,9 +34,9 @@ Action manager
     application, not part of the napari viewer model. If your use case
     requires access to qt_viewer, please open an issue to discuss.
       layer_buttons = viewer.window.qt_viewer.layerButtons
-    calling <function register_action at 0x7f1573061940>
-    calling <function bind_button at 0x7f15730607c0>
-    calling <function bind_shortcut at 0x7f1573063ec0>
+    calling <function register_action at 0x7f0f3d220cc0>
+    calling <function bind_button at 0x7f0f3d2209a0>
+    calling <function bind_shortcut at 0x7f0f3d2216c0>
 
 
 

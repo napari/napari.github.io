@@ -27,8 +27,19 @@ Display a 3D volume and the scale bar
    :class: sphx-glr-single-img
 
 
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    /home/runner/work/docs/docs/napari/examples/scale_bar.py:26: FutureWarning: Setting unit on the ScaleBar model is deprecated. Units will instead be computed from the layers in the layerlist. To silence this warning, leave scale_bar unit as `None`, and use `Layer.units` to set units for each layer. Starting in v0.8.0, setting ScaleBar.unit will no longer have an effect. Starting from v0.9.0, it will be removed and raise an exception.
+      viewer.scale_bar.unit = 'um'  # set to None to diplay no unit
 
 
+
+
+
+
+|
 
 .. code-block:: Python
 

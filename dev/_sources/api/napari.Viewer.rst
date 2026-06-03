@@ -178,7 +178,6 @@ napari.Viewer
       ~Viewer.model_fields_set
       ~Viewer.scale_bar
       ~Viewer.text_overlay
-      ~Viewer.welcome_screen
       ~Viewer.window
       
       

@@ -917,6 +917,9 @@ napari.qt.QtViewer
       ~QtViewer.setWindowTitle
    
    
+      ~QtViewer.set_welcome_tips
+   
+   
       ~QtViewer.sharedPainter
    
    

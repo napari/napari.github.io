@@ -38,6 +38,7 @@ graph LR
 	napari._qt.qt_viewer --> napari._qt.widgets.qt_dims
 	napari._qt.qt_viewer --> napari._qt.widgets.qt_viewer_buttons
 	napari._qt.qt_viewer --> napari._qt.widgets.qt_viewer_dock_widget
+	napari._qt.qt_viewer --> napari._qt.widgets.qt_welcome
 	napari._qt.qt_viewer --> napari.components.camera
 	napari._qt.qt_viewer --> napari.components.layerlist
 	napari._qt.qt_viewer --> napari.layers
@@ -86,6 +87,8 @@ graph LR
 	napari._qt.widgets.qt_viewer_status_bar(napari._qt.widgets.qt_viewer_status_bar)
 	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.qt_main_window
 	click napari._qt.widgets.qt_viewer_status_bar "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_status_bar.py" _blank
+	napari._qt.widgets.qt_welcome(napari._qt.widgets.qt_welcome)
+	click napari._qt.widgets.qt_welcome "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_welcome.py" _blank
 	napari.components._layer_slicer(napari.components._layer_slicer)
 	napari.components._layer_slicer --> napari.layers
 	click napari.components._layer_slicer "https://github.com/napari/napari/tree/main/napari/components/_layer_slicer.py" _blank
@@ -162,6 +165,7 @@ graph LR
 		 napari._qt.widgets.qt_viewer_buttons
 		 napari._qt.widgets.qt_viewer_dock_widget
 		 napari._qt.widgets.qt_viewer_status_bar
+		 napari._qt.widgets.qt_welcome
 	end
 	class module.napari._qt.widgets subgraphs
 	subgraph module.napari.components[napari.components]
@@ -205,6 +209,7 @@ napari/
 │ │   └─__init__.py
 │ ├─widgets/
 │ │ ├─qt_viewer_buttons.py
+│ │ ├─qt_welcome.py
 │ │ ├─qt_tooltip.py
 │ │ ├─qt_spinbox.py
 │ │ ├─qt_command_palette.py

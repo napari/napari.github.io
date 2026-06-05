@@ -110,16 +110,16 @@ Download the model
     downloading data into /home/runner/work/docs/docs/.cache/napari-surface-texture-example
     Downloading...
     From: https://drive.google.com/uc?id=1yuPHWlLzowlfWzVMUg-mvAEe_Tmvpzy4
-    To: /home/runner/work/docs/docs/.cache/pooch/tmpt7jepu0n
-      0%|          | 0.00/93.8M [00:00<?, ?B/s]      5%|▌         | 4.72M/93.8M [00:00<00:02, 34.7MB/s]     17%|█▋        | 15.7M/93.8M [00:00<00:01, 73.4MB/s]     27%|██▋       | 25.7M/93.8M [00:00<00:00, 82.0MB/s]     41%|████      | 38.3M/93.8M [00:00<00:00, 94.1MB/s]     56%|█████▌    | 52.4M/93.8M [00:00<00:00, 110MB/s]      68%|██████▊   | 64.0M/93.8M [00:00<00:00, 100MB/s]     82%|████████▏ | 77.1M/93.8M [00:00<00:00, 108MB/s]     94%|█████████▍| 88.6M/93.8M [00:00<00:00, 102MB/s]    100%|██████████| 93.8M/93.8M [00:00<00:00, 99.3MB/s]
+    To: /home/runner/work/docs/docs/.cache/pooch/tmpvdvpqv31
+      0%|          | 0.00/93.8M [00:00<?, ?B/s]      5%|▌         | 4.72M/93.8M [00:00<00:02, 35.2MB/s]     12%|█▏        | 11.5M/93.8M [00:00<00:01, 51.8MB/s]     30%|██▉       | 27.8M/93.8M [00:00<00:00, 91.6MB/s]     49%|████▊     | 45.6M/93.8M [00:00<00:00, 122MB/s]      62%|██████▏   | 58.2M/93.8M [00:00<00:00, 122MB/s]     77%|███████▋  | 71.8M/93.8M [00:00<00:00, 126MB/s]     94%|█████████▍| 88.1M/93.8M [00:00<00:00, 137MB/s]    100%|██████████| 93.8M/93.8M [00:00<00:00, 118MB/s]
     Downloading...
     From: https://drive.google.com/uc?id=17tG44rMPWjAIoO_AlH9BaQkPY7GxxEN9
-    To: /home/runner/work/docs/docs/.cache/pooch/tmprzzo18u2
-      0%|          | 0.00/17.3M [00:00<?, ?B/s]     58%|█████▊    | 9.96M/17.3M [00:00<00:00, 98.7MB/s]    100%|██████████| 17.3M/17.3M [00:00<00:00, 73.1MB/s]
+    To: /home/runner/work/docs/docs/.cache/pooch/tmpomzefthx
+      0%|          | 0.00/17.3M [00:00<?, ?B/s]     15%|█▌        | 2.62M/17.3M [00:00<00:00, 19.0MB/s]     52%|█████▏    | 8.91M/17.3M [00:00<00:00, 29.8MB/s]    100%|██████████| 17.3M/17.3M [00:00<00:00, 45.8MB/s]
     Downloading...
     From: https://drive.google.com/uc?id=1l_hGxDg6JARAyFMgWXuoIZs49qKXBv01
-    To: /home/runner/work/docs/docs/.cache/pooch/tmpb8vvq8rp
-      0%|          | 0.00/120k [00:00<?, ?B/s]    100%|██████████| 120k/120k [00:00<00:00, 6.27MB/s]
+    To: /home/runner/work/docs/docs/.cache/pooch/tmpkq5ptb5v
+      0%|          | 0.00/120k [00:00<?, ?B/s]    100%|██████████| 120k/120k [00:00<00:00, 4.11MB/s]
 
 
 
@@ -273,7 +273,7 @@ sphinx_gallery_thumbnail_number = 2
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 22.513 seconds)
+   **Total running time of the script:** (0 minutes 22.552 seconds)
 
 
 .. _sphx_glr_download_gallery_surface_multi_texture.py:

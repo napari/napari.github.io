@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=c3e1985a" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=d2b87285" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -471,6 +471,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../guides/index.html">In-depth explanations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../guides/3D_interactivity.html">3D interactivity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/axis-names.html">Axis names in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/units.html">Scale and unit-aware rendering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/handedness.html">Axis directions, data, and handedness</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/triangulation.html">Triangulation backends for the napari Shapes layer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/rendering.html">Rendering</a></li>
@@ -876,88 +877,50 @@ Although we’re also measuring rotations (and strains), but here we’re intere
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading...
 From (original): https://drive.google.com/uc?id=1UZEoOtHMMeJMXVoWr6IZraZnvQe8ExNJ
-From (redirected): https://drive.google.com/uc?id=1UZEoOtHMMeJMXVoWr6IZraZnvQe8ExNJ&amp;confirm=t&amp;uuid=bee344d0-91c1-4de2-a136-dd614d1253d7
-To: /home/runner/work/docs/docs/.cache/pooch/tmp0zrp4qc_
+From (redirected): https://drive.google.com/uc?id=1UZEoOtHMMeJMXVoWr6IZraZnvQe8ExNJ&amp;confirm=t&amp;uuid=b065efdb-db30-4c00-9d00-eb95ee642976
+To: /home/runner/work/docs/docs/.cache/pooch/tmp9drk722u
 
   0%|          | 0.00/549M [00:00&lt;?, ?B/s]
-  0%|          | 2.62M/549M [00:00&lt;00:24, 22.4MB/s]
-  1%|          | 5.24M/549M [00:00&lt;00:28, 19.2MB/s]
-  1%|▏         | 7.34M/549M [00:00&lt;00:40, 13.3MB/s]
-  3%|▎         | 17.3M/549M [00:00&lt;00:16, 31.4MB/s]
-  4%|▍         | 22.5M/549M [00:00&lt;00:14, 36.5MB/s]
-  5%|▌         | 29.9M/549M [00:01&lt;00:17, 29.5MB/s]
-  7%|▋         | 36.2M/549M [00:01&lt;00:14, 35.5MB/s]
-  8%|▊         | 44.6M/549M [00:01&lt;00:13, 36.8MB/s]
- 10%|█         | 57.1M/549M [00:01&lt;00:09, 53.5MB/s]
- 12%|█▏        | 64.0M/549M [00:01&lt;00:10, 44.6MB/s]
- 13%|█▎        | 69.7M/549M [00:01&lt;00:11, 41.4MB/s]
- 14%|█▍        | 78.1M/549M [00:02&lt;00:09, 49.0MB/s]
- 15%|█▌        | 84.4M/549M [00:02&lt;00:10, 44.2MB/s]
- 16%|█▋        | 89.7M/549M [00:02&lt;00:10, 41.8MB/s]
- 17%|█▋        | 94.4M/549M [00:02&lt;00:14, 30.5MB/s]
- 19%|█▉        | 107M/549M [00:02&lt;00:09, 46.6MB/s]
- 21%|██        | 113M/549M [00:03&lt;00:12, 35.7MB/s]
- 22%|██▏       | 122M/549M [00:03&lt;00:10, 40.7MB/s]
- 23%|██▎       | 127M/549M [00:03&lt;00:09, 42.6MB/s]
- 24%|██▍       | 132M/549M [00:03&lt;00:13, 31.3MB/s]
- 26%|██▋       | 145M/549M [00:04&lt;00:15, 25.9MB/s]
- 29%|██▊       | 157M/549M [00:04&lt;00:10, 36.6MB/s]
- 30%|██▉       | 164M/549M [00:04&lt;00:09, 38.5MB/s]
- 31%|███       | 169M/549M [00:04&lt;00:10, 37.2MB/s]
- 33%|███▎      | 179M/549M [00:04&lt;00:09, 39.2MB/s]
- 34%|███▍      | 187M/549M [00:04&lt;00:07, 46.6MB/s]
- 35%|███▌      | 193M/549M [00:05&lt;00:10, 33.1MB/s]
- 36%|███▌      | 198M/549M [00:05&lt;00:12, 29.0MB/s]
- 38%|███▊      | 211M/549M [00:05&lt;00:07, 43.5MB/s]
- 40%|███▉      | 217M/549M [00:05&lt;00:08, 40.7MB/s]
- 41%|████      | 223M/549M [00:06&lt;00:11, 27.5MB/s]
- 43%|████▎     | 235M/549M [00:06&lt;00:07, 40.1MB/s]
- 45%|████▍     | 244M/549M [00:06&lt;00:06, 48.5MB/s]
- 46%|████▌     | 252M/549M [00:07&lt;00:10, 27.4MB/s]
- 48%|████▊     | 261M/549M [00:07&lt;00:08, 35.4MB/s]
- 49%|████▉     | 271M/549M [00:07&lt;00:06, 39.7MB/s]
- 51%|█████     | 277M/549M [00:07&lt;00:06, 42.4MB/s]
- 52%|█████▏    | 287M/549M [00:07&lt;00:05, 51.1MB/s]
- 54%|█████▎    | 294M/549M [00:07&lt;00:04, 51.7MB/s]
- 55%|█████▍    | 300M/549M [00:07&lt;00:06, 41.1MB/s]
- 57%|█████▋    | 312M/549M [00:08&lt;00:04, 55.8MB/s]
- 58%|█████▊    | 320M/549M [00:08&lt;00:04, 53.2MB/s]
- 60%|█████▉    | 329M/549M [00:08&lt;00:03, 60.6MB/s]
- 62%|██████▏   | 338M/549M [00:08&lt;00:03, 66.8MB/s]
- 63%|██████▎   | 346M/549M [00:08&lt;00:05, 39.4MB/s]
- 65%|██████▌   | 359M/549M [00:08&lt;00:03, 53.5MB/s]
- 67%|██████▋   | 366M/549M [00:09&lt;00:05, 35.0MB/s]
- 69%|██████▊   | 376M/549M [00:09&lt;00:03, 44.0MB/s]
- 70%|██████▉   | 384M/549M [00:09&lt;00:03, 45.5MB/s]
- 71%|███████   | 391M/549M [00:09&lt;00:03, 39.8MB/s]
- 73%|███████▎  | 401M/549M [00:10&lt;00:03, 43.3MB/s]
- 75%|███████▍  | 411M/549M [00:10&lt;00:02, 51.9MB/s]
- 77%|███████▋  | 421M/549M [00:10&lt;00:02, 61.8MB/s]
- 78%|███████▊  | 429M/549M [00:10&lt;00:02, 40.9MB/s]
- 80%|███████▉  | 436M/549M [00:10&lt;00:02, 46.1MB/s]
- 81%|████████  | 445M/549M [00:10&lt;00:01, 53.1MB/s]
- 82%|████████▏ | 452M/549M [00:11&lt;00:01, 53.1MB/s]
- 84%|████████▍ | 461M/549M [00:11&lt;00:01, 62.0MB/s]
- 85%|████████▌ | 469M/549M [00:11&lt;00:01, 62.8MB/s]
- 87%|████████▋ | 476M/549M [00:11&lt;00:01, 63.8MB/s]
- 88%|████████▊ | 483M/549M [00:11&lt;00:01, 53.7MB/s]
- 90%|████████▉ | 493M/549M [00:11&lt;00:00, 60.6MB/s]
- 91%|█████████ | 500M/549M [00:11&lt;00:00, 53.6MB/s]
- 93%|█████████▎| 511M/549M [00:11&lt;00:00, 63.9MB/s]
- 95%|█████████▍| 521M/549M [00:12&lt;00:00, 67.4MB/s]
- 96%|█████████▋| 528M/549M [00:12&lt;00:00, 61.2MB/s]
- 98%|█████████▊| 539M/549M [00:12&lt;00:00, 68.8MB/s]
-100%|█████████▉| 547M/549M [00:12&lt;00:00, 59.1MB/s]
-100%|██████████| 549M/549M [00:12&lt;00:00, 43.8MB/s]
+  0%|          | 1.57M/549M [00:00&lt;00:37, 14.8MB/s]
+  3%|▎         | 16.8M/549M [00:00&lt;00:05, 91.0MB/s]
+  6%|▌         | 32.0M/549M [00:00&lt;00:04, 114MB/s]
+  9%|▊         | 46.7M/549M [00:00&lt;00:05, 100MB/s]
+ 11%|█         | 61.3M/549M [00:00&lt;00:04, 110MB/s]
+ 15%|█▍        | 81.3M/549M [00:00&lt;00:03, 135MB/s]
+ 18%|█▊        | 97.0M/549M [00:00&lt;00:03, 141MB/s]
+ 21%|██        | 114M/549M [00:00&lt;00:02, 148MB/s]
+ 24%|██▍       | 132M/549M [00:01&lt;00:02, 158MB/s]
+ 27%|██▋       | 148M/549M [00:01&lt;00:05, 76.4MB/s]
+ 30%|███       | 167M/549M [00:01&lt;00:04, 95.1MB/s]
+ 33%|███▎      | 182M/549M [00:01&lt;00:04, 84.5MB/s]
+ 37%|███▋      | 202M/549M [00:01&lt;00:03, 106MB/s]
+ 40%|████      | 222M/549M [00:02&lt;00:02, 124MB/s]
+ 44%|████▍     | 242M/549M [00:02&lt;00:02, 141MB/s]
+ 48%|████▊     | 263M/549M [00:02&lt;00:01, 154MB/s]
+ 52%|█████▏    | 283M/549M [00:02&lt;00:01, 165MB/s]
+ 55%|█████▌    | 303M/549M [00:02&lt;00:01, 174MB/s]
+ 59%|█████▊    | 321M/549M [00:02&lt;00:01, 147MB/s]
+ 62%|██████▏   | 342M/549M [00:02&lt;00:01, 163MB/s]
+ 66%|██████▌   | 363M/549M [00:02&lt;00:01, 171MB/s]
+ 70%|██████▉   | 383M/549M [00:02&lt;00:00, 179MB/s]
+ 74%|███████▎  | 404M/549M [00:03&lt;00:00, 186MB/s]
+ 77%|███████▋  | 424M/549M [00:03&lt;00:00, 191MB/s]
+ 81%|████████  | 444M/549M [00:03&lt;00:00, 177MB/s]
+ 84%|████████▍ | 462M/549M [00:03&lt;00:00, 172MB/s]
+ 88%|████████▊ | 483M/549M [00:03&lt;00:00, 181MB/s]
+ 91%|█████████▏| 502M/549M [00:03&lt;00:00, 122MB/s]
+ 95%|█████████▌| 522M/549M [00:03&lt;00:00, 138MB/s]
+ 99%|█████████▊| 542M/549M [00:03&lt;00:00, 152MB/s]
+100%|██████████| 549M/549M [00:03&lt;00:00, 139MB/s]
 Downloading...
 From: https://drive.google.com/uc?id=1-AAkBUXykxXG3Ve20jPk43co-m3f9ZWB
-To: /home/runner/work/docs/docs/.cache/pooch/tmpcgcwnixs
+To: /home/runner/work/docs/docs/.cache/pooch/tmpn0ka1tde
 
   0%|          | 0.00/6.72M [00:00&lt;?, ?B/s]
- 23%|██▎       | 1.57M/6.72M [00:00&lt;00:00, 14.8MB/s]
- 47%|████▋     | 3.15M/6.72M [00:00&lt;00:00, 14.8MB/s]
- 70%|███████   | 4.72M/6.72M [00:00&lt;00:00, 15.0MB/s]
-100%|██████████| 6.72M/6.72M [00:00&lt;00:00, 18.4MB/s]
+ 23%|██▎       | 1.57M/6.72M [00:00&lt;00:00, 14.6MB/s]
+ 47%|████▋     | 3.15M/6.72M [00:00&lt;00:00, 13.3MB/s]
+100%|██████████| 6.72M/6.72M [00:00&lt;00:00, 17.8MB/s]
+100%|██████████| 6.72M/6.72M [00:00&lt;00:00, 16.9MB/s]
 </pre></div>
 </div>
 </section>
@@ -1027,7 +990,7 @@ To: /home/runner/work/docs/docs/.cache/pooch/tmpcgcwnixs
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_3D_vectors_through_time_001.png" srcset="../_images/sphx_glr_3D_vectors_through_time_001.png" alt="3D vectors through time" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 27.481 seconds)</p>
+<img src="../_images/sphx_glr_3D_vectors_through_time_001.png" srcset="../_images/sphx_glr_3D_vectors_through_time_001.png" alt="3D vectors through time" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 19.470 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-3d-vectors-through-time-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/86d7f2e6204fe93e93d52e0c33205c62/3D_vectors_through_time.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">3D_vectors_through_time.ipynb</span></code></a></p>

@@ -251,9 +251,6 @@ napari.qt.QtViewer
       ~QtViewer.fontMetrics
    
    
-      ~QtViewer.font_manager
-   
-   
       ~QtViewer.foregroundRole
    
    
@@ -564,9 +561,6 @@ napari.qt.QtViewer
    
    
       ~QtViewer.orientation
-   
-   
-      ~QtViewer.overlay_font
    
    
       ~QtViewer.overrideWindowFlags

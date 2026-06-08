@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../../../_static/documentation_options.js?v=320057bf"></script>
+    <script src="../../../_static/documentation_options.js?v=98ec51a1"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1583,7 +1583,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        layer : napari.layers.Layer</span>
 <span class="sd">            Layer to be added.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">vispy_layer</span> <span class="o">=</span> <span class="n">create_vispy_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="n">vispy_layer</span> <span class="o">=</span> <span class="n">create_vispy_layer</span><span class="p">(</span>
+            <span class="n">layer</span><span class="p">,</span> <span class="n">font_info</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">font_info</span><span class="p">()</span>
+        <span class="p">)</span>
 
         <span class="c1"># QtPoll is experimental.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_poll</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -2397,20 +2399,6 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">imsave</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">img</span></div>
-
-
-<div class="viewcode-block" id="QtViewer.font_manager">
-<a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.font_manager">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">font_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtFontManager</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the font manager for this viewer.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_font_manager</span></div>
-
-
-<div class="viewcode-block" id="QtViewer.overlay_font">
-<a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.overlay_font">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">overlay_font</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the font used for overlays.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlay_font</span></div>
 </div>
 
 

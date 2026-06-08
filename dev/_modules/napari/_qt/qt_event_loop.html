@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../../../_static/documentation_options.js?v=320057bf"></script>
+    <script src="../../../_static/documentation_options.js?v=98ec51a1"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -921,6 +921,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">wait_for_workers_to_quit</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">_maybe_allow_interrupt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari._wayland_fix</span><span class="w"> </span><span class="kn">import</span> <span class="n">_nvidia_driver_loaded</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.resources._icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">_theme_path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">perf</span>
@@ -1092,6 +1093,27 @@ window.runMermaid = runMermaid;</script>
             <span class="n">warn</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s1">&#39;Using NAPARI_PERFMON with an already-running QtApp (--gui qt?) is not supported.&#39;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;linux&#39;</span>
+            <span class="ow">and</span> <span class="n">app</span><span class="o">.</span><span class="n">platformName</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;wayland&#39;</span>
+            <span class="ow">and</span> <span class="n">_nvidia_driver_loaded</span><span class="p">()</span>
+        <span class="p">):</span>
+            <span class="c1"># A QApplication created before napari was imported (e.g. via</span>
+            <span class="c1"># IPython&#39;s &quot;%gui qt&quot;) locks the Qt platform plugin to Wayland</span>
+            <span class="c1"># before napari&#39;s _wayland_fix.py  workaround can run. Gated on</span>
+            <span class="c1"># Nvidia since that&#39;s the only setup the workaround helps.</span>
+            <span class="n">warn</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s1">&#39;A Qt application was already running on the Wayland &#39;</span>
+                    <span class="s1">&#39;platform before napari was imported, so napari could not &#39;</span>
+                    <span class="s1">&#39;automatically apply its Wayland startup workaround. If napari &#39;</span>
+                    <span class="s1">&#39;fails to launch or throws repeated rendering errors, see &#39;</span>
+                    <span class="s1">&#39;https://napari.org/stable/troubleshooting.html#wayland-and-nvidia &#39;</span>
+                    <span class="s1">&#39;for the workaround.&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>

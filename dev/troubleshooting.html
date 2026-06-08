@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="_static/documentation_options.js?v=320057bf"></script>
+    <script src="_static/documentation_options.js?v=98ec51a1"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -904,9 +904,9 @@ so you may need to recreate, as described in the first option.</p></li>
 </ol>
 </section>
 <section id="running-napari-on-wayland-with-nvidia-cards">
-<h3>Running napari on Wayland with Nvidia cards<a class="headerlink" href="#running-napari-on-wayland-with-nvidia-cards" title="Link to this heading">#</a></h3>
+<span id="wayland-and-nvidia"></span><h3>Running napari on Wayland with Nvidia cards<a class="headerlink" href="#running-napari-on-wayland-with-nvidia-cards" title="Link to this heading">#</a></h3>
 <p>The Nvidia driver is not yet fully ready for Wayland.
-We found that on computers with Nvidia cards and a wayland-based desktop environment, napari fails to start with errors such as this:</p>
+We found that on computers with Nvidia cards and a Wayland-based desktop environment, napari may fail to start with errors such as this:</p>
 <div class="highlight-pytb notranslate"><div class="highlight"><pre><span></span><span class="x">OpenGL.error.GLError: GLError(</span>
 <span class="x">    err = 1280,</span>
 <span class="x">    baseOperation = glGetString,</span>
@@ -915,9 +915,29 @@ We found that on computers with Nvidia cards and a wayland-based desktop environ
 <span class="x">)</span>
 </pre></div>
 </div>
-<p>The problem might be solved by setting following environment variables:</p>
+<p>The problem can be worked around by forcing Qt to use X11 (via XWayland) and PyOpenGL to use GLX, by setting the following environment variables:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">QT_QPA_PLATFORM</span><span class="o">=</span>xcb
 <span class="nv">PYOPENGL_PLATFORM</span><span class="o">=</span>glx
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This workaround needs XWayland (the X11 compatibility layer) installed and running,
+since <code class="docutils literal notranslate"><span class="pre">xcb</span></code> connects to an X server rather than to Wayland directly.
+Most desktop environments ship and start it by default;
+if yours doesn’t, forcing <code class="docutils literal notranslate"><span class="pre">xcb</span></code> fails with <code class="docutils literal notranslate"><span class="pre">Could</span> <span class="pre">not</span> <span class="pre">load</span> <span class="pre">the</span> <span class="pre">Qt</span> <span class="pre">platform</span> <span class="pre">plugin</span> <span class="pre">&quot;xcb&quot;</span></code>. Install it via your package manager (e.g. <code class="docutils literal notranslate"><span class="pre">xwayland</span></code> on
+Debian/Ubuntu, <code class="docutils literal notranslate"><span class="pre">xorg-xwayland</span></code> on Arch) and start a new session.</p>
+</div>
+<p>When napari detects an Nvidia proprietary driver <em>and</em> a reachable X server,
+it sets the aforementioned environment variables automatically at startup, so launching via
+the <code class="docutils literal notranslate"><span class="pre">napari</span></code> command or a Python script usually works without any action on your part.
+napari only sets these variables <em>for the current session</em> if you haven’t, so your own values are always respected.</p>
+<p>This automatic fix only works if napari is imported <em>before</em> any Qt application is created.
+If a Qt application already exists (most commonly in IPython or Jupyter when <code class="docutils literal notranslate"><span class="pre">%gui</span> <span class="pre">qt</span></code> runs
+before <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">napari</span></code>), napari can’t apply the workaround and prints a warning.
+In that case, set the variables yourself before starting the IPython or Jupyter session:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">QT_QPA_PLATFORM</span><span class="o">=</span>xcb<span class="w"> </span><span class="nv">PYOPENGL_PLATFORM</span><span class="o">=</span>glx<span class="w"> </span>ipython
+<span class="nv">QT_QPA_PLATFORM</span><span class="o">=</span>xcb<span class="w"> </span><span class="nv">PYOPENGL_PLATFORM</span><span class="o">=</span>glx<span class="w"> </span>jupyter<span class="w"> </span>lab
 </pre></div>
 </div>
 </section>

@@ -17,6 +17,9 @@ while you wait for a computation to finish, you may benefit from reading about
 
 If you are interested in using napari to explore 3D objects, see {ref}`3d-interactivity`.
 
+To understand how physical units propagate from layers into rendering and the
+scale bar, see {ref}`units-guide`.
+
 To understand how napari produces a 2- or 3-dimensional render in the canvas
 from layers’ n-dimensional array-like data, check out the {ref}`dedicated guide on rendering in napari <rendering>`.
 

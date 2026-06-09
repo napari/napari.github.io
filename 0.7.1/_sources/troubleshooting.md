@@ -36,7 +36,7 @@ menu or you're trying to save layers and can't find the plugin in the listed wri
 plugin using the deprecated `npe1` engine.
 
 You can check if this is the problem by installing `napari<=0.6.6` and turning off the `Use npe2 adaptor` setting
- under `Preferences -> Plugins -> Use npe2 adaptor` and restarting napari.
+under `Preferences -> Plugins -> Use npe2 adaptor` and restarting napari.
 If this fixes your issue, you'll need reach out to the plugin developer to update their plugin in order to use it
 with `napari>=0.7.0`.
 
@@ -99,11 +99,13 @@ If you meet an exception starting from `RuntimeError: Mix of local and non local
    In some rare situations this solution may not fix the environment,
    so you may need to recreate, as described in the first option.
 
+(wayland-and-nvidia)=
 
 ### Running napari on Wayland with Nvidia cards
 
-The Nvidia driver is not yet fully ready for Wayland. 
-We found that on computers with Nvidia cards and a wayland-based desktop environment, napari fails to start with errors such as this:
+The Nvidia driver is not yet fully ready for Wayland.
+We found that on computers with Nvidia cards and a Wayland-based desktop environment, napari may fail to start with errors such as this:
+
 ```pytb
 OpenGL.error.GLError: GLError(
     err = 1280,
@@ -112,9 +114,34 @@ OpenGL.error.GLError: GLError(
     result = b'OpenGL ES 3.2 NVIDIA 580.126.09'
 )
 ```
-The problem might be solved by setting following environment variables:
+
+The problem can be worked around by forcing Qt to use X11 (via XWayland) and PyOpenGL to use GLX, by setting the following environment variables:
+
 ```sh
 QT_QPA_PLATFORM=xcb
 PYOPENGL_PLATFORM=glx
 ```
 
+```{important}
+This workaround needs XWayland (the X11 compatibility layer) installed and running,
+since `xcb` connects to an X server rather than to Wayland directly.
+Most desktop environments ship and start it by default; 
+if yours doesn't, forcing `xcb` fails with `Could not load the Qt
+platform plugin "xcb"`. Install it via your package manager (e.g. `xwayland` on
+Debian/Ubuntu, `xorg-xwayland` on Arch) and start a new session.
+```
+
+When napari detects an Nvidia proprietary driver *and* a reachable X server,
+it sets the aforementioned environment variables automatically at startup, so launching via
+the `napari` command or a Python script usually works without any action on your part.
+napari only sets these variables _for the current session_ if you haven't, so your own values are always respected.
+
+This automatic fix only works if napari is imported *before* any Qt application is created.
+If a Qt application already exists (most commonly in IPython or Jupyter when `%gui qt` runs
+before `import napari`), napari can't apply the workaround and prints a warning.
+In that case, set the variables yourself before starting the IPython or Jupyter session:
+
+```sh
+QT_QPA_PLATFORM=xcb PYOPENGL_PLATFORM=glx ipython
+QT_QPA_PLATFORM=xcb PYOPENGL_PLATFORM=glx jupyter lab
+```

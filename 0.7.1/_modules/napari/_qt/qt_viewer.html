@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=ab111b50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d2b87285" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../../../_static/documentation_options.js?v=94e1f874"></script>
+    <script src="../../../_static/documentation_options.js?v=6324e6c1"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -494,7 +494,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.18.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.1rc2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.1rc3';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -932,6 +932,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">QtViewerButtons</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_viewer_dock_widget</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtViewerDockWidget</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_welcome</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtWelcomeWidget</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._vispy.utils.qt_font</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtFontManager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.camera</span><span class="w"> </span><span class="kn">import</span> <span class="n">Camera</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.layerlist</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerList</span>
@@ -1000,12 +1001,15 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    ----------</span>
 <span class="sd">    viewer : napari.components.ViewerModel</span>
 <span class="sd">        Napari viewer containing the rendered scene, layers, and controls.</span>
-<span class="sd">    canvas_class : napari._vispy.canvas.VispyCanvas</span>
-<span class="sd">        The VispyCanvas class providing the Vispy SceneCanvas. Users can also</span>
-<span class="sd">        have a custom canvas here.</span>
 <span class="sd">    show_welcome_screen : bool, optional</span>
 <span class="sd">        Flag to show a welcome message when no layers are present in the</span>
 <span class="sd">        canvas. Default is `False`.</span>
+<span class="sd">    canvas_class : napari._vispy.canvas.VispyCanvas</span>
+<span class="sd">        The VispyCanvas class providing the Vispy SceneCanvas. Users can also</span>
+<span class="sd">        have a custom canvas here.</span>
+<span class="sd">    tips : Sequence[str] | None, optional</span>
+<span class="sd">        Custom welcome-screen tips. By default, the built-in napari tips are</span>
+<span class="sd">        used.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -1033,7 +1037,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">viewer</span><span class="p">:</span> <span class="n">ViewerModel</span><span class="p">,</span>
         <span class="n">show_welcome_screen</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">canvas_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">VispyCanvas</span><span class="p">]</span> <span class="o">=</span> <span class="n">VispyCanvas</span><span class="p">,</span>
-        <span class="n">tips</span><span class="p">:</span> <span class="n">Sequence</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">tips</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_instances</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -1062,10 +1066,15 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_font_manager</span> <span class="o">=</span> <span class="n">QtFontManager</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_overlay_font</span> <span class="o">=</span> <span class="n">QGuiApplication</span><span class="o">.</span><span class="n">font</span><span class="p">()</span><span class="o">.</span><span class="n">family</span><span class="p">()</span>
 
+        <span class="n">main_widget</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+        <span class="n">main_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
         <span class="c1"># This dictionary holds the corresponding vispy visual for each layer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span> <span class="o">=</span> <span class="n">canvas_class</span><span class="p">(</span>
             <span class="n">viewer</span><span class="o">=</span><span class="n">viewer</span><span class="p">,</span>
-            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">parent</span><span class="o">=</span><span class="n">main_widget</span><span class="p">,</span>
             <span class="n">font_manager</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_font_manager</span><span class="p">,</span>
             <span class="n">font_family</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_overlay_font</span><span class="p">,</span>
             <span class="n">key_map_handler</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_map_handler</span><span class="p">,</span>
@@ -1073,11 +1082,12 @@ window.runMermaid = runMermaid;</script>
             <span class="n">autoswap</span><span class="o">=</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">autoswap_buffers</span><span class="p">,</span>  <span class="c1"># see #5734</span>
         <span class="p">)</span>
 
-        <span class="n">main_widget</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
-        <span class="n">main_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
-        <span class="n">main_layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span> <span class="o">=</span> <span class="n">QtWelcomeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">native</span><span class="p">,</span> <span class="n">tips</span><span class="o">=</span><span class="n">tips</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">urls_drag_entered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_drag_status</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">urls_dropped</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropEvent</span><span class="p">)</span>
+
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">native</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
-        <span class="n">main_layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">main_widget</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">main_layout</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setOrientation</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">Vertical</span><span class="p">)</span>
@@ -1089,6 +1099,8 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">inserted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_depth</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_depth</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ndisplay</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_depth</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">inserted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_welcome_screen</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_welcome_screen</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_on_active_change</span>
         <span class="p">)</span>
@@ -1120,22 +1132,17 @@ window.runMermaid = runMermaid;</script>
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
-        <span class="c1"># set up welcome screen</span>
-        <span class="n">viewer</span><span class="o">.</span><span class="n">welcome_screen</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="n">tips</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">viewer</span><span class="o">.</span><span class="n">welcome_screen</span><span class="o">.</span><span class="n">tips</span> <span class="o">=</span> <span class="n">tips</span>
-
 <div class="viewcode-block" id="QtViewer.showEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.showEvent">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">showEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">showEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">welcome_screen</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_welcome_screen</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_welcome_screen</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="QtViewer.hideEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.hideEvent">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">hideEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">welcome_screen</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">hideEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
 
 
     <span class="nd">@property</span>
@@ -1146,7 +1153,7 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@show_welcome_screen</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">show_welcome_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_show_welcome_screen</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">welcome_screen</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">value</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">isVisible</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_welcome_screen</span><span class="p">()</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_dask_cache_settings</span><span class="p">(</span>
@@ -1268,6 +1275,15 @@ window.runMermaid = runMermaid;</script>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;enable status on canvas enter&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Ready&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">mouse_over_canvas</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_welcome_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update welcome screen display based on layer count.&quot;&quot;&quot;</span>
+        <span class="n">show_welcome</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_show_welcome_screen</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">isVisible</span><span class="p">()</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_welcome_visible</span><span class="p">(</span><span class="n">show_welcome</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_ensure_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># lazy load console</span>
@@ -1567,7 +1583,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        layer : napari.layers.Layer</span>
 <span class="sd">            Layer to be added.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">vispy_layer</span> <span class="o">=</span> <span class="n">create_vispy_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="n">vispy_layer</span> <span class="o">=</span> <span class="n">create_vispy_layer</span><span class="p">(</span>
+            <span class="n">layer</span><span class="p">,</span> <span class="n">font_info</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">font_info</span><span class="p">()</span>
+        <span class="p">)</span>
 
         <span class="c1"># QtPoll is experimental.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_poll</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1838,7 +1856,10 @@ window.runMermaid = runMermaid;</script>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">resize_canvas</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">fit_to_data_extent</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">fit_to_view</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-            <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">screenshot</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">isVisible</span><span class="p">():</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">grab</span><span class="p">()</span><span class="o">.</span><span class="n">toImage</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">screenshot</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">flash</span><span class="p">:</span>
                 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_flash_animation</span>
 
@@ -2045,6 +2066,22 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewerButtons</span><span class="o">.</span><span class="n">consoleButton</span>
         <span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="QtViewer.set_welcome_tips">
+<a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.set_welcome_tips">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_welcome_tips</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tips</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Replace the welcome screen tip pool.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">set_tips</span><span class="p">(</span><span class="n">tips</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_set_welcome_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visible</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Directly show or hide the welcome screen widget.</span>
+
+<span class="sd">        Unlike the ``show_welcome_screen`` property setter, this method does</span>
+<span class="sd">        not modify the ``_show_welcome_screen`` preference and bypasses the</span>
+<span class="sd">        layer-count / visibility guards in ``_update_welcome_screen``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">set_welcome_visible</span><span class="p">(</span><span class="n">visible</span><span class="p">)</span>
 
 <div class="viewcode-block" id="QtViewer.keyPressEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.keyPressEvent">[docs]</a>
@@ -2362,20 +2399,6 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">imsave</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">img</span></div>
-
-
-<div class="viewcode-block" id="QtViewer.font_manager">
-<a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.font_manager">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">font_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtFontManager</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the font manager for this viewer.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_font_manager</span></div>
-
-
-<div class="viewcode-block" id="QtViewer.overlay_font">
-<a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.overlay_font">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">overlay_font</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the font used for overlays.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlay_font</span></div>
 </div>
 
 

@@ -23,6 +23,9 @@ napari.utils.events.EventedDict
       ~EventedDict.copy
    
    
+      ~EventedDict.first_callback_connect
+   
+   
       ~EventedDict.get
    
    
@@ -33,6 +36,9 @@ napari.utils.events.EventedDict
    
    
       ~EventedDict.keys
+   
+   
+      ~EventedDict.last_callback_disconnect
    
    
       ~EventedDict.pop

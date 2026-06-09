@@ -157,7 +157,6 @@ napari.components.ViewerModel
       ~ViewerModel.model_fields_set
       ~ViewerModel.scale_bar
       ~ViewerModel.text_overlay
-      ~ViewerModel.welcome_screen
       
       
       

@@ -229,53 +229,53 @@ graph LR
 napari/
 ├─_vendor/
 │ └─qt_json_builder/
-│   ├─qt_jsonschema_form/
-│   │ ├─signal.py
-│   │ ├─form.py
-│   │ ├─defaults.py
-│   │ ├─utils.py
-│   │ ├─__init__.py
-│   │ └─widgets.py
-│   └─__init__.py
+│   ├─__init__.py
+│   └─qt_jsonschema_form/
+│     ├─widgets.py
+│     ├─__init__.py
+│     ├─utils.py
+│     ├─defaults.py
+│     ├─form.py
+│     └─signal.py
 └─_qt/
-  ├─qt_viewer.py
-  ├─utils.py
-  ├─_qapp_model/
-  │ ├─_menus.py
-  │ ├─qactions/
-  │ │ ├─_plugins.py
-  │ │ ├─_file.py
-  │ │ ├─_debug.py
-  │ │ ├─_help.py
-  │ │ └─__init__.py
-  │ └─injection/
-  │   ├─_qproviders.py
-  │   └─_qprocessors.py
-  ├─widgets/
-  │ ├─qt_font_size.py
-  │ ├─qt_tooltip.py
-  │ ├─qt_logger.py
-  │ ├─qt_spinbox.py
-  │ ├─qt_command_palette.py
-  │ ├─qt_viewer_status_bar.py
-  │ ├─qt_highlight_preview.py
-  │ ├─qt_progress_bar.py
-  │ ├─qt_dims_sorter.py
-  │ ├─qt_dims_slider.py
-  │ ├─qt_dims.py
-  │ ├─qt_extension2reader.py
-  │ ├─qt_color_swatch.py
-  │ └─qt_scrollbar.py
   ├─_qplugins/
   │ └─_qnpe2.py
-  ├─qt_main_window.py
-  └─dialogs/
-    ├─preferences_dialog.py
-    ├─screenshot_dialog.py
-    ├─confirm_close_dialog.py
-    ├─qt_modal.py
-    ├─qt_notification.py
-    ├─qt_reader_dialog.py
-    ├─qt_activity_dialog.py
-    └─qt_about.py
+  ├─dialogs/
+  │ ├─qt_modal.py
+  │ ├─qt_notification.py
+  │ ├─screenshot_dialog.py
+  │ ├─qt_about.py
+  │ ├─qt_activity_dialog.py
+  │ ├─preferences_dialog.py
+  │ ├─qt_reader_dialog.py
+  │ └─confirm_close_dialog.py
+  ├─utils.py
+  ├─qt_viewer.py
+  ├─_qapp_model/
+  │ ├─qactions/
+  │ │ ├─__init__.py
+  │ │ ├─_help.py
+  │ │ ├─_plugins.py
+  │ │ ├─_file.py
+  │ │ └─_debug.py
+  │ ├─_menus.py
+  │ └─injection/
+  │   ├─_qprocessors.py
+  │   └─_qproviders.py
+  ├─widgets/
+  │ ├─qt_viewer_status_bar.py
+  │ ├─qt_tooltip.py
+  │ ├─qt_command_palette.py
+  │ ├─qt_dims_sorter.py
+  │ ├─qt_color_swatch.py
+  │ ├─qt_dims.py
+  │ ├─qt_scrollbar.py
+  │ ├─qt_logger.py
+  │ ├─qt_spinbox.py
+  │ ├─qt_progress_bar.py
+  │ ├─qt_highlight_preview.py
+  │ ├─qt_extension2reader.py
+  │ ├─qt_font_size.py
+  │ └─qt_dims_slider.py
+  └─qt_main_window.py
 ```

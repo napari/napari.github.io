@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/release/release_0_7_1.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="⚠️ Note: these release notes are still in draft while 0.7.1rc1 is in prerelease testing. ⚠️ Wed, May 27, 2026 We’re happy to announce the release of napari 0.7.1! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing large ..." />
+<meta property="og:description" content="Tue, Jun 16, 2026 We’re happy to announce the release of napari 0.7.1! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing large multi-dimensional images. It’s built on top of Qt (for the GUI), vispy (for performant GPU-b..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="⚠️ Note: these release notes are still in draft while 0.7.1rc1 is in prerelease testing. ⚠️ Wed, May 27, 2026 We’re happy to announce the release of napari 0.7.1! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing large ..." />
+<meta name="description" content="Tue, Jun 16, 2026 We’re happy to announce the release of napari 0.7.1! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing large multi-dimensional images. It’s built on top of Qt (for the GUI), vispy (for performant GPU-b..." />
 
     <title>napari 0.7.1 &#8212; napari</title>
   
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../_static/documentation_options.js?v=98ec51a1"></script>
+    <script src="../_static/documentation_options.js?v=c75040b6"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.18.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7.1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -82,7 +82,7 @@
     <link rel="prev" title="Release Notes" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="dev" />
+  <meta name="docsearch:version" content="0.7.1" />
   
     
     <script src="../_static/searchtools.js"></script>
@@ -818,8 +818,7 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="napari-0-7-1">
 <h1>napari 0.7.1<a class="headerlink" href="#napari-0-7-1" title="Link to this heading">#</a></h1>
-<p>⚠️ <em>Note: these release notes are still in draft while 0.7.1rc1 is in prerelease testing.</em> ⚠️</p>
-<p><em>Wed, May 27, 2026</em></p>
+<p><em>Tue, Jun 16, 2026</em></p>
 <p>We’re happy to announce the release of napari 0.7.1!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
 It’s designed for browsing, annotating, and analyzing large multi-dimensional
@@ -830,71 +829,77 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <p>napari follows <a class="reference external" href="https://effver.org/">EffVer (Intended Effort Versioning)</a>; this is a <strong>Meso</strong> release containing awesome new features, but some effort may be needed when updating previous projects to use this version.</p>
 <section id="highlights">
 <h2>Highlights<a class="headerlink" href="#highlights" title="Link to this heading">#</a></h2>
-<p>The napari 0.7.1 release is mainly a bug fix release, but it also includes some new features and improvements. Here are some of the highlights:</p>
-</section>
+<p>The napari 0.7.1 release includes many new features and improvements. Here are some of the highlights:</p>
 <section id="signed-windows-bundle">
-<h2>Signed Windows bundle<a class="headerlink" href="#signed-windows-bundle" title="Link to this heading">#</a></h2>
+<h3>Signed Windows bundle<a class="headerlink" href="#signed-windows-bundle" title="Link to this heading">#</a></h3>
 <p>Starting with the napari 0.7.1 release, our bundle on Windows is now <a class="reference external" href="https://github.com/napari/packaging/pull/387">signed</a> with a NumFOCUS certificate, like our macOS bundle has been. This means that you should be able to run napari without any warnings about the application being from an unknown publisher. This is an important step forward for our Windows users, as it enhances security and trust in our application, especially in managed IT environments where unsigned applications may be blocked by default.</p>
 <p>The certificate is issued for the NumFOCUS foundation, which supports napari and a large number of other open source projects.</p>
 <p>If you encounter any issues related to this change, please let us know!</p>
 </section>
 <section id="selection-of-the-rendered-level-for-multiscale-layers">
-<h2>Selection of the rendered level for multiscale layers<a class="headerlink" href="#selection-of-the-rendered-level-for-multiscale-layers" title="Link to this heading">#</a></h2>
+<h3>Selection of the rendered level for multiscale layers<a class="headerlink" href="#selection-of-the-rendered-level-for-multiscale-layers" title="Link to this heading">#</a></h3>
 <p>Prior to napari 0.7.1, when rendering a multiscale layer:</p>
 <ul class="simple">
 <li><p>in 3D display, napari would always render the lowest resolution level of the pyramid</p></li>
 <li><p>in 2D display, the pyramid level would be automatically selected based on the viewport</p></li>
 </ul>
-<p>Thanks to <a class="reference external" href="https://github.com/napari/napari/pull/8917">#8917</a>, users can now select a multiscale level to render. For the case of 3D display, for example, this allows for choosing a higher resolution rendering than before, as long as the selected level can fit within GPU texture limits. Meanwhile, for 2D display, you can fix the resolution level, which can be useful for annotation or previewing data prior to an analysis or export step.</p>
+<p>Thanks to <a class="reference external" href="https://github.com/napari/napari/pull/8917">#8917</a>, users can now <a class="reference external" href="https://napari.org/dev/howtos/layers/image.html#locking-the-multiscale-level">select a multiscale level to render</a> (<a class="reference external" href="https://napari.org/stable/gallery/add_multiscale_volume.html">check out the awesome new example!</a>). Importantly, this allows choosing a higher resolution rendering than before in 3D, as long as the selected level can fit within GPU texture limits. Meanwhile, for 2D display, you can fix the resolution level, which can be useful for annotation or previewing data prior to an analysis or export step. You can set this resolution using the resolution widget in the layer controls:</p>
 <p><img alt="The resolution dropdown in the layer controls allows the user to select different levels of a multiscale image." src="https://github.com/user-attachments/assets/862e7512-0309-429c-b155-a9c03acf2db6" /></p>
 </section>
 <section id="colorbars-for-points-layer">
-<h2>Colorbars for points layer<a class="headerlink" href="#colorbars-for-points-layer" title="Link to this heading">#</a></h2>
+<h3>Colorbars for points layer<a class="headerlink" href="#colorbars-for-points-layer" title="Link to this heading">#</a></h3>
 <p>The points allows coloring points based of their feature values; in napari 0.7.1 we added support for colorbars (<a class="reference external" href="https://github.com/napari/napari/pull/8624">#8624</a>), so you can now easily see the mapping between feature values and colors, just like the colorbars for image colormapping. This is especially useful when you have a large number of points and want to quickly understand the distribution of feature values.</p>
-<img width="1019" height="783" alt="napari_colorbar" src="https://github.com/user-attachments/assets/1522aa7c-3520-4e41-85e6-99e9a91c47ee" />
+<p><img alt="Example of colorbar for points layer" src="https://github.com/user-attachments/assets/1522aa7c-3520-4e41-85e6-99e9a91c47ee" /></p>
 </section>
 <section id="scalebar-with-units">
-<h2>Scalebar with units<a class="headerlink" href="#scalebar-with-units" title="Link to this heading">#</a></h2>
-<p>In previous versions of napari, if you added A scale bar using <strong>View &gt; Scale Bar &gt; Scale Bar visible</strong>, it was shown with no units. In napari 0.7.1 we now
-set default unit to <code class="docutils literal notranslate"><span class="pre">pixel</span></code> in <a class="reference external" href="https://github.com/napari/napari/pull/8900">#8900</a> and also add calculation of units for scale bar based on currently added layers in <a class="reference external" href="https://github.com/napari/napari/pull/8907">#8907</a>, if they have units set.</p>
+<h3>Scalebar with units<a class="headerlink" href="#scalebar-with-units" title="Link to this heading">#</a></h3>
+<p>In previous versions of napari, if you added a scale bar using <strong>View &gt; Scale Bar &gt; Scale Bar visible</strong>, it was shown with no units. In napari 0.7.1 we now
+set default unit to <code class="docutils literal notranslate"><span class="pre">pixel</span></code> in <a class="reference external" href="https://github.com/napari/napari/pull/8900">#8900</a> and also add calculation of units for scale bar based on currently added layers in <a class="reference external" href="https://github.com/napari/napari/pull/8907">#8907</a> and <a class="reference external" href="https://github.com/napari/napari/pull/9007">#9007</a>, if they have units set and are logically consistent across layers.
+We’ve also <a class="reference external" href="https://napari.org/stable/guides/units.html">added a guide about unit and scale aware rendering</a>  (<a class="reference external" href="https://github.com/napari/docs/pull/1032">#1032</a>).</p>
 <p><img alt="Scale bar with units" src="https://github.com/user-attachments/assets/b25a1a53-b9a0-46f1-b88c-c2625e4287a8" /></p>
 </section>
 <section id="lock-layer-to-prevent-accidental-deletions">
-<h2>Lock layer to prevent accidental deletions<a class="headerlink" href="#lock-layer-to-prevent-accidental-deletions" title="Link to this heading">#</a></h2>
-<p>In <a class="reference external" href="https://github.com/napari/napari/pull/8736">#8736</a> we added initial lock mechanism for layers. When a layer is locked, it cannot be accidentally deleted or destructively modified. This is especially useful when you have a complex project with many layers and want to prevent accidental changes to important layers. Note: the layer controls are not affected by the lock at this time.
+<h3>Lock layer to prevent accidental deletions<a class="headerlink" href="#lock-layer-to-prevent-accidental-deletions" title="Link to this heading">#</a></h3>
+<p>In <a class="reference external" href="https://github.com/napari/napari/pull/8736">#8736</a> we added the initial implementation for a <a class="reference external" href="https://napari.org/stable/getting_started/layers.html#layer-locking">lock mechanism for layers</a>. Now, when a layer is locked, it cannot be accidentally deleted or destructively modified. This is especially useful when you have a complex project with many layers and want to prevent accidental changes to important layers. Note: the layer controls are not affected by the lock at this time.
 In the future we plan to expand this feature to prevent not only deletion but also other modifications.</p>
 <p><img alt="Lock layer on layer list" src="https://github.com/user-attachments/assets/1df17b1e-cb52-4b2f-88b3-495f1e5301a0" /></p>
+</section>
 </section>
 <section id="new-features">
 <h2>New Features<a class="headerlink" href="#new-features" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Add points layer face and border colorbar (<a class="reference external" href="https://github.com/napari/napari/pull/8624">#8624</a>)</p></li>
+<li><p>UX: Add Layer.locked property to protect layers from accidental deletion (<a class="reference external" href="https://github.com/napari/napari/pull/8736">#8736</a>)</p></li>
 </ul>
 </section>
 <section id="improvements">
 <h2>Improvements<a class="headerlink" href="#improvements" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Add handler for show message when napari fails to import (<a class="reference external" href="https://github.com/napari/napari/pull/8609">#8609</a>)</p></li>
 <li><p>Example: Enhance theme sample widget with theme colors, widgets (<a class="reference external" href="https://github.com/napari/napari/pull/8662">#8662</a>)</p></li>
 <li><p>Do not connect to children events of EventedDict items if there is no callback (<a class="reference external" href="https://github.com/napari/napari/pull/8673">#8673</a>)</p></li>
 <li><p>ENH: For multiscale 2d: store materialized thumbnail_level (<a class="reference external" href="https://github.com/napari/napari/pull/8715">#8715</a>)</p></li>
-<li><p>UX: Add Layer.locked property to protect layers from accidental deletion (<a class="reference external" href="https://github.com/napari/napari/pull/8736">#8736</a>)</p></li>
+<li><p>Canvas based font size (<a class="reference external" href="https://github.com/napari/napari/pull/8770">#8770</a>)</p></li>
 <li><p>Enh, minor, builtins: use urllib (and defer) instead of requests if reading a remote script path (<a class="reference external" href="https://github.com/napari/napari/pull/8785">#8785</a>)</p></li>
 <li><p>Perf: Defer importing scipy.spatial (<a class="reference external" href="https://github.com/napari/napari/pull/8789">#8789</a>)</p></li>
-<li><p>Add handler for show message when napari fails to import v2 (<a class="reference external" href="https://github.com/napari/napari/pull/8803">#8803</a>)</p></li>
+<li><p>Revert the switch from Welcome widget to Welcome overlay from #8117 (<a class="reference external" href="https://github.com/napari/napari/pull/8793">#8793</a>)</p></li>
 <li><p>Update text in mac installer to improve UX (<a class="reference external" href="https://github.com/napari/napari/pull/8806">#8806</a>)</p></li>
 <li><p>Fix: Use Python’s tokenize script decoding for builtin reader (<a class="reference external" href="https://github.com/napari/napari/pull/8838">#8838</a>)</p></li>
 <li><p>Add note for user how to reset the reader preference (<a class="reference external" href="https://github.com/napari/napari/pull/8848">#8848</a>)</p></li>
 <li><p>Ensure all napari and plugin commands use . instead of : (<a class="reference external" href="https://github.com/napari/napari/pull/8883">#8883</a>)</p></li>
 <li><p>Improve dask check to support more dask-backed array types (<a class="reference external" href="https://github.com/napari/napari/pull/8896">#8896</a>)</p></li>
+<li><p>Fix floating widgets and use custom title bar in all cases (<a class="reference external" href="https://github.com/napari/napari/pull/8898">#8898</a>)</p></li>
 <li><p>Set pixel as default scalebar unit (<a class="reference external" href="https://github.com/napari/napari/pull/8900">#8900</a>)</p></li>
 <li><p>ScaleBar units from layers (<a class="reference external" href="https://github.com/napari/napari/pull/8907">#8907</a>)</p></li>
 <li><p>Turn off contrast/color controls when surface has <code class="docutils literal notranslate"><span class="pre">vertex_colors</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8909">#8909</a>)</p></li>
 <li><p>Actually use theme type from npe contrib (<a class="reference external" href="https://github.com/napari/napari/pull/8915">#8915</a>)</p></li>
 <li><p>Add multiscale level lock for scalar field layers (<a class="reference external" href="https://github.com/napari/napari/pull/8917">#8917</a>)</p></li>
 <li><p>Do not add a new colormap if one already exists in napari (<a class="reference external" href="https://github.com/napari/napari/pull/8924">#8924</a>)</p></li>
+<li><p>Adjust pt argument of font size increase/decrease based on platform (<a class="reference external" href="https://github.com/napari/napari/pull/8950">#8950</a>)</p></li>
 <li><p>Improve sizing of dims ordering popup (<a class="reference external" href="https://github.com/napari/napari/pull/8952">#8952</a>)</p></li>
+<li><p>Add float precision setting (<a class="reference external" href="https://github.com/napari/napari/pull/8975">#8975</a>)</p></li>
 <li><p>typing: add type hints to <code class="docutils literal notranslate"><span class="pre">napari/utils/shortcuts.py</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8983">#8983</a>)</p></li>
+<li><p>Use QSS instead of hard-coding style (including font) for the notification action button (<a class="reference external" href="https://github.com/napari/napari/pull/9001">#9001</a>)</p></li>
+<li><p>Use actual font-size in the keybind-clash popup (<a class="reference external" href="https://github.com/napari/napari/pull/9002">#9002</a>)</p></li>
 </ul>
 </section>
 <section id="performance">
@@ -903,6 +908,7 @@ In the future we plan to expand this feature to prevent not only deletion but al
 <li><p>ENH: For multiscale 2d: store materialized thumbnail_level (<a class="reference external" href="https://github.com/napari/napari/pull/8715">#8715</a>)</p></li>
 <li><p>Enh, minor, builtins: use urllib (and defer) instead of requests if reading a remote script path (<a class="reference external" href="https://github.com/napari/napari/pull/8785">#8785</a>)</p></li>
 <li><p>Perf: Defer importing scipy.spatial (<a class="reference external" href="https://github.com/napari/napari/pull/8789">#8789</a>)</p></li>
+<li><p>Revert the switch from Welcome widget to Welcome overlay from #8117 (<a class="reference external" href="https://github.com/napari/napari/pull/8793">#8793</a>)</p></li>
 <li><p>Improve dask check to support more dask-backed array types (<a class="reference external" href="https://github.com/napari/napari/pull/8896">#8896</a>)</p></li>
 <li><p>Use pep562 to defer AVAILABLE_LABELS_COLORMAPS which imports skimage.color -&gt; scipy.linalg (<a class="reference external" href="https://github.com/napari/napari/pull/8903">#8903</a>)</p></li>
 </ul>
@@ -917,9 +923,19 @@ In the future we plan to expand this feature to prevent not only deletion but al
 <li><p>Fix: Blocks dims slider widget creation feedback to dims model (<a class="reference external" href="https://github.com/napari/napari/pull/8840">#8840</a>)</p></li>
 <li><p>Fix: play button loop mode duplication (<a class="reference external" href="https://github.com/napari/napari/pull/8841">#8841</a>)</p></li>
 <li><p>Improve dask check to support more dask-backed array types (<a class="reference external" href="https://github.com/napari/napari/pull/8896">#8896</a>)</p></li>
+<li><p>Fix floating widgets and use custom title bar in all cases (<a class="reference external" href="https://github.com/napari/napari/pull/8898">#8898</a>)</p></li>
 <li><p>Wrap Labels multiscale data in MultiScaleData object in setter (<a class="reference external" href="https://github.com/napari/napari/pull/8922">#8922</a>)</p></li>
 <li><p>Fix Labels show_selected_label being silently dropped after color shuffle (<a class="reference external" href="https://github.com/napari/napari/pull/8947">#8947</a>)</p></li>
 <li><p>Fix Volume visual crash when adding invisible scalar field in 3D (<a class="reference external" href="https://github.com/napari/napari/pull/8968">#8968</a>)</p></li>
+<li><p>Auto-apply XCB/GLX workaround on Linux+Wayland at startup (<a class="reference external" href="https://github.com/napari/napari/pull/9009">#9009</a>)</p></li>
+<li><p>Fix update of Shapes._value when remove shape (<a class="reference external" href="https://github.com/napari/napari/pull/9041">#9041</a>)</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">Shapes._value</span></code>to <code class="docutils literal notranslate"><span class="pre">None,</span> <span class="pre">None</span></code> on delete of shape (<a class="reference external" href="https://github.com/napari/napari/pull/9044">#9044</a>)</p></li>
+</ul>
+</section>
+<section id="build-tools">
+<h2>Build Tools<a class="headerlink" href="#build-tools" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>ci(deps): bump aiohttp from 3.13.5 to 3.14.0 in /resources (<a class="reference external" href="https://github.com/napari/napari/pull/9028">#9028</a>)</p></li>
 </ul>
 </section>
 <section id="documentation">
@@ -948,10 +964,18 @@ In the future we plan to expand this feature to prevent not only deletion but al
 <li><p>Add Carlos to Core Team page (<a class="reference external" href="https://github.com/napari/docs/pull/1012">docs#1012</a>)</p></li>
 <li><p>Update release notes for 0.7.1 (<a class="reference external" href="https://github.com/napari/docs/pull/1019">docs#1019</a>)</p></li>
 <li><p>Add Curtis and Brian to SC members (<a class="reference external" href="https://github.com/napari/docs/pull/1020">docs#1020</a>)</p></li>
+<li><p>Move download links to top of examples (<a class="reference external" href="https://github.com/napari/docs/pull/1021">docs#1021</a>)</p></li>
 <li><p>Add Windows bundle signing and reputation info (<a class="reference external" href="https://github.com/napari/docs/pull/1022">docs#1022</a>)</p></li>
 <li><p>Fix: <code class="docutils literal notranslate"><span class="pre">pyqt6</span></code> for conda install instructions (<a class="reference external" href="https://github.com/napari/docs/pull/1023">docs#1023</a>)</p></li>
+<li><p>Add admonition to gallery examples that require additional packages (<a class="reference external" href="https://github.com/napari/docs/pull/1024">docs#1024</a>)</p></li>
 <li><p>Document layer locking in napari GUI and API (<a class="reference external" href="https://github.com/napari/docs/pull/1025">docs#1025</a>)</p></li>
 <li><p>Clean up button css for homepage and gallery (<a class="reference external" href="https://github.com/napari/docs/pull/1026">docs#1026</a>)</p></li>
+<li><p>Add baseurl to favor stable versions in search engines (<a class="reference external" href="https://github.com/napari/docs/pull/1029">docs#1029</a>)</p></li>
+<li><p>Guide about unit and scale aware rendering (<a class="reference external" href="https://github.com/napari/docs/pull/1032">docs#1032</a>)</p></li>
+<li><p>Document automatic Wayland/Nvidia workaround in troubleshooting (<a class="reference external" href="https://github.com/napari/docs/pull/1033">docs#1033</a>)</p></li>
+<li><p>Fix: Opaque, instead of translucent, sticky version banner (<a class="reference external" href="https://github.com/napari/docs/pull/1035">docs#1035</a>)</p></li>
+<li><p>Update homepage video with reproducible napari-animation script (<a class="reference external" href="https://github.com/napari/docs/pull/1036">docs#1036</a>)</p></li>
+<li><p>Update release notes to 0.7.1 (<a class="reference external" href="https://github.com/napari/docs/pull/1041">docs#1041</a>)</p></li>
 <li><p>Example: Enhance theme sample widget with theme colors, widgets (<a class="reference external" href="https://github.com/napari/napari/pull/8662">#8662</a>)</p></li>
 <li><p>Add note to Camera.angles docstring about quaternion normalisation (<a class="reference external" href="https://github.com/napari/napari/pull/8864">#8864</a>)</p></li>
 <li><p>Docs: Bump lower version of napari-sphinx-theme (<a class="reference external" href="https://github.com/napari/napari/pull/8886">#8886</a>)</p></li>
@@ -969,10 +993,10 @@ In the future we plan to expand this feature to prevent not only deletion but al
 <li><p>Fix minor typos (<a class="reference external" href="https://github.com/napari/docs/pull/1005">docs#1005</a>)</p></li>
 <li><p>ci(dependabot): bump the github-actions group with 3 updates (<a class="reference external" href="https://github.com/napari/docs/pull/1006">docs#1006</a>)</p></li>
 <li><p>Remove “auto author assign” workflow (<a class="reference external" href="https://github.com/napari/docs/pull/1008">docs#1008</a>)</p></li>
+<li><p>Fix skip condition for build docs based on label (<a class="reference external" href="https://github.com/napari/docs/pull/1031">docs#1031</a>)</p></li>
 <li><p>Update workflows to python 3.14 (<a class="reference external" href="https://github.com/napari/napari/pull/8666">#8666</a>)</p></li>
 <li><p>Improve typing in qt_dims_slider and clean local functions (<a class="reference external" href="https://github.com/napari/napari/pull/8683">#8683</a>)</p></li>
 <li><p>Drop triangle from 3.14 docs dependencies (<a class="reference external" href="https://github.com/napari/napari/pull/8703">#8703</a>)</p></li>
-<li><p>Use viewer-based caching for font manager (<a class="reference external" href="https://github.com/napari/napari/pull/8761">#8761</a>)</p></li>
 <li><p>Enable <code class="docutils literal notranslate"><span class="pre">TC003</span></code> - typing-only-standard-library-import rule in ruff config (<a class="reference external" href="https://github.com/napari/napari/pull/8791">#8791</a>)</p></li>
 <li><p>Solve “Could not resolve type hint for required parameter ‘qt_viewer’.” (<a class="reference external" href="https://github.com/napari/napari/pull/8792">#8792</a>)</p></li>
 <li><p>Add app-model to mypy task dependencies and fix errors (<a class="reference external" href="https://github.com/napari/napari/pull/8794">#8794</a>)</p></li>
@@ -1023,6 +1047,7 @@ In the future we plan to expand this feature to prevent not only deletion but al
 <li><p>Instead of checking if milestone is added, add the milestone on merge (<a class="reference external" href="https://github.com/napari/napari/pull/8926">#8926</a>)</p></li>
 <li><p>Adapt tests that use zarr to work on zarr &lt; 3 and zarr &gt; 3.2.0 (<a class="reference external" href="https://github.com/napari/napari/pull/8943">#8943</a>)</p></li>
 <li><p>Don’t use random floats for image layer data in screenshot tests (<a class="reference external" href="https://github.com/napari/napari/pull/8945">#8945</a>)</p></li>
+<li><p>Remove decreases of font_size from primary UI elements. (<a class="reference external" href="https://github.com/napari/napari/pull/8948">#8948</a>)</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">coverage</span></code>, <code class="docutils literal notranslate"><span class="pre">fsspec</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">pydantic</span></code>, <code class="docutils literal notranslate"><span class="pre">pydantic-settings</span></code>, <code class="docutils literal notranslate"><span class="pre">tensorstore</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code>, <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/8949">#8949</a>)</p></li>
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8951">#8951</a>)</p></li>
 <li><p>Fix auto milestone workflow (<a class="reference external" href="https://github.com/napari/napari/pull/8954">#8954</a>)</p></li>
@@ -1042,11 +1067,15 @@ In the future we plan to expand this feature to prevent not only deletion but al
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/8988">#8988</a>)</p></li>
 <li><p>Bump vispy to 0.16.2 (<a class="reference external" href="https://github.com/napari/napari/pull/8992">#8992</a>)</p></li>
 <li><p>Docs: Bump napari-sphinx-theme to use sticky banners (<a class="reference external" href="https://github.com/napari/napari/pull/8997">#8997</a>)</p></li>
-<li><p>Deprecate scale_bar.unit (<a class="reference external" href="https://github.com/napari/napari/pull/9007">#9007</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">coverage</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">ipython</span></code>, <code class="docutils literal notranslate"><span class="pre">platformdirs</span></code>, <code class="docutils literal notranslate"><span class="pre">tifffile</span></code>, <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/9021">#9021</a>)</p></li>
+<li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/9022">#9022</a>)</p></li>
+<li><p>Block pydantic==2.14.0a1 in <code class="docutils literal notranslate"><span class="pre">--pre</span></code> tests (<a class="reference external" href="https://github.com/napari/napari/pull/9023">#9023</a>)</p></li>
+<li><p>ci(dependabot): bump the actions group with 6 updates (<a class="reference external" href="https://github.com/napari/napari/pull/9024">#9024</a>)</p></li>
+<li><p>Mnt: Block qt6 6.11.0, 6.11.1 due to dock widget and resizing bugs (<a class="reference external" href="https://github.com/napari/napari/pull/9052">#9052</a>)</p></li>
 </ul>
 </section>
 <section id="authors-added-to-this-release-alphabetical">
-<h2>22 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>25 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
 <p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Aniketsy">Aniket</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=Aniketsy">docs</a>)  - &#64;Aniketsy +</p></li>
@@ -1067,14 +1096,17 @@ In the future we plan to expand this feature to prevent not only deletion but al
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=MargotCh">Margot Chazotte</a> - &#64;MargotCh</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=maweigert">Martin Weigert</a> - &#64;maweigert</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=melissawm">Melissa Weber Mendonça</a> - &#64;melissawm</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=mambroset">Mélodie Ambroset</a> - &#64;mambroset +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=niksirbi">Niko Sirmpilatze</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=niksirbi">docs</a>)  - &#64;niksirbi +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=pnewstein">Peter Newstein</a> - &#64;pnewstein +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=TimMonko">Tim Monko</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=TimMonko">docs</a>)  - &#64;TimMonko</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=wulinteousa2-hash">Wulin Teo</a> - &#64;wulinteousa2-hash +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=Yann-P">Yann Pellegrini</a> - &#64;Yann-P +</p></li>
 </ul>
 </section>
 <section id="reviewers-added-to-this-release-alphabetical">
-<h2>22 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>23 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
 <p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Aniketsy">Aniket</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=Aniketsy">docs</a>)  - &#64;Aniketsy +</p></li>
@@ -1095,10 +1127,11 @@ In the future we plan to expand this feature to prevent not only deletion but al
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=hinderling">Lucien Hinderling</a> - &#64;hinderling +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=MargotCh">Margot Chazotte</a> - &#64;MargotCh</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=melissawm">Melissa Weber Mendonça</a> - &#64;melissawm</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=niksirbi">Niko Sirmpilatze</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=niksirbi">docs</a>)  - &#64;niksirbi +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=TimMonko">Tim Monko</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=TimMonko">docs</a>)  - &#64;TimMonko</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=wulinteousa2-hash">Wulin Teo</a> - &#64;wulinteousa2-hash +</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=Yann-P">Yann Pellegrini</a> - &#64;Yann-P</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=Yann-P">Yann Pellegrini</a> - &#64;Yann-P +</p></li>
 </ul>
 </section>
 </section>
@@ -1150,20 +1183,23 @@ In the future we plan to expand this feature to prevent not only deletion but al
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highlights">Highlights</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#signed-windows-bundle">Signed Windows bundle</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-of-the-rendered-level-for-multiscale-layers">Selection of the rendered level for multiscale layers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#colorbars-for-points-layer">Colorbars for points layer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalebar-with-units">Scalebar with units</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-layer-to-prevent-accidental-deletions">Lock layer to prevent accidental deletions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highlights">Highlights</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#signed-windows-bundle">Signed Windows bundle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-of-the-rendered-level-for-multiscale-layers">Selection of the rendered level for multiscale layers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#colorbars-for-points-layer">Colorbars for points layer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalebar-with-units">Scalebar with units</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-layer-to-prevent-accidental-deletions">Lock layer to prevent accidental deletions</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-features">New Features</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#improvements">Improvements</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bug-fixes">Bug Fixes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-tools">Build Tools</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-pull-requests">Other Pull Requests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">22 authors added to this release (alphabetical)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">22 reviewers added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">25 authors added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">23 reviewers added to this release (alphabetical)</a></li>
 </ul>
   </nav></div>
 

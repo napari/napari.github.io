@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: June 19, 2026*
+*Last updated: June 22, 2026*
 
 
 ## Recent Releases (Last 3 Months)
@@ -62,6 +62,11 @@ In the future we plan to expand this feature to prevent not only deletion but al
 [View full release notes →](release_0_7_1)
 
 ````
+
+
+
+
+## Releases from 3-6 Months Ago
 
 ````{dropdown} napari 0.7.0 (March 2026)
 :open:
@@ -478,7 +483,6 @@ it saves more than 50MB of disk space for a napari install!
 [View full release notes →](release_0_7_0)
 
 ````
-
 
 
 

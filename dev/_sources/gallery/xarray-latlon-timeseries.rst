@@ -23,7 +23,7 @@ before displaying it in napari.
 
 .. tags:: visualization-advanced, layers, xarray
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-87
+.. GENERATED FROM PYTHON SOURCE LINES 15-88
 
 
 
@@ -85,6 +85,7 @@ before displaying it in napari.
             **get_scale_translate(sst, 'sst'),
             colormap='magma',
             )
+    viewer.scale_bar.visible = True
     viewer.dims.axis_labels = sst.sst.dims
 
     air_layer = viewer.add_image(

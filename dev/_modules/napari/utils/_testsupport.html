@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../_static/documentation_options.js?v=5b66e41c"></script>
+    <script src="../../../_static/documentation_options.js?v=afab3181"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1059,6 +1059,15 @@ window.runMermaid = runMermaid;</script>
             <span class="n">Application</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="s1">&#39;test_app&#39;</span><span class="p">)</span>
             <span class="n">_initialize_plugins</span><span class="o">.</span><span class="n">cache_clear</span><span class="p">()</span>
             <span class="n">init_qactions</span><span class="o">.</span><span class="n">cache_clear</span><span class="p">()</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_disable_qt_warnings</span><span class="p">(</span><span class="n">monkeypatch</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt</span><span class="w"> </span><span class="kn">import</span> <span class="n">qt_main_window</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setattr</span><span class="p">(</span><span class="n">qt_main_window</span><span class="p">,</span> <span class="s1">&#39;SHOW_QT_WARNING&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="make_napari_viewer">

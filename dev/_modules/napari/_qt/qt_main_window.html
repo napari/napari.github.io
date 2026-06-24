@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../_static/documentation_options.js?v=5b66e41c"></script>
+    <script src="../../../_static/documentation_options.js?v=afab3181"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -922,6 +922,7 @@ window.runMermaid = runMermaid;</script>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">weakref</span><span class="w"> </span><span class="kn">import</span> <span class="n">WeakValueDictionary</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">qtpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">QT5</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">QEvent</span><span class="p">,</span>
     <span class="n">QEventLoop</span><span class="p">,</span>
@@ -985,7 +986,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">in_python_repl</span><span class="p">,</span>
     <span class="n">running_as_constructor_app</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.notifications</span><span class="w"> </span><span class="kn">import</span> <span class="n">Notification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.notifications</span><span class="w"> </span><span class="kn">import</span> <span class="n">Notification</span><span class="p">,</span> <span class="n">show_warning</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.task_status</span><span class="w"> </span><span class="kn">import</span> <span class="n">Status</span><span class="p">,</span> <span class="n">TaskStatusManager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.theme</span><span class="w"> </span><span class="kn">import</span> <span class="n">_themes</span><span class="p">,</span> <span class="n">get_system_theme</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
@@ -1003,6 +1004,10 @@ window.runMermaid = runMermaid;</script>
 
 <span class="n">_sentinel</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
 
+<span class="n">SHOW_QT_WARNING</span> <span class="o">=</span> <span class="n">QT5</span>
+<span class="c1"># a variable to check if we run with PyQt5 backend. As we dropped PySide it is enough to check Qt version</span>
+
+<span class="k">del</span> <span class="n">QT5</span>
 
 <span class="n">MenuStr</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span>
     <span class="s1">&#39;file_menu&#39;</span><span class="p">,</span>
@@ -1127,6 +1132,8 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">showEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QShowEvent</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Override to handle window state changes.&quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">SHOW_QT_WARNING</span>
+
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
         <span class="c1"># if event loop is not running, we don&#39;t want to start the thread</span>
         <span class="c1"># If event loop is running, the loopLevel will be above 0</span>
@@ -1135,6 +1142,14 @@ window.runMermaid = runMermaid;</script>
             <span class="ow">and</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">thread</span><span class="p">()</span><span class="o">.</span><span class="n">loopLevel</span><span class="p">()</span>
         <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">SHOW_QT_WARNING</span><span class="p">:</span>
+            <span class="n">show_warning</span><span class="p">(</span>
+                <span class="s1">&#39;napari support for the PyQt5 backend is deprecated and will be removed in fall of 2026&#39;</span>
+            <span class="p">)</span>
+
+            <span class="n">SHOW_QT_WARNING</span> <span class="o">=</span> <span class="kc">False</span>
+
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">showEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">enterEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a0</span><span class="p">):</span>

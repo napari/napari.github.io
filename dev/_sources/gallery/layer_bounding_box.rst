@@ -34,8 +34,18 @@ see :ref:`sphx_glr_gallery_image_border.py`.
    :class: sphx-glr-single-img
 
 
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    WARNING: napari support for the PyQt5 backend is deprecated and will be removed in fall of 2026
 
 
+
+
+
+
+|
 
 .. code-block:: Python
 
@@ -91,7 +101,7 @@ see :ref:`sphx_glr_gallery_image_border.py`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 10.877 seconds)
+   **Total running time of the script:** (0 minutes 13.513 seconds)
 
 
 .. _sphx_glr_download_gallery_layer_bounding_box.py:

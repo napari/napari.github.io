@@ -153,19 +153,63 @@ release though we need to generate the release notes.
 These constraints files need to be updated at least weekly on Monday, and may also be triggered manually by a maintainer. You can find these files at
 [resources/constraints](https://github.com/napari/napari/tree/main/resources/constraints).
 
-To get updated constraints for a PR, use `@napari-bot update constraints` in a PR comment, then follow the instruction added by the bot to the conversation.
+#### Via bot (recommended for PRs)
 
-````{admonition} Example
-To manually update the constraints files, you need to have the [`uv`](https://github.com/astral-sh/uv) tool installed, then copy 
-and run the command from the second line of a given constraints file. 
-For example:  
+To get updated constraints for a PR, comment `@napari-bot update constraints` on the PR. The bot will
+run the full upgrade workflow and push the updated constraints to the `napari-bot/napari` repository.
+
+#### Locally with `compile_constraints.sh`
+
+The [`compile_constraints.sh`](https://github.com/napari/napari/blob/main/tools/compile_constraints.sh)
+script automates regenerating all constraint files at once. You need `uv` installed and a
+**bash environment** (on Windows, use WSL or Git Bash).
 
 ```bash
-uv pip compile --python-version 3.12 --output-file resources/constraints/constraints_py3.12.txt pyproject.toml resources/constraints/version_denylist.txt --extra pyqt6 --extra pyside6 --extra testing --extra testing_extra --extra optional
-```
-````
+# Regenerate all constraint files (upgrade everything to latest)
+tools/compile_constraints.sh
 
-To see other examples, check out the [upgrade test constraints action](https://github.com/napari/napari/blob/main/.github/workflows/upgrade_test_constraints.yml).
+# Upgrade only specific packages (e.g., pyside6)
+tools/compile_constraints.sh pyside6
+
+# Upgrade multiple specific packages at once
+tools/compile_constraints.sh pyside6 pyqt6-qt6
+```
+
+```{admonition} Package name matching
+:class: note
+The script checks whether each named package already appears in an existing constraint
+file. Package names are **case-sensitive** — use the lowercase form found in the
+constraints (e.g., `pyside6`, not `PySide6`). Underscores and hyphens are treated
+as equivalent.
+```
+
+If a package is not found in any constraint file, the script prints an error and exits.
+Packages that are transitive dependencies (not pinned in constraints) cannot be upgraded
+with this script directly.
+
+#### Manually with `uv pip compile`
+
+You can also update a single constraint file by copying the command from the **second line**
+of that file. For example:
+
+```bash
+uv pip compile --python-version 3.12 --output-file resources/constraints/constraints_py3.12.txt pyproject.toml resources/constraints/version_denylist.txt --extra pyqt6 --extra pyside6 --extra testing --group testing_extra --extra all_optional --exclude resources/constraints/napari_exclude.txt
+```
+
+```{admonition} Blocking problematic versions
+:class: note
+When a dependency version needs to be blocked, prefer adding a `!=` constraint
+in `pyproject.toml` (e.g., `"PySide6 > 6.7, !=6.11.1"`). The `uv pip compile`
+command reads `pyproject.toml` as a source file and respects these constraints.
+
+The `version_denylist.txt` file is for blocks that **cannot** be expressed in
+`pyproject.toml`, such as:
+- **Transitive (indirect) dependencies** not declared in pyproject.toml
+- **Test infrastructure packages** like `pytest-json-report`
+```
+
+See the [upgrade test constraints workflow](https://github.com/napari/napari/blob/main/.github/workflows/upgrade_test_constraints.yml)
+for how this runs in CI.
 
 ### Tagging the new release candidate
 

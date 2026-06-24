@@ -727,17 +727,59 @@ will not be able to find the release notes file.</p></li>
 <p><code class="docutils literal notranslate"><span class="pre">napari</span></code> uses a set of constraints files to prevent test failures due to dependency updates. This also allows for reproducible builds (see <a class="reference internal" href="../contributing/dev_install.html#dev-installation"><span class="std std-ref">Setting up a development installation</span></a>).
 These constraints files need to be updated at least weekly on Monday, and may also be triggered manually by a maintainer. You can find these files at
 <a class="reference external" href="https://github.com/napari/napari/tree/main/resources/constraints">resources/constraints</a>.</p>
-<p>To get updated constraints for a PR, use <code class="docutils literal notranslate"><span class="pre">&#64;napari-bot</span> <span class="pre">update</span> <span class="pre">constraints</span></code> in a PR comment, then follow the instruction added by the bot to the conversation.</p>
-<div class="admonition-example admonition">
-<p class="admonition-title">Example</p>
-<p>To manually update the constraints files, you need to have the <a class="reference external" href="https://github.com/astral-sh/uv"><code class="docutils literal notranslate"><span class="pre">uv</span></code></a> tool installed, then copy
-and run the command from the second line of a given constraints file.
-For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>compile<span class="w"> </span>--python-version<span class="w"> </span><span class="m">3</span>.12<span class="w"> </span>--output-file<span class="w"> </span>resources/constraints/constraints_py3.12.txt<span class="w"> </span>pyproject.toml<span class="w"> </span>resources/constraints/version_denylist.txt<span class="w"> </span>--extra<span class="w"> </span>pyqt6<span class="w"> </span>--extra<span class="w"> </span>pyside6<span class="w"> </span>--extra<span class="w"> </span>testing<span class="w"> </span>--extra<span class="w"> </span>testing_extra<span class="w"> </span>--extra<span class="w"> </span>optional
+<section id="via-bot-recommended-for-prs">
+<h4>Via bot (recommended for PRs)<a class="headerlink" href="#via-bot-recommended-for-prs" title="Link to this heading">#</a></h4>
+<p>To get updated constraints for a PR, comment <code class="docutils literal notranslate"><span class="pre">&#64;napari-bot</span> <span class="pre">update</span> <span class="pre">constraints</span></code> on the PR. The bot will
+run the full upgrade workflow and push the updated constraints to the <code class="docutils literal notranslate"><span class="pre">napari-bot/napari</span></code> repository.</p>
+</section>
+<section id="locally-with-compile-constraints-sh">
+<h4>Locally with <code class="docutils literal notranslate"><span class="pre">compile_constraints.sh</span></code><a class="headerlink" href="#locally-with-compile-constraints-sh" title="Link to this heading">#</a></h4>
+<p>The <a class="reference external" href="https://github.com/napari/napari/blob/main/tools/compile_constraints.sh"><code class="docutils literal notranslate"><span class="pre">compile_constraints.sh</span></code></a>
+script automates regenerating all constraint files at once. You need <code class="docutils literal notranslate"><span class="pre">uv</span></code> installed and a
+<strong>bash environment</strong> (on Windows, use WSL or Git Bash).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Regenerate all constraint files (upgrade everything to latest)</span>
+tools/compile_constraints.sh
+
+<span class="c1"># Upgrade only specific packages (e.g., pyside6)</span>
+tools/compile_constraints.sh<span class="w"> </span>pyside6
+
+<span class="c1"># Upgrade multiple specific packages at once</span>
+tools/compile_constraints.sh<span class="w"> </span>pyside6<span class="w"> </span>pyqt6-qt6
 </pre></div>
 </div>
+<div class="note admonition">
+<p class="admonition-title">Package name matching</p>
+<p>The script checks whether each named package already appears in an existing constraint
+file. Package names are <strong>case-sensitive</strong> — use the lowercase form found in the
+constraints (e.g., <code class="docutils literal notranslate"><span class="pre">pyside6</span></code>, not <code class="docutils literal notranslate"><span class="pre">PySide6</span></code>). Underscores and hyphens are treated
+as equivalent.</p>
 </div>
-<p>To see other examples, check out the <a class="reference external" href="https://github.com/napari/napari/blob/main/.github/workflows/upgrade_test_constraints.yml">upgrade test constraints action</a>.</p>
+<p>If a package is not found in any constraint file, the script prints an error and exits.
+Packages that are transitive dependencies (not pinned in constraints) cannot be upgraded
+with this script directly.</p>
+</section>
+<section id="manually-with-uv-pip-compile">
+<h4>Manually with <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">pip</span> <span class="pre">compile</span></code><a class="headerlink" href="#manually-with-uv-pip-compile" title="Link to this heading">#</a></h4>
+<p>You can also update a single constraint file by copying the command from the <strong>second line</strong>
+of that file. For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>compile<span class="w"> </span>--python-version<span class="w"> </span><span class="m">3</span>.12<span class="w"> </span>--output-file<span class="w"> </span>resources/constraints/constraints_py3.12.txt<span class="w"> </span>pyproject.toml<span class="w"> </span>resources/constraints/version_denylist.txt<span class="w"> </span>--extra<span class="w"> </span>pyqt6<span class="w"> </span>--extra<span class="w"> </span>pyside6<span class="w"> </span>--extra<span class="w"> </span>testing<span class="w"> </span>--group<span class="w"> </span>testing_extra<span class="w"> </span>--extra<span class="w"> </span>all_optional<span class="w"> </span>--exclude<span class="w"> </span>resources/constraints/napari_exclude.txt
+</pre></div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Blocking problematic versions</p>
+<p>When a dependency version needs to be blocked, prefer adding a <code class="docutils literal notranslate"><span class="pre">!=</span></code> constraint
+in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;PySide6</span> <span class="pre">&gt;</span> <span class="pre">6.7,</span> <span class="pre">!=6.11.1&quot;</span></code>). The <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">pip</span> <span class="pre">compile</span></code>
+command reads <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> as a source file and respects these constraints.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">version_denylist.txt</span></code> file is for blocks that <strong>cannot</strong> be expressed in
+<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, such as:</p>
+<ul class="simple">
+<li><p><strong>Transitive (indirect) dependencies</strong> not declared in pyproject.toml</p></li>
+<li><p><strong>Test infrastructure packages</strong> like <code class="docutils literal notranslate"><span class="pre">pytest-json-report</span></code></p></li>
+</ul>
+</div>
+<p>See the <a class="reference external" href="https://github.com/napari/napari/blob/main/.github/workflows/upgrade_test_constraints.yml">upgrade test constraints workflow</a>
+for how this runs in CI.</p>
+</section>
 </section>
 <section id="tagging-the-new-release-candidate">
 <h3>Tagging the new release candidate<a class="headerlink" href="#tagging-the-new-release-candidate" title="Link to this heading">#</a></h3>
@@ -937,7 +979,12 @@ The release manager should coordinate with the maintainers to ensure that the bu
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#release-procedures">Release procedures</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determining-the-version">Determining the version</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-release-notes">Generating release notes</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-constraints-files">Update constraints files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-constraints-files">Update constraints files</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#via-bot-recommended-for-prs">Via bot (recommended for PRs)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#locally-with-compile-constraints-sh">Locally with <code class="docutils literal notranslate"><span class="pre">compile_constraints.sh</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#manually-with-uv-pip-compile">Manually with <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">pip</span> <span class="pre">compile</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tagging-the-new-release-candidate">Tagging the new release candidate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-the-release-candidate">Testing the release candidate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-the-actual-release">Generating the actual release</a></li>

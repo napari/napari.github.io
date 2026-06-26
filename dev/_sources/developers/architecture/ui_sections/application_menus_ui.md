@@ -41,6 +41,7 @@ graph LR
 	napari._qt._qapp_model.qactions._help --> napari._qt.dialogs.qt_about
 	napari._qt._qapp_model.qactions._help --> napari._qt.qt_main_window
 	napari._qt._qapp_model.qactions._help --> napari._qt.widgets.qt_logger
+	napari._qt._qapp_model.qactions._help --> napari._qt.widgets.qt_tips
 	click napari._qt._qapp_model.qactions._help "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_help.py" _blank
 	napari._qt._qapp_model.qactions._layerlist_context(napari._qt._qapp_model.qactions._layerlist_context)
 	click napari._qt._qapp_model.qactions._layerlist_context "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_layerlist_context.py" _blank
@@ -96,6 +97,8 @@ graph LR
 	napari._qt.widgets.qt_logger(napari._qt.widgets.qt_logger)
 	napari._qt.widgets.qt_logger --> napari._qt.dialogs.qt_about
 	click napari._qt.widgets.qt_logger "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_logger.py" _blank
+	napari._qt.widgets.qt_tips(napari._qt.widgets.qt_tips)
+	click napari._qt.widgets.qt_tips "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_tips.py" _blank
 	napari._qt.widgets.qt_viewer_buttons(napari._qt.widgets.qt_viewer_buttons)
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.dialogs.qt_modal
 	napari._qt.widgets.qt_viewer_buttons --> napari.viewer
@@ -148,6 +151,7 @@ graph LR
 	subgraph module.napari._qt.widgets[napari._qt.widgets]
 		 napari._qt.widgets.qt_command_palette
 		 napari._qt.widgets.qt_logger
+		 napari._qt.widgets.qt_tips
 		 napari._qt.widgets.qt_viewer_buttons
 	end
 	class module.napari._qt.widgets subgraphs
@@ -188,6 +192,7 @@ napari/
   ├─widgets/
   │ ├─qt_viewer_buttons.py
   │ ├─qt_command_palette.py
-  │ └─qt_logger.py
+  │ ├─qt_logger.py
+  │ └─qt_tips.py
   └─qt_main_window.py
 ```

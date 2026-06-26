@@ -34,6 +34,7 @@ graph LR
 	napari._qt._qapp_model.qactions._help --> napari._qt.dialogs.qt_about
 	napari._qt._qapp_model.qactions._help --> napari._qt.qt_main_window
 	napari._qt._qapp_model.qactions._help --> napari._qt.widgets.qt_logger
+	napari._qt._qapp_model.qactions._help --> napari._qt.widgets.qt_tips
 	click napari._qt._qapp_model.qactions._help "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_help.py" _blank
 	napari._qt._qapp_model.qactions._plugins(napari._qt._qapp_model.qactions._plugins)
 	napari._qt._qapp_model.qactions._plugins --> napari._qt.qt_main_window
@@ -119,6 +120,8 @@ graph LR
 	click napari._qt.widgets.qt_scrollbar "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_scrollbar.py" _blank
 	napari._qt.widgets.qt_spinbox(napari._qt.widgets.qt_spinbox)
 	click napari._qt.widgets.qt_spinbox "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_spinbox.py" _blank
+	napari._qt.widgets.qt_tips(napari._qt.widgets.qt_tips)
+	click napari._qt.widgets.qt_tips "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_tips.py" _blank
 	napari._qt.widgets.qt_tooltip(napari._qt.widgets.qt_tooltip)
 	click napari._qt.widgets.qt_tooltip "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_tooltip.py" _blank
 	napari._qt.widgets.qt_viewer_status_bar(napari._qt.widgets.qt_viewer_status_bar)
@@ -200,6 +203,7 @@ graph LR
 		 napari._qt.widgets.qt_progress_bar
 		 napari._qt.widgets.qt_scrollbar
 		 napari._qt.widgets.qt_spinbox
+		 napari._qt.widgets.qt_tips
 		 napari._qt.widgets.qt_tooltip
 		 napari._qt.widgets.qt_viewer_status_bar
 	end
@@ -271,6 +275,7 @@ napari/
   │ ├─qt_dims.py
   │ ├─qt_scrollbar.py
   │ ├─qt_logger.py
+  │ ├─qt_tips.py
   │ ├─qt_spinbox.py
   │ ├─qt_progress_bar.py
   │ ├─qt_highlight_preview.py

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../../_static/documentation_options.js?v=ac7fba4e"></script>
+    <script src="../../../../_static/documentation_options.js?v=fa46d7a3"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -919,6 +919,7 @@ window.runMermaid = runMermaid;</script>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._app_model.actions._file</span><span class="w"> </span><span class="kn">import</span> <span class="n">new_points</span><span class="p">,</span> <span class="n">new_shapes</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.dialogs.qt_modal</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtPopup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_widgets_enabled_with_opacity</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_dims_sorter</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtDimsSorter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_spinbox</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtSpinBox</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_tooltip</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtToolTipLabel</span>
@@ -1079,8 +1080,10 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">NONE</span>
             <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span>
-            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layers_present_and_none_selected</span><span class="p">()</span>
+        <span class="n">set_widgets_enabled_with_opacity</span><span class="p">(</span>
+            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">widgets</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span><span class="p">],</span>
+            <span class="n">enabled</span><span class="o">=</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layers_present_and_none_selected</span><span class="p">(),</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_layers_present_and_none_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -1171,8 +1174,13 @@ window.runMermaid = runMermaid;</script>
             <span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;napari:toggle_console_visibility&#39;</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">consoleButton</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;expanded&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">in_ipython</span><span class="p">()</span> <span class="ow">or</span> <span class="n">in_jupyter</span><span class="p">()</span> <span class="ow">or</span> <span class="n">in_python_repl</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">consoleButton</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">kernel_is_running</span> <span class="o">=</span> <span class="n">in_ipython</span><span class="p">()</span> <span class="ow">or</span> <span class="n">in_jupyter</span><span class="p">()</span> <span class="ow">or</span> <span class="n">in_python_repl</span><span class="p">()</span>
+        <span class="n">set_widgets_enabled_with_opacity</span><span class="p">(</span>
+            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">widgets</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">consoleButton</span><span class="p">],</span>
+            <span class="n">enabled</span><span class="o">=</span><span class="ow">not</span> <span class="n">kernel_is_running</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="n">rdb</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span><span class="s1">&#39;roll&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;napari:roll_axes&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rollDimsButton</span> <span class="o">=</span> <span class="n">rdb</span>

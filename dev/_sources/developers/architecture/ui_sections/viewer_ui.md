@@ -76,6 +76,7 @@ graph LR
 	napari._qt.widgets.qt_tooltip(napari._qt.widgets.qt_tooltip)
 	click napari._qt.widgets.qt_tooltip "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_tooltip.py" _blank
 	napari._qt.widgets.qt_viewer_buttons(napari._qt.widgets.qt_viewer_buttons)
+	napari._qt.widgets.qt_viewer_buttons --> napari._qt.utils
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.widgets.qt_dims_sorter
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.widgets.qt_spinbox
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.widgets.qt_tooltip

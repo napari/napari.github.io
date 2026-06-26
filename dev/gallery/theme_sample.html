@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../_static/documentation_options.js?v=ac7fba4e"></script>
+    <script src="../_static/documentation_options.js?v=fa46d7a3"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -867,7 +867,7 @@ themes and any plugin-contributed themes discovered when the viewer starts.</p>
     <span class="n">QVBoxLayout</span><span class="p">,</span>
     <span class="n">QWidget</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">superqt</span><span class="w"> </span><span class="kn">import</span> <span class="n">QRangeSlider</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">superqt</span><span class="w"> </span><span class="kn">import</span> <span class="n">QLabeledSlider</span><span class="p">,</span> <span class="n">QRangeSlider</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.theme</span><span class="w"> </span><span class="kn">import</span> <span class="n">available_themes</span><span class="p">,</span> <span class="n">get_theme</span>
@@ -1071,6 +1071,10 @@ themes and any plugin-contributed themes discovered when the viewer starts.</p>
         <span class="n">slider</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">slider</span><span class="p">)</span>
 
+        <span class="n">lab_slider</span> <span class="o">=</span> <span class="n">QLabeledSlider</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">)</span>
+        <span class="n">lab_slider</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">lab_slider</span><span class="p">)</span>
+
         <span class="n">h_scrollbar</span> <span class="o">=</span> <span class="n">QScrollBar</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">)</span>
         <span class="n">h_scrollbar</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">h_scrollbar</span><span class="p">)</span>
@@ -1140,14 +1144,6 @@ themes and any plugin-contributed themes discovered when the viewer starts.</p>
         <span class="n">disabled_row</span><span class="o">.</span><span class="n">addStretch</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">disabled_row</span><span class="p">)</span>
 
-        <span class="n">emphasized_frame</span> <span class="o">=</span> <span class="n">QFrame</span><span class="p">()</span>
-        <span class="n">emphasized_frame</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;emphasized&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-        <span class="n">emphasized_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">(</span><span class="n">emphasized_frame</span><span class="p">)</span>
-        <span class="n">emphasized_layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-        <span class="n">emphasized_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Emphasized panel&#39;</span><span class="p">))</span>
-        <span class="n">emphasized_layout</span><span class="o">.</span><span class="n">addStretch</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">emphasized_frame</span><span class="p">)</span>
-
         <span class="k">return</span> <span class="n">group</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_build_color_group</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QGroupBox</span><span class="p">:</span>
@@ -1213,6 +1209,7 @@ themes and any plugin-contributed themes discovered when the viewer starts.</p>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Theme sample&#39;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">dock_widget</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">minimumWidth</span><span class="p">())</span>
+<a href="../api/napari.Viewer.html#napari.Viewer.open_sample" title="napari.Viewer.open_sample" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">open_sample</span></a><span class="p">(</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span> <span class="s1">&#39;cells3d&#39;</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>

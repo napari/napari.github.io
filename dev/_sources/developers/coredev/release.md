@@ -175,6 +175,8 @@ tools/compile_constraints.sh pyside6
 tools/compile_constraints.sh pyside6 pyqt6-qt6
 ```
 
+Run the `compile_constraints.sh` script with the flags `-h` or `--help` for usage details within the CLI.
+
 ```{admonition} Package name matching
 :class: note
 The script checks whether each named package already appears in an existing constraint

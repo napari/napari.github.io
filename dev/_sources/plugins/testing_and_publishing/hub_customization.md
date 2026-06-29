@@ -102,21 +102,21 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Scientific/Engineering :: Image Processing",
 ]
 ```
 
 #### Python version requirements
 
-Additionally, specify the Python versions your plugin supports. If you specify `">=3.10"`, the hub will tag your plugin as supporting Python 3.10, 3.11, 3.12, etc.
+Additionally, specify the Python versions your plugin supports. If you specify `">=3.11"`, the hub will tag your plugin as supporting Python 3.11, 3.12, etc.
 
 ```toml
 [project]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 ```
 
 #### Dependencies
@@ -167,7 +167,7 @@ description = "Advanced image segmentation using deep learning"
 readme = "README.md"
 license = "BSD-3-Clause"
 license-files = ["LICENSE"]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 authors = [
     {name = "Jane Doe", email = "jane@example.com"},
 ]
@@ -177,10 +177,10 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Scientific/Engineering :: Image Processing",
 ]
 dependencies = [

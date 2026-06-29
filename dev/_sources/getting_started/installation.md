@@ -235,7 +235,7 @@ PySide2 is no longer maintained, so we dropped support for it in napari 0.7.0. P
 Since napari 0.4.18, we store constraints files with information about each exact dependency version against which napari was tested.
 This could be useful if you need to install napari as a package from PyPI, and prevents creating environments where napari does not start or work properly.
 
-The constraints files are stored in the napari repository under `resources/constraints/constraints_py3.10.txt`. To find
+The constraints files are stored in the napari repository under `resources/constraints`. To find
 constraints for specific releases, go under the link `https://github.com/napari/napari/tree/{tag}/resources/constraints`
 replacing `{tag}` with the desired napari version.
 
@@ -243,10 +243,10 @@ replacing `{tag}` with the desired napari version.
 pip install napari[backend_selection] -c path/to/constraints/file
 ```
 
-For example, if you would like to install napari with PyQt6 on python 3.10:
+For example, if you would like to install napari with PyQt6 on python 3.14:
 
 ```sh
-pip install napari[pyqt6, optional] -c constraints_py3.10.txt
+pip install napari[pyqt6, optional] -c constraints_py3.14.txt
 ```
 
 (installation_bundle_conda)=

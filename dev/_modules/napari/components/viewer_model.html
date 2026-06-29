@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../_static/documentation_options.js?v=cbf6307f"></script>
+    <script src="../../../_static/documentation_options.js?v=1606716a"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -933,6 +933,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">dims_scroll</span><span class="p">,</span>
     <span class="n">double_click_to_zoom</span><span class="p">,</span>
     <span class="n">drag_to_zoom</span><span class="p">,</span>
+    <span class="n">layers_scroll</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.camera</span><span class="w"> </span><span class="kn">import</span> <span class="n">Camera</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.cursor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">CursorStyle</span>
@@ -1134,6 +1135,7 @@ window.runMermaid = runMermaid;</script>
     <span class="c1"># Need to use default factory because slicer is not copyable which</span>
     <span class="c1"># is required for default values.</span>
     <span class="n">_layer_slicer</span><span class="p">:</span> <span class="n">_LayerSlicer</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">_LayerSlicer</span><span class="p">)</span>
+    <span class="n">_layer_list_scroll_progress</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(),</span> <span class="n">axis_labels</span><span class="o">=</span><span class="p">()</span>
@@ -1217,6 +1219,7 @@ window.runMermaid = runMermaid;</script>
 
         <span class="c1"># Add mouse callback</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mouse_wheel_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dims_scroll</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_wheel_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layers_scroll</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mouse_double_click_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">double_click_to_zoom</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drag_to_zoom</span><span class="p">)</span>
 

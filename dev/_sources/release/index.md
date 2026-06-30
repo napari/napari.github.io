@@ -21,13 +21,13 @@ The napari 0.7.1 release includes many new features and improvements. Here are s
 Starting with the napari 0.7.1 release, our bundle on Windows is now [signed](https://github.com/napari/packaging/pull/387) with a NumFOCUS certificate, like our macOS bundle has been. This means that you should be able to run napari without any warnings about the application being from an unknown publisher. This is an important step forward for our Windows users, as it enhances security and trust in our application, especially in managed IT environments where unsigned applications may be blocked by default.
 
 The certificate is issued for the NumFOCUS foundation, which supports napari and a large number of other open source projects.
- 
+
 If you encounter any issues related to this change, please let us know!
 
 
 ### Selection of the rendered level for multiscale layers
 
-Prior to napari 0.7.1, when rendering a multiscale layer: 
+Prior to napari 0.7.1, when rendering a multiscale layer:
 
 - in 3D display, napari would always render the lowest resolution level of the pyramid
 - in 2D display, the pyramid level would be automatically selected based on the viewport

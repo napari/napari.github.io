@@ -22,13 +22,13 @@ The napari 0.7.1 release includes many new features and improvements. Here are s
 Starting with the napari 0.7.1 release, our bundle on Windows is now [signed](https://github.com/napari/packaging/pull/387) with a NumFOCUS certificate, like our macOS bundle has been. This means that you should be able to run napari without any warnings about the application being from an unknown publisher. This is an important step forward for our Windows users, as it enhances security and trust in our application, especially in managed IT environments where unsigned applications may be blocked by default.
 
 The certificate is issued for the NumFOCUS foundation, which supports napari and a large number of other open source projects.
- 
+
 If you encounter any issues related to this change, please let us know!
 
 
 ### Selection of the rendered level for multiscale layers
 
-Prior to napari 0.7.1, when rendering a multiscale layer: 
+Prior to napari 0.7.1, when rendering a multiscale layer:
 
 - in 3D display, napari would always render the lowest resolution level of the pyramid
 - in 2D display, the pyramid level would be automatically selected based on the viewport
@@ -288,7 +288,7 @@ In the future we plan to expand this feature to prevent not only deletion but al
 - [Wulin Teo](https://github.com/napari/napari/commits?author=wulinteousa2-hash) - @wulinteousa2-hash +
 - [Yann Pellegrini](https://github.com/napari/docs/commits?author=Yann-P) - @Yann-P +
 
-## 23 reviewers added to this release (alphabetical)
+## 22 reviewers added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
@@ -300,7 +300,6 @@ In the future we plan to expand this feature to prevent not only deletion but al
 - [Constantin Aronssohn](https://github.com/napari/docs/commits?author=cnstt) - @cnstt
 - [David Stansby](https://github.com/napari/napari/commits?author=dstansby) - @dstansby
 - [Draga Doncila Pop](https://github.com/napari/docs/commits?author=DragaDoncila) - @DragaDoncila
-- [github-advanced-security[bot]](https://github.com/napari/docs/commits?author=github-advanced-security[bot]) - @github-advanced-security[bot]
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
 - [hiroalchem](https://github.com/napari/napari/commits?author=hiroalchem) - @hiroalchem
 - [Jacopo Abramo](https://github.com/napari/napari/commits?author=jacopoabramo) - @jacopoabramo

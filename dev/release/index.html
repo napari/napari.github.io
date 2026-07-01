@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/release/index.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: June 30, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.7.1 (June 2026) The napari 0.7.1 release includes many new features and im..." />
+<meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: July 01, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.7.1 (June 2026) The napari 0.7.1 release includes many new features and im..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: June 30, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.7.1 (June 2026) The napari 0.7.1 release includes many new features and im..." />
+<meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: July 01, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.7.1 (June 2026) The napari 0.7.1 release includes many new features and im..." />
 
     <title>Release Notes &#8212; napari</title>
   
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../_static/documentation_options.js?v=5738859a"></script>
+    <script src="../_static/documentation_options.js?v=70e434a4"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -816,7 +816,7 @@
   <section class="tex2jax_ignore mathjax_ignore" id="release-notes">
 <span id="id1"></span><h1>Release Notes<a class="headerlink" href="#release-notes" title="Link to this heading">#</a></h1>
 <p>Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.</p>
-<p><em>Last updated: June 30, 2026</em></p>
+<p><em>Last updated: July 01, 2026</em></p>
 <section id="recent-releases-last-3-months">
 <h2>Recent Releases (Last 3 Months)<a class="headerlink" href="#recent-releases-last-3-months" title="Link to this heading">#</a></h2>
 <p>Latest features and improvements:</p>
@@ -1293,35 +1293,11 @@ If you have <code class="docutils literal notranslate"><span class="pre">uv</spa
 <p class="sd-card-text">Napari now has improved support for PySide6 <a class="reference external" href="https://github.com/napari/napari/pull/7887">(#7887)</a>. We encourage plugin developers to test against PySide6, as a fully supported backend going forward. Additionally, this change will enable us to drop PySide2 along side Python 3.10, in the near future. If you are a plugin developer or otherwise depend on napari and PySide2, please reach out on Zulip or Github.</p>
 <p class="sd-card-text"><a class="reference internal" href="release_0_6_3.html"><span class="doc std std-doc">View full release notes →</span></a></p>
 </div>
-</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
-<summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text">napari 0.6.2 (July 2025)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="rubric" id="the-amazing-new-grid-mode">The amazing new Grid mode! 🗺️</p>
-<p class="sd-card-text">The visualization of Grid mode has been redone from the ground up! This new Grid mode <a class="reference external" href="https://github.com/napari/napari/pull/7870">(#7870)</a> now puts each layer into its own view (a VisPy Viewbox) with cameras linked together. Now, you can pan and zoom one view, and all other views in the grid will follow along. Layers are no longer awkwardly transformed into the same world space and displayed in a grid, only to make comparing the details of each a challenge.</p>
-<p class="sd-card-text">Grid based exploration is now fluid, fast, and intuitive, especially when working with large images and 3D+ data! The mouse can even be used over one View, while updating the data, such as a label or shape annotation, in the selected layer of a different view. The usual napari overlays can now also be added to each grid, instead of just the canvas (eg. <code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.gridded</span> <span class="pre">=</span> <span class="pre">True</span></code>).</p>
-<p class="sd-card-text">Grid mode spacing now works proportionally to the layer extents (i.e. [0,1), as in 0.6.0) or as a pixel value [1,1500) and will automatically adjust if needed.</p>
-<p class="sd-card-text"><img alt="grid mode" src="https://github.com/user-attachments/assets/fbcb216c-666b-43a6-bf25-aad82d5e9d92" /></p>
-<p class="sd-card-text">To coincide with this new Grid mode, we have chosen to reverse the ordering of layers in the grid <a class="reference external" href="https://github.com/napari/napari/pull/8053">(#8053)</a>. The first layer added to the viewer will now be at the top left of the grid, and the last layer added will be at the bottom right; new layers will be added to the bottom right of the grid. If you prefer the previous behavior, you can set the Grid Stride to <code class="docutils literal notranslate"><span class="pre">-1</span></code> in the Preferences dialog.</p>
-<p class="sd-card-text"><img alt="Stride preference" src="https://github.com/user-attachments/assets/528aebca-d623-4f9a-97f4-691329d2a2a7" /></p>
-<p class="rubric" id="the-features-table-widget-is-now-a-napari-builtin">The Features Table Widget is now a napari builtin! 📊</p>
-<p class="sd-card-text">The features table from <a class="reference external" href="https://github.com/kevinyamauchi/napari-properties-viewer">napari-properties-viewer</a> is now a builtin widget in napari <a class="reference external" href="https://github.com/napari/napari/pull/7877">(#7877)</a> <em>and</em> greatly improved! This widget allows you to view and edit the properties of Points, Shapes, and Labels layers in a table widget.</p>
-<p class="sd-card-text">The widget can be opened from the <code class="docutils literal notranslate"><span class="pre">Layers</span></code> menu -&gt; <code class="docutils literal notranslate"><span class="pre">Visualize</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Features</span> <span class="pre">table</span> <span class="pre">widget</span> <span class="pre">(napari</span> <span class="pre">builtins)</span></code> or from the command palette. You can also save the properties table to a CSV file. Check out the <a class="reference external" href="https://napari.org/dev/gallery/features_table_widget.html">Features table widget</a> example to learn more.</p>
-<p class="sd-card-text"><img alt="Features table widget in napari" src="https://github.com/user-attachments/assets/2c218f05-6510-4192-b5c8-fb6d135e4863" /></p>
-<p class="rubric" id="community-developments">Community developments! 📅</p>
-<p class="sd-card-text">We are excited to share our new <a class="reference external" href="https://napari.org/stable/roadmaps/active_roadmap.html">active roadmap</a> which is a living document that will be updated as we continue to develop napari. This document is intended to help the community understand the priorities of the napari team and to help us all work together to make napari better.</p>
-<p class="sd-card-text">We are also now including all napari related events in the <a class="reference external" href="https://napari.org/stable/community/meeting_schedule.html">community calendar</a> and as an <a class="reference external" href="https://forum.image.sc/t/napari-community-meetings-and-events/113689">image.sc post</a>, including conferences, tutorials, sprints, virtual seminars, and more. If you have an event you would like to add, please reach out to us!</p>
-<p class="rubric" id="some-great-features-for-contributors">Some great features for contributors! 🛠️</p>
-<ol class="arabic simple">
-<li><p class="sd-card-text"><strong>Contributing documentation is now a much smoother experience!</strong> By default, new documentation will build in around 3 minutes, instead of the previous 20 minutes. This speed is thanks to new, slimmer <code class="docutils literal notranslate"><span class="pre">make</span></code> commands (<code class="docutils literal notranslate"><span class="pre">slimfast</span></code> by default) that can also be triggered in PRs with a bot (eg. <code class="docutils literal notranslate"><span class="pre">&#64;napari-bot</span> <span class="pre">make</span> <span class="pre">docs</span></code>). Read our updated <a class="reference external" href="https://napari.org/dev/developers/contributing/documentation/index.html">docs contribution guide</a> and reach out for help.</p></li>
-<li><p class="sd-card-text"><strong>The organization of the napari repo has been updated by moving into a <code class="docutils literal notranslate"><span class="pre">src/</span></code> directory <a class="reference external" href="https://github.com/napari/napari/pull/7952">(#7952)</a>.</strong> This is modern best practice in Python projects (and what has long been standard in our <a class="reference external" href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a>) to avoid issues with relative imports and <em>should</em> now always result in importing the napari version installed in the current environment. For developers, especially of pull requests prior to this release, you may have many merge conflicts to resolve. Please ping the napari team if you would like help resolving these conflicts.</p></li>
-<li><p class="sd-card-text"><strong>There is now public API to access widgets docked in the viewer <a class="reference external" href="https://github.com/napari/napari/pull/7965">(#7965)</a>.</strong> Check out the new documentation on the napari website to learn more about using this API to <a class="reference external" href="https://napari.org/dev/plugins/advanced_topics/widget_communication.html">communicate between widgets</a>. If you previously used <code class="docutils literal notranslate"><span class="pre">viewer.window._dock_widgets</span></code>, you should now use <code class="docutils literal notranslate"><span class="pre">viewer.window.dock_widgets</span></code>.</p></li>
-</ol>
-<p class="sd-card-text"><a class="reference internal" href="release_0_6_2.html"><span class="doc std std-doc">View full release notes →</span></a></p>
-</div>
 </details></section>
 <section id="older-releases">
 <h2>Older Releases<a class="headerlink" href="#older-releases" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p><strong><a class="reference internal" href="release_0_6_2.html"><span class="doc std std-doc">napari 0.6.2</span></a></strong> (July 2025) - ### The amazing new Grid mode! 🗺️</p></li>
 <li><p><strong><a class="reference internal" href="release_0_6_1.html"><span class="doc std std-doc">napari 0.6.1</span></a></strong> (May 2025) - ### The HiLo👋 Colormap!</p></li>
 <li><p><strong><a class="reference internal" href="release_0_6_0.html"><span class="doc std std-doc">napari 0.6.0</span></a></strong> (May 2025) - ### Summary</p></li>
 <li><p><strong><a class="reference internal" href="release_0_5_6.html"><span class="doc std std-doc">napari 0.5.6</span></a></strong> (January 2025) - ### Faster shapes 🚀</p></li>

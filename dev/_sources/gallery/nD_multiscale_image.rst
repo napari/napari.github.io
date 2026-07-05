@@ -33,6 +33,10 @@ Displays an nD multiscale image
 
     base shape (8, 1536, 1536)
     multiscale level shapes:  [(8, 1536, 1536), (4, 768, 1536), (2, 384, 1536)]
+    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:50: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
+      theme_type=get_system_theme(),
+    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:50: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
+      theme_type=get_system_theme(),
 
 
 

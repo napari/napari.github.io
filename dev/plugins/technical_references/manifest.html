@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../_static/documentation_options.js?v=6ae730d3"></script>
+    <script src="../../_static/documentation_options.js?v=e0f3ef36"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -607,7 +607,7 @@ your package metadata:</p>
 <td><p>Whether this plugin should be searchable and visible in the built-in plugin installer and the napari hub. By default (<code class="docutils literal notranslate"><span class="pre">'public'</span></code>) all plugins are visible. To prevent your plugin from appearing in search results, change this to <code class="docutils literal notranslate"><span class="pre">'hidden'</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">icon</span></code></p></td>
-<td><p>The path to a square PNG icon of at least 128x128 pixels (256x256 for Retina screens). May be one of: <ul><li>a secure (https) URL </li><li>a path relative to the manifest file, (must be shipped in the sdist)</li><li>a string in the format <code class="docutils literal notranslate"><span class="pre">{package}:{resource}</span></code>, where <code class="docutils literal notranslate"><span class="pre">package</span></code> and <code class="docutils literal notranslate"><span class="pre">resource</span></code> are arguments to <code class="docutils literal notranslate"><span class="pre">importlib.resources.path(package,</span> <span class="pre">resource)</span></code>, (e.g. <code class="docutils literal notranslate"><span class="pre">top_module.some_folder:my_logo.png</span></code>).</li></ul></p></td>
+<td><p>Icon used to represent this command in the UI, on buttons or in menus. Can be a single string or two different options for light and dark themes. These values may be:<ul><li>a string in format <code class="docutils literal notranslate"><span class="pre">{package}:{resource}</span></code>, where <code class="docutils literal notranslate"><span class="pre">package</span></code> and<code class="docutils literal notranslate"><span class="pre">resource</span></code> are arguments to <code class="docutils literal notranslate"><span class="pre">importlib.resources.path(package,</span> <span class="pre">resource)</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">my_plugin.some_module:my_logo.png</span></code>). This resource must be shippedwith the wheel, e.g. via the <code class="docutils literal notranslate"><span class="pre">package-data</span></code> entry in pyproject.toml)<li> a <a class="reference external" href="https://github.com/napari/superqt">superqt</a> fonticon key, such as <code class="docutils literal notranslate"><span class="pre">'fa6s.arrow_down'</span></code> (though note that plugins are expected to depend on any fonticon libraries they use, e.g. <a class="reference external" href="https://github.com/tlambert03/fonticon-fontawesome6">fonticon-fontawesome6</a>)</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">categories</span></code></p></td>
 <td><p>A list of categories that this plugin belongs to. This is used to help users discover your plugin. Allowed values: <code class="docutils literal notranslate"><span class="pre">[Acquisition,</span> <span class="pre">Annotation,</span> <span class="pre">Dataset,</span> <span class="pre">Image</span> <span class="pre">Processing,</span> <span class="pre">IO,</span> <span class="pre">Measurement,</span> <span class="pre">Registration,</span> <span class="pre">Segmentation,</span> <span class="pre">Simulation,</span> <span class="pre">Themes,</span> <span class="pre">Transformations,</span> <span class="pre">Utilities,</span> <span class="pre">Visualization]</span></code></p></td>
@@ -724,6 +724,7 @@ yaml</label><div class="sd-tab-content docutils">
 <span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#a1ef34&#39;</span>
 <span class="w">      </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#a1ef34&#39;</span>
 <span class="w">      </span><span class="nt">warning</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#f92672&#39;</span>
+<span class="w">      </span><span class="nt">error</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#f55&#39;</span>
 <span class="w">      </span><span class="nt">current</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#66d9ef&#39;</span>
 <span class="w">  </span><span class="nt">menus</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">napari/layers/segment</span><span class="p">:</span>
@@ -847,6 +848,7 @@ toml</label><div class="sd-tab-content docutils">
 <span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#a1ef34&quot;</span>
 <span class="n">icon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#a1ef34&quot;</span>
 <span class="n">warning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#f92672&quot;</span>
+<span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#f55&quot;</span>
 <span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#66d9ef&quot;</span>
 
 <span class="k">[contributions.menus]</span>

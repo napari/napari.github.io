@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../_static/documentation_options.js?v=6ae730d3"></script>
+    <script src="../../_static/documentation_options.js?v=e0f3ef36"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -622,7 +622,7 @@ Short title by which the command is represented in the UI. Menus pick either <co
 Category string by which the command may be grouped in the UI.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">commands.icon</span></code></strong> :
 <em>(Optional: default=None).</em>
-Icon used to represent this command in the UI, on buttons or in menus. These may be <a class="reference external" href="https://github.com/napari/superqt">superqt</a> fonticon keys, such as <code class="docutils literal notranslate"><span class="pre">'fa6s.arrow_down'</span></code>; though note that plugins are expected to depend on any fonticon libraries they use, e.g <a class="reference external" href="https://github.com/tlambert03/fonticon-fontawesome6">fonticon-fontawesome6</a>.</p></li>
+Icon used to represent this command in the UI, on buttons or in menus. Can be a single string or two different options for light and dark themes. These values may be:<ul><li>a string in format <code class="docutils literal notranslate"><span class="pre">{package}:{resource}</span></code>, where <code class="docutils literal notranslate"><span class="pre">package</span></code> and<code class="docutils literal notranslate"><span class="pre">resource</span></code> are arguments to <code class="docutils literal notranslate"><span class="pre">importlib.resources.path(package,</span> <span class="pre">resource)</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">my_plugin.some_module:my_logo.png</span></code>). This resource must be shippedwith the wheel, e.g. via the <code class="docutils literal notranslate"><span class="pre">package-data</span></code> entry in pyproject.toml)<li> a <a class="reference external" href="https://github.com/napari/superqt">superqt</a> fonticon key, such as <code class="docutils literal notranslate"><span class="pre">'fa6s.arrow_down'</span></code> (though note that plugins are expected to depend on any fonticon libraries they use, e.g. <a class="reference external" href="https://github.com/tlambert03/fonticon-fontawesome6">fonticon-fontawesome6</a>)</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">commands.enablement</span></code></strong> :
 <em>(Optional: default=None).</em>
 Expression which must evaluate as true to enable the command in the UI (menu and keybindings). Does not prevent executing the command by other means, like the <code class="docutils literal notranslate"><span class="pre">execute_command</span></code> api.</p></li>
@@ -934,18 +934,26 @@ toml</label><div class="sd-tab-content docutils">
 <h3>1. ThemeContribution<a class="headerlink" href="#themecontribution" title="Link to this heading">#</a></h3>
 <p>Contribute a color theme to napari.</p>
 <p>You must specify an <strong>id</strong>, <strong>label</strong>, and whether the theme is a dark theme or a
-light theme <strong>type</strong> (such that the rest of napari changes to match your theme).
+light theme <strong>type</strong> so napari can derive matching icons and fallback colors.
 Any color keys omitted from the theme contribution will use the default napari
-dark/light theme colors.</p>
+dark/light theme colors for the selected base theme.</p>
 <p><strong>Fields</strong></p>
 <ul class="simple">
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.id</span></code></strong> : Identifier of the color theme as used in the user settings.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.label</span></code></strong> : Label of the color theme as shown in the UI.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.type</span></code></strong> : Base theme type, used for icons and filling in unprovided colors. Must be either <code class="docutils literal notranslate"><span class="pre">'dark'</span></code> or  <code class="docutils literal notranslate"><span class="pre">'light'</span></code>.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.syntax_style</span></code></strong> :
-<em>(Optional: default=None).</em></p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.colors</span></code></strong> : Theme colors. Valid keys include: <code class="docutils literal notranslate"><span class="pre">canvas</span></code>, <code class="docutils literal notranslate"><span class="pre">console</span></code>, <code class="docutils literal notranslate"><span class="pre">background</span></code>, <code class="docutils literal notranslate"><span class="pre">foreground</span></code>, <code class="docutils literal notranslate"><span class="pre">primary</span></code>, <code class="docutils literal notranslate"><span class="pre">secondary</span></code>, <code class="docutils literal notranslate"><span class="pre">highlight</span></code>, <code class="docutils literal notranslate"><span class="pre">text</span></code>, <code class="docutils literal notranslate"><span class="pre">icon</span></code>, <code class="docutils literal notranslate"><span class="pre">warning</span></code>, <code class="docutils literal notranslate"><span class="pre">current</span></code>. All keys are optional. Color values can be defined via:
-{_color_args}</p></li>
+<em>(Optional: default=None).</em>
+Optional Pygments syntax style for napari’s built-in console. If omitted, the base theme’s style is used.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.colors</span></code></strong> : Theme colors. Valid keys include: <code class="docutils literal notranslate"><span class="pre">canvas</span></code>, <code class="docutils literal notranslate"><span class="pre">console</span></code>, <code class="docutils literal notranslate"><span class="pre">background</span></code>, <code class="docutils literal notranslate"><span class="pre">foreground</span></code>, <code class="docutils literal notranslate"><span class="pre">primary</span></code>, <code class="docutils literal notranslate"><span class="pre">secondary</span></code>, <code class="docutils literal notranslate"><span class="pre">highlight</span></code>, <code class="docutils literal notranslate"><span class="pre">text</span></code>, <code class="docutils literal notranslate"><span class="pre">icon</span></code>, <code class="docutils literal notranslate"><span class="pre">warning</span></code>, <code class="docutils literal notranslate"><span class="pre">error</span></code>, <code class="docutils literal notranslate"><span class="pre">current</span></code>. All keys are optional and omitted keys inherit from the selected base theme.</p></li>
+</ul>
+<p>Color values can be defined via:</p>
+<ul class="simple">
+<li><p>named colors: <code class="docutils literal notranslate"><span class="pre">&quot;black&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;azure&quot;</span></code></p></li>
+<li><p>hexadecimal values: <code class="docutils literal notranslate"><span class="pre">&quot;0x000&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;#FFFFFF&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;7fffd4&quot;</span></code></p></li>
+<li><p>RGB/RGBA tuples: <code class="docutils literal notranslate"><span class="pre">(255,</span> <span class="pre">255,</span> <span class="pre">255)</span></code>, <code class="docutils literal notranslate"><span class="pre">(255,</span> <span class="pre">255,</span> <span class="pre">255,</span> <span class="pre">0.5)</span></code></p></li>
+<li><p>RGB/RGBA strings: <code class="docutils literal notranslate"><span class="pre">&quot;rgb(255,</span> <span class="pre">255,</span> <span class="pre">255)&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;rgba(255,</span> <span class="pre">255,</span> <span class="pre">255,</span> <span class="pre">0.5)&quot;</span></code></p></li>
+<li><p>HSL strings: <code class="docutils literal notranslate"><span class="pre">&quot;hsl(270,</span> <span class="pre">60%,</span> <span class="pre">70%)&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;hsl(270,</span> <span class="pre">60%,</span> <span class="pre">70%,</span> <span class="pre">.5)&quot;</span></code></p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.font_size</span></code></strong> :
 <em>(Optional: default=9pt).</em>
 Font size (in points, pt) used in the application.</p></li>
@@ -974,6 +982,7 @@ yaml</label><div class="sd-tab-content docutils">
 <span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#a1ef34&#39;</span>
 <span class="w">      </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#a1ef34&#39;</span>
 <span class="w">      </span><span class="nt">warning</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#f92672&#39;</span>
+<span class="w">      </span><span class="nt">error</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#f55&#39;</span>
 <span class="w">      </span><span class="nt">current</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#66d9ef&#39;</span>
 </pre></div>
 </div>
@@ -998,6 +1007,7 @@ toml</label><div class="sd-tab-content docutils">
 <span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#a1ef34&quot;</span>
 <span class="n">icon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#a1ef34&quot;</span>
 <span class="n">warning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#f92672&quot;</span>
+<span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#f55&quot;</span>
 <span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#66d9ef&quot;</span>
 </pre></div>
 </div>
@@ -1098,7 +1108,7 @@ referenced by menu items to create nested menu structures.</p>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">submenus.label</span></code></strong> : The label of the menu item which leads to this submenu.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">submenus.icon</span></code></strong> :
 <em>(Optional: default=None).</em>
-(Optional) Icon which is used to represent the command in the UI. Either a file path, an object with file paths for dark and lightthemes, or a theme icon references, like <code class="docutils literal notranslate"><span class="pre">$(zap)</span></code></p></li>
+Icon used to represent this command in the UI, on buttons or in menus. Can be a single string or two different options for light and dark themes. These values may be:<ul><li>a string in format <code class="docutils literal notranslate"><span class="pre">{package}:{resource}</span></code>, where <code class="docutils literal notranslate"><span class="pre">package</span></code> and<code class="docutils literal notranslate"><span class="pre">resource</span></code> are arguments to <code class="docutils literal notranslate"><span class="pre">importlib.resources.path(package,</span> <span class="pre">resource)</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">my_plugin.some_module:my_logo.png</span></code>). This resource must be shippedwith the wheel, e.g. via the <code class="docutils literal notranslate"><span class="pre">package-data</span></code> entry in pyproject.toml)<li> a <a class="reference external" href="https://github.com/napari/superqt">superqt</a> fonticon key, such as <code class="docutils literal notranslate"><span class="pre">'fa6s.arrow_down'</span></code> (though note that plugins are expected to depend on any fonticon libraries they use, e.g. <a class="reference external" href="https://github.com/tlambert03/fonticon-fontawesome6">fonticon-fontawesome6</a>)</p></li>
 </ul>
 </section>
 <section id="submenus-example">

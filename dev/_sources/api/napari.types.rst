@@ -21,11 +21,6 @@
 
    
    
-   .. rubric:: Functions
-
-   
-   .. autofunction:: image_reader_to_layerdata_reader
-   
    
 
    

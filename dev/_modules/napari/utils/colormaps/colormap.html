@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../../_static/documentation_options.js?v=dbc94913"></script>
+    <script src="../../../../_static/documentation_options.js?v=930f4fb4"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1110,6 +1110,22 @@ window.runMermaid = runMermaid;</script>
 
 
 
+<span class="k">class</span><span class="w"> </span><span class="nc">_RebuildableCache</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cache dict that is emptied on (deep)copy and rebuilt lazily.</span>
+
+<span class="sd">    ``DirectLabelColormap`` stores a numba ``typed.Dict`` here after a layer</span>
+<span class="sd">    has been rendered; that object holds an unpicklable</span>
+<span class="sd">    ``_nrt_python._MemInfo`` that breaks ``copy.deepcopy`` of the colormap.</span>
+<span class="sd">    The cache is a pure performance memoization, so emptying it on copy is</span>
+<span class="sd">    always safe -- it is recomputed on the next ``map`` call. Defending the</span>
+<span class="sd">    value itself keeps this independent of where pydantic stores private</span>
+<span class="sd">    attributes or which hook a copy routes through.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__deepcopy__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memo</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)()</span>
+
+
 <span class="k">class</span><span class="w"> </span><span class="nc">LabelColormapBase</span><span class="p">(</span><span class="n">Colormap</span><span class="p">):</span>
     <span class="n">use_selection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">selection</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1118,9 +1134,11 @@ window.runMermaid = runMermaid;</script>
         <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">ZERO</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">)</span>
     <span class="n">_cache_mapping</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="p">{}</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">_RebuildableCache</span>
     <span class="p">)</span>
-    <span class="n">_cache_other</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{})</span>
+    <span class="n">_cache_other</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">_RebuildableCache</span>
+    <span class="p">)</span>
 
     <span class="n">model_config</span> <span class="o">=</span> <span class="n">EventedModel</span><span class="o">.</span><span class="n">model_config</span> <span class="o">|</span> <span class="n">ConfigDict</span><span class="p">(</span>
         <span class="c1"># this config is to avoid deepcopy of cached_property</span>
@@ -1168,8 +1186,8 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_clear_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Mechanism to clean cached properties&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_mapping</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_other</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_mapping</span> <span class="o">=</span> <span class="n">_RebuildableCache</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_other</span> <span class="o">=</span> <span class="n">_RebuildableCache</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_num_unique_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>

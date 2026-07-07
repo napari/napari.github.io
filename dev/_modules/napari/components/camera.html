@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../_static/documentation_options.js?v=97b62585"></script>
+    <script src="../../../_static/documentation_options.js?v=8064fd9d"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -900,7 +900,7 @@ window.runMermaid = runMermaid;</script>
   <h1>Source code for napari.components.camera</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">cast</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">field_validator</span>
@@ -1138,40 +1138,7 @@ window.runMermaid = runMermaid;</script>
         <span class="p">]</span>
         <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">diffs</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Handedness</span><span class="o">.</span><span class="n">LEFT</span>
-        <span class="k">return</span> <span class="n">Handedness</span><span class="o">.</span><span class="n">RIGHT</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_vispy_flipped_axes</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">ndisplay</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-        <span class="c1"># Note: the Vispy axis order is xyz, or horizontal, vertical, depth,</span>
-        <span class="c1"># while the napari axis order is zyx / plane-row-column, or depth, vertical,</span>
-        <span class="c1"># horizontal — i.e. it is exactly inverted. This switch happens when data</span>
-        <span class="c1"># is passed from napari to Vispy, usually with a transposition. In the camera</span>
-        <span class="c1"># models, this means that the order of these orientations appear in the</span>
-        <span class="c1"># opposite order to that in napari.components.Camera.</span>
-        <span class="c1">#</span>
-        <span class="c1"># Note that the default Vispy camera orientations come from Vispy, not from us.</span>
-        <span class="n">vispy_default_orientation</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="p">(</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="s1">&#39;towards&#39;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span>
-            <span class="k">else</span> <span class="p">(</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="s1">&#39;away&#39;</span><span class="p">)</span>
-        <span class="p">)</span>
-
-        <span class="c1"># Vispy uses xyz coordinates; napari uses zyx coordinates. We therefore</span>
-        <span class="c1"># start by inverting the order of coordinates coming from the napari</span>
-        <span class="c1"># camera model:</span>
-        <span class="n">orientation_xyz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="c1"># The Vispy camera flip is a tuple of three ints in {0, 1}, indicating</span>
-        <span class="c1"># whether they are flipped relative to the Vispy default.</span>
-        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span>
-            <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
-            <span class="nb">tuple</span><span class="p">(</span>
-                <span class="nb">int</span><span class="p">(</span><span class="n">ori</span> <span class="o">!=</span> <span class="n">default_ori</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">ori</span><span class="p">,</span> <span class="n">default_ori</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
-                    <span class="n">orientation_xyz</span><span class="p">,</span> <span class="n">vispy_default_orientation</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span>
-                <span class="p">)</span>
-            <span class="p">),</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">Handedness</span><span class="o">.</span><span class="n">RIGHT</span></div>
 
 </pre></div>
 

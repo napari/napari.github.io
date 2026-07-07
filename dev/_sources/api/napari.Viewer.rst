@@ -170,6 +170,7 @@ napari.Viewer
       ~Viewer.class_keymap
       ~Viewer.events
       ~Viewer.experimental
+      ~Viewer.floating_axes
       ~Viewer.keymap
       ~Viewer.model_computed_fields
       ~Viewer.model_config

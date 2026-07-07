@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../_static/documentation_options.js?v=97b62585"></script>
+    <script src="../../../_static/documentation_options.js?v=8064fd9d"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -944,6 +944,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">AxesOverlay</span><span class="p">,</span>
     <span class="n">BrushCircleOverlay</span><span class="p">,</span>
     <span class="n">CurrentSliceOverlay</span><span class="p">,</span>
+    <span class="n">FloatingAxesOverlay</span><span class="p">,</span>
     <span class="n">Overlay</span><span class="p">,</span>
     <span class="n">ScaleBarOverlay</span><span class="p">,</span>
     <span class="n">TextOverlay</span><span class="p">,</span>
@@ -1031,6 +1032,7 @@ window.runMermaid = runMermaid;</script>
     <span class="s1">&#39;scale_bar&#39;</span><span class="p">:</span> <span class="n">ScaleBarOverlay</span><span class="p">,</span>
     <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">TextOverlay</span><span class="p">,</span>
     <span class="s1">&#39;axes&#39;</span><span class="p">:</span> <span class="n">AxesOverlay</span><span class="p">,</span>
+    <span class="s1">&#39;floating_axes&#39;</span><span class="p">:</span> <span class="n">FloatingAxesOverlay</span><span class="p">,</span>
     <span class="s1">&#39;brush_circle&#39;</span><span class="p">:</span> <span class="n">BrushCircleOverlay</span><span class="p">,</span>
     <span class="s1">&#39;zoom&#39;</span><span class="p">:</span> <span class="n">ZoomOverlay</span><span class="p">,</span>
     <span class="s1">&#39;current_slice&#39;</span><span class="p">:</span> <span class="n">CurrentSliceOverlay</span><span class="p">,</span>
@@ -1229,6 +1231,10 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">axes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AxesOverlay</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;axes&#39;</span><span class="p">]</span>  <span class="c1"># type: ignore[return-value]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">floating_axes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FloatingAxesOverlay</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;floating_axes&#39;</span><span class="p">]</span>  <span class="c1"># type: ignore[return-value]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">scale_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ScaleBarOverlay</span><span class="p">:</span>

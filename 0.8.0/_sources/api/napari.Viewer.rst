@@ -1,0 +1,201 @@
+napari.Viewer
+=============
+
+.. currentmodule:: napari
+
+.. autoclass:: Viewer
+   :members:
+   :show-inheritance:
+   :inherited-members:
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+   
+   
+      ~Viewer.add_image
+   
+   
+      ~Viewer.add_labels
+   
+   
+      ~Viewer.add_layer
+   
+   
+      ~Viewer.add_points
+   
+   
+      ~Viewer.add_shapes
+   
+   
+      ~Viewer.add_surface
+   
+   
+      ~Viewer.add_tracks
+   
+   
+      ~Viewer.add_vectors
+   
+   
+      ~Viewer.bind_key
+   
+   
+      ~Viewer.close
+   
+   
+      ~Viewer.close_all
+   
+   
+      ~Viewer.construct
+   
+   
+      ~Viewer.copy
+   
+   
+      ~Viewer.dict
+   
+   
+      ~Viewer.enums_as_values
+   
+   
+      ~Viewer.export_figure
+   
+   
+      ~Viewer.export_rois
+   
+   
+      ~Viewer.fit_to_view
+   
+   
+      ~Viewer.from_orm
+   
+   
+      ~Viewer.json
+   
+   
+      ~Viewer.model_construct
+   
+   
+      ~Viewer.model_copy
+   
+   
+      ~Viewer.model_dump
+   
+   
+      ~Viewer.model_dump_json
+   
+   
+      ~Viewer.model_json_schema
+   
+   
+      ~Viewer.model_parametrized_name
+   
+   
+      ~Viewer.model_post_init
+   
+   
+      ~Viewer.model_rebuild
+   
+   
+      ~Viewer.model_validate
+   
+   
+      ~Viewer.model_validate_json
+   
+   
+      ~Viewer.model_validate_strings
+   
+   
+      ~Viewer.open
+   
+   
+      ~Viewer.open_sample
+   
+   
+      ~Viewer.parse_file
+   
+   
+      ~Viewer.parse_obj
+   
+   
+      ~Viewer.parse_raw
+   
+   
+      ~Viewer.reset
+   
+   
+      ~Viewer.reset_view
+   
+   
+      ~Viewer.schema
+   
+   
+      ~Viewer.schema_json
+   
+   
+      ~Viewer.screenshot
+   
+   
+      ~Viewer.show
+   
+   
+      ~Viewer.update
+   
+   
+      ~Viewer.update_console
+   
+   
+      ~Viewer.update_forward_refs
+   
+   
+      ~Viewer.update_status_from_cursor
+   
+   
+      ~Viewer.validate
+   
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Viewer.axes
+      ~Viewer.class_keymap
+      ~Viewer.events
+      ~Viewer.experimental
+      ~Viewer.floating_axes
+      ~Viewer.keymap
+      ~Viewer.model_computed_fields
+      ~Viewer.model_config
+      ~Viewer.model_extra
+      ~Viewer.model_fields
+      ~Viewer.model_fields_set
+      ~Viewer.scale_bar
+      ~Viewer.text_overlay
+      ~Viewer.window
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+   
+   
+
+   .. rubric:: Details

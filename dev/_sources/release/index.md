@@ -11,6 +11,22 @@ Each section shows the highlights from recent releases. Click on the version lin
 
 Latest features and improvements:
 
+````{dropdown} napari 0.8.0 (July 2026)
+:open:
+
+- Add floating axes canvas overlay ([#8262](https://github.com/napari/napari/pull/8262))
+- Histogram for the Image layer controls and contrast limits popup ([#8391](https://github.com/napari/napari/pull/8391))
+- Unify use of theme colors ([#8927](https://github.com/napari/napari/pull/8927))
+- [Shapes] When using Shift to draw circle/square, allow shape to grow in direction of mouse drag ([#9018](https://github.com/napari/napari/pull/9018))
+- Theme colors adjustments ([#9078](https://github.com/napari/napari/pull/9078))
+- Add information about PyQt5 deprecation ([#9079](https://github.com/napari/napari/pull/9079))
+- Drop Python 3.10 and implement 3.11+ changes ([#9104](https://github.com/napari/napari/pull/9104))
+- Selectable camera modes with `Separate` (default) and `Shared` views across ndisplay ([#9151](https://github.com/napari/napari/pull/9151))
+
+[View full release notes →](release_0_8_0)
+
+````
+
 ````{dropdown} napari 0.7.1 (June 2026)
 :open:
 

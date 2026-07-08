@@ -80,6 +80,7 @@ graph LR
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.widgets.qt_dims_sorter
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.widgets.qt_spinbox
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.widgets.qt_tooltip
+	napari._qt.widgets.qt_viewer_buttons --> napari.layers
 	click napari._qt.widgets.qt_viewer_buttons "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_buttons.py" _blank
 	napari._qt.widgets.qt_viewer_dock_widget(napari._qt.widgets.qt_viewer_dock_widget)
 	napari._qt.widgets.qt_viewer_dock_widget --> napari._qt.qt_viewer
@@ -89,28 +90,46 @@ graph LR
 	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.qt_main_window
 	click napari._qt.widgets.qt_viewer_status_bar "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_status_bar.py" _blank
 	napari._qt.widgets.qt_welcome(napari._qt.widgets.qt_welcome)
+	napari._qt.widgets.qt_welcome --> napari.components.viewer_model
 	click napari._qt.widgets.qt_welcome "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_welcome.py" _blank
+	napari.components._layer_slicer(napari.components._layer_slicer)
+	napari.components._layer_slicer --> napari.layers
+	click napari.components._layer_slicer "https://github.com/napari/napari/tree/main/napari/components/_layer_slicer.py" _blank
 	napari.components._viewer_constants(napari.components._viewer_constants)
 	click napari.components._viewer_constants "https://github.com/napari/napari/tree/main/napari/components/_viewer_constants.py" _blank
 	napari.components._viewer_key_bindings(napari.components._viewer_key_bindings)
 	napari.components._viewer_key_bindings --> napari._qt.qt_viewer
 	napari.components._viewer_key_bindings --> napari.components.viewer_model
 	click napari.components._viewer_key_bindings "https://github.com/napari/napari/tree/main/napari/components/_viewer_key_bindings.py" _blank
+	napari.components._viewer_mouse_bindings(napari.components._viewer_mouse_bindings)
+	click napari.components._viewer_mouse_bindings "https://github.com/napari/napari/tree/main/napari/components/_viewer_mouse_bindings.py" _blank
 	napari.components.camera(napari.components.camera)
 	click napari.components.camera "https://github.com/napari/napari/tree/main/napari/components/camera.py" _blank
+	napari.components.cursor(napari.components.cursor)
+	napari.components.cursor --> napari.components._viewer_constants
+	click napari.components.cursor "https://github.com/napari/napari/tree/main/napari/components/cursor.py" _blank
 	napari.components.dims(napari.components.dims)
 	click napari.components.dims "https://github.com/napari/napari/tree/main/napari/components/dims.py" _blank
+	napari.components.grid(napari.components.grid)
+	click napari.components.grid "https://github.com/napari/napari/tree/main/napari/components/grid.py" _blank
 	napari.components.layerlist(napari.components.layerlist)
 	napari.components.layerlist --> napari.components.dims
 	napari.components.layerlist --> napari.layers
 	click napari.components.layerlist "https://github.com/napari/napari/tree/main/napari/components/layerlist.py" _blank
 	napari.components.overlays(napari.components.overlays)
 	click napari.components.overlays "https://github.com/napari/napari/tree/main/napari/components/overlays/__init__.py" _blank
+	napari.components.tooltip(napari.components.tooltip)
+	click napari.components.tooltip "https://github.com/napari/napari/tree/main/napari/components/tooltip.py" _blank
 	napari.components.viewer_model(napari.components.viewer_model)
+	napari.components.viewer_model --> napari.components._layer_slicer
+	napari.components.viewer_model --> napari.components._viewer_mouse_bindings
 	napari.components.viewer_model --> napari.components.camera
+	napari.components.viewer_model --> napari.components.cursor
 	napari.components.viewer_model --> napari.components.dims
+	napari.components.viewer_model --> napari.components.grid
 	napari.components.viewer_model --> napari.components.layerlist
 	napari.components.viewer_model --> napari.components.overlays
+	napari.components.viewer_model --> napari.components.tooltip
 	napari.components.viewer_model --> napari.layers
 	click napari.components.viewer_model "https://github.com/napari/napari/tree/main/napari/components/viewer_model.py" _blank
 	napari.layers(napari.layers)
@@ -153,12 +172,17 @@ graph LR
 	end
 	class module.napari._qt.widgets subgraphs
 	subgraph module.napari.components[napari.components]
+		 napari.components._layer_slicer
 		 napari.components._viewer_constants
 		 napari.components._viewer_key_bindings
+		 napari.components._viewer_mouse_bindings
 		 napari.components.camera
+		 napari.components.cursor
 		 napari.components.dims
+		 napari.components.grid
 		 napari.components.layerlist
 		 napari.components.overlays
+		 napari.components.tooltip
 		 napari.components.viewer_model
 	end
 	class module.napari.components subgraphs
@@ -176,14 +200,19 @@ napari/
 ├─layers/
 │ └─__init__.py
 ├─components/
+│ ├─cursor.py
 │ ├─overlays/
 │ │ └─__init__.py
+│ ├─grid.py
 │ ├─viewer_model.py
 │ ├─camera.py
 │ ├─_viewer_key_bindings.py
 │ ├─layerlist.py
+│ ├─_layer_slicer.py
 │ ├─_viewer_constants.py
-│ └─dims.py
+│ ├─dims.py
+│ ├─_viewer_mouse_bindings.py
+│ └─tooltip.py
 └─_qt/
   ├─containers/
   │ └─__init__.py

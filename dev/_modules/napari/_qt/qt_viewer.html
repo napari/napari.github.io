@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../_static/documentation_options.js?v=4f98e1d7"></script>
+    <script src="../../../_static/documentation_options.js?v=872e8633"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1082,7 +1082,9 @@ window.runMermaid = runMermaid;</script>
             <span class="n">autoswap</span><span class="o">=</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">autoswap_buffers</span><span class="p">,</span>  <span class="c1"># see #5734</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span> <span class="o">=</span> <span class="n">QtWelcomeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">native</span><span class="p">,</span> <span class="n">tips</span><span class="o">=</span><span class="n">tips</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span> <span class="o">=</span> <span class="n">QtWelcomeWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">native</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span> <span class="n">tips</span><span class="o">=</span><span class="n">tips</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">urls_drag_entered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_drag_status</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">urls_dropped</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropEvent</span><span class="p">)</span>
 

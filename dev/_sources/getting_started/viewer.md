@@ -714,7 +714,11 @@ viewer.theme = 'dark'
 
 You can also change the theme using the "Toggle theme" keyboard shortcut, by default {kbd}`Command/Control+Shift+T`. Note that changing the theme using this shortcut will only change the *current* viewer theme. If you wish to make the change permanent for all viewers, make sure to also change your settings in the **Appearance** tab of the [**Preferences** dialog](napari-preferences).
 
-Adding your own custom theme isn't too hard but it requires creating your own color `palette` and rebuilding the icons. It's also possible for [plugins to contribute a theme](contributions-themes). If people want more themes, we're happy to add them or you can look at our [contributing guidelines](napari-contributing) for more information about building the icons and add one yourself!
+Custom themes can be prototyped directly in Python or distributed declaratively
+from a plugin.
+[Plugins can contribute a theme](contributions-themes) by declaring a light or
+dark base theme and overriding only the colors they need. See
+[Creating and testing themes](napari-themes) for both workflows.
 
 +++
 

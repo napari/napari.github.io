@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../_static/documentation_options.js?v=e93fe292"></script>
+    <script src="../../_static/documentation_options.js?v=9c9b5613"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -938,13 +938,16 @@ code in the plugin package!</p>
     <span class="k">return</span> <span class="n">themes</span>
 </pre></div>
 </div>
-<p>becomes this theme contribution in the plugin manifest:</p>
+<p>becomes this theme contribution in the plugin manifest. Note that <code class="docutils literal notranslate"><span class="pre">type</span></code>
+indicates whether the theme is light or dark, omitted color keys inherit from that base,
+and <code class="docutils literal notranslate"><span class="pre">syntax_style</span></code> stays at the top level rather than under <code class="docutils literal notranslate"><span class="pre">colors</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-plugin</span>
 <span class="nt">contributions</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">themes</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Super dark</span>
 <span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">super_dark</span>
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dark</span>
+<span class="w">      </span><span class="nt">syntax_style</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;native&quot;</span>
 <span class="w">      </span><span class="nt">colors</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">background</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(12,</span><span class="nv"> </span><span class="s">12,</span><span class="nv"> </span><span class="s">12)&quot;</span>
 <span class="w">        </span><span class="nt">foreground</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(65,</span><span class="nv"> </span><span class="s">72,</span><span class="nv"> </span><span class="s">81)&quot;</span>
@@ -955,7 +958,6 @@ code in the plugin package!</p>
 <span class="w">        </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(209,</span><span class="nv"> </span><span class="s">210,</span><span class="nv"> </span><span class="s">212)&quot;</span>
 <span class="w">        </span><span class="nt">warning</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(153,</span><span class="nv"> </span><span class="s">18,</span><span class="nv"> </span><span class="s">31)&quot;</span>
 <span class="w">        </span><span class="nt">current</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(0,</span><span class="nv"> </span><span class="s">122,</span><span class="nv"> </span><span class="s">204)&quot;</span>
-<span class="w">        </span><span class="nt">syntax_style</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;native&quot;</span>
 <span class="w">        </span><span class="nt">console</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(0,</span><span class="nv"> </span><span class="s">0,</span><span class="nv"> </span><span class="s">0)&quot;</span>
 <span class="w">        </span><span class="nt">canvas</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;black&quot;</span>
 </pre></div>

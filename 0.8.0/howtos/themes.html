@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/howtos/themes.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="A theme is a set of colors used throughout napari. See, for example, the builtin themes in napari/utils/theme.py. To make a new theme, create a new dict with the same keys as one of the existing themes, and replace the values with your new colors. For example To test out the theme, use the qt_the..." />
+<meta property="og:description" content="A napari theme is a named collection of colors and style values used across the viewer canvas, widgets, icons, and console. If you want to programmatically prototype a theme, check out the New theme example. However, the npe2 theme contribution allows declaratively defining themes and enables eas..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="A theme is a set of colors used throughout napari. See, for example, the builtin themes in napari/utils/theme.py. To make a new theme, create a new dict with the same keys as one of the existing themes, and replace the values with your new colors. For example To test out the theme, use the qt_the..." />
+<meta name="description" content="A napari theme is a named collection of colors and style values used across the viewer canvas, widgets, icons, and console. If you want to programmatically prototype a theme, check out the New theme example. However, the npe2 theme contribution allows declaratively defining themes and enables eas..." />
 
     <title>Creating and testing themes &#8212; napari</title>
   
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../_static/documentation_options.js?v=3d838b61"></script>
+    <script src="../_static/documentation_options.js?v=974bd8a9"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0a3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0a4';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -819,39 +819,39 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="creating-and-testing-themes">
 <span id="napari-themes"></span><h1>Creating and testing themes<a class="headerlink" href="#creating-and-testing-themes" title="Link to this heading">#</a></h1>
-<p>A theme is a set of colors used throughout napari. See, for example, the
-builtin themes in <code class="docutils literal notranslate"><span class="pre">napari/utils/theme.py</span></code>. To make a new theme, create a new
-<code class="docutils literal notranslate"><span class="pre">dict</span></code> with the same keys as one of the existing themes, and
-replace the values with your new colors. For example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.theme</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_theme</span><span class="p">,</span> <span class="n">register_theme</span>
-
-
-<span class="n">blue_theme</span> <span class="o">=</span> <span class="n">get_theme</span><span class="p">(</span><span class="s1">&#39;dark&#39;</span><span class="p">)</span>
-<span class="n">blue_theme</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-    <span class="n">background</span><span class="o">=</span><span class="s1">&#39;rgb(28, 31, 48)&#39;</span><span class="p">,</span>
-    <span class="n">foreground</span><span class="o">=</span><span class="s1">&#39;rgb(45, 52, 71)&#39;</span><span class="p">,</span>
-    <span class="n">primary</span><span class="o">=</span><span class="s1">&#39;rgb(80, 88, 108)&#39;</span><span class="p">,</span>
-    <span class="n">current</span><span class="o">=</span><span class="s1">&#39;rgb(184, 112, 0)&#39;</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">register_theme</span><span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">blue_theme</span><span class="p">)</span>
+<p>A napari theme is a named collection of colors and style values used across the
+viewer canvas, widgets, icons, and console. If you want to programmatically
+prototype a theme, check out the <a class="reference internal" href="../gallery/new_theme.html#sphx-glr-gallery-new-theme-py"><span class="std std-ref">New theme</span></a> example.
+However, the <code class="docutils literal notranslate"><span class="pre">npe2</span></code> theme contribution allows declaratively
+defining themes and enables easy distribution to others via plugins.</p>
+<p>If you want other people to install and reuse your theme, prefer the <a class="reference internal" href="#plugin-workflow"><span class="std std-ref">plugin
+workflow</span></a>. The programmatic workflow is still useful for local experiments and
+rapid iteration.</p>
+<section id="preview-themes-in-a-full-napari-ui">
+<span id="preview-themes"></span><h2>Preview themes in a full napari UI<a class="headerlink" href="#preview-themes-in-a-full-napari-ui" title="Link to this heading">#</a></h2>
+<p>The most complete theme preview tool lives in the example gallery as
+<a class="reference internal" href="../gallery/theme_sample.html#sphx-glr-gallery-theme-sample-py"><span class="std std-ref">Theme sample</span></a>. It opens napari with a dock widget
+that shows the theme color roles, common widget states, and a theme selector
+that includes plugin-contributed themes after plugins are initialized.
+A <a class="reference external" href="https://webaim.org/resources/contrastchecker/">WCAG contrast ratio</a> table
+displays the most important color pairs for accessibility testing.</p>
+<p>You can download the python script from the example page and drag’n’drop it onto napari to run it.</p>
+<p>If you are working from a local checkout of <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code>, you can run it
+directly:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>examples/theme_sample.py
 </pre></div>
 </div>
-<p>To test out the theme, use the
-<code class="docutils literal notranslate"><span class="pre">qt_theme_sample.py</span></code> file from the command line as follows:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>napari._qt.widgets.qt_theme_sample
-</pre></div>
-</div>
-<p><em>note</em>: you may specify a theme with one additional argument on the command line:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>napari._qt.widgets.qt_theme_sample<span class="w"> </span>dark
-</pre></div>
-</div>
-<p>(providing no arguments will show all themes in <code class="docutils literal notranslate"><span class="pre">theme.py</span></code>)</p>
-<section id="sharing-your-theme-via-a-plugin">
-<h2>Sharing your theme via a plugin<a class="headerlink" href="#sharing-your-theme-via-a-plugin" title="Link to this heading">#</a></h2>
-<p>You can also share your theme with the community via a <a class="reference internal" href="../plugins/index.html#plugins-index"><span class="std std-ref">plugin</span></a>
-by adding a <a class="reference internal" href="../plugins/technical_references/contributions.html#contributions-themes"><span class="std std-ref">theme contribution</span></a>. See the
-<a class="reference internal" href="../plugins/index.html#plugins-index"><span class="std std-ref">plugin</span></a> documentation for details on creating a plugin.</p>
+</section>
+<section id="ship-a-theme-in-a-plugin">
+<span id="plugin-workflow"></span><h2>Ship a theme in a plugin<a class="headerlink" href="#ship-a-theme-in-a-plugin" title="Link to this heading">#</a></h2>
+<p>The supported way to distribute a theme is via a <a class="reference internal" href="../plugins/index.html#plugins-index"><span class="std std-ref">plugin</span></a>
+<a class="reference internal" href="../plugins/technical_references/contributions.html#contributions-themes"><span class="std std-ref">theme contribution</span></a>. A theme contribution uses the plugin manifest
+(<code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>) to declaratively define properties of a theme.</p>
+<p>After the plugin is installed, the contributed theme becomes available in
+napari’s appearance settings and can also be selected with <code class="docutils literal notranslate"><span class="pre">viewer.theme</span></code>.
+For richer visual testing, use the <a class="reference internal" href="#preview-themes"><span class="std std-ref">theme preview sample</span></a>.</p>
+<p>If you are contributing a builtin theme to napari itself rather than shipping a
+plugin, see the core theme definitions in <code class="docutils literal notranslate"><span class="pre">napari/utils/theme.py</span></code>.</p>
 </section>
 </section>
 
@@ -902,7 +902,8 @@ by adding a <a class="reference internal" href="../plugins/technical_references/
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sharing-your-theme-via-a-plugin">Sharing your theme via a plugin</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-themes-in-a-full-napari-ui">Preview themes in a full napari UI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ship-a-theme-in-a-plugin">Ship a theme in a plugin</a></li>
 </ul>
   </nav></div>
 

@@ -55,7 +55,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../_static/documentation_options.js?v=3d838b61"></script>
+    <script src="../_static/documentation_options.js?v=974bd8a9"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -67,7 +67,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0a3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0a4';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -998,7 +998,7 @@ background label <cite>0</cite> is selected.</p>
 <td><p>Convert from data coordinates to world coordinates.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Labels.fill" title="napari.layers.Labels.fill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill</span></code></a>(coord, new_label[, refresh])</p></td>
-<td><p>Replace an existing label with a new label, either just at the connected component if the <cite>contiguous</cite> flag is <cite>True</cite> or everywhere if it is <cite>False</cite>, working in the number of dimensions specified by the <cite>n_edit_dimensions</cite> flag.</p></td>
+<td><p>Replace an existing label with a new label.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Labels.get_color" title="napari.layers.Labels.get_color"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_color</span></code></a>(label)</p></td>
 <td><p>Return the color corresponding to a specific label.</p></td>
@@ -1019,7 +1019,7 @@ background label <cite>0</cite> is selected.</p>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Labels.paint" title="napari.layers.Labels.paint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paint</span></code></a>(coord, new_label[, refresh])</p></td>
-<td><p>Paint over existing labels with a new label, using the selected brush shape and size, either only on the visible slice or in all n dimensions.</p></td>
+<td><p>Paint over existing labels with a new label.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Labels.paint_polygon" title="napari.layers.Labels.paint_polygon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paint_polygon</span></code></a>(points, new_label)</p></td>
 <td><p>Paint a polygon over existing labels with a new label.</p></td>
@@ -1613,14 +1613,16 @@ additional features without breaking existing usage of this.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.layers.Labels.fill">
 <span class="sig-name descname"><span class="pre">fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/napari/layers/labels/labels.html#Labels.fill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Labels.fill" title="Link to this definition">#</a></dt>
-<dd><p>Replace an existing label with a new label, either just at the
-connected component if the <cite>contiguous</cite> flag is <cite>True</cite> or everywhere
-if it is <cite>False</cite>, working in the number of dimensions specified by
-the <cite>n_edit_dimensions</cite> flag.</p>
+<dd><p>Replace an existing label with a new label.</p>
+<p>This replaces the label at the cursor position with <cite>new_label</cite>.
+If <cite>contiguous</cite> is True, only the orthogonally connected component is
+replaced using <code class="docutils literal notranslate"><span class="pre">skimage.segmentation.flood(...,</span> <span class="pre">connectivity=1)</span></code>.
+Otherwise, all pixels with the same label are replaced.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>coord</strong> (<em>sequence</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position of mouse cursor in image coordinates.</p></li>
+<li><p><strong>coord</strong> (<em>sequence</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position of mouse cursor in image coordinates.
+Note: Floats are rounded to the nearest integer before indexing.</p></li>
 <li><p><strong>new_label</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Value of the new label to be filled in.</p></li>
 <li><p><strong>refresh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to refresh view slice or not. Set to False to batch paint
 calls.</p></li>
@@ -1897,14 +1899,14 @@ paint with background label, which effectively removes the label.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.layers.Labels.paint">
-<span class="sig-name descname"><span class="pre">paint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/layers/labels/labels.html#Labels.paint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Labels.paint" title="Link to this definition">#</a></dt>
-<dd><p>Paint over existing labels with a new label, using the selected
-brush shape and size, either only on the visible slice or in all
-n dimensions.</p>
+<span class="sig-name descname"><span class="pre">paint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/napari/layers/labels/labels.html#Labels.paint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Labels.paint" title="Link to this definition">#</a></dt>
+<dd><p>Paint over existing labels with a new label.</p>
+<p>This uses the selected brush shape and size, painting either on the
+visible slice or in n dimensions depending on <cite>n_edit_dimensions</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>coord</strong> (<em>sequence</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Position of mouse cursor in image coordinates.</p></li>
+<li><p><strong>coord</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>) – Position of mouse cursor in image coordinates.</p></li>
 <li><p><strong>new_label</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Value of the new label to be filled in.</p></li>
 <li><p><strong>refresh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to refresh view slice or not. Set to False to batch paint
 calls.</p></li>
@@ -1915,12 +1917,15 @@ calls.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.layers.Labels.paint_polygon">
-<span class="sig-name descname"><span class="pre">paint_polygon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/layers/labels/labels.html#Labels.paint_polygon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Labels.paint_polygon" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">paint_polygon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/napari/layers/labels/labels.html#Labels.paint_polygon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Labels.paint_polygon" title="Link to this definition">#</a></dt>
 <dd><p>Paint a polygon over existing labels with a new label.</p>
+<p>Uses a bounding box optimization: extracts a rectangular region around
+the polygon, paints within that region in-place, then writes back.
+This approach works for both contiguous and non-contiguous dimension orderings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>points</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> of </em><em>coordinates</em>) – List of coordinates of the vertices of a polygon.</p></li>
+<li><p><strong>points</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> or </em><em>array</em>) – List of coordinates of the vertices of a polygon.</p></li>
 <li><p><strong>new_label</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Value of the new label to be filled in.</p></li>
 </ul>
 </dd>

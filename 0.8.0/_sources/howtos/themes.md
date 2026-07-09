@@ -2,43 +2,46 @@
 
 # Creating and testing themes
 
-A theme is a set of colors used throughout napari. See, for example, the
-builtin themes in `napari/utils/theme.py`. To make a new theme, create a new
-`dict` with the same keys as one of the existing themes, and
-replace the values with your new colors. For example
+A napari theme is a named collection of colors and style values used across the
+viewer canvas, widgets, icons, and console. If you want to programmatically
+prototype a theme, check out the {ref}`sphx_glr_gallery_new_theme.py` example.
+However, the `npe2` theme contribution allows declaratively 
+defining themes and enables easy distribution to others via plugins.
 
-```python
-from napari.utils.theme import get_theme, register_theme
+If you want other people to install and reuse your theme, prefer the [plugin
+workflow](plugin-workflow). The programmatic workflow is still useful for local experiments and
+rapid iteration.
 
+(preview-themes)=
+## Preview themes in a full napari UI
 
-blue_theme = get_theme('dark')
-blue_theme.update(
-    background='rgb(28, 31, 48)',
-    foreground='rgb(45, 52, 71)',
-    primary='rgb(80, 88, 108)',
-    current='rgb(184, 112, 0)',
-)
+The most complete theme preview tool lives in the example gallery as
+{ref}`sphx_glr_gallery_theme_sample.py`. It opens napari with a dock widget
+that shows the theme color roles, common widget states, and a theme selector
+that includes plugin-contributed themes after plugins are initialized. 
+A [WCAG contrast ratio](https://webaim.org/resources/contrastchecker/) table
+displays the most important color pairs for accessibility testing.
 
-register_theme('blue', blue_theme)
-```
+You can download the python script from the example page and drag'n'drop it onto napari to run it.
 
-To test out the theme, use the
-`qt_theme_sample.py` file from the command line as follows:
-
-```sh
-python -m napari._qt.widgets.qt_theme_sample
-```
-
-*note*: you may specify a theme with one additional argument on the command line:
+If you are working from a local checkout of `napari/napari`, you can run it
+directly:
 
 ```sh
-python -m napari._qt.widgets.qt_theme_sample dark
+python examples/theme_sample.py
 ```
 
-(providing no arguments will show all themes in `theme.py`)
+(plugin-workflow)=
 
-## Sharing your theme via a plugin
+## Ship a theme in a plugin
 
-You can also share your theme with the community via a [plugin](plugins-index)
-by adding a [theme contribution](contributions-themes). See the
-[plugin](plugins-index) documentation for details on creating a plugin.
+The supported way to distribute a theme is via a [plugin](plugins-index)
+[theme contribution](contributions-themes). A theme contribution uses the plugin manifest
+(`napari.yaml`) to declaratively define properties of a theme.
+
+After the plugin is installed, the contributed theme becomes available in
+napari's appearance settings and can also be selected with `viewer.theme`.
+For richer visual testing, use the [theme preview sample](preview-themes).
+
+If you are contributing a builtin theme to napari itself rather than shipping a
+plugin, see the core theme definitions in `napari/utils/theme.py`.

@@ -413,7 +413,9 @@ def get_new_theme() -> Dict[str, Dict[str, Union[str, Tuple, List]]:
     return themes
 ```
 
-becomes this theme contribution in the plugin manifest:
+becomes this theme contribution in the plugin manifest. Note that `type`
+indicates whether the theme is light or dark, omitted color keys inherit from that base,
+and `syntax_style` stays at the top level rather than under `colors`:
 
 ```yaml
 name: my-plugin
@@ -422,6 +424,7 @@ contributions:
     - label: Super dark
       id: super_dark
       type: dark
+      syntax_style: "native"
       colors:
         background: "rgb(12, 12, 12)"
         foreground: "rgb(65, 72, 81)"
@@ -432,7 +435,6 @@ contributions:
         icon: "rgb(209, 210, 212)"
         warning: "rgb(153, 18, 31)"
         current: "rgb(0, 122, 204)"
-        syntax_style: "native"
         console: "rgb(0, 0, 0)"
         canvas: "black"
 ```

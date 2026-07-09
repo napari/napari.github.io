@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../../_static/documentation_options.js?v=3d838b61"></script>
+    <script src="../../../../_static/documentation_options.js?v=974bd8a9"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -494,7 +494,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0a3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0a4';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -909,6 +909,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">TYPE_CHECKING</span><span class="p">,</span>
     <span class="n">Any</span><span class="p">,</span>
     <span class="n">ClassVar</span><span class="p">,</span>
+    <span class="n">NamedTuple</span><span class="p">,</span>
     <span class="n">TypeAlias</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -943,9 +944,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">expand_slice</span><span class="p">,</span>
     <span class="n">get_contours</span><span class="p">,</span>
     <span class="n">get_dtype</span><span class="p">,</span>
-    <span class="n">indices_in_shape</span><span class="p">,</span>
     <span class="n">interpolate_coordinates</span><span class="p">,</span>
-    <span class="n">sphere_indices</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.labels._slice</span><span class="w"> </span><span class="kn">import</span> <span class="n">_LabelsSliceRequest</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.layer_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">_FeatureTable</span>
@@ -968,7 +967,7 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps.colormap_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">shuffle_and_extend_colormap</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">Event</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.custom_types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Array</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringEnum</span><span class="p">,</span> <span class="n">_is_array_type</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringEnum</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.naming</span><span class="w"> </span><span class="kn">import</span> <span class="n">magic_name</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.status_messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">format_feature_value</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
@@ -978,7 +977,43 @@ window.runMermaid = runMermaid;</script>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Labels&#39;</span><span class="p">,)</span>
 
-<span class="n">HistoryItem</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">]</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">_MaskedPaintAtom</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A single undoable mask-based edit of a Labels layer.</span>
+
+<span class="sd">    Replay (see ``Labels._replay_masked_atom``) reads the bounding box with</span>
+<span class="sd">    basic slicing, applies the masked update locally on a numpy array, and</span>
+<span class="sd">    writes the bounding box back. Only basic indexing ever reaches the data</span>
+<span class="sd">    backend, so replay behaves identically across numpy, zarr, tensorstore,</span>
+<span class="sd">    dask and xarray (whose advanced-indexing semantics all differ).</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    slice_key : tuple of slice</span>
+<span class="sd">        Bounding box of the edit in data coordinates.</span>
+<span class="sd">    mask : ndarray of bool or None</span>
+<span class="sd">        Changed pixels within the bounding box, or None when every pixel in</span>
+<span class="sd">        the bounding box changed (the mask is dropped to save memory).</span>
+<span class="sd">    old_values : ndarray</span>
+<span class="sd">        The values under ``mask`` before the edit (1D), or a snapshot of the</span>
+<span class="sd">        whole bounding box when ``mask`` is None.</span>
+<span class="sd">    new_value : int</span>
+<span class="sd">        The label that was painted.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">slice_key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="n">mask</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">old_values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">new_value</span><span class="p">:</span> <span class="nb">int</span>
+
+
+<span class="c1"># A single atom stored in the undo/redo history: either a mask-based edit</span>
+<span class="c1"># (paint/fill/paint_polygon) or the legacy fancy-index 3-tuple of</span>
+<span class="c1"># ``(indices, old_values, new_values)`` produced by ``data_setitem`` (where</span>
+<span class="c1"># ``indices`` is a numpy multi-index and the new values may be a scalar).</span>
+<span class="n">HistoryAtom</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">_MaskedPaintAtom</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">int</span><span class="p">]</span>
+<span class="p">)</span>
 
 
 <div class="viewcode-block" id="Labels">
@@ -1340,9 +1375,10 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_preserve_labels</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_undo_history</span><span class="p">:</span> <span class="n">deque</span><span class="p">[</span><span class="n">HistoryItem</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_redo_history</span><span class="p">:</span> <span class="n">deque</span><span class="p">[</span><span class="n">HistoryItem</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">HistoryItem</span><span class="p">]</span>
+        <span class="c1"># Each history undo step is a list of atoms.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_undo_history</span><span class="p">:</span> <span class="n">deque</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">HistoryAtom</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_redo_history</span><span class="p">:</span> <span class="n">deque</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">HistoryAtom</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">HistoryAtom</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_block_history</span><span class="p">:</span> <span class="nb">bool</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_slice_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1638,6 +1674,33 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_label_in_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Raise if ``label`` is outside the layer dtype&#39;s representable range.&quot;&quot;&quot;</span>
+        <span class="n">layer_dtype</span> <span class="o">=</span> <span class="n">get_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">dtype_lims</span> <span class="o">=</span> <span class="n">get_dtype_limits</span><span class="p">(</span><span class="n">layer_dtype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dtype_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">label</span> <span class="ow">or</span> <span class="n">dtype_lims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">label</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">WrongSelectedLabelError</span><span class="p">(</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">layer_dtype</span><span class="p">,</span>
+                <span class="n">value</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                <span class="n">lower_bound</span><span class="o">=</span><span class="n">dtype_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">upper_bound</span><span class="o">=</span><span class="n">dtype_lims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_non_painted_coord</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">slice_coord</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">dims_to_paint</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolve negative indexes and bounds-check non-painted dims.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">coord</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slice_coord</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">resolved</span> <span class="o">=</span> <span class="n">coord</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">coord</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">coord</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">resolved</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;Coordinate </span><span class="si">{</span><span class="n">coord</span><span class="si">}</span><span class="s1"> for non-painted dimension </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1"> is out &#39;</span>
+                    <span class="sa">f</span><span class="s1">&#39;of bounds for axis with size </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">.&#39;</span>
+                <span class="p">)</span>
+            <span class="n">slice_coord</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">resolved</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">selected_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;int: Index of selected label.&quot;&quot;&quot;</span>
@@ -1647,17 +1710,9 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">selected_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selected_label</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">selected_label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span><span class="p">:</span>
             <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_label_in_range</span><span class="p">(</span><span class="n">selected_label</span><span class="p">)</span>
         <span class="c1"># when setting the label to the background, store the previous</span>
         <span class="c1"># otherwise, clear it</span>
-        <span class="n">layer_dtype</span> <span class="o">=</span> <span class="n">get_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">dtype_lims</span> <span class="o">=</span> <span class="n">get_dtype_limits</span><span class="p">(</span><span class="n">layer_dtype</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">dtype_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">selected_label</span> <span class="ow">or</span> <span class="n">dtype_lims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">selected_label</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">WrongSelectedLabelError</span><span class="p">(</span>
-                <span class="n">dtype</span><span class="o">=</span><span class="n">layer_dtype</span><span class="p">,</span>
-                <span class="n">value</span><span class="o">=</span><span class="n">selected_label</span><span class="p">,</span>
-                <span class="n">lower_bound</span><span class="o">=</span><span class="n">dtype_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                <span class="n">upper_bound</span><span class="o">=</span><span class="n">dtype_lims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-            <span class="p">)</span>
         <span class="k">if</span> <span class="n">selected_label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_prev_selected_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1835,14 +1890,15 @@ window.runMermaid = runMermaid;</script>
             <span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
 
-        <span class="n">expanded_slice</span> <span class="o">=</span> <span class="n">expand_slice</span><span class="p">(</span><span class="n">data_slice</span><span class="p">,</span> <span class="n">labels</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">contour_offset</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contour</span><span class="p">))</span>
+        <span class="n">expanded_slice</span> <span class="o">=</span> <span class="n">expand_slice</span><span class="p">(</span><span class="n">data_slice</span><span class="p">,</span> <span class="n">labels</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">contour_offset</span><span class="p">)</span>
         <span class="n">sliced_labels</span> <span class="o">=</span> <span class="n">get_contours</span><span class="p">(</span>
             <span class="n">labels</span><span class="p">[</span><span class="n">expanded_slice</span><span class="p">],</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">contour</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="c1"># Remove the latest one-pixel border from the result</span>
+        <span class="c1"># Remove the border that was added to compute thick contours locally.</span>
         <span class="n">delta_slice</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
             <span class="nb">slice</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">start</span> <span class="o">-</span> <span class="n">s2</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">s1</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="n">s2</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data_slice</span><span class="p">,</span> <span class="n">expanded_slice</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1975,8 +2031,8 @@ window.runMermaid = runMermaid;</script>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        item : List[Tuple[ndarray, ndarray, int]]</span>
-<span class="sd">            list of history atoms to append to undo history.</span>
+<span class="sd">        item : list of HistoryAtoms</span>
+<span class="sd">            They are applied together as a single undoable step.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_undo_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">paint</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">item</span><span class="p">)</span>
@@ -1993,8 +2049,10 @@ window.runMermaid = runMermaid;</script>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        value : 3-tuple of arrays</span>
-<span class="sd">            The value is a 3-tuple containing:</span>
+<span class="sd">        value : _MaskedPaintAtom or 3-tuple of arrays</span>
+<span class="sd">            The change to record. The mask-based editing methods (paint,</span>
+<span class="sd">            fill, paint_polygon) store a ``_MaskedPaintAtom``;</span>
+<span class="sd">            ``data_setitem`` stores a 3-tuple containing:</span>
 
 <span class="sd">            - a numpy multi-index, pointing to the array elements that were</span>
 <span class="sd">              changed</span>
@@ -2018,9 +2076,10 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            The list of element to which to append the loaded element. In the</span>
 <span class="sd">            case of an undo operation, this is the redo queue, and vice versa.</span>
 <span class="sd">        undoing : bool</span>
-<span class="sd">            Whether we are undoing (default) or redoing. In the case of</span>
-<span class="sd">            redoing, we apply the &quot;after change&quot; element of a history element</span>
-<span class="sd">            (the third element of the history &quot;atom&quot;).</span>
+<span class="sd">            Whether we are undoing (default) or redoing. When redoing, each</span>
+<span class="sd">            atom is replayed forwards, applying its &quot;after change&quot; value</span>
+<span class="sd">            (``new_value`` for a ``_MaskedPaintAtom``, or the third element</span>
+<span class="sd">            of the legacy 3-tuple).</span>
 
 <span class="sd">        See Also</span>
 <span class="sd">        --------</span>
@@ -2031,11 +2090,32 @@ window.runMermaid = runMermaid;</script>
 
         <span class="n">history_item</span> <span class="o">=</span> <span class="n">before</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
         <span class="n">after</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">history_item</span><span class="p">)))</span>
-        <span class="k">for</span> <span class="n">prev_indices</span><span class="p">,</span> <span class="n">prev_values</span><span class="p">,</span> <span class="n">next_values</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">history_item</span><span class="p">):</span>
-            <span class="n">values</span> <span class="o">=</span> <span class="n">prev_values</span> <span class="k">if</span> <span class="n">undoing</span> <span class="k">else</span> <span class="n">next_values</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">prev_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
+        <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">history_item</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span> <span class="n">_MaskedPaintAtom</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_replay_masked_atom</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span> <span class="n">undoing</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">prev_indices</span><span class="p">,</span> <span class="n">prev_values</span><span class="p">,</span> <span class="n">next_values</span> <span class="o">=</span> <span class="n">atom</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">prev_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_values</span> <span class="k">if</span> <span class="n">undoing</span> <span class="k">else</span> <span class="n">next_values</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_replay_masked_atom</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">atom</span><span class="p">:</span> <span class="n">_MaskedPaintAtom</span><span class="p">,</span> <span class="n">undoing</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Replay a mask-based edit via read-modify-write.</span>
+
+<span class="sd">        Only basic slicing reaches the data backend; the masked update is</span>
+<span class="sd">        applied locally on a numpy array, so replay does not depend on any</span>
+<span class="sd">        backend&#39;s advanced-indexing semantics.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">atom</span><span class="o">.</span><span class="n">old_values</span> <span class="k">if</span> <span class="n">undoing</span> <span class="k">else</span> <span class="n">atom</span><span class="o">.</span><span class="n">new_value</span>
+        <span class="k">if</span> <span class="n">atom</span><span class="o">.</span><span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># The whole bounding box changed: assign directly.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">slice_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
+            <span class="k">return</span>
+        <span class="n">region</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">slice_key</span><span class="p">])</span>
+        <span class="n">region</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">slice_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">region</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">undo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_history</span><span class="p">(</span>
@@ -2050,89 +2130,166 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Labels.fill">
 <a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.fill">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">fill</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">coord</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">new_label</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">refresh</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">coord</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+        <span class="n">new_label</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">refresh</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Replace an existing label with a new label, either just at the</span>
-<span class="sd">        connected component if the `contiguous` flag is `True` or everywhere</span>
-<span class="sd">        if it is `False`, working in the number of dimensions specified by</span>
-<span class="sd">        the `n_edit_dimensions` flag.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Replace an existing label with a new label.</span>
+
+<span class="sd">        This replaces the label at the cursor position with `new_label`.</span>
+<span class="sd">        If `contiguous` is True, only the orthogonally connected component is</span>
+<span class="sd">        replaced using ``skimage.segmentation.flood(..., connectivity=1)``.</span>
+<span class="sd">        Otherwise, all pixels with the same label are replaced.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        coord : sequence of float</span>
 <span class="sd">            Position of mouse cursor in image coordinates.</span>
+<span class="sd">            Note: Floats are rounded to the nearest integer before indexing.</span>
 <span class="sd">        new_label : int</span>
 <span class="sd">            Value of the new label to be filled in.</span>
 <span class="sd">        refresh : bool</span>
 <span class="sd">            Whether to refresh view slice or not. Set to False to batch paint</span>
 <span class="sd">            calls.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_label_in_range</span><span class="p">(</span><span class="n">new_label</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">dims_to_paint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_shape_and_dims_to_paint</span><span class="p">()</span>
+
+        <span class="n">slice_coord</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coord</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_non_painted_coord</span><span class="p">(</span><span class="n">slice_coord</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">)</span>
+
+        <span class="n">fill_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_flood_mask_and_bbox</span><span class="p">(</span>
+            <span class="n">slice_coord</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">dims_to_paint</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">fill_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">mask</span><span class="p">,</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span><span class="p">,</span> <span class="n">region_data</span> <span class="o">=</span> <span class="n">fill_info</span>
+        <span class="n">slice_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_slice_key</span><span class="p">(</span>
+            <span class="n">slice_coord</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">,</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_region_with_mask</span><span class="p">(</span>
+            <span class="n">slice_key</span><span class="p">,</span>
+            <span class="n">mask</span><span class="p">,</span>
+            <span class="n">new_label</span><span class="p">,</span>
+            <span class="n">dims_to_paint</span><span class="p">,</span>
+            <span class="n">refresh</span><span class="p">,</span>
+            <span class="n">region_data</span><span class="o">=</span><span class="n">region_data</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_flood_mask_and_bbox</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">coord</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+        <span class="n">new_label</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">dims_to_paint</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the mask and bounding box for a flood fill operation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        coord : Sequence[float]</span>
+<span class="sd">            Position of mouse cursor in image coordinates.</span>
+<span class="sd">        new_label : int</span>
+<span class="sd">            Value of the new label to be filled in.</span>
+<span class="sd">        dims_to_paint : list[int]</span>
+<span class="sd">            The dimensions across which the fill will be performed.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple | None</span>
+<span class="sd">            A 4-tuple containing:</span>
+<span class="sd">            - mask : np.ndarray</span>
+<span class="sd">                Boolean mask indicating the region to be filled.</span>
+<span class="sd">            - min_vals : np.ndarray</span>
+<span class="sd">                Minimum (inclusive) indices for each painted dimension.</span>
+<span class="sd">            - max_vals : np.ndarray</span>
+<span class="sd">                Maximum (exclusive) indices for each painted dimension.</span>
+<span class="sd">            - region_data : np.ndarray</span>
+<span class="sd">                The data within the bounding box.</span>
+<span class="sd">            Returns None if the fill operation is invalid.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">skimage.segmentation</span><span class="w"> </span><span class="kn">import</span> <span class="n">flood</span>
 
         <span class="n">int_coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
         <span class="c1"># If requested fill location is outside data shape then return</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">(</span><span class="n">int_coord</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">greater_equal</span><span class="p">(</span><span class="n">int_coord</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="p">):</span>
-            <span class="k">return</span>
+            <span class="k">return</span> <span class="kc">None</span>
 
         <span class="c1"># If requested new label doesn&#39;t change old label then return</span>
         <span class="n">old_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">int_coord</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">old_label</span> <span class="o">==</span> <span class="n">new_label</span><span class="p">:</span>
-            <span class="k">return</span>
-        <span class="c1"># If preserve_labels is True, then we only want to fill:</span>
-        <span class="c1"># - pixels of the background label, filling with the new label</span>
-        <span class="c1"># - pixels of the previous label, filling with the background</span>
-        <span class="c1"># the previous label is stored when the selected label is set</span>
-        <span class="c1"># to the background, e.g. by swap_selected_and_background_labels</span>
-        <span class="k">if</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">preserve_labels</span>
-            <span class="ow">and</span> <span class="n">old_label</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_selected_label</span>
-            <span class="ow">and</span> <span class="n">old_label</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span>
-        <span class="p">):</span>
-            <span class="k">return</span>
+            <span class="k">return</span> <span class="kc">None</span>
 
-        <span class="n">dims_to_fill</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="p">:]</span>
-        <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preserve_labels</span><span class="p">:</span>
+            <span class="n">source_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_preserve_labels_source_label</span><span class="p">(</span><span class="n">new_label</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">old_label</span> <span class="o">!=</span> <span class="n">source_label</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Create the slice to extract the full working volume/plane</span>
         <span class="n">data_slice_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">int_coord</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">dims_to_fill</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">:</span>
             <span class="n">data_slice_list</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
         <span class="n">data_slice</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">data_slice_list</span><span class="p">)</span>
+
         <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">data_slice</span><span class="p">])</span>
-        <span class="n">slice_coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">int_coord</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dims_to_fill</span><span class="p">)</span>
 
-        <span class="n">matches</span> <span class="o">=</span> <span class="n">labels</span> <span class="o">==</span> <span class="n">old_label</span>
+        <span class="c1"># Coordinate of the seed point relative to the extracted labels</span>
+        <span class="n">slice_coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">int_coord</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contiguous</span><span class="p">:</span>
-            <span class="c1"># if contiguous replace only selected connected component</span>
-            <span class="n">labeled_matches</span><span class="p">,</span> <span class="n">num_features</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">num_features</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">match_label</span> <span class="o">=</span> <span class="n">labeled_matches</span><span class="p">[</span><span class="n">slice_coord</span><span class="p">]</span>
-                <span class="n">matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
-                    <span class="n">matches</span><span class="p">,</span> <span class="n">labeled_matches</span> <span class="o">==</span> <span class="n">match_label</span>
-                <span class="p">)</span>
-
-        <span class="n">match_indices_local</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
-        <span class="n">match_indices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">]]</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span><span class="p">}:</span>
-            <span class="n">n_idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">match_indices_local</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="n">match_indices</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data_slice</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-                    <span class="n">match_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">match_indices_local</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-                    <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">match_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_idx</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">))</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">flood</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">slice_coord</span><span class="p">,</span> <span class="n">connectivity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">match_indices</span> <span class="o">=</span> <span class="n">match_indices_local</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">labels</span> <span class="o">==</span> <span class="n">old_label</span>
 
-        <span class="n">match_indices_tuple</span> <span class="o">=</span> <span class="n">_coerce_indices_for_vectorization</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">match_indices</span>
-        <span class="p">)</span>
+        <span class="c1"># Calculate bounding box of the mask to minimize update size.</span>
+        <span class="c1"># When the fill already spans the full extracted region, skip the</span>
+        <span class="c1"># bbox scan and reuse the full slice directly.</span>
+        <span class="n">mask_is_full</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">mask_is_full</span><span class="p">:</span>
+            <span class="n">bbox_slices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">)</span>
+            <span class="n">cropped_mask</span> <span class="o">=</span> <span class="n">mask</span>
+            <span class="n">min_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">max_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_mask_bbox</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_setitem</span><span class="p">(</span><span class="n">match_indices_tuple</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="p">)</span></div>
+            <span class="n">bbox_slices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                <span class="nb">slice</span><span class="p">(</span><span class="n">min_v</span><span class="p">,</span> <span class="n">max_v</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">min_v</span><span class="p">,</span> <span class="n">max_v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">cropped_mask</span> <span class="o">=</span> <span class="n">mask</span><span class="p">[</span><span class="n">bbox_slices</span><span class="p">]</span>
 
+        <span class="k">return</span> <span class="n">cropped_mask</span><span class="p">,</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span><span class="p">,</span> <span class="n">labels</span><span class="p">[</span><span class="n">bbox_slices</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_preserve_labels_source_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_label</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the existing label value that preserve_labels allows to change.</span>
+
+<span class="sd">        Painting with a non-background label may only replace background.</span>
+<span class="sd">        Painting with the background label may only replace the previously</span>
+<span class="sd">        selected label, falling back to the current selected label when no</span>
+<span class="sd">        previous label is stored.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        new_label : int</span>
+<span class="sd">            The label value that will be written.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The only existing label value that may be overwritten.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">new_label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_selected_label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_selected_label</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">last_cursor_coord</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Paint into coordinates, accounting for mode and cursor movement.</span>
@@ -2167,14 +2324,20 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="Labels.paint">
 <a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.paint">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">paint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Paint over existing labels with a new label, using the selected</span>
-<span class="sd">        brush shape and size, either only on the visible slice or in all</span>
-<span class="sd">        n dimensions.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">paint</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">coord</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+        <span class="n">new_label</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">refresh</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Paint over existing labels with a new label.</span>
+
+<span class="sd">        This uses the selected brush shape and size, painting either on the</span>
+<span class="sd">        visible slice or in n dimensions depending on `n_edit_dimensions`.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        coord : sequence of int</span>
+<span class="sd">        coord : Sequence[float]</span>
 <span class="sd">            Position of mouse cursor in image coordinates.</span>
 <span class="sd">        new_label : int</span>
 <span class="sd">            Value of the new label to be filled in.</span>
@@ -2182,69 +2345,201 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Whether to refresh view slice or not. Set to False to batch paint</span>
 <span class="sd">            calls.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_label_in_range</span><span class="p">(</span><span class="n">new_label</span><span class="p">)</span>
         <span class="n">shape</span><span class="p">,</span> <span class="n">dims_to_paint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_shape_and_dims_to_paint</span><span class="p">()</span>
+
+        <span class="n">slice_coord</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coord</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_non_painted_coord</span><span class="p">(</span><span class="n">slice_coord</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">)</span>
+
+        <span class="n">brush_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_brush_mask_and_bbox</span><span class="p">(</span>
+            <span class="n">slice_coord</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">,</span> <span class="n">shape</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">brush_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">mask</span><span class="p">,</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span> <span class="o">=</span> <span class="n">brush_info</span>
+        <span class="n">slice_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_slice_key</span><span class="p">(</span>
+            <span class="n">slice_coord</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">,</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_region_with_mask</span><span class="p">(</span>
+            <span class="n">slice_key</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">,</span> <span class="n">refresh</span>
+        <span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_brush_mask_and_bbox</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">coord</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+        <span class="n">dims_to_paint</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">shape</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the mask and bounding box for a brush painting operation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        coord : Sequence[float]</span>
+<span class="sd">            Position of mouse cursor in image coordinates.</span>
+<span class="sd">        dims_to_paint : list[int]</span>
+<span class="sd">            The dimensions across which the painting will be performed.</span>
+<span class="sd">        shape : list[int]</span>
+<span class="sd">            The shape of the data being painted.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple | None</span>
+<span class="sd">            A 3-tuple containing:</span>
+<span class="sd">            - mask : np.ndarray</span>
+<span class="sd">                Boolean mask indicating the brush region.</span>
+<span class="sd">            - min_vals : np.ndarray</span>
+<span class="sd">                Minimum (inclusive) indices for each painted dimension.</span>
+<span class="sd">            - max_vals : np.ndarray</span>
+<span class="sd">                Maximum (exclusive) indices for each painted dimension.</span>
+<span class="sd">            Returns None if the brush operation is invalid.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">paint_scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
             <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span>
         <span class="p">)</span>
 
-        <span class="n">slice_coord</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coord</span><span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
-            <span class="n">coord_paint</span> <span class="o">=</span> <span class="p">[</span><span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">]</span>
+            <span class="n">coord_paint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">coord_paint</span> <span class="o">=</span> <span class="n">coord</span>
+            <span class="n">coord_paint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span>
 
-        <span class="c1"># Ensure circle doesn&#39;t have spurious point</span>
-        <span class="c1"># on edge by keeping radius as ##.5</span>
+        <span class="c1"># Ensure circle doesn&#39;t have spurious point on edge by keeping radius as 0.5</span>
         <span class="n">radius</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">brush_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span>
-        <span class="n">mask_indices</span> <span class="o">=</span> <span class="n">sphere_indices</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">paint_scale</span><span class="p">))</span>
 
-        <span class="n">mask_indices</span> <span class="o">=</span> <span class="n">mask_indices</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coord_paint</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
-            <span class="nb">int</span>
+        <span class="c1"># Radius in pixels for each dimension (accounting for scale)</span>
+        <span class="c1"># Use floor to match old sphere_indices behavior: points where dist &lt;= radius</span>
+        <span class="c1"># means integer coordinates from -floor(radius) to +floor(radius)</span>
+        <span class="n">normalized_scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">paint_scale</span><span class="p">)</span>
+        <span class="n">normalized_scale</span> <span class="o">=</span> <span class="n">normalized_scale</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">normalized_scale</span><span class="p">)</span>
+        <span class="n">radius_pixels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">radius</span> <span class="o">/</span> <span class="n">normalized_scale</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="n">center</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">coord_paint</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="n">min_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">center</span> <span class="o">-</span> <span class="n">radius_pixels</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">max_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">center</span> <span class="o">+</span> <span class="n">radius_pixels</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">min_vals</span> <span class="o">&gt;=</span> <span class="n">max_vals</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">bbox_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">max_vals</span> <span class="o">-</span> <span class="n">min_vals</span><span class="p">)</span>
+        <span class="n">center_in_bbox</span> <span class="o">=</span> <span class="n">center</span> <span class="o">-</span> <span class="n">min_vals</span>
+
+        <span class="n">brush_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_brush_mask</span><span class="p">(</span>
+            <span class="n">bbox_shape</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">center_in_bbox</span><span class="p">,</span> <span class="n">normalized_scale</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_indices</span><span class="p">(</span>
-            <span class="n">mask_indices</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">,</span> <span class="n">slice_coord</span><span class="p">,</span> <span class="n">refresh</span>
-        <span class="p">)</span></div>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">brush_mask</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
 
+        <span class="k">return</span> <span class="n">brush_mask</span><span class="p">,</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span>
 
 <div class="viewcode-block" id="Labels.paint_polygon">
 <a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.paint_polygon">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">paint_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">new_label</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">paint_polygon</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">points</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">new_label</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Paint a polygon over existing labels with a new label.</span>
+
+<span class="sd">        Uses a bounding box optimization: extracts a rectangular region around</span>
+<span class="sd">        the polygon, paints within that region in-place, then writes back.</span>
+<span class="sd">        This approach works for both contiguous and non-contiguous dimension orderings.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        points : list of coordinates</span>
+<span class="sd">        points : list or array</span>
 <span class="sd">            List of coordinates of the vertices of a polygon.</span>
 <span class="sd">        new_label : int</span>
 <span class="sd">            Value of the new label to be filled in.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_label_in_range</span><span class="p">(</span><span class="n">new_label</span><span class="p">)</span>
         <span class="n">shape</span><span class="p">,</span> <span class="n">dims_to_paint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_shape_and_dims_to_paint</span><span class="p">()</span>
 
+        <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">slice_coord</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_non_painted_coord</span><span class="p">(</span><span class="n">slice_coord</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">)</span>
+        <span class="n">polygon_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_polygon_mask_and_bbox</span><span class="p">(</span>
+            <span class="n">points</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">,</span> <span class="n">shape</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">polygon_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">mask</span><span class="p">,</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span> <span class="o">=</span> <span class="n">polygon_info</span>
+        <span class="n">slice_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_slice_key</span><span class="p">(</span>
+            <span class="n">slice_coord</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">,</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_region_with_mask</span><span class="p">(</span><span class="n">slice_key</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_polygon_mask_and_bbox</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">points</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">dims_to_paint</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">shape</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the mask and bounding box for a polygon painting operation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        points : np.ndarray</span>
+<span class="sd">            Integer array of coordinates of the vertices of a polygon.</span>
+<span class="sd">        dims_to_paint : list[int]</span>
+<span class="sd">            The dimensions across which the painting will be performed.</span>
+<span class="sd">        shape : list[int]</span>
+<span class="sd">            The shape of the data being painted.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple | None</span>
+<span class="sd">            A 3-tuple containing:</span>
+<span class="sd">            - mask : np.ndarray</span>
+<span class="sd">                Boolean mask indicating the polygon region.</span>
+<span class="sd">            - min_vals : np.ndarray</span>
+<span class="sd">                Minimum (inclusive) indices for each painted dimension.</span>
+<span class="sd">            - max_vals : np.ndarray</span>
+<span class="sd">                Maximum (exclusive) indices for each painted dimension.</span>
+<span class="sd">            Returns None if the polygon operation is invalid.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        NotImplementedError</span>
+<span class="sd">            If ``dims_to_paint`` is not 2D, because polygon painting is 2D only.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims_to_paint</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
                 <span class="s1">&#39;Polygon painting is implemented only in 2D.&#39;</span>
             <span class="p">)</span>
 
-        <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-        <span class="n">slice_coord</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="n">points2d</span> <span class="o">=</span> <span class="n">points</span><span class="p">[:,</span> <span class="n">dims_to_paint</span><span class="p">]</span>
 
-        <span class="n">polygon_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_polygon_mask</span><span class="p">(</span><span class="n">points2d</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
+        <span class="n">min_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">points2d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">max_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">points2d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># exclusive</span>
 
-        <span class="n">mask_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">polygon_mask</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_indices</span><span class="p">(</span>
-            <span class="n">mask_indices</span><span class="p">,</span>
-            <span class="n">new_label</span><span class="p">,</span>
-            <span class="n">shape</span><span class="p">,</span>
-            <span class="n">dims_to_paint</span><span class="p">,</span>
-            <span class="n">slice_coord</span><span class="p">,</span>
-            <span class="n">refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="p">)</span></div>
+        <span class="n">min_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">min_vals</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">max_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">max_vals</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">min_vals</span> <span class="o">&gt;=</span> <span class="n">max_vals</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
 
+        <span class="n">bbox_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">max_vals</span> <span class="o">-</span> <span class="n">min_vals</span><span class="p">)</span>
+        <span class="n">points2d_shifted</span> <span class="o">=</span> <span class="n">points2d</span> <span class="o">-</span> <span class="n">min_vals</span>
+
+        <span class="n">polygon_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_polygon_mask</span><span class="p">(</span><span class="n">points2d_shifted</span><span class="p">,</span> <span class="n">bbox_shape</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">polygon_mask</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">polygon_mask</span><span class="p">,</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span>
+
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_create_polygon_mask</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">points2d</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+        <span class="n">points2d</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a boolean mask from polygon points using PIL rasterization.</span>
 
@@ -2268,70 +2563,436 @@ window.runMermaid = runMermaid;</script>
         <span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span><span class="n">points_pil</span><span class="p">,</span> <span class="n">outline</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_paint_indices</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">mask_indices</span><span class="p">,</span>
-        <span class="n">new_label</span><span class="p">,</span>
-        <span class="n">shape</span><span class="p">,</span>
-        <span class="n">dims_to_paint</span><span class="p">,</span>
-        <span class="n">slice_coord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Paint over existing labels with a new label, using the selected</span>
-<span class="sd">        mask indices, either only on the visible slice or in all n dimensions.</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_brush_mask</span><span class="p">(</span>
+        <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">center</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">normalized_scale</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create boolean mask for nD circular/spherical/ellipsoidal brush.</span>
+
+<span class="sd">        This method generates a boolean mask for brushes in arbitrary dimensions,</span>
+<span class="sd">        supporting 2D circles, 3D spheres, 4D hyperspheres, etc. with anisotropic</span>
+<span class="sd">        scaling (ellipsoids). The mask is created by computing the scaled distance</span>
+<span class="sd">        from the center point and comparing against the radius.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        mask_indices : numpy array of integer coordinates</span>
-<span class="sd">            Mask to paint represented by an array of its coordinates.</span>
-<span class="sd">        new_label : int</span>
-<span class="sd">            Value of the new label to be filled in.</span>
-<span class="sd">        shape : list</span>
-<span class="sd">            The label data shape upon which painting is performed.</span>
-<span class="sd">        dims_to_paint : list</span>
-<span class="sd">            List of dimensions of the label data that are used for painting.</span>
-<span class="sd">        refresh : bool</span>
-<span class="sd">            Whether to refresh view slice or not. Set to False to batch paint</span>
-<span class="sd">            calls.</span>
+<span class="sd">        shape : tuple of int</span>
+<span class="sd">            Shape of the mask to create (matches bounding box shape)</span>
+<span class="sd">        radius : float</span>
+<span class="sd">            Brush radius in data coordinates</span>
+<span class="sd">        center : ndarray</span>
+<span class="sd">            Center position within the mask (already adjusted for bounding box offset)</span>
+<span class="sd">            Shape: (n_edit_dimensions,)</span>
+<span class="sd">        normalized_scale : ndarray</span>
+<span class="sd">            Scale factors normalized so the smallest painted axis has scale 1.</span>
+<span class="sd">            These are used to support ellipsoids with anisotropic scaling.</span>
+<span class="sd">            Shape: (n_edit_dimensions,)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ndarray</span>
+<span class="sd">            Boolean mask with True inside brush shape, False outside</span>
+<span class="sd">            Shape matches input `shape` parameter</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">dims_not_painted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">[:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span><span class="p">]</span>
+        <span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="n">grids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">)]</span>
+
+        <span class="c1"># Calculate squared distance from center in scaled space</span>
+        <span class="n">dist_sq</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="p">((</span><span class="n">grids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">center</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">normalized_scale</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="c1"># discard candidate coordinates that are out of bounds</span>
-        <span class="n">mask_indices</span> <span class="o">=</span> <span class="n">indices_in_shape</span><span class="p">(</span><span class="n">mask_indices</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
 
-        <span class="c1"># Transfer valid coordinates to slice_coord,</span>
-        <span class="c1"># or expand coordinate if 3rd dim in 2D image</span>
-        <span class="n">slice_coord_temp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mask_indices</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dims_to_paint</span><span class="p">):</span>
-                <span class="n">slice_coord</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">slice_coord_temp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_not_painted</span><span class="p">:</span>
-                <span class="n">slice_coord</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">slice_coord</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>
-                    <span class="n">mask_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span>
-                <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">slice_coord</span> <span class="o">=</span> <span class="n">slice_coord_temp</span>
+        <span class="k">return</span> <span class="n">dist_sq</span> <span class="o">&lt;=</span> <span class="n">radius</span><span class="o">**</span><span class="mi">2</span>
 
-        <span class="n">slice_coord</span> <span class="o">=</span> <span class="n">_coerce_indices_for_vectorization</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">slice_coord</span><span class="p">)</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_mask_bbox</span><span class="p">(</span><span class="n">mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the bounding box of True values in a boolean mask.</span>
 
-        <span class="c1"># slice coord is a tuple of coordinate arrays per dimension</span>
-        <span class="c1"># subset it if we want to only paint into background/only erase</span>
-        <span class="c1"># current label, accounting for swap_selected_and_background_labels</span>
+<span class="sd">        Uses np.argmax on axis projections to find the first and last True</span>
+<span class="sd">        values along each dimension, avoiding intermediate index arrays.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mask : np.ndarray</span>
+<span class="sd">            Boolean mask array. Must contain at least one True value.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        min_vals : np.ndarray</span>
+<span class="sd">            Minimum (inclusive) index for each dimension.</span>
+<span class="sd">        max_vals : np.ndarray</span>
+<span class="sd">            Maximum (exclusive) index for each dimension.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">min_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">max_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">ndim</span><span class="p">):</span>
+            <span class="n">axes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span> <span class="k">if</span> <span class="n">j</span> <span class="o">!=</span> <span class="n">i</span><span class="p">)</span>
+            <span class="n">any_on_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axes</span><span class="p">)</span>
+            <span class="c1"># argmax finds the first True; reverse search finds the last</span>
+            <span class="n">min_vals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">any_on_axis</span><span class="p">)</span>
+            <span class="n">max_vals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">any_on_axis</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">any_on_axis</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_slice_key</span><span class="p">(</span>
+        <span class="n">slice_coord</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">dims_to_paint</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">min_vals</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">max_vals</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Build an N-dimensional slice key with bounding-box slices for painted dims.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        slice_coord : list[int]</span>
+<span class="sd">            Base coordinate list for the volume slice; non-painted dims</span>
+<span class="sd">            become length-1 slices around their coordinate.</span>
+<span class="sd">        dims_to_paint : list[int]</span>
+<span class="sd">            Dimensions that will be painted (these receive the bbox bounds)</span>
+<span class="sd">        min_vals, max_vals : ndarray</span>
+<span class="sd">            Minimum (inclusive) and maximum (exclusive) bounds for each painted dimension</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple of slice</span>
+<span class="sd">            N-dimensional slice key. Every entry is a slice with explicit</span>
+<span class="sd">            bounds, so indexing with it never drops dimensions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">slice_key_list</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="nb">slice</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">coord</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">slice_coord</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dim</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dims_to_paint</span><span class="p">):</span>
+            <span class="n">slice_key_list</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">min_vals</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">max_vals</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">slice_key_list</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_expand_updated_slice_for_contour</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">updated_slice</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Expand dirty slices so contour refresh includes the full contour halo.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contour</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">updated_slice</span>
+
+        <span class="n">contour_offset</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contour</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">expand_slice</span><span class="p">(</span><span class="n">updated_slice</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">contour_offset</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_accumulate_updated_slice</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">updated_slice</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Merge a newly dirtied region into the pending partial refresh.&quot;&quot;&quot;</span>
+        <span class="n">updated_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expand_updated_slice_for_contour</span><span class="p">(</span><span class="n">updated_slice</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="o">=</span> <span class="n">updated_slice</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="nb">slice</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">s2</span><span class="o">.</span><span class="n">start</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">s2</span><span class="o">.</span><span class="n">stop</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span><span class="p">,</span> <span class="n">updated_slice</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_paint_region_with_mask</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">slice_key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">new_label</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">dims_to_paint</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">refresh</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">region_data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Universal painting method using a boolean mask within a bounding box.</span>
+
+<span class="sd">        This method extracts the common pattern shared by brush painting, fill</span>
+<span class="sd">        and polygon painting: extract a region, apply a mask, write back, update</span>
+<span class="sd">        caches. It manages cache updates for non-shared memory backends, respects</span>
+<span class="sd">        the preserve_labels setting (handled by _apply_mask_to_data), and updates</span>
+<span class="sd">        undo/redo history.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        slice_key : tuple of slice</span>
+<span class="sd">            N-dimensional slice key in volume space specifying the bounding box</span>
+<span class="sd">            region; length-1 slices for non-painted dims. Example:</span>
+<span class="sd">            (slice(5, 6), slice(100, 200), slice(150, 250)) for a 3D volume</span>
+<span class="sd">            where dims_to_paint=[1, 2].</span>
+<span class="sd">        mask : ndarray</span>
+<span class="sd">            Boolean mask indicating which pixels to paint within the bounding</span>
+<span class="sd">            box, with one axis per painted dimension.</span>
+<span class="sd">        new_label : int</span>
+<span class="sd">            Label value to paint.</span>
+<span class="sd">        dims_to_paint : list of int</span>
+<span class="sd">            Indices of dimensions being painted (e.g., [1, 2] for YX in a ZYX volume).</span>
+<span class="sd">        refresh : bool, optional</span>
+<span class="sd">            Whether to refresh the display after painting. Default is True.</span>
+<span class="sd">        region_data : np.ndarray | None, optional</span>
+<span class="sd">            Pre-loaded data for the region defined by slice_key, with one axis</span>
+<span class="sd">            per painted dimension. If None (default), data will be read from</span>
+<span class="sd">            self.data[slice_key]. Providing this avoids redundant reads when</span>
+<span class="sd">            data is already available (e.g. in fill).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># slice_key consists solely of slices, so the extracted region keeps</span>
+        <span class="c1"># the full data dimensionality; give the painted-dims mask (and a</span>
+        <span class="c1"># pre-loaded region, if any) matching length-1 axes.</span>
+        <span class="n">extra_axes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">dim</span> <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span> <span class="k">if</span> <span class="n">dim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dims_to_paint</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">extra_axes</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">extra_axes</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">region_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">region_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">region_data</span><span class="p">,</span> <span class="n">extra_axes</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">region_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">region_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">slice_key</span><span class="p">])</span>
+
+        <span class="n">effective_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apply_mask_to_data</span><span class="p">(</span>
+            <span class="n">region_data</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">slice_key</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">effective_mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># For numpy-backed data, region_data is a view into self.data, so</span>
+        <span class="c1"># _apply_mask_to_data already wrote through and this assignment is a</span>
+        <span class="c1"># no-op; for copy-returning backends (zarr, tensorstore, dask, ...)</span>
+        <span class="c1"># this is the actual write-back.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">slice_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">region_data</span>
+
+        <span class="c1"># Update caches (raw and view) for non-shared memory backends</span>
+        <span class="c1"># This handles mapping the N-D painted region to the currently displayed slice</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_caches_from_region</span><span class="p">(</span>
+            <span class="n">region_data</span><span class="p">,</span> <span class="n">slice_key</span><span class="p">,</span> <span class="n">effective_mask</span><span class="p">,</span> <span class="n">new_label</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Accumulate updated slices for batch painting (refresh=False)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_accumulate_updated_slice</span><span class="p">(</span><span class="n">slice_key</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">refresh</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_partial_labels_refresh</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_apply_mask_to_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">new_label</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">volume_slice</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Paint within a data region using a boolean mask.</span>
+
+<span class="sd">        This method operates on the data array in-place, using boolean mask</span>
+<span class="sd">        indexing. It handles preserve_labels logic and optimization to skip</span>
+<span class="sd">        unchanged pixels. The return value is the effective mask of pixels that</span>
+<span class="sd">        were actually painted.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : np.ndarray</span>
+<span class="sd">            The data to paint (e.g., extracted region/bounding box around polygon).</span>
+<span class="sd">            This array is modified IN PLACE.</span>
+<span class="sd">        mask : np.ndarray</span>
+<span class="sd">            Boolean mask indicating which pixels to paint, with shape matching data.</span>
+<span class="sd">        new_label : int</span>
+<span class="sd">            Label value to paint.</span>
+<span class="sd">        volume_slice : tuple of slice</span>
+<span class="sd">            Slice key in volume space for undo/redo history.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray | None</span>
+<span class="sd">            Boolean mask of the pixels that were painted, or None if the</span>
+<span class="sd">            operation made no changes.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        - Saves to undo/redo history</span>
+<span class="sd">        - Does NOT update caches or refresh display (caller&#39;s responsibility)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">effective_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preserve_labels</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">new_label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span><span class="p">:</span>
-                <span class="n">keep_coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">slice_coord</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_prev_selected_label</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_selected_label</span>
-                    <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span>
-                <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">keep_coords</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">slice_coord</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">background_value</span>
-                <span class="p">)</span>
-            <span class="n">slice_coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">sc</span><span class="p">[</span><span class="n">keep_coords</span><span class="p">]</span> <span class="k">for</span> <span class="n">sc</span> <span class="ow">in</span> <span class="n">slice_coord</span><span class="p">)</span>
+            <span class="n">source_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_preserve_labels_source_label</span><span class="p">(</span><span class="n">new_label</span><span class="p">)</span>
+            <span class="n">keep_mask</span> <span class="o">=</span> <span class="n">data</span> <span class="o">==</span> <span class="n">source_label</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">keep_mask</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">effective_mask</span> <span class="o">&amp;=</span> <span class="n">keep_mask</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_setitem</span><span class="p">(</span><span class="n">slice_coord</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="p">)</span>
+        <span class="n">effective_mask</span> <span class="o">&amp;=</span> <span class="n">data</span> <span class="o">!=</span> <span class="n">new_label</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">effective_mask</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_history</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_history_atom_for_mask_paint</span><span class="p">(</span>
+                <span class="n">volume_slice</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">effective_mask</span><span class="p">,</span> <span class="n">new_label</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">effective_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_label</span>
+
+        <span class="k">return</span> <span class="n">effective_mask</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_history_atom_for_mask_paint</span><span class="p">(</span>
+        <span class="n">volume_slice</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">region_data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">new_label</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_MaskedPaintAtom</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Build the undo history atom for a bbox+mask edit.</span>
+
+<span class="sd">        When every pixel in the bbox changed, the mask is dropped and a</span>
+<span class="sd">        snapshot of the old bbox is stored instead (redo only needs the</span>
+<span class="sd">        scalar label). Otherwise the mask and the old values under it are</span>
+<span class="sd">        stored. The atom takes ownership of ``mask``, which must not be</span>
+<span class="sd">        mutated afterwards.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">mask</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">_MaskedPaintAtom</span><span class="p">(</span>
+                <span class="n">volume_slice</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">region_data</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">new_label</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">_MaskedPaintAtom</span><span class="p">(</span>
+            <span class="n">volume_slice</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">region_data</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">new_label</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_refresh_caches_from_region</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">region_data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">slice_key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">new_label</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update raw and view caches with new data from a painted region.</span>
+
+<span class="sd">        Checks if the painted region intersects with the currently displayed slice.</span>
+<span class="sd">        If so, extracts the visible sub-region and updates the caches. This method</span>
+<span class="sd">        handles painting on non-shared memory backends (zarr, tensorstore, etc.)</span>
+<span class="sd">        that require manual cache updates.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        region_data : np.ndarray</span>
+<span class="sd">            The data of the painted region, with full data dimensionality.</span>
+<span class="sd">        slice_key : tuple of slice</span>
+<span class="sd">            The slices used to extract region_data from the full volume;</span>
+<span class="sd">            length-1 slices for non-painted dims.</span>
+<span class="sd">        mask : np.ndarray</span>
+<span class="sd">            Boolean mask indicating modified pixels in region_data.</span>
+<span class="sd">            Used to optimize texture updates.</span>
+<span class="sd">        new_label : int</span>
+<span class="sd">            The new label value that was painted. Used to optimize texture updates.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If the slice has not loaded yet (e.g. async slicing), the caches</span>
+        <span class="c1"># are placeholders; the pending slice load will pick up the painted</span>
+        <span class="c1"># data directly, so there is nothing to patch here.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">loaded</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Invariant: for numpy-backed data, both raw and view caches are</span>
+        <span class="c1"># already views into self.data, so manual cache patching would be</span>
+        <span class="c1"># redundant.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">shares_memory</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">view</span>
+        <span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="n">update_slices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_update_slices</span><span class="p">(</span><span class="n">slice_key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">update_slices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">region_slices</span><span class="p">,</span> <span class="n">view_slices</span> <span class="o">=</span> <span class="n">update_slices</span>
+
+        <span class="c1"># Extract visible data from region_data using computed slices</span>
+        <span class="n">visible_data</span> <span class="o">=</span> <span class="n">region_data</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">region_slices</span><span class="p">)]</span>
+        <span class="n">visible_mask</span> <span class="o">=</span> <span class="n">mask</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">region_slices</span><span class="p">)]</span>
+
+        <span class="n">visible_data</span><span class="p">,</span> <span class="n">visible_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_align_data_to_view</span><span class="p">(</span>
+            <span class="n">visible_data</span><span class="p">,</span> <span class="n">visible_mask</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Update raw cache (always safe to do if not sharing memory, updates display source)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">shares_memory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">raw</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">raw</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">view_slices</span><span class="p">)]</span> <span class="o">=</span> <span class="n">visible_data</span>
+
+        <span class="c1"># Contours are recomputed from the raw cache during</span>
+        <span class="c1"># _partial_labels_refresh (via _raw_to_displayed), so patching the</span>
+        <span class="c1"># texture view cache here would be redundant and immediately stale.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contour</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Update texture view cache by compute new color only once</span>
+        <span class="n">new_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">_data_to_texture</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">new_label</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">visible_data</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Update cache in-place for changed pixels only</span>
+        <span class="k">if</span> <span class="n">visible_mask</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">view</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">view_slices</span><span class="p">)]</span> <span class="o">=</span> <span class="n">new_color</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">view</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">view_slices</span><span class="p">)][</span><span class="n">visible_mask</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">new_color</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_update_slices</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">slice_key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">slice</span> <span class="o">|</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">slice</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate slices for extracting region data and updating the view.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple[list[slice | int], list[slice]] | None</span>
+<span class="sd">            A tuple (region_slices, view_slices). region_slices extracts</span>
+<span class="sd">            the currently visible part of the painted region (integer</span>
+<span class="sd">            indices collapse the non-displayed dims); view_slices addresses</span>
+<span class="sd">            that part within the displayed slice caches.</span>
+<span class="sd">            Returns None if the painted region is not currently visible.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">displayed_dims</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span>
+        <span class="n">pt_not_disp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_pt_not_disp</span><span class="p">()</span>
+
+        <span class="c1"># Two coordinate systems: region_slices indexes region_data (full ndim,</span>
+        <span class="c1"># so non-displayed dims collapse to an int that picks the visible plane);</span>
+        <span class="c1"># view_slices indexes the 2D display caches (one entry per displayed dim,</span>
+        <span class="c1"># all slices).</span>
+        <span class="n">region_slices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">slice</span> <span class="o">|</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="n">view_slices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">slice</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">displayed_dims</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">):</span>
+            <span class="n">axis_slice</span> <span class="o">=</span> <span class="n">slice_key</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">displayed_dims</span><span class="p">:</span>
+                <span class="n">view_slices</span><span class="p">[</span><span class="n">displayed_dims</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">d</span><span class="p">)]</span> <span class="o">=</span> <span class="n">axis_slice</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Non-displayed dims must contain the current slice position</span>
+                <span class="n">current_pos</span> <span class="o">=</span> <span class="n">pt_not_disp</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">axis_slice</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="n">current_pos</span> <span class="o">&lt;</span> <span class="n">axis_slice</span><span class="o">.</span><span class="n">stop</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+                <span class="n">region_slices</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">current_pos</span> <span class="o">-</span> <span class="n">axis_slice</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">region_slices</span><span class="p">,</span> <span class="n">view_slices</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_align_data_to_view</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">visible_data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">visible_mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Transpose data from ascending dimension order to the displayed order.</span>
+
+<span class="sd">        ``displayed`` may not be sorted (e.g. a transposed view), so the</span>
+<span class="sd">        extracted region (whose axes are in ascending dimension order) is</span>
+<span class="sd">        permuted to match the order the display caches expect.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">displayed_dims</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span>
+        <span class="n">sorted_dims</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">displayed_dims</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">list</span><span class="p">(</span><span class="n">displayed_dims</span><span class="p">)</span> <span class="o">!=</span> <span class="n">sorted_dims</span><span class="p">:</span>
+            <span class="n">perm</span> <span class="o">=</span> <span class="p">[</span><span class="n">sorted_dims</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">displayed_dims</span><span class="p">]</span>
+            <span class="n">visible_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">visible_data</span><span class="p">,</span> <span class="n">perm</span><span class="p">)</span>
+            <span class="n">visible_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">visible_mask</span><span class="p">,</span> <span class="n">perm</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">visible_data</span><span class="p">,</span> <span class="n">visible_mask</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_shape_and_dims_to_paint</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="nb">list</span><span class="p">]:</span>
         <span class="n">dims_to_paint</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_dims_to_paint</span><span class="p">())</span>
@@ -2431,28 +3092,13 @@ window.runMermaid = runMermaid;</script>
             <span class="k">for</span> <span class="n">axis_indices</span> <span class="ow">in</span> <span class="n">indices</span>
         <span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contour</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="c1"># Expand the slice by 1 pixel as the changes can go beyond</span>
-            <span class="c1"># the original slice because of the morphological dilation</span>
-            <span class="c1"># (1 pixel because get_contours always applies 1 pixel dilation)</span>
-            <span class="n">updated_slice</span> <span class="o">=</span> <span class="n">expand_slice</span><span class="p">(</span><span class="n">updated_slice</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contour</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># update data view</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">view</span><span class="p">[</span><span class="n">displayed_indices</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">_data_to_texture</span><span class="p">(</span><span class="n">visible_values</span><span class="p">)</span>
             <span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="o">=</span> <span class="n">updated_slice</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
-                <span class="p">[</span>
-                    <span class="nb">slice</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">s2</span><span class="o">.</span><span class="n">start</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">s2</span><span class="o">.</span><span class="n">stop</span><span class="p">))</span>
-                    <span class="k">for</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
-                        <span class="n">updated_slice</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span>
-                    <span class="p">)</span>
-                <span class="p">]</span>
-            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_accumulate_updated_slice</span><span class="p">(</span><span class="n">updated_slice</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">refresh</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_partial_labels_refresh</span><span class="p">()</span></div>
@@ -2617,25 +3263,13 @@ window.runMermaid = runMermaid;</script>
     <span class="n">_slice_request_class</span> <span class="o">=</span> <span class="n">_LabelsSliceRequest</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_coerce_indices_for_vectorization</span><span class="p">(</span>
-    <span class="n">array</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">]]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Coerces indices so that they can be used for vectorized indexing in the given data array.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">_is_array_type</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="s1">&#39;xarray.DataArray&#39;</span><span class="p">):</span>
-        <span class="c1"># Fix indexing for xarray if necessary</span>
-        <span class="c1"># See http://xarray.pydata.org/en/stable/indexing.html#vectorized-indexing</span>
-        <span class="c1"># for difference from indexing numpy</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
-        <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
-            <span class="k">pass</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
-
-
 <span class="k">class</span><span class="w"> </span><span class="nc">WrongSelectedLabelError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Raised when the selected label is not in the data array.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Raised when a label value is out of range for the layer&#39;s data dtype.</span>
+
+<span class="sd">    Raised both when setting ``selected_label`` and when painting</span>
+<span class="sd">    (``paint``/``fill``/``paint_polygon``) with a value the data dtype cannot</span>
+<span class="sd">    represent.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>

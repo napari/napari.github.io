@@ -41,19 +41,15 @@ Display a surface timeseries using data from nilearn
     [fetch_surf_nki_enhanced] Downloading data from 
     https://www.nitrc.org/frs/download.php/8261/A00028185_rh_preprocessed_fsaverage5
     _fwhm6.gii ...
-    [fetch_surf_nki_enhanced] Downloaded 5939200 of 42412120 bytes (14.0%%, 00 HR 00
+    [fetch_surf_nki_enhanced] Downloaded 6307840 of 42412120 bytes (14.9%%, 00 HR 00
     MIN 06 SEC remaining)
-    [fetch_surf_nki_enhanced] Downloaded 33447936 of 42412120 bytes (78.9%%, 00 HR 
-    00 MIN 01 SEC remaining)
     [fetch_surf_nki_enhanced]  ...done. (3 seconds, 0 min)
 
     [fetch_surf_nki_enhanced] Downloading data from 
     https://www.nitrc.org/frs/download.php/8260/A00028185_lh_preprocessed_fsaverage5
     _fwhm6.gii ...
-    [fetch_surf_nki_enhanced] Downloaded 8323072 of 42402060 bytes (19.6%%, 00 HR 00
-    MIN 04 SEC remaining)
-    [fetch_surf_nki_enhanced] Downloaded 38682624 of 42402060 bytes (91.2%%, 00 HR 
-    00 MIN 00 SEC remaining)
+    [fetch_surf_nki_enhanced] Downloaded 5193728 of 42402060 bytes (12.2%%, 00 HR 00
+    MIN 07 SEC remaining)
     [fetch_surf_nki_enhanced]  ...done. (3 seconds, 0 min)
 
     /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:50: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.

@@ -111,6 +111,14 @@ graph LR
 	napari._qt.widgets.qt_highlight_preview(napari._qt.widgets.qt_highlight_preview)
 	napari._qt.widgets.qt_highlight_preview --> napari._qt.widgets.qt_color_swatch
 	click napari._qt.widgets.qt_highlight_preview "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_highlight_preview.py" _blank
+	napari._qt.widgets.qt_histogram(napari._qt.widgets.qt_histogram)
+	click napari._qt.widgets.qt_histogram "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_histogram.py" _blank
+	napari._qt.widgets.qt_histogram_content(napari._qt.widgets.qt_histogram_content)
+	napari._qt.widgets.qt_histogram_content --> napari._qt.widgets.qt_histogram_settings
+	click napari._qt.widgets.qt_histogram_content "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_histogram_content.py" _blank
+	napari._qt.widgets.qt_histogram_settings(napari._qt.widgets.qt_histogram_settings)
+	napari._qt.widgets.qt_histogram_settings --> napari._qt.utils
+	click napari._qt.widgets.qt_histogram_settings "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_histogram_settings.py" _blank
 	napari._qt.widgets.qt_logger(napari._qt.widgets.qt_logger)
 	napari._qt.widgets.qt_logger --> napari._qt.dialogs.qt_about
 	click napari._qt.widgets.qt_logger "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_logger.py" _blank
@@ -199,6 +207,9 @@ graph LR
 		 napari._qt.widgets.qt_extension2reader
 		 napari._qt.widgets.qt_font_size
 		 napari._qt.widgets.qt_highlight_preview
+		 napari._qt.widgets.qt_histogram
+		 napari._qt.widgets.qt_histogram_content
+		 napari._qt.widgets.qt_histogram_settings
 		 napari._qt.widgets.qt_logger
 		 napari._qt.widgets.qt_progress_bar
 		 napari._qt.widgets.qt_scrollbar
@@ -267,7 +278,10 @@ napari/
   │   ├─_qprocessors.py
   │   └─_qproviders.py
   ├─widgets/
+  │ ├─qt_histogram_settings.py
+  │ ├─qt_histogram.py
   │ ├─qt_viewer_status_bar.py
+  │ ├─qt_histogram_content.py
   │ ├─qt_tooltip.py
   │ ├─qt_command_palette.py
   │ ├─qt_dims_sorter.py

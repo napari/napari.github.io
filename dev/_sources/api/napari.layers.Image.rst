@@ -108,6 +108,7 @@ napari.layers.Image
       ~Image.extent
       ~Image.gamma
       ~Image.help
+      ~Image.histogram
       ~Image.interpolation2d
       ~Image.interpolation3d
       ~Image.iso_threshold

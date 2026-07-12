@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../_static/documentation_options.js?v=974bd8a9"></script>
+    <script src="../_static/documentation_options.js?v=b4da5571"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0a4';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -473,6 +473,7 @@
 <li class="toctree-l2"><a class="reference internal" href="axis-names.html">Axis names in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="units.html">Scale and unit-aware rendering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="handedness.html">Axis directions, data, and handedness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="histogram.html">Histogram</a></li>
 <li class="toctree-l2"><a class="reference internal" href="triangulation.html">Triangulation backends for the napari Shapes layer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rendering.html">Rendering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="performance.html">napari performance</a></li>
@@ -522,10 +523,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../gallery/nD_points_with_features.html">nD points with features</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/gui.html">gui (17)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/gui.html">gui (18)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/3D_image_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/action_manager.html">Action manager</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/bbox_annotator.html">bbox annotator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/boids_simulation.html">Interactive Control Over Parallel Computations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/custom_key_bindings.html">Custom key bindings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/custom_mouse_functions.html">Custom mouse functions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/features_table_widget.html">Features table widget</a></li>
@@ -548,7 +550,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../gallery/without_gui_qt.html">napari without gui_qt</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/interactivity.html">interactivity (7)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/interactivity.html">interactivity (8)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/boids_simulation.html">Interactive Control Over Parallel Computations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/cursor_position.html">Cursor position</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/cursor_ray.html">Cursor ray</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/drag_and_drop_python_code.html">Drag and Drop Python Code Example</a></li>
@@ -873,129 +876,97 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
 <td><p></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.position</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.synced</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.position</span></code></p></td>
 <td><p>Position of the cursor in world coordinates. If the cursor is outside of, the canvas, then the last known position is stored instead.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.viewbox</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.viewbox</span></code></p></td>
 <td><p>Position of the cursor in the grid.</p></td>
 <td><p>`tuple[int, int]</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.scaled</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.scaled</span></code></p></td>
 <td><p>Flag to indicate whether cursor size should be scaled to zoom. Only relevant for circle and square cursors which are drawn with a particular size.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.size</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.size</span></code></p></td>
 <td><p>Size of the cursor in canvas pixels. Only relevant for circle and square cursors which are drawn with a particular size.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.style</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.style</span></code></p></td>
 <td><p>Style of the cursor. Must be one of     * square: A square     * circle: A circle     * cross: A cross     * forbidden: A forbidden symbol     * pointing: A finger for pointing     * standard: The standard cursor     # crosshair: A crosshair</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">CursorStyle</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.ndim</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.ndim</span></code></p></td>
 <td><p>Number of dimensions.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.ndisplay</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.ndisplay</span></code></p></td>
 <td><p>Number of displayed dimensions.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">Literal</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.order</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.order</span></code></p></td>
 <td><p>Tuple of ordering the dimensions, where the last dimensions are rendered.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.axis_labels</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.axis_labels</span></code></p></td>
 <td><p>Tuple of labels for each dimension.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.rollable</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.rollable</span></code></p></td>
 <td><p>Tuple of axis roll state. If True the axis is rollable.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.range</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.range</span></code></p></td>
 <td><p>List of tuples (min, max, step), one for each dimension in world coordinates space. Lower and upper bounds are inclusive.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.margin_left</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.margin_left</span></code></p></td>
 <td><p>Left margin in world pixels of the slice for each dimension.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.margin_right</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.margin_right</span></code></p></td>
 <td><p>Right margin in world pixels of the slice for each dimension.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.point</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.point</span></code></p></td>
 <td><p>Dims position in world coordinates for each dimension.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.units</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.units</span></code></p></td>
 <td><p>Shared world units for each dimension. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, no additional unit conversion is applied.</p></td>
 <td><p>`tuple[pint.registry.Unit, …]</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.last_used</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.last_used</span></code></p></td>
 <td><p>Dimension which was last interacted with.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.stride</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.stride</span></code></p></td>
 <td><p>Number of layers to place in each grid viewbox before moving on to the next viewbox. The default ordering is to place the most visible layer in the top left corner of the grid. A negative stride will cause the order in which the layers are placed in the grid to be reversed.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.shape</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.shape</span></code></p></td>
 <td><p>Number of rows and columns in the grid. A value of -1 for either or both of will be used the row and column numbers will trigger an auto calculation of the necessary grid shape to appropriately fill all the layers at the appropriate stride.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.enabled</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.enabled</span></code></p></td>
 <td><p>If grid is enabled or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.spacing</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.spacing</span></code></p></td>
 <td><p>Spacing between grid viewboxes. If between 0 and 1, it’s interpreted as a proportion of the size of the viewboxes. If equal or greater than 1, it’s interpreted as screen pixels.  .. versionadded:: 0.6.0     <code class="docutils literal notranslate"><span class="pre">spacing</span></code> was added in 0.6.0.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.visible</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.visible</span></code></p></td>
 <td><p>If tooltip is visible or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.text</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.text</span></code></p></td>
 <td><p>text of tooltip</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_move_callbacks</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_wheel_callbacks</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_drag_callbacks</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_double_click_callbacks</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.help</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.status</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Union</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.theme</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.title</span></code></p></td>
-<td><p>The title of the viewer window.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_over_canvas</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_move_callbacks</span></code></p></td>
 <td><p></p></td>
@@ -1026,10 +997,46 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.title</span></code></p></td>
-<td><p>The title of the viewer window. By default ‘napari’.</p></td>
+<td><p>The title of the viewer window.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_over_canvas</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_move_callbacks</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_wheel_callbacks</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_drag_callbacks</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_double_click_callbacks</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.help</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.status</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Union</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.theme</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.title</span></code></p></td>
+<td><p>The title of the viewer window. By default ‘napari’.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_over_canvas</span></code></p></td>
 <td><p></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>

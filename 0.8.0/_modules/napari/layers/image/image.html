@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../../_static/documentation_options.js?v=974bd8a9"></script>
+    <script src="../../../../_static/documentation_options.js?v=b4da5571"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -494,7 +494,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0a4';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -937,6 +937,7 @@ window.runMermaid = runMermaid;</script>
     <span class="kn">import</span><span class="w"> </span><span class="nn">numpy.typing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npt</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">pint</span>
 
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.histogram</span><span class="w"> </span><span class="kn">import</span> <span class="n">HistogramModel</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArrayLike</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.transforms</span><span class="w"> </span><span class="kn">import</span> <span class="n">Affine</span>
 
@@ -1322,6 +1323,26 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_attenuation</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">attenuation</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">histogram</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HistogramModel</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Histogram model for this layer, created lazily on first access.</span>
+
+<span class="sd">        The histogram model computes and stores histogram data for the layer,</span>
+<span class="sd">        responding to changes in layer data, contrast limits, and gamma.</span>
+<span class="sd">        The model is not created until the ``histogram`` property is first</span>
+<span class="sd">        accessed.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        HistogramModel</span>
+<span class="sd">            Histogram model instance for this layer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_histogram&#39;</span><span class="p">):</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.histogram</span><span class="w"> </span><span class="kn">import</span> <span class="n">HistogramModel</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_histogram</span> <span class="o">=</span> <span class="n">HistogramModel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_histogram</span>
 
     <span class="nd">@ScalarFieldBase</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">setter</span>  <span class="c1"># type: ignore[attr-defined]</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LayerDataProtocol</span> <span class="o">|</span> <span class="n">MultiScaleData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

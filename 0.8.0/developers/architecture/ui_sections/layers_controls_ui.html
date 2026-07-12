@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../_static/documentation_options.js?v=974bd8a9"></script>
+    <script src="../../../_static/documentation_options.js?v=b4da5571"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -505,7 +505,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0a4';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -1042,6 +1042,7 @@ window.runMermaid = runMermaid;</script>
 	napari._qt.layer_controls.qt_image_controls_base(napari._qt.layer_controls.qt_image_controls_base)
 	napari._qt.layer_controls.qt_image_controls_base --&gt; napari._qt.layer_controls.qt_layer_controls_base
 	napari._qt.layer_controls.qt_image_controls_base --&gt; napari._qt.layer_controls.widgets
+	napari._qt.layer_controls.qt_image_controls_base --&gt; napari._qt.layer_controls.widgets.qt_histogram_control
 	napari._qt.layer_controls.qt_image_controls_base --&gt; napari.layers
 	click napari._qt.layer_controls.qt_image_controls_base &quot;https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/qt_image_controls_base.py&quot; _blank
 	napari._qt.layer_controls.qt_labels_controls(napari._qt.layer_controls.qt_labels_controls)
@@ -1102,6 +1103,7 @@ window.runMermaid = runMermaid;</script>
 	napari._qt.layer_controls.widgets --&gt; napari._qt.layer_controls.widgets.qt_contrast_limits
 	napari._qt.layer_controls.widgets --&gt; napari._qt.layer_controls.widgets.qt_face_color
 	napari._qt.layer_controls.widgets --&gt; napari._qt.layer_controls.widgets.qt_gamma_slider
+	napari._qt.layer_controls.widgets --&gt; napari._qt.layer_controls.widgets.qt_histogram_control
 	napari._qt.layer_controls.widgets --&gt; napari._qt.layer_controls.widgets.qt_multiscale_level_control
 	napari._qt.layer_controls.widgets --&gt; napari._qt.layer_controls.widgets.qt_opacity_blending_controls
 	napari._qt.layer_controls.widgets --&gt; napari._qt.layer_controls.widgets.qt_out_slice_checkbox
@@ -1113,6 +1115,7 @@ window.runMermaid = runMermaid;</script>
 	napari._qt.layer_controls.widgets._image --&gt; napari._qt.layer_controls.widgets._image.qt_depiction_control
 	napari._qt.layer_controls.widgets._image --&gt; napari._qt.layer_controls.widgets._image.qt_interpolation_combobox
 	napari._qt.layer_controls.widgets._image --&gt; napari._qt.layer_controls.widgets._image.qt_render_control
+	napari._qt.layer_controls.widgets._image --&gt; napari._qt.layer_controls.widgets.qt_histogram_control
 	click napari._qt.layer_controls.widgets._image &quot;https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/_image/__init__.py&quot; _blank
 	napari._qt.layer_controls.widgets._image.qt_depiction_control(napari._qt.layer_controls.widgets._image.qt_depiction_control)
 	napari._qt.layer_controls.widgets._image.qt_depiction_control --&gt; napari._qt.layer_controls.widgets.qt_widget_controls_base
@@ -1268,6 +1271,7 @@ window.runMermaid = runMermaid;</script>
 	click napari._qt.layer_controls.widgets.qt_colormap_control &quot;https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_colormap_control.py&quot; _blank
 	napari._qt.layer_controls.widgets.qt_contrast_limits(napari._qt.layer_controls.widgets.qt_contrast_limits)
 	napari._qt.layer_controls.widgets.qt_contrast_limits --&gt; napari._qt.layer_controls.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.widgets.qt_contrast_limits --&gt; napari._qt.widgets.qt_mode_buttons
 	napari._qt.layer_controls.widgets.qt_contrast_limits --&gt; napari.layers
 	click napari._qt.layer_controls.widgets.qt_contrast_limits &quot;https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_contrast_limits.py&quot; _blank
 	napari._qt.layer_controls.widgets.qt_face_color(napari._qt.layer_controls.widgets.qt_face_color)
@@ -1277,6 +1281,10 @@ window.runMermaid = runMermaid;</script>
 	napari._qt.layer_controls.widgets.qt_gamma_slider(napari._qt.layer_controls.widgets.qt_gamma_slider)
 	napari._qt.layer_controls.widgets.qt_gamma_slider --&gt; napari._qt.layer_controls.widgets.qt_widget_controls_base
 	click napari._qt.layer_controls.widgets.qt_gamma_slider &quot;https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_gamma_slider.py&quot; _blank
+	napari._qt.layer_controls.widgets.qt_histogram_control(napari._qt.layer_controls.widgets.qt_histogram_control)
+	napari._qt.layer_controls.widgets.qt_histogram_control --&gt; napari._qt.layer_controls.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.widgets.qt_histogram_control --&gt; napari.layers
+	click napari._qt.layer_controls.widgets.qt_histogram_control &quot;https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_histogram_control.py&quot; _blank
 	napari._qt.layer_controls.widgets.qt_multiscale_level_control(napari._qt.layer_controls.widgets.qt_multiscale_level_control)
 	napari._qt.layer_controls.widgets.qt_multiscale_level_control --&gt; napari._qt.layer_controls.widgets.qt_widget_controls_base
 	napari._qt.layer_controls.widgets.qt_multiscale_level_control --&gt; napari.layers
@@ -1360,6 +1368,7 @@ window.runMermaid = runMermaid;</script>
 		 napari._qt.layer_controls.widgets.qt_contrast_limits
 		 napari._qt.layer_controls.widgets.qt_face_color
 		 napari._qt.layer_controls.widgets.qt_gamma_slider
+		 napari._qt.layer_controls.widgets.qt_histogram_control
 		 napari._qt.layer_controls.widgets.qt_multiscale_level_control
 		 napari._qt.layer_controls.widgets.qt_opacity_blending_controls
 		 napari._qt.layer_controls.widgets.qt_out_slice_checkbox
@@ -1447,6 +1456,7 @@ window.runMermaid = runMermaid;</script>
   │ ├─qt_layer_controls_container.py
   │ ├─qt_shapes_controls.py
   │ ├─widgets/
+  │ │ ├─qt_histogram_control.py
   │ │ ├─_points/
   │ │ │ ├─__init__.py
   │ │ │ ├─qt_border_color.py

@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../_static/documentation_options.js?v=974bd8a9"></script>
+    <script src="../_static/documentation_options.js?v=b4da5571"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0a4';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -473,6 +473,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../guides/axis-names.html">Axis names in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/units.html">Scale and unit-aware rendering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/handedness.html">Axis directions, data, and handedness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/histogram.html">Histogram</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/triangulation.html">Triangulation backends for the napari Shapes layer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/rendering.html">Rendering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/performance.html">napari performance</a></li>
@@ -522,10 +523,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../gallery/nD_points_with_features.html">nD points with features</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/gui.html">gui (17)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/gui.html">gui (18)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/3D_image_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/action_manager.html">Action manager</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/bbox_annotator.html">bbox annotator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/boids_simulation.html">Interactive Control Over Parallel Computations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/custom_key_bindings.html">Custom key bindings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/custom_mouse_functions.html">Custom mouse functions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/features_table_widget.html">Features table widget</a></li>
@@ -548,7 +550,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../gallery/without_gui_qt.html">napari without gui_qt</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/interactivity.html">interactivity (7)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/interactivity.html">interactivity (8)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gallery/boids_simulation.html">Interactive Control Over Parallel Computations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/cursor_position.html">Cursor position</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/cursor_ray.html">Cursor ray</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../gallery/drag_and_drop_python_code.html">Drag and Drop Python Code Example</a></li>
@@ -858,6 +861,26 @@ keys to make a selection. Once you have the action you want highlighted, press
 <kbd class="kbd docutils literal notranslate">Command/Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">Shift</kbd>+<kbd class="kbd docutils literal notranslate">P</kbd> to open the <a class="reference internal" href="#command-palette"><span class="std std-ref">command palette</span></a> and search for “features”.
 To see it in action, see the <a class="reference internal" href="../gallery/features_table_widget.html#sphx-glr-gallery-features-table-widget-py"><span class="std std-ref">Features table widget</span></a> gallery example.</p>
 </section>
+<section id="histogram">
+<span id="histogram-feature"></span><h2>Histogram<a class="headerlink" href="#histogram" title="Link to this heading">#</a></h2>
+<p>The histogram shows the distribution of pixel values for the active image layer.
+It’s a powerful tool for understanding your data’s intensity range and making
+informed decisions when adjusting contrast limits and gamma.</p>
+<a class="reference internal image-reference" href="../_images/histogram-overview.png"><img alt="napari histogram in layer controls" src="../_images/histogram-overview.png" style="width: 60%;" />
+</a>
+<p>Access the histogram using the button next to the contrast limits slider:</p>
+<ul class="simple">
+<li><p><strong>Left-click</strong> to show or hide the histogram inline in layer controls.</p></li>
+<li><p><strong>Right-click</strong> to open the advanced histogram popup with a larger view,
+gamma slider, and reset/full-range contrast buttons.</p></li>
+</ul>
+<p>The histogram supports two modes: <strong>canvas</strong> (the default) and <strong>full</strong>.
+<strong>Canvas</strong> mode shows the histogram for the currently visible slice,
+while <strong>full</strong> mode computes the histogram from the entire dataset.
+For large or chunked data, the histogram iteratively
+samples to avoid loading everything into memory.</p>
+<p>See the <a class="reference internal" href="../guides/histogram.html#histogram-guide"><span class="std std-ref">Histogram</span></a> for full details.</p>
+</section>
 <section id="running-python-scripts-with-napari">
 <h2>Running python scripts with napari<a class="headerlink" href="#running-python-scripts-with-napari" title="Link to this heading">#</a></h2>
 <p>Images and other data files are not the only thing that napari can read! You can also run any python script in napari by <a class="reference external" href="https://github.com/napari/napari/blob/main/examples/drag_and_drop_python_code.py">drag’n’dropping</a> the script onto the viewer, or by passing the script as an argument to napari. When a script is opened with napari, the first viewer instance created by the script will be replaced with the current existing viewer, if any.</p>
@@ -934,6 +957,7 @@ Setting it to an empty string will disable the startup script.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-palette">Command Palette</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measure-distances-and-areas">Measure distances and areas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features-table-widget">Features table widget</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram">Histogram</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-python-scripts-with-napari">Running python scripts with napari</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#startup-script">Startup script</a></li>
 </ul>

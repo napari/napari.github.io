@@ -34,6 +34,7 @@ layer:
   - Opacity
   - Contrast Limits
   - Auto-contrast
+  - Histogram
   - Gamma
   - Colormap
   - Blending
@@ -42,8 +43,13 @@ layer:
 Before we can use any of the GUI `layer controls`, we must load an image.
 
 1. Start napari.
-1. Click `File` > `Open Sample` > `napari builtins` > `Cells (3D+2Ch)` or any
+2. Click `File` > `Open Sample` > `napari builtins` > `Cells (3D+2Ch)` or any
    sample image of your choice.
+
+```{image} ../../_static/images/histogram-overview.png
+:alt: napari histogram in layer controls
+:width: 60%
+```
 
 ### Buttons
 
@@ -73,6 +79,14 @@ The GUI controls may be adjusted as follows:
 - `auto-contrast` is adjusted by selecting either `once` or `continuous`. `once`
   adjusts the contrast one time while `continuous` adjusts the contrast as you
   explore the image.
+
+- `histogram` shows the distribution of pixel values for the layer. The
+  histogram button sits next to the contrast limits slider.
+  - **Left-click** the button to toggle the histogram inline in the layer controls.
+  - **Right-click** to open an advanced popup with the histogram, a larger
+    contrast limits slider, gamma correction, and reset buttons.
+  See the {ref}`histogram-guide` for a detailed explanation of canvas and full
+  modes, log scale, and how it handles large data.
 
 - `gamma` can be adjusted from a minimum of 0.20 to a maximum of 2.00.
   *Gamma correction* or *gamma* is a nonlinear operation used to encode and

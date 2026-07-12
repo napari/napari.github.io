@@ -72,6 +72,33 @@ To open it, go to `Layer -> Visualize -> Features Table Widget` or press
 {kbd}`Command/Ctrl+Shift+P` to open the [command palette](command-palette) and search for "features".
 To see it in action, see the {ref}`sphx_glr_gallery_features_table_widget.py` gallery example.
 
+(histogram-feature)=
+
+## Histogram
+
+The histogram shows the distribution of pixel values for the active image layer.
+It's a powerful tool for understanding your data's intensity range and making
+informed decisions when adjusting contrast limits and gamma.
+
+```{image} ../_static/images/histogram-overview.png
+:alt: napari histogram in layer controls
+:width: 60%
+```
+
+Access the histogram using the button next to the contrast limits slider:
+
+- **Left-click** to show or hide the histogram inline in layer controls.
+- **Right-click** to open the advanced histogram popup with a larger view,
+  gamma slider, and reset/full-range contrast buttons.
+
+The histogram supports two modes: **canvas** (the default) and **full**.
+**Canvas** mode shows the histogram for the currently visible slice,
+while **full** mode computes the histogram from the entire dataset.
+For large or chunked data, the histogram iteratively
+samples to avoid loading everything into memory.
+
+See the {ref}`histogram-guide` for full details.
+
 ## Running python scripts with napari
 
 Images and other data files are not the only thing that napari can read! You can also run any python script in napari by [drag'n'dropping](https://github.com/napari/napari/blob/main/examples/drag_and_drop_python_code.py) the script onto the viewer, or by passing the script as an argument to napari. When a script is opened with napari, the first viewer instance created by the script will be replaced with the current existing viewer, if any.

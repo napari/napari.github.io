@@ -6,6 +6,7 @@
 maxdepth: 1
 caption: With this tag
 ---
+../gallery/boids_simulation.rst
 ../gallery/cursor_position.rst
 ../gallery/cursor_ray.rst
 ../gallery/drag_and_drop_python_code.rst

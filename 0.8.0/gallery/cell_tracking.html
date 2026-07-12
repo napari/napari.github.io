@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../_static/documentation_options.js?v=974bd8a9"></script>
+    <script src="../_static/documentation_options.js?v=b4da5571"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0a4';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -473,6 +473,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../guides/axis-names.html">Axis names in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/units.html">Scale and unit-aware rendering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/handedness.html">Axis directions, data, and handedness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/histogram.html">Histogram</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/triangulation.html">Triangulation backends for the napari Shapes layer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/rendering.html">Rendering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/performance.html">napari performance</a></li>
@@ -522,10 +523,11 @@
 <li class="toctree-l4"><a class="reference internal" href="nD_points_with_features.html">nD points with features</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/gui.html">gui (17)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/gui.html">gui (18)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="3D_image_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="action_manager.html">Action manager</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bbox_annotator.html">bbox annotator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="boids_simulation.html">Interactive Control Over Parallel Computations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="custom_key_bindings.html">Custom key bindings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="custom_mouse_functions.html">Custom mouse functions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="features_table_widget.html">Features table widget</a></li>
@@ -548,7 +550,8 @@
 <li class="toctree-l4"><a class="reference internal" href="without_gui_qt.html">napari without gui_qt</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/interactivity.html">interactivity (7)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/interactivity.html">interactivity (8)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="boids_simulation.html">Interactive Control Over Parallel Computations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cursor_position.html">Cursor position</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cursor_ray.html">Cursor ray</a></li>
 <li class="toctree-l4"><a class="reference internal" href="drag_and_drop_python_code.html">Drag and Drop Python Code Example</a></li>
@@ -851,48 +854,50 @@ for ways to install additional packages from within napari.</p>
 </div>
 <img src="../_images/sphx_glr_cell_tracking_001.png" srcset="../_images/sphx_glr_cell_tracking_001.png" alt="cell tracking" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading...
 From: https://drive.google.com/uc?id=1tuHI_io67gVdFZBA5E97fXrAWaxI2cqi
-To: /home/runner/work/docs/docs/.cache/napari cell tracking example/tmphhkqvqrk
+To: /home/runner/work/docs/docs/.cache/napari cell tracking example/tmp87ifr8fv
 
   0%|          | 0.00/455k [00:00&lt;?, ?B/s]
-100%|██████████| 455k/455k [00:00&lt;00:00, 23.8MB/s]
+100%|██████████| 455k/455k [00:00&lt;00:00, 23.1MB/s]
 Downloading...
 From: https://drive.google.com/uc?id=1qhAbIZiEKfo_a38YFtw7KJ3JjEhicDeJ
-To: /home/runner/work/docs/docs/.cache/napari_cell_tracking_example/tmpxxe9zcc2
+To: /home/runner/work/docs/docs/.cache/napari_cell_tracking_example/tmpfo1v2wxr
 
   0%|          | 0.00/15.7M [00:00&lt;?, ?B/s]
- 13%|█▎        | 2.10M/15.7M [00:00&lt;00:00, 20.7MB/s]
- 43%|████▎     | 6.82M/15.7M [00:00&lt;00:00, 19.8MB/s]
-100%|██████████| 15.7M/15.7M [00:00&lt;00:00, 38.9MB/s]
+ 30%|██▉       | 4.72M/15.7M [00:00&lt;00:00, 44.9MB/s]
+ 60%|█████▉    | 9.44M/15.7M [00:00&lt;00:00, 31.2MB/s]
+100%|██████████| 15.7M/15.7M [00:00&lt;00:00, 48.1MB/s]
 
-/tmp/tmpfpsul_fr/general_2d.zip:   0%|          | 0.00/38.0M [00:00&lt;?, ?iB/s]
-/tmp/tmpfpsul_fr/general_2d.zip:  25%|██▌       | 9.66M/38.0M [00:00&lt;00:00, 101MiB/s]
-/tmp/tmpfpsul_fr/general_2d.zip:  51%|█████     | 19.3M/38.0M [00:00&lt;00:00, 78.0MiB/s]
-/tmp/tmpfpsul_fr/general_2d.zip:  71%|███████   | 27.1M/38.0M [00:00&lt;00:00, 69.7MiB/s]
-/tmp/tmpfpsul_fr/general_2d.zip:  89%|████████▉ | 33.9M/38.0M [00:00&lt;00:00, 64.6MiB/s]
-/tmp/tmpfpsul_fr/general_2d.zip: 100%|██████████| 38.0M/38.0M [00:00&lt;00:00, 72.7MiB/s]
+/tmp/tmpnrtef3vv/general_2d.zip:   0%|          | 0.00/38.0M [00:00&lt;?, ?iB/s]
+/tmp/tmpnrtef3vv/general_2d.zip:   3%|▎         | 1.26M/38.0M [00:00&lt;00:02, 13.2MiB/s]
+/tmp/tmpnrtef3vv/general_2d.zip:  26%|██▋       | 10.0M/38.0M [00:00&lt;00:00, 31.4MiB/s]
+/tmp/tmpnrtef3vv/general_2d.zip:  33%|███▎      | 12.6M/38.0M [00:00&lt;00:01, 18.3MiB/s]
+/tmp/tmpnrtef3vv/general_2d.zip:  51%|█████     | 19.5M/38.0M [00:00&lt;00:00, 28.9MiB/s]
+/tmp/tmpnrtef3vv/general_2d.zip:  60%|██████    | 22.9M/38.0M [00:00&lt;00:00, 30.4MiB/s]
+/tmp/tmpnrtef3vv/general_2d.zip:  79%|███████▉  | 30.0M/38.0M [00:00&lt;00:00, 39.1MiB/s]
+/tmp/tmpnrtef3vv/general_2d.zip: 100%|██████████| 38.0M/38.0M [00:01&lt;00:00, 37.1MiB/s]
 
 Extracting features:   0%|          | 0/30 [00:00&lt;?, ?it/s]
-Extracting features:  17%|█▋        | 5/30 [00:00&lt;00:00, 49.87it/s]
-Extracting features:  37%|███▋      | 11/30 [00:00&lt;00:00, 50.56it/s]
-Extracting features:  57%|█████▋    | 17/30 [00:00&lt;00:00, 51.40it/s]
-Extracting features:  77%|███████▋  | 23/30 [00:00&lt;00:00, 50.41it/s]
-Extracting features:  97%|█████████▋| 29/30 [00:00&lt;00:00, 50.90it/s]
-Extracting features: 100%|██████████| 30/30 [00:00&lt;00:00, 50.89it/s]
+Extracting features:  17%|█▋        | 5/30 [00:00&lt;00:00, 49.84it/s]
+Extracting features:  37%|███▋      | 11/30 [00:00&lt;00:00, 50.28it/s]
+Extracting features:  57%|█████▋    | 17/30 [00:00&lt;00:00, 51.05it/s]
+Extracting features:  77%|███████▋  | 23/30 [00:00&lt;00:00, 50.34it/s]
+Extracting features:  97%|█████████▋| 29/30 [00:00&lt;00:00, 50.95it/s]
+Extracting features: 100%|██████████| 30/30 [00:00&lt;00:00, 50.87it/s]
 
 Building windows:   0%|          | 0/27 [00:00&lt;?, ?it/s]
-Building windows: 100%|██████████| 27/27 [00:00&lt;00:00, 16154.95it/s]
+Building windows: 100%|██████████| 27/27 [00:00&lt;00:00, 15754.90it/s]
 
 Computing associations:   0%|          | 0/27 [00:00&lt;?, ?it/s]
-Computing associations:  11%|█         | 3/27 [00:00&lt;00:00, 25.10it/s]
-Computing associations:  22%|██▏       | 6/27 [00:00&lt;00:00, 25.33it/s]
-Computing associations:  33%|███▎      | 9/27 [00:00&lt;00:00, 25.36it/s]
-Computing associations:  44%|████▍     | 12/27 [00:00&lt;00:00, 25.56it/s]
-Computing associations:  56%|█████▌    | 15/27 [00:00&lt;00:00, 25.46it/s]
-Computing associations:  67%|██████▋   | 18/27 [00:00&lt;00:00, 25.17it/s]
-Computing associations:  78%|███████▊  | 21/27 [00:00&lt;00:00, 24.93it/s]
-Computing associations:  89%|████████▉ | 24/27 [00:00&lt;00:00, 25.04it/s]
-Computing associations: 100%|██████████| 27/27 [00:01&lt;00:00, 25.39it/s]
-Computing associations: 100%|██████████| 27/27 [00:01&lt;00:00, 25.28it/s]
+Computing associations:  11%|█         | 3/27 [00:00&lt;00:00, 25.16it/s]
+Computing associations:  22%|██▏       | 6/27 [00:00&lt;00:00, 25.36it/s]
+Computing associations:  33%|███▎      | 9/27 [00:00&lt;00:00, 25.46it/s]
+Computing associations:  44%|████▍     | 12/27 [00:00&lt;00:00, 25.70it/s]
+Computing associations:  56%|█████▌    | 15/27 [00:00&lt;00:00, 25.60it/s]
+Computing associations:  67%|██████▋   | 18/27 [00:00&lt;00:00, 25.30it/s]
+Computing associations:  78%|███████▊  | 21/27 [00:00&lt;00:00, 25.08it/s]
+Computing associations:  89%|████████▉ | 24/27 [00:00&lt;00:00, 25.21it/s]
+Computing associations: 100%|██████████| 27/27 [00:01&lt;00:00, 25.63it/s]
+Computing associations: 100%|██████████| 27/27 [00:01&lt;00:00, 25.45it/s]
 
   0%|          | 0/30 [00:00&lt;?, ?it/s]
 29 edges in frame 0  Total edges: 29:   0%|          | 0/30 [00:00&lt;?, ?it/s]
@@ -927,13 +932,13 @@ Computing associations: 100%|██████████| 27/27 [00:01&lt;00:
 
 
 Greedily matched edges:   0%|          | 0/851 [00:00&lt;?, ?it/s]
-Greedily matched edges:  99%|█████████▉| 845/851 [00:00&lt;00:00, 185569.24it/s]
+Greedily matched edges:  99%|█████████▉| 845/851 [00:00&lt;00:00, 180026.76it/s]
 
 Converting graph to CTC results:   0%|          | 0/53 [00:00&lt;?, ?it/s]
-Converting graph to CTC results: 100%|██████████| 53/53 [00:00&lt;00:00, 1675.69it/s]
+Converting graph to CTC results: 100%|██████████| 53/53 [00:00&lt;00:00, 1691.83it/s]
 
 Computing centroids:   0%|          | 0/30 [00:00&lt;?, ?it/s]
-Computing centroids:  67%|██████▋   | 20/30 [00:00&lt;00:00, 195.49it/s]
+Computing centroids:  67%|██████▋   | 20/30 [00:00&lt;00:00, 193.16it/s]
 
 
 Converting CTC to napari tracks:   0%|          | 0/53 [00:00&lt;?, ?it/s]
@@ -1010,7 +1015,7 @@ Converting CTC to napari tracks:   0%|          | 0/53 [00:00&lt;?, ?it/s]
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 17.291 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 14.749 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-cell-tracking-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/9dd9c4364987d0762ab196c129254867/cell_tracking.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">cell_tracking.ipynb</span></code></a></p>

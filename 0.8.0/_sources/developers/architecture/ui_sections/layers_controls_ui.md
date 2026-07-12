@@ -19,6 +19,7 @@ graph LR
 	napari._qt.layer_controls.qt_image_controls_base(napari._qt.layer_controls.qt_image_controls_base)
 	napari._qt.layer_controls.qt_image_controls_base --> napari._qt.layer_controls.qt_layer_controls_base
 	napari._qt.layer_controls.qt_image_controls_base --> napari._qt.layer_controls.widgets
+	napari._qt.layer_controls.qt_image_controls_base --> napari._qt.layer_controls.widgets.qt_histogram_control
 	napari._qt.layer_controls.qt_image_controls_base --> napari.layers
 	click napari._qt.layer_controls.qt_image_controls_base "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/qt_image_controls_base.py" _blank
 	napari._qt.layer_controls.qt_labels_controls(napari._qt.layer_controls.qt_labels_controls)
@@ -79,6 +80,7 @@ graph LR
 	napari._qt.layer_controls.widgets --> napari._qt.layer_controls.widgets.qt_contrast_limits
 	napari._qt.layer_controls.widgets --> napari._qt.layer_controls.widgets.qt_face_color
 	napari._qt.layer_controls.widgets --> napari._qt.layer_controls.widgets.qt_gamma_slider
+	napari._qt.layer_controls.widgets --> napari._qt.layer_controls.widgets.qt_histogram_control
 	napari._qt.layer_controls.widgets --> napari._qt.layer_controls.widgets.qt_multiscale_level_control
 	napari._qt.layer_controls.widgets --> napari._qt.layer_controls.widgets.qt_opacity_blending_controls
 	napari._qt.layer_controls.widgets --> napari._qt.layer_controls.widgets.qt_out_slice_checkbox
@@ -90,6 +92,7 @@ graph LR
 	napari._qt.layer_controls.widgets._image --> napari._qt.layer_controls.widgets._image.qt_depiction_control
 	napari._qt.layer_controls.widgets._image --> napari._qt.layer_controls.widgets._image.qt_interpolation_combobox
 	napari._qt.layer_controls.widgets._image --> napari._qt.layer_controls.widgets._image.qt_render_control
+	napari._qt.layer_controls.widgets._image --> napari._qt.layer_controls.widgets.qt_histogram_control
 	click napari._qt.layer_controls.widgets._image "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/_image/__init__.py" _blank
 	napari._qt.layer_controls.widgets._image.qt_depiction_control(napari._qt.layer_controls.widgets._image.qt_depiction_control)
 	napari._qt.layer_controls.widgets._image.qt_depiction_control --> napari._qt.layer_controls.widgets.qt_widget_controls_base
@@ -245,6 +248,7 @@ graph LR
 	click napari._qt.layer_controls.widgets.qt_colormap_control "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_colormap_control.py" _blank
 	napari._qt.layer_controls.widgets.qt_contrast_limits(napari._qt.layer_controls.widgets.qt_contrast_limits)
 	napari._qt.layer_controls.widgets.qt_contrast_limits --> napari._qt.layer_controls.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.widgets.qt_contrast_limits --> napari._qt.widgets.qt_mode_buttons
 	napari._qt.layer_controls.widgets.qt_contrast_limits --> napari.layers
 	click napari._qt.layer_controls.widgets.qt_contrast_limits "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_contrast_limits.py" _blank
 	napari._qt.layer_controls.widgets.qt_face_color(napari._qt.layer_controls.widgets.qt_face_color)
@@ -254,6 +258,10 @@ graph LR
 	napari._qt.layer_controls.widgets.qt_gamma_slider(napari._qt.layer_controls.widgets.qt_gamma_slider)
 	napari._qt.layer_controls.widgets.qt_gamma_slider --> napari._qt.layer_controls.widgets.qt_widget_controls_base
 	click napari._qt.layer_controls.widgets.qt_gamma_slider "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_gamma_slider.py" _blank
+	napari._qt.layer_controls.widgets.qt_histogram_control(napari._qt.layer_controls.widgets.qt_histogram_control)
+	napari._qt.layer_controls.widgets.qt_histogram_control --> napari._qt.layer_controls.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.widgets.qt_histogram_control --> napari.layers
+	click napari._qt.layer_controls.widgets.qt_histogram_control "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_histogram_control.py" _blank
 	napari._qt.layer_controls.widgets.qt_multiscale_level_control(napari._qt.layer_controls.widgets.qt_multiscale_level_control)
 	napari._qt.layer_controls.widgets.qt_multiscale_level_control --> napari._qt.layer_controls.widgets.qt_widget_controls_base
 	napari._qt.layer_controls.widgets.qt_multiscale_level_control --> napari.layers
@@ -337,6 +345,7 @@ graph LR
 		 napari._qt.layer_controls.widgets.qt_contrast_limits
 		 napari._qt.layer_controls.widgets.qt_face_color
 		 napari._qt.layer_controls.widgets.qt_gamma_slider
+		 napari._qt.layer_controls.widgets.qt_histogram_control
 		 napari._qt.layer_controls.widgets.qt_multiscale_level_control
 		 napari._qt.layer_controls.widgets.qt_opacity_blending_controls
 		 napari._qt.layer_controls.widgets.qt_out_slice_checkbox
@@ -424,6 +433,7 @@ napari/
   │ ├─qt_layer_controls_container.py
   │ ├─qt_shapes_controls.py
   │ ├─widgets/
+  │ │ ├─qt_histogram_control.py
   │ │ ├─_points/
   │ │ │ ├─__init__.py
   │ │ │ ├─qt_border_color.py

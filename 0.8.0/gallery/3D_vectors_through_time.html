@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../_static/documentation_options.js?v=974bd8a9"></script>
+    <script src="../_static/documentation_options.js?v=b4da5571"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0a4';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0rc0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -473,6 +473,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../guides/axis-names.html">Axis names in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/units.html">Scale and unit-aware rendering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/handedness.html">Axis directions, data, and handedness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/histogram.html">Histogram</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/triangulation.html">Triangulation backends for the napari Shapes layer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/rendering.html">Rendering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/performance.html">napari performance</a></li>
@@ -522,10 +523,11 @@
 <li class="toctree-l4"><a class="reference internal" href="nD_points_with_features.html">nD points with features</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/gui.html">gui (17)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/gui.html">gui (18)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="3D_image_plane_rendering.html">3D image plane rendering</a></li>
 <li class="toctree-l4"><a class="reference internal" href="action_manager.html">Action manager</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bbox_annotator.html">bbox annotator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="boids_simulation.html">Interactive Control Over Parallel Computations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="custom_key_bindings.html">Custom key bindings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="custom_mouse_functions.html">Custom mouse functions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="features_table_widget.html">Features table widget</a></li>
@@ -548,7 +550,8 @@
 <li class="toctree-l4"><a class="reference internal" href="without_gui_qt.html">napari without gui_qt</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/interactivity.html">interactivity (7)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/interactivity.html">interactivity (8)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="boids_simulation.html">Interactive Control Over Parallel Computations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cursor_position.html">Cursor position</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cursor_ray.html">Cursor ray</a></li>
 <li class="toctree-l4"><a class="reference internal" href="drag_and_drop_python_code.html">Drag and Drop Python Code Example</a></li>
@@ -878,89 +881,55 @@ Although we’re also measuring rotations (and strains), but here we’re intere
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading...
 From (original): https://drive.google.com/uc?id=1UZEoOtHMMeJMXVoWr6IZraZnvQe8ExNJ
-From (redirected): https://drive.google.com/uc?id=1UZEoOtHMMeJMXVoWr6IZraZnvQe8ExNJ&amp;confirm=t&amp;uuid=3656ba1b-20f9-4254-ab13-f9ee233a8724
-To: /home/runner/work/docs/docs/.cache/pooch/tmpzdwh0yhl
+From (redirected): https://drive.google.com/uc?id=1UZEoOtHMMeJMXVoWr6IZraZnvQe8ExNJ&amp;confirm=t&amp;uuid=2eaece8e-2634-49c4-aa43-72a9e06dc80b
+To: /home/runner/work/docs/docs/.cache/pooch/tmpzp6b6blw
 
   0%|          | 0.00/549M [00:00&lt;?, ?B/s]
-  1%|          | 4.72M/549M [00:00&lt;00:31, 17.1MB/s]
-  2%|▏         | 9.44M/549M [00:00&lt;00:20, 26.9MB/s]
-  3%|▎         | 17.8M/549M [00:00&lt;00:11, 45.3MB/s]
-  4%|▍         | 23.6M/549M [00:00&lt;00:15, 33.4MB/s]
-  7%|▋         | 36.2M/549M [00:00&lt;00:12, 42.0MB/s]
-  8%|▊         | 42.5M/549M [00:01&lt;00:12, 40.5MB/s]
-  9%|▊         | 47.7M/549M [00:01&lt;00:11, 42.3MB/s]
- 10%|█         | 56.6M/549M [00:01&lt;00:09, 52.1MB/s]
- 11%|█▏        | 62.9M/549M [00:01&lt;00:15, 30.8MB/s]
- 13%|█▎        | 71.8M/549M [00:02&lt;00:14, 33.2MB/s]
- 15%|█▌        | 82.8M/549M [00:02&lt;00:10, 45.4MB/s]
- 16%|█▋        | 89.7M/549M [00:02&lt;00:15, 29.8MB/s]
- 18%|█▊        | 98.6M/549M [00:02&lt;00:12, 36.7MB/s]
- 19%|█▉        | 104M/549M [00:02&lt;00:12, 34.5MB/s]
- 20%|█▉        | 110M/549M [00:03&lt;00:14, 30.8MB/s]
- 22%|██▏       | 120M/549M [00:03&lt;00:10, 42.3MB/s]
- 23%|██▎       | 126M/549M [00:03&lt;00:10, 40.7MB/s]
- 24%|██▍       | 131M/549M [00:03&lt;00:11, 36.5MB/s]
- 26%|██▌       | 143M/549M [00:03&lt;00:07, 51.3MB/s]
- 27%|██▋       | 149M/549M [00:04&lt;00:13, 28.6MB/s]
- 29%|██▉       | 158M/549M [00:04&lt;00:10, 36.9MB/s]
- 30%|███       | 165M/549M [00:04&lt;00:10, 37.0MB/s]
- 31%|███▏      | 172M/549M [00:04&lt;00:08, 42.8MB/s]
- 32%|███▏      | 178M/549M [00:04&lt;00:11, 31.5MB/s]
- 34%|███▍      | 187M/549M [00:05&lt;00:11, 30.9MB/s]
- 36%|███▌      | 198M/549M [00:05&lt;00:08, 40.7MB/s]
- 37%|███▋      | 203M/549M [00:05&lt;00:08, 39.1MB/s]
- 38%|███▊      | 209M/549M [00:05&lt;00:09, 35.8MB/s]
- 40%|████      | 221M/549M [00:06&lt;00:11, 28.4MB/s]
- 41%|████▏     | 226M/549M [00:06&lt;00:10, 31.9MB/s]
- 43%|████▎     | 238M/549M [00:06&lt;00:07, 40.6MB/s]
- 45%|████▍     | 246M/549M [00:06&lt;00:06, 47.4MB/s]
- 46%|████▌     | 253M/549M [00:07&lt;00:10, 28.8MB/s]
- 47%|████▋     | 260M/549M [00:07&lt;00:08, 34.0MB/s]
- 49%|████▉     | 271M/549M [00:07&lt;00:06, 43.4MB/s]
- 51%|█████     | 277M/549M [00:07&lt;00:06, 44.1MB/s]
- 52%|█████▏    | 283M/549M [00:07&lt;00:07, 37.9MB/s]
- 53%|█████▎    | 293M/549M [00:07&lt;00:05, 48.8MB/s]
- 55%|█████▍    | 299M/549M [00:08&lt;00:07, 31.5MB/s]
- 56%|█████▌    | 307M/549M [00:08&lt;00:06, 38.5MB/s]
- 57%|█████▋    | 313M/549M [00:08&lt;00:07, 29.7MB/s]
- 58%|█████▊    | 321M/549M [00:08&lt;00:06, 37.1MB/s]
- 60%|█████▉    | 327M/549M [00:08&lt;00:06, 34.4MB/s]
- 60%|██████    | 331M/549M [00:09&lt;00:05, 36.6MB/s]
- 62%|██████▏   | 338M/549M [00:09&lt;00:06, 34.5MB/s]
- 63%|██████▎   | 346M/549M [00:09&lt;00:04, 42.8MB/s]
- 64%|██████▍   | 352M/549M [00:09&lt;00:04, 43.4MB/s]
- 65%|██████▌   | 359M/549M [00:09&lt;00:06, 30.7MB/s]
- 67%|██████▋   | 366M/549M [00:10&lt;00:05, 36.3MB/s]
- 68%|██████▊   | 374M/549M [00:10&lt;00:05, 30.8MB/s]
- 69%|██████▉   | 380M/549M [00:10&lt;00:04, 35.7MB/s]
- 71%|███████   | 388M/549M [00:10&lt;00:04, 37.2MB/s]
- 73%|███████▎  | 399M/549M [00:10&lt;00:03, 48.9MB/s]
- 74%|███████▍  | 405M/549M [00:11&lt;00:04, 34.6MB/s]
- 76%|███████▌  | 417M/549M [00:11&lt;00:02, 48.3MB/s]
- 77%|███████▋  | 425M/549M [00:11&lt;00:03, 39.8MB/s]
- 79%|███████▉  | 435M/549M [00:12&lt;00:03, 29.4MB/s]
- 82%|████████▏ | 447M/549M [00:12&lt;00:02, 40.8MB/s]
- 83%|████████▎ | 454M/549M [00:12&lt;00:02, 41.4MB/s]
- 84%|████████▍ | 460M/549M [00:12&lt;00:02, 34.9MB/s]
- 86%|████████▌ | 471M/549M [00:12&lt;00:01, 45.8MB/s]
- 87%|████████▋ | 478M/549M [00:12&lt;00:01, 44.1MB/s]
- 88%|████████▊ | 484M/549M [00:12&lt;00:01, 45.9MB/s]
- 89%|████████▉ | 490M/549M [00:13&lt;00:01, 37.4MB/s]
- 91%|█████████▏| 502M/549M [00:13&lt;00:00, 52.5MB/s]
- 93%|█████████▎| 509M/549M [00:13&lt;00:00, 43.3MB/s]
- 94%|█████████▍| 517M/549M [00:13&lt;00:00, 51.6MB/s]
- 96%|█████████▌| 525M/549M [00:14&lt;00:00, 26.0MB/s]
- 97%|█████████▋| 534M/549M [00:14&lt;00:00, 33.5MB/s]
- 99%|█████████▉| 544M/549M [00:14&lt;00:00, 42.3MB/s]
-100%|██████████| 549M/549M [00:14&lt;00:00, 37.7MB/s]
+  0%|          | 2.62M/549M [00:00&lt;00:35, 15.2MB/s]
+  1%|          | 6.82M/549M [00:00&lt;00:35, 15.2MB/s]
+  4%|▍         | 21.5M/549M [00:00&lt;00:10, 49.9MB/s]
+  5%|▌         | 29.4M/549M [00:00&lt;00:11, 44.2MB/s]
+  7%|▋         | 38.3M/549M [00:00&lt;00:11, 42.5MB/s]
+ 10%|▉         | 53.0M/549M [00:01&lt;00:12, 39.2MB/s]
+ 13%|█▎        | 69.7M/549M [00:01&lt;00:09, 49.9MB/s]
+ 16%|█▌        | 86.5M/549M [00:01&lt;00:08, 51.9MB/s]
+ 20%|█▉        | 110M/549M [00:02&lt;00:07, 61.1MB/s]
+ 23%|██▎       | 128M/549M [00:02&lt;00:05, 71.5MB/s]
+ 25%|██▍       | 136M/549M [00:02&lt;00:06, 68.1MB/s]
+ 28%|██▊       | 154M/549M [00:02&lt;00:06, 60.9MB/s]
+ 32%|███▏      | 175M/549M [00:03&lt;00:05, 68.0MB/s]
+ 34%|███▎      | 185M/549M [00:03&lt;00:05, 65.8MB/s]
+ 37%|███▋      | 202M/549M [00:03&lt;00:04, 69.8MB/s]
+ 41%|████      | 223M/549M [00:03&lt;00:03, 93.0MB/s]
+ 43%|████▎     | 235M/549M [00:03&lt;00:03, 89.5MB/s]
+ 46%|████▌     | 250M/549M [00:04&lt;00:04, 70.8MB/s]
+ 49%|████▉     | 271M/549M [00:04&lt;00:02, 93.2MB/s]
+ 52%|█████▏    | 284M/549M [00:04&lt;00:03, 82.7MB/s]
+ 56%|█████▌    | 305M/549M [00:04&lt;00:02, 99.5MB/s]
+ 58%|█████▊    | 317M/549M [00:04&lt;00:02, 93.7MB/s]
+ 61%|██████    | 332M/549M [00:04&lt;00:02, 103MB/s]
+ 63%|██████▎   | 344M/549M [00:04&lt;00:02, 90.9MB/s]
+ 66%|██████▌   | 363M/549M [00:05&lt;00:01, 100MB/s]
+ 69%|██████▊   | 376M/549M [00:05&lt;00:01, 103MB/s]
+ 71%|███████   | 388M/549M [00:05&lt;00:02, 78.9MB/s]
+ 74%|███████▍  | 405M/549M [00:05&lt;00:01, 86.3MB/s]
+ 76%|███████▌  | 418M/549M [00:05&lt;00:01, 68.1MB/s]
+ 80%|████████  | 441M/549M [00:06&lt;00:01, 95.3MB/s]
+ 83%|████████▎ | 456M/549M [00:06&lt;00:01, 91.1MB/s]
+ 87%|████████▋ | 479M/549M [00:06&lt;00:00, 118MB/s]
+ 90%|████████▉ | 493M/549M [00:06&lt;00:00, 101MB/s]
+ 94%|█████████▍| 514M/549M [00:06&lt;00:00, 112MB/s]
+ 98%|█████████▊| 537M/549M [00:06&lt;00:00, 135MB/s]
+100%|██████████| 549M/549M [00:06&lt;00:00, 78.5MB/s]
 Downloading...
 From: https://drive.google.com/uc?id=1-AAkBUXykxXG3Ve20jPk43co-m3f9ZWB
-To: /home/runner/work/docs/docs/.cache/pooch/tmpxmr9u9p_
+To: /home/runner/work/docs/docs/.cache/pooch/tmpj1k0gb0b
 
   0%|          | 0.00/6.72M [00:00&lt;?, ?B/s]
- 16%|█▌        | 1.05M/6.72M [00:00&lt;00:00, 9.79MB/s]
-100%|██████████| 6.72M/6.72M [00:00&lt;00:00, 34.6MB/s]
-100%|██████████| 6.72M/6.72M [00:00&lt;00:00, 30.9MB/s]
+ 23%|██▎       | 1.57M/6.72M [00:00&lt;00:00, 15.4MB/s]
+ 47%|████▋     | 3.15M/6.72M [00:00&lt;00:00, 14.0MB/s]
+100%|██████████| 6.72M/6.72M [00:00&lt;00:00, 18.1MB/s]
+100%|██████████| 6.72M/6.72M [00:00&lt;00:00, 17.3MB/s]
 </pre></div>
 </div>
 </section>
@@ -1034,7 +1003,7 @@ To: /home/runner/work/docs/docs/.cache/pooch/tmpxmr9u9p_
   theme_type=get_system_theme(),
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 31.712 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 21.830 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-3d-vectors-through-time-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/86d7f2e6204fe93e93d52e0c33205c62/3D_vectors_through_time.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">3D_vectors_through_time.ipynb</span></code></a></p>

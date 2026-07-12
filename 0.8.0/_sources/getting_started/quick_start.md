@@ -159,9 +159,9 @@ the default keybinding {kbd}`m`.
 ```{raw} html
 <figure>
   <video width="100%" controls autoplay loop muted playsinline>
-    <source src="../../_static/images/manual_label.webm" type="video/webm" />
-    <source src="../../_static/images/manual_label.mp4" type="video/mp4" />
-    <img src="../../_static/images/manual_label.png"
+    <source src="../_static/images/manual_label.webm" type="video/webm" />
+    <source src="../_static/images/manual_label.mp4" type="video/mp4" />
+    <img src="../_static/images/manual_label.png"
       title="Your browser does not support the video tag"
       alt="Manually labeling a region of interest in napari"
     >

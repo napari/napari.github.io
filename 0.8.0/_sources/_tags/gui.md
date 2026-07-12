@@ -9,6 +9,7 @@ caption: With this tag
 ../gallery/3D_image_plane_rendering.rst
 ../gallery/action_manager.rst
 ../gallery/bbox_annotator.rst
+../gallery/boids_simulation.rst
 ../gallery/custom_key_bindings.rst
 ../gallery/custom_mouse_functions.rst
 ../gallery/features_table_widget.rst

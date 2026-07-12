@@ -80,6 +80,7 @@ graph LR
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.widgets.qt_dims_sorter
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.widgets.qt_spinbox
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.widgets.qt_tooltip
+	napari._qt.widgets.qt_viewer_buttons --> napari.components.camera
 	napari._qt.widgets.qt_viewer_buttons --> napari.layers
 	click napari._qt.widgets.qt_viewer_buttons "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_buttons.py" _blank
 	napari._qt.widgets.qt_viewer_dock_widget(napari._qt.widgets.qt_viewer_dock_widget)

@@ -129,6 +129,7 @@ napari.components.Camera
       
       
       
+      
    
    
 

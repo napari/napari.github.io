@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../_static/documentation_options.js?v=d3fc6cc0"></script>
+    <script src="../../../_static/documentation_options.js?v=72ee9254"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1176,6 +1176,10 @@ window.runMermaid = runMermaid;</script>
         <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">horizontal_axis_orientation</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_orientation</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_synced_camera</span><span class="p">()</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">synced_camera</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_synced_camera</span>
+        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_viewer_grid</span><span class="p">()</span>
         <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">grid_stride</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
@@ -1198,7 +1202,10 @@ window.runMermaid = runMermaid;</script>
 
         <span class="c1"># Connect events</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ndisplay</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ndisplay</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fit_to_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ndisplay</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_save_camera_state</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;first&#39;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ndisplay</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_ndisplay_changed</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fit_to_view</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">point</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
@@ -1210,6 +1217,10 @@ window.runMermaid = runMermaid;</script>
         <span class="c1">#        can remove the following line. Note that because of this we fire double events,</span>
         <span class="c1">#        but this should be ok because we have early returns when slices are unchanged.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_step</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
+
+        <span class="c1"># Track previous ndisplay for per-mode camera state caching.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_previous_ndisplay</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">margin_left</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">margin_right</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_status_from_cursor</span><span class="p">)</span>
@@ -1264,6 +1275,11 @@ window.runMermaid = runMermaid;</script>
             <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">vertical_axis_orientation</span><span class="p">,</span>
             <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">horizontal_axis_orientation</span><span class="p">,</span>
         <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_synced_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update camera synced mode based on settings.&quot;&quot;&quot;</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">synced_camera</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_viewer_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Keep viewer grid settings up to date with settings values.&quot;&quot;&quot;</span>
@@ -1412,6 +1428,53 @@ window.runMermaid = runMermaid;</script>
             <span class="n">angles</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span>
         <span class="p">)</span></div>
 
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_save_camera_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save camera state for the mode we&#39;re leaving (runs at &#39;first&#39;).</span>
+
+<span class="sd">        Always caches the current camera state so that the &quot;separate&quot;</span>
+<span class="sd">        (synced=False) mode can restore it when returning to this</span>
+<span class="sd">        ndisplay mode. Caching is harmless in synced mode since</span>
+<span class="sd">        ``_on_ndisplay_changed`` does not use the cached values there.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">_cache_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_previous_ndisplay</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_ndisplay_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle ndisplay changes based on the current camera synced mode.</span>
+
+<span class="sd">        * ``synced=True`` — center and zoom persist between modes.</span>
+<span class="sd">          The depth (z) component is set from the dims slider on 2D→3D</span>
+<span class="sd">          and the dims slider tracks the camera z on 3D→2D.</span>
+<span class="sd">        * ``synced=False`` — each mode remembers its own center, zoom,</span>
+<span class="sd">          and angles independently (per-mode caching).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span><span class="p">:</span>
+            <span class="n">center</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">order</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">new_display_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">point</span><span class="p">[</span><span class="n">new_display_dim</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">set_point</span><span class="p">(</span><span class="n">new_display_dim</span><span class="p">,</span> <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">center</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_previous_ndisplay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Separate (synced=False) — per-mode caching</span>
+        <span class="n">new_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span>
+        <span class="n">cached</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">_pop_cached_state</span><span class="p">(</span><span class="n">new_mode</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cached</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">center</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">zoom</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">angles</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># First time in this mode — use fit_to_view defaults</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fit_to_view</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">_cache_state</span><span class="p">(</span><span class="n">new_mode</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_previous_ndisplay</span> <span class="o">=</span> <span class="n">new_mode</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_scene_parameters</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>

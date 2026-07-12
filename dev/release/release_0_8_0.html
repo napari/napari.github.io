@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/release/release_0_8_0.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="⚠️ Note: these release notes are still in draft while 0.8.0rc0 is in prerelease testing. ⚠️ Sun, Jul 12, 2026 We’re happy to announce the release of napari 0.8.0! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing large ..." />
+<meta property="og:description" content="⚠️ Note: these release notes are still in draft while 0.8.0rc1 is in prerelease testing. ⚠️ Mon, Jul 13, 2026 We’re happy to announce the release of napari 0.8.0! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing large ..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="⚠️ Note: these release notes are still in draft while 0.8.0rc0 is in prerelease testing. ⚠️ Sun, Jul 12, 2026 We’re happy to announce the release of napari 0.8.0! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing large ..." />
+<meta name="description" content="⚠️ Note: these release notes are still in draft while 0.8.0rc1 is in prerelease testing. ⚠️ Mon, Jul 13, 2026 We’re happy to announce the release of napari 0.8.0! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing large ..." />
 
     <title>napari 0.8.0 &#8212; napari</title>
   
@@ -823,8 +823,8 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="napari-0-8-0">
 <h1>napari 0.8.0<a class="headerlink" href="#napari-0-8-0" title="Link to this heading">#</a></h1>
-<p>⚠️ <em>Note: these release notes are still in draft while 0.8.0rc0 is in prerelease testing.</em> ⚠️</p>
-<p><em>Sun, Jul 12, 2026</em></p>
+<p>⚠️ <em>Note: these release notes are still in draft while 0.8.0rc1 is in prerelease testing.</em> ⚠️</p>
+<p><em>Mon, Jul 13, 2026</em></p>
 <p>We’re happy to announce the release of napari 0.8.0!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
 It’s designed for browsing, annotating, and analyzing large multi-dimensional
@@ -873,8 +873,45 @@ at large remote data. Try it out!</p>
 </figure></section>
 <section id="synced-cameras-between-2d-and-3d-views">
 <h3>Synced cameras between 2D and 3D views<a class="headerlink" href="#synced-cameras-between-2d-and-3d-views" title="Link to this heading">#</a></h3>
-<p>Ever switched between 2D and 3D views to check out your data, only to be frustrated that the zoom and center has been reset? Now, by default, the cameras are <a class="reference external" href="https://github.com/napari/napari/pull/9151"><code class="docutils literal notranslate"><span class="pre">synced</span></code> between views (#9151)</a>! The synced camera’s zoom and center persists when switching between 2D and 3D, with the depth (Z) component synced through the dimension slider to complete the round-trip.</p>
-<p>To unlock the cameras from each other for completely separate views, you can toggle <code class="docutils literal notranslate"><span class="pre">viewer.camera.synced</span> <span class="pre">=</span> <span class="pre">False</span></code> from the Camera popup (right-click 2D/3D button) or <strong>Toggle Synced Camera</strong> (Ctrl/Cmd+U) in the <strong>View</strong> menu. Set your preferred default in <strong>Preferences</strong> -&gt; <strong>Application</strong> -&gt; <strong>Synced Camera</strong>.</p>
+<p>Ever switched between 2D and 3D views to check out your data, only to be
+frustrated that the zoom and center has been reset? Now, by default, the
+cameras are
+<a class="reference external" href="https://github.com/napari/napari/pull/9151">synced between views (#9151)</a>!
+The synced camera’s zoom and center persists when switching between 2D and 3D,
+with the depth (Z) component synced through the dimension slider to complete
+the round-trip.</p>
+<p>To unlock the cameras from each other for completely separate views, you can
+toggle <code class="docutils literal notranslate"><span class="pre">viewer.camera.synced</span> <span class="pre">=</span> <span class="pre">False</span></code> from the Camera popup (right-click 2D/3D
+button) or <strong>Toggle Synced Camera</strong> (Ctrl/Cmd+U) in the <strong>View</strong> menu. Set your
+preferred default in <strong>Preferences</strong> -&gt; <strong>Application</strong> -&gt; <strong>Synced Camera</strong>.</p>
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/synced-cameras.webm" type="video/webm" />
+    <source src="../_static/images/synced-cameras.mp4" type="video/mp4" />
+    <img src="../_static/images/synced-cameras.jpg"
+      title="Your browser does not support the video tag"
+      alt="Video showing zoom and position staying in sync between 2D and 3D views of the same data."
+    >
+  </video>
+</figure></section>
+<section id="auto-fill-label-contours-when-painting">
+<h3>Auto-fill label contours when painting<a class="headerlink" href="#auto-fill-label-contours-when-painting" title="Link to this heading">#</a></h3>
+<p>Annotating blobs in 2D just got a lot faster! In paint mode, right-click to
+start a <em>self-filling</em> area annotation. Then draw your shape, and when you come
+back around to the start point, the shape will automatically fill with your
+selected label! (<a class="reference external" href="https://github.com/napari/napari/pull/9075">#9075</a>)
+See it in action below:</p>
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/auto-fill-labels.webm" type="video/webm" />
+    <source src="../_static/images/auto-fill-labels.mp4" type="video/mp4" />
+    <img src="../_static/images/auto-fill-labels.jpg"
+      title="Your browser does not support the video tag"
+      alt="Video showing an annotation around a coin, with the coin filling with the annotated label at the end."
+    >
+  </video>
+</figure><p>We intend to keep refining this functionality, so if you like it but it doesn’t
+<em>quite</em> fit in your workflow, please <a class="reference internal" href="../community/index.html#community"><span class="std std-ref">get in touch</span></a>!</p>
 </section>
 <section id="paint-into-more-arrays-faster">
 <h3>Paint into more arrays faster!<a class="headerlink" href="#paint-into-more-arrays-faster" title="Link to this heading">#</a></h3>
@@ -911,6 +948,7 @@ WCAG-compliant theme? Try out the new WCAG table in
 <ul class="simple">
 <li><p>Add floating axes canvas overlay (<a class="reference external" href="https://github.com/napari/napari/pull/8262">#8262</a>)</p></li>
 <li><p>Histogram for the Image layer controls and contrast limits popup (<a class="reference external" href="https://github.com/napari/napari/pull/8391">#8391</a>)</p></li>
+<li><p>Feat: add cellpose-inspired right-click to encircle mask creation interaction mode (<a class="reference external" href="https://github.com/napari/napari/pull/9075">#9075</a>)</p></li>
 <li><p>Toggleable <code class="docutils literal notranslate"><span class="pre">synced</span></code> (default) and separated camera views across ndisplay (<a class="reference external" href="https://github.com/napari/napari/pull/9151">#9151</a>)</p></li>
 </ul>
 </section>
@@ -993,6 +1031,7 @@ WCAG-compliant theme? Try out the new WCAG table in
 <li><p>Add video and fallback image for histogram highlight (<a class="reference external" href="https://github.com/napari/docs/pull/1063">docs#1063</a>)</p></li>
 <li><p>Fix video relative paths which had extra ‘..’ (<a class="reference external" href="https://github.com/napari/docs/pull/1064">docs#1064</a>)</p></li>
 <li><p>Add Camera Guide to explain synced/separate camera modes (<a class="reference external" href="https://github.com/napari/docs/pull/1065">docs#1065</a>)</p></li>
+<li><p>Final update of release notes for 0.8.0 (<a class="reference external" href="https://github.com/napari/docs/pull/1066">docs#1066</a>)</p></li>
 <li><p>examples: remove deprecated <code class="docutils literal notranslate"><span class="pre">scale_bar.unit</span></code>  and enable <code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.visible</span> <span class="pre">=</span> <span class="pre">True</span></code>  (<a class="reference external" href="https://github.com/napari/napari/pull/9012">#9012</a>)</p></li>
 </ul>
 </section>
@@ -1030,7 +1069,6 @@ WCAG-compliant theme? Try out the new WCAG table in
 <li><p>fix(typing): add typing and fix mypy error in <code class="docutils literal notranslate"><span class="pre">qt_message_popup.py</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/9111">#9111</a>)</p></li>
 <li><p>fix(typing): add typing and fix mypy error in <code class="docutils literal notranslate"><span class="pre">qt_font_size.py</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/9112">#9112</a>)</p></li>
 <li><p>fix(typing): add typing and fix error in <code class="docutils literal notranslate"><span class="pre">qt_dims_sorter.py</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/9113">#9113</a>)</p></li>
-<li><p>Use shared version of label clean workflow (<a class="reference external" href="https://github.com/napari/napari/pull/9116">#9116</a>)</p></li>
 <li><p>[<a class="reference external" href="http://pre-commit.ci">pre-commit.ci</a>] pre-commit autoupdate (<a class="reference external" href="https://github.com/napari/napari/pull/9122">#9122</a>)</p></li>
 <li><p>fix(typing): add typing and fix mypy error in <code class="docutils literal notranslate"><span class="pre">qt_about.py</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/9125">#9125</a>)</p></li>
 <li><p>Minimum support for zarr&gt;=3 for builtins (<a class="reference external" href="https://github.com/napari/napari/pull/9134">#9134</a>)</p></li>
@@ -1043,10 +1081,11 @@ WCAG-compliant theme? Try out the new WCAG table in
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">certifi</span></code>, <code class="docutils literal notranslate"><span class="pre">coverage</span></code>, <code class="docutils literal notranslate"><span class="pre">fsspec</span></code>, <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, <code class="docutils literal notranslate"><span class="pre">ipython</span></code>, <code class="docutils literal notranslate"><span class="pre">npe2</span></code>, <code class="docutils literal notranslate"><span class="pre">pillow</span></code>, <code class="docutils literal notranslate"><span class="pre">pydantic-settings</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest-rerunfailures</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>, <code class="docutils literal notranslate"><span class="pre">tqdm</span></code>, <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code>, <code class="docutils literal notranslate"><span class="pre">wrapt</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/9158">#9158</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">macos-15</span></code> runner instead of <code class="docutils literal notranslate"><span class="pre">macos-latest</span></code> (now <code class="docutils literal notranslate"><span class="pre">macos-26</span></code>) to prevent segfaults (<a class="reference external" href="https://github.com/napari/napari/pull/9162">#9162</a>)</p></li>
 <li><p>Remove method and functions marked for removal in 0.8.0 (<a class="reference external" href="https://github.com/napari/napari/pull/9177">#9177</a>)</p></li>
+<li><p>Clean rest of elements  marked as “to remove in 0.8.0”  (<a class="reference external" href="https://github.com/napari/napari/pull/9191">#9191</a>)</p></li>
 </ul>
 </section>
 <section id="authors-added-to-this-release-alphabetical">
-<h2>18 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>19 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
 <p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Aniketsy">Aniket</a> - &#64;Aniketsy</p></li>
@@ -1064,19 +1103,21 @@ WCAG-compliant theme? Try out the new WCAG table in
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=omkar-334">Omkar Kabde</a> - &#64;omkar-334 +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=psobolewskiPhD">docs</a>)  - &#64;psobolewskiPhD</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Rupeshhsharma">Rupesh</a> - &#64;Rupeshhsharma +</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - &#64;tlambert03</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=TeunHuijben">Teun Huijben</a> - &#64;TeunHuijben +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=TimMonko">Tim Monko</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=TimMonko">docs</a>)  - &#64;TimMonko</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Modjular">Tony Reksoatmodjo</a> - &#64;Modjular +</p></li>
 </ul>
 </section>
 <section id="reviewers-added-to-this-release-alphabetical">
-<h2>17 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>18 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
 <p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Aniketsy">Aniket</a> - &#64;Aniketsy</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=carlosmariorr">Carlos Mario Rodriguez Reza</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=carlosmariorr">docs</a>)  - &#64;carlosmariorr</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=willingc">Carol Willing</a> - &#64;willingc</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=cmalinmayor">Caroline Malin-Mayor</a> - &#64;cmalinmayor</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=carsen-stringer">carsen-stringer</a> - &#64;carsen-stringer</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=applio">Davin Potts</a> - &#64;applio +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=DragaDoncila">Draga Doncila Pop</a> - &#64;DragaDoncila</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/docs/commits?author=gselzer">Gabriel Selzer</a> - &#64;gselzer</p></li>
@@ -1145,6 +1186,7 @@ WCAG-compliant theme? Try out the new WCAG table in
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dropping-python-3-10-and-pyqt5">Dropping Python 3.10 and PyQt5</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-for-image-layer">Histogram for Image layer</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synced-cameras-between-2d-and-3d-views">Synced cameras between 2D and 3D views</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#auto-fill-label-contours-when-painting">Auto-fill label contours when painting</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paint-into-more-arrays-faster">Paint into more arrays faster!</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#floating-axes-overlay">Floating axes overlay</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#improving-the-napari-theme">Improving the napari theme</a></li>
@@ -1158,8 +1200,8 @@ WCAG-compliant theme? Try out the new WCAG table in
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deprecations">Deprecations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-pull-requests">Other Pull Requests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">18 authors added to this release (alphabetical)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">17 reviewers added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">19 authors added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">18 reviewers added to this release (alphabetical)</a></li>
 </ul>
   </nav></div>
 

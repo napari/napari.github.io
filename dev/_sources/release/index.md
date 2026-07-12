@@ -58,9 +58,55 @@ at large remote data. Try it out!
 
 ### Synced cameras between 2D and 3D views
 
-Ever switched between 2D and 3D views to check out your data, only to be frustrated that the zoom and center has been reset? Now, by default, the cameras are [`synced` between views (#9151)](https://github.com/napari/napari/pull/9151)! The synced camera's zoom and center persists when switching between 2D and 3D, with the depth (Z) component synced through the dimension slider to complete the round-trip. 
+Ever switched between 2D and 3D views to check out your data, only to be
+frustrated that the zoom and center has been reset? Now, by default, the
+cameras are
+[synced between views (#9151)](https://github.com/napari/napari/pull/9151)!
+The synced camera's zoom and center persists when switching between 2D and 3D,
+with the depth (Z) component synced through the dimension slider to complete
+the round-trip.
 
-To unlock the cameras from each other for completely separate views, you can toggle `viewer.camera.synced = False` from the Camera popup (right-click 2D/3D button) or **Toggle Synced Camera** (Ctrl/Cmd+U) in the **View** menu. Set your preferred default in **Preferences** -> **Application** -> **Synced Camera**.
+To unlock the cameras from each other for completely separate views, you can
+toggle `viewer.camera.synced = False` from the Camera popup (right-click 2D/3D
+button) or **Toggle Synced Camera** (Ctrl/Cmd+U) in the **View** menu. Set your
+preferred default in **Preferences** -> **Application** -> **Synced Camera**.
+
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/synced-cameras.webm" type="video/webm" />
+    <source src="../_static/images/synced-cameras.mp4" type="video/mp4" />
+    <img src="../_static/images/synced-cameras.jpg"
+      title="Your browser does not support the video tag"
+      alt="Video showing zoom and position staying in sync between 2D and 3D views of the same data."
+    >
+  </video>
+</figure>
+```
+
+### Auto-fill label contours when painting
+
+Annotating blobs in 2D just got a lot faster! In paint mode, right-click to
+start a *self-filling* area annotation. Then draw your shape, and when you come
+back around to the start point, the shape will automatically fill with your
+selected label! ([#9075](https://github.com/napari/napari/pull/9075))
+See it in action below:
+
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/auto-fill-labels.webm" type="video/webm" />
+    <source src="../_static/images/auto-fill-labels.mp4" type="video/mp4" />
+    <img src="../_static/images/auto-fill-labels.jpg"
+      title="Your browser does not support the video tag"
+      alt="Video showing an annotation around a coin, with the coin filling with the annotated label at the end."
+    >
+  </video>
+</figure>
+```
+
+We intend to keep refining this functionality, so if you like it but it doesn't
+*quite* fit in your workflow, please {ref}`get in touch <community>`!
 
 ### Paint into more arrays faster!
 

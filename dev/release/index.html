@@ -861,8 +861,43 @@ at large remote data. Try it out!</p>
     >
   </video>
 </figure><p class="rubric" id="synced-cameras-between-2d-and-3d-views">Synced cameras between 2D and 3D views</p>
-<p class="sd-card-text">Ever switched between 2D and 3D views to check out your data, only to be frustrated that the zoom and center has been reset? Now, by default, the cameras are <a class="reference external" href="https://github.com/napari/napari/pull/9151"><code class="docutils literal notranslate"><span class="pre">synced</span></code> between views (#9151)</a>! The synced camera’s zoom and center persists when switching between 2D and 3D, with the depth (Z) component synced through the dimension slider to complete the round-trip.</p>
-<p class="sd-card-text">To unlock the cameras from each other for completely separate views, you can toggle <code class="docutils literal notranslate"><span class="pre">viewer.camera.synced</span> <span class="pre">=</span> <span class="pre">False</span></code> from the Camera popup (right-click 2D/3D button) or <strong>Toggle Synced Camera</strong> (Ctrl/Cmd+U) in the <strong>View</strong> menu. Set your preferred default in <strong>Preferences</strong> -&gt; <strong>Application</strong> -&gt; <strong>Synced Camera</strong>.</p>
+<p class="sd-card-text">Ever switched between 2D and 3D views to check out your data, only to be
+frustrated that the zoom and center has been reset? Now, by default, the
+cameras are
+<a class="reference external" href="https://github.com/napari/napari/pull/9151">synced between views (#9151)</a>!
+The synced camera’s zoom and center persists when switching between 2D and 3D,
+with the depth (Z) component synced through the dimension slider to complete
+the round-trip.</p>
+<p class="sd-card-text">To unlock the cameras from each other for completely separate views, you can
+toggle <code class="docutils literal notranslate"><span class="pre">viewer.camera.synced</span> <span class="pre">=</span> <span class="pre">False</span></code> from the Camera popup (right-click 2D/3D
+button) or <strong>Toggle Synced Camera</strong> (Ctrl/Cmd+U) in the <strong>View</strong> menu. Set your
+preferred default in <strong>Preferences</strong> -&gt; <strong>Application</strong> -&gt; <strong>Synced Camera</strong>.</p>
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/synced-cameras.webm" type="video/webm" />
+    <source src="../_static/images/synced-cameras.mp4" type="video/mp4" />
+    <img src="../_static/images/synced-cameras.jpg"
+      title="Your browser does not support the video tag"
+      alt="Video showing zoom and position staying in sync between 2D and 3D views of the same data."
+    >
+  </video>
+</figure><p class="rubric" id="auto-fill-label-contours-when-painting">Auto-fill label contours when painting</p>
+<p class="sd-card-text">Annotating blobs in 2D just got a lot faster! In paint mode, right-click to
+start a <em>self-filling</em> area annotation. Then draw your shape, and when you come
+back around to the start point, the shape will automatically fill with your
+selected label! (<a class="reference external" href="https://github.com/napari/napari/pull/9075">#9075</a>)
+See it in action below:</p>
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/auto-fill-labels.webm" type="video/webm" />
+    <source src="../_static/images/auto-fill-labels.mp4" type="video/mp4" />
+    <img src="../_static/images/auto-fill-labels.jpg"
+      title="Your browser does not support the video tag"
+      alt="Video showing an annotation around a coin, with the coin filling with the annotated label at the end."
+    >
+  </video>
+</figure><p class="sd-card-text">We intend to keep refining this functionality, so if you like it but it doesn’t
+<em>quite</em> fit in your workflow, please <a class="reference internal" href="../community/index.html#community"><span class="std std-ref">get in touch</span></a>!</p>
 <p class="rubric" id="paint-into-more-arrays-faster">Paint into more arrays faster!</p>
 <p class="sd-card-text">Labels painting is now much faster for zarr arrays, and you can now paint into
 other array types such as dask and tensorstore! Painting with very large brush

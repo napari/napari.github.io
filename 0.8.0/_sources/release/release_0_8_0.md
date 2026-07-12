@@ -1,7 +1,7 @@
 # napari 0.8.0
-⚠️ *Note: these release notes are still in draft while 0.8.0rc0 is in prerelease testing.* ⚠️
+⚠️ *Note: these release notes are still in draft while 0.8.0rc1 is in prerelease testing.* ⚠️
 
-*Sun, Jul 12, 2026*
+*Mon, Jul 13, 2026*
 
 We're happy to announce the release of napari 0.8.0!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
@@ -60,9 +60,55 @@ at large remote data. Try it out!
 
 ### Synced cameras between 2D and 3D views
 
-Ever switched between 2D and 3D views to check out your data, only to be frustrated that the zoom and center has been reset? Now, by default, the cameras are [`synced` between views (#9151)](https://github.com/napari/napari/pull/9151)! The synced camera's zoom and center persists when switching between 2D and 3D, with the depth (Z) component synced through the dimension slider to complete the round-trip. 
+Ever switched between 2D and 3D views to check out your data, only to be
+frustrated that the zoom and center has been reset? Now, by default, the
+cameras are
+[synced between views (#9151)](https://github.com/napari/napari/pull/9151)!
+The synced camera's zoom and center persists when switching between 2D and 3D,
+with the depth (Z) component synced through the dimension slider to complete
+the round-trip.
 
-To unlock the cameras from each other for completely separate views, you can toggle `viewer.camera.synced = False` from the Camera popup (right-click 2D/3D button) or **Toggle Synced Camera** (Ctrl/Cmd+U) in the **View** menu. Set your preferred default in **Preferences** -> **Application** -> **Synced Camera**.
+To unlock the cameras from each other for completely separate views, you can
+toggle `viewer.camera.synced = False` from the Camera popup (right-click 2D/3D
+button) or **Toggle Synced Camera** (Ctrl/Cmd+U) in the **View** menu. Set your
+preferred default in **Preferences** -> **Application** -> **Synced Camera**.
+
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/synced-cameras.webm" type="video/webm" />
+    <source src="../_static/images/synced-cameras.mp4" type="video/mp4" />
+    <img src="../_static/images/synced-cameras.jpg"
+      title="Your browser does not support the video tag"
+      alt="Video showing zoom and position staying in sync between 2D and 3D views of the same data."
+    >
+  </video>
+</figure>
+```
+
+### Auto-fill label contours when painting
+
+Annotating blobs in 2D just got a lot faster! In paint mode, right-click to
+start a *self-filling* area annotation. Then draw your shape, and when you come
+back around to the start point, the shape will automatically fill with your
+selected label! ([#9075](https://github.com/napari/napari/pull/9075))
+See it in action below:
+
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/auto-fill-labels.webm" type="video/webm" />
+    <source src="../_static/images/auto-fill-labels.mp4" type="video/mp4" />
+    <img src="../_static/images/auto-fill-labels.jpg"
+      title="Your browser does not support the video tag"
+      alt="Video showing an annotation around a coin, with the coin filling with the annotated label at the end."
+    >
+  </video>
+</figure>
+```
+
+We intend to keep refining this functionality, so if you like it but it doesn't
+*quite* fit in your workflow, please {ref}`get in touch <community>`!
 
 ### Paint into more arrays faster!
 
@@ -103,6 +149,7 @@ WCAG-compliant theme? Try out the new WCAG table in
 
 - Add floating axes canvas overlay ([#8262](https://github.com/napari/napari/pull/8262))
 - Histogram for the Image layer controls and contrast limits popup ([#8391](https://github.com/napari/napari/pull/8391))
+- Feat: add cellpose-inspired right-click to encircle mask creation interaction mode ([#9075](https://github.com/napari/napari/pull/9075))
 - Toggleable `synced` (default) and separated camera views across ndisplay ([#9151](https://github.com/napari/napari/pull/9151))
 
 ## Improvements
@@ -173,6 +220,7 @@ WCAG-compliant theme? Try out the new WCAG table in
 - Add video and fallback image for histogram highlight ([docs#1063](https://github.com/napari/docs/pull/1063))
 - Fix video relative paths which had extra '..' ([docs#1064](https://github.com/napari/docs/pull/1064))
 - Add Camera Guide to explain synced/separate camera modes ([docs#1065](https://github.com/napari/docs/pull/1065))
+- Final update of release notes for 0.8.0 ([docs#1066](https://github.com/napari/docs/pull/1066))
 - examples: remove deprecated `scale_bar.unit`  and enable `viewer.scale_bar.visible = True`  ([#9012](https://github.com/napari/napari/pull/9012))
 
 ## Other Pull Requests
@@ -208,7 +256,6 @@ WCAG-compliant theme? Try out the new WCAG table in
 - fix(typing): add typing and fix mypy error in `qt_message_popup.py` ([#9111](https://github.com/napari/napari/pull/9111))
 - fix(typing): add typing and fix mypy error in `qt_font_size.py` ([#9112](https://github.com/napari/napari/pull/9112))
 - fix(typing): add typing and fix error in `qt_dims_sorter.py` ([#9113](https://github.com/napari/napari/pull/9113))
-- Use shared version of label clean workflow ([#9116](https://github.com/napari/napari/pull/9116))
 - [pre-commit.ci] pre-commit autoupdate ([#9122](https://github.com/napari/napari/pull/9122))
 - fix(typing): add typing and fix mypy error in `qt_about.py` ([#9125](https://github.com/napari/napari/pull/9125))
 - Minimum support for zarr>=3 for builtins ([#9134](https://github.com/napari/napari/pull/9134))
@@ -221,9 +268,10 @@ WCAG-compliant theme? Try out the new WCAG table in
 - Update `certifi`, `coverage`, `fsspec`, `hypothesis`, `ipython`, `npe2`, `pillow`, `pydantic-settings`, `pytest`, `pytest-rerunfailures`, `scipy`, `tqdm`, `virtualenv`, `wrapt` ([#9158](https://github.com/napari/napari/pull/9158))
 - `macos-15` runner instead of `macos-latest` (now `macos-26`) to prevent segfaults ([#9162](https://github.com/napari/napari/pull/9162))
 - Remove method and functions marked for removal in 0.8.0 ([#9177](https://github.com/napari/napari/pull/9177))
+- Clean rest of elements  marked as "to remove in 0.8.0"  ([#9191](https://github.com/napari/napari/pull/9191))
 
 
-## 18 authors added to this release (alphabetical)
+## 19 authors added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
@@ -242,11 +290,12 @@ WCAG-compliant theme? Try out the new WCAG table in
 - [Omkar Kabde](https://github.com/napari/napari/commits?author=omkar-334) - @omkar-334 +
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) ([docs](https://github.com/napari/docs/commits?author=psobolewskiPhD))  - @psobolewskiPhD
 - [Rupesh](https://github.com/napari/napari/commits?author=Rupeshhsharma) - @Rupeshhsharma +
+- [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
 - [Teun Huijben](https://github.com/napari/napari/commits?author=TeunHuijben) - @TeunHuijben +
 - [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
 - [Tony Reksoatmodjo](https://github.com/napari/napari/commits?author=Modjular) - @Modjular +
 
-## 17 reviewers added to this release (alphabetical)
+## 18 reviewers added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
@@ -254,6 +303,7 @@ WCAG-compliant theme? Try out the new WCAG table in
 - [Carlos Mario Rodriguez Reza](https://github.com/napari/napari/commits?author=carlosmariorr) ([docs](https://github.com/napari/docs/commits?author=carlosmariorr))  - @carlosmariorr
 - [Carol Willing](https://github.com/napari/docs/commits?author=willingc) - @willingc
 - [Caroline Malin-Mayor](https://github.com/napari/napari/commits?author=cmalinmayor) - @cmalinmayor
+- [carsen-stringer](https://github.com/napari/docs/commits?author=carsen-stringer) - @carsen-stringer
 - [Davin Potts](https://github.com/napari/napari/commits?author=applio) - @applio +
 - [Draga Doncila Pop](https://github.com/napari/docs/commits?author=DragaDoncila) - @DragaDoncila
 - [Gabriel Selzer](https://github.com/napari/docs/commits?author=gselzer) - @gselzer

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../../_static/documentation_options.js?v=b4da5571"></script>
+    <script src="../../../../_static/documentation_options.js?v=431f4bc4"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -494,7 +494,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0rc0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -1346,11 +1346,19 @@ window.runMermaid = runMermaid;</script>
             <span class="n">show_selected_label</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
 
+        <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.overlays.labels_brush_stroke</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+            <span class="n">LabelsBrushStrokeOverlay</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.overlays.labels_polygon</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
             <span class="n">LabelsPolygonOverlay</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;polygon&#39;</span><span class="p">:</span> <span class="n">LabelsPolygonOverlay</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">)})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;polygon&#39;</span><span class="p">:</span> <span class="n">LabelsPolygonOverlay</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                <span class="s1">&#39;brush_stroke&#39;</span><span class="p">:</span> <span class="n">LabelsBrushStrokeOverlay</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span> <span class="o">=</span> <span class="n">_FeatureTable</span><span class="o">.</span><span class="n">from_layer</span><span class="p">(</span>
             <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">properties</span>
@@ -1789,6 +1797,7 @@ window.runMermaid = runMermaid;</script>
             <span class="k">return</span> <span class="n">mode</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;polygon&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">POLYGON</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;brush_stroke&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">{</span><span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">,</span> <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">}:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_cursor_size</span><span class="p">()</span>
 
@@ -2025,6 +2034,31 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_append_to_undo_history</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_begin_stroke</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start grouping edits that span multiple events into one undo item.</span>
+
+<span class="sd">        Unlike `block_history`, a stroke spans discrete mouse events and so</span>
+<span class="sd">        cannot be expressed as a single `with` block.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_block_history</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_commit_stroke</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Commit a stroke started with `_begin_stroke` as one undo item.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_block_history</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_commit_staged_history</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_abort_stroke</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Discard the staged (uncommitted) edits of an in-progress stroke.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span> <span class="n">_MaskedPaintAtom</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_replay_masked_atom</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span> <span class="n">undoing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">indices</span><span class="p">,</span> <span class="n">prev_values</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">atom</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_block_history</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_append_to_undo_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Append item to history and emit paint event.</span>

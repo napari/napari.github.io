@@ -17,6 +17,9 @@ while you wait for a computation to finish, you may benefit from reading about
 
 If you are interested in using napari to explore 3D objects, see {ref}`3d-interactivity`.
 
+To control how camera position and zoom behave when switching between 2D and
+3D views, see {ref}`camera-guide`.
+
 To understand how physical units propagate from layers into rendering and the
 scale bar, see {ref}`units-guide`.
 

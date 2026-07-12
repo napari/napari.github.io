@@ -529,13 +529,20 @@ Note that if you want to drag the canvas/rendering itself, instead of rotating t
 - holding {kbd}`Shift` ({kbd}`Control` on macOS), pressing the right mouse button and
   dragging the mouse; or
 - right-clicking (on macOS holding {kbd}`Control` and clicking) on the 2D/3D mode
-  button, which will bring up the perspective slider.
+  button, which will bring up the camera popup with controls for perspective,
+  camera orientation and angles, and the **Sync 2D/3D camera** checkbox
+  (see the [camera guide](camera-guide)).
 
 The camera perspective can also be altered programmatically:
 
 ```python
 viewer.camera.perspective = 45
 ```
+
+By default, camera center and zoom persist when switching between 2D and 3D
+views (synced mode). You can change this behavior via the camera popup, the
+**View** menu (**Toggle Synced Camera**, {kbd}`Ctrl+U`), or programmatically
+through `viewer.camera.synced`. See the [camera guide](camera-guide) for details.
 
 ### Roll dimensions
 

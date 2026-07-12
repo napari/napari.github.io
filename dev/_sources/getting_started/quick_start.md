@@ -212,6 +212,8 @@ To explore existing plugins, visit the [napari hub](https://napari-hub.org/). Fo
 - napari provides a variety of settings that can be adjusted to customize the user experience, including theme and keyboard shortcuts (keybindings). To learn more, see our guide to the [**Preferences** dialog](napari-preferences).
 
 - napari provides the flexibility to handle multi-dimensional data. Try opening 3D or higher dimensional images, and switch to 3D view.
+  When switching between 2D and 3D, camera center and zoom persist by default —
+  see the [camera guide](camera-guide) for details on controlling this behavior.
 
 ![ndisplay](../_static/images/ndisplay.png)
 

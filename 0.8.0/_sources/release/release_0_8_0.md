@@ -1,7 +1,6 @@
 # napari 0.8.0
-⚠️ *Note: these release notes are still in draft while 0.8.0rc1 is in prerelease testing.* ⚠️
 
-*Mon, Jul 13, 2026*
+*Tue, Jul 14, 2026*
 
 We're happy to announce the release of napari 0.8.0!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
@@ -221,6 +220,7 @@ WCAG-compliant theme? Try out the new WCAG table in
 - Fix video relative paths which had extra '..' ([docs#1064](https://github.com/napari/docs/pull/1064))
 - Add Camera Guide to explain synced/separate camera modes ([docs#1065](https://github.com/napari/docs/pull/1065))
 - Final update of release notes for 0.8.0 ([docs#1066](https://github.com/napari/docs/pull/1066))
+- Final release notes for 0.8.0 ([docs#1068](https://github.com/napari/docs/pull/1068))
 - examples: remove deprecated `scale_bar.unit`  and enable `viewer.scale_bar.visible = True`  ([#9012](https://github.com/napari/napari/pull/9012))
 
 ## Other Pull Requests

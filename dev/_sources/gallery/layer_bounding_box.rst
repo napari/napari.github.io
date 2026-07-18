@@ -103,11 +103,6 @@ see :ref:`sphx_glr_gallery_image_border.py`.
         napari.run()
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** (0 minutes 11.667 seconds)
-
-
 .. _sphx_glr_download_gallery_layer_bounding_box.py:
 
 .. only:: html

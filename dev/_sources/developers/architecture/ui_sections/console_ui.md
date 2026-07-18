@@ -71,14 +71,14 @@ graph LR
 ```
 napari/
 ├─viewer.py
+├─_qt/
+│ ├─qt_viewer.py
+│ ├─widgets/
+│ │ └─qt_viewer_buttons.py
+│ └─qt_main_window.py
 ├─utils/
 │ └─notifications.py
-├─components/
-│ ├─viewer_model.py
-│ └─_viewer_key_bindings.py
-└─_qt/
-  ├─qt_viewer.py
-  ├─widgets/
-  │ └─qt_viewer_buttons.py
-  └─qt_main_window.py
+└─components/
+  ├─_viewer_key_bindings.py
+  └─viewer_model.py
 ```

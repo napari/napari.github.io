@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../_static/documentation_options.js?v=6ada2799"></script>
+    <script src="../../../_static/documentation_options.js?v=bddcfe15"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -505,7 +505,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -518,7 +518,7 @@ window.runMermaid = runMermaid;</script>
     <link rel="prev" title="Console (napari-console)" href="console_ui.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.8.0" />
+  <meta name="docsearch:version" content="dev" />
   
     
     <script src="../../../_static/searchtools.js"></script>
@@ -1265,61 +1265,61 @@ window.runMermaid = runMermaid;</script>
 <section id="source-code-directory-layout-related-to-modules-inside-napari">
 <h2>Source code directory layout (related to modules inside <code class="docutils literal notranslate"><span class="pre">napari</span></code>)<a class="headerlink" href="#source-code-directory-layout-related-to-modules-inside-napari" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>napari/
-├─_vendor/
-│ └─qt_json_builder/
-│   ├─__init__.py
-│   └─qt_jsonschema_form/
-│     ├─widgets.py
-│     ├─__init__.py
-│     ├─utils.py
-│     ├─defaults.py
-│     ├─form.py
-│     └─signal.py
-└─_qt/
-  ├─_qplugins/
-  │ └─_qnpe2.py
-  ├─dialogs/
-  │ ├─qt_modal.py
-  │ ├─qt_notification.py
-  │ ├─screenshot_dialog.py
-  │ ├─qt_about.py
-  │ ├─qt_activity_dialog.py
-  │ ├─preferences_dialog.py
-  │ ├─qt_reader_dialog.py
-  │ └─confirm_close_dialog.py
-  ├─utils.py
-  ├─qt_viewer.py
-  ├─_qapp_model/
-  │ ├─qactions/
-  │ │ ├─__init__.py
-  │ │ ├─_help.py
-  │ │ ├─_plugins.py
-  │ │ ├─_file.py
-  │ │ └─_debug.py
-  │ ├─_menus.py
-  │ └─injection/
-  │   ├─_qprocessors.py
-  │   └─_qproviders.py
-  ├─widgets/
-  │ ├─qt_histogram_settings.py
-  │ ├─qt_histogram.py
-  │ ├─qt_viewer_status_bar.py
-  │ ├─qt_histogram_content.py
-  │ ├─qt_tooltip.py
-  │ ├─qt_command_palette.py
-  │ ├─qt_dims_sorter.py
-  │ ├─qt_color_swatch.py
-  │ ├─qt_dims.py
-  │ ├─qt_scrollbar.py
-  │ ├─qt_logger.py
-  │ ├─qt_tips.py
-  │ ├─qt_spinbox.py
-  │ ├─qt_progress_bar.py
-  │ ├─qt_highlight_preview.py
-  │ ├─qt_extension2reader.py
-  │ ├─qt_font_size.py
-  │ └─qt_dims_slider.py
-  └─qt_main_window.py
+├─_qt/
+│ ├─dialogs/
+│ │ ├─qt_modal.py
+│ │ ├─screenshot_dialog.py
+│ │ ├─confirm_close_dialog.py
+│ │ ├─qt_reader_dialog.py
+│ │ ├─qt_activity_dialog.py
+│ │ ├─preferences_dialog.py
+│ │ ├─qt_about.py
+│ │ └─qt_notification.py
+│ ├─_qplugins/
+│ │ └─_qnpe2.py
+│ ├─qt_viewer.py
+│ ├─widgets/
+│ │ ├─qt_dims_slider.py
+│ │ ├─qt_tooltip.py
+│ │ ├─qt_progress_bar.py
+│ │ ├─qt_histogram_settings.py
+│ │ ├─qt_spinbox.py
+│ │ ├─qt_extension2reader.py
+│ │ ├─qt_dims.py
+│ │ ├─qt_histogram_content.py
+│ │ ├─qt_tips.py
+│ │ ├─qt_color_swatch.py
+│ │ ├─qt_viewer_status_bar.py
+│ │ ├─qt_command_palette.py
+│ │ ├─qt_font_size.py
+│ │ ├─qt_highlight_preview.py
+│ │ ├─qt_scrollbar.py
+│ │ ├─qt_dims_sorter.py
+│ │ ├─qt_histogram.py
+│ │ └─qt_logger.py
+│ ├─utils.py
+│ ├─_qapp_model/
+│ │ ├─_menus.py
+│ │ ├─injection/
+│ │ │ ├─_qproviders.py
+│ │ │ └─_qprocessors.py
+│ │ └─qactions/
+│ │   ├─_plugins.py
+│ │   ├─_debug.py
+│ │   ├─_file.py
+│ │   ├─_help.py
+│ │   └─__init__.py
+│ └─qt_main_window.py
+└─_vendor/
+  └─qt_json_builder/
+    ├─qt_jsonschema_form/
+    │ ├─defaults.py
+    │ ├─utils.py
+    │ ├─signal.py
+    │ ├─widgets.py
+    │ ├─form.py
+    │ └─__init__.py
+    └─__init__.py
 </pre></div>
 </div>
 </section>

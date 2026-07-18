@@ -242,59 +242,59 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
-├─_vendor/
-│ └─qt_json_builder/
-│   ├─__init__.py
-│   └─qt_jsonschema_form/
-│     ├─widgets.py
-│     ├─__init__.py
-│     ├─utils.py
-│     ├─defaults.py
-│     ├─form.py
-│     └─signal.py
-└─_qt/
-  ├─_qplugins/
-  │ └─_qnpe2.py
-  ├─dialogs/
-  │ ├─qt_modal.py
-  │ ├─qt_notification.py
-  │ ├─screenshot_dialog.py
-  │ ├─qt_about.py
-  │ ├─qt_activity_dialog.py
-  │ ├─preferences_dialog.py
-  │ ├─qt_reader_dialog.py
-  │ └─confirm_close_dialog.py
-  ├─utils.py
-  ├─qt_viewer.py
-  ├─_qapp_model/
-  │ ├─qactions/
-  │ │ ├─__init__.py
-  │ │ ├─_help.py
-  │ │ ├─_plugins.py
-  │ │ ├─_file.py
-  │ │ └─_debug.py
-  │ ├─_menus.py
-  │ └─injection/
-  │   ├─_qprocessors.py
-  │   └─_qproviders.py
-  ├─widgets/
-  │ ├─qt_histogram_settings.py
-  │ ├─qt_histogram.py
-  │ ├─qt_viewer_status_bar.py
-  │ ├─qt_histogram_content.py
-  │ ├─qt_tooltip.py
-  │ ├─qt_command_palette.py
-  │ ├─qt_dims_sorter.py
-  │ ├─qt_color_swatch.py
-  │ ├─qt_dims.py
-  │ ├─qt_scrollbar.py
-  │ ├─qt_logger.py
-  │ ├─qt_tips.py
-  │ ├─qt_spinbox.py
-  │ ├─qt_progress_bar.py
-  │ ├─qt_highlight_preview.py
-  │ ├─qt_extension2reader.py
-  │ ├─qt_font_size.py
-  │ └─qt_dims_slider.py
-  └─qt_main_window.py
+├─_qt/
+│ ├─dialogs/
+│ │ ├─qt_modal.py
+│ │ ├─screenshot_dialog.py
+│ │ ├─confirm_close_dialog.py
+│ │ ├─qt_reader_dialog.py
+│ │ ├─qt_activity_dialog.py
+│ │ ├─preferences_dialog.py
+│ │ ├─qt_about.py
+│ │ └─qt_notification.py
+│ ├─_qplugins/
+│ │ └─_qnpe2.py
+│ ├─qt_viewer.py
+│ ├─widgets/
+│ │ ├─qt_dims_slider.py
+│ │ ├─qt_tooltip.py
+│ │ ├─qt_progress_bar.py
+│ │ ├─qt_histogram_settings.py
+│ │ ├─qt_spinbox.py
+│ │ ├─qt_extension2reader.py
+│ │ ├─qt_dims.py
+│ │ ├─qt_histogram_content.py
+│ │ ├─qt_tips.py
+│ │ ├─qt_color_swatch.py
+│ │ ├─qt_viewer_status_bar.py
+│ │ ├─qt_command_palette.py
+│ │ ├─qt_font_size.py
+│ │ ├─qt_highlight_preview.py
+│ │ ├─qt_scrollbar.py
+│ │ ├─qt_dims_sorter.py
+│ │ ├─qt_histogram.py
+│ │ └─qt_logger.py
+│ ├─utils.py
+│ ├─_qapp_model/
+│ │ ├─_menus.py
+│ │ ├─injection/
+│ │ │ ├─_qproviders.py
+│ │ │ └─_qprocessors.py
+│ │ └─qactions/
+│ │   ├─_plugins.py
+│ │   ├─_debug.py
+│ │   ├─_file.py
+│ │   ├─_help.py
+│ │   └─__init__.py
+│ └─qt_main_window.py
+└─_vendor/
+  └─qt_json_builder/
+    ├─qt_jsonschema_form/
+    │ ├─defaults.py
+    │ ├─utils.py
+    │ ├─signal.py
+    │ ├─widgets.py
+    │ ├─form.py
+    │ └─__init__.py
+    └─__init__.py
 ```

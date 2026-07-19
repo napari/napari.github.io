@@ -780,8 +780,6 @@ viewer.close()
 
 Keys can be bound both to the object class or a particular instance depending on if you want the keybinding to apply to all instances of the class or only one particular instance.
 
-Currently the keybindings only work when the canvas is in focus, we are working to ensure they always work.
-
 The ability to add custom keybindings dramatically increases what is possible within **napari** and we hope you take full advantage of them.
 
 +++

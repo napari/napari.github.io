@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../../_static/documentation_options.js?v=b345a121"></script>
+    <script src="../../../../_static/documentation_options.js?v=3724581d"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1629,6 +1629,9 @@ window.runMermaid = runMermaid;</script>
 
         <span class="n">grid_stride</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">&#39;gridStrideBox&#39;</span><span class="p">)</span>
         <span class="n">grid_stride</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+        <span class="c1"># Magic number to allow for negative strides, but not too large to be unreasonable.</span>
+        <span class="c1"># 1000 is arbitrary.</span>
+        <span class="n">grid_stride</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">)</span>
         <span class="n">grid_stride</span><span class="o">.</span><span class="n">setProhibitValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_stride</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span>
         <span class="n">grid_stride</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_grid_stride</span><span class="p">)</span>

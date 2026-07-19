@@ -48,32 +48,20 @@ all its features. Python package distributions of napari can be installed via `p
 It requires:
 
 - [Python {{ python_version_range }}](https://www.python.org/downloads/)
-- the ability to install python packages via [pip](https://pypi.org/project/pip/) OR [conda-forge](https://conda-forge.org/docs/user/introduction.html)
+- the ability to install python packages via [uv](https://docs.astral.sh/uv/) or [conda-forge](https://conda-forge.org/docs/user/introduction.html)
 
 You may also want:
 
-- an environment manager like [conda](https://docs.conda.io/projects/conda/en/stable/user-guide/getting-started.html) or
-  [venv](https://docs.python.org/3/library/venv.html) **(Highly recommended)**
+- an environment manager like [uv](https://docs.astral.sh/uv/pip/environments/), 
+[conda](https://docs.conda.io/projects/conda/en/stable/user-guide/getting-started.html) **(Highly recommended)**
 
 ```{admonition} New to Python?
 :class: note
-New to Python or uncertain about conda, pip, and virtual environments?
+New to Python or uncertain about uv, conda, and virtual environments?
 Here are some resources we recommend:
 
 - [Scientific Python: Getting started with Python for science](https://lectures.scientific-python.org/intro/index.html)
 - [Detailed comparison of Python environment management tools](https://www.nijho.lt/post/python-environments/)
-```
-
-```{admonition} A clean environment is recommended
-While not strictly required, it is highly recommended to install
-napari into a clean virtual environment using an environment manager like
-[conda](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) or
-[venv](https://docs.python.org/3/library/venv.html).
-
-This should be set up *before* you install napari. For example, setting with
-up a Python {{ python_version }} environment with `conda`:
-
-{{ conda_create_env }}
 ```
 
 Choose one of the options below to install napari as a Python package.
@@ -81,6 +69,12 @@ Choose one of the options below to install napari as a Python package.
 ``````{tab-set}
 
 `````{tab-item} From conda-forge using conda
+
+While not strictly required, it is highly recommended to install
+napari into a clean virtual environment. This should be set up *before* you install napari. For example, setting with
+up a Python {{ python_version }} environment with `conda`:
+
+{{ conda_create_env }}
 
 If you prefer to manage packages with conda, napari is available on the
 conda-forge channel. We also recommend this path for users of arm64 macOS machines
@@ -121,19 +115,31 @@ conda update -n base conda
 
 `````
 
-`````{tab-item} From PyPI using pip
+`````{tab-item} From PyPI using uv
+
+While not strictly required, it is highly recommended to install
+napari into a clean virtual environment using the [uv venv](https://docs.python.org/3/library/venv.html) environment manager.
+
+This should be set up *before* you install napari. For example, setting
+up a Python {{ python_version }} environment with `uv venv`:
+
+{{ venv_create_env }}
+```sh
+source .venv/bin/activate # for macOS and Linux
+.venv\Scripts\activate # for Windows
+```
 
 napari can be installed from PyPI on most macOS, Linux, and Windows systems with Python
-{{ python_version_range }} using pip:
+{{ python_version_range }} using uv pip:
 
 ```sh
-python -m pip install "napari[all]"
+uv pip install "napari[all]"
 ```
 
 You can then upgrade napari to a new version using:
 
 ```sh
-python -m pip install "napari[all]" --upgrade
+uv pip install "napari[all]" --upgrade
 ```
 
 *(See [Choosing a different Qt backend](#choosing-a-different-qt-backend) below for an explanation of the `[all]`
@@ -145,10 +151,22 @@ notation.)*
 
 `````{tab-item} From the main branch on Github
 
+While not strictly required, it is highly recommended to install
+napari into a clean virtual environment using the [uv venv](https://docs.python.org/3/library/venv.html) environment manager.
+
+This should be set up *before* you install napari. For example, setting with
+up a Python {{ python_version }} environment with `uv venv`:
+
+{{ venv_create_env }}
+```sh
+source .venv/bin/activate # for macOS and Linux
+.venv\Scripts\activate # for Windows
+```
+
 To install the latest version with yet to be released features from Github you can use pip:
 
 ```sh
-python -m pip install "git+https://github.com/napari/napari.git#egg=napari[all]"
+uv pip install "git+https://github.com/napari/napari.git#egg=napari[all]"
 ```
 
 `````

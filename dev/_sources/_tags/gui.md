@@ -17,6 +17,7 @@ caption: With this tag
 ../gallery/get_current_viewer.rst
 ../gallery/image_custom_kernel.rst
 ../gallery/inherit_viewer_style.rst
+../gallery/latlon-data-with-map.rst
 ../gallery/magic_image_arithmetic.rst
 ../gallery/magic_parameter_sweep.rst
 ../gallery/magic_viewer.rst

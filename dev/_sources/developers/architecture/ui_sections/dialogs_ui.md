@@ -243,58 +243,58 @@ graph LR
 ```
 napari/
 ├─_qt/
-│ ├─dialogs/
-│ │ ├─qt_modal.py
-│ │ ├─screenshot_dialog.py
-│ │ ├─confirm_close_dialog.py
-│ │ ├─qt_reader_dialog.py
-│ │ ├─qt_activity_dialog.py
-│ │ ├─preferences_dialog.py
-│ │ ├─qt_about.py
-│ │ └─qt_notification.py
-│ ├─_qplugins/
-│ │ └─_qnpe2.py
-│ ├─qt_viewer.py
-│ ├─widgets/
-│ │ ├─qt_dims_slider.py
-│ │ ├─qt_tooltip.py
-│ │ ├─qt_progress_bar.py
-│ │ ├─qt_histogram_settings.py
-│ │ ├─qt_spinbox.py
-│ │ ├─qt_extension2reader.py
-│ │ ├─qt_dims.py
-│ │ ├─qt_histogram_content.py
-│ │ ├─qt_tips.py
-│ │ ├─qt_color_swatch.py
-│ │ ├─qt_viewer_status_bar.py
-│ │ ├─qt_command_palette.py
-│ │ ├─qt_font_size.py
-│ │ ├─qt_highlight_preview.py
-│ │ ├─qt_scrollbar.py
-│ │ ├─qt_dims_sorter.py
-│ │ ├─qt_histogram.py
-│ │ └─qt_logger.py
-│ ├─utils.py
 │ ├─_qapp_model/
-│ │ ├─_menus.py
+│ │ ├─qactions/
+│ │ │ ├─_help.py
+│ │ │ ├─_debug.py
+│ │ │ ├─_file.py
+│ │ │ ├─__init__.py
+│ │ │ └─_plugins.py
 │ │ ├─injection/
 │ │ │ ├─_qproviders.py
 │ │ │ └─_qprocessors.py
-│ │ └─qactions/
-│ │   ├─_plugins.py
-│ │   ├─_debug.py
-│ │   ├─_file.py
-│ │   ├─_help.py
-│ │   └─__init__.py
-│ └─qt_main_window.py
+│ │ └─_menus.py
+│ ├─dialogs/
+│ │ ├─qt_modal.py
+│ │ ├─screenshot_dialog.py
+│ │ ├─qt_activity_dialog.py
+│ │ ├─confirm_close_dialog.py
+│ │ ├─qt_notification.py
+│ │ ├─qt_about.py
+│ │ ├─qt_reader_dialog.py
+│ │ └─preferences_dialog.py
+│ ├─_qplugins/
+│ │ └─_qnpe2.py
+│ ├─qt_main_window.py
+│ ├─qt_viewer.py
+│ ├─widgets/
+│ │ ├─qt_histogram.py
+│ │ ├─qt_font_size.py
+│ │ ├─qt_histogram_settings.py
+│ │ ├─qt_tooltip.py
+│ │ ├─qt_extension2reader.py
+│ │ ├─qt_histogram_content.py
+│ │ ├─qt_spinbox.py
+│ │ ├─qt_dims_slider.py
+│ │ ├─qt_viewer_status_bar.py
+│ │ ├─qt_progress_bar.py
+│ │ ├─qt_dims_sorter.py
+│ │ ├─qt_color_swatch.py
+│ │ ├─qt_scrollbar.py
+│ │ ├─qt_command_palette.py
+│ │ ├─qt_tips.py
+│ │ ├─qt_highlight_preview.py
+│ │ ├─qt_logger.py
+│ │ └─qt_dims.py
+│ └─utils.py
 └─_vendor/
   └─qt_json_builder/
     ├─qt_jsonschema_form/
+    │ ├─widgets.py
+    │ ├─__init__.py
+    │ ├─signal.py
     │ ├─defaults.py
     │ ├─utils.py
-    │ ├─signal.py
-    │ ├─widgets.py
-    │ ├─form.py
-    │ └─__init__.py
+    │ └─form.py
     └─__init__.py
 ```

@@ -128,14 +128,6 @@ QtDeleteButton {
 }
 ```
 
-#### Translations
-
-Starting with version 0.4.7 offers the possibility of installing language packs,
-enabling the user interface to be displayed in different languages. This means that all
-user interface strings need to use the {func}`~napari.utils.translations.trans` helper
-function.
-See the [translations](translations) guide for more.
-
 ### API
 
 If you are changing an existing API or adding a new one, make sure you update

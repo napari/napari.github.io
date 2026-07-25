@@ -64,30 +64,3 @@ Fill the form:
 12. Paste a new token to the value field
 
 To validate if the token is working, you can run the "Upgrade test constraints" workflow manually. Ensure that there will be some packages to update.
-
-## Update translation strings
-
-Currently, translations are unmaintained, but this may change in the future as napari matures.
-
-As new code is included in the codebase, some of the strings that need to be translated might
-not yet be using the `trans` methods. To help keep the codebase up to date in terms
-of translations we added a test script that
-[runs daily on CI](https://github.com/napari/napari/actions/workflows/test_translations.yml)
-and can be also run locally to ensure that a release includes the most up to date translatable
-strings.
-
-The test script is available on the `/tools/validate_strings.py` file and it relies on an additional
-file `/tools/strings_list.py` to include strings to skip safely from translation.
-
-The test checks:
-
-1. **Untranslated strings**: not using the `trans` methods.
-1. **Outdated skip strings**: should no longer be included in the `/tools/strings_list.py` file.
-1. **Translation usage errors**: where translation strings may be missing interpolation variables.
-
-You can execute tests locally from the repository root, and follow the instructions printed
-on the `stdout` if any test fails.
-
-```bash
-pytest tools/ --tb=short
-```

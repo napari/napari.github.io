@@ -18,7 +18,7 @@ with a simple widget for modifying plane parameters.
 
 .. tags:: visualization-advanced, gui, layers
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-56
+.. GENERATED FROM PYTHON SOURCE LINES 10-53
 
 
 
@@ -32,9 +32,9 @@ with a simple widget for modifying plane parameters.
 
  .. code-block:: none
 
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:50: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
+    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
       theme_type=get_system_theme(),
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:50: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
+    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
       theme_type=get_system_theme(),
 
 
@@ -50,7 +50,6 @@ with a simple widget for modifying plane parameters.
     from skimage import data
 
     import napari
-    from napari.utils.translations import trans
 
     viewer = napari.Viewer(ndisplay=3)
 
@@ -82,13 +81,11 @@ with a simple widget for modifying plane parameters.
     viewer.axes.visible = True
     viewer.camera.angles = (0, -30, 35)
     viewer.fit_to_view()
-    viewer.text_overlay.text = trans._(
-    """shift + click and drag to move the plane
+    viewer.text_overlay.text = """shift + click and drag to move the plane
     press 'x', 'y' or 'z' to orient the plane along that axis around the cursor
     press 'o' to orient the plane normal along the camera view direction
     press and hold 'o' then click and drag to make the plane normal follow the camera
     """
-    )
     viewer.text_overlay.visible = True
     if __name__ == '__main__':
         napari.run()

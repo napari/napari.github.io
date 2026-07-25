@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../_static/documentation_options.js?v=1adb0033"></script>
+    <script src="../../../_static/documentation_options.js?v=0291dff2"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -907,7 +907,6 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Layer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">_npe2</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerData</span><span class="p">,</span> <span class="n">PathLike</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -952,10 +951,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">plugin</span> <span class="o">==</span> <span class="s1">&#39;builtins&#39;</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s1">&#39;The &quot;builtins&quot; plugin name is deprecated and will not work in a future version. Please use &quot;napari&quot; instead.&#39;</span><span class="p">,</span>
-                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="p">),</span>
+            <span class="s1">&#39;The &quot;builtins&quot; plugin name is deprecated and will not work in a future version. Please use &quot;napari&quot; instead.&#39;</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">plugin</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span>
 
@@ -1008,7 +1004,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">path</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">plugin_name</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span> <span class="n">_writer</span><span class="o">=</span><span class="n">_writer</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;No layers to write.&#39;</span><span class="p">))</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;No layers to write.&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[]</span>
 
     <span class="c1"># If written is empty, something went wrong.</span>
@@ -1016,29 +1012,15 @@ window.runMermaid = runMermaid;</script>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">written</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">writer_name</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Plugin &#39;</span><span class="si">{name}</span><span class="s2">&#39; tried to save layers but did not return any written paths.&quot;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">name</span><span class="o">=</span><span class="n">writer_name</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Plugin &#39;</span><span class="si">{</span><span class="n">writer_name</span><span class="si">}</span><span class="s2">&#39; tried to save layers but did not return any written paths.&quot;</span>
             <span class="p">)</span>
         <span class="k">elif</span> <span class="n">plugin</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Given plugin &#39;</span><span class="si">{name}</span><span class="s2">&#39; is not a valid writer for </span><span class="si">{path}</span><span class="s2">.&quot;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">name</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
-                    <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Given plugin &#39;</span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s2">&#39; is not a valid writer for </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">.&quot;</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;No data written! A plugin could not be found to write these </span><span class="si">{length}</span><span class="s1"> layers to </span><span class="si">{path}</span><span class="s1">.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">length</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">),</span>
-                    <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s1">&#39;No data written! A plugin could not be found to write these </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span><span class="si">}</span><span class="s1"> layers to </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">.&#39;</span>
             <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">written</span></div>

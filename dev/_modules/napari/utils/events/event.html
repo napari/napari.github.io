@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../../_static/documentation_options.js?v=1adb0033"></script>
+    <script src="../../../../_static/documentation_options.js?v=0291dff2"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -967,8 +967,6 @@ window.runMermaid = runMermaid;</script>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">vispy.util.logs</span><span class="w"> </span><span class="kn">import</span> <span class="n">_handle_exception</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
-
 
 <div class="viewcode-block" id="Event">
 <a class="viewcode-back" href="../../../../api/napari.utils.events.Event.html#napari.utils.events.Event">[docs]</a>
@@ -1243,10 +1241,7 @@ window.runMermaid = runMermaid;</script>
     <span class="p">):</span>
         <span class="k">if</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;reminders&#39;</span><span class="p">,</span> <span class="s1">&#39;always&#39;</span><span class="p">,</span> <span class="s1">&#39;never&#39;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;print_callback_errors must be &quot;first&quot;, &quot;reminders&quot;, &quot;always&quot;, or &quot;never&quot;&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="s1">&#39;print_callback_errors must be &quot;first&quot;, &quot;reminders&quot;, &quot;always&quot;, or &quot;never&quot;&#39;</span>
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_print_callback_errors</span> <span class="o">=</span> <span class="n">val</span>
 
@@ -1385,25 +1380,14 @@ window.runMermaid = runMermaid;</script>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">_ref</span> <span class="o">=</span> <span class="n">ref</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;ref must be a bool or string&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;ref must be a bool or string&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">_ref</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">_ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callback_refs</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;ref &quot;</span><span class="si">{ref}</span><span class="s1">&quot; is not unique&#39;</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">_ref</span><span class="p">)</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ref &quot;</span><span class="si">{</span><span class="n">_ref</span><span class="si">}</span><span class="s1">&quot; is not unique&#39;</span><span class="p">)</span>
 
         <span class="c1"># positions</span>
         <span class="k">if</span> <span class="n">position</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;last&#39;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;position must be &quot;first&quot; or &quot;last&quot;, not </span><span class="si">{position}</span><span class="s1">&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s1">&#39;position must be &quot;first&quot; or &quot;last&quot;, not </span><span class="si">{</span><span class="n">position</span><span class="si">}</span><span class="s1">&#39;</span>
             <span class="p">)</span>
         <span class="n">core_callbacks_indexes</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">i</span>
@@ -1437,14 +1421,7 @@ window.runMermaid = runMermaid;</script>
                     <span class="p">)</span>
                     <span class="k">if</span> <span class="n">count</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                                <span class="s1">&#39;criteria &quot;</span><span class="si">{criteria}</span><span class="s1">&quot; is in the current callback list </span><span class="si">{count}</span><span class="s1"> times:</span><span class="se">\n</span><span class="si">{callback_refs}</span><span class="se">\n</span><span class="si">{callbacks}</span><span class="s1">&#39;</span><span class="p">,</span>
-                                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                <span class="n">criteria</span><span class="o">=</span><span class="n">criteria</span><span class="p">,</span>
-                                <span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="p">,</span>
-                                <span class="n">callback_refs</span><span class="o">=</span><span class="n">callback_refs</span><span class="p">,</span>
-                                <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">,</span>
-                            <span class="p">)</span>
+                            <span class="sa">f</span><span class="s1">&#39;criteria &quot;</span><span class="si">{</span><span class="n">criteria</span><span class="si">}</span><span class="s1">&quot; is in the current callback list </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s1"> times:</span><span class="se">\n</span><span class="si">{</span><span class="n">callback_refs</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">callbacks</span><span class="si">}</span><span class="s1">&#39;</span>
                         <span class="p">)</span>
                 <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span>
                     <span class="n">ci</span>
@@ -1456,13 +1433,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">bounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">ri</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="n">matches</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>  <span class="c1"># i.e., &quot;place before&quot; &lt; &quot;place after&quot;</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;cannot place callback before &quot;</span><span class="si">{before}</span><span class="s1">&quot; and after &quot;</span><span class="si">{after}</span><span class="s1">&quot; for callbacks: </span><span class="si">{callback_refs}</span><span class="s1">&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">before</span><span class="o">=</span><span class="n">before</span><span class="p">,</span>
-                    <span class="n">after</span><span class="o">=</span><span class="n">after</span><span class="p">,</span>
-                    <span class="n">callback_refs</span><span class="o">=</span><span class="n">callback_refs</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s1">&#39;cannot place callback before &quot;</span><span class="si">{</span><span class="n">before</span><span class="si">}</span><span class="s1">&quot; and after &quot;</span><span class="si">{</span><span class="n">after</span><span class="si">}</span><span class="s1">&quot; for callbacks: </span><span class="si">{</span><span class="n">callback_refs</span><span class="si">}</span><span class="s1">&#39;</span>
             <span class="p">)</span>
         <span class="n">idx</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">position</span> <span class="o">==</span> <span class="s1">&#39;first&#39;</span> <span class="k">else</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># &#39;last&#39;</span>
 
@@ -1533,12 +1504,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismethod</span><span class="p">(</span><span class="n">meth</span><span class="p">)</span> <span class="ow">and</span> <span class="n">meth</span> <span class="o">==</span> <span class="n">callback</span><span class="p">:</span>
                     <span class="k">return</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;During bind method </span><span class="si">{callback}</span><span class="s1"> of object </span><span class="si">{obj}</span><span class="s1"> an error happen&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
-                    <span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s1">&#39;During bind method </span><span class="si">{</span><span class="n">callback</span><span class="si">}</span><span class="s1"> of object </span><span class="si">{</span><span class="n">obj</span><span class="si">}</span><span class="s1"> an error happen&#39;</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">obj</span><span class="p">,</span> <span class="n">callback</span><span class="o">.</span><span class="vm">__name__</span>
 
@@ -1552,10 +1518,7 @@ window.runMermaid = runMermaid;</script>
 
         <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">_is_pos_arg</span><span class="p">,</span> <span class="n">parameters_list</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Binning function cannot have more than one positional argument&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="s1">&#39;Binning function cannot have more than one positional argument&#39;</span>
             <span class="p">)</span>
 
         <span class="k">return</span> <span class="nb">any</span><span class="p">(</span>
@@ -1643,13 +1606,7 @@ window.runMermaid = runMermaid;</script>
                     <span class="n">cb</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">cb</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">cb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                                <span class="s1">&#39;Problem with function </span><span class="si">{old_cb}</span><span class="s1"> of </span><span class="si">{obj}</span><span class="s1"> connected to event </span><span class="si">{self_}</span><span class="s1">&#39;</span><span class="p">,</span>
-                                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                <span class="n">old_cb</span><span class="o">=</span><span class="n">old_cb</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                                <span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span>
-                                <span class="n">self_</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-                            <span class="p">),</span>
+                            <span class="sa">f</span><span class="s1">&#39;Problem with function </span><span class="si">{</span><span class="n">old_cb</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1"> of </span><span class="si">{</span><span class="n">obj</span><span class="si">}</span><span class="s1"> connected to event </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
                             <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                             <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">,</span>
                         <span class="p">)</span>
@@ -1671,12 +1628,7 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">_emitting</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="n">ps</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">_pop_source</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">ps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;Event source-stack mismatch.&#39;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="p">)</span>
-                <span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Event source-stack mismatch.&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">event</span>
 
@@ -1719,10 +1671,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_class</span><span class="p">(</span><span class="o">**</span><span class="n">_kwargs</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Event emitters can be called with an Event instance or with keyword arguments only.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="s1">&#39;Event emitters can be called with an Event instance or with keyword arguments only.&#39;</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">event</span>
 
@@ -1759,12 +1708,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">callback</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blocked</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blocked</span><span class="p">[</span><span class="n">callback</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Cannot unblock </span><span class="si">{self_}</span><span class="s1"> for callback </span><span class="si">{callback}</span><span class="s1">; emitter was not previously blocked.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">self_</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-                    <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s1">&#39;Cannot unblock </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1"> for callback </span><span class="si">{</span><span class="n">callback</span><span class="si">}</span><span class="s1">; emitter was not previously blocked.&#39;</span>
             <span class="p">)</span>
         <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blocked</span><span class="p">[</span><span class="n">callback</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1943,19 +1887,11 @@ window.runMermaid = runMermaid;</script>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_emitters</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;EmitterGroup already has an emitter named &#39;</span><span class="si">{name}</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-                    <span class="p">)</span>
+                    <span class="sa">f</span><span class="s2">&quot;EmitterGroup already has an emitter named &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
                 <span class="p">)</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;The name &#39;</span><span class="si">{name}</span><span class="s2">&#39; cannot be used as an emitter; it is already an attribute of EmitterGroup&quot;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-                    <span class="p">)</span>
+                    <span class="sa">f</span><span class="s2">&quot;The name &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; cannot be used as an emitter; it is already an attribute of EmitterGroup&quot;</span>
                 <span class="p">)</span>
 
         <span class="c1"># add each emitter specified in the keyword arguments</span>
@@ -1971,12 +1907,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="p">)</span>
             <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">emitter</span><span class="p">,</span> <span class="n">EventEmitter</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;Emitter must be specified as either an EventEmitter instance or Event subclass. (got </span><span class="si">{name}</span><span class="s1">=</span><span class="si">{emitter}</span><span class="s1">)&#39;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-                        <span class="n">emitter</span><span class="o">=</span><span class="n">emitter</span><span class="p">,</span>
-                    <span class="p">)</span>
+                    <span class="sa">f</span><span class="s1">&#39;Emitter must be specified as either an EventEmitter instance or Event subclass. (got </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">=</span><span class="si">{</span><span class="n">emitter</span><span class="si">}</span><span class="s1">)&#39;</span>
                 <span class="p">)</span>
 
             <span class="c1"># give this emitter the same source as the group.</span>

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../../_static/documentation_options.js?v=1adb0033"></script>
+    <script src="../../../../_static/documentation_options.js?v=0291dff2"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -926,7 +926,6 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colormap</span><span class="p">,</span> <span class="n">ValidColormapArg</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.custom_types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Array</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -1292,10 +1291,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">DIRECT</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;property used for edge_color dropped&#39;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="p">),</span>
+                    <span class="s1">&#39;property used for edge_color dropped&#39;</span><span class="p">,</span>
                     <span class="ne">RuntimeWarning</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -1517,20 +1513,12 @@ window.runMermaid = runMermaid;</script>
                         <span class="p">],</span>
                     <span class="p">}</span>
                     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                        <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                            <span class="s1">&#39;edge_color property was not set, setting to: </span><span class="si">{color_property}</span><span class="s1">&#39;</span><span class="p">,</span>
-                            <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                            <span class="n">color_property</span><span class="o">=</span><span class="n">color_property</span><span class="p">,</span>
-                        <span class="p">),</span>
+                        <span class="sa">f</span><span class="s1">&#39;edge_color property was not set, setting to: </span><span class="si">{</span><span class="n">color_property</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
                         <span class="ne">RuntimeWarning</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                            <span class="s1">&#39;There must be a valid Points.properties to use </span><span class="si">{edge_color_mode}</span><span class="s1">&#39;</span><span class="p">,</span>
-                            <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                            <span class="n">edge_color_mode</span><span class="o">=</span><span class="n">edge_color_mode</span><span class="p">,</span>
-                        <span class="p">)</span>
+                        <span class="sa">f</span><span class="s1">&#39;There must be a valid Points.properties to use </span><span class="si">{</span><span class="n">edge_color_mode</span><span class="si">}</span><span class="s1">&#39;</span>
                     <span class="p">)</span>
 
             <span class="c1"># ColorMode.COLORMAP can only be applied to numeric properties</span>
@@ -1539,10 +1527,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">,</span>
             <span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;selected property must be numeric to use ColorMode.COLORMAP&#39;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="p">)</span>
+                    <span class="s1">&#39;selected property must be numeric to use ColorMode.COLORMAP&#39;</span>
                 <span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">edge_color_mode</span>

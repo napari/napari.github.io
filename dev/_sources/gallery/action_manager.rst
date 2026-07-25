@@ -29,18 +29,18 @@ Action manager
 
  .. code-block:: none
 
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:50: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
+    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
       theme_type=get_system_theme(),
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:50: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
+    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
       theme_type=get_system_theme(),
     /home/runner/work/docs/docs/napari/examples/action_manager.py:44: FutureWarning: Public access to Window.qt_viewer is deprecated and will be removed in
     no earlier than v0.9.0. It is considered an "implementation detail" of the napari
     application, not part of the napari viewer model. If your use case
     requires access to qt_viewer, please open an issue to discuss.
       layer_buttons = viewer.window.qt_viewer.layerButtons
-    calling <function bind_shortcut at 0x7f9a075be3e0>
-    calling <function register_action at 0x7f9a075bf880>
-    calling <function bind_button at 0x7f9a075be980>
+    calling <function register_action at 0x7f6978bcaf20>
+    calling <function bind_button at 0x7f6978bcb880>
+    calling <function bind_shortcut at 0x7f6978bc9260>
 
 
 

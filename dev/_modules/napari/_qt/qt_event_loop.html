@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../_static/documentation_options.js?v=1adb0033"></script>
+    <script src="../../../_static/documentation_options.js?v=0291dff2"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -933,7 +933,6 @@ window.runMermaid = runMermaid;</script>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.perf</span><span class="w"> </span><span class="kn">import</span> <span class="n">perf_config</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.theme</span><span class="w"> </span><span class="kn">import</span> <span class="n">_themes</span><span class="p">,</span> <span class="n">get_system_theme</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -1082,19 +1081,12 @@ window.runMermaid = runMermaid;</script>
         <span class="n">set_values</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="s1">&#39;ipy_interactive&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">set_values</span><span class="p">:</span>
             <span class="n">warn</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;QApplication already existed, these arguments to to &#39;get_qapp&#39; were ignored: </span><span class="si">{args}</span><span class="s2">&quot;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">args</span><span class="o">=</span><span class="n">set_values</span><span class="p">,</span>
-                <span class="p">),</span>
+                <span class="sa">f</span><span class="s2">&quot;QApplication already existed, these arguments to to &#39;get_qapp&#39; were ignored: </span><span class="si">{</span><span class="n">set_values</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
                 <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">perf_config</span> <span class="ow">and</span> <span class="n">perf_config</span><span class="o">.</span><span class="n">trace_qt_events</span><span class="p">:</span>
             <span class="n">warn</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Using NAPARI_PERFMON with an already-running QtApp (--gui qt?) is not supported.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">),</span>
+                <span class="s1">&#39;Using NAPARI_PERFMON with an already-running QtApp (--gui qt?) is not supported.&#39;</span><span class="p">,</span>
                 <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span>
@@ -1107,15 +1099,12 @@ window.runMermaid = runMermaid;</script>
             <span class="c1"># before napari&#39;s _wayland_fix.py  workaround can run. Gated on</span>
             <span class="c1"># Nvidia since that&#39;s the only setup the workaround helps.</span>
             <span class="n">warn</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;A Qt application was already running on the Wayland &#39;</span>
-                    <span class="s1">&#39;platform before napari was imported, so napari could not &#39;</span>
-                    <span class="s1">&#39;automatically apply its Wayland startup workaround. If napari &#39;</span>
-                    <span class="s1">&#39;fails to launch or throws repeated rendering errors, see &#39;</span>
-                    <span class="s1">&#39;https://napari.org/stable/troubleshooting.html#wayland-and-nvidia &#39;</span>
-                    <span class="s1">&#39;for the workaround.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">),</span>
+                <span class="s1">&#39;A Qt application was already running on the Wayland &#39;</span>
+                <span class="s1">&#39;platform before napari was imported, so napari could not &#39;</span>
+                <span class="s1">&#39;automatically apply its Wayland startup workaround. If napari &#39;</span>
+                <span class="s1">&#39;fails to launch or throws repeated rendering errors, see &#39;</span>
+                <span class="s1">&#39;https://napari.org/stable/troubleshooting.html#wayland-and-nvidia &#39;</span>
+                <span class="s1">&#39;for the workaround.&#39;</span><span class="p">,</span>
                 <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="p">)</span>
 
@@ -1337,18 +1326,11 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">app</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s1">&#39;No Qt app has been created. One can be created by calling `get_qapp()` or `qtpy.QtWidgets.QApplication([])`&#39;</span><span class="p">,</span>
-                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="s1">&#39;No Qt app has been created. One can be created by calling `get_qapp()` or `qtpy.QtWidgets.QApplication([])`&#39;</span>
         <span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">app</span><span class="o">.</span><span class="n">topLevelWidgets</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
         <span class="n">warn</span><span class="p">(</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s1">&#39;Refusing to run a QApplication with no topLevelWidgets. To run the app anyway, use `</span><span class="si">{_func_name}</span><span class="s1">(force=True)`&#39;</span><span class="p">,</span>
-                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">_func_name</span><span class="o">=</span><span class="n">_func_name</span><span class="p">,</span>
-            <span class="p">),</span>
+            <span class="sa">f</span><span class="s1">&#39;Refusing to run a QApplication with no topLevelWidgets. To run the app anyway, use `</span><span class="si">{</span><span class="n">_func_name</span><span class="si">}</span><span class="s1">(force=True)`&#39;</span><span class="p">,</span>
             <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span>
@@ -1356,14 +1338,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">if</span> <span class="n">app</span><span class="o">.</span><span class="n">thread</span><span class="p">()</span><span class="o">.</span><span class="n">loopLevel</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">max_loop_level</span><span class="p">:</span>
         <span class="n">loops</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">thread</span><span class="p">()</span><span class="o">.</span><span class="n">loopLevel</span><span class="p">()</span>
         <span class="n">warn</span><span class="p">(</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_n</span><span class="p">(</span>
-                <span class="s1">&#39;A QApplication is already running with 1 event loop. To enter *another* event loop, use `</span><span class="si">{_func_name}</span><span class="s1">(max_loop_level=</span><span class="si">{max_loop_level}</span><span class="s1">)`&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;A QApplication is already running with </span><span class="si">{n}</span><span class="s1"> event loops. To enter *another* event loop, use `</span><span class="si">{_func_name}</span><span class="s1">(max_loop_level=</span><span class="si">{max_loop_level}</span><span class="s1">)`&#39;</span><span class="p">,</span>
-                <span class="n">n</span><span class="o">=</span><span class="n">loops</span><span class="p">,</span>
-                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">_func_name</span><span class="o">=</span><span class="n">_func_name</span><span class="p">,</span>
-                <span class="n">max_loop_level</span><span class="o">=</span><span class="n">loops</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="p">),</span>
+            <span class="sa">f</span><span class="s1">&#39;A QApplication is already running with 1 event loop. To enter *another* event loop, use `</span><span class="si">{</span><span class="n">_func_name</span><span class="si">}</span><span class="s1">(max_loop_level=</span><span class="si">{</span><span class="n">loops</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">)`&#39;</span><span class="p">,</span>
             <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span>

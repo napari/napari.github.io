@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../_static/documentation_options.js?v=1adb0033"></script>
+    <script src="../_static/documentation_options.js?v=0291dff2"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -841,9 +841,9 @@ with a simple widget for modifying plane parameters.</p>
 <p><a class="reference download internal" download="" href="../_downloads/25768cdf01a9bf6e50630cb4e75d2767/3D_image_plane_rendering.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Notebook</span> <span class="pre">(.ipynb)</span></code></a></p>
 </div>
 </div>
-<img src="../_images/sphx_glr_3D_image_plane_rendering_001.png" srcset="../_images/sphx_glr_3D_image_plane_rendering_001.png" alt="3D image plane rendering" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:50: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
+<img src="../_images/sphx_glr_3D_image_plane_rendering_001.png" srcset="../_images/sphx_glr_3D_image_plane_rendering_001.png" alt="3D image plane rendering" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
   theme_type=get_system_theme(),
-/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:50: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
+/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
   theme_type=get_system_theme(),
 </pre></div>
 </div>
@@ -854,7 +854,6 @@ with a simple widget for modifying plane parameters.</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">skimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">data</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
 <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
@@ -886,13 +885,11 @@ with a simple widget for modifying plane parameters.</p>
 <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span></a> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">35</span><span class="p">)</span>
 <a href="../api/napari.Viewer.html#napari.Viewer.fit_to_view" title="napari.Viewer.fit_to_view" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">fit_to_view</span></a><span class="p">()</span>
-<a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="o">.</span><span class="n">text_overlay</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-<span class="sd">&quot;&quot;&quot;shift + click and drag to move the plane</span>
-<span class="sd">press &#39;x&#39;, &#39;y&#39; or &#39;z&#39; to orient the plane along that axis around the cursor</span>
-<span class="sd">press &#39;o&#39; to orient the plane normal along the camera view direction</span>
-<span class="sd">press and hold &#39;o&#39; then click and drag to make the plane normal follow the camera</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="p">)</span>
+<a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="o">.</span><span class="n">text_overlay</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;shift + click and drag to move the plane</span>
+<span class="s2">press &#39;x&#39;, &#39;y&#39; or &#39;z&#39; to orient the plane along that axis around the cursor</span>
+<span class="s2">press &#39;o&#39; to orient the plane normal along the camera view direction</span>
+<span class="s2">press and hold &#39;o&#39; then click and drag to make the plane normal follow the camera</span>
+<span class="s2">&quot;&quot;&quot;</span>
 <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="o">.</span><span class="n">text_overlay</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>

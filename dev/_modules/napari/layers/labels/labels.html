@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../../_static/documentation_options.js?v=1adb0033"></script>
+    <script src="../../../../_static/documentation_options.js?v=0291dff2"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -970,7 +970,6 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringEnum</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.naming</span><span class="w"> </span><span class="kn">import</span> <span class="n">magic_name</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.status_messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">format_feature_value</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -1640,10 +1639,7 @@ window.runMermaid = runMermaid;</script>
             <span class="c1"># numpy dtypes</span>
             <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">normalize_dtype</span><span class="p">(</span><span class="n">data_level</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;Only integer types are supported for Labels layers, but data contains </span><span class="si">{data_level_type}</span><span class="s1">.&#39;</span><span class="p">,</span>
-                        <span class="n">data_level_type</span><span class="o">=</span><span class="n">data_level</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
-                    <span class="p">)</span>
+                    <span class="sa">f</span><span class="s1">&#39;Only integer types are supported for Labels layers, but data contains </span><span class="si">{</span><span class="n">data_level</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s1">.&#39;</span>
                 <span class="p">)</span>
             <span class="k">if</span> <span class="n">data_level</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>
                 <span class="n">int_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_level</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">))</span>
@@ -1891,12 +1887,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contour</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">labels</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Contours are not displayed during 3D rendering&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Contours are not displayed during 3D rendering&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
 
         <span class="n">contour_offset</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contour</span><span class="p">))</span>
@@ -3273,7 +3264,7 @@ window.runMermaid = runMermaid;</script>
             <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="n">value</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">label_value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;[No Properties]&#39;</span><span class="p">)]</span>
+            <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;[No Properties]&#39;</span><span class="p">]</span>
 
         <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span><span class="p">[</span><span class="n">label_value</span><span class="p">]</span>
         <span class="k">return</span> <span class="p">[</span>

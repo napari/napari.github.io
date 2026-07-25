@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../_static/documentation_options.js?v=1adb0033"></script>
+    <script src="../../../_static/documentation_options.js?v=0291dff2"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -912,7 +912,6 @@ window.runMermaid = runMermaid;</script>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.progress</span><span class="w"> </span><span class="kn">import</span> <span class="n">progress</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.task_status</span><span class="w"> </span><span class="kn">import</span> <span class="n">Status</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.viewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">current_viewer</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -1071,10 +1070,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">total</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">_progress</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;total&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">worker</span><span class="p">,</span> <span class="n">FunctionWorker</span><span class="p">)</span> <span class="ow">and</span> <span class="n">total</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;_progress total != 0 but worker is FunctionWorker and will not yield. Returning indeterminate progress bar...&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">),</span>
+                <span class="s1">&#39;_progress total != 0 but worker is FunctionWorker and will not yield. Returning indeterminate progress bar...&#39;</span><span class="p">,</span>
                 <span class="ne">RuntimeWarning</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1102,7 +1098,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">worker_status_id</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">_register_task_status</span><span class="p">(</span>
             <span class="s1">&#39;napari-worker&#39;</span><span class="p">,</span>
             <span class="n">Status</span><span class="o">.</span><span class="n">PENDING</span><span class="p">,</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{func}</span><span class="s1"> execution pending&#39;</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">func</span><span class="p">),</span>
+            <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">func</span><span class="si">}</span><span class="s1"> execution pending&#39;</span><span class="p">,</span>
             <span class="n">cancel_callback</span><span class="o">=</span><span class="n">worker</span><span class="o">.</span><span class="n">quit</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">worker</span><span class="o">.</span><span class="n">started</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
@@ -1110,9 +1106,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="k">lambda</span> <span class="n">task_status_id</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">window</span><span class="o">.</span><span class="n">_update_task_status</span><span class="p">(</span>
                     <span class="n">task_status_id</span><span class="p">,</span>
                     <span class="n">Status</span><span class="o">.</span><span class="n">BUSY</span><span class="p">,</span>
-                    <span class="n">description</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;Executing </span><span class="si">{func}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">function</span>
-                    <span class="p">),</span>
+                    <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Executing </span><span class="si">{</span><span class="n">function</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="n">worker_status_id</span><span class="p">,</span>
                 <span class="n">func</span><span class="p">,</span>
@@ -1123,9 +1117,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="k">lambda</span> <span class="n">task_status_id</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">window</span><span class="o">.</span><span class="n">_update_task_status</span><span class="p">(</span>
                     <span class="n">task_status_id</span><span class="p">,</span>
                     <span class="n">Status</span><span class="o">.</span><span class="n">FAILED</span><span class="p">,</span>
-                    <span class="n">description</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;</span><span class="si">{func}</span><span class="s1"> execution failed&#39;</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">function</span>
-                    <span class="p">),</span>
+                    <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">function</span><span class="si">}</span><span class="s1"> execution failed&#39;</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="n">worker_status_id</span><span class="p">,</span>
                 <span class="n">func</span><span class="p">,</span>
@@ -1136,11 +1128,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="k">lambda</span> <span class="n">task_status_id</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">window</span><span class="o">.</span><span class="n">_update_task_status</span><span class="p">(</span>
                     <span class="n">task_status_id</span><span class="p">,</span>
                     <span class="n">Status</span><span class="o">.</span><span class="n">COMPLETED</span><span class="p">,</span>
-                    <span class="n">description</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;</span><span class="si">{func}</span><span class="s1"> execution completed&#39;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">func</span><span class="o">=</span><span class="n">function</span><span class="p">,</span>
-                    <span class="p">),</span>
+                    <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">function</span><span class="si">}</span><span class="s1"> execution completed&#39;</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="n">worker_status_id</span><span class="p">,</span>
                 <span class="n">func</span><span class="p">,</span>
@@ -1153,11 +1141,7 @@ window.runMermaid = runMermaid;</script>
                         <span class="n">window</span><span class="o">.</span><span class="n">_update_task_status</span><span class="p">(</span>
                             <span class="n">task_status_id</span><span class="p">,</span>
                             <span class="n">Status</span><span class="o">.</span><span class="n">CANCELLED</span><span class="p">,</span>
-                            <span class="n">description</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                                <span class="s1">&#39;</span><span class="si">{func}</span><span class="s1"> execution cancelled&#39;</span><span class="p">,</span>
-                                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                <span class="n">func</span><span class="o">=</span><span class="n">function</span><span class="p">,</span>
-                            <span class="p">),</span>
+                            <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">function</span><span class="si">}</span><span class="s1"> execution cancelled&#39;</span><span class="p">,</span>
                         <span class="p">)</span>
                     <span class="p">),</span>
                     <span class="n">worker_status_id</span><span class="p">,</span>

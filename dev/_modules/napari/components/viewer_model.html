@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../_static/documentation_options.js?v=1adb0033"></script>
+    <script src="../../../_static/documentation_options.js?v=0291dff2"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1002,7 +1002,6 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.mouse_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="n">MousemapProviderPydantic</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.progress</span><span class="w"> </span><span class="kn">import</span> <span class="n">progress</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.theme</span><span class="w"> </span><span class="kn">import</span> <span class="n">available_themes</span><span class="p">,</span> <span class="n">is_theme_available</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">npe2.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">SampleDataCreator</span>
@@ -1045,13 +1044,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">p_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
         <span class="n">parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">p_str</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="ow">and</span> <span class="n">parsed</span><span class="o">.</span><span class="n">netloc</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">Path</span><span class="p">(</span><span class="n">p_str</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Path </span><span class="si">{path!r}</span><span class="s1"> does not exist.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">path</span><span class="o">=</span><span class="n">p_str</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Path </span><span class="si">{</span><span class="n">p_str</span><span class="si">!r}</span><span class="s1"> does not exist.&#39;</span><span class="p">)</span>
 
 
 <span class="c1"># KeymapProvider &amp; MousemapProvider should eventually be moved off the ViewerModel</span>
@@ -1298,12 +1291,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_valid_theme</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_theme_available</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Theme &#39;</span><span class="si">{theme_name}</span><span class="s2">&#39; not found; options are </span><span class="si">{themes}</span><span class="s2">.&quot;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">theme_name</span><span class="o">=</span><span class="n">v</span><span class="p">,</span>
-                    <span class="n">themes</span><span class="o">=</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">available_themes</span><span class="p">()),</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Theme &#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&#39; not found; options are </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">available_themes</span><span class="p">())</span><span class="si">}</span><span class="s2">.&quot;</span>
             <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">v</span>
@@ -1518,11 +1506,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">margin</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">margin</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s1">&#39;margin must be between 0 and 1; got </span><span class="si">{margin}</span><span class="s1"> instead.&#39;</span><span class="p">,</span>
-                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">margin</span><span class="o">=</span><span class="n">margin</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="sa">f</span><span class="s1">&#39;margin must be between 0 and 1; got </span><span class="si">{</span><span class="n">margin</span><span class="si">}</span><span class="s1"> instead.&#39;</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_viewbox_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1927,13 +1911,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">desc</span> <span class="o">=</span> <span class="n">action_manager</span><span class="o">.</span><span class="n">_actions</span><span class="p">[</span><span class="n">action_name</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">shortcuts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">action_name</span><span class="p">,</span> <span class="p">[]):</span>
                 <span class="k">continue</span>
-            <span class="n">help_li</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;use &lt;</span><span class="si">{shortcut}</span><span class="s1">&gt; for </span><span class="si">{desc}</span><span class="s1">&#39;</span><span class="p">,</span>
-                    <span class="n">shortcut</span><span class="o">=</span><span class="n">shortcuts</span><span class="p">[</span><span class="n">action_name</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
-                    <span class="n">desc</span><span class="o">=</span><span class="n">desc</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+            <span class="n">help_li</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;use &lt;</span><span class="si">{</span><span class="n">shortcuts</span><span class="p">[</span><span class="n">action_name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&gt; for </span><span class="si">{</span><span class="n">desc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="n">layer</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">help_li</span><span class="p">)</span>
 
@@ -2214,11 +2192,7 @@ window.runMermaid = runMermaid;</script>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">iterable_kwargs</span> <span class="ow">and</span> <span class="n">is_sequence</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                        <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                            <span class="s2">&quot;Received sequence for argument &#39;</span><span class="si">{argument}</span><span class="s2">&#39;, did you mean to specify a &#39;channel_axis&#39;? &quot;</span><span class="p">,</span>
-                            <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                            <span class="n">argument</span><span class="o">=</span><span class="n">k</span><span class="p">,</span>
-                        <span class="p">)</span>
+                        <span class="sa">f</span><span class="s2">&quot;Received sequence for argument &#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&#39;, did you mean to specify a &#39;channel_axis&#39;? &quot;</span>
                     <span class="p">)</span>
             <span class="n">layer</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
@@ -2295,27 +2269,11 @@ window.runMermaid = runMermaid;</script>
             <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="o">.</span><span class="n">uri</span>
 
         <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s1">&#39;Plugin </span><span class="si">{plugin!r}</span><span class="s1"> does not provide sample data named </span><span class="si">{sample!r}</span><span class="s1">. &#39;</span><span class="p">,</span>
-                <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
-                <span class="n">sample</span><span class="o">=</span><span class="n">sample</span><span class="p">,</span>
-                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s1"> does not provide sample data named </span><span class="si">{</span><span class="n">sample</span><span class="si">!r}</span><span class="s1">. &#39;</span>
             <span class="k">if</span> <span class="n">available</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Plugin </span><span class="si">{plugin!r}</span><span class="s1"> does not provide sample data named </span><span class="si">{sample!r}</span><span class="s1">. Available samples include: </span><span class="si">{samples}</span><span class="s1">.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
-                    <span class="n">sample</span><span class="o">=</span><span class="n">sample</span><span class="p">,</span>
-                    <span class="n">samples</span><span class="o">=</span><span class="n">available</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s1"> does not provide sample data named </span><span class="si">{</span><span class="n">sample</span><span class="si">!r}</span><span class="s1">. Available samples include: </span><span class="si">{</span><span class="n">available</span><span class="si">}</span><span class="s1">.&#39;</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Plugin </span><span class="si">{plugin!r}</span><span class="s1"> does not provide sample data named </span><span class="si">{sample!r}</span><span class="s1">. No plugin samples have been registered.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
-                    <span class="n">sample</span><span class="o">=</span><span class="n">sample</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s1"> does not provide sample data named </span><span class="si">{</span><span class="n">sample</span><span class="si">!r}</span><span class="s1">. No plugin samples have been registered.&#39;</span>
 
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
@@ -2331,12 +2289,7 @@ window.runMermaid = runMermaid;</script>
                         <span class="n">added</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_layer_from_data</span><span class="p">(</span><span class="o">*</span><span class="n">datum</span><span class="p">))</span>
                 <span class="k">if</span> <span class="n">needs_error</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                            <span class="s1">&#39;Sample &quot;</span><span class="si">{sample}</span><span class="s1">&quot; from plugin &quot;</span><span class="si">{plugin}</span><span class="s1">&quot; did not return any valid layer data tuples.&#39;</span><span class="p">,</span>
-                            <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                            <span class="n">sample</span><span class="o">=</span><span class="n">sample</span><span class="p">,</span>
-                            <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
-                        <span class="p">)</span>
+                        <span class="sa">f</span><span class="s1">&#39;Sample &quot;</span><span class="si">{</span><span class="n">sample</span><span class="si">}</span><span class="s1">&quot; from plugin &quot;</span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s1">&quot; did not return any valid layer data tuples.&#39;</span>
                     <span class="p">)</span>
                 <span class="k">return</span> <span class="n">added</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">):</span>
@@ -2350,24 +2303,12 @@ window.runMermaid = runMermaid;</script>
                         <span class="ow">and</span> <span class="n">reader_plugin</span> <span class="o">!=</span> <span class="n">plugin_spec_reader</span>
                     <span class="p">):</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                                <span class="s1">&#39;Chosen reader </span><span class="si">{chosen_reader}</span><span class="s1"> failed to open sample. Plugin </span><span class="si">{plugin}</span><span class="s1"> declares </span><span class="si">{original_reader}</span><span class="s1"> as the reader for this sample - try calling `open_sample` with no `reader_plugin` or passing </span><span class="si">{original_reader}</span><span class="s1"> explicitly.&#39;</span><span class="p">,</span>
-                                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
-                                <span class="n">chosen_reader</span><span class="o">=</span><span class="n">reader_plugin</span><span class="p">,</span>
-                                <span class="n">original_reader</span><span class="o">=</span><span class="n">plugin_spec_reader</span><span class="p">,</span>
-                            <span class="p">)</span>
+                            <span class="sa">f</span><span class="s1">&#39;Chosen reader </span><span class="si">{</span><span class="n">reader_plugin</span><span class="si">}</span><span class="s1"> failed to open sample. Plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s1"> declares </span><span class="si">{</span><span class="n">plugin_spec_reader</span><span class="si">}</span><span class="s1"> as the reader for this sample - try calling `open_sample` with no `reader_plugin` or passing </span><span class="si">{</span><span class="n">plugin_spec_reader</span><span class="si">}</span><span class="s1"> explicitly.&#39;</span>
                         <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
                     <span class="k">raise</span> <span class="n">e</span>  <span class="c1"># noqa: TRY201</span>
 
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Got unexpected type for sample (</span><span class="si">{plugin!r}</span><span class="s1">, </span><span class="si">{sample!r}</span><span class="s1">): </span><span class="si">{data_type}</span><span class="s1">&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
-                    <span class="n">sample</span><span class="o">=</span><span class="n">sample</span><span class="p">,</span>
-                    <span class="n">data_type</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s1">&#39;Got unexpected type for sample (</span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s1">, </span><span class="si">{</span><span class="n">sample</span><span class="si">!r}</span><span class="s1">): </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
             <span class="p">)</span></div>
 
 
@@ -2423,10 +2364,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">plugin</span> <span class="o">==</span> <span class="s1">&#39;builtins&#39;</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;The &quot;builtins&quot; plugin name is deprecated and will not work in a future version. Please use &quot;napari&quot; instead.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">),</span>
+                <span class="s1">&#39;The &quot;builtins&quot; plugin name is deprecated and will not work in a future version. Please use &quot;napari&quot; instead.&#39;</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">plugin</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span>
 
@@ -2450,7 +2388,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">added</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Layer</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># for layers that get added</span>
         <span class="k">with</span> <span class="n">progress</span><span class="p">(</span>
             <span class="n">paths</span><span class="p">,</span>
-            <span class="n">desc</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Opening Files&#39;</span><span class="p">),</span>
+            <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Opening Files&#39;</span><span class="p">,</span>
             <span class="n">total</span><span class="o">=</span><span class="p">(</span>
                 <span class="mi">0</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">None</span>
             <span class="p">),</span>  <span class="c1"># indeterminate bar for 1 file</span>
@@ -2542,11 +2480,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">readers</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">get_readers</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_path</span><span class="p">))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">readers</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">NoAvailableReaderError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;No plugin found capable of reading </span><span class="si">{path_message}</span><span class="s1">.&#39;</span><span class="p">,</span>
-                    <span class="n">path_message</span><span class="o">=</span><span class="n">path_message</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">),</span>
+                <span class="sa">f</span><span class="s1">&#39;No plugin found capable of reading </span><span class="si">{</span><span class="n">path_message</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">,</span>
                 <span class="n">paths</span><span class="p">,</span>
             <span class="p">)</span>
 
@@ -2554,17 +2488,9 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="n">plugin</span> <span class="ow">and</span> <span class="n">plugin</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">readers</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                 <span class="ne">RuntimeWarning</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;Can&#39;t find </span><span class="si">{plugin}</span><span class="s2"> plugin associated with </span><span class="si">{path_message}</span><span class="s2"> files. &quot;</span><span class="p">,</span>
-                        <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
-                        <span class="n">path_message</span><span class="o">=</span><span class="n">path_message</span><span class="p">,</span>
-                    <span class="p">)</span>
-                    <span class="o">+</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;This may be because you&#39;ve switched environments, or have uninstalled the plugin without updating the reader preference. &quot;</span>
-                    <span class="p">)</span>
-                    <span class="o">+</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;You can remove this preference in the preference dialog, or by editing `settings.plugins.extension2reader`.&#39;</span>
-                    <span class="p">)</span>
+                    <span class="sa">f</span><span class="s2">&quot;Can&#39;t find </span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s2"> plugin associated with </span><span class="si">{</span><span class="n">path_message</span><span class="si">}</span><span class="s2"> files. &quot;</span>
+                    <span class="s2">&quot;This may be because you&#39;ve switched environments, or have uninstalled the plugin without updating the reader preference. &quot;</span>
+                    <span class="s1">&#39;You can remove this preference in the preference dialog, or by editing `settings.plugins.extension2reader`.&#39;</span>
                 <span class="p">)</span>
             <span class="p">)</span>
             <span class="n">plugin</span> <span class="o">=</span> <span class="kc">None</span>
@@ -2583,11 +2509,7 @@ window.runMermaid = runMermaid;</script>
             <span class="c1"># plugin failed</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">ReaderPluginError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;Tried opening with </span><span class="si">{plugin}</span><span class="s1">, but failed.&#39;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
-                    <span class="p">),</span>
+                    <span class="sa">f</span><span class="s1">&#39;Tried opening with </span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s1">, but failed.&#39;</span><span class="p">,</span>
                     <span class="n">plugin</span><span class="p">,</span>
                     <span class="n">paths</span><span class="p">,</span>
                     <span class="n">original_error</span><span class="o">=</span><span class="n">e</span><span class="p">,</span>
@@ -2595,12 +2517,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># multiple plugins</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">MultipleReaderError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Multiple plugins found capable of reading </span><span class="si">{path_message}</span><span class="s1">. Select plugin from </span><span class="si">{plugins}</span><span class="s1"> and pass to reading function e.g. `viewer.open(..., plugin=...)`.&#39;</span><span class="p">,</span>
-                    <span class="n">path_message</span><span class="o">=</span><span class="n">path_message</span><span class="p">,</span>
-                    <span class="n">plugins</span><span class="o">=</span><span class="n">readers</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">),</span>
+                <span class="sa">f</span><span class="s1">&#39;Multiple plugins found capable of reading </span><span class="si">{</span><span class="n">path_message</span><span class="si">}</span><span class="s1">. Select plugin from </span><span class="si">{</span><span class="n">readers</span><span class="si">}</span><span class="s1"> and pass to reading function e.g. `viewer.open(..., plugin=...)`.&#39;</span><span class="p">,</span>
                 <span class="nb">list</span><span class="p">(</span><span class="n">readers</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
                 <span class="n">paths</span><span class="p">,</span>
             <span class="p">)</span>
@@ -2760,12 +2677,7 @@ window.runMermaid = runMermaid;</script>
 
         <span class="k">if</span> <span class="n">layer_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Unrecognized layer_type: &#39;</span><span class="si">{layer_type}</span><span class="s2">&#39;. Must be one of: </span><span class="si">{layer_names}</span><span class="s2">.&quot;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span><span class="p">,</span>
-                    <span class="n">layer_names</span><span class="o">=</span><span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Unrecognized layer_type: &#39;</span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s2">&#39;. Must be one of: </span><span class="si">{</span><span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="si">}</span><span class="s2">.&quot;</span>
             <span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
@@ -2776,12 +2688,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="k">raise</span>
             <span class="n">bad_key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;keyword argument &#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;_add_layer_from_data received an unexpected keyword argument (</span><span class="si">{bad_key}</span><span class="s1">) for layer type </span><span class="si">{layer_type}</span><span class="s1">&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">bad_key</span><span class="o">=</span><span class="n">bad_key</span><span class="p">,</span>
-                    <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s1">&#39;_add_layer_from_data received an unexpected keyword argument (</span><span class="si">{</span><span class="n">bad_key</span><span class="si">}</span><span class="s1">) for layer type </span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s1">&#39;</span>
             <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
         <span class="k">return</span> <span class="n">layer</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">layer</span><span class="p">]</span></div>
 
@@ -2807,32 +2714,20 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        not a ``dict``, or the third item is not a valid layer_type ``str``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s1">&#39;LayerData must be a 1-, 2-, or 3-tuple&#39;</span><span class="p">,</span>
-                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;LayerData must be a 1-, 2-, or 3-tuple&#39;</span><span class="p">)</span>
 
     <span class="n">_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">MutableMapping</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;The second item in a LayerData tuple must be a dict or other MutableMapping.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="s1">&#39;The second item in a LayerData tuple must be a dict or other MutableMapping.&#39;</span>
             <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">({})</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;The third item in a LayerData tuple must be one of: </span><span class="si">{layers!r}</span><span class="s1">.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">layers</span><span class="o">=</span><span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s1">&#39;The third item in a LayerData tuple must be one of: </span><span class="si">{</span><span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="si">!r}</span><span class="s1">.&#39;</span>
             <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">guess_labels</span><span class="p">(</span><span class="n">_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
@@ -2943,13 +2838,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">add_method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">,</span> <span class="s1">&#39;add_&#39;</span> <span class="o">+</span> <span class="n">layer_type</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">add_method</span> <span class="ow">or</span> <span class="n">layer_type</span> <span class="o">==</span> <span class="s1">&#39;layer&#39;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s1">&#39;Invalid layer_type: </span><span class="si">{layer_type}</span><span class="s1">&#39;</span><span class="p">,</span>
-                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid layer_type: </span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="c1"># get valid params for the corresponding add_&lt;layer_type&gt; method</span>
     <span class="n">valid</span> <span class="o">=</span> <span class="n">valid_add_kwargs</span><span class="p">()[</span><span class="n">layer_type</span><span class="p">]</span>

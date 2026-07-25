@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../../../_static/documentation_options.js?v=1adb0033"></script>
+    <script src="../../../../../_static/documentation_options.js?v=0291dff2"></script>
     <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -919,7 +919,6 @@ window.runMermaid = runMermaid;</script>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.containers._evented_list</span><span class="w"> </span><span class="kn">import</span> <span class="n">EventedList</span><span class="p">,</span> <span class="n">Index</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.event</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -952,13 +951,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">index</span>
 
-    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-        <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-            <span class="s1">&#39;Invalid nested index: </span><span class="si">{index}</span><span class="s1">. Must be an int or tuple&#39;</span><span class="p">,</span>
-            <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid nested index: </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s1">. Must be an int or tuple&#39;</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">split_nested_index</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="n">MaybeNestedIndex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">ParentIndex</span><span class="p">,</span> <span class="n">Index</span><span class="p">]:</span>
@@ -992,12 +985,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">if</span> <span class="n">index</span><span class="p">:</span>
         <span class="o">*</span><span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">index</span>
         <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">first</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;The parent index must be a tuple of int&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The parent index must be a tuple of int&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">ParentIndex</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">first</span><span class="p">)),</span> <span class="n">last</span>
     <span class="k">return</span> <span class="n">ParentIndex</span><span class="p">(()),</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># empty tuple appends to self</span>
 
@@ -1217,12 +1205,7 @@ window.runMermaid = runMermaid;</script>
 
         <span class="n">dest_par</span><span class="p">,</span> <span class="n">dest_i</span> <span class="o">=</span> <span class="n">split_nested_index</span><span class="p">(</span><span class="n">dest_index</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dest_i</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Destination index may not be a slice&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Destination index may not be a slice&#39;</span><span class="p">)</span>
         <span class="n">dest_i</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_non_negative_index</span><span class="p">(</span><span class="n">dest_par</span><span class="p">,</span> <span class="n">dest_i</span><span class="p">))</span>
 
         <span class="c1"># need to update indices as we pop, so we keep track of the indices</span>
@@ -1235,12 +1218,7 @@ window.runMermaid = runMermaid;</script>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">slice</span><span class="p">):</span>
                 <span class="n">idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">idx</span><span class="p">,)</span>
             <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="p">():</span>
-                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;Group cannot move itself&#39;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="p">)</span>
-                <span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">&#39;Group cannot move itself&#39;</span><span class="p">)</span>
 
             <span class="c1"># i.e. we need to increase the (src_par, ...) by 1 for each time</span>
             <span class="c1"># we have previously inserted items in front of the (src_par, ...)</span>
@@ -1249,22 +1227,14 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">_idx</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_idx</span><span class="p">[</span><span class="n">_parlen</span><span class="p">],</span> <span class="nb">slice</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                        <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                            <span class="s2">&quot;Can&#39;t yet deal with slice source indices in multimove&quot;</span><span class="p">,</span>
-                            <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="p">)</span>
+                        <span class="s2">&quot;Can&#39;t yet deal with slice source indices in multimove&quot;</span>
                     <span class="p">)</span>
                 <span class="n">_idx</span><span class="p">[</span><span class="n">_parlen</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">_idx</span><span class="p">[</span><span class="n">_parlen</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dumped</span><span class="p">)</span>
                 <span class="n">idx</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_idx</span><span class="p">)</span>
 
             <span class="n">src_par</span><span class="p">,</span> <span class="n">src_i</span> <span class="o">=</span> <span class="n">split_nested_index</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">src_i</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;Terminal source index may not be a slice&#39;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="p">)</span>
-                <span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Terminal source index may not be a slice&#39;</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">src_i</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">src_i</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">src_par</span><span class="p">])</span>
@@ -1324,28 +1294,13 @@ window.runMermaid = runMermaid;</script>
         <span class="n">dest_index</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">dest_par_i</span><span class="p">,</span> <span class="n">dest_i</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">src_i</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Terminal source index may not be a slice&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Terminal source index may not be a slice&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dest_i</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Destination index may not be a slice&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Destination index may not be a slice&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">src_i</span> <span class="o">==</span> <span class="p">():</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Group cannot move itself&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Group cannot move itself&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">src_par_i</span> <span class="o">==</span> <span class="n">dest_par_i</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dest_i</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">dest_i</span> <span class="o">&gt;</span> <span class="n">src_i</span><span class="p">:</span>
@@ -1373,12 +1328,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">_types</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_basetypes</span> <span class="o">+</span> <span class="p">(</span><span class="n">NestableEventedList</span><span class="p">,)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">_types</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;Cannot add object with type </span><span class="si">{dtype!r}</span><span class="s1"> to TypedList expecting type </span><span class="si">{types_!r}</span><span class="s1">&#39;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">dtype</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span>
-                        <span class="n">types_</span><span class="o">=</span><span class="n">_types</span><span class="p">,</span>
-                    <span class="p">)</span>
+                    <span class="sa">f</span><span class="s1">&#39;Cannot add object with type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">!r}</span><span class="s1"> to TypedList expecting type </span><span class="si">{</span><span class="n">_types</span><span class="si">!r}</span><span class="s1">&#39;</span>
                 <span class="p">)</span>
         <span class="k">return</span> <span class="n">e</span>
 

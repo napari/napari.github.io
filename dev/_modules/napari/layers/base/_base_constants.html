@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../../_static/documentation_options.js?v=1adb0033"></script>
+    <script src="../../../../_static/documentation_options.js?v=0291dff2"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -898,11 +898,9 @@ window.runMermaid = runMermaid;</script>
                 <article class="bd-article">
                   
   <h1>Source code for napari.layers.base._base_constants</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flag</span><span class="p">,</span> <span class="n">IntEnum</span><span class="p">,</span> <span class="n">auto</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flag</span><span class="p">,</span> <span class="n">IntEnum</span><span class="p">,</span> <span class="n">auto</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringEnum</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">Blending</span><span class="p">(</span><span class="n">StringEnum</span><span class="p">):</span>
@@ -943,18 +941,6 @@ window.runMermaid = runMermaid;</script>
     <span class="n">MINIMUM</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">OPAQUE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">MULTIPLICATIVE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
-
-
-<span class="n">BLENDING_TRANSLATIONS</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span>
-    <span class="p">[</span>
-        <span class="p">(</span><span class="n">Blending</span><span class="o">.</span><span class="n">TRANSLUCENT</span><span class="p">,</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;translucent&#39;</span><span class="p">)),</span>
-        <span class="p">(</span><span class="n">Blending</span><span class="o">.</span><span class="n">TRANSLUCENT_NO_DEPTH</span><span class="p">,</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;translucent_no_depth&#39;</span><span class="p">)),</span>
-        <span class="p">(</span><span class="n">Blending</span><span class="o">.</span><span class="n">ADDITIVE</span><span class="p">,</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;additive&#39;</span><span class="p">)),</span>
-        <span class="p">(</span><span class="n">Blending</span><span class="o">.</span><span class="n">MINIMUM</span><span class="p">,</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;minimum&#39;</span><span class="p">)),</span>
-        <span class="p">(</span><span class="n">Blending</span><span class="o">.</span><span class="n">OPAQUE</span><span class="p">,</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;opaque&#39;</span><span class="p">)),</span>
-        <span class="p">(</span><span class="n">Blending</span><span class="o">.</span><span class="n">MULTIPLICATIVE</span><span class="p">,</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;multiplicative&#39;</span><span class="p">)),</span>
-    <span class="p">]</span>
-<span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">Mode</span><span class="p">(</span><span class="n">StringEnum</span><span class="p">):</span>

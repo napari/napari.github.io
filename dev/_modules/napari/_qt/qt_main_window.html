@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../_static/documentation_options.js?v=1adb0033"></script>
+    <script src="../../../_static/documentation_options.js?v=0291dff2"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -989,7 +989,6 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.notifications</span><span class="w"> </span><span class="kn">import</span> <span class="n">Notification</span><span class="p">,</span> <span class="n">show_warning</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.task_status</span><span class="w"> </span><span class="kn">import</span> <span class="n">Status</span><span class="p">,</span> <span class="n">TaskStatusManager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.theme</span><span class="w"> </span><span class="kn">import</span> <span class="n">_themes</span><span class="p">,</span> <span class="n">get_system_theme</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
@@ -1768,13 +1767,10 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">qt_viewer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s1">&#39;Public access to Window.qt_viewer is deprecated and will be removed in</span><span class="se">\n</span><span class="s1">&#39;</span>
-                <span class="s1">&#39;no earlier than v0.9.0. It is considered an &quot;implementation detail&quot; &#39;</span>
-                <span class="s1">&#39;of the napari</span><span class="se">\n</span><span class="s1">application, not part of the napari viewer model. If your use case</span><span class="se">\n</span><span class="s1">&#39;</span>
-                <span class="s1">&#39;requires access to qt_viewer, please open an issue to discuss.&#39;</span><span class="p">,</span>
-                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="p">),</span>
+            <span class="s1">&#39;Public access to Window.qt_viewer is deprecated and will be removed in</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="s1">&#39;no earlier than v0.9.0. It is considered an &quot;implementation detail&quot; &#39;</span>
+            <span class="s1">&#39;of the napari</span><span class="se">\n</span><span class="s1">application, not part of the napari viewer model. If your use case</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="s1">&#39;requires access to qt_viewer, please open an issue to discuss.&#39;</span><span class="p">,</span>
             <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
             <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
@@ -1877,7 +1873,7 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
         <span class="c1"># file menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
-            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_FILE</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;&amp;File&#39;</span><span class="p">),</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
+            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_FILE</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&amp;File&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_file_menu_state</span><span class="p">,</span>
@@ -1885,7 +1881,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="p">)</span>
         <span class="c1"># view menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
-            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_VIEW</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;&amp;View&#39;</span><span class="p">),</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
+            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_VIEW</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&amp;View&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_view_menu_state</span><span class="p">,</span>
@@ -1894,7 +1890,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># layers menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
             <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_LAYERS</span><span class="p">,</span>
-            <span class="n">title</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;&amp;Layers&#39;</span><span class="p">),</span>
+            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&amp;Layers&#39;</span><span class="p">,</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
@@ -1904,7 +1900,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># plugins menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plugins_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
             <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_PLUGINS</span><span class="p">,</span>
-            <span class="n">title</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;&amp;Plugins&#39;</span><span class="p">),</span>
+            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&amp;Plugins&#39;</span><span class="p">,</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plugins_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
@@ -1915,7 +1911,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="n">perf</span><span class="o">.</span><span class="n">perf_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_debug_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
                 <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_DEBUG</span><span class="p">,</span>
-                <span class="n">title</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;&amp;Debug&#39;</span><span class="p">),</span>
+                <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&amp;Debug&#39;</span><span class="p">,</span>
                 <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_handle_trace_file_on_start</span><span class="p">()</span>
@@ -1926,7 +1922,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># window menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
             <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_WINDOW</span><span class="p">,</span>
-            <span class="n">title</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;&amp;Window&#39;</span><span class="p">),</span>
+            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&amp;Window&#39;</span><span class="p">,</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plugins_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
@@ -1935,7 +1931,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window_menu</span><span class="p">)</span>
         <span class="c1"># help menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
-            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_HELP</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;&amp;Help&#39;</span><span class="p">),</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
+            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_HELP</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&amp;Help&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_help_menu_state</span><span class="p">,</span>
@@ -2085,10 +2081,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
                 <span class="n">name</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s1">&#39;Dock widget </span><span class="si">{number}</span><span class="s1">&#39;</span><span class="p">,</span>
-                <span class="n">number</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_unnamed_dockwidget_count</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="sa">f</span><span class="s1">&#39;Dock widget </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_unnamed_dockwidget_count</span><span class="si">}</span><span class="s1">&#39;</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_unnamed_dockwidget_count</span> <span class="o">+=</span> <span class="mi">1</span>
 
@@ -2284,11 +2277,7 @@ window.runMermaid = runMermaid;</script>
                     <span class="k">break</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;Could not find a dock widget containing: </span><span class="si">{widget}</span><span class="s1">&#39;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">widget</span><span class="o">=</span><span class="n">widget</span><span class="p">,</span>
-                    <span class="p">)</span>
+                    <span class="sa">f</span><span class="s1">&#39;Could not find a dock widget containing: </span><span class="si">{</span><span class="n">widget</span><span class="si">}</span><span class="s1">&#39;</span>
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">_dw</span> <span class="o">=</span> <span class="n">widget</span>
@@ -2450,10 +2439,7 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="n">block</span><span class="p">)</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;This viewer has already been closed and deleted. Please create a new one.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="s1">&#39;This viewer has already been closed and deleted. Please create a new one.&#39;</span>
             <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
 
         <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">first_time</span><span class="p">:</span>
@@ -2462,10 +2448,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">())</span>
             <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;This viewer has already been closed and deleted. Please create a new one.&#39;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="p">)</span>
+                    <span class="s1">&#39;This viewer has already been closed and deleted. Please create a new one.&#39;</span>
                 <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -2477,11 +2460,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;The window geometry settings could not be loaded due to the following error: </span><span class="si">{err}</span><span class="s1">&#39;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">err</span><span class="o">=</span><span class="n">err</span><span class="p">,</span>
-                    <span class="p">),</span>
+                    <span class="sa">f</span><span class="s1">&#39;The window geometry settings could not be loaded due to the following error: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">,</span>
                     <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                 <span class="p">)</span>
@@ -2643,11 +2622,8 @@ window.runMermaid = runMermaid;</script>
             <span class="n">fit_to_data_extent</span> <span class="ow">or</span> <span class="n">size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;scale, size, and fit_to_data_extent can only be set for &#39;</span>
-                    <span class="s1">&#39;canvas_only screenshots.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="s1">&#39;scale, size, and fit_to_data_extent can only be set for &#39;</span>
+                <span class="s1">&#39;canvas_only screenshots.&#39;</span>
             <span class="p">)</span>
 
         <span class="c1"># Part 2: take the screenshot</span>

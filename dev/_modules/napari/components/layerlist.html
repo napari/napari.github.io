@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../_static/documentation_options.js?v=1adb0033"></script>
+    <script src="../../../_static/documentation_options.js?v=0291dff2"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -918,7 +918,6 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.containers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SelectableEventedList</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.naming</span><span class="w"> </span><span class="kn">import</span> <span class="n">inc_name_count</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.transforms._units</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_units_from_name</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Self</span>
@@ -1139,11 +1138,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bad</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;Layer &#39;</span><span class="si">{v}</span><span class="s2">&#39; is already present in layer list&quot;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="p">,</span>
-                    <span class="p">)</span>
+                    <span class="sa">f</span><span class="s2">&quot;Layer &#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&#39; is already present in layer list&quot;</span>
                 <span class="p">)</span>
         <span class="k">return</span> <span class="n">values</span>
 
@@ -1197,11 +1192,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="nb">repr</span><span class="p">(</span><span class="n">lay</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">lay</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">locked</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
             <span class="p">)</span>
             <span class="n">show_info</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Layer(s) </span><span class="si">{names}</span><span class="s1"> are locked and cannot be deleted.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                    <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s1">&#39;Layer(s) </span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s1"> are locked and cannot be deleted.&#39;</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">deletable</span><span class="p">:</span>
             <span class="k">return</span>
@@ -1273,9 +1264,7 @@ window.runMermaid = runMermaid;</script>
             <span class="c1"># warning</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span>
                 <span class="s1">&#39;ignore&#39;</span><span class="p">,</span>
-                <span class="n">message</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;All-NaN axis encountered&#39;</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="p">),</span>
+                <span class="n">message</span><span class="o">=</span><span class="s1">&#39;All-NaN axis encountered&#39;</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">min_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span>
                 <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">zip_longest</span><span class="p">(</span><span class="o">*</span><span class="n">mins_list</span><span class="p">,</span> <span class="n">fillvalue</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)),</span>
@@ -1663,10 +1652,7 @@ window.runMermaid = runMermaid;</script>
             <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">selected</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;No layers selected&#39;</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;No layers to save&#39;</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;No layers selected&#39;</span> <span class="k">if</span> <span class="n">selected</span> <span class="k">else</span> <span class="s1">&#39;No layers to save&#39;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">layers</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>

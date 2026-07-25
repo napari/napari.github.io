@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../../../_static/documentation_options.js?v=1adb0033"></script>
+    <script src="../../../../_static/documentation_options.js?v=0291dff2"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -960,7 +960,6 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">project_points_onto_plane</span><span class="p">,</span> <span class="n">rotate_points</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.status_messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">format_feature_value</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.transforms</span><span class="w"> </span><span class="kn">import</span> <span class="n">Affine</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.translations</span><span class="w"> </span><span class="kn">import</span> <span class="n">trans</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -1673,11 +1672,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">color_manager</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">DIRECT</span>
                 <span class="n">color_manager</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;property used for </span><span class="si">{name}</span><span class="s1"> dropped&#39;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-                    <span class="p">),</span>
+                    <span class="sa">f</span><span class="s1">&#39;property used for </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> dropped&#39;</span><span class="p">,</span>
                     <span class="ne">RuntimeWarning</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -1843,10 +1838,7 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;Size is not compatible for broadcasting (may be anisotropic)&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="s1">&#39;Size is not compatible for broadcasting (may be anisotropic)&#39;</span>
             <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
         <span class="c1"># TODO: technically not needed to cleat the non-augmented extent... maybe it&#39;s fine like this to avoid complexity</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">highlight</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1861,18 +1853,10 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="nb">list</span> <span class="o">|</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;currrent size must be a number&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;currrent size must be a number&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">size</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;current_size value must be positive.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">),</span>
+                <span class="s1">&#39;current_size value must be positive.&#39;</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_size</span> <span class="o">=</span> <span class="n">size</span>
@@ -1897,10 +1881,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="n">message</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;antialiasing value must be positive, value will be set to 0.&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">),</span>
+                <span class="n">message</span><span class="o">=</span><span class="s1">&#39;antialiasing value must be positive, value will be set to 0.&#39;</span><span class="p">,</span>
                 <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_antialiasing</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
@@ -1950,19 +1931,11 @@ window.runMermaid = runMermaid;</script>
 
         <span class="c1"># border width cannot be negative</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">border_width</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;All border_width must be &gt; 0&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;All border_width must be &gt; 0&#39;</span><span class="p">)</span>
         <span class="c1"># if relative border width is enabled, border_width must be between 0 and 1</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_width_is_relative</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">border_width</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;All border_width must be between 0 and 1 if border_width_is_relative is enabled&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="s1">&#39;All border_width must be between 0 and 1 if border_width_is_relative is enabled&#39;</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_border_width</span> <span class="o">=</span> <span class="n">border_width</span>
@@ -1980,10 +1953,7 @@ window.runMermaid = runMermaid;</script>
             <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">border_width</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">border_width</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
         <span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;border_width_is_relative can only be enabled if border_width is between 0 and 1&#39;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="s1">&#39;border_width_is_relative can only be enabled if border_width is between 0 and 1&#39;</span>
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_border_width_is_relative</span> <span class="o">=</span> <span class="n">border_width_is_relative</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">border_width_is_relative</span><span class="p">()</span>
@@ -2216,20 +2186,11 @@ window.runMermaid = runMermaid;</script>
                         <span class="p">),</span>
                     <span class="p">}</span>
                     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                        <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                            <span class="s1">&#39;_</span><span class="si">{attribute}</span><span class="s1">_color_property was not set, setting to: </span><span class="si">{new_color_property}</span><span class="s1">&#39;</span><span class="p">,</span>
-                            <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                            <span class="n">attribute</span><span class="o">=</span><span class="n">attribute</span><span class="p">,</span>
-                            <span class="n">new_color_property</span><span class="o">=</span><span class="n">new_color_property</span><span class="p">,</span>
-                        <span class="p">)</span>
+                        <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_property was not set, setting to: </span><span class="si">{</span><span class="n">new_color_property</span><span class="si">}</span><span class="s1">&#39;</span>
                     <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                            <span class="s1">&#39;There must be a valid Points.properties to use </span><span class="si">{color_mode}</span><span class="s1">&#39;</span><span class="p">,</span>
-                            <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                            <span class="n">color_mode</span><span class="o">=</span><span class="n">color_mode</span><span class="p">,</span>
-                        <span class="p">)</span>
+                        <span class="sa">f</span><span class="s1">&#39;There must be a valid Points.properties to use </span><span class="si">{</span><span class="n">color_mode</span><span class="si">}</span><span class="s1">&#39;</span>
                     <span class="p">)</span>
 
             <span class="c1"># ColorMode.COLORMAP can only be applied to numeric properties</span>
@@ -2238,10 +2199,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="n">color_property</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">number</span>
             <span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;selected property must be numeric to use ColorMode.COLORMAP&#39;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="p">)</span>
+                    <span class="s1">&#39;selected property must be numeric to use ColorMode.COLORMAP&#39;</span>
                 <span class="p">)</span>
             <span class="n">color_manager</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">color_mode</span>
 

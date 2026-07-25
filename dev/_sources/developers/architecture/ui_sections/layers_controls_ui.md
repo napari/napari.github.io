@@ -296,6 +296,7 @@ graph LR
 	napari._qt.widgets.qt_command_palette --> napari._qt.qt_main_window
 	click napari._qt.widgets.qt_command_palette "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_command_palette.py" _blank
 	napari._qt.widgets.qt_mode_buttons(napari._qt.widgets.qt_mode_buttons)
+	napari._qt.widgets.qt_mode_buttons --> napari.layers
 	click napari._qt.widgets.qt_mode_buttons "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_mode_buttons.py" _blank
 	napari._qt.widgets.qt_viewer_dock_widget(napari._qt.widgets.qt_viewer_dock_widget)
 	napari._qt.widgets.qt_viewer_dock_widget --> napari._qt.qt_viewer

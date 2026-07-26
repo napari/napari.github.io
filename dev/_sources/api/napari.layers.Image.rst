@@ -85,6 +85,7 @@ napari.layers.Image
       ~Image.ModeCallable
       ~Image.affine
       ~Image.attenuation
+      ~Image.auto_contrast
       ~Image.axis_labels
       ~Image.blending
       ~Image.bounding_box

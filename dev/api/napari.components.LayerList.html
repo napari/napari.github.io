@@ -55,7 +55,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=49fda8a3"></script>
+    <script src="../_static/documentation_options.js?v=cb8f0dd2"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -770,16 +770,19 @@ position <code class="docutils literal notranslate"><span class="pre">idx</span>
 <p class="rubric">Attributes</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.extent" title="napari.components.LayerList.extent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extent</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.axis_labels" title="napari.components.LayerList.axis_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">axis_labels</span></code></a></p></td>
+<td><p>Axis labels for the layer list.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.extent" title="napari.components.LayerList.extent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extent</span></code></a></p></td>
 <td><p>Extent of layers in data and world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.ndim" title="napari.components.LayerList.ndim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.ndim" title="napari.components.LayerList.ndim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></a></p></td>
 <td><p>Maximum dimensionality of layers.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.selection" title="napari.components.LayerList.selection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selection</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.selection" title="napari.components.LayerList.selection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selection</span></code></a></p></td>
 <td><p>Get current selection.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.LayerList.units" title="napari.components.LayerList.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.LayerList.units" title="napari.components.LayerList.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
 <td><p>Units of layers in world coordinates.</p></td>
 </tr>
 </tbody>
@@ -790,6 +793,14 @@ position <code class="docutils literal notranslate"><span class="pre">idx</span>
 <dt class="sig sig-object py" id="napari.components.LayerList.append">
 <span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.LayerList.append" title="Link to this definition">#</a></dt>
 <dd><p>S.append(value) – append value to the end of the sequence</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.components.LayerList.axis_labels">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">axis_labels</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#napari.components.LayerList.axis_labels" title="Link to this definition">#</a></dt>
+<dd><p>Axis labels for the layer list.</p>
+<p>Uses the labels from the layer with the longest annotated axis labels.
+Missing axes annotations fall back to default indices.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1120,6 +1131,7 @@ changes to the previously linked layers.</p>
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList"><code class="docutils literal notranslate"><span class="pre">LayerList</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.append"><code class="docutils literal notranslate"><span class="pre">LayerList.append()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.axis_labels"><code class="docutils literal notranslate"><span class="pre">LayerList.axis_labels</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.clear"><code class="docutils literal notranslate"><span class="pre">LayerList.clear()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.copy"><code class="docutils literal notranslate"><span class="pre">LayerList.copy()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.LayerList.count"><code class="docutils literal notranslate"><span class="pre">LayerList.count()</span></code></a></li>

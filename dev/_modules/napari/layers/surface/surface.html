@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=49fda8a3"></script>
+    <script src="../../../../_static/documentation_options.js?v=cb8f0dd2"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -884,6 +884,10 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
 <span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
 <span class="sd">        provided scale, rotate, and shear values.</span>
+<span class="sd">    auto_contrast : bool</span>
+<span class="sd">        Wether to automatically set contrast limits to the min and max of the</span>
+<span class="sd">        currently viewed slice. If True, contrast limits will be updated</span>
+<span class="sd">        whenever the slice changes.</span>
 <span class="sd">    axis_labels : tuple of str, optional</span>
 <span class="sd">        Dimension names of the layer data.</span>
 <span class="sd">        If not provided, axis_labels will be set to (..., &#39;-2&#39;, &#39;-1&#39;).</span>
@@ -981,6 +985,10 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        of the mesh triangles. The third element is the (K0, ..., KL, N)</span>
 <span class="sd">        array of values used to color vertices where the additional L</span>
 <span class="sd">        dimensions are used to color the same mesh with different values.</span>
+<span class="sd">    auto_contrast : bool</span>
+<span class="sd">        Wether to automatically set contrast limits to the min and max of the</span>
+<span class="sd">        currently viewed slice. If True, contrast limits will be updated</span>
+<span class="sd">        whenever the slice changes.</span>
 <span class="sd">    axis_labels : tuple of str</span>
 <span class="sd">        Dimension names of the layer data.</span>
 <span class="sd">    vertices : (N, D) array</span>
@@ -1041,6 +1049,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">data</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">auto_contrast</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">axis_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">blending</span><span class="o">=</span><span class="s1">&#39;translucent&#39;</span><span class="p">,</span>
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -1133,6 +1142,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits_range</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="n">colormap</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auto_contrast</span> <span class="o">=</span> <span class="n">auto_contrast</span>
 
         <span class="c1"># Trigger generation of view slice and thumbnail.</span>
         <span class="c1"># Use _update_dims instead of refresh here because _get_ndim is</span>
@@ -1197,7 +1207,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reset_editable</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keep_auto_contrast</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_contrast</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -1435,6 +1445,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_base_state</span><span class="p">()</span>
         <span class="n">state</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="p">{</span>
+                <span class="s1">&#39;auto_contrast&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_contrast</span><span class="p">,</span>
                 <span class="s1">&#39;colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
                 <span class="s1">&#39;contrast_limits&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">,</span>
                 <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="p">,</span>
@@ -1571,7 +1582,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">_SurfaceSlicingState</span><span class="p">(</span><span class="n">layer</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_maybe_reset_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keep_auto_contrast</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_contrast</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span></div>
 
 

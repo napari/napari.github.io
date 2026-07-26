@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=49fda8a3"></script>
+    <script src="../../_static/documentation_options.js?v=cb8f0dd2"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -902,8 +902,9 @@ window.runMermaid = runMermaid;</script>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">channel_axis</span><span class="p">:</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
     <span class="n">affine</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">axis_labels</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">attenuation</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">auto_contrast</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">axis_labels</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">blending</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">cache</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">colormap</span><span class="o">=...</span><span class="p">,</span>
@@ -943,8 +944,9 @@ window.runMermaid = runMermaid;</script>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">channel_axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">affine</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">axis_labels</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">attenuation</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">auto_contrast</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">axis_labels</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">blending</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">cache</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">colormap</span><span class="o">=...</span><span class="p">,</span>
@@ -985,8 +987,9 @@ window.runMermaid = runMermaid;</script>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">channel_axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">axis_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">attenuation</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">auto_contrast</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">axis_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">blending</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">colormap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1046,6 +1049,10 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        top of the provided scale, rotate, and shear values.</span>
 <span class="sd">    attenuation : float or list of float</span>
 <span class="sd">        Attenuation rate for attenuated maximum intensity projection.</span>
+<span class="sd">    auto_contrast : bool</span>
+<span class="sd">        Wether to automatically set contrast limits to the min and max of the</span>
+<span class="sd">        currently viewed slice. If True, contrast limits will be updated</span>
+<span class="sd">        whenever the slice changes.</span>
 <span class="sd">    blending : str or list of str</span>
 <span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
 <span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
@@ -1171,6 +1178,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">depiction</span><span class="o">=</span><span class="n">depiction</span><span class="p">,</span>
         <span class="n">iso_threshold</span><span class="o">=</span><span class="n">iso_threshold</span><span class="p">,</span>
         <span class="n">attenuation</span><span class="o">=</span><span class="n">attenuation</span><span class="p">,</span>
+        <span class="n">auto_contrast</span><span class="o">=</span><span class="n">auto_contrast</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
         <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
         <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>

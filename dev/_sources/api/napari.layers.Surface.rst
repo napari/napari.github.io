@@ -84,6 +84,7 @@ napari.layers.Surface
    
       ~Surface.ModeCallable
       ~Surface.affine
+      ~Surface.auto_contrast
       ~Surface.axis_labels
       ~Surface.blending
       ~Surface.bounding_box

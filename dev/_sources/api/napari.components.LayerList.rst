@@ -94,6 +94,7 @@ napari.components.LayerList
 
    .. autosummary::
    
+      ~LayerList.axis_labels
       ~LayerList.extent
       ~LayerList.ndim
       ~LayerList.selection

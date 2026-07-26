@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../../_static/documentation_options.js?v=c79ca651"></script>
+    <script src="../../../../../_static/documentation_options.js?v=49fda8a3"></script>
     <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -894,13 +894,14 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">EmitterGroup</span><span class="p">(</span>
                 <span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
                 <span class="n">auto_connect</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">_connect_children</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="o">**</span><span class="n">_events</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">basetype</span><span class="p">)</span>
 
 <div class="viewcode-block" id="EventedDict.first_callback_connect">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedDict.html#napari.utils.events.EventedDict.first_callback_connect">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">first_callback_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">first_callback_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;When the first callback is connected to `self.events`,</span>
 <span class="sd">        connect to all child emitters.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -910,7 +911,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="EventedDict.last_callback_disconnect">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedDict.html#napari.utils.events.EventedDict.last_callback_disconnect">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">last_callback_disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">last_callback_disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;When the last callback is disconnected from `self.events`, disconnect</span>
 <span class="sd">        from all child emitters.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -947,13 +948,14 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_reemit_child_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;An item in the dict emitted an event.  Re-emit with key&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="s1">&#39;key&#39;</span><span class="p">):</span>
-            <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
 
         <span class="c1"># re-emit with this object&#39;s EventEmitter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_reemit_child_event_psygnal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">EmissionInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">source</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">instance</span>
+        <span class="n">key</span><span class="p">:</span> <span class="n">_K</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
             <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">source</span><span class="p">)</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="k">else</span><span class="p">:</span>
@@ -973,7 +975,9 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_connect_child_emitters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect all events from the child to be re-emitted.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">PsygnalModel</span><span class="p">):</span>
-            <span class="n">child</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reemit_child_event_psygnal</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_reemit_child_event_psygnal</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">SupportsEvents</span><span class="p">):</span>
             <span class="c1"># make sure the event source has been set on the child</span>
             <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">source</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

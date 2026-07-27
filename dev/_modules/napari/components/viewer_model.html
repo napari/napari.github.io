@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=cb8f0dd2"></script>
+    <script src="../../../_static/documentation_options.js?v=e07246af"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1531,6 +1531,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">rotate</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">rotate</span><span class="p">,</span>
                 <span class="n">shear</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">shear</span><span class="p">,</span>
                 <span class="n">units</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">units</span><span class="p">,</span>
+                <span class="n">axis_labels</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">axis_labels</span><span class="p">,</span>
                 <span class="n">affine</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span>
                 <span class="n">name</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39; - Labels&#39;</span><span class="p">,</span>
             <span class="p">)</span>
@@ -1548,11 +1549,14 @@ window.runMermaid = runMermaid;</script>
             <span class="p">]</span>
             <span class="n">dtype_str</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">new_labels_dtype</span>
             <span class="n">empty_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype_str</span><span class="p">)</span>
+            <span class="n">active</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span>
+            <span class="n">axis_labels</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">axis_labels</span> <span class="k">if</span> <span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
             <span class="n">layer</span> <span class="o">=</span> <span class="n">Labels</span><span class="p">(</span>
                 <span class="n">data</span><span class="o">=</span><span class="n">empty_labels</span><span class="p">,</span>
                 <span class="n">translate</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">corner</span><span class="p">),</span>
                 <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
                 <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span>
+                <span class="n">axis_labels</span><span class="o">=</span><span class="n">axis_labels</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">layer</span> <span class="o">=</span> <span class="n">Labels</span><span class="p">(</span>

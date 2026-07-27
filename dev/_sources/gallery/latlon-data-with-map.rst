@@ -19,7 +19,7 @@ Requires geopandas and contextily to be installed.
 
 .. tags:: gui
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-68
+.. GENERATED FROM PYTHON SOURCE LINES 11-67
 
 
 
@@ -79,14 +79,12 @@ Requires geopandas and contextily to be installed.
     viewer = napari.Viewer()
     viewer.camera.orientation2d=('up','right')
     viewer.floating_axes.visible=True
-    viewer.dims.axis_labels=('lat','lon')
     viewer.window.add_plugin_dock_widget('napari', 'Features table widget')
 
     # add the downloaded background map as an image layer, with the correct translation and scale to match the lat/lon coordinates
-    viewer.add_image(bg_map[:,:,:3][::-1], name='background', opacity=0.9, rgb=True,
+    viewer.add_image(bg_map[:,:,:3][::-1], name='background', opacity=0.9, rgb=True, axis_labels=('lat','lon'),
                        translate=(boundsWgsMap[1], boundsWgsMap[0]),
                        scale=((boundsWgsMap[3]-boundsWgsMap[1])/bg_map.shape[0], (boundsWgsMap[2]-boundsWgsMap[0])/bg_map.shape[1])
-
                       )
 
     # add the points of interest as a points layer, using some of the features for coloring
@@ -98,17 +96,13 @@ Requires geopandas and contextily to be installed.
         border_width=0.4,
         face_color='stars',
         face_colormap='reds',
-        size=0.002, name='POI'
+        size=0.002, name='POI',
+        axis_labels=('lat','lon'),
     )
 
     if __name__ == '__main__':
         napari.run()
 
-
-
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** (6 minutes 13.460 seconds)
 
 
 .. _sphx_glr_download_gallery_latlon-data-with-map.py:

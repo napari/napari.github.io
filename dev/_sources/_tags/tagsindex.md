@@ -11,6 +11,7 @@ analysis (4) <analysis>
 colored 2D tracks (1) <colored-2d-tracks>
 experimental (10) <experimental>
 features-table (6) <features-table>
+geodata (1) <geodata>
 gui (19) <gui>
 historical (3) <historical>
 interactivity (8) <interactivity>

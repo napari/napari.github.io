@@ -29,7 +29,7 @@ This example demonstrates how surfaces may be colored by:
 
 .. tags:: visualization-nD
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-79
+.. GENERATED FROM PYTHON SOURCE LINES 21-83
 
 
 
@@ -77,9 +77,11 @@ This example demonstrates how surfaces may be colored by:
     texture_path = load_data_file('spot/spot.png')
     texture = imread(texture_path)
 
+    vertices *= 1000  # play nicer with guessed dims step
+
     flat_spot = Surface(
         (vertices, faces),
-        translate=(1, 0, 0),
+        translate=(1000, 0, 0),
         texture=texture,
         texcoords=texcoords,
         shading='flat',
@@ -98,13 +100,13 @@ This example demonstrates how surfaces may be colored by:
 
     rainbow_spot = Surface(
         (vertices, faces),
-        translate=(-1, 0, 0),
+        translate=(-1000, 0, 0),
         texture=texture,
         texcoords=texcoords,
         # Direct vertex colors override colormap-based coloring.
         # the vertices are _roughly_ in [-1, 1] for this model and RGB values just
         # get clipped to [0, 1], adding 0.5 brightens it up a little :)
-        vertex_colors=vertices + 0.5,
+        vertex_colors=vertices / 1000 + 0.5,
         shading='none',
         name='vertex_colors and texture',
     )
@@ -117,6 +119,8 @@ This example demonstrates how surfaces may be colored by:
 
     viewer.camera.angles = (10, 50, 180)
     viewer.fit_to_view()
+    # to show slicing through mesh in spatial dims, set thickness
+    viewer.dims.thickness_step = (1, 1, 100, 100, 100)
 
 
     if __name__ == '__main__':

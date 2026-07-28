@@ -106,6 +106,7 @@ napari.layers.Surface
       ~Surface.features
       ~Surface.gamma
       ~Surface.help
+      ~Surface.histogram
       ~Surface.keymap
       ~Surface.loaded
       ~Surface.locked

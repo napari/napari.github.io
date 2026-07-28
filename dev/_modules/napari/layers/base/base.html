@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=325cbc4e"></script>
+    <script src="../../../../_static/documentation_options.js?v=f558dbc3"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -836,6 +836,7 @@ window.runMermaid = runMermaid;</script>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">magicgui</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mgui</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pint</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">npe2</span><span class="w"> </span><span class="kn">import</span> <span class="n">plugin_manager</span> <span class="k">as</span> <span class="n">pm</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.base._base_constants</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -889,7 +890,6 @@ window.runMermaid = runMermaid;</script>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">numpy.typing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npt</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">pint</span>
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.dims</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dims</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.overlays</span><span class="w"> </span><span class="kn">import</span> <span class="n">BoundingBoxOverlay</span><span class="p">,</span> <span class="n">Overlay</span>
@@ -3079,6 +3079,24 @@ window.runMermaid = runMermaid;</script>
 
         <span class="k">return</span> <span class="n">source_str</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="nf">_use_integer_coords_in_status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;If scale, translation, and units are default, use int coords.</span>
+
+<span class="sd">        This matches the legacy behavior of the viewer status bar and is</span>
+<span class="sd">        probably close to what users want, especially for images, in the case</span>
+<span class="sd">        where metadata is absent.</span>
+
+<span class="sd">        See https://github.com/napari/napari/pull/9287 for further discussion.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">translate</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span>
+                <span class="n">unit</span> <span class="o">==</span> <span class="n">pint</span><span class="o">.</span><span class="n">get_application_registry</span><span class="p">()</span><span class="o">.</span><span class="n">pixel</span>
+                <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
 <div class="viewcode-block" id="Layer.get_status">
 <a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.get_status">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_status</span><span class="p">(</span>
@@ -3117,6 +3135,29 @@ window.runMermaid = runMermaid;</script>
         <span class="n">status_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_source_info</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">position</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># We need to display the position in world coordinates with a</span>
+            <span class="c1"># specific precision. Here is how it is computed:</span>
+            <span class="c1"># - scale can be negative, so we take the abs</span>
+            <span class="c1"># - then, you take the -log10. For example, if the scale is 0.01,</span>
+            <span class="c1">#   you need 2 decimal places of precision to display the</span>
+            <span class="c1">#   coordinates so that you get at least 1 distinct coordinate</span>
+            <span class="c1">#   value per pixel.</span>
+            <span class="c1"># - the number of digits has to be an int, and we need to go higher</span>
+            <span class="c1">#   for &quot;fractional&quot; precision. That is, for 0.009, we need three</span>
+            <span class="c1">#   digits of precision. So we take the ceil.</span>
+            <span class="c1"># - we take the max over all the axes. [potential future</span>
+            <span class="c1">#   enhancement: each axis is displayed with its own precision]</span>
+            <span class="c1"># - Finally, this is all for the *minimum* precision to display</span>
+            <span class="c1">#   coordinates accurately. You want a bit of margin to prevent the</span>
+            <span class="c1">#   coordinates from changing abruptly in the middle of a pixel</span>
+            <span class="c1">#   whenever -log10(s) is not an integer. Therefore, we add 2</span>
+            <span class="c1">#   levels of precision.</span>
+            <span class="c1"># - we take a max because we don&#39;t want to go below 0 precision.</span>
+            <span class="c1"># - we convert to int because it needs to be int to be used in a</span>
+            <span class="c1">#   format string.</span>
+            <span class="n">precision</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+                <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)))),</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span>
+            <span class="p">)</span>
             <span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
                 <span class="n">position</span><span class="p">,</span>
@@ -3124,9 +3165,12 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">dims_displayed</span><span class="o">=</span><span class="n">dims_displayed</span><span class="p">,</span>
                 <span class="n">world</span><span class="o">=</span><span class="n">world</span><span class="p">,</span>
             <span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_use_integer_coords_in_status</span><span class="p">():</span>
+                <span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">position</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
             <span class="n">coords_str</span><span class="p">,</span> <span class="n">value_str</span> <span class="o">=</span> <span class="n">generate_layer_status_strings</span><span class="p">(</span>
                 <span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="p">:],</span>
                 <span class="n">value</span><span class="p">,</span>
+                <span class="n">precision</span><span class="o">=</span><span class="n">precision</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">coords_str</span><span class="p">,</span> <span class="n">value_str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>

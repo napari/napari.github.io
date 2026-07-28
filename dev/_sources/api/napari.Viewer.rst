@@ -171,6 +171,7 @@ napari.Viewer
       ~Viewer.events
       ~Viewer.experimental
       ~Viewer.floating_axes
+      ~Viewer.grid
       ~Viewer.keymap
       ~Viewer.model_computed_fields
       ~Viewer.model_config

@@ -106,6 +106,10 @@ graph LR
 	click napari.components._viewer_mouse_bindings "https://github.com/napari/napari/tree/main/napari/components/_viewer_mouse_bindings.py" _blank
 	napari.components.camera(napari.components.camera)
 	click napari.components.camera "https://github.com/napari/napari/tree/main/napari/components/camera.py" _blank
+	napari.components.canvas(napari.components.canvas)
+	napari.components.canvas --> napari.components.grid
+	napari.components.canvas --> napari.components.overlays
+	click napari.components.canvas "https://github.com/napari/napari/tree/main/napari/components/canvas.py" _blank
 	napari.components.cursor(napari.components.cursor)
 	napari.components.cursor --> napari.components._viewer_constants
 	click napari.components.cursor "https://github.com/napari/napari/tree/main/napari/components/cursor.py" _blank
@@ -125,6 +129,7 @@ graph LR
 	napari.components.viewer_model --> napari.components._layer_slicer
 	napari.components.viewer_model --> napari.components._viewer_mouse_bindings
 	napari.components.viewer_model --> napari.components.camera
+	napari.components.viewer_model --> napari.components.canvas
 	napari.components.viewer_model --> napari.components.cursor
 	napari.components.viewer_model --> napari.components.dims
 	napari.components.viewer_model --> napari.components.grid
@@ -178,6 +183,7 @@ graph LR
 		 napari.components._viewer_key_bindings
 		 napari.components._viewer_mouse_bindings
 		 napari.components.camera
+		 napari.components.canvas
 		 napari.components.cursor
 		 napari.components.dims
 		 napari.components.grid
@@ -232,6 +238,7 @@ napari/
 │ └─__init__.py
 └─components/
   ├─dims.py
+  ├─canvas.py
   ├─_layer_slicer.py
   ├─viewer_model.py
   ├─_viewer_mouse_bindings.py

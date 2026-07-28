@@ -94,7 +94,7 @@ by the changes. Threading is used to smoothly animate the waves.
 
     # set up viewer with grid-mode enabled
     viewer = napari.Viewer()
-    viewer.grid.enabled = True
+    viewer.canvas.grid.enabled = True
 
 
     def update_layer(name, data, **kwargs):

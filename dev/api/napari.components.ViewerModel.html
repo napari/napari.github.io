@@ -55,7 +55,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=020923f0"></script>
+    <script src="../_static/documentation_options.js?v=b03c01d5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -492,6 +492,7 @@
 <li class="toctree-l3"><a class="reference internal" href="napari.utils.events.Event.html">napari.utils.events.Event</a></li>
 <li class="toctree-l3"><a class="reference internal" href="napari.utils.events.EventEmitter.html">napari.utils.events.EventEmitter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="napari.utils.events.EventedDict.html">napari.utils.events.EventedDict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.utils.events.EventedDictNamespace.html">napari.utils.events.EventedDictNamespace</a></li>
 <li class="toctree-l3"><a class="reference internal" href="napari.utils.events.EventedList.html">napari.utils.events.EventedList</a></li>
 <li class="toctree-l3"><a class="reference internal" href="napari.utils.events.EventedModel.html">napari.utils.events.EventedModel</a></li>
 <li class="toctree-l3"><a class="reference internal" href="napari.utils.events.EventedSet.html">napari.utils.events.EventedSet</a></li>
@@ -673,17 +674,6 @@ ndisplay is 2 or 3.</p></li>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="napari.components.ViewerModel.grid">
-<span class="sig-name descname"><span class="pre">grid</span></span><a class="headerlink" href="#napari.components.ViewerModel.grid" title="Link to this definition">#</a></dt>
-<dd><p>Gridcanvas allowing for the current implementation of a gridview of the canvas.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>napari.components.grid.Gridcanvas</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.help">
 <span class="sig-name descname"><span class="pre">help</span></span><a class="headerlink" href="#napari.components.ViewerModel.help" title="Link to this definition">#</a></dt>
 <dd><p>A help message of the viewer model</p>
@@ -761,17 +751,6 @@ ndisplay is 2 or 3.</p></li>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="napari.components.ViewerModel._canvas_size">
-<span class="sig-name descname"><span class="pre">_canvas_size</span></span><a class="headerlink" href="#napari.components.ViewerModel._canvas_size" title="Link to this definition">#</a></dt>
-<dd><p>The canvas size following the Numpy convention of height x width</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Tuple[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="napari.components.ViewerModel._ctx">
 <span class="sig-name descname"><span class="pre">_ctx</span></span><a class="headerlink" href="#napari.components.ViewerModel._ctx" title="Link to this definition">#</a></dt>
 <dd><p>Viewer object context mapping.</p>
@@ -796,11 +775,11 @@ ndisplay is 2 or 3.</p></li>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="napari.components.ViewerModel._overlays">
 <span class="sig-name descname"><span class="pre">_overlays</span></span><a class="headerlink" href="#napari.components.ViewerModel._overlays" title="Link to this definition">#</a></dt>
-<dd><p>An EventedDict with as keys the string names of different napari overlays and as values the napari.Overlay
-objects.</p>
+<dd><p>An EventedDictNamespace with as keys the string names of different napari overlays and as values
+the napari.SceneOverlay objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="napari.utils.events.EventedDict.html#napari.utils.events.EventedDict" title="napari.utils.events.containers._evented_dict.EventedDict">napari.utils.events.containers._evented_dict.EventedDict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, Overlay]</p>
+<dd class="field-odd"><p><a class="reference internal" href="napari.utils.events.EventedDictNamespace.html#napari.utils.events.EventedDictNamespace" title="napari.utils.events.containers._evented_dict.EventedDictNamespace">napari.utils.events.containers._evented_dict.EventedDictNamespace</a>[SceneOverlay]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -949,28 +928,31 @@ objects.</p>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">floating_axes</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">keymap</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">model_computed_fields</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">keymap</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.ViewerModel.model_config" title="napari.components.ViewerModel.model_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">model_config</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">model_computed_fields</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.ViewerModel.model_config" title="napari.components.ViewerModel.model_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">model_config</span></code></a></p></td>
 <td><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.ViewerModel.model_extra" title="napari.components.ViewerModel.model_extra"><code class="xref py py-obj docutils literal notranslate"><span class="pre">model_extra</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.ViewerModel.model_extra" title="napari.components.ViewerModel.model_extra"><code class="xref py py-obj docutils literal notranslate"><span class="pre">model_extra</span></code></a></p></td>
 <td><p>Get extra fields set during validation.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">model_fields</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">model_fields</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.ViewerModel.model_fields_set" title="napari.components.ViewerModel.model_fields_set"><code class="xref py py-obj docutils literal notranslate"><span class="pre">model_fields_set</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.ViewerModel.model_fields_set" title="napari.components.ViewerModel.model_fields_set"><code class="xref py py-obj docutils literal notranslate"><span class="pre">model_fields_set</span></code></a></p></td>
 <td><p>Returns the set of fields that have been explicitly set on this model instance.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale_bar</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale_bar</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">text_overlay</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">text_overlay</span></code></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -2222,7 +2204,6 @@ different realized types with different fields.</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.camera"><code class="docutils literal notranslate"><span class="pre">ViewerModel.camera</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.cursor"><code class="docutils literal notranslate"><span class="pre">ViewerModel.cursor</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.dims"><code class="docutils literal notranslate"><span class="pre">ViewerModel.dims</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.grid"><code class="docutils literal notranslate"><span class="pre">ViewerModel.grid</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.help"><code class="docutils literal notranslate"><span class="pre">ViewerModel.help</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.layers"><code class="docutils literal notranslate"><span class="pre">ViewerModel.layers</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.mouse_over_canvas"><code class="docutils literal notranslate"><span class="pre">ViewerModel.mouse_over_canvas</span></code></a></li>
@@ -2230,7 +2211,6 @@ different realized types with different fields.</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.title"><code class="docutils literal notranslate"><span class="pre">ViewerModel.title</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.tooltip"><code class="docutils literal notranslate"><span class="pre">ViewerModel.tooltip</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.window"><code class="docutils literal notranslate"><span class="pre">ViewerModel.window</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel._canvas_size"><code class="docutils literal notranslate"><span class="pre">ViewerModel._canvas_size</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel._ctx"><code class="docutils literal notranslate"><span class="pre">ViewerModel._ctx</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel._layer_slicer"><code class="docutils literal notranslate"><span class="pre">ViewerModel._layer_slicer</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel._overlays"><code class="docutils literal notranslate"><span class="pre">ViewerModel._overlays</span></code></a></li>

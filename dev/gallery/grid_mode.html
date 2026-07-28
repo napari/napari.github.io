@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/gallery/grid_mode.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Display layers in a grid using the viewer.grid API. When grid is enabled, layers are automatically arranged - based on the stride, height, and width parameters - in a grid of viewboxes linked to the main Camera and Dims. Viewer overlays such as scale_bar can also be shown in a gridded manner. Tag..." />
+<meta property="og:description" content="Display layers in a grid using the viewer.canvas.grid API. When grid is enabled, layers are automatically arranged - based on the stride, height, and width parameters - in a grid of viewboxes linked to the main Camera and Dims. Viewer overlays such as scale_bar can also be shown in a gridded mann..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="Display layers in a grid using the viewer.grid API. When grid is enabled, layers are automatically arranged - based on the stride, height, and width parameters - in a grid of viewboxes linked to the main Camera and Dims. Viewer overlays such as scale_bar can also be shown in a gridded manner. Tag..." />
+<meta name="description" content="Display layers in a grid using the viewer.canvas.grid API. When grid is enabled, layers are automatically arranged - based on the stride, height, and width parameters - in a grid of viewboxes linked to the main Camera and Dims. Viewer overlays such as scale_bar can also be shown in a gridded mann..." />
 
     <title>Grid mode &#8212; napari</title>
   
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=020923f0"></script>
+    <script src="../_static/documentation_options.js?v=b03c01d5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -830,7 +830,7 @@
                   
   <section class="sphx-glr-example-title" id="grid-mode">
 <span id="sphx-glr-gallery-grid-mode-py"></span><h1>Grid mode<a class="headerlink" href="#grid-mode" title="Link to this heading">#</a></h1>
-<p>Display layers in a grid using the <cite>viewer.grid</cite> API. When grid is enabled,
+<p>Display layers in a grid using the <cite>viewer.canvas.grid</cite> API. When grid is enabled,
 layers are automatically arranged - based on the stride, height, and width parameters -
 in a grid of viewboxes linked to the main Camera and Dims. Viewer overlays such as
 scale_bar can also be shown in a gridded manner.</p>
@@ -859,21 +859,21 @@ scale_bar can also be shown in a gridded manner.</p>
 <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">()</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">layers</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">lily</span><span class="p">(),</span> <span class="n">channel_axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-<a href="https://docs.python.org/3/library/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span></a> <span class="o">=</span> <span class="kc">True</span>
+<a href="https://docs.python.org/3/library/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span></a> <span class="o">=</span> <span class="kc">True</span>
 <span class="c1"># a stride of 2 means that two consecutive layers are placed in each</span>
 <span class="c1"># viewbox instead of just one</span>
-<a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">stride</span></a> <span class="o">=</span> <span class="mi">2</span>
+<a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">stride</span></a> <span class="o">=</span> <span class="mi">2</span>
 <span class="c1"># we leave width and height as -1, automatically resulting in a square grid</span>
 
 <span class="c1"># setting the spacing to a value between 0 and 1 adds a padding between</span>
 <span class="c1"># viewboxes relative to their sizes. Setting to a value greater than 1</span>
 <span class="c1"># results in a padding of that exact number of pixels instead.</span>
-<a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">spacing</span></a> <span class="o">=</span> <span class="mf">0.1</span>
+<a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">spacing</span></a> <span class="o">=</span> <span class="mf">0.1</span>
 
-<a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
-<a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="kc">True</span>
+<a href="https://docs.python.org/3/library/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">visible</span></a> <span class="o">=</span> <span class="kc">True</span>
+<a href="https://docs.python.org/3/library/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">box</span></a> <span class="o">=</span> <span class="kc">True</span>
 <span class="c1"># show scalebar in each grid instead of just once</span>
-<a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">gridded</span> <span class="o">=</span> <span class="kc">True</span>
+<a href="https://docs.python.org/3/library/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">gridded</span></a> <span class="o">=</span> <span class="kc">True</span>
 <a href="../api/napari.Viewer.html#napari.Viewer.fit_to_view" title="napari.Viewer.fit_to_view" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">fit_to_view</span></a><span class="p">()</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>

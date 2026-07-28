@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=020923f0"></script>
+    <script src="../../../../_static/documentation_options.js?v=b03c01d5"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1118,13 +1118,12 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gridViewButton</span> <span class="o">=</span> <span class="n">gvb</span>
         <span class="n">gvb</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">gvb</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
+        <span class="n">gvb</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
         <span class="n">gvb</span><span class="o">.</span><span class="n">setContextMenuPolicy</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ContextMenuPolicy</span><span class="o">.</span><span class="n">CustomContextMenu</span><span class="p">)</span>
         <span class="n">gvb</span><span class="o">.</span><span class="n">customContextMenuRequested</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_open_grid_popup</span><span class="p">)</span>
-
-        <span class="nd">@self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">enabled</span><span class="o">.</span><span class="n">connect</span>
-        <span class="k">def</span><span class="w"> </span><span class="nf">_set_grid_mode_checkstate</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-            <span class="n">gvb</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">enabled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_grid_button</span>
+        <span class="p">)</span>
 
         <span class="n">ndb</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;ndisplay_button&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;napari:toggle_ndisplay&#39;</span>
@@ -1507,6 +1506,9 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># show popup</span>
         <span class="n">pop</span><span class="o">.</span><span class="n">show_above_mouse</span><span class="p">()</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_grid_button</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridViewButton</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
     <span class="k">def</span><span class="w"> </span><span class="nf">_open_grid_popup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Open grid options pop up widget.&quot;&quot;&quot;</span>
 
@@ -1545,7 +1547,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># 1000 is arbitrary.</span>
         <span class="n">grid_stride</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">)</span>
         <span class="n">grid_stride</span><span class="o">.</span><span class="n">setProhibitValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">grid_stride</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span>
+        <span class="n">grid_stride</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span>
         <span class="n">grid_stride</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_grid_stride</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_stride_box</span> <span class="o">=</span> <span class="n">grid_stride</span>
 
@@ -1553,7 +1555,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">grid_width</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
         <span class="n">grid_width</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">grid_width</span><span class="o">.</span><span class="n">setProhibitValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">grid_width</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">grid_width</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">grid_width</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_grid_width</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_width_box</span> <span class="o">=</span> <span class="n">grid_width</span>
 
@@ -1561,7 +1563,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">grid_height</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
         <span class="n">grid_height</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">grid_height</span><span class="o">.</span><span class="n">setProhibitValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">grid_height</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">grid_height</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">grid_height</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_grid_height</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_height_box</span> <span class="o">=</span> <span class="n">grid_height</span>
 
@@ -1572,7 +1574,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
         <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setMaximum</span><span class="p">(</span><span class="n">MAX_GRID_SPACING</span><span class="p">)</span>
-        <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">spacing</span><span class="p">)</span>
+        <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">spacing</span><span class="p">)</span>
         <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setDecimals</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setSingleStep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
         <span class="n">grid_spacing</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_grid_spacing</span><span class="p">)</span>
@@ -1618,7 +1620,10 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            New grid width value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">value</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_grid_stride</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update stride in grid settings.</span>
@@ -1629,7 +1634,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            New grid stride value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_grid_height</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update height value in grid shape.</span>
@@ -1640,7 +1645,10 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            New grid height value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">value</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_grid_spacing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update spacing value in grid settings.</span>
@@ -1650,7 +1658,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        value : float</span>
 <span class="sd">            New grid spacing value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">spacing</span> <span class="o">=</span> <span class="n">value</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">spacing</span> <span class="o">=</span> <span class="n">value</span></div>
 
 
 

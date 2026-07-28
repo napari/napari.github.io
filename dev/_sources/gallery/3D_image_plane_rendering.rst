@@ -18,7 +18,7 @@ with a simple widget for modifying plane parameters.
 
 .. tags:: visualization-advanced, gui, layers
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-53
+.. GENERATED FROM PYTHON SOURCE LINES 10-55
 
 
 
@@ -81,12 +81,14 @@ with a simple widget for modifying plane parameters.
     viewer.axes.visible = True
     viewer.camera.angles = (0, -30, 35)
     viewer.fit_to_view()
-    viewer.text_overlay.text = """shift + click and drag to move the plane
+    viewer.canvas.overlays.text.text = """shift + click and drag to move the plane
     press 'x', 'y' or 'z' to orient the plane along that axis around the cursor
     press 'o' to orient the plane normal along the camera view direction
     press and hold 'o' then click and drag to make the plane normal follow the camera
     """
-    viewer.text_overlay.visible = True
+    viewer.canvas.overlays.text.visible = True
+
+
     if __name__ == '__main__':
         napari.run()
 

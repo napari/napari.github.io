@@ -150,6 +150,7 @@ napari.components.ViewerModel
       ~ViewerModel.events
       ~ViewerModel.experimental
       ~ViewerModel.floating_axes
+      ~ViewerModel.grid
       ~ViewerModel.keymap
       ~ViewerModel.model_computed_fields
       ~ViewerModel.model_config

@@ -78,7 +78,7 @@ Requires geopandas and contextily to be installed.
     # display the background map in napari
     viewer = napari.Viewer()
     viewer.camera.orientation2d=('up','right')
-    viewer.floating_axes.visible=True
+    viewer.canvas.overlays.floating_axes.visible=True
     viewer.window.add_plugin_dock_widget('napari', 'Features table widget')
 
     # add the downloaded background map as an image layer, with the correct translation and scale to match the lat/lon coordinates
@@ -107,7 +107,7 @@ Requires geopandas and contextily to be installed.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (8 minutes 19.909 seconds)
+   **Total running time of the script:** (4 minutes 6.764 seconds)
 
 
 .. _sphx_glr_download_gallery_latlon-data-with-map.py:

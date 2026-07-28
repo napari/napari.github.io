@@ -74,8 +74,8 @@ Shift a rectangle along its normal vector in 3D
     )
     viewer.camera.angles = (-170, -20, -170)
     viewer.camera.zoom = 1.5
-    viewer.text_overlay.visible = True
-    viewer.text_overlay.text = """'click and drag the rectangle to create copies along its normal vector
+    viewer.canvas.overlays.text.visible = True
+    viewer.canvas.overlays.text.text = """'click and drag the rectangle to create copies along its normal vector
     """
 
 

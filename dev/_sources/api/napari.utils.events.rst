@@ -19,6 +19,7 @@
       Event
       EventEmitter
       EventedDict
+      EventedDictNamespace
       EventedList
       EventedModel
       EventedSet

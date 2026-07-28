@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=020923f0"></script>
+    <script src="../../../_static/documentation_options.js?v=b03c01d5"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -823,6 +823,7 @@ window.runMermaid = runMermaid;</script>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -847,6 +848,7 @@ window.runMermaid = runMermaid;</script>
 <span class="c1"># This cannot be condition to TYPE_CHECKING or the stubgen fails</span>
 <span class="c1"># with undefined Context.</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">PrivateAttr</span><span class="p">,</span> <span class="n">field_validator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari</span><span class="w"> </span><span class="kn">import</span> <span class="n">layers</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components._layer_slicer</span><span class="w"> </span><span class="kn">import</span> <span class="n">_LayerSlicer</span>
@@ -857,19 +859,14 @@ window.runMermaid = runMermaid;</script>
     <span class="n">layers_scroll</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.camera</span><span class="w"> </span><span class="kn">import</span> <span class="n">Camera</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">Canvas</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.cursor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">CursorStyle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.dims</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dims</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridCanvas</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.layerlist</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerList</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.overlays</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">AxesOverlay</span><span class="p">,</span>
-    <span class="n">BrushCircleOverlay</span><span class="p">,</span>
-    <span class="n">CurrentSliceOverlay</span><span class="p">,</span>
     <span class="n">FloatingAxesOverlay</span><span class="p">,</span>
-    <span class="n">Overlay</span><span class="p">,</span>
-    <span class="n">ScaleBarOverlay</span><span class="p">,</span>
-    <span class="n">TextOverlay</span><span class="p">,</span>
-    <span class="n">ZoomOverlay</span><span class="p">,</span>
+    <span class="n">SceneOverlay</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.tooltip</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tooltip</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.errors</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -914,7 +911,7 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps</span><span class="w"> </span><span class="kn">import</span> <span class="n">ensure_colormap</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">Event</span><span class="p">,</span>
-    <span class="n">EventedDict</span><span class="p">,</span>
+    <span class="n">EventedDictNamespace</span><span class="p">,</span>
     <span class="n">EventedModel</span><span class="p">,</span>
     <span class="n">disconnect_events</span><span class="p">,</span>
 <span class="p">)</span>
@@ -926,6 +923,9 @@ window.runMermaid = runMermaid;</script>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">npe2.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">SampleDataCreator</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridCanvas</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.overlays</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScaleBarOverlay</span><span class="p">,</span> <span class="n">TextOverlay</span>
 
 
 <span class="n">DEFAULT_THEME</span> <span class="o">=</span> <span class="s1">&#39;dark&#39;</span>
@@ -944,19 +944,11 @@ window.runMermaid = runMermaid;</script>
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ViewerModel&#39;</span><span class="p">,</span> <span class="s1">&#39;valid_add_kwargs&#39;</span><span class="p">]</span>
 
 
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
 <span class="k">def</span><span class="w"> </span><span class="nf">_current_theme</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">theme</span>
-
-
-<span class="n">DEFAULT_OVERLAYS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;scale_bar&#39;</span><span class="p">:</span> <span class="n">ScaleBarOverlay</span><span class="p">,</span>
-    <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">TextOverlay</span><span class="p">,</span>
-    <span class="s1">&#39;axes&#39;</span><span class="p">:</span> <span class="n">AxesOverlay</span><span class="p">,</span>
-    <span class="s1">&#39;floating_axes&#39;</span><span class="p">:</span> <span class="n">FloatingAxesOverlay</span><span class="p">,</span>
-    <span class="s1">&#39;brush_circle&#39;</span><span class="p">:</span> <span class="n">BrushCircleOverlay</span><span class="p">,</span>
-    <span class="s1">&#39;zoom&#39;</span><span class="p">:</span> <span class="n">ZoomOverlay</span><span class="p">,</span>
-    <span class="s1">&#39;current_slice&#39;</span><span class="p">:</span> <span class="n">CurrentSliceOverlay</span><span class="p">,</span>
-<span class="p">}</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_validate_paths_exist</span><span class="p">(</span><span class="n">paths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -996,8 +988,6 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        The cursor object containing the position and properties of the cursor.</span>
 <span class="sd">    dims : napari.components.dims.Dimensions</span>
 <span class="sd">        Contains axes, indices, dimensions and sliders.</span>
-<span class="sd">    grid: napari.components.grid.Gridcanvas</span>
-<span class="sd">        Gridcanvas allowing for the current implementation of a gridview of the canvas.</span>
 <span class="sd">    help: str</span>
 <span class="sd">        A help message of the viewer model</span>
 <span class="sd">    layers : napari.components.layerlist.LayerList</span>
@@ -1012,23 +1002,21 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        A tooltip showing extra information on the cursor</span>
 <span class="sd">    window : napari._qt.qt_main_window.Window</span>
 <span class="sd">        Parent window.</span>
-<span class="sd">    _canvas_size: Tuple[int, int]</span>
-<span class="sd">        The canvas size following the Numpy convention of height x width</span>
 <span class="sd">    _ctx: Mapping</span>
 <span class="sd">        Viewer object context mapping.</span>
 <span class="sd">    _layer_slicer: napari.components._layer_slicer._Layer_Slicer</span>
 <span class="sd">        A layer slicer object controlling the creation of a slice</span>
-<span class="sd">    _overlays: napari.utils.events.containers._evented_dict.EventedDict[str, Overlay]</span>
-<span class="sd">        An EventedDict with as keys the string names of different napari overlays and as values the napari.Overlay</span>
-<span class="sd">        objects.</span>
+<span class="sd">    _overlays: napari.utils.events.containers._evented_dict.EventedDictNamespace[SceneOverlay]</span>
+<span class="sd">        An EventedDictNamespace with as keys the string names of different napari overlays and as values</span>
+<span class="sd">        the napari.SceneOverlay objects.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Using frozen=True means these attributes aren&#39;t settable and don&#39;t</span>
     <span class="c1"># have an event emitter associated with them</span>
+    <span class="n">canvas</span><span class="p">:</span> <span class="n">Canvas</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Canvas</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Camera</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Cursor</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Dims</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">grid</span><span class="p">:</span> <span class="n">GridCanvas</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">GridCanvas</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">layers</span><span class="p">:</span> <span class="n">LayerList</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="n">default_factory</span><span class="o">=</span><span class="n">LayerList</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">)</span>  <span class="c1"># Need to create custom JSON encoder for layer!</span>
@@ -1037,12 +1025,11 @@ window.runMermaid = runMermaid;</script>
     <span class="n">tooltip</span><span class="p">:</span> <span class="n">Tooltip</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Tooltip</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">_current_theme</span><span class="p">)</span>
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span>
-    <span class="c1"># private track of overlays, only expose the old ones for backward compatibility</span>
-    <span class="n">_overlays</span><span class="p">:</span> <span class="n">EventedDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Overlay</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span>
-        <span class="n">default_factory</span><span class="o">=</span><span class="n">EventedDict</span>
+    <span class="n">_scene_overlays</span><span class="p">:</span> <span class="n">EventedDictNamespace</span><span class="p">[</span><span class="n">SceneOverlay</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">(</span>  <span class="c1"># type: ignore</span>
+            <span class="n">EventedDictNamespace</span><span class="p">({</span><span class="s1">&#39;axes&#39;</span><span class="p">:</span> <span class="n">AxesOverlay</span><span class="p">()})</span>
+        <span class="p">)</span>
     <span class="p">)</span>
-    <span class="c1"># 2-tuple indicating height and width</span>
-    <span class="n">_canvas_size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
     <span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">()</span>
     <span class="c1"># To check if mouse is over canvas to avoid race conditions between</span>
     <span class="c1"># different events systems</span>
@@ -1095,19 +1082,6 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_synced_camera</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_viewer_grid</span><span class="p">()</span>
-        <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">grid_stride</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_viewer_grid</span>
-        <span class="p">)</span>
-        <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">grid_width</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_viewer_grid</span>
-        <span class="p">)</span>
-        <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">grid_height</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_viewer_grid</span>
-        <span class="p">)</span>
-        <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">grid_spacing</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_viewer_grid</span>
-        <span class="p">)</span>
         <span class="n">settings</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">async_</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_async</span><span class="p">)</span>
 
         <span class="c1"># Add extra reset_view event. Ideally this should be removed in the</span>
@@ -1150,32 +1124,46 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">mouse_double_click_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">double_click_to_zoom</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drag_to_zoom</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">DEFAULT_OVERLAYS</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_update_bgcolor_from_viewer</span><span class="p">)</span>
 
-    <span class="c1"># simple properties exposing overlays for backward compatibility</span>
+    <span class="c1"># simple properties exposing overlays for backward compatibility and easy access</span>
+    <span class="c1"># NOTE: the type ignore comments are needed because the EventedDictNamespace does not</span>
+    <span class="c1">#       know that specific elements match specific types</span>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">axes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AxesOverlay</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;axes&#39;</span><span class="p">]</span>  <span class="c1"># type: ignore[return-value]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene_overlays</span><span class="o">.</span><span class="n">axes</span>  <span class="c1"># type: ignore[return-value]</span>
 
     <span class="nd">@property</span>
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s1">&#39;viewer.floating_axes is a deprecated attribute since 0.8.1. Use viewer.canvas.overlays.floating_axes instead.&#39;</span><span class="p">,</span>
+        <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">floating_axes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FloatingAxesOverlay</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;floating_axes&#39;</span><span class="p">]</span>  <span class="c1"># type: ignore[return-value]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">floating_axes</span>  <span class="c1"># type: ignore[return-value]</span>
 
     <span class="nd">@property</span>
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s1">&#39;viewer.scale_bar is a deprecated attribute since 0.8.1. Use viewer.canvas.overlays.scale_bar instead.&#39;</span><span class="p">,</span>
+        <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">scale_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ScaleBarOverlay</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;scale_bar&#39;</span><span class="p">]</span>  <span class="c1"># type: ignore[return-value]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">scale_bar</span>  <span class="c1"># type: ignore[return-value]</span>
 
     <span class="nd">@property</span>
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s1">&#39;viewer.text_overlay is a deprecated attribute since 0.8.1. Use viewer.canvas.overlays.text instead.&#39;</span><span class="p">,</span>
+        <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">text_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TextOverlay</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>  <span class="c1"># type: ignore[return-value]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">text</span>  <span class="c1"># type: ignore[return-value]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_zoom_box</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ZoomOverlay</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;zoom&#39;</span><span class="p">]</span>  <span class="c1"># type: ignore[return-value]</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_brush_circle_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BrushCircleOverlay</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;brush_circle&#39;</span><span class="p">]</span>  <span class="c1"># type: ignore[return-value]</span>
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s1">&#39;viewer.grid is a deprecated attribute since 0.8.1. Use viewer.canvas.grid instead.&#39;</span><span class="p">,</span>
+        <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">grid</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GridCanvas</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_tooltip_visible_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
@@ -1194,18 +1182,6 @@ window.runMermaid = runMermaid;</script>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update camera synced mode based on settings.&quot;&quot;&quot;</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">synced_camera</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_update_viewer_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Keep viewer grid settings up to date with settings values.&quot;&quot;&quot;</span>
-
-        <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">grid_stride</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">grid_height</span><span class="p">,</span>
-            <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">grid_width</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">spacing</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">grid_spacing</span>
 
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">&#39;theme&#39;</span><span class="p">)</span>
     <span class="nd">@classmethod</span>
@@ -1319,7 +1295,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># of view will occupy 95% of the canvas on the most filled axis</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">scene_size</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># TODO: does this even ever happen?</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">scale_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_canvas_size</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">scale_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_2d_camera_zoom</span><span class="p">(</span>
@@ -1430,34 +1406,15 @@ window.runMermaid = runMermaid;</script>
             <span class="sa">f</span><span class="s1">&#39;margin must be between 0 and 1; got </span><span class="si">{</span><span class="n">margin</span><span class="si">}</span><span class="s1"> instead.&#39;</span>
         <span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_get_viewbox_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the size of a single viewbox (whether grid is enabled or not).</span>
-
-<span class="sd">        If grid.border_width &gt; 0, that&#39;s accounted for too.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">viewbox_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_canvas_size</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
-            <span class="n">grid_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">actual_shape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">),</span>
-                <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="n">spacing_pixels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">_compute_canvas_spacing</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_canvas_size</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="c1"># Now calculate actual available space</span>
-            <span class="n">total_gap_space</span> <span class="o">=</span> <span class="n">spacing_pixels</span> <span class="o">*</span> <span class="p">(</span><span class="n">grid_shape</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="n">available_space</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_canvas_size</span> <span class="o">-</span> <span class="n">total_gap_space</span>
-            <span class="n">viewbox_size</span> <span class="o">=</span> <span class="n">available_space</span> <span class="o">/</span> <span class="n">grid_shape</span>
-        <span class="k">return</span> <span class="n">viewbox_size</span>
-
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_2d_camera_zoom</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">scene_size</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">:</span> <span class="nb">float</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the camera zoom for 2D view.&quot;&quot;&quot;</span>
         <span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scene_size</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])</span>
         <span class="n">scale</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="n">scale_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_viewbox_size</span><span class="p">()</span> <span class="o">/</span> <span class="n">scale</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">scale_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">viewbox_size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">/</span> <span class="n">scale</span>
+        <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_3d_camera_zoom</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">extent</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">:</span> <span class="nb">float</span>
@@ -1468,7 +1425,9 @@ window.runMermaid = runMermaid;</script>
             <span class="n">view_direction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">view_direction</span><span class="p">,</span>
             <span class="n">up_direction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">up_direction</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">scale_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_viewbox_size</span><span class="p">()</span> <span class="o">/</span> <span class="n">bounding_box</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">scale_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">viewbox_size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">/</span> <span class="n">bounding_box</span>
+        <span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_calculate_bounding_box</span><span class="p">(</span>
@@ -1726,7 +1685,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="ow">not</span> <span class="n">layer</span><span class="o">.</span><span class="n">visible</span>
                 <span class="ow">or</span> <span class="n">layer</span><span class="o">.</span><span class="n">opacity</span> <span class="o">==</span> <span class="mi">0</span>
                 <span class="ow">or</span> <span class="ow">not</span> <span class="n">layer</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_loaded</span>
-                <span class="ow">or</span> <span class="p">(</span><span class="n">layer</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">selection</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
+                <span class="ow">or</span> <span class="p">(</span><span class="n">layer</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">selection</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
             <span class="p">):</span>
                 <span class="k">continue</span>
             <span class="n">status</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">get_status</span><span class="p">(</span>
@@ -1745,7 +1704,7 @@ window.runMermaid = runMermaid;</script>
                     <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">status</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="si">}{</span><span class="n">emphasis</span><span class="si">}</span><span class="s1">&#39;</span>
                 <span class="p">)</span>
         <span class="k">if</span> <span class="n">coord2val</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
                 <span class="c1"># use a single coordinate system</span>
                 <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">coord2val</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
                 <span class="n">key</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">coord2val</span><span class="p">))</span>  <span class="c1"># choose arbitrary coordinate</span>
@@ -1755,9 +1714,9 @@ window.runMermaid = runMermaid;</script>
                 <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">coord2val</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
             <span class="p">]</span>
             <span class="n">status_str</span> <span class="o">=</span> <span class="n">separator</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">status_strs</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">coord_str</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">coord_str</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
             <span class="n">status_str</span> <span class="o">=</span> <span class="n">coord_str</span> <span class="o">+</span> <span class="s1">&#39;[empty]&#39;</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
             <span class="n">status_str</span> <span class="o">=</span> <span class="s1">&#39;[empty]&#39;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">status_str</span> <span class="o">=</span> <span class="s1">&#39;Ready&#39;</span>
@@ -2196,7 +2155,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            If `plugin` does not provide a sample named `sample`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">plugin_spec_reader</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">data</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">SampleDataCreator</span> <span class="o">|</span> <span class="n">SampleData</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">SampleDataCreator</span> <span class="o">|</span> <span class="n">SampleData</span> <span class="o">|</span> <span class="kc">None</span>
         <span class="c1"># try with npe2</span>
         <span class="n">data</span><span class="p">,</span> <span class="n">available</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">get_sample_data</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="n">sample</span><span class="p">)</span>
 

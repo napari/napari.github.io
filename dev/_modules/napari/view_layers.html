@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=42d13c10"></script>
+    <script src="../../_static/documentation_options.js?v=d0d04622"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -916,6 +916,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">interpolation2d</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">interpolation3d</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">iso_threshold</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">locked_data_level</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">metadata</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">multiscale</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">name</span><span class="o">=...</span><span class="p">,</span>
@@ -958,6 +959,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">interpolation2d</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">interpolation3d</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">iso_threshold</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">locked_data_level</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">metadata</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">multiscale</span><span class="o">=...</span><span class="p">,</span>
     <span class="n">name</span><span class="o">=...</span><span class="p">,</span>
@@ -1001,6 +1003,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">interpolation2d</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span>
     <span class="n">interpolation3d</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span>
     <span class="n">iso_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">locked_data_level</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">multiscale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1095,6 +1098,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Same as &#39;interpolation2d&#39; but for 3D rendering.</span>
 <span class="sd">    iso_threshold : float or list of float</span>
 <span class="sd">        Threshold for isosurface.</span>
+<span class="sd">    locked_data_level : int, optional</span>
+<span class="sd">        Lock the multiscale resolution level to a specific index. When set,</span>
+<span class="sd">        forces rendering at the given multiscale level instead of automatic</span>
+<span class="sd">        level selection based on the viewport. Set to ``None`` (default) to</span>
+<span class="sd">        use automatic selection.</span>
 <span class="sd">    metadata : dict or list of dict</span>
 <span class="sd">        Layer metadata.</span>
 <span class="sd">    multiscale : bool</span>
@@ -1177,6 +1185,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">rendering</span><span class="o">=</span><span class="n">rendering</span><span class="p">,</span>
         <span class="n">depiction</span><span class="o">=</span><span class="n">depiction</span><span class="p">,</span>
         <span class="n">iso_threshold</span><span class="o">=</span><span class="n">iso_threshold</span><span class="p">,</span>
+        <span class="n">locked_data_level</span><span class="o">=</span><span class="n">locked_data_level</span><span class="p">,</span>
         <span class="n">attenuation</span><span class="o">=</span><span class="n">attenuation</span><span class="p">,</span>
         <span class="n">auto_contrast</span><span class="o">=</span><span class="n">auto_contrast</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>

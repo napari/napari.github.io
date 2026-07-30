@@ -7,10 +7,14 @@
  :Created: 2023-08-11
  :Resolution: <url> (required for Accepted | Rejected | Withdrawn) 
  :Resolved: <date resolved, in yyyy-mm-dd format> 
- :Status: Draft
+ :Status: Withdrawn
  :Type: Standards Track 
  :Version effective: <version-number> (for accepted NAPs) 
  ``` 
+
+:::{note}
+This NAP has been withdrawn after polling the community, which was generally either against or uninterested in opting in.
+:::
   
  ## Abstract 
   

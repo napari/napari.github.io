@@ -5,9 +5,13 @@
 ```{eval-rst}
 :Author: Lorenzo Gaifas, brisvag@gmail.com
 :Created: 2022-06-08
-:Status: Draft
+:Status: Withdrawn
 :Type: Standards Track
 ```
+
+:::{note}
+This NAP has been withdrawn in favour of the more comprehensive [NAP-9 - Multiple Views](nap-9).
+:::
 
 
 ## Abstract

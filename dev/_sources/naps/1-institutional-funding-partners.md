@@ -6,7 +6,7 @@
 :Author: "Juan Nunez-Iglesias <mailto:jni@fastmail.com>"
 :Author: "Nicholas Sofroniew <mailto:sofroniewn@gmail.com>"
 :Created: '2022-04-21'
-:Status: Accepted
+:Status: Final
 :Type: Process
 ```
 

@@ -8,7 +8,7 @@
 :Created: 2022-05-05
 :Resolution: https://github.com/napari/napari/pull/4602#pullrequestreview-1028720579
 :Resolved: 2022-07-14
-:Status: Accepted
+:Status: Final
 :Type: <Standards Track | Process>
 :Version effective: 0.4.17, 0.5
 ```

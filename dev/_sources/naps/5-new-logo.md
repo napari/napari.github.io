@@ -12,6 +12,10 @@
 :Version effective: 0.5
 ```
 
+:::{note}
+This NAP has been withdrawn due to lack of interest. It is now moot as a new logo has been made differently.
+:::
+
 ## Abstract
 
 This NAP proposes a new, mathematically-defined logo for napari.

@@ -24,5 +24,6 @@ caption: With this tag
 ../gallery/mouse_drag_callback.rst
 ../gallery/multiple_viewer_widget.rst
 ../gallery/set_theme.rst
+../gallery/stereo_viewer_widget.rst
 ../gallery/theme_sample.rst
 ```

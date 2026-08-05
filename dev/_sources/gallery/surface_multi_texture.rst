@@ -110,17 +110,16 @@ Download the model
     downloading data into /home/runner/work/docs/docs/.cache/napari-surface-texture-example
     Downloading...
     From: https://drive.google.com/uc?id=1yuPHWlLzowlfWzVMUg-mvAEe_Tmvpzy4
-    To: /home/runner/work/docs/docs/.cache/pooch/tmp2tirfhxq
-      0%|          | 0.00/93.8M [00:00<?, ?B/s]      1%|          | 524k/93.8M [00:00<01:22, 1.13MB/s]      1%|          | 1.05M/93.8M [00:00<00:48, 1.91MB/s]      2%|▏         | 2.10M/93.8M [00:00<00:24, 3.70MB/s]      4%|▍         | 3.67M/93.8M [00:00<00:13, 6.48MB/s]      7%|▋         | 6.29M/93.8M [00:00<00:07, 11.4MB/s]     10%|█         | 9.44M/93.8M [00:01<00:05, 16.3MB/s]     14%|█▍        | 13.1M/93.8M [00:01<00:03, 20.2MB/s]     17%|█▋        | 15.7M/93.8M [00:01<00:03, 20.7MB/s]     20%|█▉        | 18.4M/93.8M [00:01<00:03, 19.9MB/s]     22%|██▏       | 21.0M/93.8M [00:01<00:03, 19.6MB/s]     25%|██▍       | 23.1M/93.8M [00:01<00:03, 18.8MB/s]     27%|██▋       | 25.2M/93.8M [00:01<00:03, 18.7MB/s]     31%|███       | 28.8M/93.8M [00:01<00:02, 21.8MB/s]     35%|███▌      | 33.0M/93.8M [00:02<00:02, 24.9MB/s]     39%|███▉      | 36.7M/93.8M [00:02<00:02, 26.0MB/s]     44%|████▎     | 40.9M/93.8M [00:02<00:01, 26.7MB/s]     48%|████▊     | 44.6M/93.8M [00:02<00:01, 28.4MB/s]     51%|█████     | 47.7M/93.8M [00:02<00:01, 29.0MB/s]     54%|█████▍    | 50.9M/93.8M [00:02<00:01, 28.1MB/s]     58%|█████▊    | 54.0M/93.8M [00:02<00:01, 27.4MB/s]     62%|██████▏   | 57.7M/93.8M [00:02<00:01, 27.9MB/s]     66%|██████▌   | 61.9M/93.8M [00:03<00:01, 29.1MB/s]     70%|██████▉   | 65.5M/93.8M [00:03<00:00, 28.9MB/s]     74%|███████▍  | 69.7M/93.8M [00:03<00:00, 29.8MB/s]     78%|███████▊  | 73.4M/93.8M [00:03<00:00, 29.5MB/s]     82%|████████▏ | 77.1M/93.8M [00:03<00:00, 29.3MB/s]     87%|████████▋ | 81.3M/93.8M [00:03<00:00, 30.0MB/s]     91%|█████████ | 84.9M/93.8M [00:03<00:00, 29.7MB/s]     95%|█████████▌| 89.1M/93.8M [00:04<00:00, 28.5MB/s]     99%|█████████▉| 92.8M/93.8M [00:04<00:00, 30.4MB/s]    100%|██████████| 93.8M/93.8M [00:04<00:00, 22.6MB/s]
+    To: /home/runner/work/docs/docs/.cache/pooch/tmpltdwyysx
+      0%|          | 0.00/93.8M [00:00<?, ?B/s]      5%|▌         | 4.72M/93.8M [00:00<00:02, 37.1MB/s]     18%|█▊        | 17.3M/93.8M [00:00<00:00, 83.8MB/s]     28%|██▊       | 26.2M/93.8M [00:00<00:00, 80.1MB/s]     50%|████▉     | 46.7M/93.8M [00:00<00:00, 110MB/s]      67%|██████▋   | 62.4M/93.8M [00:00<00:00, 124MB/s]     81%|████████  | 76.0M/93.8M [00:00<00:00, 126MB/s]    100%|██████████| 93.8M/93.8M [00:00<00:00, 122MB/s]
     Downloading...
-    From (original): https://drive.google.com/uc?id=17tG44rMPWjAIoO_AlH9BaQkPY7GxxEN9
-    From (redirected): https://drive.google.com/uc?id=17tG44rMPWjAIoO_AlH9BaQkPY7GxxEN9&confirm=t&uuid=9356ca06-0313-49d7-89ad-4fb630502940
-    To: /home/runner/work/docs/docs/.cache/pooch/tmpv9f39_25
-      0%|          | 0.00/17.3M [00:00<?, ?B/s]     76%|███████▌  | 13.1M/17.3M [00:00<00:00, 128MB/s]    100%|██████████| 17.3M/17.3M [00:00<00:00, 132MB/s]
+    From: https://drive.google.com/uc?id=17tG44rMPWjAIoO_AlH9BaQkPY7GxxEN9
+    To: /home/runner/work/docs/docs/.cache/pooch/tmp7tp6ctvo
+      0%|          | 0.00/17.3M [00:00<?, ?B/s]     27%|██▋       | 4.72M/17.3M [00:00<00:00, 36.5MB/s]     52%|█████▏    | 8.91M/17.3M [00:00<00:00, 34.3MB/s]    100%|██████████| 17.3M/17.3M [00:00<00:00, 52.0MB/s]
     Downloading...
     From: https://drive.google.com/uc?id=1l_hGxDg6JARAyFMgWXuoIZs49qKXBv01
-    To: /home/runner/work/docs/docs/.cache/pooch/tmp905u299w
-      0%|          | 0.00/120k [00:00<?, ?B/s]    100%|██████████| 120k/120k [00:00<00:00, 4.92MB/s]
+    To: /home/runner/work/docs/docs/.cache/pooch/tmpf_6i7hnn
+      0%|          | 0.00/120k [00:00<?, ?B/s]    100%|██████████| 120k/120k [00:00<00:00, 13.2MB/s]
 
 
 
@@ -283,7 +282,7 @@ sphinx_gallery_thumbnail_number = 2
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 58.331 seconds)
+   **Total running time of the script:** (0 minutes 26.460 seconds)
 
 
 .. _sphx_glr_download_gallery_surface_multi_texture.py:

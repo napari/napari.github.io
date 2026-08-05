@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=71ef76d1"></script>
+    <script src="../_static/documentation_options.js?v=524a6671"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -610,7 +610,7 @@
 <li class="toctree-l4"><a class="reference internal" href="xarray-latlon-timeseries.html">Displaying xarray data in napari</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-basic.html">visualization-basic (26)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_tags/visualization-basic.html">visualization-basic (27)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="add_grayscale_image.html">Add grayscale image</a></li>
 <li class="toctree-l4"><a class="reference internal" href="add_image.html">Add image</a></li>
 <li class="toctree-l4"><a class="reference internal" href="add_image_transformed.html">Add image transformed</a></li>
@@ -626,6 +626,7 @@
 <li class="toctree-l4"><a class="reference internal" href="add_vectors.html">Add vectors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="add_vectors_image.html">Add vectors image</a></li>
 <li class="toctree-l4"><a class="reference internal" href="colorbar_tiling.html">Colorbars and auto-tiling of overlays in grid mode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="connect_points_with_vectors.html">Connect points with vectors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="glasbey-colormap.html">Glasbey colormap</a></li>
 <li class="toctree-l4"><a class="reference internal" href="grid_mode.html">Grid mode</a></li>
 <li class="toctree-l4"><a class="reference internal" href="image_depth.html">Image depth</a></li>
@@ -863,49 +864,47 @@ for ways to install additional packages from within napari.</p>
 </div>
 <img src="../_images/sphx_glr_cell_tracking_001.png" srcset="../_images/sphx_glr_cell_tracking_001.png" alt="cell tracking" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading...
 From: https://drive.google.com/uc?id=1tuHI_io67gVdFZBA5E97fXrAWaxI2cqi
-To: /home/runner/work/docs/docs/.cache/napari cell tracking example/tmpm93_j5n8
+To: /home/runner/work/docs/docs/.cache/napari cell tracking example/tmpo7bvqggk
 
   0%|          | 0.00/455k [00:00&lt;?, ?B/s]
-100%|██████████| 455k/455k [00:00&lt;00:00, 22.4MB/s]
+100%|██████████| 455k/455k [00:00&lt;00:00, 23.1MB/s]
 Downloading...
 From: https://drive.google.com/uc?id=1qhAbIZiEKfo_a38YFtw7KJ3JjEhicDeJ
-To: /home/runner/work/docs/docs/.cache/napari_cell_tracking_example/tmpdx2jvxq9
+To: /home/runner/work/docs/docs/.cache/napari_cell_tracking_example/tmp27e5m0hs
 
   0%|          | 0.00/15.7M [00:00&lt;?, ?B/s]
- 20%|█▉        | 3.15M/15.7M [00:00&lt;00:00, 28.0MB/s]
- 40%|███▉      | 6.29M/15.7M [00:00&lt;00:00, 12.7MB/s]
- 73%|███████▎  | 11.5M/15.7M [00:00&lt;00:00, 22.7MB/s]
-100%|██████████| 15.7M/15.7M [00:00&lt;00:00, 25.5MB/s]
+ 13%|█▎        | 2.10M/15.7M [00:00&lt;00:00, 20.8MB/s]
+ 97%|█████████▋| 15.2M/15.7M [00:00&lt;00:00, 81.4MB/s]
+100%|██████████| 15.7M/15.7M [00:00&lt;00:00, 74.8MB/s]
 
-/tmp/tmptr_8m8ff/general_2d.zip:   0%|          | 0.00/38.0M [00:00&lt;?, ?iB/s]
-/tmp/tmptr_8m8ff/general_2d.zip:  18%|█▊        | 7.03M/38.0M [00:00&lt;00:00, 73.7MiB/s]
-/tmp/tmptr_8m8ff/general_2d.zip:  43%|████▎     | 16.4M/38.0M [00:00&lt;00:00, 88.3MiB/s]
-/tmp/tmptr_8m8ff/general_2d.zip:  71%|███████   | 26.9M/38.0M [00:00&lt;00:00, 98.1MiB/s]
-/tmp/tmptr_8m8ff/general_2d.zip:  99%|█████████▉| 37.6M/38.0M [00:00&lt;00:00, 104MiB/s]
-/tmp/tmptr_8m8ff/general_2d.zip: 100%|██████████| 38.0M/38.0M [00:00&lt;00:00, 98.6MiB/s]
+/tmp/tmpucp35qb3/general_2d.zip:   0%|          | 0.00/38.0M [00:00&lt;?, ?iB/s]
+/tmp/tmpucp35qb3/general_2d.zip:  22%|██▏       | 8.41M/38.0M [00:00&lt;00:00, 88.1MiB/s]
+/tmp/tmpucp35qb3/general_2d.zip:  49%|████▉     | 18.6M/38.0M [00:00&lt;00:00, 98.9MiB/s]
+/tmp/tmpucp35qb3/general_2d.zip:  76%|███████▌  | 28.8M/38.0M [00:00&lt;00:00, 103MiB/s]
+/tmp/tmpucp35qb3/general_2d.zip: 100%|██████████| 38.0M/38.0M [00:00&lt;00:00, 102MiB/s]
 
 Extracting features:   0%|          | 0/30 [00:00&lt;?, ?it/s]
-Extracting features:  20%|██        | 6/30 [00:00&lt;00:00, 56.88it/s]
-Extracting features:  40%|████      | 12/30 [00:00&lt;00:00, 55.76it/s]
-Extracting features:  60%|██████    | 18/30 [00:00&lt;00:00, 57.10it/s]
-Extracting features:  80%|████████  | 24/30 [00:00&lt;00:00, 56.44it/s]
-Extracting features: 100%|██████████| 30/30 [00:00&lt;00:00, 57.58it/s]
-Extracting features: 100%|██████████| 30/30 [00:00&lt;00:00, 57.08it/s]
+Extracting features:  20%|██        | 6/30 [00:00&lt;00:00, 51.56it/s]
+Extracting features:  40%|████      | 12/30 [00:00&lt;00:00, 52.25it/s]
+Extracting features:  60%|██████    | 18/30 [00:00&lt;00:00, 52.59it/s]
+Extracting features:  80%|████████  | 24/30 [00:00&lt;00:00, 51.38it/s]
+Extracting features: 100%|██████████| 30/30 [00:00&lt;00:00, 51.91it/s]
+Extracting features: 100%|██████████| 30/30 [00:00&lt;00:00, 51.91it/s]
 
 Building windows:   0%|          | 0/27 [00:00&lt;?, ?it/s]
-Building windows: 100%|██████████| 27/27 [00:00&lt;00:00, 14275.33it/s]
+Building windows: 100%|██████████| 27/27 [00:00&lt;00:00, 14616.19it/s]
 
 Computing associations:   0%|          | 0/27 [00:00&lt;?, ?it/s]
-Computing associations:  11%|█         | 3/27 [00:00&lt;00:00, 24.08it/s]
-Computing associations:  22%|██▏       | 6/27 [00:00&lt;00:00, 24.00it/s]
-Computing associations:  33%|███▎      | 9/27 [00:00&lt;00:00, 23.90it/s]
-Computing associations:  44%|████▍     | 12/27 [00:00&lt;00:00, 24.03it/s]
-Computing associations:  56%|█████▌    | 15/27 [00:00&lt;00:00, 23.87it/s]
-Computing associations:  67%|██████▋   | 18/27 [00:00&lt;00:00, 23.77it/s]
-Computing associations:  78%|███████▊  | 21/27 [00:00&lt;00:00, 23.73it/s]
-Computing associations:  89%|████████▉ | 24/27 [00:01&lt;00:00, 24.00it/s]
-Computing associations: 100%|██████████| 27/27 [00:01&lt;00:00, 24.45it/s]
-Computing associations: 100%|██████████| 27/27 [00:01&lt;00:00, 24.09it/s]
+Computing associations:  11%|█         | 3/27 [00:00&lt;00:01, 21.96it/s]
+Computing associations:  22%|██▏       | 6/27 [00:00&lt;00:00, 22.36it/s]
+Computing associations:  33%|███▎      | 9/27 [00:00&lt;00:00, 22.62it/s]
+Computing associations:  44%|████▍     | 12/27 [00:00&lt;00:00, 22.64it/s]
+Computing associations:  56%|█████▌    | 15/27 [00:00&lt;00:00, 22.62it/s]
+Computing associations:  67%|██████▋   | 18/27 [00:00&lt;00:00, 22.26it/s]
+Computing associations:  78%|███████▊  | 21/27 [00:00&lt;00:00, 22.00it/s]
+Computing associations:  89%|████████▉ | 24/27 [00:01&lt;00:00, 22.08it/s]
+Computing associations: 100%|██████████| 27/27 [00:01&lt;00:00, 22.58it/s]
+Computing associations: 100%|██████████| 27/27 [00:01&lt;00:00, 22.41it/s]
 
   0%|          | 0/30 [00:00&lt;?, ?it/s]
 29 edges in frame 0  Total edges: 29:   0%|          | 0/30 [00:00&lt;?, ?it/s]
@@ -940,13 +939,13 @@ Computing associations: 100%|██████████| 27/27 [00:01&lt;00:
 
 
 Greedily matched edges:   0%|          | 0/851 [00:00&lt;?, ?it/s]
-Greedily matched edges:  99%|█████████▉| 845/851 [00:00&lt;00:00, 188430.37it/s]
+Greedily matched edges:  99%|█████████▉| 845/851 [00:00&lt;00:00, 167542.16it/s]
 
 Converting graph to CTC results:   0%|          | 0/53 [00:00&lt;?, ?it/s]
-Converting graph to CTC results: 100%|██████████| 53/53 [00:00&lt;00:00, 1636.53it/s]
+Converting graph to CTC results: 100%|██████████| 53/53 [00:00&lt;00:00, 1470.62it/s]
 
 Computing centroids:   0%|          | 0/30 [00:00&lt;?, ?it/s]
-Computing centroids:  67%|██████▋   | 20/30 [00:00&lt;00:00, 196.29it/s]
+Computing centroids:  63%|██████▎   | 19/30 [00:00&lt;00:00, 186.38it/s]
 
 
 Converting CTC to napari tracks:   0%|          | 0/53 [00:00&lt;?, ?it/s]
@@ -1023,7 +1022,7 @@ Converting CTC to napari tracks:   0%|          | 0/53 [00:00&lt;?, ?it/s]
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 17.992 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 13.997 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-cell-tracking-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/9dd9c4364987d0762ab196c129254867/cell_tracking.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">cell_tracking.ipynb</span></code></a></p>

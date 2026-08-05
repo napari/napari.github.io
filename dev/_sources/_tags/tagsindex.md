@@ -17,7 +17,7 @@ historical (3) <historical>
 interactivity (8) <interactivity>
 layers (10) <layers>
 visualization-advanced (26) <visualization-advanced>
-visualization-basic (26) <visualization-basic>
+visualization-basic (27) <visualization-basic>
 visualization-nD (25) <visualization-nd>
 xarray (1) <xarray>
 ```

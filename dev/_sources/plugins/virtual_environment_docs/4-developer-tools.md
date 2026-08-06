@@ -34,15 +34,15 @@ These _auto-modify_ your code.
 
 ### Pre-commit tools
 
-- [pre-commit](https://pre-commit.com/), runs all your checks each time you run git commit, preventing bad code from ever getting checked in.
+- [prek](https://prek.j178.dev/), Faster implementation of pre-commit, runs all your checks each time you run git commit, preventing bad code from ever getting checked in.
 
 ```console
-     $ pip install pre-commit
-     # install the pre-commit "hook"
-     $ pre-commit install
+     $ pip install prek
+     # install the pre-commit "git hook"
+     $ prek install
      # then configure in .pre-commit-config.yaml
      # (optionally) Run hooks on demand
-     $ pre-commit run --all-files
+     $ prek run --all-files
 ```
 
 - [pre-commit-ci](https://pre-commit.ci/)

@@ -659,12 +659,18 @@ The <code class="docutils literal notranslate"><span class="pre">optional</span>
 included with the typical end-user <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code> installation.</p>
 </div>
 </li>
-<li><p>We use <a class="reference external" href="https://pre-commit.com"><code class="docutils literal notranslate"><span class="pre">pre-commit</span></code></a> to format code with
+<li><p>We use <a class="reference external" href="https://prek.j178.dev/"><code class="docutils literal notranslate"><span class="pre">prek</span></code></a> to format and lint code.
+The <code class="docutils literal notranslate"><span class="pre">prek</span></code> is rust implementation of <a class="reference external" href="https://pre-commit.com/"><code class="docutils literal notranslate"><span class="pre">pre-commit</span></code></a>
+and is faster than the python implementation.
+Full list of used hooks can be found in pre-commit configuration file
+<a class="reference external" href="https://github.com/napari/napari/blob/main/.pre-commit-config.yaml"><code class="docutils literal notranslate"><span class="pre">.pre-commit-config.yaml</span></code></a>
+in the root of the repository.
+The most important hooks are formatting with
 <a class="reference external" href="https://docs.astral.sh/ruff/formatter/"><code class="docutils literal notranslate"><span class="pre">ruff-format</span></code></a> and lint with
-<a class="reference external" href="https://github.com/astral-sh/ruff"><code class="docutils literal notranslate"><span class="pre">ruff</span></code></a> automatically prior to each commit.
-To minimize test errors when submitting pull requests, please install <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code>
-in your environment as follows:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pre-commit<span class="w"> </span>install
+<a class="reference external" href="https://docs.astral.sh/ruff/linter/"><code class="docutils literal notranslate"><span class="pre">ruff-check</span></code></a>.
+To enable it to be executed on creation of every commit, reduce CI usage and reduce the number of test errors,
+install <code class="docutils literal notranslate"><span class="pre">prek</span></code> as pre-commit hook by running the following command in your environment:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>prek<span class="w"> </span>install
 </pre></div>
 </div>
 <p>Upon committing, your code will be formatted according to our <a class="reference external" href="https://github.com/napari/napari/blob/main/pyproject.toml"><code class="docutils literal notranslate"><span class="pre">ruff-format</span></code>
@@ -678,6 +684,10 @@ to the <a class="reference external" href="https://peps.python.org/pep-0008/">PE
 <p>If you wish to tell the linter to ignore a specific line use the <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">noqa</span></code>
 comment along with the specific error code (e.g. <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">sys</span>&#160; <span class="pre">#</span> <span class="pre">noqa:</span> <span class="pre">E402</span></code>) but
 please do not ignore errors lightly.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To run <code class="docutils literal notranslate"><span class="pre">prek</span></code> manually, without creating a commit, you can run <code class="docutils literal notranslate"><span class="pre">prek</span> <span class="pre">run</span> <span class="pre">--all-files</span></code>.</p>
+</div>
 </li>
 </ol>
 <p>Now you are all set to start developing with napari.</p>

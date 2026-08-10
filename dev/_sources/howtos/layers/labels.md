@@ -554,8 +554,8 @@ viewer.dims.ndisplay = 3
 tags: [hide-input]
 ---
 # programmatically adjust the camera angle
-viewer.camera.zoom = 2
-viewer.camera.angles = (3, 38, 53)
+viewer.scene.camera.zoom = 2
+viewer.scene.camera.angles = (3, 38, 53)
 nbscreenshot(viewer, alt_text="A 3D view of a labels layer on top of 3D blobs")
 ```
 

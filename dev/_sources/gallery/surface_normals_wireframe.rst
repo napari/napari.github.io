@@ -65,8 +65,8 @@ Display a 3D mesh with normals and wireframe
     surface.normals.vertex.visible = True
     surface.wireframe.visible = True
 
-    viewer.camera.orientation = ('towards', 'up', 'right')
-    viewer.camera.angles = (0, -30, 0)
+    viewer.scene.camera.orientation = ('towards', 'up', 'right')
+    viewer.scene.camera.angles = (0, -30, 0)
     viewer.fit_to_view()
 
     if __name__ == '__main__':

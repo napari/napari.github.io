@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=fabdf457"></script>
+    <script src="../../../../_static/documentation_options.js?v=ea3337af"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1205,7 +1205,7 @@ window.runMermaid = runMermaid;</script>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add 3D camera controls to the popup.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">perspective</span> <span class="o">=</span> <span class="n">labeled_double_slider</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
-            <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">perspective</span><span class="p">,</span>
+            <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">perspective</span><span class="p">,</span>
             <span class="n">value_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span>
             <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_perspective</span><span class="p">,</span>
         <span class="p">)</span>
@@ -1217,7 +1217,7 @@ window.runMermaid = runMermaid;</script>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">rz</span> <span class="o">=</span> <span class="n">labeled_double_slider</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
-            <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
             <span class="n">value_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
             <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_first_camera_angle</span><span class="p">,</span>
         <span class="p">)</span>
@@ -1226,14 +1226,14 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># this is a known complication of calculation with Euler angles</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ry</span> <span class="o">=</span> <span class="n">labeled_double_slider</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
-            <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
             <span class="n">value_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">89</span><span class="p">,</span> <span class="mi">89</span><span class="p">),</span>
             <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_second_camera_angle</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">rx</span> <span class="o">=</span> <span class="n">labeled_double_slider</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
-            <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+            <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
             <span class="n">value_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
             <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_third_camera_angle</span><span class="p">,</span>
         <span class="p">)</span>
@@ -1265,7 +1265,7 @@ window.runMermaid = runMermaid;</script>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add shared camera controls to the popup.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">labeled_double_slider</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
-            <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span>
+            <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span>
             <span class="n">value_range</span><span class="o">=</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
             <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_zoom</span><span class="p">,</span>
@@ -1311,14 +1311,14 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">vertical_combo</span> <span class="o">=</span> <span class="n">enum_combobox</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
             <span class="n">enum_class</span><span class="o">=</span><span class="n">VerticalAxisOrientation</span><span class="p">,</span>
-            <span class="n">current_enum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">current_enum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
             <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_verical_axis_orientation</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">horizontal_combo</span> <span class="o">=</span> <span class="n">enum_combobox</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
             <span class="n">enum_class</span><span class="o">=</span><span class="n">HorizontalAxisOrientation</span><span class="p">,</span>
-            <span class="n">current_enum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+            <span class="n">current_enum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
             <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_horizontal_axis_orientation</span><span class="p">,</span>
         <span class="p">)</span>
 
@@ -1334,7 +1334,7 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">depth_combo</span> <span class="o">=</span> <span class="n">enum_combobox</span><span class="p">(</span>
                 <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
                 <span class="n">enum_class</span><span class="o">=</span><span class="n">DepthAxisOrientation</span><span class="p">,</span>
-                <span class="n">current_enum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">current_enum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                 <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_depth_axis_orientation</span><span class="p">,</span>
             <span class="p">)</span>
 
@@ -1347,7 +1347,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># updated dynamically</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_handedness_help_symbol</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_update_handedness_help_symbol</span>
             <span class="p">)</span>
 
@@ -1359,7 +1359,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_handedness_help_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the handedness symbol based on the camera orientation.&quot;&quot;&quot;</span>
-        <span class="n">handedness</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">handedness</span>
+        <span class="n">handedness</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">handedness</span>
         <span class="n">tooltip_text</span> <span class="o">=</span> <span class="p">(</span>
             <span class="s1">&#39;Controls the orientation of the depth, vertical, and horizontal camera axes.</span><span class="se">\n</span><span class="s1">&#39;</span>
             <span class="s1">&#39;Default is right-handed (towards, down, right).</span><span class="se">\n</span><span class="s1">&#39;</span>
@@ -1382,10 +1382,10 @@ window.runMermaid = runMermaid;</script>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add synced camera toggle to the popup.&quot;&quot;&quot;</span>
         <span class="n">row</span> <span class="o">=</span> <span class="n">grid_layout</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">camera_synced_checkbox</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s1">&#39;Sync 2D/3D camera&#39;</span><span class="p">,</span> <span class="n">popup</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera_synced_checkbox</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_synced_checkbox</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">camera_synced_checkbox</span><span class="o">.</span><span class="n">stateChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="k">lambda</span> <span class="n">checked</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="s1">&#39;synced&#39;</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">checked</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="s1">&#39;synced&#39;</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">checked</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span>
         <span class="n">synced_help_symbol</span> <span class="o">=</span> <span class="n">help_tooltip</span><span class="p">(</span>
@@ -1449,9 +1449,9 @@ window.runMermaid = runMermaid;</script>
             <span class="n">HorizontalAxisOrientation</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">axis_to_update</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">orientation_type</span><span class="p">)</span>
-        <span class="n">new_orientation</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span><span class="p">)</span>
+        <span class="n">new_orientation</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span><span class="p">)</span>
         <span class="n">new_orientation</span><span class="p">[</span><span class="n">axis_to_update</span><span class="p">]</span> <span class="o">=</span> <span class="n">orientation_type</span><span class="p">(</span><span class="n">orientation_value</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">new_orientation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">new_orientation</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_camera_angles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the camera angles.</span>
@@ -1464,9 +1464,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            New angle value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">angles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">)</span>
+        <span class="n">angles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">)</span>
         <span class="n">angles</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_zoom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the camera zoom.</span>
@@ -1477,7 +1477,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            New camera.zoom value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_perspective</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the camera perspective.</span>
@@ -1488,7 +1488,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            New camera.perspective value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">perspective</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">perspective</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_open_roll_popup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Open a grid popup to manually order the dimensions&quot;&quot;&quot;</span>

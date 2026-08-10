@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=fabdf457"></script>
+    <script src="../../../../_static/documentation_options.js?v=ea3337af"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -878,7 +878,9 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps.standardize_color</span><span class="w"> </span><span class="kn">import</span> <span class="n">hex_to_name</span><span class="p">,</span> <span class="n">rgb_to_hex</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.custom_types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Array</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.event</span><span class="w"> </span><span class="kn">import</span> <span class="n">WarningEmitter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">project_points_onto_plane</span><span class="p">,</span> <span class="n">rotate_points</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.migrations</span><span class="w"> </span><span class="kn">import</span> <span class="n">deprecated_constructor_arg_by_attr</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.status_messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">format_feature_value</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.transforms</span><span class="w"> </span><span class="kn">import</span> <span class="n">Affine</span>
 
@@ -896,6 +898,14 @@ window.runMermaid = runMermaid;</script>
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.dims</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dims</span>
 
 <span class="n">DEFAULT_COLOR_CYCLE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">_OUT_SLICE_DISP_WARNING_MSG</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;out_of_slice_display (previously &quot;n_dimensional&quot;) is deprecated since 0.9.0 (superseded by projection_mode). &#39;</span>
+    <span class="s1">&#39;To imitate the previous behaviour, use thick slices by right-clicking on the dims scroll bar &#39;</span>
+    <span class="s1">&#39;(see https://napari.org/stable/guides/rendering.html#margins-and-thick-slicing). &#39;</span>
+    <span class="s1">&#39;Setting projection_mode to rescale_spherical may be more physically accurate &#39;</span>
+    <span class="s1">&#39;if your points correspond directly to objects with a physical size. &#39;</span>
+<span class="p">)</span>
 
 
 <div class="viewcode-block" id="Points">
@@ -969,16 +979,10 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        is a feature.</span>
 <span class="sd">    metadata : dict</span>
 <span class="sd">        Layer metadata.</span>
-<span class="sd">    n_dimensional : bool</span>
-<span class="sd">        This property will soon be deprecated in favor of &#39;out_of_slice_display&#39;.</span>
-<span class="sd">        Use that instead.</span>
 <span class="sd">    name : str</span>
 <span class="sd">        Name of the layer. If not provided then will be guessed using heuristics.</span>
 <span class="sd">    opacity : float</span>
 <span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
-<span class="sd">    out_of_slice_display : bool</span>
-<span class="sd">        If True, renders points not just in central plane but also slightly out of slice</span>
-<span class="sd">        according to specified point marker size.</span>
 <span class="sd">    projection_mode : str</span>
 <span class="sd">        How data outside the viewed dimensions but inside the thick Dims slice will</span>
 <span class="sd">        be projected onto the viewed dimensions. Must fit to cls._projectionclass.</span>
@@ -1095,9 +1099,6 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    current_face_color : str</span>
 <span class="sd">        Face color of the marker border for the next point to be added or the currently</span>
 <span class="sd">        selected point.</span>
-<span class="sd">    out_of_slice_display : bool</span>
-<span class="sd">        If True, renders points not just in central plane but also slightly out of slice</span>
-<span class="sd">        according to specified point marker size.</span>
 <span class="sd">    selected_data : Selection</span>
 <span class="sd">        Integer indices of any selected points.</span>
 <span class="sd">    mode : str</span>
@@ -1146,9 +1147,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Symbols of the point markers in the currently viewed slice.</span>
 <span class="sd">    _view_border_width : array (M, )</span>
 <span class="sd">        Border width of the point markers in the currently viewed slice.</span>
-<span class="sd">    _indices_view : array (M, )</span>
+<span class="sd">    _view_indices : array (M, )</span>
 <span class="sd">        Integer indices of the points in the currently viewed slice and are shown.</span>
-<span class="sd">    _selected_view :</span>
+<span class="sd">    _view_selected :</span>
 <span class="sd">        Integer indices of selected points in the currently viewed slice within</span>
 <span class="sd">        the `_view_data` array.</span>
 <span class="sd">    _selected_box : array (4, 2) or None</span>
@@ -1191,6 +1192,8 @@ window.runMermaid = runMermaid;</script>
     <span class="c1"># If more points are present then they are randomly subsampled</span>
     <span class="n">_max_points_thumbnail</span> <span class="o">=</span> <span class="mi">1024</span>
 
+    <span class="nd">@deprecated_constructor_arg_by_attr</span><span class="p">(</span><span class="s1">&#39;n_dimensional&#39;</span><span class="p">)</span>
+    <span class="nd">@deprecated_constructor_arg_by_attr</span><span class="p">(</span><span class="s1">&#39;out_of_slice_display&#39;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1216,10 +1219,8 @@ window.runMermaid = runMermaid;</script>
         <span class="n">feature_defaults</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">n_dimensional</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-        <span class="n">out_of_slice_display</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
         <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">property_choices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1305,8 +1306,16 @@ window.runMermaid = runMermaid;</script>
             <span class="n">current_properties</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">symbol</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">current_symbol</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">out_of_slice_display</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">n_dimensional</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">out_of_slice_display</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
+                <span class="n">_OUT_SLICE_DISP_WARNING_MSG</span><span class="p">,</span>
+                <span class="ne">FutureWarning</span><span class="p">,</span>
+                <span class="n">type_name</span><span class="o">=</span><span class="s1">&#39;out_of_slice_display&#39;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">n_dimensional</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
+                <span class="n">_OUT_SLICE_DISP_WARNING_MSG</span><span class="p">,</span>
+                <span class="ne">FutureWarning</span><span class="p">,</span>
+                <span class="n">type_name</span><span class="o">=</span><span class="s1">&#39;n_dimensional&#39;</span><span class="p">,</span>
+            <span class="p">),</span>
             <span class="n">highlight</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">shading</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">antialiasing</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -1342,9 +1351,6 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_border_width</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">border_width</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">border_width</span><span class="p">)</span> <span class="k">else</span> <span class="mf">0.1</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_symbol</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;o&#39;</span>
-        <span class="p">)</span>
 
         <span class="n">color_properties</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">properties</span><span class="p">()</span>
@@ -1368,21 +1374,20 @@ window.runMermaid = runMermaid;</script>
             <span class="n">properties</span><span class="o">=</span><span class="n">color_properties</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">n_dimensional</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_out_of_slice_display</span> <span class="o">=</span> <span class="n">n_dimensional</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_out_of_slice_display</span> <span class="o">=</span> <span class="n">out_of_slice_display</span>
-
         <span class="c1"># Save the point style params</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">shown</span> <span class="o">=</span> <span class="n">shown</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">border_width</span> <span class="o">=</span> <span class="n">border_width</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">border_width_is_relative</span> <span class="o">=</span> <span class="n">border_width_is_relative</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block_refresh</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shown</span> <span class="o">=</span> <span class="n">shown</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_symbol</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;o&#39;</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">border_width</span> <span class="o">=</span> <span class="n">border_width</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">border_width_is_relative</span> <span class="o">=</span> <span class="n">border_width_is_relative</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">canvas_size_limits</span> <span class="o">=</span> <span class="n">canvas_size_limits</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">shading</span> <span class="o">=</span> <span class="n">shading</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">antialiasing</span> <span class="o">=</span> <span class="n">antialiasing</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">canvas_size_limits</span> <span class="o">=</span> <span class="n">canvas_size_limits</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shading</span> <span class="o">=</span> <span class="n">shading</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">antialiasing</span> <span class="o">=</span> <span class="n">antialiasing</span>
 
         <span class="c1"># Trigger generation of view slice and thumbnail</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">extent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1689,24 +1694,52 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">out_of_slice_display</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: renders points slightly out of slice.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_out_of_slice_display</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">_OUT_SLICE_DISP_WARNING_MSG</span><span class="p">,</span>
+            <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_projection_mode</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="n">PointsProjectionMode</span><span class="o">.</span><span class="n">RESCALE_LINEAR</span><span class="p">,</span>
+            <span class="n">PointsProjectionMode</span><span class="o">.</span><span class="n">RESCALE_SPHERICAL</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="nd">@out_of_slice_display</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">out_of_slice_display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out_of_slice_display</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_out_of_slice_display</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">out_of_slice_display</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">out_of_slice_display</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">n_dimensional</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">extent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">out_of_slice_display</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">_OUT_SLICE_DISP_WARNING_MSG</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection_mode</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="n">PointsProjectionMode</span><span class="o">.</span><span class="n">RESCALE_LINEAR</span><span class="p">,</span>
+            <span class="n">PointsProjectionMode</span><span class="o">.</span><span class="n">RESCALE_SPHERICAL</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">projection_mode</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">PointsProjectionMode</span><span class="o">.</span><span class="n">RESCALE_LINEAR</span>
+            <span class="k">if</span> <span class="n">out_of_slice_display</span>
+            <span class="k">else</span> <span class="n">PointsProjectionMode</span><span class="o">.</span><span class="n">ALL</span>
+        <span class="p">)</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection_mode</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="n">PointsProjectionMode</span><span class="o">.</span><span class="n">RESCALE_LINEAR</span><span class="p">,</span>
+            <span class="n">PointsProjectionMode</span><span class="o">.</span><span class="n">RESCALE_SPHERICAL</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">old</span> <span class="o">!=</span> <span class="n">new</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">out_of_slice_display</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">n_dimensional</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">n_dimensional</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This property will soon be deprecated in favor of `out_of_slice_display`. Use that instead.</span>
+<span class="sd">        n_dimensional is deprecated. Use projection_mode instead.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_out_of_slice_display</span>
+        <span class="c1"># deprecation warning fires via out_of_slice_display.getter</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_of_slice_display</span>
 
     <span class="nd">@n_dimensional</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">n_dimensional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># deprecation warning fires via out_of_slice_display.setter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_of_slice_display</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
@@ -2179,8 +2212,6 @@ window.runMermaid = runMermaid;</script>
                 <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
                 <span class="s1">&#39;property_choices&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">property_choices</span><span class="p">,</span>
                 <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
-                <span class="s1">&#39;out_of_slice_display&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_of_slice_display</span><span class="p">,</span>
-                <span class="s1">&#39;n_dimensional&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_of_slice_display</span><span class="p">,</span>
                 <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
                 <span class="s1">&#39;ndim&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
                 <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
@@ -2202,7 +2233,6 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@selected_data</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">selected_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selected_data</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span><span class="o">.</span><span class="n">replace_selection</span><span class="p">(</span><span class="n">selected_data</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">update_selected_view</span><span class="p">()</span>
 
         <span class="c1"># Update properties based on selected points</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span><span class="p">):</span>
@@ -2299,26 +2329,28 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">mode</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_indices_view</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">]]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_view_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Indices of points in view.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_indices_view</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_view_indices</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_selected_view</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_view_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Indices of selected points within the currently viewed slice&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_selected_view</span>
+        <span class="n">visible</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_view_indices</span>
+        <span class="n">selected_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromiter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">visible</span><span class="p">,</span> <span class="n">selected_idx</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_view_size_scale</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_view_size</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Scale factor for view size calculations</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Size of the points in view.</span>
 
-<span class="sd">        It is 1 if out_of_slice_display is False.</span>
-<span class="sd">        For out_of_slice_display=True, it is the scale factor for the</span>
-<span class="sd">        points to reduce size of visible points out of rendering slice</span>
+<span class="sd">        It is equal to size unless the projection mode is rescaling,</span>
+<span class="sd">        in which case sizes may get smaller as they disappear from</span>
+<span class="sd">        the current thick slice.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_view_size_scale</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_view_size</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_view_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -2329,9 +2361,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        view_data : (N x D) np.ndarray</span>
 <span class="sd">            Array of coordinates for the N points in view</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">)</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">)</span>
             <span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># if no points in this slice send dummy data</span>
@@ -2351,7 +2383,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># This may be triggered when the string encoding instance changed,</span>
         <span class="c1"># in which case it has no cached values, so generate them here.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">_apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">view_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">view_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_view_text_coords</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
@@ -2376,7 +2408,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_view_text_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the colors of the text elements at the given indices.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">_apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">_view_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">_view_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_view_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -2387,12 +2419,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        view_size : (N,) np.ndarray</span>
 <span class="sd">            Array of sizes for the N points in view</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">sizes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># if no points, return an empty list</span>
-            <span class="n">sizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-        <span class="k">return</span> <span class="n">sizes</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_view_size</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_view_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -2403,7 +2430,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        symbol : (N,) np.ndarray</span>
 <span class="sd">            Array of symbol strings for the N points in view</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_view_border_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -2414,7 +2441,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        view_border_width : (N,) np.ndarray</span>
 <span class="sd">            Array of border_widths for the N points in view</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_width</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_width</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_view_face_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -2426,7 +2453,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            RGBA color array for the face colors of the N points in view.</span>
 <span class="sd">            If there are no points in view, returns array of length 0.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_view_border_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -2438,7 +2465,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            RGBA color array for the border colors of the N points in view.</span>
 <span class="sd">            If there are no points in view, returns array of length 0.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_reset_editable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set editable mode based on layer properties.&quot;&quot;&quot;</span>
@@ -2518,7 +2545,7 @@ window.runMermaid = runMermaid;</script>
             <span class="p">)</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">in_slice_matches</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
 
         <span class="k">return</span> <span class="n">selection</span>
 
@@ -2584,7 +2611,7 @@ window.runMermaid = runMermaid;</script>
             <span class="c1"># find the point that is most in the foreground</span>
             <span class="n">candidate_point_distances</span> <span class="o">=</span> <span class="n">projection_distances</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
             <span class="n">closest_index</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">candidate_point_distances</span><span class="p">)]</span>
-            <span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">[</span><span class="n">closest_index</span><span class="p">]</span>
+            <span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">[</span><span class="n">closest_index</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">selection</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">selection</span>
@@ -2675,28 +2702,28 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_drag_box_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_drag_box</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_visible</span> <span class="ow">and</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_view</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_selected</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
         <span class="p">):</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_view</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">index</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_view</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_selected</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_selected</span><span class="p">)</span>
                 <span class="c1"># highlight the hovered point if not in adding mode</span>
                 <span class="k">if</span> <span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span>
                     <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span>
                     <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_selecting</span>
                 <span class="p">):</span>
-                    <span class="n">hover_point</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span>
+                    <span class="n">hover_point</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">hover_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
-                        <span class="n">index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hover_point</span><span class="p">)</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">hover_point</span><span class="p">)</span>
                 <span class="n">index</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># only highlight hovered points in select mode</span>
                 <span class="k">if</span> <span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span>
                     <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span>
                     <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_selecting</span>
                 <span class="p">):</span>
-                    <span class="n">hover_point</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span>
+                    <span class="n">hover_point</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span>
                     <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="n">hover_point</span><span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">index</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2744,7 +2771,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">points</span> <span class="o">=</span> <span class="n">view_data</span><span class="p">[</span><span class="n">thumbnail_indices</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">points</span> <span class="o">=</span> <span class="n">view_data</span>
-                <span class="n">thumbnail_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span>
+                <span class="n">thumbnail_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span>
 
             <span class="c1"># Calculate the point coordinates in the thumbnail data space.</span>
             <span class="n">thumbnail_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
@@ -2997,7 +3024,6 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_paste_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Paste any point from clipboard and select them.&quot;&quot;&quot;</span>
-        <span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span><span class="p">)</span>
         <span class="n">totpoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -3041,9 +3067,6 @@ window.runMermaid = runMermaid;</script>
                 <span class="p">),</span>
             <span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_selected_view</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-                <span class="nb">range</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="n">npoints</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]))</span>
-            <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                 <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">totpoints</span><span class="p">,</span> <span class="n">totpoints</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])))</span>
             <span class="p">)</span>
@@ -3296,13 +3319,8 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LayerDataType</span><span class="p">,</span> <span class="n">cache</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">cache</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__indices_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
-        <span class="c1"># Indices of selected points within the currently viewed slice</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_view</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="c1"># initialize view data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span><span class="p">:</span> <span class="p">(</span>
-            <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]]</span>
-        <span class="p">)</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the view given the indices to slice with.&quot;&quot;&quot;</span>
@@ -3332,56 +3350,19 @@ window.runMermaid = runMermaid;</script>
             <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
             <span class="n">data_slice</span><span class="o">=</span><span class="n">data_slice</span><span class="p">,</span>
             <span class="n">projection_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">projection_mode</span><span class="p">,</span>
-            <span class="n">out_of_slice_display</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">out_of_slice_display</span><span class="p">,</span>
             <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="n">shown</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">shown</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_slice_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">_PointSliceResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle a slicing response.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">slice_input</span>
-        <span class="n">indices</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">indices</span>
-        <span class="n">scale</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">scale</span>
-
-        <span class="c1"># Update the _view_size_scale in accordance to the self._indices_view setter.</span>
-        <span class="c1"># If out_of_slice_display is False, scale is a number and not an array.</span>
-        <span class="c1"># Therefore we have an additional if statement checking for</span>
-        <span class="c1"># self._view_size_scale being an integer.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span> <span class="o">=</span> <span class="n">scale</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">shown</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span> <span class="o">=</span> <span class="n">scale</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">shown</span><span class="p">[</span><span class="n">indices</span><span class="p">]]</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-        <span class="c1"># get the selected points that are in view</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">indices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_size</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">size</span>
 
         <span class="c1"># WARNING This `with` will be removed in future</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">highlight</span><span class="o">.</span><span class="n">blocker</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">update_selected_view</span><span class="p">()</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">update_selected_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_view</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">_selected_data</span><span class="p">)),</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">,</span>
-                <span class="n">return_indices</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="p">)</span>
-        <span class="c1"># WARNING This will be removed in future</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_indices_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Indices of the points in the currently viewed slice.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__indices_view</span>
-
-    <span class="nd">@_indices_view</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_indices_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">shown</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__indices_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__indices_view</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">shown</span><span class="p">[</span><span class="n">value</span><span class="p">]]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
                 </article>

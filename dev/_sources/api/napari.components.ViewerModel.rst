@@ -146,6 +146,7 @@ napari.components.ViewerModel
    .. autosummary::
    
       ~ViewerModel.axes
+      ~ViewerModel.camera
       ~ViewerModel.class_keymap
       ~ViewerModel.events
       ~ViewerModel.experimental

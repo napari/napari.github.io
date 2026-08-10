@@ -123,6 +123,10 @@ graph LR
 	click napari.components.layerlist "https://github.com/napari/napari/tree/main/napari/components/layerlist.py" _blank
 	napari.components.overlays(napari.components.overlays)
 	click napari.components.overlays "https://github.com/napari/napari/tree/main/napari/components/overlays/__init__.py" _blank
+	napari.components.scene(napari.components.scene)
+	napari.components.scene --> napari.components.camera
+	napari.components.scene --> napari.components.overlays
+	click napari.components.scene "https://github.com/napari/napari/tree/main/napari/components/scene.py" _blank
 	napari.components.tooltip(napari.components.tooltip)
 	click napari.components.tooltip "https://github.com/napari/napari/tree/main/napari/components/tooltip.py" _blank
 	napari.components.viewer_model(napari.components.viewer_model)
@@ -135,6 +139,7 @@ graph LR
 	napari.components.viewer_model --> napari.components.grid
 	napari.components.viewer_model --> napari.components.layerlist
 	napari.components.viewer_model --> napari.components.overlays
+	napari.components.viewer_model --> napari.components.scene
 	napari.components.viewer_model --> napari.components.tooltip
 	napari.components.viewer_model --> napari.layers
 	click napari.components.viewer_model "https://github.com/napari/napari/tree/main/napari/components/viewer_model.py" _blank
@@ -189,6 +194,7 @@ graph LR
 		 napari.components.grid
 		 napari.components.layerlist
 		 napari.components.overlays
+		 napari.components.scene
 		 napari.components.tooltip
 		 napari.components.viewer_model
 	end
@@ -243,6 +249,7 @@ napari/
   ├─viewer_model.py
   ├─_viewer_mouse_bindings.py
   ├─layerlist.py
+  ├─scene.py
   ├─camera.py
   ├─overlays/
   │ └─__init__.py

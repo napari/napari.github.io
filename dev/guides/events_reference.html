@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=fabdf457"></script>
+    <script src="../_static/documentation_options.js?v=ea3337af"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -858,38 +858,6 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.center</span></code></p></td>
-<td><p>Center of rotation for the camera. In 2D viewing the last two values are used.</p></td>
-<td><p>`tuple[float, float, float]</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.zoom</span></code></p></td>
-<td><p>Scale from canvas pixels to world pixels.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.angles</span></code></p></td>
-<td><p>Euler angles of camera in 3D viewing (rx, ry, rz), in degrees. Only used during 3D viewing. Euler angles in 3D do not uniquely represent an orientation, so different angle triplets can produce the same view. Stored or returned angle values may differ from those that were set, while still representing an equivalent camera orientation.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.perspective</span></code></p></td>
-<td><p>Perspective (aka “field of view” in vispy) of the camera (if 3D).</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.mouse_pan</span></code></p></td>
-<td><p>If the camera interactive panning with the mouse is enabled or not.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.mouse_zoom</span></code></p></td>
-<td><p>If the camera interactive zooming with the mouse is enabled or not.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.orientation</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.synced</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-</tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.canvas.events.background_color_override</span></code></p></td>
 <td><p>Override the theme background color with a custom one.</p></td>
 <td><p>`napari.utils.color.ColorValue</p></td>
@@ -966,49 +934,17 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
 <td><p>Dimension which was last interacted with.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.visible</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scene.events.overlays</span></code></p></td>
+<td><p>A dictionary/namespace containing scene overlays. By default, it exposes publicly ‘axes’.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">EventedDictNamespace</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.visible</span></code></p></td>
 <td><p>If tooltip is visible or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.text</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.text</span></code></p></td>
 <td><p>text of tooltip</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_move_callbacks</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_wheel_callbacks</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_drag_callbacks</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_double_click_callbacks</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.help</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.status</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Union</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.theme</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.title</span></code></p></td>
-<td><p>The title of the viewer window.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_over_canvas</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_move_callbacks</span></code></p></td>
 <td><p></p></td>
@@ -1039,10 +975,46 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.title</span></code></p></td>
-<td><p>The title of the viewer window. By default ‘napari’.</p></td>
+<td><p>The title of the viewer window.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_over_canvas</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_move_callbacks</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_wheel_callbacks</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_drag_callbacks</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_double_click_callbacks</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.help</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.status</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Union</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.theme</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.title</span></code></p></td>
+<td><p>The title of the viewer window. By default ‘napari’.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_over_canvas</span></code></p></td>
 <td><p></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
@@ -1514,12 +1486,12 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.out_of_slice_display</span></code></p></td>
-<td><p>If True, renders points not just in central plane but also slightly out of slice according to specified point marker size.</p></td>
+<td><p></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.n_dimensional</span></code></p></td>
-<td><p>This property will soon be deprecated in favor of ‘out_of_slice_display’. Use that instead.</p></td>
+<td><p></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>

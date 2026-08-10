@@ -167,6 +167,7 @@ napari.Viewer
    .. autosummary::
    
       ~Viewer.axes
+      ~Viewer.camera
       ~Viewer.class_keymap
       ~Viewer.events
       ~Viewer.experimental

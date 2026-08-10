@@ -19,7 +19,7 @@ across the dimensions, specified by their size
 
 .. tags:: visualization-nD
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-45
+.. GENERATED FROM PYTHON SOURCE LINES 11-48
 
 
 
@@ -76,8 +76,11 @@ across the dimensions, specified by their size
         ], dtype=float
     )
     viewer.add_points(
-        points, size=10, face_color='blue', out_of_slice_display=True
+        points, size=10, face_color='blue'
     )
+
+    # enable thick slicing on each dimension
+    viewer.dims.thickness = (10, 10, 10, 10)
 
     if __name__ == '__main__':
         napari.run()

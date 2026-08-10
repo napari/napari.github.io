@@ -58,7 +58,7 @@ Display points overlaid on a 3D image
         cells, channel_axis=1, name=['membranes', 'nuclei']
     )
     viewer.add_points(pts)
-    viewer.camera.angles = (10, -20, 130)
+    viewer.scene.camera.angles = (10, -20, 130)
     viewer.fit_to_view()
 
     if __name__ == '__main__':

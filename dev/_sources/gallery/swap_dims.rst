@@ -17,7 +17,7 @@ Display a 4-D image and points layer and swap the displayed dimensions
 
 .. tags:: visualization-nD
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-45
+.. GENERATED FROM PYTHON SOURCE LINES 9-48
 
 
 
@@ -74,10 +74,13 @@ Display a 4-D image and points layer and swap the displayed dimensions
         ]
     )
     viewer.add_points(
-        points, size=10, face_color='blue', out_of_slice_display=True
+        points, size=10, face_color='blue',
     )
 
     viewer.dims.order = (0, 2, 1, 3)
+
+    # enable thick slicing on each dimension
+    viewer.dims.thickness = (10, 10, 10, 10)
 
     if __name__ == '__main__':
         napari.run()

@@ -68,6 +68,9 @@ napari.qt.threading.WorkerBaseSignals
       ~WorkerBaseSignals.installEventFilter
    
    
+      ~WorkerBaseSignals.isQuickItemType
+   
+   
       ~WorkerBaseSignals.isSignalConnected
    
    

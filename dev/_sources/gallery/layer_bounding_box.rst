@@ -34,22 +34,8 @@ see :ref:`sphx_glr_gallery_image_border.py`.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-      theme_type=get_system_theme(),
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-      theme_type=get_system_theme(),
-    WARNING: napari support for the PyQt5 backend is deprecated and will be removed in fall of 2026
 
 
-
-
-
-
-|
 
 .. code-block:: Python
 
@@ -105,7 +91,7 @@ see :ref:`sphx_glr_gallery_image_border.py`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 12.052 seconds)
+   **Total running time of the script:** (0 minutes 11.423 seconds)
 
 
 .. _sphx_glr_download_gallery_layer_bounding_box.py:

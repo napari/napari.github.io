@@ -31,10 +31,6 @@ View 3D labels.
 
  .. code-block:: none
 
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-      theme_type=get_system_theme(),
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-      theme_type=get_system_theme(),
     /home/runner/work/docs/docs/napari/examples/labels3d.py:27: FutureWarning: Parameter `area_threshold` is deprecated since version 0.26.0 and will be removed in 2.0.0 (or later). To avoid this warning, please use the parameter `max_size` instead. For more details, see the documentation of `remove_small_holes`. Note that the new threshold removes objects smaller than **or equal to** its value, while the previous parameter only removed smaller ones.
       morphology.remove_small_holes(thresholded, 20**3),
     /home/runner/work/docs/docs/napari/examples/labels3d.py:26: FutureWarning: Parameter `min_size` is deprecated since version 0.26.0 and will be removed in 2.0.0 (or later). To avoid this warning, please use the parameter `max_size` instead. For more details, see the documentation of `remove_small_objects`. Note that the new threshold removes objects smaller than **or equal to** its value, while the previous parameter only removed smaller ones.

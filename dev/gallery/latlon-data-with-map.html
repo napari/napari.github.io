@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/gallery/latlon-data-with-map.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="For a given set of points of interest (POI) with lat/lon coordinates, download a background map from contextily and display it in napari together with the POI. Requires geopandas and contextily to be installed. Tags: gui, geodata Python (.py) Notebook (.ipynb), Download Jupyter notebook: latlon-d..." />
+<meta property="og:description" content="For a given set of points of interest (POI) with lat/lon coordinates, download a background map from contextily and display it in napari together with the POI. Requires geopandas and contextily to be installed. Tags: gui, geodata Python (.py) Notebook (.ipynb) Download Jupyter notebook: latlon-da..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="For a given set of points of interest (POI) with lat/lon coordinates, download a background map from contextily and display it in napari together with the POI. Requires geopandas and contextily to be installed. Tags: gui, geodata Python (.py) Notebook (.ipynb), Download Jupyter notebook: latlon-d..." />
+<meta name="description" content="For a given set of points of interest (POI) with lat/lon coordinates, download a background map from contextily and display it in napari together with the POI. Requires geopandas and contextily to be installed. Tags: gui, geodata Python (.py) Notebook (.ipynb) Download Jupyter notebook: latlon-da..." />
 
     <title>Lat/Lon data with background map &#8212; napari</title>
   
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=2d839e15"></script>
+    <script src="../_static/documentation_options.js?v=f285fa03"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -859,19 +859,11 @@ you will need to install additional packages: <code class="docutils literal notr
 See the <a class="reference external" href="https://napari.org/napari-plugin-manager/#installing-via-direct-entry">plugin manager guide</a>
 for ways to install additional packages from within napari.</p>
 </div>
-<img src="../_images/sphx_glr_latlon-data-with-map_001.png" srcset="../_images/sphx_glr_latlon-data-with-map_001.png" alt="latlon data with map" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-  theme_type=get_system_theme(),
-/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-  theme_type=get_system_theme(),
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">contextily</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ctx</span>
+<img src="../_images/sphx_glr_latlon-data-with-map_001.png" srcset="../_images/sphx_glr_latlon-data-with-map_001.png" alt="latlon data with map" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">contextily</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ctx</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">zarr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">requests.exceptions</span><span class="w"> </span><span class="kn">import</span> <a href="https://docs.python.org/3/library/exceptions.html#OSError" title="builtins.OSError" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-exception"><span class="n">HTTPError</span></a>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 
@@ -911,7 +903,7 @@ for ways to install additional packages from within napari.</p>
 <span class="c1"># fails, perhaps because CI is spamming the API, fall back on napari test data.</span>
 <span class="k">try</span><span class="p">:</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bg_map</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bg_extent</span></a> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">bounds2img</span><span class="p">(</span><span class="o">*</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bounds</span></a><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">ConnectionError</span><span class="p">:</span>
+<span class="k">except</span> <span class="p">(</span><span class="ne">ConnectionError</span><span class="p">,</span> <a href="https://docs.python.org/3/library/exceptions.html#OSError" title="builtins.OSError" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-exception"><span class="n">HTTPError</span></a><span class="p">):</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bg_map</span></a> <span class="o">=</span> <span class="n">zarr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;https://data.napari.dev/prague-map.zarr&#39;</span><span class="p">)</span>
     <a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bg_extent</span></a> <span class="o">=</span> <span class="p">(</span>
             <span class="mf">1599674.1279521685</span><span class="p">,</span> <span class="mf">1609458.067572671</span><span class="p">,</span>

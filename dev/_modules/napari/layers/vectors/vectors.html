@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=2d839e15"></script>
+    <script src="../../../../_static/documentation_options.js?v=f285fa03"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1415,6 +1415,7 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@edge_color_mode</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">edge_color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_color_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">ColorMode</span><span class="p">):</span>
         <span class="n">edge_color_mode</span> <span class="o">=</span> <span class="n">ColorMode</span><span class="p">(</span><span class="n">edge_color_mode</span><span class="p">)</span>
+        <span class="n">old_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_mode</span>
 
         <span class="k">if</span> <span class="n">edge_color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">DIRECT</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">edge_color_mode</span>
@@ -1452,7 +1453,8 @@ window.runMermaid = runMermaid;</script>
                 <span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">edge_color_mode</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_color_mode</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">!=</span> <span class="n">old_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_color_mode</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">edge_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>

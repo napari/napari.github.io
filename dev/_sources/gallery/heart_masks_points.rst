@@ -44,10 +44,6 @@ Nat Cardiovasc Res 4, 1345-1362 (2025). https://doi.org/10.1038/s44161-025-00717
  .. code-block:: none
 
     downloading data into /home/runner/work/docs/docs/.cache/napari-heart-example
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-      theme_type=get_system_theme(),
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-      theme_type=get_system_theme(),
 
 
 

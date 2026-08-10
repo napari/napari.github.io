@@ -23,6 +23,9 @@ napari.qt.QtViewer
       ~QtViewer.accessibleDescription
    
    
+      ~QtViewer.accessibleIdentifier
+   
+   
       ~QtViewer.accessibleName
    
    
@@ -278,9 +281,6 @@ napari.qt.QtViewer
       ~QtViewer.geometry
    
    
-      ~QtViewer.getContentsMargins
-   
-   
       ~QtViewer.getRange
    
    
@@ -402,6 +402,9 @@ napari.qt.QtViewer
    
    
       ~QtViewer.isModal
+   
+   
+      ~QtViewer.isQuickItemType
    
    
       ~QtViewer.isRightToLeft
@@ -683,6 +686,9 @@ napari.qt.QtViewer
       ~QtViewer.setAccessibleDescription
    
    
+      ~QtViewer.setAccessibleIdentifier
+   
+   
       ~QtViewer.setAccessibleName
    
    
@@ -828,6 +834,9 @@ napari.qt.QtViewer
    
    
       ~QtViewer.setRubberBand
+   
+   
+      ~QtViewer.setScreen
    
    
       ~QtViewer.setShortcutAutoRepeat
@@ -1099,6 +1108,8 @@ napari.qt.QtViewer
       ~QtViewer.Panel
       ~QtViewer.PdmDepth
       ~QtViewer.PdmDevicePixelRatio
+      ~QtViewer.PdmDevicePixelRatioF_EncodedA
+      ~QtViewer.PdmDevicePixelRatioF_EncodedB
       ~QtViewer.PdmDevicePixelRatioScaled
       ~QtViewer.PdmDpiX
       ~QtViewer.PdmDpiY

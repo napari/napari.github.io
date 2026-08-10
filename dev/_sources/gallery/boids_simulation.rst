@@ -46,10 +46,6 @@ the gui via QTWidgets and napari's thread_worker.
  .. code-block:: none
 
     Note: dragon unavailable; using standard multiprocessing
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-      theme_type=get_system_theme(),
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-      theme_type=get_system_theme(),
 
 
 

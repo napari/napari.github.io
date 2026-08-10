@@ -55,7 +55,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=a038c42c"></script>
+    <script src="../_static/documentation_options.js?v=6306e1b2"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -67,7 +67,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -962,6 +962,18 @@ modes.</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.projection_mode">
+<span class="sig-name descname"><span class="pre">projection_mode</span></span><a class="headerlink" href="#napari.layers.Image.projection_mode" title="Link to this definition">#</a></dt>
+<dd><p>How data outside the viewed dimensions, but inside the thick Dims slice will
+be projected onto the viewed dimensions. Must fit to ImageProjectionMode</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="napari.layers.Image.experimental_clipping_planes">
 <span class="sig-name descname"><span class="pre">experimental_clipping_planes</span></span><a class="headerlink" href="#napari.layers.Image.experimental_clipping_planes" title="Link to this definition">#</a></dt>
 <dd><p>Clipping planes defined in data coordinates, used to clip the volume.</p>
@@ -1202,10 +1214,10 @@ can be multidimensional for RGB or RGBA images if multidimensional is
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.plane" title="napari.layers.Image.plane"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plane</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.projection_mode" title="napari.layers.Image.projection_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">projection_mode</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id12" title="napari.layers.Image.projection_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">projection_mode</span></code></a></p></td>
 <td><p>Mode of projection of the thick slice onto the viewed dimensions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id12" title="napari.layers.Image.rendering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rendering</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id13" title="napari.layers.Image.rendering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rendering</span></code></a></p></td>
 <td><p>Return current rendering mode.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.rotate" title="napari.layers.Image.rotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code></a></p></td>
@@ -1232,7 +1244,7 @@ can be multidimensional for RGB or RGBA images if multidimensional is
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.unique_id" title="napari.layers.Image.unique_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique_id</span></code></a></p></td>
 <td><p>Unique ID of the layer.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id13" title="napari.layers.Image.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id14" title="napari.layers.Image.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">units</span></code></a></p></td>
 <td><p>List of units for the layer.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.visible" title="napari.layers.Image.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
@@ -1880,8 +1892,8 @@ coordinates.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="napari.layers.Image.projection_mode">
-<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">projection_mode</span></span><a class="headerlink" href="#napari.layers.Image.projection_mode" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id12">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">projection_mode</span></span><a class="headerlink" href="#id12" title="Link to this definition">#</a></dt>
 <dd><p>Mode of projection of the thick slice onto the viewed dimensions.</p>
 <p>The sliced data is described by an n-dimensional bounding box (“thick slice”),
 which needs to be projected onto the visible dimensions to be visible.
@@ -1895,8 +1907,8 @@ The projection mode controls the projection logic.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id12">
-<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">rendering</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#id12" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id13">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">rendering</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#id13" title="Link to this definition">#</a></dt>
 <dd><p>Return current rendering mode.</p>
 <p>Selects a preset rendering mode in vispy that determines how
 volume is displayed.  Options include:</p>
@@ -2067,8 +2079,8 @@ over the lifetime of the program.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id13">
-<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">units</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Unit</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#id13" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id14">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">units</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Unit</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#id14" title="Link to this definition">#</a></dt>
 <dd><p>List of units for the layer.</p>
 </dd></dl>
 
@@ -2173,6 +2185,7 @@ dimensions will be used.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.iso_threshold"><code class="docutils literal notranslate"><span class="pre">Image.iso_threshold</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.attenuation"><code class="docutils literal notranslate"><span class="pre">Image.attenuation</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.plane"><code class="docutils literal notranslate"><span class="pre">Image.plane</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.projection_mode"><code class="docutils literal notranslate"><span class="pre">Image.projection_mode</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.experimental_clipping_planes"><code class="docutils literal notranslate"><span class="pre">Image.experimental_clipping_planes</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.custom_interpolation_kernel_2d"><code class="docutils literal notranslate"><span class="pre">Image.custom_interpolation_kernel_2d</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.units"><code class="docutils literal notranslate"><span class="pre">Image.units</span></code></a></li>
@@ -2217,9 +2230,9 @@ dimensions will be used.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.ndim"><code class="docutils literal notranslate"><span class="pre">Image.ndim</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.opacity"><code class="docutils literal notranslate"><span class="pre">Image.opacity</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.projected_distance_from_mouse_drag"><code class="docutils literal notranslate"><span class="pre">Image.projected_distance_from_mouse_drag()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.projection_mode"><code class="docutils literal notranslate"><span class="pre">Image.projection_mode</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12"><code class="docutils literal notranslate"><span class="pre">Image.projection_mode</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.refresh"><code class="docutils literal notranslate"><span class="pre">Image.refresh()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12"><code class="docutils literal notranslate"><span class="pre">Image.rendering</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><code class="docutils literal notranslate"><span class="pre">Image.rendering</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.reset_contrast_limits"><code class="docutils literal notranslate"><span class="pre">Image.reset_contrast_limits()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.reset_contrast_limits_range"><code class="docutils literal notranslate"><span class="pre">Image.reset_contrast_limits_range()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.rotate"><code class="docutils literal notranslate"><span class="pre">Image.rotate</span></code></a></li>
@@ -2230,7 +2243,7 @@ dimensions will be used.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.thumbnail"><code class="docutils literal notranslate"><span class="pre">Image.thumbnail</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.translate"><code class="docutils literal notranslate"><span class="pre">Image.translate</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.unique_id"><code class="docutils literal notranslate"><span class="pre">Image.unique_id</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><code class="docutils literal notranslate"><span class="pre">Image.units</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14"><code class="docutils literal notranslate"><span class="pre">Image.units</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.visible"><code class="docutils literal notranslate"><span class="pre">Image.visible</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Image.world_to_data"><code class="docutils literal notranslate"><span class="pre">Image.world_to_data()</span></code></a></li>
 </ul>

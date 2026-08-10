@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/guides/_viewer_events.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content=",,, Event, Description, Event.value type,,, viewer.camera.events.center, Center of rotation for the camera. In 2D viewing the last two values are used.,`tuple[float, float, float],, viewer.camera.events.zoom, Scale from canvas pixels to world pixels., float,, viewer.camera.events.angles, Euler an..." />
+<meta property="og:description" content=",,, Event, Description, Event.value type,,, viewer.canvas.events.background_color_override, Override the theme background color with a custom one.,`napari.utils.color.ColorValue,, viewer.canvas.events.overlays, A dictionary/namespace containing canvas overlays. By default, it exposes publicly ‘sc..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content=",,, Event, Description, Event.value type,,, viewer.camera.events.center, Center of rotation for the camera. In 2D viewing the last two values are used.,`tuple[float, float, float],, viewer.camera.events.zoom, Scale from canvas pixels to world pixels., float,, viewer.camera.events.angles, Euler an..." />
+<meta name="description" content=",,, Event, Description, Event.value type,,, viewer.canvas.events.background_color_override, Override the theme background color with a custom one.,`napari.utils.color.ColorValue,, viewer.canvas.events.overlays, A dictionary/namespace containing canvas overlays. By default, it exposes publicly ‘sc..." />
 
     <title>&lt;no title&gt; &#8212; napari</title>
   
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=a038c42c"></script>
+    <script src="../_static/documentation_options.js?v=6306e1b2"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -481,38 +481,6 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.center</span></code></p></td>
-<td><p>Center of rotation for the camera. In 2D viewing the last two values are used.</p></td>
-<td><p>`tuple[float, float, float]</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.zoom</span></code></p></td>
-<td><p>Scale from canvas pixels to world pixels.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.angles</span></code></p></td>
-<td><p>Euler angles of camera in 3D viewing (rx, ry, rz), in degrees. Only used during 3D viewing. Euler angles in 3D do not uniquely represent an orientation, so different angle triplets can produce the same view. Stored or returned angle values may differ from those that were set, while still representing an equivalent camera orientation.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.perspective</span></code></p></td>
-<td><p>Perspective (aka “field of view” in vispy) of the camera (if 3D).</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.mouse_pan</span></code></p></td>
-<td><p>If the camera interactive panning with the mouse is enabled or not.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.mouse_zoom</span></code></p></td>
-<td><p>If the camera interactive zooming with the mouse is enabled or not.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.orientation</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.synced</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-</tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.canvas.events.background_color_override</span></code></p></td>
 <td><p>Override the theme background color with a custom one.</p></td>
 <td><p>`napari.utils.color.ColorValue</p></td>
@@ -589,49 +557,17 @@
 <td><p>Dimension which was last interacted with.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.visible</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scene.events.overlays</span></code></p></td>
+<td><p>A dictionary/namespace containing scene overlays. By default, it exposes publicly ‘axes’.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">EventedDictNamespace</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.visible</span></code></p></td>
 <td><p>If tooltip is visible or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.text</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.text</span></code></p></td>
 <td><p>text of tooltip</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_move_callbacks</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_wheel_callbacks</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_drag_callbacks</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_double_click_callbacks</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.help</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.status</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Union</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.theme</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.title</span></code></p></td>
-<td><p>The title of the viewer window.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_over_canvas</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_move_callbacks</span></code></p></td>
 <td><p></p></td>
@@ -662,10 +598,46 @@
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.title</span></code></p></td>
-<td><p>The title of the viewer window. By default ‘napari’.</p></td>
+<td><p>The title of the viewer window.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_over_canvas</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_move_callbacks</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_wheel_callbacks</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_drag_callbacks</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_double_click_callbacks</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.help</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.status</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Union</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.theme</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.title</span></code></p></td>
+<td><p>The title of the viewer window. By default ‘napari’.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.mouse_over_canvas</span></code></p></td>
 <td><p></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=a038c42c"></script>
+    <script src="../../../_static/documentation_options.js?v=6306e1b2"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -858,7 +858,6 @@ window.runMermaid = runMermaid;</script>
     <span class="n">drag_to_zoom</span><span class="p">,</span>
     <span class="n">layers_scroll</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.camera</span><span class="w"> </span><span class="kn">import</span> <span class="n">Camera</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">Canvas</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.cursor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">CursorStyle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.dims</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dims</span>
@@ -866,8 +865,8 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.overlays</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">AxesOverlay</span><span class="p">,</span>
     <span class="n">FloatingAxesOverlay</span><span class="p">,</span>
-    <span class="n">SceneOverlay</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.scene</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scene</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.tooltip</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tooltip</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.errors</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">MultipleReaderError</span><span class="p">,</span>
@@ -911,7 +910,6 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps</span><span class="w"> </span><span class="kn">import</span> <span class="n">ensure_colormap</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">Event</span><span class="p">,</span>
-    <span class="n">EventedDictNamespace</span><span class="p">,</span>
     <span class="n">EventedModel</span><span class="p">,</span>
     <span class="n">disconnect_events</span><span class="p">,</span>
 <span class="p">)</span>
@@ -924,6 +922,7 @@ window.runMermaid = runMermaid;</script>
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">npe2.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">SampleDataCreator</span>
 
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.camera</span><span class="w"> </span><span class="kn">import</span> <span class="n">Camera</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridCanvas</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.overlays</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScaleBarOverlay</span><span class="p">,</span> <span class="n">TextOverlay</span>
 
@@ -982,8 +981,6 @@ window.runMermaid = runMermaid;</script>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
-<span class="sd">    camera: napari.components.camera.Camera</span>
-<span class="sd">        The camera object modeling the position and view.</span>
 <span class="sd">    cursor: napari.components.cursor.Cursor</span>
 <span class="sd">        The cursor object containing the position and properties of the cursor.</span>
 <span class="sd">    dims : napari.components.dims.Dimensions</span>
@@ -1006,15 +1003,12 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Viewer object context mapping.</span>
 <span class="sd">    _layer_slicer: napari.components._layer_slicer._Layer_Slicer</span>
 <span class="sd">        A layer slicer object controlling the creation of a slice</span>
-<span class="sd">    _overlays: napari.utils.events.containers._evented_dict.EventedDictNamespace[SceneOverlay]</span>
-<span class="sd">        An EventedDictNamespace with as keys the string names of different napari overlays and as values</span>
-<span class="sd">        the napari.SceneOverlay objects.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Using frozen=True means these attributes aren&#39;t settable and don&#39;t</span>
     <span class="c1"># have an event emitter associated with them</span>
     <span class="n">canvas</span><span class="p">:</span> <span class="n">Canvas</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Canvas</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Camera</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">scene</span><span class="p">:</span> <span class="n">Scene</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Scene</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Cursor</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Dims</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">layers</span><span class="p">:</span> <span class="n">LayerList</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
@@ -1025,11 +1019,6 @@ window.runMermaid = runMermaid;</script>
     <span class="n">tooltip</span><span class="p">:</span> <span class="n">Tooltip</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Tooltip</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">_current_theme</span><span class="p">)</span>
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span>
-    <span class="n">_scene_overlays</span><span class="p">:</span> <span class="n">EventedDictNamespace</span><span class="p">[</span><span class="n">SceneOverlay</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span>
-        <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">(</span>  <span class="c1"># type: ignore</span>
-            <span class="n">EventedDictNamespace</span><span class="p">({</span><span class="s1">&#39;axes&#39;</span><span class="p">:</span> <span class="n">AxesOverlay</span><span class="p">()})</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
     <span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">()</span>
     <span class="c1"># To check if mouse is over canvas to avoid race conditions between</span>
     <span class="c1"># different events systems</span>
@@ -1130,8 +1119,26 @@ window.runMermaid = runMermaid;</script>
     <span class="c1"># NOTE: the type ignore comments are needed because the EventedDictNamespace does not</span>
     <span class="c1">#       know that specific elements match specific types</span>
     <span class="nd">@property</span>
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="s1">&#39;viewer.camera is a deprecated attribute since 0.9.0. Use viewer.scene.camera instead.&#39;</span>
+            <span class="s1">&#39; There is currently no planned date for removal of the legacy attribute.&#39;</span>
+        <span class="p">),</span>
+        <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">camera</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Camera</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="s1">&#39;viewer.axes is a deprecated attribute since 0.9.0. Use viewer.scene.overlays.axes instead.&#39;</span>
+            <span class="s1">&#39; There is currently no planned date for removal of the legacy attribute.&#39;</span>
+        <span class="p">),</span>
+        <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">axes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AxesOverlay</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene_overlays</span><span class="o">.</span><span class="n">axes</span>  <span class="c1"># type: ignore[return-value]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">axes</span>  <span class="c1"># type: ignore[return-value]</span>
 
     <span class="nd">@property</span>
     <span class="nd">@deprecated</span><span class="p">(</span>
@@ -1172,7 +1179,7 @@ window.runMermaid = runMermaid;</script>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update camera orientation based on settings.&quot;&quot;&quot;</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">depth_axis_orientation</span><span class="p">,</span>
             <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">vertical_axis_orientation</span><span class="p">,</span>
             <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">horizontal_axis_orientation</span><span class="p">,</span>
@@ -1181,7 +1188,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_synced_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update camera synced mode based on settings.&quot;&quot;&quot;</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">synced_camera</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">synced_camera</span>
 
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">&#39;theme&#39;</span><span class="p">)</span>
     <span class="nd">@classmethod</span>
@@ -1264,7 +1271,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            to view. Default is True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">reset_camera_angle</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fit_to_view</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="n">margin</span><span class="p">)</span></div>
 
 
@@ -1285,7 +1292,9 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># Get the scene parameters</span>
         <span class="n">extent</span><span class="p">,</span> <span class="n">scene_size</span><span class="p">,</span> <span class="n">corner</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_scene_parameters</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_view_center</span><span class="p">(</span><span class="n">corner</span><span class="p">,</span> <span class="n">scene_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_view_center</span><span class="p">(</span>
+            <span class="n">corner</span><span class="p">,</span> <span class="n">scene_size</span>
+        <span class="p">)</span>
 
         <span class="n">scale_factor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_scale_factor</span><span class="p">(</span><span class="n">margin</span><span class="p">)</span>
 
@@ -1295,22 +1304,24 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># of view will occupy 95% of the canvas on the most filled axis</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">scene_size</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># TODO: does this even ever happen?</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">scale_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">scale_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_2d_camera_zoom</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_2d_camera_zoom</span><span class="p">(</span>
                 <span class="n">scene_size</span><span class="p">,</span> <span class="n">scale_factor</span>
             <span class="p">)</span>
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_3d_camera_zoom</span><span class="p">(</span><span class="n">extent</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_3d_camera_zoom</span><span class="p">(</span>
+                <span class="n">extent</span><span class="p">,</span> <span class="n">scale_factor</span>
+            <span class="p">)</span>
 
         <span class="c1"># Emit a reset view event, which is no longer used internally, but</span>
         <span class="c1"># which maybe useful for building on napari.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">reset_view</span><span class="p">(</span>
-            <span class="n">center</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span><span class="p">,</span>
-            <span class="n">zoom</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span>
-            <span class="n">angles</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span>
+            <span class="n">center</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span><span class="p">,</span>
+            <span class="n">zoom</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span>
+            <span class="n">angles</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 
@@ -1322,7 +1333,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        ndisplay mode. Caching is harmless in synced mode since</span>
 <span class="sd">        ``_on_ndisplay_changed`` does not use the cached values there.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">_cache_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_previous_ndisplay</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">_cache_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_previous_ndisplay</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_ndisplay_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle ndisplay changes based on the current camera synced mode.</span>
@@ -1333,8 +1344,8 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        * ``synced=False`` — each mode remembers its own center, zoom,</span>
 <span class="sd">          and angles independently (per-mode caching).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span><span class="p">:</span>
-            <span class="n">center</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span><span class="p">:</span>
+            <span class="n">center</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">order</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
                 <span class="n">new_display_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
@@ -1344,21 +1355,21 @@ window.runMermaid = runMermaid;</script>
                     <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                 <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">center</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">center</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_previous_ndisplay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span>
             <span class="k">return</span>
 
         <span class="c1"># Separate (synced=False) — per-mode caching</span>
         <span class="n">new_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span>
-        <span class="n">cached</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">_pop_cached_state</span><span class="p">(</span><span class="n">new_mode</span><span class="p">)</span>
+        <span class="n">cached</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">_pop_cached_state</span><span class="p">(</span><span class="n">new_mode</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">cached</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">center</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">zoom</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">angles</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">center</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">zoom</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">angles</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># First time in this mode — use fit_to_view defaults</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fit_to_view</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">_cache_state</span><span class="p">(</span><span class="n">new_mode</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">_cache_state</span><span class="p">(</span><span class="n">new_mode</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_previous_ndisplay</span> <span class="o">=</span> <span class="n">new_mode</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_scene_parameters</span><span class="p">(</span>
@@ -1422,8 +1433,8 @@ window.runMermaid = runMermaid;</script>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the zoom such that the minimum of the bounding box fits the canvas.&quot;&quot;&quot;</span>
         <span class="n">bounding_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_bounding_box</span><span class="p">(</span>
             <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">,</span>
-            <span class="n">view_direction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">view_direction</span><span class="p">,</span>
-            <span class="n">up_direction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">up_direction</span><span class="p">,</span>
+            <span class="n">view_direction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">view_direction</span><span class="p">,</span>
+            <span class="n">up_direction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">up_direction</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">scale_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">viewbox_size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">/</span> <span class="n">bounding_box</span>
@@ -1567,8 +1578,8 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">layer</span><span class="o">.</span><span class="n">update_highlight_visibility</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">CursorStyle</span><span class="o">.</span><span class="n">STANDARD</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_zoom</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_zoom</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">active_layer</span><span class="o">.</span><span class="n">update_transform_box_visibility</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">active_layer</span><span class="o">.</span><span class="n">update_highlight_visibility</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
@@ -1579,8 +1590,8 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">help</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">cursor</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">cursor_size</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">mouse_pan</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_zoom</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">mouse_zoom</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">mouse_pan</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_zoom</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">mouse_zoom</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_status_from_cursor</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_merge_dims_and_layers_axis_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
@@ -1618,12 +1629,12 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_mouse_pan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the viewer interactive mouse panning&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">mouse_pan</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">mouse_pan</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_mouse_zoom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the viewer interactive mouse zoom&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_zoom</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">mouse_zoom</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_zoom</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">mouse_zoom</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the viewer cursor with the `event.cursor` string.&quot;&quot;&quot;</span>

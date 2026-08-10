@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=a038c42c"></script>
+    <script src="../../../_static/documentation_options.js?v=6306e1b2"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -426,7 +426,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -837,6 +837,8 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../../../naps/7-key-binding-dispatch.html">NAP-7 — Key Binding Dispatch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../naps/8-telemetry.html">NAP-8 — Telemetry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../naps/9-multiple-canvases.html">NAP-9 — Multiple Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../naps/10-migration-event-system.html">NAP-10 — Migration of the event system</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="../../../naps/template.html">NAP-X — Template and Instructions</a></li>
 </ul>
 </details></li>
@@ -1066,6 +1068,10 @@ window.runMermaid = runMermaid;</script>
 	click napari.components.layerlist &quot;https://github.com/napari/napari/tree/main/napari/components/layerlist.py&quot; _blank
 	napari.components.overlays(napari.components.overlays)
 	click napari.components.overlays &quot;https://github.com/napari/napari/tree/main/napari/components/overlays/__init__.py&quot; _blank
+	napari.components.scene(napari.components.scene)
+	napari.components.scene --&gt; napari.components.camera
+	napari.components.scene --&gt; napari.components.overlays
+	click napari.components.scene &quot;https://github.com/napari/napari/tree/main/napari/components/scene.py&quot; _blank
 	napari.components.tooltip(napari.components.tooltip)
 	click napari.components.tooltip &quot;https://github.com/napari/napari/tree/main/napari/components/tooltip.py&quot; _blank
 	napari.components.viewer_model(napari.components.viewer_model)
@@ -1078,6 +1084,7 @@ window.runMermaid = runMermaid;</script>
 	napari.components.viewer_model --&gt; napari.components.grid
 	napari.components.viewer_model --&gt; napari.components.layerlist
 	napari.components.viewer_model --&gt; napari.components.overlays
+	napari.components.viewer_model --&gt; napari.components.scene
 	napari.components.viewer_model --&gt; napari.components.tooltip
 	napari.components.viewer_model --&gt; napari.layers
 	click napari.components.viewer_model &quot;https://github.com/napari/napari/tree/main/napari/components/viewer_model.py&quot; _blank
@@ -1132,6 +1139,7 @@ window.runMermaid = runMermaid;</script>
 		 napari.components.grid
 		 napari.components.layerlist
 		 napari.components.overlays
+		 napari.components.scene
 		 napari.components.tooltip
 		 napari.components.viewer_model
 	end
@@ -1186,6 +1194,7 @@ window.runMermaid = runMermaid;</script>
   ├─viewer_model.py
   ├─_viewer_mouse_bindings.py
   ├─layerlist.py
+  ├─scene.py
   ├─camera.py
   ├─overlays/
   │ └─__init__.py

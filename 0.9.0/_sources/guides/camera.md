@@ -40,8 +40,8 @@ state independently.
 The current mode is controlled by {attr}`~napari.components.Camera.synced`:
 
 ```python
-viewer.camera.synced = True   # synced mode (default)
-viewer.camera.synced = False  # separate mode
+viewer.scene.camera.synced = True   # synced mode (default)
+viewer.scene.camera.synced = False  # separate mode
 ```
 
 (camera-synced-mode)=
@@ -105,10 +105,10 @@ From the **View** menu, select **Toggle Synced Camera**
 
 ```python
 # Switch to separate mode
-viewer.camera.synced = False
+viewer.scene.camera.synced = False
 
 # Switch back to default synced mode
-viewer.camera.synced = True
+viewer.scene.camera.synced = True
 ```
 
 ### Settings — Persistent preference
@@ -135,16 +135,16 @@ programmatically:
 
 ```python
 # Center of the view (in world coordinates)
-viewer.camera.center = (0, 100, 200)
+viewer.scene.camera.center = (0, 100, 200)
 
 # Zoom level (pixels per world unit)
-viewer.camera.zoom = 4.0
+viewer.scene.camera.zoom = 4.0
 
 # Euler angles for 3D rotation (only used in 3D mode)
-viewer.camera.angles = (30, 45, 0)
+viewer.scene.camera.angles = (30, 45, 0)
 
 # Perspective (field of view) in 3D mode
-viewer.camera.perspective = 30
+viewer.scene.camera.perspective = 30
 ```
 
 For more on axis orientation and handedness, see {ref}`handedness-guide`.

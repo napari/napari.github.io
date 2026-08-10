@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=a038c42c"></script>
+    <script src="../_static/documentation_options.js?v=6306e1b2"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -861,8 +861,8 @@ depth (Z) component corresponds to the -3 dimension. You can also choose
 <strong>separate</strong> (i.e. unsynced) mode, where each view remembers its own camera
 state independently.</p>
 <p>The current mode is controlled by <code class="xref py py-attr docutils literal notranslate"><span class="pre">synced</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span> <span class="o">=</span> <span class="kc">True</span>   <span class="c1"># synced mode (default)</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># separate mode</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span> <span class="o">=</span> <span class="kc">True</span>   <span class="c1"># synced mode (default)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># separate mode</span>
 </pre></div>
 </div>
 <section id="synced-mode-default">
@@ -919,10 +919,10 @@ modes.</p></li>
 <section id="api-programmatic-control">
 <h3>API — Programmatic control<a class="headerlink" href="#api-programmatic-control" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Switch to separate mode</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="c1"># Switch back to default synced mode</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
 </section>
@@ -945,16 +945,16 @@ all new viewers.</p>
 <p>Beyond the synced mode, the camera has several properties you can adjust
 programmatically:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Center of the view (in world coordinates)</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
 
 <span class="c1"># Zoom level (pixels per world unit)</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="mf">4.0</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="mf">4.0</span>
 
 <span class="c1"># Euler angles for 3D rotation (only used in 3D mode)</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># Perspective (field of view) in 3D mode</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">perspective</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">perspective</span> <span class="o">=</span> <span class="mi">30</span>
 </pre></div>
 </div>
 <p>For more on axis orientation and handedness, see <a class="reference internal" href="handedness.html#handedness-guide"><span class="std std-ref">Axis directions, data, and handedness</span></a>.

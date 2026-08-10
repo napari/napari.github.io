@@ -69,7 +69,7 @@ on the distance from the camera.
     viewer.add_points(points_data, size=4)
 
     viewer.dims.ndisplay = 3
-    viewer.camera.angles = (0, -30, 10)
+    viewer.scene.camera.angles = (0, -30, 10)
     viewer.fit_to_view()
 
     if __name__ == '__main__':

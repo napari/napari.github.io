@@ -70,7 +70,7 @@ add_image APIs, then add points at the centroids of detected blobs in 3D
         blending='translucent_no_depth',
     )
 
-    viewer.camera.angles = (0, -50, 50)
+    viewer.scene.camera.angles = (0, -50, 50)
     pts.mode = 'add'
 
     if __name__ == '__main__':

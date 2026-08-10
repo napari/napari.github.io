@@ -44,6 +44,12 @@ screen size. Cross-eyed viewing: use a negative separation.
       theme_type=get_system_theme(),
     /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
       theme_type=get_system_theme(),
+    /home/runner/work/docs/docs/napari/examples/stereo_viewer_widget.py:214: DeprecationWarning: viewer.camera is a deprecated attribute since 0.9.0. Use viewer.scene.camera instead. There is currently no planned date for removal of the legacy attribute.
+      window.setCentralWidget(StereoViewerWidget(viewer))
+    /home/runner/work/docs/docs/napari/examples/stereo_viewer_widget.py:189: DeprecationWarning: viewer.camera is a deprecated attribute since 0.9.0. Use viewer.scene.camera instead. There is currently no planned date for removal of the legacy attribute.
+      model = next(m for m in self._all_models() if m.camera is source_cam)
+    /home/runner/work/docs/docs/napari/examples/stereo_viewer_widget.py:195: DeprecationWarning: viewer.camera is a deprecated attribute since 0.9.0. Use viewer.scene.camera instead. There is currently no planned date for removal of the legacy attribute.
+      self._apply_stereo_from(
 
 
 
@@ -144,7 +150,7 @@ screen size. Cross-eyed viewing: use a negative separation.
 
             self.viewer.events.reset_view.connect(self._reset_view)
             # Mild perspective helps stereo depth cues.
-            self.viewer.camera.perspective = 30
+            self.viewer.scene.camera.perspective = 30
 
         def _all_models(self) -> tuple[ViewerModel, ViewerModel, ViewerModel]:
             return (self.viewer, self.viewer_left, self.viewer_right)
@@ -166,14 +172,14 @@ screen size. Cross-eyed viewing: use a negative separation.
         def _on_separation_changed(self, value: float) -> None:
             # when the eye separation is changed, re-calculate and apply camera state to all viewers
             self._eye_separation = value
-            cam = self.viewer.camera
+            cam = self.viewer.scene.camera
             self._apply_stereo_from(
                 cam.angles, cam.center, cam.zoom, cam.perspective
             )
 
         def _reset_view(self) -> None:
             # Main viewer already reset; push its camera through stereo sync.
-            cam = self.viewer.camera
+            cam = self.viewer.scene.camera
             self._apply_stereo_from(
                 cam.angles, cam.center, cam.zoom, cam.perspective
             )
@@ -246,7 +252,7 @@ screen size. Cross-eyed viewing: use a negative separation.
 
         viewer = napari.Viewer(ndisplay=3)
         viewer.open_sample('napari', 'cells3d')
-        viewer.camera.angles = (-20, 20, -20)
+        viewer.scene.camera.angles = (-20, 20, -20)
 
         window = StereoViewerWindow()
         window.setStyleSheet(get_stylesheet(get_settings().appearance.theme))

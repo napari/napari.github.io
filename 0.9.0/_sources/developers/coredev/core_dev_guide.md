@@ -184,7 +184,7 @@ As a core member, you should be familiar with the following napari guides:
 - [PEP257](https://peps.python.org/pep-0257/) and the
   [NumPy documentation guide](https://numpy.org/devdocs/dev/howto-docs.html#documentation-style)
   for docstring conventions.
-- [`pre-commit`](https://pre-commit.com) hooks for autoformatting.
+- [`prek`](https://prek.j178.dev/) hooks for autoformatting.
 - [`ruff-format`](https://docs.astral.sh/ruff/formatter/) autoformatting.
 - [`ruff`](https://github.com/astral-sh/ruff) linting.
 

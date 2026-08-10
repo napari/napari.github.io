@@ -114,7 +114,7 @@ file_path_ply = pooch.retrieve(
 viewer = napari.Viewer()
 viewer.open(file_path_ply, plugin='napari-meshio')
 viewer.dims.ndisplay = 3
-viewer.camera.angles = (92, -24, 15)
+viewer.scene.camera.angles = (92, -24, 15)
 nbscreenshot(viewer, alt_text="napari viewer showing a 3D mesh of an airplane opened via napari-meshio.")
 ```
 

@@ -19,7 +19,7 @@ across the dimensions, specified by their size
 
 .. tags:: visualization-nD, features-table
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-60
+.. GENERATED FROM PYTHON SOURCE LINES 11-59
 
 
 
@@ -84,7 +84,6 @@ across the dimensions, specified by their size
         border_width_is_relative=False,
         border_color='border_feature',
         face_color='face_feature',
-        out_of_slice_display=False,
     )
 
     # change the face color cycle

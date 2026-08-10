@@ -18,7 +18,7 @@ Display a points layer on top of an image layer using the ``add_points`` and
 
 .. tags:: visualization-basic
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-58
+.. GENERATED FROM PYTHON SOURCE LINES 10-55
 
 
 
@@ -85,9 +85,6 @@ Display a points layer on top of an image layer using the ``add_points`` and
 
     # change the layer point symbol using an alias
     layer.symbol = '+'
-
-    # change the layer point out_of_slice_display status
-    layer.out_of_slice_display = True
 
     # change the layer mode
     layer.mode = 'add'

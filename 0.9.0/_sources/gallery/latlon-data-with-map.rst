@@ -112,7 +112,7 @@ with the POI. Requires geopandas and contextily to be installed.
 
     # display the background map in napari
     viewer = napari.Viewer()
-    viewer.camera.orientation2d = 'up','right'
+    viewer.scene.camera.orientation2d = 'up','right'
     viewer.floating_axes.visible = True
     viewer.dims.axis_labels = 'lat','lon'
     viewer.window.add_plugin_dock_widget('napari', 'Features table widget')

@@ -89,14 +89,20 @@ In order to make changes to `napari`, you will need to [fork](https://docs.githu
    included with the typical end-user `napari[all]` installation.
    ```
 
-1. We use [`pre-commit`](https://pre-commit.com) to format code with
+1. We use [`prek`](https://prek.j178.dev/) to format and lint code. 
+   The `prek` is rust implementation of [`pre-commit`](https://pre-commit.com/)
+   and is faster than the python implementation.
+   Full list of used hooks can be found in pre-commit configuration file 
+   [`.pre-commit-config.yaml`](https://github.com/napari/napari/blob/main/.pre-commit-config.yaml)
+   in the root of the repository.
+   The most important hooks are formatting with
    [`ruff-format`](https://docs.astral.sh/ruff/formatter/) and lint with
-   [`ruff`](https://github.com/astral-sh/ruff) automatically prior to each commit.
-   To minimize test errors when submitting pull requests, please install `pre-commit`
-   in your environment as follows:
+   [`ruff-check`](https://docs.astral.sh/ruff/linter/).
+   To enable it to be executed on creation of every commit, reduce CI usage and reduce the number of test errors,
+   install `prek` as pre-commit hook by running the following command in your environment:
 
    ```sh
-   pre-commit install
+   prek install
    ```
 
    Upon committing, your code will be formatted according to our [`ruff-format`
@@ -112,5 +118,9 @@ In order to make changes to `napari`, you will need to [fork](https://docs.githu
    If you wish to tell the linter to ignore a specific line use the `# noqa`
    comment along with the specific error code (e.g. `import sys  # noqa: E402`) but
    please do not ignore errors lightly.
+
+   ```{note}
+   To run `prek` manually, without creating a commit, you can run `prek run --all-files`.
+   ```
 
 Now you are all set to start developing with napari.

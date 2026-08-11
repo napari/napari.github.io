@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=f285fa03"></script>
+    <script src="../../_static/documentation_options.js?v=4181ecb6"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -715,14 +715,78 @@ in <code class="docutils literal notranslate"><span class="pre">System</span> <s
 <p>It is also possible to run tests locally using <code class="docutils literal notranslate"><span class="pre">tox</span></code>. We use <code class="docutils literal notranslate"><span class="pre">tox</span></code> to run test in CI.
 The main difference between running <code class="docutils literal notranslate"><span class="pre">pytest</span></code> locally or <code class="docutils literal notranslate"><span class="pre">tox</span></code> locally is that <code class="docutils literal notranslate"><span class="pre">tox</span></code> will create a virtual environment
 for each test environment, so it will take a bit more time. Though, <code class="docutils literal notranslate"><span class="pre">tox</span></code> will be more similar to the CI environment.
-To run test using <code class="docutils literal notranslate"><span class="pre">tox</span></code> using Python 3.13 and pyqt6 on Linux, enter:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-e<span class="w"> </span>py313-linux-pyqt6
+The only requirement for running tests is to have <code class="docutils literal notranslate"><span class="pre">tox</span></code> in your environment.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tox</span></code> can be used to run tests for a single environment configuration too.<br />
+For example, to run tests using <code class="docutils literal notranslate"><span class="pre">tox</span></code> for Python 3.13 and pyqt6, enter:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-e<span class="w"> </span>py313-pyqt6
 </pre></div>
 </div>
-<p>To get list of all available environments that may be run:</p>
+<p>To get the list of all available environment configurations that may be run:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tox<span class="w"> </span>list
 </pre></div>
 </div>
+<section id="minimum-requirements-testing">
+<h4>Minimum requirements testing<a class="headerlink" href="#minimum-requirements-testing" title="Link to this heading">#</a></h4>
+<p>Tests may be run against the minimum requirements declared in the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file.
+This checks if napari will work even with outdated or minimal dependencies. If the minimal requirements test run fails, it is likely either a simple regression fix or a reason to bump the minimum requirements in the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file.</p>
+<p>To run this test, prefix the <code class="docutils literal notranslate"><span class="pre">tox</span></code> command with <code class="docutils literal notranslate"><span class="pre">MIN_REQ=1</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">MIN_REQ</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>tox<span class="w"> </span>-e<span class="w"> </span>py311-pyqt5<span class="w"> </span>--recreate
+</pre></div>
+</div>
+<p>Unfortunately, it is impossible to test this on ARM macOS, due to the lack of pyqt5 support for this platform.</p>
+</section>
+<section id="running-with-constraints">
+<h4>Running with constraints<a class="headerlink" href="#running-with-constraints" title="Link to this heading">#</a></h4>
+<p>To fully reproduce the CI environment, you might use our constraints files which fully specifies dependency versions.
+For example, to run tests using Python 3.13 and pyqt6 with a constraints file, enter:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">UV_CONSTRAINT</span><span class="o">=</span>resources/constraints/constraints_py313.txt<span class="w"> </span>tox<span class="w"> </span>-e<span class="w"> </span>py313-pyqt6
+</pre></div>
+</div>
+<p>Constraint usage guarantees the same version of dependencies as in the CI environment where dependencies are pinned to a specific PyPI package version.</p>
+<p>While it usually isn’t needed to run this locally, running tests with the constraint file ensures that tests run with the exact same versions of dependencies as in napari’s CI environment.</p>
+</section>
+<section id="running-a-subset-of-test-using-tox">
+<h4>Running a subset of test using tox<a class="headerlink" href="#running-a-subset-of-test-using-tox" title="Link to this heading">#</a></h4>
+<p>To run a subset of tests using tox, add a directory or file after <code class="docutils literal notranslate"><span class="pre">--</span></code> and that will be passed to pytest.
+For example, to run only tests in the <code class="docutils literal notranslate"><span class="pre">src/napari/layers/image/</span></code> file using Python 3.13 and pyqt6, enter:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-e<span class="w"> </span>py313-pyqt6<span class="w"> </span>--<span class="w"> </span>src/napari/layers/image
+</pre></div>
+</div>
+</section>
+<section id="use-tox-to-create-an-environment-for-debugging">
+<h4>Use tox to create an environment for debugging<a class="headerlink" href="#use-tox-to-create-an-environment-for-debugging" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">tox</span></code> provides a convenient way to create a virtual environment for debugging via the <code class="docutils literal notranslate"><span class="pre">devenv</span></code> command.
+For example, to create a virtual environment for debugging using Python 3.13 and pyqt6, enter:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>tox<span class="w"> </span>devenv<span class="w"> </span>-e<span class="w"> </span>py313-pyqt6
+</pre></div>
+</div>
+<p>Then at the end of the output is a path to created virtual environment.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>...
+ROOT:<span class="w"> </span>created<span class="w"> </span>development<span class="w"> </span>environment<span class="w"> </span>under<span class="w"> </span><span class="o">[</span>...<span class="o">]</span>/napari/venv
+</pre></div>
+</div>
+<p>You can activate it in your IDE or terminal as a normal virtual environment.</p>
+</section>
+<section id="use-tox-to-measure-coverage">
+<h4>Use tox to measure coverage<a class="headerlink" href="#use-tox-to-measure-coverage" title="Link to this heading">#</a></h4>
+<p>You might want to locally check how your changes affect test coverage. You can run tox with coverage measurement using the following command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">TOX_TEST_RUNNER</span><span class="o">=</span><span class="s2">&quot;coverage run&quot;</span><span class="w"> </span>tox<span class="w"> </span>-e<span class="w"> </span>py314-pyqt6
+</pre></div>
+</div>
+<p>This command will create a coverage report in <code class="docutils literal notranslate"><span class="pre">.coverage</span></code> file. You can then generate a report using the following command:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">coverage</span> <span class="pre">report</span></code> - to see a report in the console. It will show you the percentage of code covered by tests and the lines that are not covered.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">coverage</span> <span class="pre">html</span></code> - to generate a report in HTML format. You can then open it in the browser and see exactly which lines are not covered by tests.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We do not use <code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code> as it does not measure coverage of all code, like our <code class="docutils literal notranslate"><span class="pre">make-napari-viewer</span></code> fixture.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some parts of the code are tested only on a given platform, python version, or in the minimum requirements test, so running coverage locally might not give the same results as on CI.</p>
+</div>
+</section>
 </section>
 <section id="run-tests-without-pop-up-windows">
 <h3>Run tests without pop-up windows<a class="headerlink" href="#run-tests-without-pop-up-windows" title="Link to this heading">#</a></h3>
@@ -1142,7 +1206,14 @@ It can be done automatically on startup by adding the above line to <code class=
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-tests">Running tests</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-gui-tests-locally">Run GUI tests locally</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-tox-to-run-tests-locally">Use tox to run tests locally</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-tox-to-run-tests-locally">Use tox to run tests locally</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#minimum-requirements-testing">Minimum requirements testing</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#running-with-constraints">Running with constraints</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#running-a-subset-of-test-using-tox">Running a subset of test using tox</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#use-tox-to-create-an-environment-for-debugging">Use tox to create an environment for debugging</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#use-tox-to-measure-coverage">Use tox to measure coverage</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-tests-without-pop-up-windows">Run tests without pop-up windows</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tips-for-speeding-up-local-testing">Tips for speeding up local testing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-coverage-locally">Testing coverage locally</a></li>

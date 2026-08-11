@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=270a0a24"></script>
+    <script src="../../../_static/documentation_options.js?v=d21b558e"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -862,10 +862,6 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.cursor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">CursorStyle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.dims</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dims</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.layerlist</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerList</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.overlays</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">AxesOverlay</span><span class="p">,</span>
-    <span class="n">FloatingAxesOverlay</span><span class="p">,</span>
-<span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.scene</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scene</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.tooltip</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tooltip</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.errors</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -924,7 +920,12 @@ window.runMermaid = runMermaid;</script>
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.camera</span><span class="w"> </span><span class="kn">import</span> <span class="n">Camera</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridCanvas</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.overlays</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScaleBarOverlay</span><span class="p">,</span> <span class="n">TextOverlay</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.overlays</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+        <span class="n">CanvasAxesOverlay</span><span class="p">,</span>
+        <span class="n">ScaleBarOverlay</span><span class="p">,</span>
+        <span class="n">SceneAxesOverlay</span><span class="p">,</span>
+        <span class="n">TextOverlay</span><span class="p">,</span>
+    <span class="p">)</span>
 
 
 <span class="n">DEFAULT_THEME</span> <span class="o">=</span> <span class="s1">&#39;dark&#39;</span>
@@ -1137,20 +1138,26 @@ window.runMermaid = runMermaid;</script>
         <span class="p">),</span>
         <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">axes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AxesOverlay</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">axes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SceneAxesOverlay</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">axes</span>  <span class="c1"># type: ignore[return-value]</span>
 
     <span class="nd">@property</span>
     <span class="nd">@deprecated</span><span class="p">(</span>
-        <span class="s1">&#39;viewer.floating_axes is a deprecated attribute since 0.8.1. Use viewer.canvas.overlays.floating_axes instead.&#39;</span><span class="p">,</span>
+        <span class="p">(</span>
+            <span class="s1">&#39;viewer.floating_axes is a deprecated attribute since 0.9.0. Use viewer.canvas.overlays.axes instead.&#39;</span>
+            <span class="s1">&#39; There is currently no planned date for removal of the legacy attribute.&#39;</span>
+        <span class="p">),</span>
         <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">floating_axes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FloatingAxesOverlay</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">floating_axes</span>  <span class="c1"># type: ignore[return-value]</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">floating_axes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CanvasAxesOverlay</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">axes</span>  <span class="c1"># type: ignore[return-value]</span>
 
     <span class="nd">@property</span>
     <span class="nd">@deprecated</span><span class="p">(</span>
-        <span class="s1">&#39;viewer.scale_bar is a deprecated attribute since 0.8.1. Use viewer.canvas.overlays.scale_bar instead.&#39;</span><span class="p">,</span>
+        <span class="p">(</span>
+            <span class="s1">&#39;viewer.scale_bar is a deprecated attribute since 0.9.0. Use viewer.canvas.overlays.scale_bar instead.&#39;</span>
+            <span class="s1">&#39; There is currently no planned date for removal of the legacy attribute.&#39;</span>
+        <span class="p">),</span>
         <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">scale_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ScaleBarOverlay</span><span class="p">:</span>
@@ -1158,7 +1165,10 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="nd">@deprecated</span><span class="p">(</span>
-        <span class="s1">&#39;viewer.text_overlay is a deprecated attribute since 0.8.1. Use viewer.canvas.overlays.text instead.&#39;</span><span class="p">,</span>
+        <span class="p">(</span>
+            <span class="s1">&#39;viewer.text_overlay is a deprecated attribute since 0.9.0. Use viewer.canvas.overlays.text instead.&#39;</span>
+            <span class="s1">&#39; There is currently no planned date for removal of the legacy attribute.&#39;</span>
+        <span class="p">),</span>
         <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">text_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TextOverlay</span><span class="p">:</span>
@@ -1166,7 +1176,10 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="nd">@deprecated</span><span class="p">(</span>
-        <span class="s1">&#39;viewer.grid is a deprecated attribute since 0.8.1. Use viewer.canvas.grid instead.&#39;</span><span class="p">,</span>
+        <span class="p">(</span>
+            <span class="s1">&#39;viewer.grid is a deprecated attribute since 0.9.0. Use viewer.canvas.grid instead.&#39;</span>
+            <span class="s1">&#39; There is currently no planned date for removal of the legacy attribute.&#39;</span>
+        <span class="p">),</span>
         <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">grid</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GridCanvas</span><span class="p">:</span>

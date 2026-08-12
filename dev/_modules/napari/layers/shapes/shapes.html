@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=af554339"></script>
+    <script src="../../../../_static/documentation_options.js?v=e371ac5f"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -2076,7 +2076,16 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span><span class="o">.</span><span class="n">replace_selection</span><span class="p">(</span><span class="n">selected_data</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_selection_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">added</span><span class="p">,</span> <span class="n">removed</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interaction_box</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
+        <span class="c1"># Drop a stale hover value if the hovered shape is no longer in view.</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span>
+        <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># The interaction box (and its handles) is only drawn around the</span>
+        <span class="c1"># selected shapes that are currently in view.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interaction_box</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_in_view</span><span class="p">)</span>
 
         <span class="c1"># Update properties based on selected shapes</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -2449,6 +2458,17 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_view_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_displayed</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_selected_data_in_view</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Indices of selected shapes that are currently in view.</span>
+
+<span class="sd">        The selection is preserved across slices and ndisplay changes, but the</span>
+<span class="sd">        highlights (interaction box, vertices, and outlines) are only drawn for</span>
+<span class="sd">        the shapes visible in the current slice.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">view_indices</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">view_indices</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_view_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -3241,27 +3261,42 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the view given the slicing indices.&quot;&quot;&quot;</span>
+        <span class="n">view_changed</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">batched_updates</span><span class="p">():</span>
             <span class="n">ndisplay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span>
             <span class="k">if</span> <span class="n">ndisplay</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay_stored</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">ndisplay</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay_stored</span> <span class="o">=</span> <span class="n">ndisplay</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="n">view_changed</span> <span class="o">=</span> <span class="kc">True</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_order_stored</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">update_dims_order</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_display_order_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
                 <span class="c1"># Clear clipboard if dimensions swap</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="n">view_changed</span> <span class="o">=</span> <span class="kc">True</span>
 
             <span class="n">slice_key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span><span class="o">.</span><span class="n">point</span><span class="p">)[</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
             <span class="p">]</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">slice_key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">slice_key</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+                <span class="n">view_changed</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">slice_key</span> <span class="o">=</span> <span class="n">slice_key</span>
+
+        <span class="c1"># The selection is preserved across slice/ndisplay/order changes, but</span>
+        <span class="c1"># the set of shapes *in view* changes, so the highlight state must be</span>
+        <span class="c1"># refreshed. This is done after the batched update exits: inside the</span>
+        <span class="c1"># batch ``_data_view._displayed`` is not yet updated, so</span>
+        <span class="c1"># ``_view_indices`` would still report the previous view and the</span>
+        <span class="c1"># interaction box would lag one step behind. The redraw itself is</span>
+        <span class="c1"># triggered by the refresh that wraps slicing (``_refresh_sync``).</span>
+        <span class="k">if</span> <span class="n">view_changed</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_outlines_cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interaction_box</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_in_view</span>
+            <span class="p">)</span>
 
 <div class="viewcode-block" id="Shapes.interaction_box">
 <a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.interaction_box">[docs]</a>
@@ -3360,6 +3395,11 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_outline_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Find outlines of any selected or hovered shapes.</span>
 
+<span class="sd">        Only shapes on the currently viewed slice are outlined. The outline</span>
+<span class="sd">        geometry is built from in-plane vertices and is not slice-aware, so a</span>
+<span class="sd">        selected or hovered shape sitting on another slice would otherwise draw</span>
+<span class="sd">        its highlight over the viewed slice.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        vertices : None | np.ndarray</span>
@@ -3368,20 +3408,28 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Mx3 array of any indices of vertices for triangles of outline or</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Only highlight selected shapes that are in view.</span>
+        <span class="n">selected_in_view</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_in_view</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_visible</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_in_view</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
         <span class="p">):</span>
+            <span class="c1"># Only consider the hovered shape if it is in view and not already</span>
+            <span class="c1"># selected (selected shapes are highlighted via selected_in_view).</span>
             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">:</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">selected_in_view</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">selected_in_view</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
 
             <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outlines_cache</span><span class="p">:</span>
                 <span class="n">centers</span><span class="p">,</span> <span class="n">offsets</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outlines_cache</span><span class="p">[</span><span class="n">value</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_in_view</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">selected_in_view</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="n">index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
                     <span class="n">index</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
@@ -3389,7 +3437,7 @@ window.runMermaid = runMermaid;</script>
                     <span class="n">index</span> <span class="o">=</span> <span class="n">value</span>
 
                 <span class="n">centers</span><span class="p">,</span> <span class="n">offsets</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_outlines_cache</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_outlines_cache</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="n">centers</span><span class="p">,</span>
                     <span class="n">offsets</span><span class="p">,</span>
                     <span class="n">triangles</span><span class="p">,</span>
@@ -3421,10 +3469,17 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        width : float</span>
 <span class="sd">            Width of the box edge</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_visible</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Only highlight selected shapes that are in view.</span>
+        <span class="n">selected_in_view</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_in_view</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_visible</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_in_view</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_box</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="c1"># If in select mode just show the interaction bounding box</span>
-                <span class="c1"># including its vertices and the rotation handle</span>
+                <span class="c1"># In select mode show the interaction bounding box (with its</span>
+                <span class="c1"># vertices and rotation handle). ``_selected_box`` is the single</span>
+                <span class="c1"># source of truth: it is rebuilt from the in-view selection on</span>
+                <span class="c1"># selection/view changes and transformed in place while</span>
+                <span class="c1"># dragging (so it stays rotated/scaled with the shape).</span>
+                <span class="c1"># Hover-only highlights are drawn separately by _outline_shapes.</span>
                 <span class="n">box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_box</span><span class="p">[</span><span class="n">Box</span><span class="o">.</span><span class="n">WITH_HANDLE</span><span class="p">]</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">face_color</span> <span class="o">=</span> <span class="s1">&#39;white&#39;</span>
@@ -3453,7 +3508,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="c1"># If in one of these mode show the vertices of the shape itself</span>
                 <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">displayed_vertices_to_shape_num</span><span class="p">,</span>
-                    <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">),</span>
+                    <span class="nb">list</span><span class="p">(</span><span class="n">selected_in_view</span><span class="p">),</span>
                 <span class="p">)</span>
                 <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">displayed_vertices</span><span class="p">[</span><span class="n">inds</span><span class="p">][:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
                 <span class="c1"># If currently adding path don&#39;t show box over last vertex</span>
@@ -3843,9 +3898,10 @@ window.runMermaid = runMermaid;</script>
 
         <span class="n">coord</span> <span class="o">=</span> <span class="p">[</span><span class="n">position</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
 
-        <span class="c1"># Check selected shapes</span>
+        <span class="c1"># Check selected shapes. Only shapes in view have a drawn interaction</span>
+        <span class="c1"># box / vertices to hit-test against, so restrict to those.</span>
         <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">selected_index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
+        <span class="n">selected_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_in_view</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_index</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>

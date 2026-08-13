@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=ae6d7ea6"></script>
+    <script src="../../../_static/documentation_options.js?v=53b15509"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -920,6 +920,7 @@ window.runMermaid = runMermaid;</script>
     <span class="kn">from</span><span class="w"> </span><span class="nn">magicgui.widgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">Widget</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QHideEvent</span><span class="p">,</span> <span class="n">QImage</span><span class="p">,</span> <span class="n">QShowEvent</span>
 
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.widgets.qt_viewer_tour</span><span class="w"> </span><span class="kn">import</span> <span class="n">GuidedTour</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.viewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">Viewer</span>
 
 <span class="n">_sentinel</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
@@ -960,10 +961,11 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ev</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_window</span> <span class="o">=</span> <span class="n">window</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager_dialog</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span> <span class="o">=</span> <span class="n">QtViewer</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="p">:</span> <span class="n">QtViewer</span> <span class="o">=</span> <span class="n">QtViewer</span><span class="p">(</span>
             <span class="n">viewer</span><span class="p">,</span> <span class="n">show_welcome_screen</span><span class="o">=</span><span class="n">show_welcome_screen</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_quit_app</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_viewer_tour</span><span class="p">:</span> <span class="n">GuidedTour</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="n">get_qapp</span><span class="p">()</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">_svg_path_to_icon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_window_icon</span><span class="p">()))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">WidgetAttribute</span><span class="o">.</span><span class="n">WA_DeleteOnClose</span><span class="p">)</span>

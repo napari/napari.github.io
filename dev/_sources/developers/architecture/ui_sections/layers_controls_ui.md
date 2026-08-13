@@ -285,6 +285,7 @@ graph LR
 	napari._qt.qt_main_window --> napari._qt.qt_viewer
 	napari._qt.qt_main_window --> napari._qt.widgets.qt_command_palette
 	napari._qt.qt_main_window --> napari._qt.widgets.qt_viewer_dock_widget
+	napari._qt.qt_main_window --> napari._qt.widgets.qt_viewer_tour
 	napari._qt.qt_main_window --> napari.viewer
 	click napari._qt.qt_main_window "https://github.com/napari/napari/tree/main/napari/_qt/qt_main_window.py" _blank
 	napari._qt.qt_viewer(napari._qt.qt_viewer)
@@ -302,6 +303,9 @@ graph LR
 	napari._qt.widgets.qt_viewer_dock_widget --> napari._qt.qt_viewer
 	napari._qt.widgets.qt_viewer_dock_widget --> napari.viewer
 	click napari._qt.widgets.qt_viewer_dock_widget "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_dock_widget.py" _blank
+	napari._qt.widgets.qt_viewer_tour(napari._qt.widgets.qt_viewer_tour)
+	napari._qt.widgets.qt_viewer_tour --> napari._qt.qt_main_window
+	click napari._qt.widgets.qt_viewer_tour "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_tour.py" _blank
 	napari.layers(napari.layers)
 	click napari.layers "https://github.com/napari/napari/tree/main/napari/layers/__init__.py" _blank
 	napari.viewer(napari.viewer)
@@ -408,6 +412,7 @@ graph LR
 		 napari._qt.widgets.qt_command_palette
 		 napari._qt.widgets.qt_mode_buttons
 		 napari._qt.widgets.qt_viewer_dock_widget
+		 napari._qt.widgets.qt_viewer_tour
 	end
 	class module.napari._qt.widgets subgraphs
 	classDef subgraphs fill:white,strock:black,color:black;	classDef default fill:#00c3ff,color:black;
@@ -491,7 +496,8 @@ napari/
 │ └─widgets/
 │   ├─qt_mode_buttons.py
 │   ├─qt_viewer_dock_widget.py
-│   └─qt_command_palette.py
+│   ├─qt_command_palette.py
+│   └─qt_viewer_tour.py
 ├─viewer.py
 └─layers/
   └─__init__.py

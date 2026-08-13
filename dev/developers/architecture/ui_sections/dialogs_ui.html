@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=ae6d7ea6"></script>
+    <script src="../../../_static/documentation_options.js?v=53b15509"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -980,6 +980,7 @@ window.runMermaid = runMermaid;</script>
 	napari._qt._qapp_model.qactions._help --&gt; napari._qt.qt_main_window
 	napari._qt._qapp_model.qactions._help --&gt; napari._qt.widgets.qt_logger
 	napari._qt._qapp_model.qactions._help --&gt; napari._qt.widgets.qt_tips
+	napari._qt._qapp_model.qactions._help --&gt; napari._qt.widgets.qt_viewer_tour
 	click napari._qt._qapp_model.qactions._help &quot;https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_help.py&quot; _blank
 	napari._qt._qapp_model.qactions._plugins(napari._qt._qapp_model.qactions._plugins)
 	napari._qt._qapp_model.qactions._plugins --&gt; napari._qt.qt_main_window
@@ -1021,6 +1022,7 @@ window.runMermaid = runMermaid;</script>
 	napari._qt.qt_main_window --&gt; napari._qt.utils
 	napari._qt.qt_main_window --&gt; napari._qt.widgets.qt_command_palette
 	napari._qt.qt_main_window --&gt; napari._qt.widgets.qt_viewer_status_bar
+	napari._qt.qt_main_window --&gt; napari._qt.widgets.qt_viewer_tour
 	click napari._qt.qt_main_window &quot;https://github.com/napari/napari/tree/main/napari/_qt/qt_main_window.py&quot; _blank
 	napari._qt.qt_viewer(napari._qt.qt_viewer)
 	napari._qt.qt_viewer --&gt; napari._qt.dialogs.qt_reader_dialog
@@ -1081,6 +1083,11 @@ window.runMermaid = runMermaid;</script>
 	napari._qt.widgets.qt_viewer_status_bar --&gt; napari._qt.dialogs.qt_activity_dialog
 	napari._qt.widgets.qt_viewer_status_bar --&gt; napari._qt.qt_main_window
 	click napari._qt.widgets.qt_viewer_status_bar &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_status_bar.py&quot; _blank
+	napari._qt.widgets.qt_viewer_tour(napari._qt.widgets.qt_viewer_tour)
+	napari._qt.widgets.qt_viewer_tour --&gt; napari._qt._qapp_model.qactions
+	napari._qt.widgets.qt_viewer_tour --&gt; napari._qt._qapp_model.qactions._help
+	napari._qt.widgets.qt_viewer_tour --&gt; napari._qt.qt_main_window
+	click napari._qt.widgets.qt_viewer_tour &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_tour.py&quot; _blank
 	napari._vendor.qt_json_builder(napari._vendor.qt_json_builder)
 	click napari._vendor.qt_json_builder &quot;https://github.com/napari/napari/tree/main/napari/_vendor/qt_json_builder/__init__.py&quot; _blank
 	napari._vendor.qt_json_builder.qt_jsonschema_form(napari._vendor.qt_json_builder.qt_jsonschema_form)
@@ -1162,6 +1169,7 @@ window.runMermaid = runMermaid;</script>
 		 napari._qt.widgets.qt_tips
 		 napari._qt.widgets.qt_tooltip
 		 napari._qt.widgets.qt_viewer_status_bar
+		 napari._qt.widgets.qt_viewer_tour
 	end
 	class module.napari._qt.widgets subgraphs
 	subgraph module.napari._vendor[napari._vendor]
@@ -1230,7 +1238,8 @@ window.runMermaid = runMermaid;</script>
 │ │ ├─qt_tips.py
 │ │ ├─qt_highlight_preview.py
 │ │ ├─qt_logger.py
-│ │ └─qt_dims.py
+│ │ ├─qt_dims.py
+│ │ └─qt_viewer_tour.py
 │ └─utils.py
 └─_vendor/
   └─qt_json_builder/

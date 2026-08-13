@@ -29,6 +29,7 @@ graph LR
 	napari._qt.qt_main_window --> napari._qt.widgets.qt_command_palette
 	napari._qt.qt_main_window --> napari._qt.widgets.qt_viewer_dock_widget
 	napari._qt.qt_main_window --> napari._qt.widgets.qt_viewer_status_bar
+	napari._qt.qt_main_window --> napari._qt.widgets.qt_viewer_tour
 	click napari._qt.qt_main_window "https://github.com/napari/napari/tree/main/napari/_qt/qt_main_window.py" _blank
 	napari._qt.qt_viewer(napari._qt.qt_viewer)
 	napari._qt.qt_viewer --> napari._qt.containers
@@ -90,6 +91,10 @@ graph LR
 	napari._qt.widgets.qt_viewer_status_bar(napari._qt.widgets.qt_viewer_status_bar)
 	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.qt_main_window
 	click napari._qt.widgets.qt_viewer_status_bar "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_status_bar.py" _blank
+	napari._qt.widgets.qt_viewer_tour(napari._qt.widgets.qt_viewer_tour)
+	napari._qt.widgets.qt_viewer_tour --> napari._qt._qapp_model.qactions
+	napari._qt.widgets.qt_viewer_tour --> napari._qt.qt_main_window
+	click napari._qt.widgets.qt_viewer_tour "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_tour.py" _blank
 	napari._qt.widgets.qt_welcome(napari._qt.widgets.qt_welcome)
 	napari._qt.widgets.qt_welcome --> napari.components.viewer_model
 	click napari._qt.widgets.qt_welcome "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_welcome.py" _blank
@@ -179,6 +184,7 @@ graph LR
 		 napari._qt.widgets.qt_viewer_buttons
 		 napari._qt.widgets.qt_viewer_dock_widget
 		 napari._qt.widgets.qt_viewer_status_bar
+		 napari._qt.widgets.qt_viewer_tour
 		 napari._qt.widgets.qt_welcome
 	end
 	class module.napari._qt.widgets subgraphs
@@ -238,7 +244,8 @@ napari/
 │ │ ├─qt_viewer_dock_widget.py
 │ │ ├─qt_command_palette.py
 │ │ ├─qt_viewer_buttons.py
-│ │ └─qt_dims.py
+│ │ ├─qt_dims.py
+│ │ └─qt_viewer_tour.py
 │ └─utils.py
 ├─layers/
 │ └─__init__.py

@@ -35,6 +35,7 @@ graph LR
 	napari._qt._qapp_model.qactions._help --> napari._qt.qt_main_window
 	napari._qt._qapp_model.qactions._help --> napari._qt.widgets.qt_logger
 	napari._qt._qapp_model.qactions._help --> napari._qt.widgets.qt_tips
+	napari._qt._qapp_model.qactions._help --> napari._qt.widgets.qt_viewer_tour
 	click napari._qt._qapp_model.qactions._help "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_help.py" _blank
 	napari._qt._qapp_model.qactions._plugins(napari._qt._qapp_model.qactions._plugins)
 	napari._qt._qapp_model.qactions._plugins --> napari._qt.qt_main_window
@@ -76,6 +77,7 @@ graph LR
 	napari._qt.qt_main_window --> napari._qt.utils
 	napari._qt.qt_main_window --> napari._qt.widgets.qt_command_palette
 	napari._qt.qt_main_window --> napari._qt.widgets.qt_viewer_status_bar
+	napari._qt.qt_main_window --> napari._qt.widgets.qt_viewer_tour
 	click napari._qt.qt_main_window "https://github.com/napari/napari/tree/main/napari/_qt/qt_main_window.py" _blank
 	napari._qt.qt_viewer(napari._qt.qt_viewer)
 	napari._qt.qt_viewer --> napari._qt.dialogs.qt_reader_dialog
@@ -136,6 +138,11 @@ graph LR
 	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.dialogs.qt_activity_dialog
 	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.qt_main_window
 	click napari._qt.widgets.qt_viewer_status_bar "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_status_bar.py" _blank
+	napari._qt.widgets.qt_viewer_tour(napari._qt.widgets.qt_viewer_tour)
+	napari._qt.widgets.qt_viewer_tour --> napari._qt._qapp_model.qactions
+	napari._qt.widgets.qt_viewer_tour --> napari._qt._qapp_model.qactions._help
+	napari._qt.widgets.qt_viewer_tour --> napari._qt.qt_main_window
+	click napari._qt.widgets.qt_viewer_tour "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_tour.py" _blank
 	napari._vendor.qt_json_builder(napari._vendor.qt_json_builder)
 	click napari._vendor.qt_json_builder "https://github.com/napari/napari/tree/main/napari/_vendor/qt_json_builder/__init__.py" _blank
 	napari._vendor.qt_json_builder.qt_jsonschema_form(napari._vendor.qt_json_builder.qt_jsonschema_form)
@@ -217,6 +224,7 @@ graph LR
 		 napari._qt.widgets.qt_tips
 		 napari._qt.widgets.qt_tooltip
 		 napari._qt.widgets.qt_viewer_status_bar
+		 napari._qt.widgets.qt_viewer_tour
 	end
 	class module.napari._qt.widgets subgraphs
 	subgraph module.napari._vendor[napari._vendor]
@@ -285,7 +293,8 @@ napari/
 │ │ ├─qt_tips.py
 │ │ ├─qt_highlight_preview.py
 │ │ ├─qt_logger.py
-│ │ └─qt_dims.py
+│ │ ├─qt_dims.py
+│ │ └─qt_viewer_tour.py
 │ └─utils.py
 └─_vendor/
   └─qt_json_builder/

@@ -42,6 +42,7 @@ graph LR
 	napari._qt._qapp_model.qactions._help --> napari._qt.qt_main_window
 	napari._qt._qapp_model.qactions._help --> napari._qt.widgets.qt_logger
 	napari._qt._qapp_model.qactions._help --> napari._qt.widgets.qt_tips
+	napari._qt._qapp_model.qactions._help --> napari._qt.widgets.qt_viewer_tour
 	click napari._qt._qapp_model.qactions._help "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_help.py" _blank
 	napari._qt._qapp_model.qactions._layerlist_context(napari._qt._qapp_model.qactions._layerlist_context)
 	click napari._qt._qapp_model.qactions._layerlist_context "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_layerlist_context.py" _blank
@@ -80,6 +81,7 @@ graph LR
 	napari._qt.qt_main_window --> napari._qt.dialogs.screenshot_dialog
 	napari._qt.qt_main_window --> napari._qt.qt_viewer
 	napari._qt.qt_main_window --> napari._qt.widgets.qt_command_palette
+	napari._qt.qt_main_window --> napari._qt.widgets.qt_viewer_tour
 	napari._qt.qt_main_window --> napari.viewer
 	click napari._qt.qt_main_window "https://github.com/napari/napari/tree/main/napari/_qt/qt_main_window.py" _blank
 	napari._qt.qt_viewer(napari._qt.qt_viewer)
@@ -103,6 +105,11 @@ graph LR
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.dialogs.qt_modal
 	napari._qt.widgets.qt_viewer_buttons --> napari.viewer
 	click napari._qt.widgets.qt_viewer_buttons "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_buttons.py" _blank
+	napari._qt.widgets.qt_viewer_tour(napari._qt.widgets.qt_viewer_tour)
+	napari._qt.widgets.qt_viewer_tour --> napari._qt._qapp_model.qactions
+	napari._qt.widgets.qt_viewer_tour --> napari._qt._qapp_model.qactions._help
+	napari._qt.widgets.qt_viewer_tour --> napari._qt.qt_main_window
+	click napari._qt.widgets.qt_viewer_tour "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_tour.py" _blank
 	napari.viewer(napari.viewer)
 	napari.viewer --> napari._qt
 	napari.viewer --> napari._qt.qt_main_window
@@ -153,6 +160,7 @@ graph LR
 		 napari._qt.widgets.qt_logger
 		 napari._qt.widgets.qt_tips
 		 napari._qt.widgets.qt_viewer_buttons
+		 napari._qt.widgets.qt_viewer_tour
 	end
 	class module.napari._qt.widgets subgraphs
 	classDef subgraphs fill:white,strock:black,color:black;	classDef default fill:#00c3ff,color:black;
@@ -193,6 +201,7 @@ napari/
 │   ├─qt_command_palette.py
 │   ├─qt_tips.py
 │   ├─qt_viewer_buttons.py
-│   └─qt_logger.py
+│   ├─qt_logger.py
+│   └─qt_viewer_tour.py
 └─viewer.py
 ```

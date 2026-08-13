@@ -250,60 +250,60 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
-├─_qt/
-│ ├─_qapp_model/
-│ │ ├─qactions/
-│ │ │ ├─_help.py
-│ │ │ ├─_debug.py
-│ │ │ ├─_file.py
-│ │ │ ├─__init__.py
-│ │ │ └─_plugins.py
-│ │ ├─injection/
-│ │ │ ├─_qproviders.py
-│ │ │ └─_qprocessors.py
-│ │ └─_menus.py
-│ ├─dialogs/
-│ │ ├─qt_modal.py
-│ │ ├─screenshot_dialog.py
-│ │ ├─qt_activity_dialog.py
-│ │ ├─confirm_close_dialog.py
-│ │ ├─qt_notification.py
-│ │ ├─qt_about.py
-│ │ ├─qt_reader_dialog.py
-│ │ └─preferences_dialog.py
-│ ├─_qplugins/
-│ │ └─_qnpe2.py
-│ ├─qt_main_window.py
-│ ├─qt_viewer.py
-│ ├─widgets/
-│ │ ├─qt_histogram.py
-│ │ ├─qt_font_size.py
-│ │ ├─qt_histogram_settings.py
-│ │ ├─qt_tooltip.py
-│ │ ├─qt_extension2reader.py
-│ │ ├─qt_histogram_content.py
-│ │ ├─qt_spinbox.py
-│ │ ├─qt_dims_slider.py
-│ │ ├─qt_viewer_status_bar.py
-│ │ ├─qt_progress_bar.py
-│ │ ├─qt_dims_sorter.py
-│ │ ├─qt_color_swatch.py
-│ │ ├─qt_scrollbar.py
-│ │ ├─qt_command_palette.py
-│ │ ├─qt_tips.py
-│ │ ├─qt_highlight_preview.py
-│ │ ├─qt_logger.py
-│ │ ├─qt_dims.py
-│ │ └─qt_viewer_tour.py
-│ └─utils.py
-└─_vendor/
-  └─qt_json_builder/
-    ├─qt_jsonschema_form/
-    │ ├─widgets.py
-    │ ├─__init__.py
-    │ ├─signal.py
-    │ ├─defaults.py
-    │ ├─utils.py
-    │ └─form.py
-    └─__init__.py
+├─_vendor/
+│ └─qt_json_builder/
+│   ├─__init__.py
+│   └─qt_jsonschema_form/
+│     ├─__init__.py
+│     ├─widgets.py
+│     ├─utils.py
+│     ├─defaults.py
+│     ├─signal.py
+│     └─form.py
+└─_qt/
+  ├─utils.py
+  ├─dialogs/
+  │ ├─preferences_dialog.py
+  │ ├─qt_activity_dialog.py
+  │ ├─qt_notification.py
+  │ ├─screenshot_dialog.py
+  │ ├─confirm_close_dialog.py
+  │ ├─qt_modal.py
+  │ ├─qt_about.py
+  │ └─qt_reader_dialog.py
+  ├─qt_main_window.py
+  ├─widgets/
+  │ ├─qt_tooltip.py
+  │ ├─qt_histogram_settings.py
+  │ ├─qt_extension2reader.py
+  │ ├─qt_histogram.py
+  │ ├─qt_dims_sorter.py
+  │ ├─qt_histogram_content.py
+  │ ├─qt_dims_slider.py
+  │ ├─qt_font_size.py
+  │ ├─qt_viewer_tour.py
+  │ ├─qt_tips.py
+  │ ├─qt_spinbox.py
+  │ ├─qt_dims.py
+  │ ├─qt_command_palette.py
+  │ ├─qt_viewer_status_bar.py
+  │ ├─qt_scrollbar.py
+  │ ├─qt_highlight_preview.py
+  │ ├─qt_logger.py
+  │ ├─qt_color_swatch.py
+  │ └─qt_progress_bar.py
+  ├─_qapp_model/
+  │ ├─_menus.py
+  │ ├─qactions/
+  │ │ ├─__init__.py
+  │ │ ├─_plugins.py
+  │ │ ├─_file.py
+  │ │ ├─_debug.py
+  │ │ └─_help.py
+  │ └─injection/
+  │   ├─_qproviders.py
+  │   └─_qprocessors.py
+  ├─_qplugins/
+  │ └─_qnpe2.py
+  └─qt_viewer.py
 ```

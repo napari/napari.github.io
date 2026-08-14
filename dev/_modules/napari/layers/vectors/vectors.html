@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=e6c4a529"></script>
+    <script src="../../../../_static/documentation_options.js?v=af9bc296"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -847,11 +847,19 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colormap</span><span class="p">,</span> <span class="n">ValidColormapArg</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.custom_types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Array</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.event</span><span class="w"> </span><span class="kn">import</span> <span class="n">WarningEmitter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.migrations</span><span class="w"> </span><span class="kn">import</span> <span class="n">deprecated_constructor_arg_by_attr</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.dims</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dims</span>
+
+<span class="n">_OUT_SLICE_DISP_WARNING_MSG</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;out_of_slice_display is deprecated since 0.9.0 (superseded by projection_mode). &#39;</span>
+    <span class="s1">&#39;To imitate the previous behaviour, use thick slices by right-clicking on the dims scroll bar &#39;</span>
+    <span class="s1">&#39;(see https://napari.org/stable/guides/rendering.html#margins-and-thick-slicing). &#39;</span>
+<span class="p">)</span>
 
 
 <div class="viewcode-block" id="Vectors">
@@ -918,9 +926,6 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        An empty vectors layer can be instantiated with arbitrary ndim.</span>
 <span class="sd">    opacity : float</span>
 <span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
-<span class="sd">    out_of_slice_display : bool</span>
-<span class="sd">        If True, renders vectors not just in central plane but also slightly out of slice</span>
-<span class="sd">        according to specified point marker size.</span>
 <span class="sd">    projection_mode : str</span>
 <span class="sd">        How data outside the viewed dimensions but inside the thick Dims slice will</span>
 <span class="sd">        be projected onto the viewed dimenions.</span>
@@ -991,9 +996,6 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        of the specified property that are mapped to 0 and 1, respectively.</span>
 <span class="sd">        The default value is None. If set the none, the clims will be set to</span>
 <span class="sd">        (property.min(), property.max())</span>
-<span class="sd">    out_of_slice_display : bool</span>
-<span class="sd">        If True, renders vectors not just in central plane but also slightly out of slice</span>
-<span class="sd">        according to specified point marker size.</span>
 <span class="sd">    units: tuple of pint.Unit</span>
 <span class="sd">        Units of the layer data in world coordinates.</span>
 
@@ -1023,6 +1025,7 @@ window.runMermaid = runMermaid;</script>
     <span class="c1"># If more vectors are present then they are randomly subsampled</span>
     <span class="n">_max_vectors_thumbnail</span> <span class="o">=</span> <span class="mi">1024</span>
 
+    <span class="nd">@deprecated_constructor_arg_by_attr</span><span class="p">(</span><span class="s1">&#39;out_of_slice_display&#39;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1044,7 +1047,6 @@ window.runMermaid = runMermaid;</script>
         <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">ndim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">opacity</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
-        <span class="n">out_of_slice_display</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
         <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">property_choices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1089,7 +1091,11 @@ window.runMermaid = runMermaid;</script>
             <span class="n">vector_style</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">edge_color_mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">properties</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">out_of_slice_display</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">out_of_slice_display</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
+                <span class="n">_OUT_SLICE_DISP_WARNING_MSG</span><span class="p">,</span>
+                <span class="ne">FutureWarning</span><span class="p">,</span>
+                <span class="n">type_name</span><span class="o">=</span><span class="s1">&#39;out_of_slice_display&#39;</span><span class="p">,</span>
+            <span class="p">),</span>
             <span class="n">features</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">feature_defaults</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
@@ -1097,7 +1103,6 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># Save the vector style params</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_vector_style</span> <span class="o">=</span> <span class="n">VectorStyle</span><span class="p">(</span><span class="n">vector_style</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span> <span class="o">=</span> <span class="n">edge_width</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_out_of_slice_display</span> <span class="o">=</span> <span class="n">out_of_slice_display</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
 
@@ -1282,7 +1287,6 @@ window.runMermaid = runMermaid;</script>
                 <span class="s1">&#39;ndim&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
                 <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">,</span>
                 <span class="s1">&#39;feature_defaults&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_defaults</span><span class="p">,</span>
-                <span class="s1">&#39;out_of_slice_display&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_of_slice_display</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span>
@@ -1312,14 +1316,31 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">out_of_slice_display</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: renders vectors slightly out of slice.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_out_of_slice_display</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: renders points slightly out of slice.&quot;&quot;&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">_OUT_SLICE_DISP_WARNING_MSG</span><span class="p">,</span>
+            <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_projection_mode</span> <span class="o">==</span> <span class="n">VectorsProjectionMode</span><span class="o">.</span><span class="n">FADE</span>
 
     <span class="nd">@out_of_slice_display</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">out_of_slice_display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out_of_slice_display</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_out_of_slice_display</span> <span class="o">=</span> <span class="n">out_of_slice_display</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">out_of_slice_display</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">extent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">out_of_slice_display</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">_OUT_SLICE_DISP_WARNING_MSG</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection_mode</span> <span class="o">==</span> <span class="n">VectorsProjectionMode</span><span class="o">.</span><span class="n">FADE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">projection_mode</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">VectorsProjectionMode</span><span class="o">.</span><span class="n">FADE</span>
+            <span class="k">if</span> <span class="n">out_of_slice_display</span>
+            <span class="k">else</span> <span class="n">VectorsProjectionMode</span><span class="o">.</span><span class="n">ALL</span>
+        <span class="p">)</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection_mode</span> <span class="o">==</span> <span class="n">VectorsProjectionMode</span><span class="o">.</span><span class="n">FADE</span>
+        <span class="k">if</span> <span class="n">old</span> <span class="o">!=</span> <span class="n">new</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">out_of_slice_display</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">edge_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -1453,6 +1474,8 @@ window.runMermaid = runMermaid;</script>
                 <span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">edge_color_mode</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_color</span><span class="p">()</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">!=</span> <span class="n">old_mode</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_color_mode</span><span class="p">()</span>
 
@@ -1617,13 +1640,13 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_view_alphas</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="mf">1.0</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_slice_request_internal</span><span class="p">(</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_request_internal</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">_slice_input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">_data_slice</span>
         <span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_slice_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">make_slice_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="s1">&#39;Dims&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_VectorSliceRequest</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_make_slice_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="s1">&#39;Dims&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_VectorSliceRequest</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Make a Vectors slice request based on the given dims and these data.&quot;&quot;&quot;</span>
         <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_slice_input</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
         <span class="c1"># TODO: [see Image]</span>
@@ -1634,9 +1657,9 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># things either by caching the world-to-data transform on the layer</span>
         <span class="c1"># or by lazily evaluating it in the slice task itself.</span>
         <span class="n">data_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">(</span><span class="n">slice_input</span><span class="p">,</span> <span class="n">dims</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_slice_request_internal</span><span class="p">(</span><span class="n">slice_input</span><span class="p">,</span> <span class="n">data_slice</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_request_internal</span><span class="p">(</span><span class="n">slice_input</span><span class="p">,</span> <span class="n">data_slice</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">make_slice_request_internal</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_make_slice_request_internal</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">slice_input</span><span class="p">:</span> <span class="n">_SliceInput</span><span class="p">,</span> <span class="n">data_slice</span><span class="p">:</span> <span class="n">_ThickNDSlice</span>
     <span class="p">):</span>
         <span class="k">return</span> <span class="n">_VectorSliceRequest</span><span class="p">(</span>
@@ -1644,7 +1667,6 @@ window.runMermaid = runMermaid;</script>
             <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
             <span class="n">data_slice</span><span class="o">=</span><span class="n">data_slice</span><span class="p">,</span>
             <span class="n">projection_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">projection_mode</span><span class="p">,</span>
-            <span class="n">out_of_slice_display</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">out_of_slice_display</span><span class="p">,</span>
             <span class="n">length</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
         <span class="p">)</span>
 

@@ -83,7 +83,6 @@ graph LR
 	napari._qt.layer_controls.widgets --> napari._qt.layer_controls.widgets.qt_histogram_control
 	napari._qt.layer_controls.widgets --> napari._qt.layer_controls.widgets.qt_multiscale_level_control
 	napari._qt.layer_controls.widgets --> napari._qt.layer_controls.widgets.qt_opacity_blending_controls
-	napari._qt.layer_controls.widgets --> napari._qt.layer_controls.widgets.qt_out_slice_checkbox
 	napari._qt.layer_controls.widgets --> napari._qt.layer_controls.widgets.qt_projection_mode_control
 	napari._qt.layer_controls.widgets --> napari._qt.layer_controls.widgets.qt_text_visibility
 	napari._qt.layer_controls.widgets --> napari._qt.layer_controls.widgets.qt_widget_controls_base
@@ -269,9 +268,6 @@ graph LR
 	napari._qt.layer_controls.widgets.qt_opacity_blending_controls(napari._qt.layer_controls.widgets.qt_opacity_blending_controls)
 	napari._qt.layer_controls.widgets.qt_opacity_blending_controls --> napari._qt.layer_controls.widgets.qt_widget_controls_base
 	click napari._qt.layer_controls.widgets.qt_opacity_blending_controls "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_opacity_blending_controls.py" _blank
-	napari._qt.layer_controls.widgets.qt_out_slice_checkbox(napari._qt.layer_controls.widgets.qt_out_slice_checkbox)
-	napari._qt.layer_controls.widgets.qt_out_slice_checkbox --> napari._qt.layer_controls.widgets.qt_widget_controls_base
-	click napari._qt.layer_controls.widgets.qt_out_slice_checkbox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_out_slice_checkbox.py" _blank
 	napari._qt.layer_controls.widgets.qt_projection_mode_control(napari._qt.layer_controls.widgets.qt_projection_mode_control)
 	napari._qt.layer_controls.widgets.qt_projection_mode_control --> napari._qt.layer_controls.widgets.qt_widget_controls_base
 	napari._qt.layer_controls.widgets.qt_projection_mode_control --> napari.layers
@@ -353,7 +349,6 @@ graph LR
 		 napari._qt.layer_controls.widgets.qt_histogram_control
 		 napari._qt.layer_controls.widgets.qt_multiscale_level_control
 		 napari._qt.layer_controls.widgets.qt_opacity_blending_controls
-		 napari._qt.layer_controls.widgets.qt_out_slice_checkbox
 		 napari._qt.layer_controls.widgets.qt_projection_mode_control
 		 napari._qt.layer_controls.widgets.qt_text_visibility
 		 napari._qt.layer_controls.widgets.qt_widget_controls_base
@@ -473,7 +468,6 @@ napari/
 │ │ │ │ ├─qt_interpolation_combobox.py
 │ │ │ │ ├─qt_depiction_control.py
 │ │ │ │ └─qt_render_control.py
-│ │ │ ├─qt_out_slice_checkbox.py
 │ │ │ ├─_surface/
 │ │ │ │ ├─__init__.py
 │ │ │ │ └─qt_shading_combobox.py

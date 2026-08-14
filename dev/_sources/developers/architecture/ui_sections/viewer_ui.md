@@ -121,6 +121,7 @@ graph LR
 	napari.components.dims(napari.components.dims)
 	click napari.components.dims "https://github.com/napari/napari/tree/main/napari/components/dims.py" _blank
 	napari.components.grid(napari.components.grid)
+	napari.components.grid --> napari.layers
 	click napari.components.grid "https://github.com/napari/napari/tree/main/napari/components/grid.py" _blank
 	napari.components.layerlist(napari.components.layerlist)
 	napari.components.layerlist --> napari.components.dims

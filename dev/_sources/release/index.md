@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: August 14, 2026*
+*Last updated: August 17, 2026*
 
 
 ## Recent Releases (Last 3 Months)
@@ -750,30 +750,12 @@ A note for our contributors and plugin developers: we transferred our dev-relate
 
 ````
 
-````{dropdown} napari 0.6.4 (August 2025)
-:open:
-
-### Run scripts with napari from the command line
-
-As a follow-up to the ability to drag-n-drop scripts into the napari window from 0.6.3, you can now run scripts directly from the command line using the `napari` command and the path to the script ([#8185](https://github.com/napari/napari/pull/8185) and [#8187](https://github.com/napari/napari/pull/8187)).
-To open a local napari and run a local script, enter: `napari examples/magic_immage_arithmetic.py`.
-You can also run scripts from a remote location ([#8208](https://github.com/napari/napari/pull/8208)), including Github, Gist, Gitlab, and the napari gallery.
-To run a remote script, for example, enter: `napari https://github.com/napari/napari/blob/main/examples/grid_mode.py`.
-If you have `uv` you can even run a script without installing napari by using `uvx --with "napari[gallery,all]" napari https://napari.org/stable/_downloads/55f878f7d41dc4c7c2e28483653273cb/affine_coffee_cup.py`, serving as a clever way to trial napari or share your script. As always with remote connections, only use this feature with scripts you trust.
-
-### Toggling the napari console now places focus on the console
-
-Toggling the napari console (with the keyboard (`Cmd/Ctrl+Shift+C`), GUI, or command palette) will now transfer focus on the console, allowing you to immediately start typing commands without needing to click into the console first ([#8182](https://github.com/napari/napari/pull/8182)). We have found this to be a very useful feature for a keyboard-centric workflow combining the power of the command palette and console together.
-
-[View full release notes →](release_0_6_4)
-
-````
-
 
 
 
 ## Older Releases
 
+- **[napari 0.6.4](release_0_6_4)** (August 2025) - ### Run scripts with napari from the command line
 - **[napari 0.6.3](release_0_6_3)** (July 2025) - ### A Zoom with a View 🔍
 - **[napari 0.6.2](release_0_6_2)** (July 2025) - ### The amazing new Grid mode! 🗺️
 - **[napari 0.6.1](release_0_6_1)** (May 2025) - ### The HiLo👋 Colormap!

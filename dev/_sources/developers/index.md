@@ -23,6 +23,7 @@ Resources for contributors
     - [Profiling](napari-profiling)
     - [Benchmarks](napari-benchmarks)
   - [Contributing documentation](contributing-docs)
+- [Repository map](napari-repositories)
 - [](architecture-index)
 ```
 

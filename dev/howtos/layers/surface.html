@@ -847,11 +847,10 @@ layer first, then explore the GUI controls.</p>
 </div>
 <section id="when-to-use-the-surface-layer">
 <h2>When to use the <code class="docutils literal notranslate"><span class="pre">surface</span></code> layer<a class="headerlink" href="#when-to-use-the-surface-layer" title="Link to this heading">#</a></h2>
-<p>The surface layer allows you to display a precomputed surface mesh that is
-defined by an <code class="docutils literal notranslate"><span class="pre">NxD</span></code> array of <code class="docutils literal notranslate"><span class="pre">N</span></code> vertices in <code class="docutils literal notranslate"><span class="pre">D</span></code> coordinates, an <code class="docutils literal notranslate"><span class="pre">Mx3</span></code> integer
-array of the indices of the triangles making up the faces of the surface, and a
-length <code class="docutils literal notranslate"><span class="pre">N</span></code> list of values to associate with each vertex to use alongside a
-colormap.</p>
+<p>The surface layer allows you to display a precomputed surface mesh: a set of
+vertices connected into triangular faces. Each vertex can optionally carry a
+value that is mapped through a colormap to color the surface. The exact data
+format is described in the <a class="reference internal" href="#surface-data">Surface data</a> section.</p>
 </section>
 <section id="a-simple-example">
 <h2>A simple example<a class="headerlink" href="#a-simple-example" title="Link to this heading">#</a></h2>
@@ -875,7 +874,7 @@ statements into the napari console to see how they work:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Surface layer &#39;surface&#39; at 0x7f222c92a540&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Surface layer &#39;surface&#39; at 0x7f8fcc341070&gt;
 </pre></div>
 </div>
 </div>
@@ -902,6 +901,12 @@ statements into the napari console to see how they work:</p>
 <h2>GUI controls for the <code class="docutils literal notranslate"><span class="pre">surface</span></code> layer<a class="headerlink" href="#gui-controls-for-the-surface-layer" title="Link to this heading">#</a></h2>
 <p>Once you have created a <code class="docutils literal notranslate"><span class="pre">surface</span></code> layer programmatically, the following GUI
 controls are available in the viewer:</p>
+<p>Controls related to <code class="docutils literal notranslate"><span class="pre">contrast</span> <span class="pre">limits</span></code>, <code class="docutils literal notranslate"><span class="pre">auto-contrast</span></code>, <code class="docutils literal notranslate"><span class="pre">gamma</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">colormap</span></code> are only available when the surface color is computed from
+<code class="docutils literal notranslate"><span class="pre">vertex_values</span></code>. If you provide <code class="docutils literal notranslate"><span class="pre">vertex_colors</span></code>, napari uses those colors
+directly and disables those controls because they no longer affect rendering.
+When a texture is present, napari multiplies the texture color by the
+underlying surface color.</p>
 <ul class="simple">
 <li><p><strong>Buttons</strong></p>
 <ul>
@@ -1077,12 +1082,34 @@ add_surface(self, data, *, affine=None, auto_contrast=False, axis_labels=None, b
 </section>
 <section id="surface-data">
 <h2>Surface data<a class="headerlink" href="#surface-data" title="Link to this heading">#</a></h2>
-<p>The data for a <code class="docutils literal notranslate"><span class="pre">surface</span></code> layer is defined by a 3-tuple of its vertices, faces,
-and vertex values. The vertices are an <code class="docutils literal notranslate"><span class="pre">NxD</span></code> array of <code class="docutils literal notranslate"><span class="pre">N</span></code> vertices in <code class="docutils literal notranslate"><span class="pre">D</span></code>
-coordinates. The faces are an <code class="docutils literal notranslate"><span class="pre">Mx3</span></code> integer array of the indices of the
-triangles making up the faces of the surface. The vertex values are a length <code class="docutils literal notranslate"><span class="pre">N</span></code>
-list of values to associate with each vertex to use alongside a colormap. This
-3-tuple is accessible through the <code class="docutils literal notranslate"><span class="pre">layer.data</span></code> property.</p>
+<p>The data for a <code class="docutils literal notranslate"><span class="pre">surface</span></code> layer can be given as either a 2-tuple
+<code class="docutils literal notranslate"><span class="pre">(vertices,</span> <span class="pre">faces)</span></code> or a 3-tuple <code class="docutils literal notranslate"><span class="pre">(vertices,</span> <span class="pre">faces,</span> <span class="pre">vertex_values)</span></code>.</p>
+<ul class="simple">
+<li><p>The vertices are an <code class="docutils literal notranslate"><span class="pre">NxD</span></code> array of <code class="docutils literal notranslate"><span class="pre">N</span></code> vertices in <code class="docutils literal notranslate"><span class="pre">D</span></code> coordinates.</p></li>
+<li><p>The faces are an <code class="docutils literal notranslate"><span class="pre">Mx3</span></code> integer array of the indices of the triangles
+making up the faces of the surface.</p></li>
+<li><p>The optional vertex values are a length <code class="docutils literal notranslate"><span class="pre">N</span></code> array of scalar values to
+associate with each vertex for colormap-based rendering. They can also have
+additional leading dimensions (for example, a time series), in the form
+<code class="docutils literal notranslate"><span class="pre">(D1,</span> <span class="pre">D2,</span> <span class="pre">...,</span> <span class="pre">N)</span></code>, which napari treats as extra dimensions of the layer.
+If you omit <code class="docutils literal notranslate"><span class="pre">vertex_values</span></code>, napari fills them with ones, so the default
+underlying surface color is white.</p></li>
+</ul>
+</section>
+<section id="how-surface-colors-are-computed">
+<h2>How surface colors are computed<a class="headerlink" href="#how-surface-colors-are-computed" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vertex_values</span></code> are mapped through the selected <code class="docutils literal notranslate"><span class="pre">colormap</span></code>. <code class="docutils literal notranslate"><span class="pre">contrast</span> <span class="pre">limits</span></code>,
+<code class="docutils literal notranslate"><span class="pre">auto-contrast</span></code>, and <code class="docutils literal notranslate"><span class="pre">gamma</span></code> all operate on this scalar-coloring path.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vertex_colors</span></code> provide direct per-vertex colors and override any color that
+would otherwise come from <code class="docutils literal notranslate"><span class="pre">vertex_values</span></code>. When <code class="docutils literal notranslate"><span class="pre">vertex_colors</span></code> are present,
+the GUI disables the scalar-coloring controls because they do not affect the
+rendered surface.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">texture</span></code> plus <code class="docutils literal notranslate"><span class="pre">texcoords</span></code> multiplies the texture color by the underlying
+surface color. If that underlying color comes from <code class="docutils literal notranslate"><span class="pre">vertex_values</span></code>, the
+scalar-coloring controls still affect the result. If it comes from
+<code class="docutils literal notranslate"><span class="pre">vertex_colors</span></code>, they do not.</p></li>
+</ul>
 </section>
 <section id="d-rendering">
 <h2>3D rendering<a class="headerlink" href="#d-rendering" title="Link to this heading">#</a></h2>
@@ -1167,6 +1194,10 @@ what values get applied the minimum and maximum of the colormap and follow the
 same principles as the <code class="docutils literal notranslate"><span class="pre">contrast_limits</span></code> described in the
 <a class="reference internal" href="image.html#layers-image"><span class="std std-ref">image layer guide</span></a>. They are also accessible through the same keyword
 arguments, properties, and GUI layer controls as in the image layer.</p>
+<p>These controls only apply when the surface is colored from <code class="docutils literal notranslate"><span class="pre">vertex_values</span></code>.
+That includes textured surfaces whose texture is multiplied by a color derived
+from <code class="docutils literal notranslate"><span class="pre">vertex_values</span></code>. They do not apply when the surface is colored directly by
+<code class="docutils literal notranslate"><span class="pre">vertex_colors</span></code>.</p>
 </section>
 </section>
 
@@ -1222,6 +1253,7 @@ arguments, properties, and GUI layer controls as in the image layer.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gui-controls-for-the-surface-layer">GUI controls for the <code class="docutils literal notranslate"><span class="pre">surface</span></code> layer</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arguments-of-add-surface">Arguments of <code class="docutils literal notranslate"><span class="pre">add_surface</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#surface-data">Surface data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-surface-colors-are-computed">How surface colors are computed</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-rendering">3D rendering</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-colormaps">Working with colormaps</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adjusting-contrast-limits">Adjusting contrast limits</a></li>

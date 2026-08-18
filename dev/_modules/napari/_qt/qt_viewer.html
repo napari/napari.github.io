@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -904,30 +904,30 @@ window.runMermaid = runMermaid;</script>
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
 
 <span class="n">_LayerTypeName</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span>
-    <span class="s1">&#39;graph&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;image&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;labels&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;points&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;shapes&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;surface&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;tracks&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;vectors&#39;</span><span class="p">,</span>
+    <span class="s1">'graph'</span><span class="p">,</span>
+    <span class="s1">'image'</span><span class="p">,</span>
+    <span class="s1">'labels'</span><span class="p">,</span>
+    <span class="s1">'points'</span><span class="p">,</span>
+    <span class="s1">'shapes'</span><span class="p">,</span>
+    <span class="s1">'surface'</span><span class="p">,</span>
+    <span class="s1">'tracks'</span><span class="p">,</span>
+    <span class="s1">'vectors'</span><span class="p">,</span>
 <span class="p">]</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_npe2_decode_selected_filter</span><span class="p">(</span>
     <span class="n">ext_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">selected_filter</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">writers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">WriterContribution</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">WriterContribution</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Determine the writer that should be invoked to save data.</span>
+<span class="w">    </span><span class="sd">"""Determine the writer that should be invoked to save data.</span>
 
 <span class="sd">    When npe2 can be imported, resolves a selected file extension</span>
 <span class="sd">    string into a specific writer. Otherwise, returns None.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># When npe2 is not present, `writers` is expected to be an empty list,</span>
     <span class="c1"># `[]`. This function will return None.</span>
 
     <span class="k">for</span> <span class="n">entry</span><span class="p">,</span> <span class="n">writer</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
-        <span class="n">ext_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;;&#39;</span><span class="p">),</span>
+        <span class="n">ext_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">';;'</span><span class="p">),</span>
         <span class="n">writers</span><span class="p">,</span>
         <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
@@ -939,7 +939,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="QtViewer">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">QtViewer</span><span class="p">(</span><span class="n">QSplitter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Qt view for the napari Viewer model.</span>
+<span class="w">    </span><span class="sd">"""Qt view for the napari Viewer model.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -972,7 +972,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        A QtPoll object required for the monitor.</span>
 <span class="sd">    _remote_manager : napari.components.experimental.remote.RemoteManager</span>
 <span class="sd">        A remote manager processing commands from remote clients and sending out messages when polled.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">_instances</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">WeakSet</span><span class="p">[</span><span class="n">QtViewer</span><span class="p">]]</span> <span class="o">=</span> <span class="n">WeakSet</span><span class="p">()</span>
 
@@ -1065,7 +1065,7 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
         <span class="c1"># bind shortcuts stored in settings last.</span>
-        <span class="k">with</span> <span class="n">get_app_model</span><span class="p">()</span><span class="o">.</span><span class="n">register_with_namespace</span><span class="p">(</span><span class="s1">&#39;QtViewer&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">get_app_model</span><span class="p">()</span><span class="o">.</span><span class="n">register_with_namespace</span><span class="p">(</span><span class="s1">'QtViewer'</span><span class="p">,</span> <span class="bp">self</span><span class="p">):</span>
             <span class="c1"># we overwrite global injection namespace to ensure that correct QtViewer will be provided.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_bind_shortcuts</span><span class="p">()</span>
 
@@ -1097,7 +1097,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">show_welcome_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: Whether to show the welcome screen when there are no layers.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""bool: Whether to show the welcome screen when there are no layers."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_welcome_screen</span>
 
     <span class="nd">@show_welcome_screen</span><span class="o">.</span><span class="n">setter</span>
@@ -1109,7 +1109,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_dask_cache_settings</span><span class="p">(</span>
         <span class="n">dask_setting</span><span class="p">:</span> <span class="n">DaskSettings</span> <span class="o">|</span> <span class="n">Event</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update dask cache to match settings.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update dask cache to match settings."""</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">dask_setting</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dask_setting</span><span class="p">,</span> <span class="n">DaskSettings</span><span class="p">):</span>
@@ -1121,7 +1121,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">controls</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtLayerControlsContainer</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Qt view for GUI controls.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Qt view for GUI controls."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controls</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># Avoid circular import.</span>
             <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.layer_controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtLayerControlsContainer</span>
@@ -1131,31 +1131,31 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">layers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtLayerList</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Qt view for LayerList controls.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Qt view for LayerList controls."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_layers</span> <span class="o">=</span> <span class="n">QtLayerList</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layers</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">layerButtons</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtLayerButtons</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Button controls for napari layers.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Button controls for napari layers."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layersButtons</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_layersButtons</span> <span class="o">=</span> <span class="n">QtLayerButtons</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layersButtons</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">viewerButtons</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtViewerButtons</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Button controls for the napari viewer.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Button controls for the napari viewer."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewerButtons</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_viewerButtons</span> <span class="o">=</span> <span class="n">QtViewerButtons</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewerButtons</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">dockLayerList</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtViewerDockWidget</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;QWidget wrapped in a QDockWidget with forwarded viewer events.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""QWidget wrapped in a QDockWidget with forwarded viewer events."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dockLayerList</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">layerList</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
-            <span class="n">layerList</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">&#39;layerList&#39;</span><span class="p">)</span>
+            <span class="n">layerList</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">'layerList'</span><span class="p">)</span>
             <span class="n">layerListLayout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
             <span class="n">layerListLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layerButtons</span><span class="p">)</span>
             <span class="n">layerListLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
@@ -1165,40 +1165,40 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dockLayerList</span> <span class="o">=</span> <span class="n">QtViewerDockWidget</span><span class="p">(</span>
                 <span class="bp">self</span><span class="p">,</span>
                 <span class="n">layerList</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s1">&#39;layer list&#39;</span><span class="p">,</span>
-                <span class="n">area</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
-                <span class="n">allowed_areas</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">],</span>
-                <span class="n">object_name</span><span class="o">=</span><span class="s1">&#39;layer list&#39;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s1">'layer list'</span><span class="p">,</span>
+                <span class="n">area</span><span class="o">=</span><span class="s1">'left'</span><span class="p">,</span>
+                <span class="n">allowed_areas</span><span class="o">=</span><span class="p">[</span><span class="s1">'left'</span><span class="p">,</span> <span class="s1">'right'</span><span class="p">],</span>
+                <span class="n">object_name</span><span class="o">=</span><span class="s1">'layer list'</span><span class="p">,</span>
                 <span class="n">close_btn</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dockLayerList</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">dockLayerControls</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtViewerDockWidget</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;QWidget wrapped in a QDockWidget with forwarded viewer events.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""QWidget wrapped in a QDockWidget with forwarded viewer events."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dockLayerControls</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dockLayerControls</span> <span class="o">=</span> <span class="n">QtViewerDockWidget</span><span class="p">(</span>
                 <span class="bp">self</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s1">&#39;layer controls&#39;</span><span class="p">,</span>
-                <span class="n">area</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
-                <span class="n">allowed_areas</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">],</span>
-                <span class="n">object_name</span><span class="o">=</span><span class="s1">&#39;layer controls&#39;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s1">'layer controls'</span><span class="p">,</span>
+                <span class="n">area</span><span class="o">=</span><span class="s1">'left'</span><span class="p">,</span>
+                <span class="n">allowed_areas</span><span class="o">=</span><span class="p">[</span><span class="s1">'left'</span><span class="p">,</span> <span class="s1">'right'</span><span class="p">],</span>
+                <span class="n">object_name</span><span class="o">=</span><span class="s1">'layer controls'</span><span class="p">,</span>
                 <span class="n">close_btn</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dockLayerControls</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">dockConsole</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtViewerDockWidget</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;QWidget wrapped in a QDockWidget with forwarded viewer events.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""QWidget wrapped in a QDockWidget with forwarded viewer events."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dockConsole</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dockConsole</span> <span class="o">=</span> <span class="n">QtViewerDockWidget</span><span class="p">(</span>
                 <span class="bp">self</span><span class="p">,</span>
                 <span class="n">QWidget</span><span class="p">(),</span>
-                <span class="n">name</span><span class="o">=</span><span class="s1">&#39;console&#39;</span><span class="p">,</span>
-                <span class="n">area</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
-                <span class="n">allowed_areas</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">],</span>
-                <span class="n">object_name</span><span class="o">=</span><span class="s1">&#39;console&#39;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s1">'console'</span><span class="p">,</span>
+                <span class="n">area</span><span class="o">=</span><span class="s1">'bottom'</span><span class="p">,</span>
+                <span class="n">allowed_areas</span><span class="o">=</span><span class="p">[</span><span class="s1">'top'</span><span class="p">,</span> <span class="s1">'bottom'</span><span class="p">],</span>
+                <span class="n">object_name</span><span class="o">=</span><span class="s1">'console'</span><span class="p">,</span>
                 <span class="n">close_btn</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dockConsole</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
@@ -1213,21 +1213,21 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">layer_to_visual</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Layer</span><span class="p">,</span> <span class="n">VispyBaseLayer</span><span class="p">[</span><span class="n">Layer</span><span class="p">]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Mapping of Napari layer to Vispy layer. Added for backward compatibility&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Mapping of Napari layer to Vispy layer. Added for backward compatibility"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">layer_to_visual</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_leave_canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;disable status on canvas leave&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="w">        </span><span class="sd">"""disable status on canvas leave"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">''</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">mouse_over_canvas</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_enter_canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;enable status on canvas enter&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Ready&#39;</span>
+<span class="w">        </span><span class="sd">"""enable status on canvas enter"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">'Ready'</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">mouse_over_canvas</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_welcome_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update welcome screen display based on layer count.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update welcome screen display based on layer count."""</span>
         <span class="n">show_welcome</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_show_welcome_screen</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">isVisible</span><span class="p">()</span>
@@ -1240,25 +1240,25 @@ window.runMermaid = runMermaid;</script>
         <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_bind_shortcuts</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Bind shortcuts stored in SETTINGS to actions.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Bind shortcuts stored in SETTINGS to actions."""</span>
         <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">shortcuts</span> <span class="ow">in</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">shortcuts</span><span class="o">.</span><span class="n">shortcuts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">action_manager</span><span class="o">.</span><span class="n">unbind_shortcut</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">shortcut</span> <span class="ow">in</span> <span class="n">shortcuts</span><span class="p">:</span>
                 <span class="n">action_manager</span><span class="o">.</span><span class="n">bind_shortcut</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">shortcut</span><span class="p">))</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_create_performance_dock_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtViewerDockWidget</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the dock widget that shows performance metrics.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Create the dock widget that shows performance metrics."""</span>
         <span class="k">if</span> <span class="n">perf</span><span class="o">.</span><span class="n">perf_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">QtViewerDockWidget</span><span class="p">(</span>
                 <span class="bp">self</span><span class="p">,</span>
                 <span class="n">QtPerformance</span><span class="p">(),</span>
-                <span class="n">name</span><span class="o">=</span><span class="s1">&#39;performance&#39;</span><span class="p">,</span>
-                <span class="n">area</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s1">'performance'</span><span class="p">,</span>
+                <span class="n">area</span><span class="o">=</span><span class="s1">'bottom'</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_weakref_if_possible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ref</span> <span class="o">|</span> <span class="nb">object</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a weakref to obj.</span>
+<span class="w">        </span><span class="sd">"""Create a weakref to obj.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1266,17 +1266,17 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Cannot create weakrefs to many Python built-in datatypes such as</span>
 <span class="sd">            list, dict, str.</span>
 
-<span class="sd">            From https://docs.python.org/3/library/weakref.html: &quot;Objects which</span>
+<span class="sd">            From https://docs.python.org/3/library/weakref.html: "Objects which</span>
 <span class="sd">            support weak references include class instances, functions written</span>
 <span class="sd">            in Python (but not in C), instance methods, sets, frozensets, some</span>
 <span class="sd">            file objects, generators, type objects, sockets, arrays, deques,</span>
-<span class="sd">            regular expression pattern objects, and code objects.&quot;</span>
+<span class="sd">            regular expression pattern objects, and code objects."</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        weakref or object</span>
 <span class="sd">            Returns a weakref if possible.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">newref</span><span class="p">:</span> <span class="n">ref</span> <span class="o">|</span> <span class="nb">object</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">newref</span> <span class="o">=</span> <span class="n">ref</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
@@ -1285,7 +1285,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">newref</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_unwrap_if_weakref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">ref</span> <span class="o">|</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return value or if that is weakref the object referenced by value.</span>
+<span class="w">        </span><span class="sd">"""Return value or if that is weakref the object referenced by value.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1296,7 +1296,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        unwrapped: object or None</span>
 <span class="sd">            Returns referenced object, or None if weakref is dead.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">unwrapped</span> <span class="o">=</span> <span class="n">value</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span> <span class="k">else</span> <span class="n">value</span>
         <span class="k">return</span> <span class="n">unwrapped</span>
 
@@ -1305,7 +1305,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_to_console_backlog</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span> <span class="o">|</span> <span class="nb">tuple</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save variables for pushing to console when it is instantiated.</span>
+<span class="w">        </span><span class="sd">"""Save variables for pushing to console when it is instantiated.</span>
 
 <span class="sd">        This function will create weakrefs when possible to avoid holding on to</span>
 <span class="sd">        too much memory unnecessarily.</span>
@@ -1313,13 +1313,13 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        variables : dict, str or list/tuple of str</span>
-<span class="sd">            The variables to inject into the console&#39;s namespace. If a dict, a</span>
+<span class="sd">            The variables to inject into the console's namespace. If a dict, a</span>
 <span class="sd">            simple update is done. If a str, the string is assumed to have</span>
 <span class="sd">            variable names separated by spaces. A list/tuple of str can also</span>
 <span class="sd">            be used to give the variable names. If just the variable names are</span>
 <span class="sd">            give (list/tuple/str) then the variable values looked up in the</span>
 <span class="sd">            callers frame.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">):</span>
             <span class="n">vlist</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
@@ -1332,15 +1332,15 @@ window.runMermaid = runMermaid;</script>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">vdict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">cf</span><span class="o">.</span><span class="n">f_globals</span><span class="p">,</span> <span class="n">cf</span><span class="o">.</span><span class="n">f_locals</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
-                    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;napari&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                        <span class="s1">&#39;Could not get variable </span><span class="si">%s</span><span class="s1"> from </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'napari'</span><span class="p">)</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="s1">'Could not get variable </span><span class="si">%s</span><span class="s1"> from </span><span class="si">%s</span><span class="s1">'</span><span class="p">,</span>
                         <span class="n">name</span><span class="p">,</span>
                         <span class="n">cf</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="p">,</span>
                     <span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">vdict</span> <span class="o">=</span> <span class="n">variables</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;variables must be a dict/str/list/tuple&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'variables must be a dict/str/list/tuple'</span><span class="p">)</span>
         <span class="c1"># weakly reference values if possible</span>
         <span class="n">new_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weakref_if_possible</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vdict</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">console_backlog</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_dict</span><span class="p">)</span></div>
@@ -1348,11 +1348,11 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">console_backlog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;List: items to push to console when instantiated.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""List: items to push to console when instantiated."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_console_backlog</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_console</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtConsole</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Function to setup console.</span>
+<span class="w">        </span><span class="sd">"""Function to setup console.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1363,7 +1363,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        _____</span>
 <span class="sd">        _get_console extracted to separate function to simplify testing.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -1378,20 +1378,20 @@ window.runMermaid = runMermaid;</script>
             <span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 
             <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
                 <span class="n">console</span> <span class="o">=</span> <span class="n">QtConsole</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span> <span class="n">style_sheet</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">styleSheet</span><span class="p">())</span>
                 <span class="c1"># Override actions shortcuts that collide with default napari shortcuts</span>
                 <span class="c1"># See napari/napari#8183</span>
-                <span class="n">console</span><span class="o">.</span><span class="n">print_action</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">console</span><span class="o">.</span><span class="n">print_action</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span>
                 <span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
-                    <span class="p">{</span><span class="s1">&#39;napari&#39;</span><span class="p">:</span> <span class="n">napari</span><span class="p">,</span> <span class="s1">&#39;action_manager&#39;</span><span class="p">:</span> <span class="n">action_manager</span><span class="p">}</span>
+                    <span class="p">{</span><span class="s1">'napari'</span><span class="p">:</span> <span class="n">napari</span><span class="p">,</span> <span class="s1">'action_manager'</span><span class="p">:</span> <span class="n">action_manager</span><span class="p">}</span>
                 <span class="p">)</span>
                 <span class="k">with</span> <span class="n">CallerFrame</span><span class="p">(</span><span class="n">_in_napari</span><span class="p">)</span> <span class="k">as</span> <span class="n">c</span><span class="p">:</span>
                     <span class="k">if</span> <span class="p">(</span>
                         <span class="n">c</span><span class="o">.</span><span class="n">frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-                        <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span>
+                        <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'__name__'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span> <span class="o">==</span> <span class="s1">'__main__'</span>
                     <span class="p">):</span>
-                        <span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">({</span><span class="s1">&#39;np&#39;</span><span class="p">:</span> <span class="n">np</span><span class="p">})</span>
+                        <span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">({</span><span class="s1">'np'</span><span class="p">:</span> <span class="n">np</span><span class="p">})</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">console_backlog</span><span class="p">:</span>
                     <span class="c1"># recover weak refs</span>
                     <span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
@@ -1404,22 +1404,22 @@ window.runMermaid = runMermaid;</script>
                 <span class="k">return</span> <span class="n">console</span>
         <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s1">&#39;napari-console not found. It can be installed with&#39;</span>
-                <span class="s1">&#39; &quot;pip install napari_console&quot;&#39;</span><span class="p">,</span>
+                <span class="s1">'napari-console not found. It can be installed with'</span>
+                <span class="s1">' "pip install napari_console"'</span><span class="p">,</span>
                 <span class="n">stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
             <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s1">&#39;error importing napari-console. See console for full error.&#39;</span><span class="p">,</span>
+                <span class="s1">'error importing napari-console. See console for full error.'</span><span class="p">,</span>
                 <span class="n">stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">console</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtConsole</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;QtConsole: iPython console terminal integrated into the napari GUI.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""QtConsole: iPython console terminal integrated into the napari GUI."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_console</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">console</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_console</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_console_backlog</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1434,21 +1434,21 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@ensure_main_thread</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_slice_ready</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Callback connected to `viewer._layer_slicer.events.ready`.</span>
+<span class="w">        </span><span class="sd">"""Callback connected to `viewer._layer_slicer.events.ready`.</span>
 
 <span class="sd">        Provides updates after slicing using the slice response data.</span>
 <span class="sd">        This only gets triggered on the async slicing path.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">responses</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">weakref</span><span class="o">.</span><span class="n">ReferenceType</span><span class="p">[</span><span class="n">Layer</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;napari&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s1">&#39;QtViewer._on_slice_ready: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">responses</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'napari'</span><span class="p">)</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s1">'QtViewer._on_slice_ready: </span><span class="si">%s</span><span class="s1">'</span><span class="p">,</span> <span class="n">responses</span>
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">weak_layer</span><span class="p">,</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">layer</span> <span class="o">:=</span> <span class="n">weak_layer</span><span class="p">():</span>
                 <span class="c1"># Update the layer slice state to temporarily support behavior</span>
                 <span class="c1"># that depends on it.</span>
                 <span class="n">layer</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_update_slice_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
-                <span class="c1"># Update the layer&#39;s loaded state before everything else,</span>
+                <span class="c1"># Update the layer's loaded state before everything else,</span>
                 <span class="c1"># because they may rely on its updated value.</span>
                 <span class="n">layer</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_update_loaded_slice_id</span><span class="p">(</span>
                     <span class="n">response</span><span class="o">.</span><span class="n">request_id</span>
@@ -1465,7 +1465,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_active_change</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;When active layer changes change keymap handler.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""When active layer changes change keymap handler."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_key_map_handler</span><span class="o">.</span><span class="n">keymap_providers</span> <span class="o">=</span> <span class="p">(</span>
             <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">]</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span> <span class="ow">is</span> <span class="kc">None</span>
@@ -1473,18 +1473,18 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_add_layer_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;When a layer is added, set its parent and order.</span>
+<span class="w">        </span><span class="sd">"""When a layer is added, set its parent and order.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        event : napari.utils.event.Event</span>
 <span class="sd">            The napari event that triggered this method.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_camera_depth</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;When the layer extents change, update the camera depth.</span>
+<span class="w">        </span><span class="sd">"""When the layer extents change, update the camera depth.</span>
 
 <span class="sd">        The camera depth is the difference between the near clipping plane</span>
 <span class="sd">        and the far clipping plane in a scene. If they are set too high</span>
@@ -1493,9 +1493,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        seeming to pop to the front.</span>
 
 <span class="sd">        See: https://github.com/napari/napari/issues/2138</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="c1"># don&#39;t bother updating 3D camera if we&#39;re not using it</span>
+            <span class="c1"># don't bother updating 3D camera if we're not using it</span>
             <span class="k">return</span>
         <span class="c1"># otherwise, set depth to diameter of displayed dimensions</span>
         <span class="n">extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span>
@@ -1529,13 +1529,13 @@ window.runMermaid = runMermaid;</script>
             <span class="n">camera</span><span class="o">.</span><span class="n">_3D_camera</span><span class="o">.</span><span class="n">depth_value</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">128</span> <span class="o">*</span> <span class="n">diameter</span><span class="p">,</span> <span class="n">max_depth</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_add_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;When a layer is added, set its parent and order.</span>
+<span class="w">        </span><span class="sd">"""When a layer is added, set its parent and order.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        layer : napari.layers.Layer</span>
 <span class="sd">            Layer to be added.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">vispy_layer</span> <span class="o">=</span> <span class="n">create_vispy_layer</span><span class="p">(</span>
             <span class="n">layer</span><span class="p">,</span> <span class="n">font_info</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">font_info</span><span class="p">()</span>
         <span class="p">)</span>
@@ -1555,7 +1555,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">add_layer_visual_mapping</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">vispy_layer</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_remove_invalid_chars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selected_layer_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes invalid characters from selected layer name to suggest a filename.</span>
+<span class="w">        </span><span class="sd">"""Removes invalid characters from selected layer name to suggest a filename.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1566,42 +1566,42 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        suggested_name : str</span>
 <span class="sd">            Suggested name from input selected layer name, without invalid characters.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">unprintable_ascii_chars</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x01</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x02</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x03</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x04</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x05</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x06</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x07</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x08</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x0e</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x0f</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x10</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x11</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x12</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x13</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x14</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x15</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x16</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x17</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x18</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x19</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x1a</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x1c</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x1d</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x1e</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x1f</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;</span><span class="se">\x7f</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x00</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x01</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x02</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x03</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x04</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x05</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x06</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x07</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x08</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x0e</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x0f</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x10</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x11</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x12</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x13</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x14</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x15</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x16</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x17</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x18</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x19</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x1a</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x1b</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x1c</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x1d</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x1e</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x1f</span><span class="s1">'</span><span class="p">,</span>
+            <span class="s1">'</span><span class="se">\x7f</span><span class="s1">'</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">invalid_characters</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unprintable_ascii_chars</span><span class="p">)</span>
-            <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
-            <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span>  <span class="c1"># invalid Windows filename character</span>
-            <span class="o">+</span> <span class="s1">&#39;:*?&quot;&lt;&gt;|</span><span class="se">\t\n\r\x0b\x0c</span><span class="s1">&#39;</span>  <span class="c1"># invalid Windows path characters</span>
+            <span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unprintable_ascii_chars</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s1">'/'</span>
+            <span class="o">+</span> <span class="s1">'</span><span class="se">\\</span><span class="s1">'</span>  <span class="c1"># invalid Windows filename character</span>
+            <span class="o">+</span> <span class="s1">':*?"&lt;&gt;|</span><span class="se">\t\n\r\x0b\x0c</span><span class="s1">'</span>  <span class="c1"># invalid Windows path characters</span>
         <span class="p">)</span>
         <span class="n">translation_table</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">ord</span><span class="p">,</span> <span class="n">invalid_characters</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
         <span class="c1"># Remove invalid characters</span>
@@ -1609,24 +1609,24 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">suggested_name</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_save_layers_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selected</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save layers (all or selected) to disk, using ``LayerList.save()``.</span>
+<span class="w">        </span><span class="sd">"""Save layers (all or selected) to disk, using ``LayerList.save()``.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        selected : bool</span>
 <span class="sd">            If True, only layers that are selected in the viewer will be saved.</span>
 <span class="sd">            By default, all layers are saved.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="sd">        """</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">''</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">):</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;There are no layers in the viewer to save&#39;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">'There are no layers in the viewer to save'</span>
         <span class="k">elif</span> <span class="n">selected</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="p">):</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="s1">&#39;Please select one or more layers to save,&#39;</span>
-                <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">or use &quot;Save all layers...&quot;&#39;</span>
+                <span class="s1">'Please select one or more layers to save,'</span>
+                <span class="s1">'</span><span class="se">\n</span><span class="s1">or use "Save all layers..."'</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">msg</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s1">&#39;Nothing to save&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s1">'Nothing to save'</span><span class="p">)</span>
 
         <span class="c1"># prepare list of extensions for drop down menu.</span>
         <span class="n">ext_str</span><span class="p">,</span> <span class="n">writers</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">file_extensions_string_for_layers</span><span class="p">(</span>
@@ -1635,12 +1635,12 @@ window.runMermaid = runMermaid;</script>
             <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span>
         <span class="p">)</span>
 
-        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;selected&#39;</span> <span class="k">if</span> <span class="n">selected</span> <span class="k">else</span> <span class="s1">&#39;all&#39;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">'selected'</span> <span class="k">if</span> <span class="n">selected</span> <span class="k">else</span> <span class="s1">'all'</span>
         <span class="n">dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">()</span>
         <span class="n">hist</span> <span class="o">=</span> <span class="n">get_save_history</span><span class="p">()</span>
         <span class="n">dlg</span><span class="o">.</span><span class="n">setHistory</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
-        <span class="c1"># get the layer&#39;s name to use for a default name if only one layer is selected</span>
-        <span class="n">selected_layer_name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="c1"># get the layer's name to use for a default name if only one layer is selected</span>
+        <span class="n">selected_layer_name</span> <span class="o">=</span> <span class="s1">''</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">selected_layer_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">name</span>
             <span class="n">selected_layer_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remove_invalid_chars</span><span class="p">(</span>
@@ -1648,7 +1648,7 @@ window.runMermaid = runMermaid;</script>
             <span class="p">)</span>
         <span class="n">filename</span><span class="p">,</span> <span class="n">selected_filter</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>  <span class="c1"># parent</span>
-            <span class="sa">f</span><span class="s1">&#39;Save </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s1"> layers&#39;</span><span class="p">,</span>  <span class="c1"># caption</span>
+            <span class="sa">f</span><span class="s1">'Save </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s1"> layers'</span><span class="p">,</span>  <span class="c1"># caption</span>
             <span class="c1"># home dir by default if selected all, home dir and file name if only 1 layer</span>
             <span class="nb">str</span><span class="p">(</span>
                 <span class="n">Path</span><span class="p">(</span><span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">selected_layer_name</span>
@@ -1660,8 +1660,8 @@ window.runMermaid = runMermaid;</script>
                 <span class="k">else</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="p">),</span>
         <span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;napari&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s1">&#39;QFileDialog - filename: </span><span class="si">%s</span><span class="s1"> selected_filter: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'napari'</span><span class="p">)</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s1">'QFileDialog - filename: </span><span class="si">%s</span><span class="s1"> selected_filter: </span><span class="si">%s</span><span class="s1">'</span><span class="p">,</span>
             <span class="n">filename</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">selected_filter</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
         <span class="p">)</span>
@@ -1676,8 +1676,8 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">saved</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
                     <span class="n">filename</span><span class="p">,</span> <span class="n">selected</span><span class="o">=</span><span class="n">selected</span><span class="p">,</span> <span class="n">_writer</span><span class="o">=</span><span class="n">writer</span>
                 <span class="p">)</span>
-                <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;napari&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Saved </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">saved</span><span class="p">)</span>
-                <span class="n">error_messages</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'napari'</span><span class="p">)</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">'Saved </span><span class="si">%s</span><span class="s1">'</span><span class="p">,</span> <span class="n">saved</span><span class="p">)</span>
+                <span class="n">error_messages</span> <span class="o">=</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                     <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="ne">Warning</span><span class="p">)</span>
                     <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
@@ -1686,7 +1686,7 @@ window.runMermaid = runMermaid;</script>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">saved</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s1">&#39;File </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1"> save failed.</span><span class="se">\n</span><span class="si">{</span><span class="n">error_messages</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="sa">f</span><span class="s1">'File </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1"> save failed.</span><span class="se">\n</span><span class="si">{</span><span class="n">error_messages</span><span class="si">}</span><span class="s1">'</span>
                 <span class="p">)</span>
 
             <span class="n">update_save_history</span><span class="p">(</span><span class="n">saved</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -1701,7 +1701,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
         <span class="n">fit_to_data_extent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">4</span><span class="p">]],</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Take currently displayed screen and convert to an image array.</span>
+<span class="w">        </span><span class="sd">"""Take currently displayed screen and convert to an image array.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1725,7 +1725,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        image : array</span>
 <span class="sd">            Numpy array of type ubyte and shape (h, w, 4). Index [0, 0] is the</span>
 <span class="sd">            upper-left corner of the rendered region.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">img</span> <span class="o">=</span> <span class="n">QImg2array</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_screenshot</span><span class="p">(</span>
                 <span class="n">flash</span><span class="o">=</span><span class="n">flash</span><span class="p">,</span>
@@ -1746,7 +1746,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
         <span class="n">fit_to_data_extent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QImage</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Take currently displayed screen and convert to an image array.</span>
+<span class="w">        </span><span class="sd">"""Take currently displayed screen and convert to an image array.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1768,19 +1768,19 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        image : array</span>
 <span class="sd">            Numpy array of type ubyte and shape (h, w, 4). Index [0, 0] is the</span>
 <span class="sd">            upper-left corner of the rendered region.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="k">if</span> <span class="n">size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;screenshot size must be 2 values, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">size</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="sa">f</span><span class="s1">'screenshot size must be 2 values, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">size</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span>
             <span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">wait_until_idle</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">TimeoutError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
             <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span>
-                <span class="s1">&#39;Slicing was too slow. Wait for all layers to load before taking a screenshot, &#39;</span>
-                <span class="s1">&#39;or disable async slicing in Preferences-&gt;Experimental.&#39;</span>
+                <span class="s1">'Slicing was too slow. Wait for all layers to load before taking a screenshot, '</span>
+                <span class="s1">'or disable async slicing in Preferences-&gt;Experimental.'</span>
             <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
 
         <span class="k">if</span> <span class="n">fit_to_data_extent</span><span class="p">:</span>
@@ -1822,7 +1822,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">resize_canvas</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="kc">None</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Temporarily, safely, resize the canvas</span>
+<span class="w">        </span><span class="sd">"""Temporarily, safely, resize the canvas</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1830,7 +1830,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            New canvas size in pixels. Often calculated based on data size.</span>
 <span class="sd">        scale: float</span>
 <span class="sd">            Scale factor to modify final canvas size.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">canvas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span>
         <span class="n">prev_size</span> <span class="o">=</span> <span class="n">canvas</span><span class="o">.</span><span class="n">size</span>
         <span class="n">camera</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span>
@@ -1853,7 +1853,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="QtViewer.clipboard">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.clipboard">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">clipboard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flash</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Take a screenshot of the currently displayed screen and copy the</span>
+<span class="w">        </span><span class="sd">"""Take a screenshot of the currently displayed screen and copy the</span>
 <span class="sd">        image to the clipboard.</span>
 
 <span class="sd">        Parameters</span>
@@ -1861,7 +1861,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        flash : bool</span>
 <span class="sd">            Flag to indicate whether flash animation should be shown after</span>
 <span class="sd">            the screenshot was captured.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">cb</span> <span class="o">=</span> <span class="n">QGuiApplication</span><span class="o">.</span><span class="n">clipboard</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">cb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
@@ -1869,40 +1869,40 @@ window.runMermaid = runMermaid;</script>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_screenshot_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save screenshot of current display, default .png&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Save screenshot of current display, default .png"""</span>
         <span class="n">hist</span> <span class="o">=</span> <span class="n">get_save_history</span><span class="p">()</span>
         <span class="n">dial</span> <span class="o">=</span> <span class="n">ScreenshotDialog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screenshot</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">hist</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">dial</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
             <span class="n">update_save_history</span><span class="p">(</span><span class="n">dial</span><span class="o">.</span><span class="n">selectedFiles</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_open_file_dialog_uni</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Open dialog to get list of files from user</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">()</span>
         <span class="n">hist</span> <span class="o">=</span> <span class="n">get_open_history</span><span class="p">()</span>
         <span class="n">dlg</span><span class="o">.</span><span class="n">setHistory</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
 
         <span class="n">open_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;parent&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="p">,</span>
-            <span class="s1">&#39;caption&#39;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
+            <span class="s1">'parent'</span><span class="p">:</span> <span class="bp">self</span><span class="p">,</span>
+            <span class="s1">'caption'</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="k">if</span> <span class="s1">&#39;pyside&#39;</span> <span class="ow">in</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s1">'pyside'</span> <span class="ow">in</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
             <span class="c1"># PySide6</span>
-            <span class="n">open_kwargs</span><span class="p">[</span><span class="s1">&#39;dir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">open_kwargs</span><span class="p">[</span><span class="s1">'dir'</span><span class="p">]</span> <span class="o">=</span> <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">open_kwargs</span><span class="p">[</span><span class="s1">&#39;directory&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">open_kwargs</span><span class="p">[</span><span class="s1">'directory'</span><span class="p">]</span> <span class="o">=</span> <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">in_ipython</span><span class="p">():</span>
-            <span class="n">open_kwargs</span><span class="p">[</span><span class="s1">&#39;options&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">Option</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>
+            <span class="n">open_kwargs</span><span class="p">[</span><span class="s1">'options'</span><span class="p">]</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">Option</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>
 
         <span class="k">return</span> <span class="n">dlg</span><span class="o">.</span><span class="n">getOpenFileNames</span><span class="p">(</span><span class="o">**</span><span class="n">open_kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_open_files_dialog</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add files from the menubar.&quot;&quot;&quot;</span>
-        <span class="n">filenames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_file_dialog_uni</span><span class="p">(</span><span class="s1">&#39;Select file(s)...&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">"""Add files from the menubar."""</span>
+        <span class="n">filenames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_file_dialog_uni</span><span class="p">(</span><span class="s1">'Select file(s)...'</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">filenames</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_open</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="o">=</span><span class="n">choose_plugin</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="n">stack</span><span class="p">)</span>
@@ -1911,18 +1911,18 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_open_files_dialog_as_stack_dialog</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add files as a stack, from the menubar.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Add files as a stack, from the menubar."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_files_dialog</span><span class="p">(</span><span class="n">choose_plugin</span><span class="o">=</span><span class="n">choose_plugin</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_open_folder_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a folder of files from the menubar.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Add a folder of files from the menubar."""</span>
         <span class="n">dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">()</span>
         <span class="n">hist</span> <span class="o">=</span> <span class="n">get_open_history</span><span class="p">()</span>
         <span class="n">dlg</span><span class="o">.</span><span class="n">setHistory</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
 
         <span class="n">folder</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
-            <span class="s1">&#39;Select folder...&#39;</span><span class="p">,</span>
+            <span class="s1">'Select folder...'</span><span class="p">,</span>
             <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="c1"># home dir by default</span>
             <span class="p">(</span>
                 <span class="n">QFileDialog</span><span class="o">.</span><span class="n">Option</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>
@@ -1931,7 +1931,7 @@ window.runMermaid = runMermaid;</script>
             <span class="p">),</span>
         <span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">folder</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">}:</span>
+        <span class="k">if</span> <span class="n">folder</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">''</span><span class="p">,</span> <span class="kc">None</span><span class="p">}:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_open</span><span class="p">([</span><span class="n">folder</span><span class="p">],</span> <span class="n">stack</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="o">=</span><span class="n">choose_plugin</span><span class="p">)</span>
             <span class="n">update_open_history</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
 
@@ -1944,7 +1944,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">layer_type</span><span class="p">:</span> <span class="n">_LayerTypeName</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open files, potentially popping reader dialog for plugin selection.</span>
+<span class="w">        </span><span class="sd">"""Open files, potentially popping reader dialog for plugin selection.</span>
 
 <span class="sd">        Call ViewerModel.open and catch errors that could</span>
 <span class="sd">        be fixed by user making a plugin choice.</span>
@@ -1962,7 +1962,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            plugin to use for reading</span>
 <span class="sd">        layer_type : str</span>
 <span class="sd">            layer type for opened layers</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">choose_plugin</span><span class="p">:</span>
             <span class="n">handle_gui_reading</span><span class="p">(</span>
                 <span class="n">filenames</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">,</span> <span class="n">plugin_override</span><span class="o">=</span><span class="n">choose_plugin</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
@@ -1993,10 +1993,10 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="QtViewer.toggle_console_visibility">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.toggle_console_visibility">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">toggle_console_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle console visible and not visible.</span>
+<span class="w">        </span><span class="sd">"""Toggle console visible and not visible.</span>
 
 <span class="sd">        Imports the console the first time it is requested.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">in_ipython</span><span class="p">()</span> <span class="ow">or</span> <span class="n">in_jupyter</span><span class="p">():</span>
             <span class="k">return</span>
 
@@ -2014,7 +2014,7 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">dockConsole</span><span class="o">.</span><span class="n">setFocus</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">viewerButtons</span><span class="o">.</span><span class="n">consoleButton</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span>
-            <span class="s1">&#39;expanded&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dockConsole</span><span class="o">.</span><span class="n">isVisible</span><span class="p">()</span>
+            <span class="s1">'expanded'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dockConsole</span><span class="o">.</span><span class="n">isVisible</span><span class="p">()</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewerButtons</span><span class="o">.</span><span class="n">consoleButton</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">unpolish</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewerButtons</span><span class="o">.</span><span class="n">consoleButton</span>
@@ -2027,29 +2027,29 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="QtViewer.set_welcome_tips">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.set_welcome_tips">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_welcome_tips</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tips</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Replace the welcome screen tip pool.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Replace the welcome screen tip pool."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">set_tips</span><span class="p">(</span><span class="n">tips</span><span class="p">)</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_set_welcome_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visible</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Directly show or hide the welcome screen widget.</span>
+<span class="w">        </span><span class="sd">"""Directly show or hide the welcome screen widget.</span>
 
 <span class="sd">        Unlike the ``show_welcome_screen`` property setter, this method does</span>
 <span class="sd">        not modify the ``_show_welcome_screen`` preference and bypasses the</span>
 <span class="sd">        layer-count / visibility guards in ``_update_welcome_screen``.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">set_welcome_visible</span><span class="p">(</span><span class="n">visible</span><span class="p">)</span>
 
 <div class="viewcode-block" id="QtViewer.keyPressEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.keyPressEvent">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QKeyEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called whenever a key is pressed.</span>
+<span class="w">        </span><span class="sd">"""Called whenever a key is pressed.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        event : qtpy.QtCore.QEvent</span>
 <span class="sd">            Event from the Qt context.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">event</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_scene_canvas</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">_keyEvent</span><span class="p">(</span>
@@ -2061,13 +2061,13 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="QtViewer.keyReleaseEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.keyReleaseEvent">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">keyReleaseEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QKeyEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called whenever a key is released.</span>
+<span class="w">        </span><span class="sd">"""Called whenever a key is released.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        event : qtpy.QtCore.QEvent</span>
 <span class="sd">            Event from the Qt context.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">event</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_scene_canvas</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">_keyEvent</span><span class="p">(</span>
@@ -2079,7 +2079,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="QtViewer.dragEnterEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.dragEnterEvent">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">dragEnterEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QDragEnterEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ignore event if not dragging &amp; dropping a file or URL to open.</span>
+<span class="w">        </span><span class="sd">"""Ignore event if not dragging &amp; dropping a file or URL to open.</span>
 
 <span class="sd">        Using event.ignore() here allows the event to pass through the</span>
 <span class="sd">        parent widget to its child widget, otherwise the parent widget</span>
@@ -2089,7 +2089,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        ----------</span>
 <span class="sd">        event : qtpy.QtCore.QDragEvent</span>
 <span class="sd">            Event from the Qt context.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">event</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="n">mime</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">mimeData</span><span class="p">()</span>
@@ -2101,11 +2101,11 @@ window.runMermaid = runMermaid;</script>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_set_drag_status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set dedicated status message when dragging files into viewer&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Hold &lt;Alt&gt; key to open plugin selection. Hold &lt;Shift&gt; to open files as stack.&#39;</span>
+<span class="w">        </span><span class="sd">"""Set dedicated status message when dragging files into viewer"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">'Hold &lt;Alt&gt; key to open plugin selection. Hold &lt;Shift&gt; to open files as stack.'</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_image_from_clipboard</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Insert image from clipboard as a new layer if clipboard contains an image or link.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Insert image from clipboard as a new layer if clipboard contains an image or link."""</span>
         <span class="n">cb</span> <span class="o">=</span> <span class="n">QGuiApplication</span><span class="o">.</span><span class="n">clipboard</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">cb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
@@ -2120,22 +2120,22 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="k">if</span> <span class="n">mime</span><span class="o">.</span><span class="n">hasUrls</span><span class="p">():</span>
-            <span class="n">show_info</span><span class="p">(</span><span class="s1">&#39;No image in clipboard, trying to open link instead.&#39;</span><span class="p">)</span>
+            <span class="n">show_info</span><span class="p">(</span><span class="s1">'No image in clipboard, trying to open link instead.'</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_open_from_list_of_urls_data</span><span class="p">(</span>
                 <span class="n">mime</span><span class="o">.</span><span class="n">urls</span><span class="p">(),</span> <span class="n">stack</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="o">=</span><span class="kc">False</span>
             <span class="p">)</span>
             <span class="k">return</span>
         <span class="k">if</span> <span class="n">mime</span><span class="o">.</span><span class="n">hasText</span><span class="p">():</span>
             <span class="n">show_info</span><span class="p">(</span>
-                <span class="s1">&#39;No image in clipboard, trying to parse text in clipboard as a link.&#39;</span>
+                <span class="s1">'No image in clipboard, trying to parse text in clipboard as a link.'</span>
             <span class="p">)</span>
             <span class="n">url_list</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">mime</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">mime</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">):</span>
                 <span class="n">url</span> <span class="o">=</span> <span class="n">QUrl</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
                 <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">():</span>
                     <span class="k">continue</span>
-                <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-                    <span class="n">url</span><span class="o">.</span><span class="n">setScheme</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span> <span class="o">==</span> <span class="s1">''</span><span class="p">:</span>
+                    <span class="n">url</span><span class="o">.</span><span class="n">setScheme</span><span class="p">(</span><span class="s1">'file'</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">isLocalFile</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">Path</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">toLocalFile</span><span class="p">())</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
                     <span class="k">break</span>
                 <span class="n">url_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
@@ -2144,12 +2144,12 @@ window.runMermaid = runMermaid;</script>
                     <span class="n">url_list</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="o">=</span><span class="kc">False</span>
                 <span class="p">)</span>
                 <span class="k">return</span>
-        <span class="n">show_info</span><span class="p">(</span><span class="s1">&#39;No image or link in clipboard.&#39;</span><span class="p">)</span>
+        <span class="n">show_info</span><span class="p">(</span><span class="s1">'No image or link in clipboard.'</span><span class="p">)</span>
 
 <div class="viewcode-block" id="QtViewer.dropEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.dropEvent">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">dropEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QDropEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add local files and web URLS with drag and drop.</span>
+<span class="w">        </span><span class="sd">"""Add local files and web URLS with drag and drop.</span>
 
 <span class="sd">        For each file, attempt to open with existing associated reader</span>
 <span class="sd">        (if available). If no reader is associated or opening fails,</span>
@@ -2161,7 +2161,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        ----------</span>
 <span class="sd">        event : qtpy.QtCore.QDropEvent</span>
 <span class="sd">            Event from the Qt context.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">event</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="n">shift_down</span> <span class="o">=</span> <span class="p">(</span>
@@ -2188,7 +2188,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">filenames</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls_list</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">isLocalFile</span><span class="p">():</span>
-                <span class="c1"># directories get a trailing &quot;/&quot;, Path conversion removes it</span>
+                <span class="c1"># directories get a trailing "/", Path conversion removes it</span>
                 <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">toLocalFile</span><span class="p">())))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">toString</span><span class="p">())</span>
@@ -2202,13 +2202,13 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="QtViewer.closeEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.closeEvent">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QCloseEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Cleanup and close.</span>
+<span class="w">        </span><span class="sd">"""Cleanup and close.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        event : qtpy.QtCore.QCloseEvent</span>
 <span class="sd">            Event from the Qt context.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># do not create layerlist if it does not exist yet.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -2234,7 +2234,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">paths</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Export the given rectangular rois to specified file paths.</span>
+<span class="w">        </span><span class="sd">"""Export the given rectangular rois to specified file paths.</span>
 
 <span class="sd">        For each shape, moves the camera to the center of the shape</span>
 <span class="sd">        and adjust the canvas size to fit the shape.</span>
@@ -2265,11 +2265,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        screenshot_list: list</span>
 <span class="sd">            The list with roi screenshots.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">roi</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">roi</span> <span class="ow">in</span> <span class="n">rois</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s1">&#39;ROI found with invalid shape, all rois must have shape (4, 2), i.e. have 4 corners defined in 2 &#39;</span>
-                <span class="s1">&#39;dimensions. 3D is not supported.&#39;</span>
+                <span class="s1">'ROI found with invalid shape, all rois must have shape (4, 2), i.e. have 4 corners defined in 2 '</span>
+                <span class="s1">'dimensions. 3D is not supported.'</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">paths</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -2277,17 +2277,17 @@ window.runMermaid = runMermaid;</script>
             <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rois</span><span class="p">)</span>
         <span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s1">&#39;The number of file paths does not match the number of ROI shapes&#39;</span>
+                <span class="s1">'The number of file paths does not match the number of ROI shapes'</span>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">):</span>
             <span class="n">storage_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
             <span class="n">storage_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">storage_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;roi_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">.png&#39;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rois</span><span class="p">))]</span>
+            <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">storage_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">'roi_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">.png'</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rois</span><span class="p">))]</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s2">&quot;&#39;export_rois&#39; is not implemented for 3D view.&quot;</span>
+                <span class="s2">"'export_rois' is not implemented for 3D view."</span>
             <span class="p">)</span>
 
         <span class="n">screenshot_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2326,7 +2326,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">flash</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Export an image of the full extent of the displayed layer data.</span>
+<span class="w">        </span><span class="sd">"""Export an image of the full extent of the displayed layer data.</span>
 
 <span class="sd">        This function finds a tight boundary around the data, resets the view</span>
 <span class="sd">        around that boundary (and, when scale=1, such that 1 captured pixel is</span>
@@ -2350,9 +2350,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        image : array</span>
 <span class="sd">            Numpy array of type ubyte and shape (h, w, 4). Index [0, 0] is the</span>
 <span class="sd">            upper-left corner of the rendered region.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Scale must be a float or an int.&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'Scale must be a float or an int.'</span><span class="p">)</span>
 
         <span class="n">img</span> <span class="o">=</span> <span class="n">QImg2array</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_screenshot</span><span class="p">(</span>
@@ -2374,7 +2374,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_create_qt_poll</span><span class="p">(</span><span class="n">parent</span><span class="p">:</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtPoll</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create and return a QtPoll instance, if needed.</span>
+<span class="w">    </span><span class="sd">"""Create and return a QtPoll instance, if needed.</span>
 
 <span class="sd">    Create a QtPoll instance for the monitor.</span>
 
@@ -2393,7 +2393,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    Optional[QtPoll]</span>
 <span class="sd">        The new QtPoll instance, if we need one.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">monitor</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
 
@@ -2407,15 +2407,15 @@ window.runMermaid = runMermaid;</script>
 <span class="k">def</span><span class="w"> </span><span class="nf">_create_remote_manager</span><span class="p">(</span>
     <span class="n">layers</span><span class="p">:</span> <span class="n">LayerList</span><span class="p">,</span> <span class="n">qt_poll</span><span class="p">:</span> <span class="n">QtPoll</span> <span class="o">|</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RemoteManager</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create and return a RemoteManager instance, if we need one.</span>
+<span class="w">    </span><span class="sd">"""Create and return a RemoteManager instance, if we need one.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    layers : LayersList</span>
-<span class="sd">        The viewer&#39;s layers.</span>
+<span class="sd">        The viewer's layers.</span>
 <span class="sd">    qt_poll : QtPoll</span>
-<span class="sd">        The viewer&#39;s QtPoll instance.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        The viewer's QtPoll instance.</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">monitor</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># Not using the monitor at all</span>
 
@@ -2446,16 +2446,16 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_in_napari</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="n">FrameType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Determines whether we are in napari by looking at:</span>
 <span class="sd">        1) the frames modules names:</span>
 <span class="sd">        2) the min_depth</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="c1"># in-n-out is used in napari for dependency injection.</span>
-    <span class="k">for</span> <span class="n">pref</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;napari.&#39;</span><span class="p">,</span> <span class="s1">&#39;in_n_out.&#39;</span><span class="p">}:</span>
-        <span class="k">if</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">pref</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">pref</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">'napari.'</span><span class="p">,</span> <span class="s1">'in_n_out.'</span><span class="p">}:</span>
+        <span class="k">if</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'__name__'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">pref</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">True</span>
     <span class="k">return</span> <span class="kc">False</span>
 </pre></div>

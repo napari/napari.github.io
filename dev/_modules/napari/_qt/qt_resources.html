@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -824,11 +824,11 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.qt_resources._svg</span><span class="w"> </span><span class="kn">import</span> <span class="n">QColoredSVGIcon</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;QColoredSVGIcon&#39;</span><span class="p">,</span> <span class="s1">&#39;get_stylesheet&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'QColoredSVGIcon'</span><span class="p">,</span> <span class="s1">'get_stylesheet'</span><span class="p">]</span>
 
 
-<span class="n">STYLE_PATH</span> <span class="o">=</span> <span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;styles&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-<span class="n">STYLES</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="o">.</span><span class="n">stem</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">STYLE_PATH</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s1">&#39;.qss&#39;</span><span class="p">}</span>
+<span class="n">STYLE_PATH</span> <span class="o">=</span> <span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">'styles'</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+<span class="n">STYLES</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="o">.</span><span class="n">stem</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">STYLE_PATH</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s1">'.qss'</span><span class="p">}</span>
 
 
 <div class="viewcode-block" id="get_stylesheet">
@@ -838,7 +838,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">extra</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">extra_variables</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Combine all qss files into single, possibly pre-themed, style string.</span>
+<span class="w">    </span><span class="sd">"""Combine all qss files into single, possibly pre-themed, style string.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -851,14 +851,14 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Additional paths to QSS files to include in stylesheet, by default None</span>
 <span class="sd">    extra_variables : dict, optional</span>
 <span class="sd">        Dictionary of variables values that replace default theme values.</span>
-<span class="sd">        For example: `{ &#39;font_size&#39;: &#39;14pt&#39;}`</span>
+<span class="sd">        For example: `{ 'font_size': '14pt'}`</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    css : str</span>
 <span class="sd">        The combined stylesheet.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">stylesheet</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="sd">    """</span>
+    <span class="n">stylesheet</span> <span class="o">=</span> <span class="s1">''</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">STYLES</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
         <span class="n">file</span> <span class="o">=</span> <span class="n">STYLES</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -884,7 +884,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="get_current_stylesheet">
 <a class="viewcode-back" href="../../../api/napari.qt.html#napari.qt.get_current_stylesheet">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_current_stylesheet</span><span class="p">(</span><span class="n">extra</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Return the current stylesheet base on settings. This is wrapper around</span>
 <span class="sd">    :py:func:`get_stylesheet` that takes the current theme base on settings.</span>
 
@@ -897,7 +897,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    css : str</span>
 <span class="sd">        The combined stylesheet.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">get_stylesheet</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 

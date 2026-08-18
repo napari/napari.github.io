@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -928,20 +928,20 @@ window.runMermaid = runMermaid;</script>
     <span class="p">)</span>
 
 
-<span class="n">DEFAULT_THEME</span> <span class="o">=</span> <span class="s1">&#39;dark&#39;</span>
+<span class="n">DEFAULT_THEME</span> <span class="o">=</span> <span class="s1">'dark'</span>
 <span class="n">EXCLUDE_DICT</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;keymap&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;_mouse_wheel_gen&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;_mouse_drag_gen&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;_persisted_mouse_event&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;mouse_move_callbacks&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;mouse_drag_callbacks&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;mouse_wheel_callbacks&#39;</span><span class="p">,</span>
+    <span class="s1">'keymap'</span><span class="p">,</span>
+    <span class="s1">'_mouse_wheel_gen'</span><span class="p">,</span>
+    <span class="s1">'_mouse_drag_gen'</span><span class="p">,</span>
+    <span class="s1">'_persisted_mouse_event'</span><span class="p">,</span>
+    <span class="s1">'mouse_move_callbacks'</span><span class="p">,</span>
+    <span class="s1">'mouse_drag_callbacks'</span><span class="p">,</span>
+    <span class="s1">'mouse_wheel_callbacks'</span><span class="p">,</span>
 <span class="p">}</span>
-<span class="n">EXCLUDE_JSON</span> <span class="o">=</span> <span class="n">EXCLUDE_DICT</span><span class="o">.</span><span class="n">union</span><span class="p">({</span><span class="s1">&#39;layers&#39;</span><span class="p">,</span> <span class="s1">&#39;active_layer&#39;</span><span class="p">})</span>
+<span class="n">EXCLUDE_JSON</span> <span class="o">=</span> <span class="n">EXCLUDE_DICT</span><span class="o">.</span><span class="n">union</span><span class="p">({</span><span class="s1">'layers'</span><span class="p">,</span> <span class="s1">'active_layer'</span><span class="p">})</span>
 <span class="n">Dict</span> <span class="o">=</span> <span class="nb">dict</span>  <span class="c1"># rename, because ViewerModel has method dict</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ViewerModel&#39;</span><span class="p">,</span> <span class="s1">&#39;valid_add_kwargs&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'ViewerModel'</span><span class="p">,</span> <span class="s1">'valid_add_kwargs'</span><span class="p">]</span>
 
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -952,19 +952,19 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_validate_paths_exist</span><span class="p">(</span><span class="n">paths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Raise FileNotFoundError if any local (non-URL) path does not exist.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Raise FileNotFoundError if any local (non-URL) path does not exist."""</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
         <span class="n">p_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
         <span class="n">parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">p_str</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="ow">and</span> <span class="n">parsed</span><span class="o">.</span><span class="n">netloc</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">Path</span><span class="p">(</span><span class="n">p_str</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Path </span><span class="si">{</span><span class="n">p_str</span><span class="si">!r}</span><span class="s1"> does not exist.&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Path </span><span class="si">{</span><span class="n">p_str</span><span class="si">!r}</span><span class="s1"> does not exist.'</span><span class="p">)</span>
 
 
 <span class="c1"># KeymapProvider &amp; MousemapProvider should eventually be moved off the ViewerModel</span>
 <div class="viewcode-block" id="ViewerModel">
 <a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ViewerModel</span><span class="p">(</span><span class="n">KeymapProvider</span><span class="p">,</span> <span class="n">MousemapProviderPydantic</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Viewer containing the rendered scene, layers, and controlling elements</span>
+<span class="w">    </span><span class="sd">"""Viewer containing the rendered scene, layers, and controlling elements</span>
 <span class="sd">    including dimension sliders, and control bars for color limits.</span>
 
 <span class="sd">    Parameters</span>
@@ -1004,9 +1004,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Viewer object context mapping.</span>
 <span class="sd">    _layer_slicer: napari.components._layer_slicer._Layer_Slicer</span>
 <span class="sd">        A layer slicer object controlling the creation of a slice</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="c1"># Using frozen=True means these attributes aren&#39;t settable and don&#39;t</span>
+    <span class="c1"># Using frozen=True means these attributes aren't settable and don't</span>
     <span class="c1"># have an event emitter associated with them</span>
     <span class="n">canvas</span><span class="p">:</span> <span class="n">Canvas</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Canvas</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">scene</span><span class="p">:</span> <span class="n">Scene</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Scene</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1015,11 +1015,11 @@ window.runMermaid = runMermaid;</script>
     <span class="n">layers</span><span class="p">:</span> <span class="n">LayerList</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="n">default_factory</span><span class="o">=</span><span class="n">LayerList</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">)</span>  <span class="c1"># Need to create custom JSON encoder for layer!</span>
-    <span class="n">help</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-    <span class="n">status</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;Ready&#39;</span>
+    <span class="n">help</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span>
+    <span class="n">status</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">'Ready'</span>
     <span class="n">tooltip</span><span class="p">:</span> <span class="n">Tooltip</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Tooltip</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">_current_theme</span><span class="p">)</span>
-    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'napari'</span>
     <span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">()</span>
     <span class="c1"># To check if mouse is over canvas to avoid race conditions between</span>
     <span class="c1"># different events systems</span>
@@ -1033,25 +1033,25 @@ window.runMermaid = runMermaid;</script>
     <span class="n">_layers_had_custom_axis_labels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(),</span> <span class="n">axis_labels</span><span class="o">=</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'napari'</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(),</span> <span class="n">axis_labels</span><span class="o">=</span><span class="p">()</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># max_depth=0 means don&#39;t look for parent contexts.</span>
+        <span class="c1"># max_depth=0 means don't look for parent contexts.</span>
 
         <span class="c1"># FIXME: just like the LayerList, this object should ideally be created</span>
         <span class="c1"># elsewhere.  The app should know about the ViewerModel, but not vice versa.</span>
         <span class="c1"># self._ctx = create_context(self, max_depth=0)</span>
         <span class="c1"># allow extra attributes during model initialization, useful for mixins</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">model_config</span><span class="p">[</span><span class="s1">&#39;extra&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;allow&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_config</span><span class="p">[</span><span class="s1">'extra'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'allow'</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
             <span class="n">dims</span><span class="o">=</span><span class="p">{</span>
-                <span class="s1">&#39;ndim&#39;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_labels</span><span class="p">),</span> <span class="n">ndisplay</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)),</span>
-                <span class="s1">&#39;axis_labels&#39;</span><span class="p">:</span> <span class="n">axis_labels</span><span class="p">,</span>
-                <span class="s1">&#39;ndisplay&#39;</span><span class="p">:</span> <span class="n">ndisplay</span><span class="p">,</span>
-                <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="n">order</span><span class="p">,</span>
+                <span class="s1">'ndim'</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_labels</span><span class="p">),</span> <span class="n">ndisplay</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)),</span>
+                <span class="s1">'axis_labels'</span><span class="p">:</span> <span class="n">axis_labels</span><span class="p">,</span>
+                <span class="s1">'ndisplay'</span><span class="p">:</span> <span class="n">ndisplay</span><span class="p">,</span>
+                <span class="s1">'order'</span><span class="p">:</span> <span class="n">order</span><span class="p">,</span>
             <span class="p">},</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">model_config</span><span class="p">[</span><span class="s1">&#39;extra&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ignore&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_config</span><span class="p">[</span><span class="s1">'extra'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'ignore'</span>
 
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">layer_tooltip_visibility</span>
@@ -1083,7 +1083,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># Connect events</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ndisplay</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ndisplay</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_save_camera_state</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;first&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_save_camera_state</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">'first'</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ndisplay</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_ndisplay_changed</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
@@ -1091,8 +1091,8 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">point</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
         <span class="c1"># FIXME: the next line is a temporary workaround. With #5522 and #5751 Dims.point became</span>
         <span class="c1">#        the source of truth, and is now defined in world space. This exposed an existing</span>
-        <span class="c1">#        bug where if a field in Dims is modified by the root_validator, events won&#39;t</span>
-        <span class="c1">#        be fired for it. This won&#39;t happen for properties because we have dependency</span>
+        <span class="c1">#        bug where if a field in Dims is modified by the root_validator, events won't</span>
+        <span class="c1">#        be fired for it. This won't happen for properties because we have dependency</span>
         <span class="c1">#        checks. To fix this, we need dep checks for fields (psygnal!) and then we</span>
         <span class="c1">#        can remove the following line. Note that because of this we fire double events,</span>
         <span class="c1">#        but this should be ok because we have early returns when slices are unchanged.</span>
@@ -1124,8 +1124,8 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@property</span>
     <span class="nd">@deprecated</span><span class="p">(</span>
         <span class="p">(</span>
-            <span class="s1">&#39;viewer.camera is a deprecated attribute since 0.9.0. Use viewer.scene.camera instead.&#39;</span>
-            <span class="s1">&#39; There is currently no planned date for removal of the legacy attribute.&#39;</span>
+            <span class="s1">'viewer.camera is a deprecated attribute since 0.9.0. Use viewer.scene.camera instead.'</span>
+            <span class="s1">' There is currently no planned date for removal of the legacy attribute.'</span>
         <span class="p">),</span>
         <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
@@ -1135,8 +1135,8 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@property</span>
     <span class="nd">@deprecated</span><span class="p">(</span>
         <span class="p">(</span>
-            <span class="s1">&#39;viewer.axes is a deprecated attribute since 0.9.0. Use viewer.scene.overlays.axes instead.&#39;</span>
-            <span class="s1">&#39; There is currently no planned date for removal of the legacy attribute.&#39;</span>
+            <span class="s1">'viewer.axes is a deprecated attribute since 0.9.0. Use viewer.scene.overlays.axes instead.'</span>
+            <span class="s1">' There is currently no planned date for removal of the legacy attribute.'</span>
         <span class="p">),</span>
         <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
@@ -1146,8 +1146,8 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@property</span>
     <span class="nd">@deprecated</span><span class="p">(</span>
         <span class="p">(</span>
-            <span class="s1">&#39;viewer.floating_axes is a deprecated attribute since 0.9.0. Use viewer.canvas.overlays.axes instead.&#39;</span>
-            <span class="s1">&#39; There is currently no planned date for removal of the legacy attribute.&#39;</span>
+            <span class="s1">'viewer.floating_axes is a deprecated attribute since 0.9.0. Use viewer.canvas.overlays.axes instead.'</span>
+            <span class="s1">' There is currently no planned date for removal of the legacy attribute.'</span>
         <span class="p">),</span>
         <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
@@ -1157,8 +1157,8 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@property</span>
     <span class="nd">@deprecated</span><span class="p">(</span>
         <span class="p">(</span>
-            <span class="s1">&#39;viewer.scale_bar is a deprecated attribute since 0.9.0. Use viewer.canvas.overlays.scale_bar instead.&#39;</span>
-            <span class="s1">&#39; There is currently no planned date for removal of the legacy attribute.&#39;</span>
+            <span class="s1">'viewer.scale_bar is a deprecated attribute since 0.9.0. Use viewer.canvas.overlays.scale_bar instead.'</span>
+            <span class="s1">' There is currently no planned date for removal of the legacy attribute.'</span>
         <span class="p">),</span>
         <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
@@ -1168,8 +1168,8 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@property</span>
     <span class="nd">@deprecated</span><span class="p">(</span>
         <span class="p">(</span>
-            <span class="s1">&#39;viewer.text_overlay is a deprecated attribute since 0.9.0. Use viewer.canvas.overlays.text instead.&#39;</span>
-            <span class="s1">&#39; There is currently no planned date for removal of the legacy attribute.&#39;</span>
+            <span class="s1">'viewer.text_overlay is a deprecated attribute since 0.9.0. Use viewer.canvas.overlays.text instead.'</span>
+            <span class="s1">' There is currently no planned date for removal of the legacy attribute.'</span>
         <span class="p">),</span>
         <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
@@ -1179,8 +1179,8 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@property</span>
     <span class="nd">@deprecated</span><span class="p">(</span>
         <span class="p">(</span>
-            <span class="s1">&#39;viewer.grid is a deprecated attribute since 0.9.0. Use viewer.canvas.grid instead.&#39;</span>
-            <span class="s1">&#39; There is currently no planned date for removal of the legacy attribute.&#39;</span>
+            <span class="s1">'viewer.grid is a deprecated attribute since 0.9.0. Use viewer.canvas.grid instead.'</span>
+            <span class="s1">' There is currently no planned date for removal of the legacy attribute.'</span>
         <span class="p">),</span>
         <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
@@ -1191,7 +1191,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_camera_orientation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update camera orientation based on settings.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update camera orientation based on settings."""</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="p">(</span>
@@ -1201,16 +1201,16 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_synced_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update camera synced mode based on settings.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update camera synced mode based on settings."""</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">synced_camera</span>
 
-    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">&#39;theme&#39;</span><span class="p">)</span>
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">'theme'</span><span class="p">)</span>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_valid_theme</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_theme_available</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Theme &#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&#39; not found; options are </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">available_themes</span><span class="p">())</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="sa">f</span><span class="s2">"Theme '</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">' not found; options are </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">available_themes</span><span class="p">())</span><span class="si">}</span><span class="s2">."</span>
             <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">v</span>
@@ -1218,12 +1218,12 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="ViewerModel.json">
 <a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.json">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Serialize to json.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Serialize to json."""</span>
         <span class="c1"># Manually exclude the layer list and active layer which cannot be serialized at this point</span>
-        <span class="c1"># and mouse and keybindings don&#39;t belong on model</span>
+        <span class="c1"># and mouse and keybindings don't belong on model</span>
         <span class="c1"># https://github.com/samuelcolvin/pydantic/pull/2231</span>
         <span class="c1"># https://github.com/samuelcolvin/pydantic/issues/660#issuecomment-642211017</span>
-        <span class="n">exclude</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;exclude&#39;</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'exclude'</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
         <span class="n">exclude</span> <span class="o">=</span> <span class="n">exclude</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">EXCLUDE_JSON</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="n">exclude</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
@@ -1231,12 +1231,12 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="ViewerModel.model_dump">
 <a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.model_dump">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">model_dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert to a dictionary.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Convert to a dictionary."""</span>
         <span class="c1"># Manually exclude the layer list and active layer which cannot be serialized at this point</span>
-        <span class="c1"># and mouse and keybindings don&#39;t belong on model</span>
+        <span class="c1"># and mouse and keybindings don't belong on model</span>
         <span class="c1"># https://github.com/samuelcolvin/pydantic/pull/2231</span>
         <span class="c1"># https://github.com/samuelcolvin/pydantic/issues/660#issuecomment-642211017</span>
-        <span class="n">exclude</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;exclude&#39;</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'exclude'</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
         <span class="n">exclude</span> <span class="o">=</span> <span class="n">exclude</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">EXCLUDE_DICT</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="n">exclude</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
@@ -1245,19 +1245,19 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Simple string representation&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;napari.Viewer: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="w">        </span><span class="sd">"""Simple string representation"""</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">'napari.Viewer: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s1">'</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_sliced_extent_world_augmented</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layers in world coordinates after slicing.</span>
+<span class="w">        </span><span class="sd">"""Extent of layers in world coordinates after slicing.</span>
 
 <span class="sd">        D is either 2 or 3 depending on if the displayed data is 2D or 3D.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        sliced_extent_world : array, shape (2, D)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># if not layers are present, assume image-like with dimensions of size 512</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
@@ -1270,7 +1270,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">reset_view</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">margin</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">reset_camera_angle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset the camera and fit the current layers to the canvas.</span>
+<span class="w">        </span><span class="sd">"""Reset the camera and fit the current layers to the canvas.</span>
 
 <span class="sd">        Resets the angles of the camera, adjust the camera zoom,</span>
 <span class="sd">        and centers the view so that all layers are visible,</span>
@@ -1284,7 +1284,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        reset_camera_angle : bool</span>
 <span class="sd">            Whether to reset the camera angles to (0, 0, 0) before fitting</span>
 <span class="sd">            to view. Default is True.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">reset_camera_angle</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fit_to_view</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="n">margin</span><span class="p">)</span></div>
@@ -1293,7 +1293,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="ViewerModel.fit_to_view">
 <a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.fit_to_view">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">fit_to_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">margin</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit the current data view to the canvas.</span>
+<span class="w">        </span><span class="sd">"""Fit the current data view to the canvas.</span>
 
 <span class="sd">        Adjusts the camera zoom and centers the view so that all visible layers</span>
 <span class="sd">        are within the canvas.</span>
@@ -1303,7 +1303,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        margin : float in [0, 1)</span>
 <span class="sd">            Margin as fraction of the canvas, showing blank space around the</span>
 <span class="sd">            data. Default is 0.05 (5% of the canvas).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Get the scene parameters</span>
         <span class="n">extent</span><span class="p">,</span> <span class="n">scene_size</span><span class="p">,</span> <span class="n">corner</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_scene_parameters</span><span class="p">()</span>
 
@@ -1341,24 +1341,24 @@ window.runMermaid = runMermaid;</script>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_save_camera_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save camera state for the mode we&#39;re leaving (runs at &#39;first&#39;).</span>
+<span class="w">        </span><span class="sd">"""Save camera state for the mode we're leaving (runs at 'first').</span>
 
-<span class="sd">        Always caches the current camera state so that the &quot;separate&quot;</span>
+<span class="sd">        Always caches the current camera state so that the "separate"</span>
 <span class="sd">        (synced=False) mode can restore it when returning to this</span>
 <span class="sd">        ndisplay mode. Caching is harmless in synced mode since</span>
 <span class="sd">        ``_on_ndisplay_changed`` does not use the cached values there.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">_cache_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_previous_ndisplay</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_ndisplay_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle ndisplay changes based on the current camera synced mode.</span>
+<span class="w">        </span><span class="sd">"""Handle ndisplay changes based on the current camera synced mode.</span>
 
 <span class="sd">        * ``synced=True`` — center and zoom persist between modes.</span>
 <span class="sd">          The depth (z) component is set from the dims slider on 2D→3D</span>
 <span class="sd">          and the dims slider tracks the camera z on 3D→2D.</span>
 <span class="sd">        * ``synced=False`` — each mode remembers its own center, zoom,</span>
 <span class="sd">          and angles independently (per-mode caching).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span><span class="p">:</span>
             <span class="n">center</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">order</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
@@ -1390,7 +1390,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_scene_parameters</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the scene parameters for the current grid mode.</span>
+<span class="w">        </span><span class="sd">"""Get the scene parameters for the current grid mode.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1401,7 +1401,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Size of the bounding box containing all layers.</span>
 <span class="sd">        corner : array, shape (D,)</span>
 <span class="sd">            Minimum coordinate values of the bounding box (i.e. extent[0]).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sliced_extent_world_augmented</span>
         <span class="n">scene_size</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">corner</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -1409,7 +1409,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">extent</span><span class="p">,</span> <span class="n">scene_size</span><span class="p">,</span> <span class="n">corner</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_calculate_view_center</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">corner</span><span class="p">,</span> <span class="n">scene_size</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the center of the view based on the scene size.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Calculate the center of the view based on the scene size."""</span>
 
         <span class="n">center_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">corner</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">scene_size</span><span class="p">,</span> <span class="mi">2</span><span class="p">))[</span>
             <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="p">:</span>
@@ -1425,17 +1425,17 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">center</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_scale_factor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">margin</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the scale factor for camera zoom with a valid margin.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get the scale factor for camera zoom with a valid margin."""</span>
         <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">margin</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">margin</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;margin must be between 0 and 1; got </span><span class="si">{</span><span class="n">margin</span><span class="si">}</span><span class="s1"> instead.&#39;</span>
+            <span class="sa">f</span><span class="s1">'margin must be between 0 and 1; got </span><span class="si">{</span><span class="n">margin</span><span class="si">}</span><span class="s1"> instead.'</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_2d_camera_zoom</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">scene_size</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">:</span> <span class="nb">float</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the camera zoom for 2D view.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get the camera zoom for 2D view."""</span>
         <span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scene_size</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])</span>
         <span class="n">scale</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">scale_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span>
@@ -1445,7 +1445,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_3d_camera_zoom</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">extent</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">:</span> <span class="nb">float</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the zoom such that the minimum of the bounding box fits the canvas.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Calculate the zoom such that the minimum of the bounding box fits the canvas."""</span>
         <span class="n">bounding_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_bounding_box</span><span class="p">(</span>
             <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">,</span>
             <span class="n">view_direction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">view_direction</span><span class="p">,</span>
@@ -1461,7 +1461,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">view_direction</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
         <span class="n">up_direction</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the bounding box of the rotated extent.</span>
+<span class="w">        </span><span class="sd">"""Calculate the bounding box of the rotated extent.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1479,7 +1479,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        bounding_box : array, shape (2,)</span>
 <span class="sd">            The bounding box of the rotated extent.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># calculate the difference between the min and max values of the extent</span>
         <span class="c1"># to know the size, and then squeeze the (1,D) array to (D) as</span>
         <span class="c1"># required for dot product</span>
@@ -1491,7 +1491,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">view_direction</span><span class="p">):</span>
             <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1e-10</span><span class="p">)</span>
 
-        <span class="c1"># get the &quot;rightward&quot; direction that is perpendicular to the view and up directions</span>
+        <span class="c1"># get the "rightward" direction that is perpendicular to the view and up directions</span>
         <span class="n">right_direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">view_direction</span><span class="p">,</span> <span class="n">up_direction</span><span class="p">)</span>
 
         <span class="c1"># project the size vector onto the up and right directions to get the</span>
@@ -1504,7 +1504,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">displayed_height</span><span class="p">,</span> <span class="n">displayed_width</span><span class="p">])</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_new_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create new labels layer filling full world coordinates space.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Create new labels layer filling full world coordinates space."""</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
             <span class="n">base_layer</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="n">ScalarFieldBase</span>
         <span class="p">):</span>
@@ -1522,7 +1522,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">units</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">units</span><span class="p">,</span>
                 <span class="n">axis_labels</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">axis_labels</span><span class="p">,</span>
                 <span class="n">affine</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39; - Labels&#39;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">base_layer</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">' - Labels'</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
             <span class="c1"># non scalar field layer or more than one layer selected</span>
@@ -1533,7 +1533,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">scene_size</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">corner</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">s</span> <span class="o">/</span> <span class="n">sc</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">s</span> <span class="o">/</span> <span class="n">sc</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'int'</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
                 <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">sc</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">scene_size</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="p">]</span>
             <span class="n">dtype_str</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">new_labels_dtype</span>
@@ -1563,13 +1563,13 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">layers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Updates the contained layers.</span>
+<span class="w">        </span><span class="sd">"""Updates the contained layers.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        layers : list of napari.layers.Layer, optional</span>
 <span class="sd">            List of layers to update. If none provided updates all.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">units</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">layers</span><span class="o">=</span><span class="n">layers</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
@@ -1585,13 +1585,13 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_active_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update viewer state for a new active layer.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update viewer state for a new active layer."""</span>
         <span class="n">active_layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
         <span class="k">if</span> <span class="n">active_layer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
                 <span class="n">layer</span><span class="o">.</span><span class="n">update_transform_box_visibility</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
                 <span class="n">layer</span><span class="o">.</span><span class="n">update_highlight_visibility</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s1">''</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">CursorStyle</span><span class="o">.</span><span class="n">STANDARD</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_zoom</span> <span class="o">=</span> <span class="kc">True</span>
@@ -1610,10 +1610,10 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_status_from_cursor</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_merge_dims_and_layers_axis_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Combine layerlist axis labels onto the current dims labels.</span>
+<span class="w">        </span><span class="sd">"""Combine layerlist axis labels onto the current dims labels.</span>
 
 <span class="sd">        Replaces dims axis label at indices where layers axis labels exist.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">updated_axis_labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">axis_labels</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">axis_labels</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">label</span> <span class="o">!=</span> <span class="nb">str</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span><span class="p">):</span>
@@ -1653,25 +1653,25 @@ window.runMermaid = runMermaid;</script>
             <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_mouse_pan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the viewer interactive mouse panning&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Set the viewer interactive mouse panning"""</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">mouse_pan</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_mouse_zoom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the viewer interactive mouse zoom&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Set the viewer interactive mouse zoom"""</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_zoom</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">mouse_zoom</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the viewer cursor with the `event.cursor` string.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Set the viewer cursor with the `event.cursor` string."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">cursor</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_cursor_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the viewer cursor_size with the `event.cursor_size` int.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Set the viewer cursor_size with the `event.cursor_size` int."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">cursor_size</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_async</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set layer slicer to force synchronous if async is disabled.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Set layer slicer to force synchronous if async is disabled."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">_force_sync</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_calc_status_from_cursor</span><span class="p">(</span>
@@ -1680,12 +1680,12 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_over_canvas</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="n">coord2val</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">coord_str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-        <span class="n">status_str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-        <span class="n">tooltip_text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">coord_str</span> <span class="o">=</span> <span class="s1">''</span>
+        <span class="n">status_str</span> <span class="o">=</span> <span class="s1">''</span>
+        <span class="n">tooltip_text</span> <span class="o">=</span> <span class="s1">''</span>
         <span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span>
         <span class="n">active</span> <span class="o">=</span> <span class="n">selection</span><span class="o">.</span><span class="n">active</span>
-        <span class="c1"># TODO: this doesn&#39;t work well yet with grid mode (and is broken by wide borders too)</span>
+        <span class="c1"># TODO: this doesn't work well yet with grid mode (and is broken by wide borders too)</span>
 
         <span class="c1"># Compute the tooltip first since it is always needed.</span>
         <span class="k">if</span> <span class="p">(</span>
@@ -1700,7 +1700,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">world</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="c1"># If there is an active layer and a single selection, calculate status using &quot;the classic way&quot;.</span>
+        <span class="c1"># If there is an active layer and a single selection, calculate status using "the classic way".</span>
         <span class="c1"># Then return the status and the tooltip.</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -1731,14 +1731,14 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">dims_displayed</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">),</span>
                 <span class="n">world</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="n">separator</span> <span class="o">=</span> <span class="s1">&#39;    &#39;</span>
-            <span class="n">emphasis</span> <span class="o">=</span> <span class="n">separator</span> <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="n">active</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
-            <span class="n">coord_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">status</span><span class="p">[</span><span class="s2">&quot;coords&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> » &#39;</span>
-            <span class="k">if</span> <span class="n">status</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">separator</span> <span class="o">=</span> <span class="s1">'    '</span>
+            <span class="n">emphasis</span> <span class="o">=</span> <span class="n">separator</span> <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="n">active</span> <span class="k">else</span> <span class="s1">''</span>
+            <span class="n">coord_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">status</span><span class="p">[</span><span class="s2">"coords"</span><span class="p">]</span><span class="si">}</span><span class="s1"> » '</span>
+            <span class="k">if</span> <span class="n">status</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">''</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">coord_str</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">coord2val</span><span class="p">:</span>
                     <span class="n">coord2val</span><span class="p">[</span><span class="n">coord_str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="n">coord2val</span><span class="p">[</span><span class="n">coord_str</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">status</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="si">}{</span><span class="n">emphasis</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">status</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span><span class="si">}{</span><span class="n">emphasis</span><span class="si">}</span><span class="s1">'</span>
                 <span class="p">)</span>
         <span class="k">if</span> <span class="n">coord2val</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
@@ -1752,18 +1752,18 @@ window.runMermaid = runMermaid;</script>
             <span class="p">]</span>
             <span class="n">status_str</span> <span class="o">=</span> <span class="n">separator</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">status_strs</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">coord_str</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
-            <span class="n">status_str</span> <span class="o">=</span> <span class="n">coord_str</span> <span class="o">+</span> <span class="s1">&#39;[empty]&#39;</span>
+            <span class="n">status_str</span> <span class="o">=</span> <span class="n">coord_str</span> <span class="o">+</span> <span class="s1">'[empty]'</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
-            <span class="n">status_str</span> <span class="o">=</span> <span class="s1">&#39;[empty]&#39;</span>
+            <span class="n">status_str</span> <span class="o">=</span> <span class="s1">'[empty]'</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">status_str</span> <span class="o">=</span> <span class="s1">&#39;Ready&#39;</span>
+            <span class="n">status_str</span> <span class="o">=</span> <span class="s1">'Ready'</span>
 
         <span class="k">return</span> <span class="n">status_str</span><span class="p">,</span> <span class="n">tooltip_text</span>
 
 <div class="viewcode-block" id="ViewerModel.update_status_from_cursor">
 <a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.update_status_from_cursor">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_status_from_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the status and tooltip from the cursor position.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update the status and tooltip from the cursor position."""</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_status_from_cursor</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">status</span>
@@ -1773,10 +1773,10 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">experimental</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Experimental commands for IPython console.</span>
+<span class="w">        </span><span class="sd">"""Experimental commands for IPython console.</span>
 
-<span class="sd">        For example run &quot;viewer.experimental.cmds.loader.help&quot;.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        For example run "viewer.experimental.cmds.loader.help".</span>
+<span class="sd">        """</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.experimental.commands</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
             <span class="n">ExperimentalNamespace</span><span class="p">,</span>
         <span class="p">)</span>
@@ -1784,13 +1784,13 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">ExperimentalNamespace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_add_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect new layer events.</span>
+<span class="w">        </span><span class="sd">"""Connect new layer events.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        event : :class:`napari.layers.Layer`</span>
 <span class="sd">            Layer to add.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
 
         <span class="c1"># Connect individual layer events to viewer events</span>
@@ -1810,7 +1810,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">axis_labels</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">_update_name</span><span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">reload</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layer_reload</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="s1">&#39;mode&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="s1">'mode'</span><span class="p">):</span>
             <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layer_mode_change</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_layer_help_from_mode</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
@@ -1826,9 +1826,9 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_layer_help_from_mode</span><span class="p">(</span><span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update layer help text base on layer mode.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">layer_to_func_and_mode</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">Layer</span><span class="p">],</span> <span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">Points</span><span class="p">:</span> <span class="n">points_fun_to_mode</span><span class="p">,</span>
             <span class="n">Labels</span><span class="p">:</span> <span class="n">labels_fun_to_mode</span><span class="p">,</span>
@@ -1845,13 +1845,13 @@ window.runMermaid = runMermaid;</script>
         <span class="k">for</span> <span class="n">fun</span><span class="p">,</span> <span class="n">mode_</span> <span class="ow">in</span> <span class="n">layer_to_func_and_mode</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="p">[]):</span>
             <span class="k">if</span> <span class="n">mode_</span> <span class="o">==</span> <span class="n">layer</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
                 <span class="k">continue</span>
-            <span class="n">action_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;napari:</span><span class="si">{</span><span class="n">fun</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="n">action_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'napari:</span><span class="si">{</span><span class="n">fun</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">'</span>
             <span class="n">desc</span> <span class="o">=</span> <span class="n">action_manager</span><span class="o">.</span><span class="n">_actions</span><span class="p">[</span><span class="n">action_name</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">shortcuts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">action_name</span><span class="p">,</span> <span class="p">[]):</span>
                 <span class="k">continue</span>
-            <span class="n">help_li</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;use &lt;</span><span class="si">{</span><span class="n">shortcuts</span><span class="p">[</span><span class="n">action_name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&gt; for </span><span class="si">{</span><span class="n">desc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">help_li</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">'use &lt;</span><span class="si">{</span><span class="n">shortcuts</span><span class="p">[</span><span class="n">action_name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&gt; for </span><span class="si">{</span><span class="n">desc</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
-        <span class="n">layer</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">help_li</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">help_li</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_layer_mode_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_layer_help_from_mode</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
@@ -1859,7 +1859,7 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">help</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_remove_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Disconnect old layer events.</span>
+<span class="w">        </span><span class="sd">"""Disconnect old layer events.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1870,7 +1870,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        layer : :class:`napari.layers.Layer` or list</span>
 <span class="sd">            The layer that was added (same as input).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
 
         <span class="c1"># Disconnect all connections from layer</span>
@@ -1882,7 +1882,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="ViewerModel.add_layer">
 <a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.add_layer">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Layer</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a layer to the viewer.</span>
+<span class="w">        </span><span class="sd">"""Add a layer to the viewer.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1893,7 +1893,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        layer : :class:`napari.layers.Layer` or list</span>
 <span class="sd">            The layer that was added (same as input).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Adding additional functionality inside `add_layer`</span>
         <span class="c1"># should be avoided to keep full functionality</span>
         <span class="c1"># from adding a layer through the `layers.append`</span>
@@ -1918,11 +1918,11 @@ window.runMermaid = runMermaid;</script>
         <span class="n">colormap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">contrast_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">custom_interpolation_kernel_2d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">depiction</span><span class="o">=</span><span class="s1">&#39;volume&#39;</span><span class="p">,</span>
+        <span class="n">depiction</span><span class="o">=</span><span class="s1">'volume'</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">gamma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-        <span class="n">interpolation2d</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span>
-        <span class="n">interpolation3d</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span>
+        <span class="n">interpolation2d</span><span class="o">=</span><span class="s1">'nearest'</span><span class="p">,</span>
+        <span class="n">interpolation3d</span><span class="o">=</span><span class="s1">'linear'</span><span class="p">,</span>
         <span class="n">iso_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">locked_data_level</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1930,8 +1930,8 @@ window.runMermaid = runMermaid;</script>
         <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
         <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
-        <span class="n">rendering</span><span class="o">=</span><span class="s1">&#39;mip&#39;</span><span class="p">,</span>
+        <span class="n">projection_mode</span><span class="o">=</span><span class="s1">'mean'</span><span class="p">,</span>
+        <span class="n">rendering</span><span class="o">=</span><span class="s1">'mip'</span><span class="p">,</span>
         <span class="n">rgb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1940,7 +1940,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Image</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Image</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one or more Image layers to the layer list.</span>
+<span class="w">        </span><span class="sd">"""Add one or more Image layers to the layer list.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1974,11 +1974,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            whenever the slice changes.</span>
 <span class="sd">        axis_labels : tuple of str</span>
 <span class="sd">            Dimension names of the layer data.</span>
-<span class="sd">            If not provided, axis_labels will be set to (..., &#39;-2&#39;, &#39;-1&#39;).</span>
+<span class="sd">            If not provided, axis_labels will be set to (..., '-2', '-1').</span>
 <span class="sd">        blending : str or list of str</span>
 <span class="sd">            One of a list of preset blending modes that determines how RGB and</span>
 <span class="sd">            alpha values of the layer visual get mixed. Allowed values are</span>
-<span class="sd">            {&#39;translucent&#39;, &#39;translucent_no_depth&#39;, &#39;additive&#39;, &#39;minimum&#39;, &#39;opaque&#39;}.</span>
+<span class="sd">            {'translucent', 'translucent_no_depth', 'additive', 'minimum', 'opaque'}.</span>
 <span class="sd">        cache : bool or list of bool</span>
 <span class="sd">            Whether slices of out-of-core datasets should be cached upon</span>
 <span class="sd">            retrieval. Currently, this only applies to dask arrays.</span>
@@ -1995,13 +1995,13 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            luminance images. If not passed, they will be calculated as the min and max intensity value of</span>
 <span class="sd">            the image.</span>
 <span class="sd">        custom_interpolation_kernel_2d : np.ndarray</span>
-<span class="sd">            Convolution kernel used with the &#39;custom&#39; interpolation mode in 2D rendering.</span>
+<span class="sd">            Convolution kernel used with the 'custom' interpolation mode in 2D rendering.</span>
 <span class="sd">        depiction : str or list of str</span>
-<span class="sd">            3D Depiction mode. Must be one of {&#39;volume&#39;, &#39;plane&#39;}.</span>
-<span class="sd">            The default value is &#39;volume&#39;.</span>
+<span class="sd">            3D Depiction mode. Must be one of {'volume', 'plane'}.</span>
+<span class="sd">            The default value is 'volume'.</span>
 <span class="sd">        experimental_clipping_planes : list of dicts, list of ClippingPlane, or ClippingPlaneList</span>
 <span class="sd">            Each dict defines a clipping plane in 3D in data coordinates.</span>
-<span class="sd">            Valid dictionary keys are {&#39;position&#39;, &#39;normal&#39;, and &#39;enabled&#39;}.</span>
+<span class="sd">            Valid dictionary keys are {'position', 'normal', and 'enabled'}.</span>
 <span class="sd">            Values on the negative side of the normal are discarded if the plane is enabled.</span>
 <span class="sd">        gamma : float or list of float</span>
 <span class="sd">            Gamma correction for determining colormap linearity; defaults to 1.</span>
@@ -2009,12 +2009,12 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Interpolation mode used by vispy for rendering 2d data.</span>
 <span class="sd">            Must be one of our supported modes.</span>
 <span class="sd">            (for list of supported modes see Interpolation enum)</span>
-<span class="sd">            &#39;custom&#39; is a special mode for 2D interpolation in which a regular grid</span>
-<span class="sd">            of samples is taken from the texture around a position using &#39;linear&#39;</span>
+<span class="sd">            'custom' is a special mode for 2D interpolation in which a regular grid</span>
+<span class="sd">            of samples is taken from the texture around a position using 'linear'</span>
 <span class="sd">            interpolation before being multiplied with a custom interpolation kernel</span>
-<span class="sd">            (provided with &#39;custom_interpolation_kernel_2d&#39;).</span>
+<span class="sd">            (provided with 'custom_interpolation_kernel_2d').</span>
 <span class="sd">        interpolation3d : str or list of str</span>
-<span class="sd">            Same as &#39;interpolation2d&#39; but for 3D rendering.</span>
+<span class="sd">            Same as 'interpolation2d' but for 3D rendering.</span>
 <span class="sd">        iso_threshold : float or list of float</span>
 <span class="sd">            Threshold for isosurface.</span>
 <span class="sd">        locked_data_level : int, optional</span>
@@ -2039,7 +2039,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        plane : dict or SlicingPlane</span>
 <span class="sd">            Properties defining plane rendering in 3D. Properties are defined in</span>
 <span class="sd">            data coordinates. Valid dictionary keys are</span>
-<span class="sd">            {&#39;position&#39;, &#39;normal&#39;, &#39;thickness&#39;, and &#39;enabled&#39;}.</span>
+<span class="sd">            {'position', 'normal', 'thickness', and 'enabled'}.</span>
 <span class="sd">        projection_mode : str</span>
 <span class="sd">            How data outside the viewed dimensions, but inside the thick Dims slice will</span>
 <span class="sd">            be projected onto the viewed dimensions. Must fit to cls._projectionclass</span>
@@ -2057,7 +2057,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            angle. If 3-tuple, convert into a 3D rotation matrix, using a yaw,</span>
 <span class="sd">            pitch, roll convention. Otherwise, assume an nD rotation. Angles are</span>
 <span class="sd">            assumed to be in degrees. They can be converted from radians with</span>
-<span class="sd">            &#39;np.degrees&#39; if needed.</span>
+<span class="sd">            'np.degrees' if needed.</span>
 <span class="sd">        scale : tuple of float or list of tuple of float</span>
 <span class="sd">            Scale factors for the layer.</span>
 <span class="sd">        shear : 1-D array or list.</span>
@@ -2074,7 +2074,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        layer : :class:`napari.layers.Image` or list</span>
 <span class="sd">            The newly-created image layer or list of image layers.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="k">if</span> <span class="n">colormap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># standardize colormap argument(s) to Colormaps, and make sure they</span>
@@ -2088,62 +2088,62 @@ window.runMermaid = runMermaid;</script>
 
         <span class="c1"># doing this here for IDE/console autocompletion in add_image function.</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;rgb&#39;</span><span class="p">:</span> <span class="n">rgb</span><span class="p">,</span>
-            <span class="s1">&#39;axis_labels&#39;</span><span class="p">:</span> <span class="n">axis_labels</span><span class="p">,</span>
-            <span class="s1">&#39;colormap&#39;</span><span class="p">:</span> <span class="n">colormap</span><span class="p">,</span>
-            <span class="s1">&#39;contrast_limits&#39;</span><span class="p">:</span> <span class="n">contrast_limits</span><span class="p">,</span>
-            <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="n">gamma</span><span class="p">,</span>
-            <span class="s1">&#39;locked_data_level&#39;</span><span class="p">:</span> <span class="n">locked_data_level</span><span class="p">,</span>
-            <span class="s1">&#39;interpolation2d&#39;</span><span class="p">:</span> <span class="n">interpolation2d</span><span class="p">,</span>
-            <span class="s1">&#39;interpolation3d&#39;</span><span class="p">:</span> <span class="n">interpolation3d</span><span class="p">,</span>
-            <span class="s1">&#39;rendering&#39;</span><span class="p">:</span> <span class="n">rendering</span><span class="p">,</span>
-            <span class="s1">&#39;depiction&#39;</span><span class="p">:</span> <span class="n">depiction</span><span class="p">,</span>
-            <span class="s1">&#39;iso_threshold&#39;</span><span class="p">:</span> <span class="n">iso_threshold</span><span class="p">,</span>
-            <span class="s1">&#39;attenuation&#39;</span><span class="p">:</span> <span class="n">attenuation</span><span class="p">,</span>
-            <span class="s1">&#39;auto_contrast&#39;</span><span class="p">:</span> <span class="n">auto_contrast</span><span class="p">,</span>
-            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
-            <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">,</span>
-            <span class="s1">&#39;scale&#39;</span><span class="p">:</span> <span class="n">scale</span><span class="p">,</span>
-            <span class="s1">&#39;translate&#39;</span><span class="p">:</span> <span class="n">translate</span><span class="p">,</span>
-            <span class="s1">&#39;rotate&#39;</span><span class="p">:</span> <span class="n">rotate</span><span class="p">,</span>
-            <span class="s1">&#39;shear&#39;</span><span class="p">:</span> <span class="n">shear</span><span class="p">,</span>
-            <span class="s1">&#39;affine&#39;</span><span class="p">:</span> <span class="n">affine</span><span class="p">,</span>
-            <span class="s1">&#39;opacity&#39;</span><span class="p">:</span> <span class="n">opacity</span><span class="p">,</span>
-            <span class="s1">&#39;blending&#39;</span><span class="p">:</span> <span class="n">blending</span><span class="p">,</span>
-            <span class="s1">&#39;visible&#39;</span><span class="p">:</span> <span class="n">visible</span><span class="p">,</span>
-            <span class="s1">&#39;multiscale&#39;</span><span class="p">:</span> <span class="n">multiscale</span><span class="p">,</span>
-            <span class="s1">&#39;cache&#39;</span><span class="p">:</span> <span class="n">cache</span><span class="p">,</span>
-            <span class="s1">&#39;plane&#39;</span><span class="p">:</span> <span class="n">plane</span><span class="p">,</span>
-            <span class="s1">&#39;experimental_clipping_planes&#39;</span><span class="p">:</span> <span class="n">experimental_clipping_planes</span><span class="p">,</span>
-            <span class="s1">&#39;custom_interpolation_kernel_2d&#39;</span><span class="p">:</span> <span class="n">custom_interpolation_kernel_2d</span><span class="p">,</span>
-            <span class="s1">&#39;projection_mode&#39;</span><span class="p">:</span> <span class="n">projection_mode</span><span class="p">,</span>
-            <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="n">units</span><span class="p">,</span>
+            <span class="s1">'rgb'</span><span class="p">:</span> <span class="n">rgb</span><span class="p">,</span>
+            <span class="s1">'axis_labels'</span><span class="p">:</span> <span class="n">axis_labels</span><span class="p">,</span>
+            <span class="s1">'colormap'</span><span class="p">:</span> <span class="n">colormap</span><span class="p">,</span>
+            <span class="s1">'contrast_limits'</span><span class="p">:</span> <span class="n">contrast_limits</span><span class="p">,</span>
+            <span class="s1">'gamma'</span><span class="p">:</span> <span class="n">gamma</span><span class="p">,</span>
+            <span class="s1">'locked_data_level'</span><span class="p">:</span> <span class="n">locked_data_level</span><span class="p">,</span>
+            <span class="s1">'interpolation2d'</span><span class="p">:</span> <span class="n">interpolation2d</span><span class="p">,</span>
+            <span class="s1">'interpolation3d'</span><span class="p">:</span> <span class="n">interpolation3d</span><span class="p">,</span>
+            <span class="s1">'rendering'</span><span class="p">:</span> <span class="n">rendering</span><span class="p">,</span>
+            <span class="s1">'depiction'</span><span class="p">:</span> <span class="n">depiction</span><span class="p">,</span>
+            <span class="s1">'iso_threshold'</span><span class="p">:</span> <span class="n">iso_threshold</span><span class="p">,</span>
+            <span class="s1">'attenuation'</span><span class="p">:</span> <span class="n">attenuation</span><span class="p">,</span>
+            <span class="s1">'auto_contrast'</span><span class="p">:</span> <span class="n">auto_contrast</span><span class="p">,</span>
+            <span class="s1">'name'</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s1">'metadata'</span><span class="p">:</span> <span class="n">metadata</span><span class="p">,</span>
+            <span class="s1">'scale'</span><span class="p">:</span> <span class="n">scale</span><span class="p">,</span>
+            <span class="s1">'translate'</span><span class="p">:</span> <span class="n">translate</span><span class="p">,</span>
+            <span class="s1">'rotate'</span><span class="p">:</span> <span class="n">rotate</span><span class="p">,</span>
+            <span class="s1">'shear'</span><span class="p">:</span> <span class="n">shear</span><span class="p">,</span>
+            <span class="s1">'affine'</span><span class="p">:</span> <span class="n">affine</span><span class="p">,</span>
+            <span class="s1">'opacity'</span><span class="p">:</span> <span class="n">opacity</span><span class="p">,</span>
+            <span class="s1">'blending'</span><span class="p">:</span> <span class="n">blending</span><span class="p">,</span>
+            <span class="s1">'visible'</span><span class="p">:</span> <span class="n">visible</span><span class="p">,</span>
+            <span class="s1">'multiscale'</span><span class="p">:</span> <span class="n">multiscale</span><span class="p">,</span>
+            <span class="s1">'cache'</span><span class="p">:</span> <span class="n">cache</span><span class="p">,</span>
+            <span class="s1">'plane'</span><span class="p">:</span> <span class="n">plane</span><span class="p">,</span>
+            <span class="s1">'experimental_clipping_planes'</span><span class="p">:</span> <span class="n">experimental_clipping_planes</span><span class="p">,</span>
+            <span class="s1">'custom_interpolation_kernel_2d'</span><span class="p">:</span> <span class="n">custom_interpolation_kernel_2d</span><span class="p">,</span>
+            <span class="s1">'projection_mode'</span><span class="p">:</span> <span class="n">projection_mode</span><span class="p">,</span>
+            <span class="s1">'units'</span><span class="p">:</span> <span class="n">units</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="c1"># these arguments are *already* iterables in the single-channel case.</span>
         <span class="n">iterable_kwargs</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;scale&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;translate&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;rotate&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;shear&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;affine&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;contrast_limits&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;metadata&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;experimental_clipping_planes&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;custom_interpolation_kernel_2d&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;axis_labels&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;units&#39;</span><span class="p">,</span>
+            <span class="s1">'scale'</span><span class="p">,</span>
+            <span class="s1">'translate'</span><span class="p">,</span>
+            <span class="s1">'rotate'</span><span class="p">,</span>
+            <span class="s1">'shear'</span><span class="p">,</span>
+            <span class="s1">'affine'</span><span class="p">,</span>
+            <span class="s1">'contrast_limits'</span><span class="p">,</span>
+            <span class="s1">'metadata'</span><span class="p">,</span>
+            <span class="s1">'experimental_clipping_planes'</span><span class="p">,</span>
+            <span class="s1">'custom_interpolation_kernel_2d'</span><span class="p">,</span>
+            <span class="s1">'axis_labels'</span><span class="p">,</span>
+            <span class="s1">'units'</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="k">if</span> <span class="n">channel_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;colormap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;colormap&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;gray&#39;</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;blending&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;blending&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;translucent_no_depth&#39;</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'colormap'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">'colormap'</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">'gray'</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'blending'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">'blending'</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">'translucent_no_depth'</span>
             <span class="c1"># Helpful message if someone tries to add multi-channel kwargs,</span>
             <span class="c1"># but forget the channel_axis arg</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">iterable_kwargs</span> <span class="ow">and</span> <span class="n">is_sequence</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;Received sequence for argument &#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&#39;, did you mean to specify a &#39;channel_axis&#39;? &quot;</span>
+                        <span class="sa">f</span><span class="s2">"Received sequence for argument '</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">', did you mean to specify a 'channel_axis'? "</span>
                     <span class="p">)</span>
             <span class="n">layer</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
@@ -2169,7 +2169,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">reader_plugin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Layer</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open `sample` from `plugin` and add it to the viewer.</span>
+<span class="w">        </span><span class="sd">"""Open `sample` from `plugin` and add it to the viewer.</span>
 
 <span class="sd">        To see all available samples registered by plugins, use</span>
 <span class="sd">        :func:`napari.plugins.available_samples`</span>
@@ -2197,7 +2197,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        ------</span>
 <span class="sd">        KeyError</span>
 <span class="sd">            If `plugin` does not provide a sample named `sample`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">plugin_spec_reader</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">data</span><span class="p">:</span> <span class="n">SampleDataCreator</span> <span class="o">|</span> <span class="n">SampleData</span> <span class="o">|</span> <span class="kc">None</span>
         <span class="c1"># try with npe2</span>
@@ -2206,11 +2206,11 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># npe2 uri sample data, extract the path so we can use viewer.open</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;__self__&#39;</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">'__self__'</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">'uri'</span><span class="p">)</span>
         <span class="p">):</span>
             <span class="k">if</span> <span class="p">(</span>
-                <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;reader_plugin&#39;</span><span class="p">)</span>
+                <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">'reader_plugin'</span><span class="p">)</span>
                 <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="o">.</span><span class="n">reader_plugin</span> <span class="o">!=</span> <span class="n">reader_plugin</span>
             <span class="p">):</span>
                 <span class="c1"># if the user chose a reader_plugin, we use their choice</span>
@@ -2220,11 +2220,11 @@ window.runMermaid = runMermaid;</script>
             <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="o">.</span><span class="n">uri</span>
 
         <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s1"> does not provide sample data named </span><span class="si">{</span><span class="n">sample</span><span class="si">!r}</span><span class="s1">. &#39;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'Plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s1"> does not provide sample data named </span><span class="si">{</span><span class="n">sample</span><span class="si">!r}</span><span class="s1">. '</span>
             <span class="k">if</span> <span class="n">available</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s1"> does not provide sample data named </span><span class="si">{</span><span class="n">sample</span><span class="si">!r}</span><span class="s1">. Available samples include: </span><span class="si">{</span><span class="n">available</span><span class="si">}</span><span class="s1">.&#39;</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'Plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s1"> does not provide sample data named </span><span class="si">{</span><span class="n">sample</span><span class="si">!r}</span><span class="s1">. Available samples include: </span><span class="si">{</span><span class="n">available</span><span class="si">}</span><span class="s1">.'</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s1"> does not provide sample data named </span><span class="si">{</span><span class="n">sample</span><span class="si">!r}</span><span class="s1">. No plugin samples have been registered.&#39;</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'Plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s1"> does not provide sample data named </span><span class="si">{</span><span class="n">sample</span><span class="si">!r}</span><span class="s1">. No plugin samples have been registered.'</span>
 
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
@@ -2240,7 +2240,7 @@ window.runMermaid = runMermaid;</script>
                         <span class="n">added</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_layer_from_data</span><span class="p">(</span><span class="o">*</span><span class="n">datum</span><span class="p">))</span>
                 <span class="k">if</span> <span class="n">needs_error</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s1">&#39;Sample &quot;</span><span class="si">{</span><span class="n">sample</span><span class="si">}</span><span class="s1">&quot; from plugin &quot;</span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s1">&quot; did not return any valid layer data tuples.&#39;</span>
+                        <span class="sa">f</span><span class="s1">'Sample "</span><span class="si">{</span><span class="n">sample</span><span class="si">}</span><span class="s1">" from plugin "</span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s1">" did not return any valid layer data tuples.'</span>
                     <span class="p">)</span>
                 <span class="k">return</span> <span class="n">added</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">):</span>
@@ -2254,12 +2254,12 @@ window.runMermaid = runMermaid;</script>
                         <span class="ow">and</span> <span class="n">reader_plugin</span> <span class="o">!=</span> <span class="n">plugin_spec_reader</span>
                     <span class="p">):</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                            <span class="sa">f</span><span class="s1">&#39;Chosen reader </span><span class="si">{</span><span class="n">reader_plugin</span><span class="si">}</span><span class="s1"> failed to open sample. Plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s1"> declares </span><span class="si">{</span><span class="n">plugin_spec_reader</span><span class="si">}</span><span class="s1"> as the reader for this sample - try calling `open_sample` with no `reader_plugin` or passing </span><span class="si">{</span><span class="n">plugin_spec_reader</span><span class="si">}</span><span class="s1"> explicitly.&#39;</span>
+                            <span class="sa">f</span><span class="s1">'Chosen reader </span><span class="si">{</span><span class="n">reader_plugin</span><span class="si">}</span><span class="s1"> failed to open sample. Plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s1"> declares </span><span class="si">{</span><span class="n">plugin_spec_reader</span><span class="si">}</span><span class="s1"> as the reader for this sample - try calling `open_sample` with no `reader_plugin` or passing </span><span class="si">{</span><span class="n">plugin_spec_reader</span><span class="si">}</span><span class="s1"> explicitly.'</span>
                         <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
                     <span class="k">raise</span> <span class="n">e</span>  <span class="c1"># noqa: TRY201</span>
 
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;Got unexpected type for sample (</span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s1">, </span><span class="si">{</span><span class="n">sample</span><span class="si">!r}</span><span class="s1">): </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="sa">f</span><span class="s1">'Got unexpected type for sample (</span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s1">, </span><span class="si">{</span><span class="n">sample</span><span class="si">!r}</span><span class="s1">): </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span>
             <span class="p">)</span></div>
 
 
@@ -2270,11 +2270,11 @@ window.runMermaid = runMermaid;</script>
         <span class="n">path</span><span class="p">:</span> <span class="n">PathOrPaths</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">plugin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span><span class="p">,</span>
+        <span class="n">plugin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s1">'napari'</span><span class="p">,</span>
         <span class="n">layer_type</span><span class="p">:</span> <span class="n">LayerTypeName</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Layer</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open a path or list of paths with plugins, and add layers to viewer.</span>
+<span class="w">        </span><span class="sd">"""Open a path or list of paths with plugins, and add layers to viewer.</span>
 
 <span class="sd">        A list of paths will be handed one-by-one to the napari_get_reader hook</span>
 <span class="sd">        if stack is False, otherwise the full list is passed to each plugin</span>
@@ -2312,12 +2312,12 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        layers : list</span>
 <span class="sd">            A list of any layers that were added to the viewer.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">plugin</span> <span class="o">==</span> <span class="s1">&#39;builtins&#39;</span><span class="p">:</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">plugin</span> <span class="o">==</span> <span class="s1">'builtins'</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s1">&#39;The &quot;builtins&quot; plugin name is deprecated and will not work in a future version. Please use &quot;napari&quot; instead.&#39;</span><span class="p">,</span>
+                <span class="s1">'The "builtins" plugin name is deprecated and will not work in a future version. Please use "napari" instead.'</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="n">plugin</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span>
+            <span class="n">plugin</span> <span class="o">=</span> <span class="s1">'napari'</span>
 
         <span class="n">paths_</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
             <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">path</span><span class="p">)]</span>
@@ -2339,7 +2339,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">added</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Layer</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># for layers that get added</span>
         <span class="k">with</span> <span class="n">progress</span><span class="p">(</span>
             <span class="n">paths</span><span class="p">,</span>
-            <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Opening Files&#39;</span><span class="p">,</span>
+            <span class="n">desc</span><span class="o">=</span><span class="s1">'Opening Files'</span><span class="p">,</span>
             <span class="n">total</span><span class="o">=</span><span class="p">(</span>
                 <span class="mi">0</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">None</span>
             <span class="p">),</span>  <span class="c1"># indeterminate bar for 1 file</span>
@@ -2376,7 +2376,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">layer_type</span><span class="p">:</span> <span class="n">LayerTypeName</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open paths if plugin choice is unambiguous, raising any errors.</span>
+<span class="w">        </span><span class="sd">"""Open paths if plugin choice is unambiguous, raising any errors.</span>
 
 <span class="sd">        This function will open paths if there is no plugin choice to be made</span>
 <span class="sd">        i.e. there is a preferred reader associated with this file extension,</span>
@@ -2423,15 +2423,15 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            when reading with only available or prefered plugin fails</span>
 <span class="sd">        MultipleReaderError</span>
 <span class="sd">            when multiple readers are available to read the path</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">]</span>  <span class="c1"># PathObjects -&gt; str</span>
         <span class="n">_path</span> <span class="o">=</span> <span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="c1"># we want to display the paths nicely so make a help string here</span>
-        <span class="n">path_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;[</span><span class="si">{</span><span class="n">_path</span><span class="si">}</span><span class="s1">], ...]&#39;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">_path</span>
+        <span class="n">path_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'[</span><span class="si">{</span><span class="n">_path</span><span class="si">}</span><span class="s1">], ...]'</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">_path</span>
         <span class="n">readers</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">get_readers</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_path</span><span class="p">))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">readers</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">NoAvailableReaderError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;No plugin found capable of reading </span><span class="si">{</span><span class="n">path_message</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s1">'No plugin found capable of reading </span><span class="si">{</span><span class="n">path_message</span><span class="si">}</span><span class="s1">.'</span><span class="p">,</span>
                 <span class="n">paths</span><span class="p">,</span>
             <span class="p">)</span>
 
@@ -2439,9 +2439,9 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="n">plugin</span> <span class="ow">and</span> <span class="n">plugin</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">readers</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                 <span class="ne">RuntimeWarning</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Can&#39;t find </span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s2"> plugin associated with </span><span class="si">{</span><span class="n">path_message</span><span class="si">}</span><span class="s2"> files. &quot;</span>
-                    <span class="s2">&quot;This may be because you&#39;ve switched environments, or have uninstalled the plugin without updating the reader preference. &quot;</span>
-                    <span class="s1">&#39;You can remove this preference in the preference dialog, or by editing `settings.plugins.extension2reader`.&#39;</span>
+                    <span class="sa">f</span><span class="s2">"Can't find </span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s2"> plugin associated with </span><span class="si">{</span><span class="n">path_message</span><span class="si">}</span><span class="s2"> files. "</span>
+                    <span class="s2">"This may be because you've switched environments, or have uninstalled the plugin without updating the reader preference. "</span>
+                    <span class="s1">'You can remove this preference in the preference dialog, or by editing `settings.plugins.extension2reader`.'</span>
                 <span class="p">)</span>
             <span class="p">)</span>
             <span class="n">plugin</span> <span class="o">=</span> <span class="kc">None</span>
@@ -2460,7 +2460,7 @@ window.runMermaid = runMermaid;</script>
             <span class="c1"># plugin failed</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">ReaderPluginError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s1">&#39;Tried opening with </span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s1">, but failed.&#39;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s1">'Tried opening with </span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s1">, but failed.'</span><span class="p">,</span>
                     <span class="n">plugin</span><span class="p">,</span>
                     <span class="n">paths</span><span class="p">,</span>
                     <span class="n">original_error</span><span class="o">=</span><span class="n">e</span><span class="p">,</span>
@@ -2468,7 +2468,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># multiple plugins</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">MultipleReaderError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;Multiple plugins found capable of reading </span><span class="si">{</span><span class="n">path_message</span><span class="si">}</span><span class="s1">. Select plugin from </span><span class="si">{</span><span class="n">readers</span><span class="si">}</span><span class="s1"> and pass to reading function e.g. `viewer.open(..., plugin=...)`.&#39;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s1">'Multiple plugins found capable of reading </span><span class="si">{</span><span class="n">path_message</span><span class="si">}</span><span class="s1">. Select plugin from </span><span class="si">{</span><span class="n">readers</span><span class="si">}</span><span class="s1"> and pass to reading function e.g. `viewer.open(..., plugin=...)`.'</span><span class="p">,</span>
                 <span class="nb">list</span><span class="p">(</span><span class="n">readers</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
                 <span class="n">paths</span><span class="p">,</span>
             <span class="p">)</span>
@@ -2484,7 +2484,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">plugin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">layer_type</span><span class="p">:</span> <span class="n">LayerTypeName</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Layer</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load a path or a list of paths into the viewer using plugins.</span>
+<span class="w">        </span><span class="sd">"""Load a path or a list of paths into the viewer using plugins.</span>
 
 <span class="sd">        This function is mostly called from self.open_path, where the ``stack``</span>
 <span class="sd">        argument determines whether a list of strings is handed to plugins one</span>
@@ -2517,7 +2517,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        List[Layer]</span>
 <span class="sd">            A list of any layers that were added to the viewer.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.plugins.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_data_with_plugins</span>
 
         <span class="k">assert</span> <span class="n">stack</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -2574,7 +2574,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">meta</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">layer_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Layer</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add arbitrary layer data to the viewer.</span>
+<span class="w">        </span><span class="sd">"""Add arbitrary layer data to the viewer.</span>
 
 <span class="sd">        Primarily intended for usage by reader plugin hooks.</span>
 
@@ -2590,8 +2590,8 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        layer_type : str</span>
 <span class="sd">            Type of layer to add.  MUST have a corresponding add_* method on</span>
 <span class="sd">            on the viewer instance.  If not provided, the layer is assumed to</span>
-<span class="sd">            be &quot;image&quot;, unless data.dtype is one of (np.int32, np.uint32,</span>
-<span class="sd">            np.int64, np.uint64), in which case it is assumed to be &quot;labels&quot;.</span>
+<span class="sd">            be "image", unless data.dtype is one of (np.int32, np.uint32,</span>
+<span class="sd">            np.int64, np.uint64), in which case it is assumed to be "labels".</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -2614,13 +2614,13 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        &gt;&gt;&gt; viewer = napari.Viewer()</span>
 <span class="sd">        &gt;&gt;&gt; data = (</span>
 <span class="sd">        ...     np.random.random((10, 2)) * 20,</span>
-<span class="sd">        ...     {&#39;face_color&#39;: &#39;blue&#39;},</span>
-<span class="sd">        ...     &#39;points&#39;,</span>
+<span class="sd">        ...     {'face_color': 'blue'},</span>
+<span class="sd">        ...     'points',</span>
 <span class="sd">        ... )</span>
 <span class="sd">        &gt;&gt;&gt; viewer._add_layer_from_data(*data)</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">layer_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">layer_type</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">layer_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">layer_type</span> <span class="o">==</span> <span class="s1">''</span><span class="p">:</span>
             <span class="c1"># assumes that big integer type arrays are likely labels.</span>
             <span class="n">layer_type</span> <span class="o">=</span> <span class="n">guess_labels</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -2628,25 +2628,25 @@ window.runMermaid = runMermaid;</script>
 
         <span class="k">if</span> <span class="n">layer_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Unrecognized layer_type: &#39;</span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s2">&#39;. Must be one of: </span><span class="si">{</span><span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="sa">f</span><span class="s2">"Unrecognized layer_type: '</span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s2">'. Must be one of: </span><span class="si">{</span><span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="si">}</span><span class="s2">."</span>
             <span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">add_method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;add_&#39;</span> <span class="o">+</span> <span class="n">layer_type</span><span class="p">)</span>
+            <span class="n">add_method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'add_'</span> <span class="o">+</span> <span class="n">layer_type</span><span class="p">)</span>
             <span class="n">layer</span> <span class="o">=</span> <span class="n">add_method</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">meta</span> <span class="ow">or</span> <span class="p">{}))</span>
         <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s1">&#39;unexpected keyword argument&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s1">'unexpected keyword argument'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">):</span>
                 <span class="k">raise</span>
-            <span class="n">bad_key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;keyword argument &#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">bad_key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'keyword argument '</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;_add_layer_from_data received an unexpected keyword argument (</span><span class="si">{</span><span class="n">bad_key</span><span class="si">}</span><span class="s1">) for layer type </span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="sa">f</span><span class="s1">'_add_layer_from_data received an unexpected keyword argument (</span><span class="si">{</span><span class="n">bad_key</span><span class="si">}</span><span class="s1">) for layer type </span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s1">'</span>
             <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
         <span class="k">return</span> <span class="n">layer</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">layer</span><span class="p">]</span></div>
 
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_normalize_layer_data</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">LayerData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FullLayerData</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Accepts any layerdata tuple, and returns a fully qualified tuple.</span>
+<span class="w">    </span><span class="sd">"""Accepts any layerdata tuple, and returns a fully qualified tuple.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -2663,22 +2663,22 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    ValueError</span>
 <span class="sd">        If data has len &lt; 1 or len &gt; 3, or if the second item in ``data`` is</span>
 <span class="sd">        not a ``dict``, or the third item is not a valid layer_type ``str``</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;LayerData must be a 1-, 2-, or 3-tuple&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'LayerData must be a 1-, 2-, or 3-tuple'</span><span class="p">)</span>
 
     <span class="n">_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">MutableMapping</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s1">&#39;The second item in a LayerData tuple must be a dict or other MutableMapping.&#39;</span>
+                <span class="s1">'The second item in a LayerData tuple must be a dict or other MutableMapping.'</span>
             <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">({})</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;The third item in a LayerData tuple must be one of: </span><span class="si">{</span><span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="si">!r}</span><span class="s1">.&#39;</span>
+                <span class="sa">f</span><span class="s1">'The third item in a LayerData tuple must be one of: </span><span class="si">{</span><span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="si">!r}</span><span class="s1">.'</span>
             <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">guess_labels</span><span class="p">(</span><span class="n">_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
@@ -2691,14 +2691,14 @@ window.runMermaid = runMermaid;</script>
     <span class="n">layer_type</span><span class="p">:</span> <span class="n">LayerTypeName</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">fallback_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FullLayerData</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Merge data returned from plugins with options specified by user.</span>
+<span class="w">    </span><span class="sd">"""Merge data returned from plugins with options specified by user.</span>
 
 <span class="sd">    If ``data == (data_, meta_, type_)``.  Then:</span>
 
 <span class="sd">    - ``kwargs`` will be used to update ``meta_``</span>
 <span class="sd">    - ``layer_type`` will replace ``type_`` and, if provided, ``meta_`` keys</span>
 <span class="sd">        will be pruned to layer_type-appropriate kwargs</span>
-<span class="sd">    - ``fallback_name`` is used if ``not meta_.get(&#39;name&#39;)``</span>
+<span class="sd">    - ``fallback_name`` is used if ``not meta_.get('name')``</span>
 
 <span class="sd">    .. note:</span>
 
@@ -2724,7 +2724,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    FullLayerData</span>
 <span class="sd">        Fully qualified LayerData tuple with user-provided overrides.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">data_</span><span class="p">,</span> <span class="n">meta_</span><span class="p">,</span> <span class="n">type_</span> <span class="o">=</span> <span class="n">_normalize_layer_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">layer_type</span><span class="p">:</span>
@@ -2745,13 +2745,13 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># layer_type.</span>
         <span class="n">meta_</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">prune_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">type_</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">layer_type</span> <span class="k">else</span> <span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">meta_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">fallback_name</span><span class="p">:</span>
-        <span class="n">meta_</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fallback_name</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">meta_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span> <span class="ow">and</span> <span class="n">fallback_name</span><span class="p">:</span>
+        <span class="n">meta_</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span> <span class="o">=</span> <span class="n">fallback_name</span>
     <span class="k">return</span> <span class="n">data_</span><span class="p">,</span> <span class="n">meta_</span><span class="p">,</span> <span class="n">type_</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">prune_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">layer_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return copy of ``kwargs`` with only keys valid for ``add_&lt;layer_type&gt;``</span>
+<span class="w">    </span><span class="sd">"""Return copy of ``kwargs`` with only keys valid for ``add_&lt;layer_type&gt;``</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -2776,20 +2776,20 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; test_kwargs = {</span>
-<span class="sd">    ...     &#39;scale&#39;: (0.75, 1),</span>
-<span class="sd">    ...     &#39;blending&#39;: &#39;additive&#39;,</span>
-<span class="sd">    ...     &#39;size&#39;: 10,</span>
+<span class="sd">    ...     'scale': (0.75, 1),</span>
+<span class="sd">    ...     'blending': 'additive',</span>
+<span class="sd">    ...     'size': 10,</span>
 <span class="sd">    ... }</span>
-<span class="sd">    &gt;&gt;&gt; prune_kwargs(test_kwargs, &#39;image&#39;)</span>
-<span class="sd">    {&#39;scale&#39;: (0.75, 1), &#39;blending&#39;: &#39;additive&#39;}</span>
+<span class="sd">    &gt;&gt;&gt; prune_kwargs(test_kwargs, 'image')</span>
+<span class="sd">    {'scale': (0.75, 1), 'blending': 'additive'}</span>
 
 <span class="sd">    &gt;&gt;&gt; # only labels has the ``num_colors`` argument</span>
-<span class="sd">    &gt;&gt;&gt; prune_kwargs(test_kwargs, &#39;points&#39;)</span>
-<span class="sd">    {&#39;scale&#39;: (0.75, 1), &#39;blending&#39;: &#39;additive&#39;, &#39;size&#39;: 10}</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">add_method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">,</span> <span class="s1">&#39;add_&#39;</span> <span class="o">+</span> <span class="n">layer_type</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">add_method</span> <span class="ow">or</span> <span class="n">layer_type</span> <span class="o">==</span> <span class="s1">&#39;layer&#39;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid layer_type: </span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="sd">    &gt;&gt;&gt; prune_kwargs(test_kwargs, 'points')</span>
+<span class="sd">    {'scale': (0.75, 1), 'blending': 'additive', 'size': 10}</span>
+<span class="sd">    """</span>
+    <span class="n">add_method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">,</span> <span class="s1">'add_'</span> <span class="o">+</span> <span class="n">layer_type</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">add_method</span> <span class="ow">or</span> <span class="n">layer_type</span> <span class="o">==</span> <span class="s1">'layer'</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Invalid layer_type: </span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
     <span class="c1"># get valid params for the corresponding add_&lt;layer_type&gt; method</span>
     <span class="n">valid</span> <span class="o">=</span> <span class="n">valid_add_kwargs</span><span class="p">()[</span><span class="n">layer_type</span><span class="p">]</span>
@@ -2798,13 +2798,13 @@ window.runMermaid = runMermaid;</script>
 
 <span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">valid_add_kwargs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a dict where keys are layer types &amp; values are valid kwargs.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Return a dict where keys are layer types &amp; values are valid kwargs."""</span>
     <span class="n">valid</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">meth</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">meth</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;add_&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">meth</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;layer&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">meth</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'add_'</span><span class="p">)</span> <span class="ow">or</span> <span class="n">meth</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">'layer'</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="n">params</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">,</span> <span class="n">meth</span><span class="p">))</span><span class="o">.</span><span class="n">parameters</span>
-        <span class="n">valid</span><span class="p">[</span><span class="n">meth</span><span class="p">[</span><span class="mi">4</span><span class="p">:]]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">-</span> <span class="p">{</span><span class="s1">&#39;self&#39;</span><span class="p">,</span> <span class="s1">&#39;kwargs&#39;</span><span class="p">}</span>
+        <span class="n">valid</span><span class="p">[</span><span class="n">meth</span><span class="p">[</span><span class="mi">4</span><span class="p">:]]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">-</span> <span class="p">{</span><span class="s1">'self'</span><span class="p">,</span> <span class="s1">'kwargs'</span><span class="p">}</span>
     <span class="k">return</span> <span class="n">valid</span>
 
 

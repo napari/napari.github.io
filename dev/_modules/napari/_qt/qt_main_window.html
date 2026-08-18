@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -819,10 +819,10 @@ window.runMermaid = runMermaid;</script>
                 <article class="bd-article">
                   
   <h1>Source code for napari._qt.qt_main_window</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Custom Qt widgets that serve as native objects that the public-facing elements</span>
 <span class="sd">wrap.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -932,23 +932,23 @@ window.runMermaid = runMermaid;</script>
 <span class="k">del</span> <span class="n">QT5</span>
 
 <span class="n">MenuStr</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span>
-    <span class="s1">&#39;file_menu&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;view_menu&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;layers_menu&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;plugins_menu&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;window_menu&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;help_menu&#39;</span><span class="p">,</span>
+    <span class="s1">'file_menu'</span><span class="p">,</span>
+    <span class="s1">'view_menu'</span><span class="p">,</span>
+    <span class="s1">'layers_menu'</span><span class="p">,</span>
+    <span class="s1">'plugins_menu'</span><span class="p">,</span>
+    <span class="s1">'window_menu'</span><span class="p">,</span>
+    <span class="s1">'help_menu'</span><span class="p">,</span>
 <span class="p">]</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">_QtMainWindow</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
-    <span class="c1"># To track window instances and facilitate getting the &quot;active&quot; viewer...</span>
+    <span class="c1"># To track window instances and facilitate getting the "active" viewer...</span>
     <span class="c1"># We use this instead of QApplication.activeWindow for compatibility with</span>
     <span class="c1"># IPython usage. When you activate IPython, it will appear that there are</span>
     <span class="c1"># *no* active windows, so we want to track the most recently active windows</span>
     <span class="n">_instances</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">_QtMainWindow</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="c1"># `window` is passed through on construction, so it&#39;s available to a window</span>
+    <span class="c1"># `window` is passed through on construction, so it's available to a window</span>
     <span class="c1"># provider for dependency injection</span>
     <span class="c1"># See https://github.com/napari/napari/pull/4826</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
@@ -1005,7 +1005,7 @@ window.runMermaid = runMermaid;</script>
 
         <span class="c1"># Ideally this would be in `NapariApplication` but that is outside of Qt</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_viewer_context</span> <span class="o">=</span> <span class="n">create_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_viewer_context</span><span class="p">[</span><span class="s1">&#39;is_set_trace_active&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_is_set_trace_active</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_viewer_context</span><span class="p">[</span><span class="s1">'is_set_trace_active'</span><span class="p">]</span> <span class="o">=</span> <span class="n">_is_set_trace_active</span>
 
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
 
@@ -1040,7 +1040,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_command_palette</span> <span class="o">=</span> <span class="n">QCommandPalette</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_window_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_window_icon&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_window_icon'</span><span class="p">):</span>
             <span class="c1"># This was added so that someone can patch</span>
             <span class="c1"># `napari._qt.qt_main_window._QtMainWindow._window_icon`</span>
             <span class="c1"># to their desired window icon</span>
@@ -1054,11 +1054,11 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">status_thread</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">showEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QShowEvent</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Override to handle window state changes.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Override to handle window state changes."""</span>
         <span class="k">global</span> <span class="n">SHOW_QT_WARNING</span>
 
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
-        <span class="c1"># if event loop is not running, we don&#39;t want to start the thread</span>
+        <span class="c1"># if event loop is not running, we don't want to start the thread</span>
         <span class="c1"># If event loop is running, the loopLevel will be above 0</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">update_status_based_on_layer</span>
@@ -1068,7 +1068,7 @@ window.runMermaid = runMermaid;</script>
 
         <span class="k">if</span> <span class="n">SHOW_QT_WARNING</span><span class="p">:</span>
             <span class="n">show_warning</span><span class="p">(</span>
-                <span class="s1">&#39;napari support for the PyQt5 backend is deprecated and will be removed in fall of 2026&#39;</span>
+                <span class="s1">'napari support for the PyQt5 backend is deprecated and will be removed in fall of 2026'</span>
             <span class="p">)</span>
 
             <span class="n">SHOW_QT_WARNING</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1123,7 +1123,7 @@ window.runMermaid = runMermaid;</script>
             <span class="c1"># https://doc-snapshots.qt.io/qt6-dev/qmouseevent-obsolete.html#globalPos</span>
             <span class="n">pnt</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="n">e</span><span class="o">.</span><span class="n">globalPosition</span><span class="p">()</span><span class="o">.</span><span class="n">toPoint</span><span class="p">()</span>
-                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s1">&#39;globalPosition&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s1">'globalPosition'</span><span class="p">)</span>
                 <span class="k">else</span> <span class="n">e</span><span class="o">.</span><span class="n">globalPos</span><span class="p">()</span>
             <span class="p">)</span>
             <span class="n">rect</span> <span class="o">=</span> <span class="n">QRect</span><span class="p">(</span><span class="n">pnt</span><span class="o">.</span><span class="n">x</span><span class="p">()</span> <span class="o">-</span> <span class="mi">5</span><span class="p">,</span> <span class="n">pnt</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">-</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
@@ -1152,7 +1152,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1">#  * https://doc.qt.io/qt-6/windows-issues.html#fullscreen-opengl-based-windows</span>
         <span class="c1">#  * https://bugreports.qt.io/browse/QTBUG-41309</span>
         <span class="c1">#  * https://bugreports.qt.io/browse/QTBUG-104511</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;nt&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">'nt'</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">win32con</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">win32gui</span>
@@ -1172,7 +1172,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># we are not in menubar toggled state</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">QApplication</span><span class="o">.</span><span class="n">activePopupWidget</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span>
-            <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_toggle_menubar_visibility&#39;</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_toggle_menubar_visibility'</span><span class="p">)</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_menubar_visibility</span>
         <span class="p">):</span>
             <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">MouseMove</span><span class="p">:</span>
@@ -1194,13 +1194,13 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_window_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Load window layout settings from configuration.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
         <span class="n">window_position</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">window_position</span>
 
-        <span class="c1"># It&#39;s necessary to verify if the window/position value is valid with</span>
+        <span class="c1"># It's necessary to verify if the window/position value is valid with</span>
         <span class="c1"># the current screen.</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">window_position</span><span class="p">:</span>
             <span class="n">window_position</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
@@ -1220,10 +1220,10 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_window_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return current window settings.</span>
+<span class="w">        </span><span class="sd">"""Return current window settings.</span>
 
-<span class="sd">        Symmetric to the &#39;set_window_settings&#39; setter.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Symmetric to the 'set_window_settings' setter.</span>
+<span class="sd">        """</span>
 
         <span class="n">window_fullscreen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isFullScreen</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">window_fullscreen</span><span class="p">:</span>
@@ -1248,11 +1248,11 @@ window.runMermaid = runMermaid;</script>
         <span class="n">window_maximized</span><span class="p">,</span>
         <span class="n">window_fullscreen</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Set window settings.</span>
 
-<span class="sd">        Symmetric to the &#39;get_window_settings&#39; accessor.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Symmetric to the 'get_window_settings' accessor.</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setUpdatesEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setWindowState</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">WindowState</span><span class="o">.</span><span class="n">WindowNoState</span><span class="p">)</span>
 
@@ -1281,7 +1281,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">setUpdatesEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_save_current_window_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save the current geometry of the main window.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Save the current geometry of the main window."""</span>
         <span class="p">(</span>
             <span class="n">window_state</span><span class="p">,</span>
             <span class="n">window_size</span><span class="p">,</span>
@@ -1304,14 +1304,14 @@ window.runMermaid = runMermaid;</script>
             <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">window_state</span> <span class="o">=</span> <span class="n">window_state</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quit_app</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">confirm_need</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Override to handle closing app or just the window.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Override to handle closing app or just the window."""</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">quit_app</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="n">confirm_need_local</span> <span class="o">=</span> <span class="n">confirm_need</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_close_dialog</span><span class="p">[</span><span class="n">quit_app</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_close_dialog</span><span class="p">[</span><span class="n">quit_app</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="c1"># here we save information that we could request confirmation on close</span>
-        <span class="c1"># So if function `close` is called again, we don&#39;t ask again but just close</span>
+        <span class="c1"># So if function `close` is called again, we don't ask again but just close</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="ow">not</span> <span class="n">confirm_need_local</span>
             <span class="ow">or</span> <span class="ow">not</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">confirm_close_window</span>
@@ -1328,7 +1328,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># here we inform that confirmation dialog is not open</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">close_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Close active dialog or active window.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Close active dialog or active window."""</span>
         <span class="n">parent</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">focusWidget</span><span class="p">()</span>
         <span class="k">while</span> <span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">QMainWindow</span><span class="p">):</span>
@@ -1342,7 +1342,7 @@ window.runMermaid = runMermaid;</script>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-                <span class="n">parent</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="s1">&#39;_parent&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="n">parent</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="s1">'_parent'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -1352,14 +1352,14 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">_ev</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">changeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle window state changes.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Handle window state changes."""</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">WindowStateChange</span><span class="p">:</span>
             <span class="c1"># TODO: handle maximization issue. When double clicking on the</span>
             <span class="c1"># title bar on Mac the resizeEvent is called an varying amount</span>
             <span class="c1"># of times which makes it hard to track the original size before</span>
             <span class="c1"># maximization.</span>
             <span class="n">condition</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">isMaximized</span><span class="p">()</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">isFullScreen</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">isMaximized</span><span class="p">()</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">'nt'</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">isFullScreen</span><span class="p">()</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="n">condition</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_old_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_positions</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_positions</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -1378,34 +1378,34 @@ window.runMermaid = runMermaid;</script>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">changeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called whenever a key is pressed.</span>
+<span class="w">        </span><span class="sd">"""Called whenever a key is pressed.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        event : qtpy.QtCore.QEvent</span>
 <span class="sd">            Event from the Qt context.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_scene_canvas</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">_keyEvent</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_scene_canvas</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">key_press</span><span class="p">,</span> <span class="n">event</span>
         <span class="p">)</span>
         <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">keyReleaseEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called whenever a key is released.</span>
+<span class="w">        </span><span class="sd">"""Called whenever a key is released.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        event : qtpy.QtCore.QEvent</span>
 <span class="sd">            Event from the Qt context.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_scene_canvas</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">_keyEvent</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_scene_canvas</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">key_release</span><span class="p">,</span> <span class="n">event</span>
         <span class="p">)</span>
         <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Override to handle original size before maximizing.&quot;&quot;&quot;</span>
-        <span class="c1"># the first resize event will have nonsense positions that we don&#39;t</span>
+<span class="w">        </span><span class="sd">"""Override to handle original size before maximizing."""</span>
+        <span class="c1"># the first resize event will have nonsense positions that we don't</span>
         <span class="c1"># want to store (and potentially restore)</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">oldSize</span><span class="p">()</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_old_size</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">oldSize</span><span class="p">()</span>
@@ -1418,10 +1418,10 @@ window.runMermaid = runMermaid;</script>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">resizeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This method will be called when the main window is closing.</span>
+<span class="w">        </span><span class="sd">"""This method will be called when the main window is closing.</span>
 
 <span class="sd">        Regardless of whether cmd Q, cmd W, or the close button is used...</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">task_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_window</span><span class="o">.</span><span class="n">_task_status_manager</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">event</span><span class="o">.</span><span class="n">spontaneous</span><span class="p">()</span>
@@ -1429,7 +1429,7 @@ window.runMermaid = runMermaid;</script>
             <span class="ow">and</span> <span class="n">ConfirmCloseDialog</span><span class="p">(</span>
                 <span class="bp">self</span><span class="p">,</span>
                 <span class="n">close_app</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">extra_info</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">task_status</span><span class="p">),</span>
+                <span class="n">extra_info</span><span class="o">=</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">task_status</span><span class="p">),</span>
                 <span class="n">display_checkbox</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="p">)</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
             <span class="o">!=</span> <span class="n">QDialog</span><span class="o">.</span><span class="n">Accepted</span>
@@ -1478,7 +1478,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">restart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Restart the napari application in a detached process.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Restart the napari application in a detached process."""</span>
         <span class="n">process</span> <span class="o">=</span> <span class="n">QProcess</span><span class="p">()</span>
         <span class="n">process</span><span class="o">.</span><span class="n">setProgram</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">)</span>
 
@@ -1489,11 +1489,11 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">quit_app</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">toggle_menubar_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Change menubar to be shown or to be hidden and shown on mouse movement.</span>
 
 <span class="sd">        For the mouse movement functionality see the `eventFilter` implementation.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_menubar_visibility</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_menubar_visibility</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_menubar_visibility</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_menubar_visibility</span>
@@ -1501,13 +1501,13 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@staticmethod</span>
     <span class="nd">@Slot</span><span class="p">(</span><span class="n">Notification</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">show_notification</span><span class="p">(</span><span class="n">notification</span><span class="p">:</span> <span class="n">Notification</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show notification coming from a thread.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Show notification coming from a thread."""</span>
         <span class="n">NapariQtNotification</span><span class="o">.</span><span class="n">show_notification</span><span class="p">(</span><span class="n">notification</span><span class="p">)</span>
 
 
 <span class="nd">@atexit</span><span class="o">.</span><span class="n">register</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">_shutdown_open_windows</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stop worker threads for windows still open at interpreter shutdown.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Stop worker threads for windows still open at interpreter shutdown."""</span>
     <span class="k">for</span> <span class="n">window</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">_QtMainWindow</span><span class="o">.</span><span class="n">_instances</span><span class="p">):</span>
         <span class="c1"># Qt may have deleted a window while leaving its Python wrapper alive.</span>
         <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
@@ -1517,7 +1517,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Window">
 <a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Window</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Application window that contains the menu bar and viewer.</span>
+<span class="w">    </span><span class="sd">"""Application window that contains the menu bar and viewer.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1536,7 +1536,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        View menu.</span>
 <span class="sd">    window_menu : qtpy.QtWidgets.QMenu</span>
 <span class="sd">        Window menu.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1545,7 +1545,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">show_welcome_screen</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># create QApplication if it doesn&#39;t already exist</span>
+        <span class="c1"># create QApplication if it doesn't already exist</span>
         <span class="n">qapp</span> <span class="o">=</span> <span class="n">get_qapp</span><span class="p">()</span>
 
         <span class="c1"># Dictionary holding dock widgets</span>
@@ -1621,14 +1621,14 @@ window.runMermaid = runMermaid;</script>
             <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_setup_existing_themes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This function is only executed once at the startup of napari</span>
+<span class="w">        </span><span class="sd">"""This function is only executed once at the startup of napari</span>
 <span class="sd">        to connect events to themes that have not been connected yet.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        connect : bool</span>
 <span class="sd">            Determines whether the `connect` or `disconnect` method should be used.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">for</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">_themes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">connect</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_connect_theme</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
@@ -1636,8 +1636,8 @@ window.runMermaid = runMermaid;</script>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_disconnect_theme</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_connect_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">):</span>
-        <span class="c1"># connect events to update theme. Here, we don&#39;t want to pass the event</span>
-        <span class="c1"># since it won&#39;t have the right `value` attribute.</span>
+        <span class="c1"># connect events to update theme. Here, we don't want to pass the event</span>
+        <span class="c1"># since it won't have the right `value` attribute.</span>
         <span class="n">theme</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">background</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_theme_no_event</span><span class="p">)</span>
         <span class="n">theme</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">foreground</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_theme_no_event</span><span class="p">)</span>
         <span class="n">theme</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">primary</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_theme_no_event</span><span class="p">)</span>
@@ -1689,22 +1689,22 @@ window.runMermaid = runMermaid;</script>
             <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_add_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add new theme and connect events.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Add new theme and connect events."""</span>
         <span class="n">theme</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connect_theme</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_remove_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove theme and disconnect events.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Remove theme and disconnect events."""</span>
         <span class="n">theme</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_disconnect_theme</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">qt_viewer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="s1">&#39;Public access to Window.qt_viewer is deprecated and will be removed in</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;no earlier than v0.9.0. It is considered an &quot;implementation detail&quot; &#39;</span>
-            <span class="s1">&#39;of the napari</span><span class="se">\n</span><span class="s1">application, not part of the napari viewer model. If your use case</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;requires access to qt_viewer, please open an issue to discuss.&#39;</span><span class="p">,</span>
+            <span class="s1">'Public access to Window.qt_viewer is deprecated and will be removed in</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'no earlier than v0.9.0. It is considered an "implementation detail" '</span>
+            <span class="s1">'of the napari</span><span class="se">\n</span><span class="s1">application, not part of the napari viewer model. If your use case</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'requires access to qt_viewer, please open an issue to discuss.'</span><span class="p">,</span>
             <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
             <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
@@ -1712,7 +1712,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_qt_viewer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># this is starting to be &quot;vestigial&quot;... this property could be removed</span>
+        <span class="c1"># this is starting to be "vestigial"... this property could be removed</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">_qt_viewer</span>
 
     <span class="nd">@property</span>
@@ -1721,28 +1721,28 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_menu_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">menu</span><span class="p">:</span> <span class="n">MenuStr</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update enabled/visible state of menu item with context.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update enabled/visible state of menu item with context."""</span>
         <span class="n">layerlist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span>
         <span class="n">menu_model</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">menu</span><span class="p">)</span>
         <span class="n">menu_model</span><span class="o">.</span><span class="n">update_from_context</span><span class="p">(</span><span class="n">get_context</span><span class="p">(</span><span class="n">layerlist</span><span class="p">))</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_file_menu_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">&#39;file_menu&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">'file_menu'</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_view_menu_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">&#39;view_menu&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">'view_menu'</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_layers_menu_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">&#39;layers_menu&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">'layers_menu'</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_window_menu_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">&#39;window_menu&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">'window_menu'</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_plugins_menu_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">&#39;plugins_menu&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">'plugins_menu'</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_help_menu_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">&#39;help_menu&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">'help_menu'</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_debug_menu_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">viewer_ctx</span> <span class="o">=</span> <span class="n">get_context</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">)</span>
@@ -1755,9 +1755,9 @@ window.runMermaid = runMermaid;</script>
         <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">cancel_callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Register a long running task status.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task_status_manager</span><span class="o">.</span><span class="n">register_task_status</span><span class="p">(</span>
             <span class="n">provider</span><span class="p">,</span> <span class="n">task_status</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">cancel_callback</span>
         <span class="p">)</span>
@@ -1766,30 +1766,30 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">task_status_id</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">,</span>
         <span class="n">status</span><span class="p">:</span> <span class="n">Status</span><span class="p">,</span>
-        <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update a long running task status.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task_status_manager</span><span class="o">.</span><span class="n">update_task_status</span><span class="p">(</span>
             <span class="n">task_status_id</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">description</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_handle_trace_file_on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start trace of `trace_file_on_start` config set.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Start trace of `trace_file_on_start` config set."""</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt._qapp_model.qactions._debug</span><span class="w"> </span><span class="kn">import</span> <span class="n">_start_trace</span>
 
         <span class="k">if</span> <span class="n">perf</span><span class="o">.</span><span class="n">perf_config</span><span class="p">:</span>
             <span class="n">path</span> <span class="o">=</span> <span class="n">perf</span><span class="o">.</span><span class="n">perf_config</span><span class="o">.</span><span class="n">trace_file_on_start</span>
             <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="c1"># Config option &quot;trace_file_on_start&quot; means immediately</span>
+                <span class="c1"># Config option "trace_file_on_start" means immediately</span>
                 <span class="c1"># start tracing to that file. This is very useful if you</span>
                 <span class="c1"># want to create a trace every time you start napari,</span>
                 <span class="c1"># without having to start it from the debug menu.</span>
                 <span class="n">_start_trace</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_add_menus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add menubar to napari app.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Add menubar to napari app."""</span>
         <span class="c1"># TODO: move this to _QMainWindow... but then all of the Menu()</span>
         <span class="c1"># items will not have easy access to the methods on this Window obj.</span>
 
@@ -1800,14 +1800,14 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># shortcut, we disable it, and only enable it when the menubar is</span>
         <span class="c1"># hidden. See this stackoverflow link for details:</span>
         <span class="c1"># https://stackoverflow.com/questions/50537642/how-to-keep-the-shortcuts-of-a-hidden-widget-in-pyqt5</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_main_menu_shortcut</span> <span class="o">=</span> <span class="n">QShortcut</span><span class="p">(</span><span class="s1">&#39;Ctrl+M&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_menu_shortcut</span> <span class="o">=</span> <span class="n">QShortcut</span><span class="p">(</span><span class="s1">'Ctrl+M'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_main_menu_shortcut</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_main_menu_shortcut</span><span class="o">.</span><span class="n">activated</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_menubar_visible</span>
         <span class="p">)</span>
         <span class="c1"># file menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
-            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_FILE</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&amp;File&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
+            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_FILE</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'&amp;File'</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_file_menu_state</span><span class="p">,</span>
@@ -1815,7 +1815,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="p">)</span>
         <span class="c1"># view menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
-            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_VIEW</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&amp;View&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
+            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_VIEW</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'&amp;View'</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_view_menu_state</span><span class="p">,</span>
@@ -1824,7 +1824,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># layers menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
             <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_LAYERS</span><span class="p">,</span>
-            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&amp;Layers&#39;</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="s1">'&amp;Layers'</span><span class="p">,</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
@@ -1834,7 +1834,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># plugins menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plugins_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
             <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_PLUGINS</span><span class="p">,</span>
-            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&amp;Plugins&#39;</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="s1">'&amp;Plugins'</span><span class="p">,</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plugins_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
@@ -1845,7 +1845,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="n">perf</span><span class="o">.</span><span class="n">perf_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_debug_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
                 <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_DEBUG</span><span class="p">,</span>
-                <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&amp;Debug&#39;</span><span class="p">,</span>
+                <span class="n">title</span><span class="o">=</span><span class="s1">'&amp;Debug'</span><span class="p">,</span>
                 <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_handle_trace_file_on_start</span><span class="p">()</span>
@@ -1856,7 +1856,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># window menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
             <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_WINDOW</span><span class="p">,</span>
-            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&amp;Window&#39;</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="s1">'&amp;Window'</span><span class="p">,</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plugins_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
@@ -1865,7 +1865,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window_menu</span><span class="p">)</span>
         <span class="c1"># help menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
-            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_HELP</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&amp;Help&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
+            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_HELP</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'&amp;Help'</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_help_menu_state</span><span class="p">,</span>
@@ -1873,17 +1873,17 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_toggle_menubar_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle visibility of app menubar.</span>
+<span class="w">        </span><span class="sd">"""Toggle visibility of app menubar.</span>
 
 <span class="sd">        This function also disables or enables a global keyboard shortcut to</span>
 <span class="sd">        show the menubar, since menubar shortcuts are only available while the</span>
 <span class="sd">        menubar is visible.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">toggle_menubar_visibility</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">toggle_menubar_visibility</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_main_menu_shortcut</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">toggle_menubar_visibility</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_toggle_command_palette</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle the visibility of the command palette.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Toggle the visibility of the command palette."""</span>
         <span class="n">palette</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">_command_palette</span>
         <span class="k">if</span> <span class="n">palette</span><span class="o">.</span><span class="n">isVisible</span><span class="p">():</span>
             <span class="n">palette</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
@@ -1892,14 +1892,14 @@ window.runMermaid = runMermaid;</script>
             <span class="n">palette</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_toggle_fullscreen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle fullscreen mode.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Toggle fullscreen mode."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">isFullScreen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">showNormal</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">showFullScreen</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_toggle_play</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle play.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Toggle play."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">is_playing</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1914,7 +1914,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">widget_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">tabify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">QtViewerDockWidget</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add plugin dock widget if not already added.</span>
+<span class="w">        </span><span class="sd">"""Add plugin dock widget if not already added.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1932,7 +1932,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        tuple</span>
 <span class="sd">            A 2-tuple containing (the DockWidget instance, the plugin widget</span>
 <span class="sd">            instance).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">_npe2</span>
 
         <span class="n">widget_class</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1947,11 +1947,11 @@ window.runMermaid = runMermaid;</script>
             <span class="k">return</span> <span class="n">dock_widget</span><span class="p">,</span> <span class="n">dock_widget</span><span class="o">.</span><span class="n">inner_widget</span><span class="p">()</span>
 
         <span class="n">wdg</span> <span class="o">=</span> <span class="n">_instantiate_dock_widget</span><span class="p">(</span>
-            <span class="n">widget_class</span><span class="p">,</span> <span class="n">cast</span><span class="p">(</span><span class="s1">&#39;Viewer&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
+            <span class="n">widget_class</span><span class="p">,</span> <span class="n">cast</span><span class="p">(</span><span class="s1">'Viewer'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
         <span class="p">)</span>
 
         <span class="c1"># Add dock widget</span>
-        <span class="n">dock_kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">dock_kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">dock_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span>
             <span class="n">wdg</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">full_name</span><span class="p">,</span> <span class="n">tabify</span><span class="o">=</span><span class="n">tabify</span><span class="p">,</span> <span class="o">**</span><span class="n">dock_kwargs</span>
         <span class="p">)</span>
@@ -1964,7 +1964,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">widget</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">QWidget</span><span class="p">,</span> <span class="n">Widget</span><span class="p">],</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span>
         <span class="n">area</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">allowed_areas</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">shortcut</span><span class="o">=</span><span class="n">_sentinel</span><span class="p">,</span>
@@ -1972,7 +1972,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">tabify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">menu</span><span class="p">:</span> <span class="n">QMenu</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convenience method to add a QDockWidget to the main window.</span>
+<span class="w">        </span><span class="sd">"""Convenience method to add a QDockWidget to the main window.</span>
 
 <span class="sd">        If name is not provided a generic name will be addded to avoid</span>
 <span class="sd">        `saveState` warnings on close.</span>
@@ -1980,15 +1980,15 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        widget : QWidget</span>
-<span class="sd">            `widget` will be added as QDockWidget&#39;s main widget.</span>
+<span class="sd">            `widget` will be added as QDockWidget's main widget.</span>
 <span class="sd">        name : str, optional</span>
 <span class="sd">            Name of dock widget to appear in window menu.</span>
 <span class="sd">        area : str</span>
 <span class="sd">            Side of the main window to which the new dock widget will be added.</span>
-<span class="sd">            Must be in {&#39;left&#39;, &#39;right&#39;, &#39;top&#39;, &#39;bottom&#39;}</span>
+<span class="sd">            Must be in {'left', 'right', 'top', 'bottom'}</span>
 <span class="sd">        allowed_areas : list[str], optional</span>
 <span class="sd">            Areas, relative to the main window, that the widget is allowed dock.</span>
-<span class="sd">            Each item in list must be in {&#39;left&#39;, &#39;right&#39;, &#39;top&#39;, &#39;bottom&#39;}</span>
+<span class="sd">            Each item in list must be in {'left', 'right', 'top', 'bottom'}</span>
 <span class="sd">            By default, all areas are allowed.</span>
 <span class="sd">        shortcut : str, optional</span>
 <span class="sd">            Keyboard shortcut to appear in dropdown menu.</span>
@@ -2011,18 +2011,18 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        dock_widget : QtViewerDockWidget</span>
 <span class="sd">            `dock_widget` that can pass viewer events.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
                 <span class="n">name</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="sa">f</span><span class="s1">&#39;Dock widget </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_unnamed_dockwidget_count</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="sa">f</span><span class="s1">'Dock widget </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_unnamed_dockwidget_count</span><span class="si">}</span><span class="s1">'</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_unnamed_dockwidget_count</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="k">if</span> <span class="n">area</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
             <span class="n">area</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">plugin_widget_positions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="n">name</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span>
+                <span class="n">name</span><span class="p">,</span> <span class="s1">'right'</span>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">shortcut</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_sentinel</span><span class="p">:</span>
@@ -2052,7 +2052,7 @@ window.runMermaid = runMermaid;</script>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_add_viewer_dock_widget</span><span class="p">(</span><span class="n">dock_widget</span><span class="p">,</span> <span class="n">tabify</span><span class="o">=</span><span class="n">tabify</span><span class="p">,</span> <span class="n">menu</span><span class="o">=</span><span class="n">menu</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s1">&#39;reset_choices&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s1">'reset_choices'</span><span class="p">):</span>
             <span class="c1"># Keep the dropdown menus in the widget in sync with the layer model</span>
             <span class="c1"># if widget has a `reset_choices`, which is true for all magicgui</span>
             <span class="c1"># `CategoricalWidget`s</span>
@@ -2070,21 +2070,21 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_dock_widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">QtViewerDockWidget</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Access `_wrapped_dock_widgets` with warning.</span>
+<span class="w">        </span><span class="sd">"""Access `_wrapped_dock_widgets` with warning.</span>
 
 <span class="sd">        Before napari 0.6.2, ``_wrapped_dock_widgets`` was just</span>
 <span class="sd">        ``_dock_widgets``. Even though it was private, many</span>
 <span class="sd">        resources pointed to its use, as there was no public alternative.</span>
 <span class="sd">        Now that `dock_widgets` is provided, we want to make sure</span>
 <span class="sd">        that people stop using the private `_dock_widgets`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># As many plugins uses `_dock_widget` to access one widget from the</span>
         <span class="c1"># other widget we should keep this name for a longer period</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="s1">&#39;The `_dock_widgets` property is private and should not be used in any plugin code. &#39;</span>
-            <span class="s1">&#39;To return the inner widget, use the `dock_widgets` property instead.&#39;</span>
-            <span class="s1">&#39;If you need the dock wrapper, return it via `dock_widgets[name].parent()`&#39;</span>
-            <span class="s1">&#39;(or `dock_widgets[name].native.parent()` for magicgui widgets).&#39;</span><span class="p">,</span>
+            <span class="s1">'The `_dock_widgets` property is private and should not be used in any plugin code. '</span>
+            <span class="s1">'To return the inner widget, use the `dock_widgets` property instead.'</span>
+            <span class="s1">'If you need the dock wrapper, return it via `dock_widgets[name].parent()`'</span>
+            <span class="s1">'(or `dock_widgets[name].native.parent()` for magicgui widgets).'</span><span class="p">,</span>
             <span class="ne">FutureWarning</span><span class="p">,</span>
             <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
@@ -2092,7 +2092,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">dock_widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">QWidget</span> <span class="o">|</span> <span class="n">Widget</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read-only mapping of widgets docked in napari window.</span>
+<span class="w">        </span><span class="sd">"""Read-only mapping of widgets docked in napari window.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
@@ -2104,12 +2104,12 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        If you need to control the dock widget itself (for example, to show or</span>
 <span class="sd">        raise a docked widget tab), access the wrapper via the Qt parent:</span>
 
-<span class="sd">        &gt;&gt;&gt; name = &quot;My widget&quot;</span>
+<span class="sd">        &gt;&gt;&gt; name = "My widget"</span>
 <span class="sd">        &gt;&gt;&gt; widget = viewer.window.dock_widgets[name]</span>
-<span class="sd">        &gt;&gt;&gt; qt_widget = widget.native if hasattr(widget, &quot;native&quot;) else widget</span>
+<span class="sd">        &gt;&gt;&gt; qt_widget = widget.native if hasattr(widget, "native") else widget</span>
 <span class="sd">        &gt;&gt;&gt; dock_widget = qt_widget.parent()  # QtViewerDockWidget / QDockWidget</span>
 <span class="sd">        &gt;&gt;&gt; dock_widget.show(); dock_widget.raise_()</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">InnerWidgetMappingProxy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_wrapped_dock_widgets</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_add_viewer_dock_widget</span><span class="p">(</span>
@@ -2118,7 +2118,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">tabify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">menu</span><span class="p">:</span> <span class="n">QMenu</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a QtViewerDockWidget to the main window</span>
+<span class="w">        </span><span class="sd">"""Add a QtViewerDockWidget to the main window</span>
 
 <span class="sd">        If other widgets already present in area then will tabify.</span>
 
@@ -2130,7 +2130,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Flag to tabify dockwidget or not.</span>
 <span class="sd">        menu : QMenu, optional</span>
 <span class="sd">            Menu bar to add toggle action to. If `None` nothing added to menu.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Find if any other dock widgets are currently in area</span>
         <span class="n">current_dws_in_area</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">dw</span>
@@ -2147,7 +2147,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="p">)</span>
                 <span class="n">dock_widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
                 <span class="n">dock_widget</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
-            <span class="k">elif</span> <span class="n">dock_widget</span><span class="o">.</span><span class="n">area</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">):</span>
+            <span class="k">elif</span> <span class="n">dock_widget</span><span class="o">.</span><span class="n">area</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'right'</span><span class="p">,</span> <span class="s1">'left'</span><span class="p">):</span>
                 <span class="n">_wdg</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">current_dws_in_area</span><span class="p">,</span> <span class="n">dock_widget</span><span class="p">]</span>
                 <span class="c1"># add sizes to push lower widgets up</span>
                 <span class="n">sizes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_wdg</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -2162,8 +2162,8 @@ window.runMermaid = runMermaid;</script>
             <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
             <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">)</span>
-                <span class="c1"># deprecating with 0.4.8, but let&#39;s try to keep compatibility.</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">)</span>
+                <span class="c1"># deprecating with 0.4.8, but let's try to keep compatibility.</span>
                 <span class="n">shortcut</span> <span class="o">=</span> <span class="n">dock_widget</span><span class="o">.</span><span class="n">shortcut</span>
             <span class="k">if</span> <span class="n">shortcut</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">action</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="n">shortcut</span><span class="p">)</span>
@@ -2184,7 +2184,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Window.remove_dock_widget">
 <a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.remove_dock_widget">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">remove_dock_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">:</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">menu</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes specified dock widget.</span>
+<span class="w">        </span><span class="sd">"""Removes specified dock widget.</span>
 
 <span class="sd">        If a QDockWidget is not provided, the existing QDockWidgets will be</span>
 <span class="sd">        searched for one whose inner widget (``.widget()``) is the provided</span>
@@ -2193,12 +2193,12 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        widget : QWidget | str</span>
-<span class="sd">            If widget == &#39;all&#39;, all docked widgets will be removed.</span>
+<span class="sd">            If widget == 'all', all docked widgets will be removed.</span>
 <span class="sd">        menu : QMenu, optional</span>
 <span class="sd">            Menu bar to remove toggle action from. If `None` nothing removed</span>
 <span class="sd">            from menu.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="s1">'all'</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">dw</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_wrapped_dock_widgets</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">remove_dock_widget</span><span class="p">(</span><span class="n">dw</span><span class="p">)</span>
             <span class="k">return</span>
@@ -2211,7 +2211,7 @@ window.runMermaid = runMermaid;</script>
                     <span class="k">break</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s1">&#39;Could not find a dock widget containing: </span><span class="si">{</span><span class="n">widget</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="sa">f</span><span class="s1">'Could not find a dock widget containing: </span><span class="si">{</span><span class="n">widget</span><span class="si">}</span><span class="s1">'</span>
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">_dw</span> <span class="o">=</span> <span class="n">widget</span>
@@ -2226,7 +2226,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_wrapped_dock_widgets</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">_dw</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
         <span class="c1"># Deleting the dock widget means any references to it will no longer</span>
-        <span class="c1"># work but it&#39;s not really useful anyway, since the inner widget has</span>
+        <span class="c1"># work but it's not really useful anyway, since the inner widget has</span>
         <span class="c1"># been removed. and anyway: people should be using add_dock_widget</span>
         <span class="c1"># rather than directly using _add_viewer_dock_widget</span>
         <span class="n">_dw</span><span class="o">.</span><span class="n">deleteLater</span><span class="p">()</span></div>
@@ -2239,12 +2239,12 @@ window.runMermaid = runMermaid;</script>
         <span class="n">function</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">magic_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span>
         <span class="n">area</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">allowed_areas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">shortcut</span><span class="o">=</span><span class="n">_sentinel</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Turn a function into a dock widget via magicgui.</span>
+<span class="w">        </span><span class="sd">"""Turn a function into a dock widget via magicgui.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2257,12 +2257,12 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Name of dock widget to appear in window menu.</span>
 <span class="sd">        area : str, optional</span>
 <span class="sd">            Side of the main window to which the new dock widget will be added.</span>
-<span class="sd">            Must be in {&#39;left&#39;, &#39;right&#39;, &#39;top&#39;, &#39;bottom&#39;}. If not provided the</span>
-<span class="sd">            default will be determined by the widget.layout, with &#39;vertical&#39;</span>
+<span class="sd">            Must be in {'left', 'right', 'top', 'bottom'}. If not provided the</span>
+<span class="sd">            default will be determined by the widget.layout, with 'vertical'</span>
 <span class="sd">            layouts appearing on the right, otherwise on the bottom.</span>
 <span class="sd">        allowed_areas : list[str], optional</span>
 <span class="sd">            Areas, relative to main window, that the widget is allowed dock.</span>
-<span class="sd">            Each item in list must be in {&#39;left&#39;, &#39;right&#39;, &#39;top&#39;, &#39;bottom&#39;}</span>
+<span class="sd">            Each item in list must be in {'left', 'right', 'top', 'bottom'}</span>
 <span class="sd">            By default, only provided areas is allowed.</span>
 <span class="sd">        shortcut : str, optional</span>
 <span class="sd">            Keyboard shortcut to appear in dropdown menu.</span>
@@ -2271,26 +2271,26 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        dock_widget : QtViewerDockWidget</span>
 <span class="sd">            `dock_widget` that can pass viewer events.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">magicgui</span><span class="w"> </span><span class="kn">import</span> <span class="n">magicgui</span>
 
         <span class="k">if</span> <span class="n">magic_kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">magic_kwargs</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s1">&#39;auto_call&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="s1">&#39;call_button&#39;</span><span class="p">:</span> <span class="s1">&#39;run&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;layout&#39;</span><span class="p">:</span> <span class="s1">&#39;vertical&#39;</span><span class="p">,</span>
+                <span class="s1">'auto_call'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s1">'call_button'</span><span class="p">:</span> <span class="s1">'run'</span><span class="p">,</span>
+                <span class="s1">'layout'</span><span class="p">:</span> <span class="s1">'vertical'</span><span class="p">,</span>
             <span class="p">}</span>
 
         <span class="n">widget</span> <span class="o">=</span> <span class="n">magicgui</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="o">**</span><span class="n">magic_kwargs</span> <span class="ow">or</span> <span class="p">{})</span>
 
         <span class="k">if</span> <span class="n">area</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">area</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;vertical&#39;</span> <span class="k">else</span> <span class="s1">&#39;bottom&#39;</span>
+            <span class="n">area</span> <span class="o">=</span> <span class="s1">'right'</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span> <span class="o">==</span> <span class="s1">'vertical'</span> <span class="k">else</span> <span class="s1">'bottom'</span>
         <span class="k">if</span> <span class="n">allowed_areas</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">allowed_areas</span> <span class="o">=</span> <span class="p">[</span><span class="n">area</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">shortcut</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_sentinel</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span>
                 <span class="n">widget</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="ow">or</span> <span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">),</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="ow">or</span> <span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span> <span class="s1">' '</span><span class="p">),</span>
                 <span class="n">area</span><span class="o">=</span><span class="n">area</span><span class="p">,</span>
                 <span class="n">allowed_areas</span><span class="o">=</span><span class="n">allowed_areas</span><span class="p">,</span>
                 <span class="n">shortcut</span><span class="o">=</span><span class="n">shortcut</span><span class="p">,</span>
@@ -2298,7 +2298,7 @@ window.runMermaid = runMermaid;</script>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span>
             <span class="n">widget</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="ow">or</span> <span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">),</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="ow">or</span> <span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span> <span class="s1">' '</span><span class="p">),</span>
             <span class="n">area</span><span class="o">=</span><span class="n">area</span><span class="p">,</span>
             <span class="n">allowed_areas</span><span class="o">=</span><span class="n">allowed_areas</span><span class="p">,</span>
         <span class="p">)</span></div>
@@ -2307,7 +2307,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Window.resize">
 <a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.resize">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resize the window.</span>
+<span class="w">        </span><span class="sd">"""Resize the window.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2315,14 +2315,14 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Width in logical pixels.</span>
 <span class="sd">        height : int</span>
 <span class="sd">            Height in logical pixels.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Window.set_geometry">
 <a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.set_geometry">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the geometry of the widget</span>
+<span class="w">        </span><span class="sd">"""Set the geometry of the widget</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2334,14 +2334,14 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Width of the rectangle shape of the window.</span>
 <span class="sd">        height : int</span>
 <span class="sd">            Height of the rectangle shape of the window.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Window.geometry">
 <a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.geometry">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the geometry of the widget</span>
+<span class="w">        </span><span class="sd">"""Get the geometry of the widget</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -2353,7 +2353,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Width of the rectangle shape of the window.</span>
 <span class="sd">        height : int</span>
 <span class="sd">            Height of the rectangle shape of the window.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">rect</span><span class="o">.</span><span class="n">left</span><span class="p">(),</span> <span class="n">rect</span><span class="o">.</span><span class="n">top</span><span class="p">(),</span> <span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">rect</span><span class="o">.</span><span class="n">height</span><span class="p">()</span></div>
 
@@ -2361,19 +2361,19 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Window.show">
 <a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.show">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resize, show, and bring forward the window.</span>
+<span class="w">        </span><span class="sd">"""Resize, show, and bring forward the window.</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
 <span class="sd">        RuntimeError</span>
 <span class="sd">            If the viewer.window has already been closed and deleted.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="n">block</span><span class="p">)</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="s1">&#39;This viewer has already been closed and deleted. Please create a new one.&#39;</span>
+                <span class="s1">'This viewer has already been closed and deleted. Please create a new one.'</span>
             <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
 
         <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">first_time</span><span class="p">:</span>
@@ -2382,7 +2382,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">())</span>
             <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                    <span class="s1">&#39;This viewer has already been closed and deleted. Please create a new one.&#39;</span>
+                    <span class="s1">'This viewer has already been closed and deleted. Please create a new one.'</span>
                 <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -2394,7 +2394,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s1">&#39;The window geometry settings could not be loaded due to the following error: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s1">'The window geometry settings could not be loaded due to the following error: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span>
                     <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">,</span>
                     <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                 <span class="p">)</span>
@@ -2406,13 +2406,13 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># A) it is our own event loop OR we are running in jupyter</span>
         <span class="c1"># B) it is not the first time a QMainWindow is being created</span>
 
-        <span class="c1"># `app_name` will be &quot;napari&quot; iff the application was instantiated in</span>
+        <span class="c1"># `app_name` will be "napari" iff the application was instantiated in</span>
         <span class="c1"># get_qapp(). isActiveWindow() will be True if it is the second time a</span>
         <span class="c1"># _qt_window has been created.</span>
         <span class="c1"># See #721, #732, #735, #795, #1594</span>
         <span class="n">app_name</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">applicationName</span><span class="p">()</span>
         <span class="k">if</span> <span class="p">(</span>
-            <span class="n">app_name</span> <span class="o">==</span> <span class="s1">&#39;napari&#39;</span> <span class="ow">or</span> <span class="n">in_jupyter</span><span class="p">()</span>
+            <span class="n">app_name</span> <span class="o">==</span> <span class="s1">'napari'</span> <span class="ow">or</span> <span class="n">in_jupyter</span><span class="p">()</span>
         <span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">isActiveWindow</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span></div>
 
@@ -2420,7 +2420,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Window.activate">
 <a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.activate">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make the viewer the currently active window.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Make the viewer the currently active window."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>  <span class="c1"># for macOS</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">activateWindow</span><span class="p">()</span>  <span class="c1"># for Windows</span></div>
 
@@ -2431,11 +2431,11 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_theme_font_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
         <span class="n">font_size</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="n">event</span> <span class="k">else</span> <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">font_size</span>
-        <span class="n">extra_variables</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;font_size&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">font_size</span><span class="si">}</span><span class="s1">pt&#39;</span><span class="p">}</span>
+        <span class="n">extra_variables</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'font_size'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">font_size</span><span class="si">}</span><span class="s1">pt'</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_theme</span><span class="p">(</span><span class="n">extra_variables</span><span class="o">=</span><span class="n">extra_variables</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra_variables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update widget color theme.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update widget color theme."""</span>
         <span class="k">if</span> <span class="n">extra_variables</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">extra_variables</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
@@ -2443,13 +2443,13 @@ window.runMermaid = runMermaid;</script>
             <span class="n">value</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="n">event</span> <span class="k">else</span> <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">theme</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">value</span>
             <span class="n">actual_theme_name</span> <span class="o">=</span> <span class="n">value</span>
-            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;system&#39;</span><span class="p">:</span>
-                <span class="c1"># system isn&#39;t a theme, so get the name</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">'system'</span><span class="p">:</span>
+                <span class="c1"># system isn't a theme, so get the name</span>
                 <span class="n">actual_theme_name</span> <span class="o">=</span> <span class="n">get_system_theme</span><span class="p">()</span>
             <span class="c1"># check `font_size` value is always passed when updating style</span>
-            <span class="k">if</span> <span class="s1">&#39;font_size&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">extra_variables</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">'font_size'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">extra_variables</span><span class="p">:</span>
                 <span class="n">extra_variables</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-                    <span class="p">{</span><span class="s1">&#39;font_size&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">font_size</span><span class="si">}</span><span class="s1">pt&#39;</span><span class="p">}</span>
+                    <span class="p">{</span><span class="s1">'font_size'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">font_size</span><span class="si">}</span><span class="s1">pt'</span><span class="p">}</span>
                 <span class="p">)</span>
             <span class="c1"># set the style sheet with the theme name and extra_variables</span>
             <span class="n">style_sheet</span> <span class="o">=</span> <span class="n">get_stylesheet</span><span class="p">(</span>
@@ -2466,51 +2466,51 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_status_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update status bar.</span>
+<span class="w">        </span><span class="sd">"""Update status bar.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        event : napari.utils.event.Event</span>
 <span class="sd">            The napari event that triggered this method.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_qt_window&#39;</span><span class="p">):</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_qt_window'</span><span class="p">):</span>
             <span class="k">return</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_status_bar</span><span class="o">.</span><span class="n">setStatusText</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">status_info</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_status_bar</span><span class="o">.</span><span class="n">setStatusText</span><span class="p">(</span>
-                <span class="n">layer_base</span><span class="o">=</span><span class="n">status_info</span><span class="p">[</span><span class="s1">&#39;layer_base&#39;</span><span class="p">],</span>
-                <span class="n">source_type</span><span class="o">=</span><span class="n">status_info</span><span class="p">[</span><span class="s1">&#39;source_type&#39;</span><span class="p">],</span>
-                <span class="n">plugin</span><span class="o">=</span><span class="n">status_info</span><span class="p">[</span><span class="s1">&#39;plugin&#39;</span><span class="p">],</span>
-                <span class="n">coordinates</span><span class="o">=</span><span class="n">status_info</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">],</span>
+                <span class="n">layer_base</span><span class="o">=</span><span class="n">status_info</span><span class="p">[</span><span class="s1">'layer_base'</span><span class="p">],</span>
+                <span class="n">source_type</span><span class="o">=</span><span class="n">status_info</span><span class="p">[</span><span class="s1">'source_type'</span><span class="p">],</span>
+                <span class="n">plugin</span><span class="o">=</span><span class="n">status_info</span><span class="p">[</span><span class="s1">'plugin'</span><span class="p">],</span>
+                <span class="n">coordinates</span><span class="o">=</span><span class="n">status_info</span><span class="p">[</span><span class="s1">'coordinates'</span><span class="p">],</span>
             <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_title_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update window title.</span>
+<span class="w">        </span><span class="sd">"""Update window title.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        event : napari.utils.event.Event</span>
 <span class="sd">            The napari event that triggered this method.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_qt_window&#39;</span><span class="p">):</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_qt_window'</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_help_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update help message on status bar.</span>
+<span class="w">        </span><span class="sd">"""Update help message on status bar.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        event : napari.utils.event.Event</span>
 <span class="sd">            The napari event that triggered this method.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_qt_window&#39;</span><span class="p">):</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_qt_window'</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_status_bar</span><span class="o">.</span><span class="n">setHelpText</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_restart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Restart the napari application.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_qt_window&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Restart the napari application."""</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_qt_window'</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">restart</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_screenshot</span><span class="p">(</span>
@@ -2521,7 +2521,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">canvas_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">fit_to_data_extent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QImage</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Capture screenshot of the currently displayed viewer.</span>
+<span class="w">        </span><span class="sd">"""Capture screenshot of the currently displayed viewer.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2548,7 +2548,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        img : QImage</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_flash_animation</span>
 
         <span class="c1"># Part 1: validate incompatible parameters</span>
@@ -2556,8 +2556,8 @@ window.runMermaid = runMermaid;</script>
             <span class="n">fit_to_data_extent</span> <span class="ow">or</span> <span class="n">size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s1">&#39;scale, size, and fit_to_data_extent can only be set for &#39;</span>
-                <span class="s1">&#39;canvas_only screenshots.&#39;</span>
+                <span class="s1">'scale, size, and fit_to_data_extent can only be set for '</span>
+                <span class="s1">'canvas_only screenshots.'</span>
             <span class="p">)</span>
 
         <span class="c1"># Part 2: take the screenshot</span>
@@ -2582,7 +2582,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">flash</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Export an image of the full extent of the displayed layer data.</span>
+<span class="w">        </span><span class="sd">"""Export an image of the full extent of the displayed layer data.</span>
 
 <span class="sd">        This function finds a tight boundary around the data, resets the view</span>
 <span class="sd">        around that boundary (and, when scale=1, such that 1 captured pixel is</span>
@@ -2606,7 +2606,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        image : array</span>
 <span class="sd">            Numpy array of type ubyte and shape (h, w, 4). Index [0, 0] is the</span>
 <span class="sd">            upper-left corner of the rendered region.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">export_figure</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">flash</span><span class="p">)</span></div>
 
 
@@ -2618,7 +2618,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">paths</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Export the given rectangular rois to specified file paths.</span>
+<span class="w">        </span><span class="sd">"""Export the given rectangular rois to specified file paths.</span>
 
 <span class="sd">        For each shape, moves the camera to the center of the shape</span>
 <span class="sd">        and adjust the canvas size to fit the shape.</span>
@@ -2649,7 +2649,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        screenshot_list: list</span>
 <span class="sd">            The list with roi screenshots.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">export_rois</span><span class="p">(</span>
             <span class="n">rois</span><span class="o">=</span><span class="n">rois</span><span class="p">,</span>
             <span class="n">paths</span><span class="o">=</span><span class="n">paths</span><span class="p">,</span>
@@ -2662,7 +2662,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">screenshot</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flash</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">canvas_only</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Take currently displayed viewer and convert to an image array.</span>
+<span class="w">        </span><span class="sd">"""Take currently displayed viewer and convert to an image array.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2688,7 +2688,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        image : array</span>
 <span class="sd">            Numpy array of type ubyte and shape (h, w, 4). Index [0, 0] is the</span>
 <span class="sd">            upper-left corner of the rendered region.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="n">img</span> <span class="o">=</span> <span class="n">QImg2array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_screenshot</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">flash</span><span class="p">,</span> <span class="n">canvas_only</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -2699,7 +2699,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Window.clipboard">
 <a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.clipboard">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">clipboard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flash</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">canvas_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Copy screenshot of current viewer to the clipboard.</span>
+<span class="w">        </span><span class="sd">"""Copy screenshot of current viewer to the clipboard.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2710,13 +2710,13 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            If True, screenshot shows only the image display canvas, and</span>
 <span class="sd">            if False include the napari viewer frame in the screenshot,</span>
 <span class="sd">            By default, True.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screenshot</span><span class="p">(</span><span class="n">flash</span><span class="o">=</span><span class="n">flash</span><span class="p">,</span> <span class="n">canvas_only</span><span class="o">=</span><span class="n">canvas_only</span><span class="p">)</span>
         <span class="n">QApplication</span><span class="o">.</span><span class="n">clipboard</span><span class="p">()</span><span class="o">.</span><span class="n">setImage</span><span class="p">(</span><span class="n">img</span><span class="p">)</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Carry out various teardown tasks such as event disconnection.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Carry out various teardown tasks such as event disconnection."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_setup_existing_themes</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">_themes</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">added</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_theme</span><span class="p">)</span>
         <span class="n">_themes</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_remove_theme</span><span class="p">)</span>
@@ -2724,10 +2724,10 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Window.close">
 <a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.close">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Close the viewer window and cleanup sub-widgets.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Close the viewer window and cleanup sub-widgets."""</span>
         <span class="c1"># Someone is closing us twice? Only try to delete self._qt_window</span>
         <span class="c1"># if we still have one.</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_qt_window&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_qt_window'</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_teardown</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -2735,7 +2735,7 @@ window.runMermaid = runMermaid;</script>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_open_preferences_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PreferencesDialog</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Edit preferences from the menubar.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Edit preferences from the menubar."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pref_dialog</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">win</span> <span class="o">=</span> <span class="n">PreferencesDialog</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_pref_dialog</span> <span class="o">=</span> <span class="n">win</span>
@@ -2759,7 +2759,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pref_dialog</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_screenshot_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save screenshot of current display with viewer, default .png&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Save screenshot of current display with viewer, default .png"""</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.dialogs.screenshot_dialog</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScreenshotDialog</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.history</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_save_history</span><span class="p">,</span> <span class="n">update_save_history</span>
 
@@ -2784,15 +2784,15 @@ window.runMermaid = runMermaid;</script>
         <span class="k">pass</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;napari_viewer&#39;</span><span class="p">:</span>
-                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;napari_viewer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">PublicOnlyProxy</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">'napari_viewer'</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">'napari_viewer'</span><span class="p">]</span> <span class="o">=</span> <span class="n">PublicOnlyProxy</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
                 <span class="k">break</span>
             <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">annotation</span> <span class="ow">in</span> <span class="p">(</span>
-                <span class="s1">&#39;napari.viewer.Viewer&#39;</span><span class="p">,</span>
+                <span class="s1">'napari.viewer.Viewer'</span><span class="p">,</span>
                 <span class="n">Viewer</span><span class="p">,</span>
-                <span class="s1">&#39;napari.viewer.ViewerModel&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;napari.components.ViewerModel&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;napari.components.viewer_model.ViewerModel&#39;</span><span class="p">,</span>
+                <span class="s1">'napari.viewer.ViewerModel'</span><span class="p">,</span>
+                <span class="s1">'napari.components.ViewerModel'</span><span class="p">,</span>
+                <span class="s1">'napari.components.viewer_model.ViewerModel'</span><span class="p">,</span>
                 <span class="n">ViewerModel</span><span class="p">,</span>
             <span class="p">):</span>
                 <span class="n">kwargs</span><span class="p">[</span><span class="n">param</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">PublicOnlyProxy</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
@@ -2805,27 +2805,27 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">InnerWidgetMappingProxy</span><span class="p">(</span><span class="n">MappingProxy</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A proxy for the inner widget of a QDockWidget.</span>
+<span class="w">    </span><span class="sd">"""A proxy for the inner widget of a QDockWidget.</span>
 
 <span class="sd">    This is used to allow access to the inner widget of a QDockWidget</span>
 <span class="sd">    without exposing the QDockWidget itself.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QWidget</span> <span class="o">|</span> <span class="n">Widget</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the inner widget of the QDockWidget.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get the inner widget of the QDockWidget."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wrapped</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">inner_widget</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a dict-like mapping of widget names to widget class names.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Return a dict-like mapping of widget names to widget class names."""</span>
         <span class="n">items</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">!r}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">inner_widget</span><span class="p">()</span><span class="si">!r}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wrapped</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">k</span><span class="si">!r}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">inner_widget</span><span class="p">()</span><span class="si">!r}</span><span class="s1">'</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wrapped</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">items</span><span class="p">:</span>
-            <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  &#39;</span>
+            <span class="n">indent</span> <span class="o">=</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">  '</span>
             <span class="k">return</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> </span><span class="se">{{\n</span><span class="s1">  </span><span class="si">{</span><span class="n">indent</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">items</span><span class="p">)</span><span class="si">}</span><span class="se">\n}}</span><span class="s1">&gt;&#39;</span>
+                <span class="sa">f</span><span class="s1">'&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> </span><span class="se">{{\n</span><span class="s1">  </span><span class="si">{</span><span class="n">indent</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">items</span><span class="p">)</span><span class="si">}</span><span class="se">\n}}</span><span class="s1">&gt;'</span>
             <span class="p">)</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> </span><span class="se">{{}}</span><span class="s1">&gt;&#39;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">'&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> </span><span class="se">{{}}</span><span class="s1">&gt;'</span>
 </pre></div>
 
                 </article>

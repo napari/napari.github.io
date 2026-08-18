@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -762,50 +762,50 @@ The package should implement a utility to allow users to preview collected data 
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_computer_identifier</span><span class="p">():</span>
-    <span class="n">config_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s2">&quot;napari&quot;</span><span class="p">))</span>
+    <span class="n">config_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s2">"napari"</span><span class="p">))</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">config_dir</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
         <span class="n">config_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">config_file</span> <span class="o">=</span> <span class="n">config_dir</span> <span class="o">/</span> <span class="s2">&quot;telemetry_id.txt&quot;</span>
+    <span class="n">config_file</span> <span class="o">=</span> <span class="n">config_dir</span> <span class="o">/</span> <span class="s2">"telemetry_id.txt"</span>
     <span class="k">if</span> <span class="n">config_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
         <span class="k">with</span> <span class="n">config_file</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">identifier</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
-        <span class="k">with</span> <span class="n">config_file</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">config_file</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
             <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">identifier</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_week_identifier</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    This function generates md5 shortcut based on week num,</span>
 <span class="sd">    year and computer identifier.</span>
 <span class="sd">    This keep same identifier for one week and one computer,</span>
-<span class="sd">    but we can&#39;t track user between weeks.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    but we can't track user between weeks.</span>
+<span class="sd">    """</span>
     <span class="n">computer_id</span> <span class="o">=</span> <span class="n">get_computer_identifier</span><span class="p">()</span>
     <span class="n">week_num</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isocalendar</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">year</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">year</span>
-    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">week_num</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">computer_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">week_num</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">computer_id</span><span class="si">}</span><span class="s2">"</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_basic_information</span><span class="p">():</span>
-    <span class="n">first_report</span> <span class="o">=</span> <span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s2">&quot;napari&quot;</span><span class="p">))</span> <span class="o">/</span> <span class="s2">&quot;first_run.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+    <span class="n">first_report</span> <span class="o">=</span> <span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s2">"napari"</span><span class="p">))</span> <span class="o">/</span> <span class="s2">"first_run.txt"</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;napari_version&quot;</span><span class="p">:</span> <span class="n">metadata</span><span class="o">.</span><span class="n">version</span><span class="p">(</span><span class="s2">&quot;napari&quot;</span><span class="p">),</span>
-        <span class="s2">&quot;python_version&quot;</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
-        <span class="s2">&quot;identifier&quot;</span><span class="p">:</span> <span class="n">get_week_identifier</span><span class="p">(),</span>
-        <span class="s2">&quot;platform&quot;</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">,</span>
-        <span class="s2">&quot;cpu_architecture&quot;</span><span class="p">:</span> <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">(),</span>
-        <span class="s2">&quot;first_report&quot;</span><span class="p">:</span> <span class="n">first_report</span><span class="p">,</span>
-        <span class="s2">&quot;sys_name&quot;</span><span class="p">:</span> <span class="n">_sys_name</span><span class="p">(),</span>
+        <span class="s2">"napari_version"</span><span class="p">:</span> <span class="n">metadata</span><span class="o">.</span><span class="n">version</span><span class="p">(</span><span class="s2">"napari"</span><span class="p">),</span>
+        <span class="s2">"python_version"</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
+        <span class="s2">"identifier"</span><span class="p">:</span> <span class="n">get_week_identifier</span><span class="p">(),</span>
+        <span class="s2">"platform"</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">,</span>
+        <span class="s2">"cpu_architecture"</span><span class="p">:</span> <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">(),</span>
+        <span class="s2">"first_report"</span><span class="p">:</span> <span class="n">first_report</span><span class="p">,</span>
+        <span class="s2">"sys_name"</span><span class="p">:</span> <span class="n">_sys_name</span><span class="p">(),</span>
     <span class="p">}</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_public_plugins</span><span class="p">():</span>
     <span class="n">p_sum</span> <span class="o">=</span> <span class="n">plugin_summaries</span><span class="p">()</span>
-    <span class="k">return</span> <span class="p">({</span><span class="n">normalized_name</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]):</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">p_sum</span><span class="p">}</span> <span class="o">|</span>
-            <span class="p">{</span><span class="n">p</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]:</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">p_sum</span><span class="p">})</span>
+    <span class="k">return</span> <span class="p">({</span><span class="n">normalized_name</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]):</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">p_sum</span><span class="p">}</span> <span class="o">|</span>
+            <span class="p">{</span><span class="n">p</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]:</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">p_sum</span><span class="p">})</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_middle_information</span><span class="p">():</span>
@@ -817,17 +817,17 @@ The package should implement a utility to allow users to preview collected data 
 
     <span class="k">for</span> <span class="n">manifest</span> <span class="ow">in</span> <span class="n">pm</span><span class="o">.</span><span class="n">iter_manifests</span><span class="p">():</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">name</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;napari&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">"napari"</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="n">ver</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">package_metadata</span><span class="o">.</span><span class="n">version</span>
-        <span class="k">if</span> <span class="n">ver</span> <span class="ow">in</span> <span class="n">public_plugins</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pypi_versions&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="k">if</span> <span class="n">ver</span> <span class="ow">in</span> <span class="n">public_plugins</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"pypi_versions"</span><span class="p">,</span> <span class="p">[]):</span>
             <span class="c1"># skip if not public plugin/version</span>
-            <span class="n">plugin_info</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">ver</span><span class="p">})</span>
+            <span class="n">plugin_info</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"name"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">"version"</span><span class="p">:</span> <span class="n">ver</span><span class="p">})</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;skip&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ver</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"skip"</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ver</span><span class="p">)</span>
 
     <span class="n">base_info</span> <span class="o">=</span> <span class="n">get_basic_information</span><span class="p">()</span>
-    <span class="n">base_info</span><span class="p">[</span><span class="s2">&quot;plugins&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plugin_info</span>
+    <span class="n">base_info</span><span class="p">[</span><span class="s2">"plugins"</span><span class="p">]</span> <span class="o">=</span> <span class="n">plugin_info</span>
     <span class="k">return</span> <span class="n">base_info</span>
 
 
@@ -851,26 +851,26 @@ The package should implement a utility to allow users to preview collected data 
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">DataSizeTypeCollector</span><span class="p">:</span>
-    <span class="n">_instances</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;DataSizeTypeCollector&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">"DataSizeTypeCollector"</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instances</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Already exists </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Already exists </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_instances</span><span class="p">[</span><span class="n">file_path</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="n">file_path</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;week_info&quot;</span><span class="p">:</span> <span class="n">get_week_identifier</span><span class="p">()}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"week_info"</span><span class="p">:</span> <span class="n">get_week_identifier</span><span class="p">()}</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">):</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">data_</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
                     <span class="k">pass</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">data_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;week_info&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;week_info&quot;</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">data_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"week_info"</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"week_info"</span><span class="p">]:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data_</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
             <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
@@ -883,35 +883,35 @@ The package should implement a utility to allow users to preview collected data 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">extract_size_info_volumetric</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-            <span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
-            <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span>
-            <span class="s2">&quot;ndim&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
-            <span class="s2">&quot;size_category&quot;</span><span class="p">:</span> <span class="n">SizeCategory</span><span class="o">.</span><span class="n">from_size</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="s2">"size"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="s2">"shape"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+            <span class="s2">"dtype"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span>
+            <span class="s2">"ndim"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
+            <span class="s2">"size_category"</span><span class="p">:</span> <span class="n">SizeCategory</span><span class="o">.</span><span class="n">from_size</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s2">"class"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
         <span class="p">}</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">extract_size_info_spatial</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-            <span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
-            <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span>
-            <span class="s2">&quot;ndim&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-            <span class="s2">&quot;size_category&quot;</span><span class="p">:</span> <span class="n">SizeCategory</span><span class="o">.</span><span class="n">from_size</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="s2">"size"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="s2">"shape"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+            <span class="s2">"dtype"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span>
+            <span class="s2">"ndim"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="s2">"size_category"</span><span class="p">:</span> <span class="n">SizeCategory</span><span class="o">.</span><span class="n">from_size</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s2">"class"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
         <span class="p">}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">add_data_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">layer_name_str</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">layer_name_str</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;labels&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">}:</span>
+        <span class="k">if</span> <span class="n">layer_name_str</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"labels"</span><span class="p">,</span> <span class="s2">"image"</span><span class="p">}:</span>
             <span class="n">size_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_size_info_volumetric</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span> <span class="c1"># layer_name_str in {&quot;points&quot;, &quot;shapes&quot;, &quot;vectors&quot;}:</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># layer_name_str in {"points", "shapes", "vectors"}:</span>
             <span class="n">size_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_size_info_spatial</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">((</span><span class="n">layer_name_str</span><span class="p">,</span> <span class="n">size_info</span><span class="p">[</span><span class="s2">&quot;size_category&quot;</span><span class="p">],</span> <span class="n">size_info</span><span class="p">[</span><span class="s2">&quot;ndim&quot;</span><span class="p">],</span> <span class="n">size_info</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">],</span> <span class="n">size_info</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">]))</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">((</span><span class="n">layer_name_str</span><span class="p">,</span> <span class="n">size_info</span><span class="p">[</span><span class="s2">"size_category"</span><span class="p">],</span> <span class="n">size_info</span><span class="p">[</span><span class="s2">"ndim"</span><span class="p">],</span> <span class="n">size_info</span><span class="p">[</span><span class="s2">"class"</span><span class="p">],</span> <span class="n">size_info</span><span class="p">[</span><span class="s2">"dtype"</span><span class="p">]))</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">"count"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"count"</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
@@ -919,25 +919,25 @@ The package should implement a utility to allow users to preview collected data 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_full_information</span><span class="p">():</span>
     <span class="n">middle_info</span> <span class="o">=</span> <span class="n">get_middle_information</span><span class="p">()</span>
     <span class="n">data_collector</span> <span class="o">=</span> <span class="n">DataSizeTypeCollector</span><span class="o">.</span><span class="n">get_collector</span><span class="p">(</span>
-        <span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s2">&quot;napari&quot;</span><span class="p">))</span> <span class="o">/</span> <span class="s2">&quot;data_size_info.json&quot;</span>
+        <span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s2">"napari"</span><span class="p">))</span> <span class="o">/</span> <span class="s2">"data_size_info.json"</span>
     <span class="p">)</span>
     <span class="c1"># app_model = get_app_model() - there is a need to add a collection of data to app_model</span>
     <span class="k">return</span> <span class="p">{</span>
         <span class="o">**</span><span class="n">middle_info</span><span class="p">,</span>
-        <span class="s2">&quot;data_size_info&quot;</span><span class="p">:</span> <span class="n">data_collector</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-        <span class="s2">&quot;command_usage&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="c1"># it should be collected from app_model</span>
-            <span class="s1">&#39;napari:window:file:open_files_dialog&#39;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
-            <span class="s1">&#39;napari:window:file:copy_canvas_screenshot&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-            <span class="s1">&#39;napari:window:file:restart&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="s1">&#39;napari:window:file:close&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="s2">"data_size_info"</span><span class="p">:</span> <span class="n">data_collector</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+        <span class="s2">"command_usage"</span><span class="p">:</span> <span class="p">{</span> <span class="c1"># it should be collected from app_model</span>
+            <span class="s1">'napari:window:file:open_files_dialog'</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+            <span class="s1">'napari:window:file:copy_canvas_screenshot'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="s1">'napari:window:file:restart'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">'napari:window:file:close'</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">}</span>
 </pre></div>
 </div>
 <p>The script below generates sample reports for each level of information gathered. The information about layer data is mocked so that this script can be executed independently of <code class="docutils literal notranslate"><span class="pre">napari</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;basic&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"basic"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">get_basic_information</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;middle&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"middle"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">get_middle_information</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 
 
@@ -945,7 +945,7 @@ The package should implement a utility to allow users to preview collected data 
 <span class="kn">import</span><span class="w"> </span><span class="nn">dask.array</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">da</span>
 
 
-<span class="n">collector_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s2">&quot;napari&quot;</span><span class="p">))</span> <span class="o">/</span> <span class="s2">&quot;data_size_info.json&quot;</span>
+<span class="n">collector_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s2">"napari"</span><span class="p">))</span> <span class="o">/</span> <span class="s2">"data_size_info.json"</span>
 <span class="k">if</span> <span class="n">collector_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
     <span class="n">collector_path</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
 <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">collector_path</span><span class="p">)</span> <span class="ow">in</span> <span class="n">DataSizeTypeCollector</span><span class="o">.</span><span class="n">_instances</span><span class="p">:</span>
@@ -953,57 +953,57 @@ The package should implement a utility to allow users to preview collected data 
 
 <span class="n">data_collector</span> <span class="o">=</span> <span class="n">DataSizeTypeCollector</span><span class="o">.</span><span class="n">get_collector</span><span class="p">(</span><span class="n">collector_path</span><span class="p">)</span>
 
-<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)),</span> <span class="s2">&quot;image&quot;</span><span class="p">)</span>
-<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)),</span> <span class="s2">&quot;image&quot;</span><span class="p">)</span>
-<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="s2">&quot;image&quot;</span><span class="p">)</span>
+<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)),</span> <span class="s2">"image"</span><span class="p">)</span>
+<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)),</span> <span class="s2">"image"</span><span class="p">)</span>
+<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="s2">"image"</span><span class="p">)</span>
 
-<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)),</span> <span class="s2">&quot;image&quot;</span><span class="p">)</span>
+<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)),</span> <span class="s2">"image"</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
-    <span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="s2">&quot;image&quot;</span><span class="p">)</span>
-    <span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="s2">&quot;points&quot;</span><span class="p">)</span>
+    <span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="s2">"image"</span><span class="p">)</span>
+    <span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="s2">"points"</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;full&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"full"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">get_full_information</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>Basic output:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;napari_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5.0a2.dev489+g8a9df482c&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;python_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.11.5 (main, Sep 25 2023, 13:38:35) [GCC 11.4.0]&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;identifier&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9754d8f20e8124a25bb6d86c393f257a&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;linux&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;cpu_architecture&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;x86_64&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;first_report&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;sys_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ubuntu 22.04.3 LTS&quot;</span>
+<span class="w">  </span><span class="nt">"napari_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.5.0a2.dev489+g8a9df482c"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"python_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.11.5 (main, Sep 25 2023, 13:38:35) [GCC 11.4.0]"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9754d8f20e8124a25bb6d86c393f257a"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"platform"</span><span class="p">:</span><span class="w"> </span><span class="s2">"linux"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"cpu_architecture"</span><span class="p">:</span><span class="w"> </span><span class="s2">"x86_64"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"first_report"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"sys_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ubuntu 22.04.3 LTS"</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Middle output:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;napari_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5.0a2.dev489+g8a9df482c&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;python_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.11.5 (main, Sep 25 2023, 13:38:35) [GCC 11.4.0]&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;identifier&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9754d8f20e8124a25bb6d86c393f257a&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;linux&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;cpu_architecture&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;x86_64&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;first_report&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;sys_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ubuntu 22.04.3 LTS&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;plugins&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"napari_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.5.0a2.dev489+g8a9df482c"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"python_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.11.5 (main, Sep 25 2023, 13:38:35) [GCC 11.4.0]"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9754d8f20e8124a25bb6d86c393f257a"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"platform"</span><span class="p">:</span><span class="w"> </span><span class="s2">"linux"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"cpu_architecture"</span><span class="p">:</span><span class="w"> </span><span class="s2">"x86_64"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"first_report"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"sys_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ubuntu 22.04.3 LTS"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"plugins"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;napari-console&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.0.9&quot;</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"napari-console"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0.9"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;blik&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.6.4&quot;</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"blik"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.6.4"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;napari-svg&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1.10&quot;</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"napari-svg"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1.10"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PartSeg&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.15.2&quot;</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PartSeg"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.15.2"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
@@ -1011,54 +1011,54 @@ The package should implement a utility to allow users to preview collected data 
 </div>
 <p>Full output</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;napari_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5.0a2.dev489+g8a9df482c&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;python_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.11.5 (main, Sep 25 2023, 13:38:35) [GCC 11.4.0]&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;identifier&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9754d8f20e8124a25bb6d86c393f257a&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;linux&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;cpu_architecture&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;x86_64&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;first_report&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;sys_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ubuntu 22.04.3 LTS&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;plugins&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"napari_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.5.0a2.dev489+g8a9df482c"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"python_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.11.5 (main, Sep 25 2023, 13:38:35) [GCC 11.4.0]"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9754d8f20e8124a25bb6d86c393f257a"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"platform"</span><span class="p">:</span><span class="w"> </span><span class="s2">"linux"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"cpu_architecture"</span><span class="p">:</span><span class="w"> </span><span class="s2">"x86_64"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"first_report"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"sys_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ubuntu 22.04.3 LTS"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"plugins"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;napari-console&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.0.9&quot;</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"napari-console"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0.9"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;blik&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.6.4&quot;</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"blik"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.6.4"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;napari-svg&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1.10&quot;</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"napari-svg"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1.10"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PartSeg&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.15.2&quot;</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PartSeg"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.15.2"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;data_size_info&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;week_info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9754d8f20e8124a25bb6d86c393f257a&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;(&#39;image&#39;, &#39;MEDIUM&#39;, 3, &#39;ndarray&#39;, &#39;float64&#39;)&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">  </span><span class="nt">"data_size_info"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"week_info"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9754d8f20e8124a25bb6d86c393f257a"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"('image', 'MEDIUM', 3, 'ndarray', 'float64')"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;(&#39;image&#39;, &#39;MEDIUM&#39;, 3, &#39;ndarray&#39;, &#39;uint8&#39;)&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="nt">"('image', 'MEDIUM', 3, 'ndarray', 'uint8')"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;(&#39;image&#39;, &#39;MEDIUM&#39;, 3, &#39;Array&#39;, &#39;float64&#39;)&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="nt">"('image', 'MEDIUM', 3, 'Array', 'float64')"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;(&#39;image&#39;, &#39;SMALL&#39;, 3, &#39;ndarray&#39;, &#39;uint8&#39;)&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span>
+<span class="w">    </span><span class="nt">"('image', 'SMALL', 3, 'ndarray', 'uint8')"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;(&#39;points&#39;, &#39;SMALL&#39;, 3, &#39;ndarray&#39;, &#39;uint8&#39;)&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span>
+<span class="w">    </span><span class="nt">"('points', 'SMALL', 3, 'ndarray', 'uint8')"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;command_usage&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;napari:window:file:open_files_dialog&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;napari:window:file:copy_canvas_screenshot&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;napari:window:file:restart&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;napari:window:file:close&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span>
+<span class="w">  </span><span class="nt">"command_usage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"napari:window:file:open_files_dialog"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"napari:window:file:copy_canvas_screenshot"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"napari:window:file:restart"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"napari:window:file:close"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -841,7 +841,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">plugin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Iterate reader hooks and return first non-None LayerData or None.</span>
+<span class="w">    </span><span class="sd">"""Iterate reader hooks and return first non-None LayerData or None.</span>
 
 <span class="sd">    This function returns as soon as the path has been read successfully,</span>
 <span class="sd">    while raising any errors occurring during the reading process, and</span>
@@ -869,12 +869,12 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        If no reader plugins were found (or they all failed), returns ``None``</span>
 <span class="sd">    reader : str, optional</span>
 <span class="sd">        The name of the reader plugin that was used, or None if no reader was found.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">plugin</span> <span class="o">==</span> <span class="s1">&#39;builtins&#39;</span><span class="p">:</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">plugin</span> <span class="o">==</span> <span class="s1">'builtins'</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="s1">&#39;The &quot;builtins&quot; plugin name is deprecated and will not work in a future version. Please use &quot;napari&quot; instead.&#39;</span><span class="p">,</span>
+            <span class="s1">'The "builtins" plugin name is deprecated and will not work in a future version. Please use "napari" instead.'</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">plugin</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span>
+        <span class="n">plugin</span> <span class="o">=</span> <span class="s1">'napari'</span>
 
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">stack</span><span class="p">:</span>
@@ -897,7 +897,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">plugin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">_writer</span><span class="p">:</span> <span class="n">WriterContribution</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write list of layers or individual layer to a path using writer plugins.</span>
+<span class="w">    </span><span class="sd">"""Write list of layers or individual layer to a path using writer plugins.</span>
 
 <span class="sd">    If ``plugin`` is provided, will attempt to use a writer declared by that</span>
 <span class="sd">    plugin, assuming it is compatible with the given layer(s) and ``path``.</span>
@@ -918,14 +918,14 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    list of str</span>
 <span class="sd">        File paths of any files that were written.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">writer_name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="sd">    """</span>
+    <span class="n">writer_name</span> <span class="o">=</span> <span class="s1">''</span>
     <span class="k">if</span> <span class="n">layers</span><span class="p">:</span>
         <span class="n">written</span><span class="p">,</span> <span class="n">writer_name</span> <span class="o">=</span> <span class="n">_write_layers_with_plugins</span><span class="p">(</span>
             <span class="n">path</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">plugin_name</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span> <span class="n">_writer</span><span class="o">=</span><span class="n">_writer</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;No layers to write.&#39;</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">'No layers to write.'</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[]</span>
 
     <span class="c1"># If written is empty, something went wrong.</span>
@@ -933,15 +933,15 @@ window.runMermaid = runMermaid;</script>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">written</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">writer_name</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Plugin &#39;</span><span class="si">{</span><span class="n">writer_name</span><span class="si">}</span><span class="s2">&#39; tried to save layers but did not return any written paths.&quot;</span>
+                <span class="sa">f</span><span class="s2">"Plugin '</span><span class="si">{</span><span class="n">writer_name</span><span class="si">}</span><span class="s2">' tried to save layers but did not return any written paths."</span>
             <span class="p">)</span>
         <span class="k">elif</span> <span class="n">plugin</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Given plugin &#39;</span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s2">&#39; is not a valid writer for </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="sa">f</span><span class="s2">"Given plugin '</span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s2">' is not a valid writer for </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">."</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;No data written! A plugin could not be found to write these </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span><span class="si">}</span><span class="s1"> layers to </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">.&#39;</span>
+                <span class="sa">f</span><span class="s1">'No data written! A plugin could not be found to write these </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span><span class="si">}</span><span class="s1"> layers to </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">.'</span>
             <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">written</span></div>
@@ -949,7 +949,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_is_null_layer_sentinel</span><span class="p">(</span><span class="n">layer_data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Checks if the layer data returned from a reader function indicates an</span>
+<span class="w">    </span><span class="sd">"""Checks if the layer data returned from a reader function indicates an</span>
 <span class="sd">    empty file. The sentinel value used for this is ``[(None,)]``.</span>
 
 <span class="sd">    Parameters</span>
@@ -961,7 +961,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    bool</span>
 <span class="sd">        True, if the layer_data indicates an empty file, False otherwise</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="p">(</span>
         <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer_data</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
         <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
@@ -978,7 +978,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">plugin_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">_writer</span><span class="p">:</span> <span class="n">WriterContribution</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write data from multiple layers data with a plugin.</span>
+<span class="w">    </span><span class="sd">"""Write data from multiple layers data with a plugin.</span>
 
 <span class="sd">    Calls out to _npe2.write_layers which will get the first</span>
 <span class="sd">    writer compatible with the given layer combination and specified file</span>
@@ -991,7 +991,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    layers : List of napari.layers.Layer</span>
 <span class="sd">        List of napari layers to write.</span>
 <span class="sd">    plugin_name : str, optional</span>
-<span class="sd">        If provided, force the plugin manager to use this plugin&#39;s writer.</span>
+<span class="sd">        If provided, force the plugin manager to use this plugin's writer.</span>
 <span class="sd">        If none is available, or if it is</span>
 <span class="sd">        incapable of handling the layers, this function will fail.</span>
 
@@ -1004,13 +1004,13 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        if any, that were written.</span>
 <span class="sd">    writer name: str</span>
 <span class="sd">        Name of the plugin selected to write the data.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">written_paths</span><span class="p">,</span> <span class="n">writer_name</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">write_layers</span><span class="p">(</span>
         <span class="n">path</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">plugin_name</span><span class="p">,</span> <span class="n">_writer</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">written_paths</span> <span class="ow">or</span> <span class="n">writer_name</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">written_paths</span><span class="p">,</span> <span class="n">writer_name</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">([],</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">([],</span> <span class="s1">''</span><span class="p">)</span>
 </pre></div>
 
                 </article>

@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -871,8 +871,8 @@ This example is fully explained in the following tutorial:
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">segment</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">image</span></a><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Segment an image using an intensity threshold determined via</span>
-<span class="sd">    Otsu&#39;s method.</span>
+<span class="w">    </span><span class="sd">"""Segment an image using an intensity threshold determined via</span>
+<span class="sd">    Otsu's method.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -883,7 +883,7 @@ This example is fully explained in the following tutorial:
 <span class="sd">    -------</span>
 <span class="sd">    label_image : np.ndarray</span>
 <span class="sd">        The resulting image where each detected object labeled with a unique integer.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># apply threshold</span>
     <span class="n">thresh</span> <span class="o">=</span> <span class="n">threshold_otsu</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">image</span></a><span class="p">)</span>
     <span class="n">bw</span> <span class="o">=</span> <span class="n">closing</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">image</span></a> <span class="o">&gt;</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">square</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
@@ -898,7 +898,7 @@ This example is fully explained in the following tutorial:
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">make_bbox</span><span class="p">(</span><span class="n">bbox_extents</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the coordinates of the corners of a</span>
+<span class="w">    </span><span class="sd">"""Get the coordinates of the corners of a</span>
 <span class="sd">    bounding box from the extents</span>
 
 <span class="sd">    Parameters</span>
@@ -912,7 +912,7 @@ This example is fully explained in the following tutorial:
 <span class="sd">    bbox_rect : np.ndarray</span>
 <span class="sd">        The corners of the bounding box. Can be input directly into a</span>
 <span class="sd">        napari Shapes layer.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">minr</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">minc</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">maxr</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -927,7 +927,7 @@ This example is fully explained in the following tutorial:
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">circularity</span><span class="p">(</span><span class="n">perimeter</span><span class="p">,</span> <span class="n">area</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the circularity of the region</span>
+<span class="w">    </span><span class="sd">"""Calculate the circularity of the region</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -940,7 +940,7 @@ This example is fully explained in the following tutorial:
 <span class="sd">    -------</span>
 <span class="sd">    circularity : float</span>
 <span class="sd">        The circularity of the region as defined by 4*pi*area / perimeter^2</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">circularity</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a> <span class="o">*</span> <span class="n">area</span> <span class="o">/</span> <span class="p">(</span><span class="n">perimeter</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">circularity</span>
@@ -952,41 +952,41 @@ This example is fully explained in the following tutorial:
 
 <span class="c1"># create the features dictionary</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">features</span></a> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span>
-    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_image</span></a><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;bbox&#39;</span><span class="p">,</span> <span class="s1">&#39;perimeter&#39;</span><span class="p">,</span> <span class="s1">&#39;area&#39;</span><span class="p">)</span>
+    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_image</span></a><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s1">'label'</span><span class="p">,</span> <span class="s1">'bbox'</span><span class="p">,</span> <span class="s1">'perimeter'</span><span class="p">,</span> <span class="s1">'area'</span><span class="p">)</span>
 <span class="p">)</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">features</span></a><span class="p">[</span><span class="s1">&#39;circularity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span>
-    <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">features</span></a><span class="p">[</span><span class="s1">&#39;perimeter&#39;</span><span class="p">],</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">features</span></a><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">features</span></a><span class="p">[</span><span class="s1">'circularity'</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span>
+    <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">features</span></a><span class="p">[</span><span class="s1">'perimeter'</span><span class="p">],</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">features</span></a><span class="p">[</span><span class="s1">'area'</span><span class="p">]</span>
 <span class="p">)</span>
 
 <span class="c1"># create the bounding box rectangles</span>
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bbox_rects</span></a> <span class="o">=</span> <span class="n">make_bbox</span><span class="p">([</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">features</span></a><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;bbox-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bbox_rects</span></a> <span class="o">=</span> <span class="n">make_bbox</span><span class="p">([</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">features</span></a><span class="p">[</span><span class="sa">f</span><span class="s1">'bbox-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
 
 <span class="c1"># specify the display parameters for the text</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">text_parameters</span></a> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="s1">&#39;label: </span><span class="si">{label}</span><span class="se">\n</span><span class="s1">circ: </span><span class="si">{circularity:.2f}</span><span class="s1">&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-    <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;anchor&#39;</span><span class="p">:</span> <span class="s1">&#39;upper_left&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;translation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="s1">'string'</span><span class="p">:</span> <span class="s1">'label: </span><span class="si">{label}</span><span class="se">\n</span><span class="s1">circ: </span><span class="si">{circularity:.2f}</span><span class="s1">'</span><span class="p">,</span>
+    <span class="s1">'size'</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'green'</span><span class="p">,</span>
+    <span class="s1">'anchor'</span><span class="p">:</span> <span class="s1">'upper_left'</span><span class="p">,</span>
+    <span class="s1">'translation'</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="p">}</span>
 
 <span class="c1"># initialise viewer with coins image</span>
 <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">()</span>
-<a href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">image</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;coins&#39;</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">image</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'coins'</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># add the labels</span>
-<a href="../api/napari.layers.Labels.html#napari.layers.Labels" title="napari.layers.Labels" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_labels" title="napari.Viewer.add_labels" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_image</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;segmentation&#39;</span><span class="p">)</span>
+<a href="../api/napari.layers.Labels.html#napari.layers.Labels" title="napari.layers.Labels" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_labels" title="napari.Viewer.add_labels" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_image</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'segmentation'</span><span class="p">)</span>
 
 <a href="../api/napari.layers.Shapes.html#napari.layers.Shapes" title="napari.layers.Shapes" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shapes_layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_shapes" title="napari.Viewer.add_shapes" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span></a><span class="p">(</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bbox_rects</span></a><span class="p">,</span>
-    <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
-    <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span>
+    <span class="n">face_color</span><span class="o">=</span><span class="s1">'transparent'</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span>
     <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">features</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">features</span></a><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">text_parameters</span></a><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bounding box&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">'bounding box'</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>

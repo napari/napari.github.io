@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -881,12 +881,12 @@ the gui via QTWidgets and napari’s thread_worker.</p>
     <span class="kn">import</span><span class="w"> </span><span class="nn">dragon</span>  <span class="c1"># isort:skip  # noqa: F401</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mp</span>  <span class="c1"># Must be after import of dragon</span>
 
-    <a href="https://docs.python.org/3/library/multiprocessing.html#multiprocessing.set_start_method" title="multiprocessing.set_start_method" class="sphx-glr-backref-module-multiprocessing sphx-glr-backref-type-py-function"><span class="n">mp</span><span class="o">.</span><span class="n">set_start_method</span></a><span class="p">(</span><span class="s2">&quot;dragon&quot;</span><span class="p">)</span>
+    <a href="https://docs.python.org/3/library/multiprocessing.html#multiprocessing.set_start_method" title="multiprocessing.set_start_method" class="sphx-glr-backref-module-multiprocessing sphx-glr-backref-type-py-function"><span class="n">mp</span><span class="o">.</span><span class="n">set_start_method</span></a><span class="p">(</span><span class="s2">"dragon"</span><span class="p">)</span>
 <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
-    <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Note: dragon unavailable; using standard multiprocessing&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Note: dragon unavailable; using standard multiprocessing"</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">re</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: </span><span class="si">{</span><span class="n">re</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Warning: </span><span class="si">{</span><span class="n">re</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="k">finally</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mp</span>
 
@@ -915,11 +915,11 @@ the gui via QTWidgets and napari’s thread_worker.</p>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">Boids3D</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Implementation of Boids in 3D.  Ref: http://www.red3d.com/cwr/boids/</span>
+<span class="w">    </span><span class="sd">"""Implementation of Boids in 3D.  Ref: http://www.red3d.com/cwr/boids/</span>
 
 <span class="sd">    Directly inspired by implementation for HoloViz by jlstevens.</span>
 <span class="sd">    Ref: https://examples.holoviz.org/gallery/boids/boids.html</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">400</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iteration</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="mi">0</span>
@@ -950,15 +950,15 @@ the gui via QTWidgets and napari’s thread_worker.</p>
     <span class="p">):</span>
         <span class="k">assert</span> <span class="n">veryclose_radius</span> <span class="o">&lt;=</span> <span class="n">kindaclose_radius</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;pos&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span>
-            <span class="s1">&#39;vel&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">vel</span><span class="p">,</span>
-            <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
-            <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
-            <span class="s1">&#39;depth&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span>
-            <span class="s1">&#39;min_vel&#39;</span><span class="p">:</span> <span class="n">min_vel</span><span class="p">,</span>
-            <span class="s1">&#39;max_vel&#39;</span><span class="p">:</span> <span class="n">max_vel</span><span class="p">,</span>
-            <span class="s1">&#39;veryclose_radius&#39;</span><span class="p">:</span> <span class="n">veryclose_radius</span><span class="p">,</span>
-            <span class="s1">&#39;kindaclose_radius&#39;</span><span class="p">:</span> <span class="n">kindaclose_radius</span><span class="p">,</span>
+            <span class="s1">'pos'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span>
+            <span class="s1">'vel'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">vel</span><span class="p">,</span>
+            <span class="s1">'width'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+            <span class="s1">'height'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+            <span class="s1">'depth'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span>
+            <span class="s1">'min_vel'</span><span class="p">:</span> <span class="n">min_vel</span><span class="p">,</span>
+            <span class="s1">'max_vel'</span><span class="p">:</span> <span class="n">max_vel</span><span class="p">,</span>
+            <span class="s1">'veryclose_radius'</span><span class="p">:</span> <span class="n">veryclose_radius</span><span class="p">,</span>
+            <span class="s1">'kindaclose_radius'</span><span class="p">:</span> <span class="n">kindaclose_radius</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="n">pool</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[:],</span> <span class="bp">self</span><span class="o">.</span><span class="n">vel</span><span class="p">[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_flock_step_forward</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -966,7 +966,7 @@ the gui via QTWidgets and napari’s thread_worker.</p>
             <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">pool</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">compute_flock_step_forward</span><span class="p">,</span>
-                    <span class="n">kwds</span><span class="o">=</span><span class="p">(</span><span class="n">kwargs</span> <span class="o">|</span> <span class="p">{</span><span class="s2">&quot;slice_idx&quot;</span><span class="p">:</span> <span class="n">slice_idx</span><span class="p">,</span> <span class="s2">&quot;slice_tot&quot;</span><span class="p">:</span> <span class="n">slice_tot</span><span class="p">}),</span>
+                    <span class="n">kwds</span><span class="o">=</span><span class="p">(</span><span class="n">kwargs</span> <span class="o">|</span> <span class="p">{</span><span class="s2">"slice_idx"</span><span class="p">:</span> <span class="n">slice_idx</span><span class="p">,</span> <span class="s2">"slice_tot"</span><span class="p">:</span> <span class="n">slice_tot</span><span class="p">}),</span>
                 <span class="p">)</span>
                 <span class="k">for</span> <span class="n">slice_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">slice_tot</span><span class="p">)</span>
             <span class="p">]</span>
@@ -1069,17 +1069,17 @@ the gui via QTWidgets and napari’s thread_worker.</p>
             <span class="n">timestamp_this_update</span><span class="p">,</span>
         <span class="p">)</span>
         <a href="../api/napari.layers.Points.html#napari.layers.Points.name" title="napari.layers.Points.name" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">boids_layer</span><span class="o">.</span><span class="n">name</span></a> <span class="o">=</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Iter_</span><span class="si">{</span><span class="n">boids</span><span class="o">.</span><span class="n">iteration</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">elapsed_time_update</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s/iter) &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;num_boids&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">-boids-on-</span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;num_workers&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">-procs&quot;</span>
+            <span class="sa">f</span><span class="s2">"Iter_</span><span class="si">{</span><span class="n">boids</span><span class="o">.</span><span class="n">iteration</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">elapsed_time_update</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s/iter) "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">'num_boids'</span><span class="p">]</span><span class="si">}</span><span class="s2">-boids-on-</span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">'num_workers'</span><span class="p">]</span><span class="si">}</span><span class="s2">-procs"</span>
         <span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">BoidsControlWidget</span><span class="p">(</span><span class="n">qtpy</span><span class="o">.</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dock widget with controls for a running Boids simulation.</span>
+<span class="w">    </span><span class="sd">"""Dock widget with controls for a running Boids simulation.</span>
 
 <span class="sd">    All controls are built once. Button enabled states and text change as</span>
 <span class="sd">    the simulation moves between idle, running, and finished states.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">,</span> <span class="n">worker</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -1092,25 +1092,25 @@ the gui via QTWidgets and napari’s thread_worker.</p>
 
         <span class="n">form</span> <span class="o">=</span> <span class="n">qtpy</span><span class="o">.</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFormLayout</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_edit_num_boids</span> <span class="o">=</span> <span class="n">qtpy</span><span class="o">.</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">(</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;num_boids&quot;</span><span class="p">,</span> <span class="mi">1500</span><span class="p">))</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"num_boids"</span><span class="p">,</span> <span class="mi">1500</span><span class="p">))</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_edit_num_boids</span><span class="o">.</span><span class="n">setValidator</span><span class="p">(</span><span class="n">qtpy</span><span class="o">.</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIntValidator</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100_000</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_edit_num_procs</span> <span class="o">=</span> <span class="n">qtpy</span><span class="o">.</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">(</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;num_workers&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"num_workers"</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_edit_num_procs</span><span class="o">.</span><span class="n">setValidator</span><span class="p">(</span><span class="n">qtpy</span><span class="o">.</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIntValidator</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">256</span><span class="p">))</span>
-        <span class="n">form</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="s2">&quot;Number of Boids&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edit_num_boids</span><span class="p">)</span>
-        <span class="n">form</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="s2">&quot;Number of Processes&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edit_num_procs</span><span class="p">)</span>
+        <span class="n">form</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="s2">"Number of Boids"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edit_num_boids</span><span class="p">)</span>
+        <span class="n">form</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="s2">"Number of Processes"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edit_num_procs</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_hide_prev_check</span> <span class="o">=</span> <span class="n">qtpy</span><span class="o">.</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QCheckBox</span><span class="p">(</span><span class="s2">&quot;Hide previous sim&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hide_prev_check</span> <span class="o">=</span> <span class="n">qtpy</span><span class="o">.</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QCheckBox</span><span class="p">(</span><span class="s2">"Hide previous sim"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_hide_prev_check</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_hide_prev_check</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_hide_prev_check</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_start_btn</span> <span class="o">=</span> <span class="n">qtpy</span><span class="o">.</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Start Sim&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pause_btn</span> <span class="o">=</span> <span class="n">qtpy</span><span class="o">.</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Pause&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stop_btn</span> <span class="o">=</span> <span class="n">qtpy</span><span class="o">.</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Terminate&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_btn</span> <span class="o">=</span> <span class="n">qtpy</span><span class="o">.</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s2">"Start Sim"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pause_btn</span> <span class="o">=</span> <span class="n">qtpy</span><span class="o">.</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s2">"Pause"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stop_btn</span> <span class="o">=</span> <span class="n">qtpy</span><span class="o">.</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s2">"Terminate"</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">btn</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_btn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pause_btn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop_btn</span><span class="p">):</span>
             <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">btn</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pause_btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
@@ -1132,10 +1132,10 @@ the gui via QTWidgets and napari’s thread_worker.</p>
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_pause_resume</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paused</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_worker</span><span class="o">.</span><span class="n">resume</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_pause_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Pause&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pause_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">"Pause"</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_worker</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_pause_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Resume&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pause_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">"Resume"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_paused</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paused</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1147,10 +1147,10 @@ the gui via QTWidgets and napari’s thread_worker.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">_edit_num_boids</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_edit_num_procs</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pause_btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pause_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Pause&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pause_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">"Pause"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stop_btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_hide_prev_check</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_start_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Launch New Sim!&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">"Launch New Sim!"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_start_btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_start_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_start</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_start_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_relaunch</span><span class="p">)</span>
@@ -1173,16 +1173,16 @@ the gui via QTWidgets and napari’s thread_worker.</p>
 <span class="p">):</span>
     <span class="k">global</span> <a href="../api/napari.layers.Points.html#napari.layers.Points" title="napari.layers.Points" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">boids_layer</span></a><span class="p">,</span> <span class="n">control_widget</span>
     <span class="n">state</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;num_boids&#39;</span><span class="p">:</span> <span class="n">num_boids</span><span class="p">,</span>
-        <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
-        <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span>
-        <span class="s1">&#39;depth&#39;</span><span class="p">:</span> <span class="n">depth</span><span class="p">,</span>
-        <span class="s1">&#39;parallel&#39;</span><span class="p">:</span> <span class="n">parallel</span><span class="p">,</span>
-        <span class="s1">&#39;num_workers&#39;</span><span class="p">:</span> <span class="n">num_workers</span><span class="p">,</span>
+        <span class="s1">'num_boids'</span><span class="p">:</span> <span class="n">num_boids</span><span class="p">,</span>
+        <span class="s1">'width'</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
+        <span class="s1">'height'</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span>
+        <span class="s1">'depth'</span><span class="p">:</span> <span class="n">depth</span><span class="p">,</span>
+        <span class="s1">'parallel'</span><span class="p">:</span> <span class="n">parallel</span><span class="p">,</span>
+        <span class="s1">'num_workers'</span><span class="p">:</span> <span class="n">num_workers</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="n">boids</span> <span class="o">=</span> <span class="n">Boids3D</span><span class="p">(</span><span class="n">num_boids</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">depth</span><span class="p">)</span>
 
-    <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;napari+</span><span class="si">{</span><span class="s1">&#39;Dragon&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="s1">&#39;dragon&#39;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sys</span><span class="o">.</span><span class="n">modules</span></a><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;multiprocessing&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"napari+</span><span class="si">{</span><span class="s1">'Dragon'</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="s1">'dragon'</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sys</span><span class="o">.</span><span class="n">modules</span></a><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">'multiprocessing'</span><span class="si">}</span><span class="s2">"</span>
     <span class="n">viewer</span> <span class="o">=</span> <a href="../api/napari.html#napari.current_viewer" title="napari.current_viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">current_viewer</span></a><span class="p">()</span> <span class="ow">or</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
     <span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># ensure 3-D display when reusing an existing viewer</span>
 
@@ -1191,7 +1191,7 @@ the gui via QTWidgets and napari’s thread_worker.</p>
         <span class="n">control_widget</span> <span class="o">=</span> <span class="kc">None</span>
 
     <a href="../api/napari.layers.Points.html#napari.layers.Points" title="napari.layers.Points" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">boids_layer</span></a> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span>
-        <span class="n">boids</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Boids3D&quot;</span>
+        <span class="n">boids</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Boids3D"</span>
     <span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">parallel</span><span class="p">:</span>
@@ -1201,12 +1201,12 @@ the gui via QTWidgets and napari’s thread_worker.</p>
     <span class="n">worker</span><span class="o">.</span><span class="n">yielded</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="n">update_points_in_display</span><span class="p">(</span><span class="n">boids</span><span class="p">,</span> <span class="n">state</span><span class="p">))</span>
 
     <span class="n">control_widget</span> <span class="o">=</span> <span class="n">BoidsControlWidget</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">worker</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
-    <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">control_widget</span><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Boids Controls&#39;</span><span class="p">)</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">control_widget</span><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="s1">'right'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'Boids Controls'</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">boids</span><span class="p">,</span> <span class="n">viewer</span><span class="p">,</span> <span class="n">worker</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
     <span class="n">b</span><span class="p">,</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">v</span></a><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">main</span><span class="p">(</span><span class="mi">1500</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>

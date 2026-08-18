@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -580,8 +580,8 @@ The <code class="docutils literal notranslate"><span class="pre">dock_widgets</s
 <p>This public API returns the (inner) widget, not the <code class="docutils literal notranslate"><span class="pre">QtViewerDockWidget</span></code> wrapper.
 To access the <code class="docutils literal notranslate"><span class="pre">QtViewerDockWidget</span></code> wrapper, use the <code class="docutils literal notranslate"><span class="pre">.parent()</span></code> method on the returned <code class="docutils literal notranslate"><span class="pre">QWidget</span></code>, or <code class="docutils literal notranslate"><span class="pre">.native.parent()</span></code> for a magicgui <code class="docutils literal notranslate"><span class="pre">Widget</span></code>.
 For example, to programmatically show the “Home” dock widget:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">widget</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">dock_widgets</span><span class="p">[</span><span class="s2">&quot;Home&quot;</span><span class="p">]</span>
-<span class="n">qt_widget</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">native</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s2">&quot;native&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">widget</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">widget</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">dock_widgets</span><span class="p">[</span><span class="s2">"Home"</span><span class="p">]</span>
+<span class="n">qt_widget</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">native</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s2">"native"</span><span class="p">)</span> <span class="k">else</span> <span class="n">widget</span>
 <span class="n">dock_widget</span> <span class="o">=</span> <span class="n">qt_widget</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>  <span class="c1"># Get the QtViewerDockWidget wrapper</span>
 <span class="n">dock_widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="n">dock_widget</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
@@ -606,18 +606,18 @@ The name is created by concatenating the widget <code class="docutils literal no
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">GlobalState</span><span class="p">(</span><span class="n">EventedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A global state object that can be shared between widgets.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""A global state object that can be shared between widgets."""</span>
 
     <span class="c1"># Define your shared state attributes here</span>
     <span class="n">some_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">another_value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>
+    <span class="n">another_value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'default'</span>
 
 
 <span class="n">GLOBAL_STATE</span> <span class="o">=</span> <span class="kc">None</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_global_state</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the global state object, creating it if it does not exist.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Get the global state object, creating it if it does not exist."""</span>
     <span class="k">global</span> <span class="n">GLOBAL_STATE</span>
     <span class="k">if</span> <span class="n">GLOBAL_STATE</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">GLOBAL_STATE</span> <span class="o">=</span> <span class="n">GlobalState</span><span class="p">()</span>
@@ -631,18 +631,18 @@ The name is created by concatenating the widget <code class="docutils literal no
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">GlobalState</span><span class="p">(</span><span class="n">EventedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A global state object that can be shared between widgets.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""A global state object that can be shared between widgets."""</span>
 
     <span class="c1"># Define your shared state attributes here</span>
     <span class="n">some_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">another_value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>
+    <span class="n">another_value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'default'</span>
 
 
 <span class="n">GLOBAL_STATE</span> <span class="o">=</span> <span class="n">WeakKeyDictionary</span><span class="p">()</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_global_state</span><span class="p">(</span><span class="n">viewer</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the global state object for the given viewer, creating it if it does not exist.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Get the global state object for the given viewer, creating it if it does not exist."""</span>
     <span class="k">if</span> <span class="n">viewer</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">GLOBAL_STATE</span><span class="p">:</span>
         <span class="n">GLOBAL_STATE</span><span class="p">[</span><span class="n">viewer</span><span class="p">]</span> <span class="o">=</span> <span class="n">GlobalState</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">GLOBAL_STATE</span><span class="p">[</span><span class="n">viewer</span><span class="p">]</span>
@@ -659,37 +659,37 @@ Or you can use <a class="reference external" href="https://pypi.org/project/appd
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">GlobalState</span><span class="p">(</span><span class="n">EventedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A global state object that can be shared between widgets.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""A global state object that can be shared between widgets."""</span>
 
     <span class="c1"># Define your shared state attributes here</span>
     <span class="n">some_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">another_value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>
+    <span class="n">another_value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'default'</span>
 
 
 <span class="n">GLOBAL_STATE</span> <span class="o">=</span> <span class="kc">None</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_save_path</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the path to save the global state.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Get the path to save the global state."""</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span>
 
-    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">config_path</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;plugin_name&#39;</span> <span class="o">/</span> <span class="s1">&#39;state.json&#39;</span>
+    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">config_path</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">'plugin_name'</span> <span class="o">/</span> <span class="s1">'state.json'</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_global_state</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the global state object, creating it if it does not exist.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Get the global state object, creating it if it does not exist."""</span>
     <span class="k">global</span> <span class="n">GLOBAL_STATE</span>
     <span class="k">if</span> <span class="n">GLOBAL_STATE</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">save_path</span> <span class="o">=</span> <span class="n">get_save_path</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">save_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
             <span class="c1"># Load the state from the file</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="k">with</span> <span class="n">save_path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">save_path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="n">GLOBAL_STATE</span> <span class="o">=</span> <span class="n">GlobalState</span><span class="o">.</span><span class="n">model_validate_json</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
             <span class="k">except</span> <span class="n">ValidationError</span><span class="p">:</span>
                 <span class="c1"># If loading fails, create a new global state</span>
                 <span class="n">logging</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span>
-                    <span class="s1">&#39;Failed to load global state from file, creating a new one.&#39;</span>
+                    <span class="s1">'Failed to load global state from file, creating a new one.'</span>
                 <span class="p">)</span>
                 <span class="n">GLOBAL_STATE</span> <span class="o">=</span> <span class="n">GlobalState</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -702,12 +702,12 @@ Or you can use <a class="reference external" href="https://pypi.org/project/appd
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">save_global_state</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Save the global state by serializing it to a file.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Save the global state by serializing it to a file."""</span>
     <span class="n">save_path</span> <span class="o">=</span> <span class="n">get_save_path</span><span class="p">()</span>
     <span class="n">state</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span>  <span class="c1"># The source of the event is the global state object</span>
     <span class="n">save_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Ensure the directory exists</span>
 
-    <span class="k">with</span> <span class="n">save_path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">save_path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">)</span>
 </pre></div>
 </div>

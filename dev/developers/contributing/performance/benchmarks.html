@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -627,7 +627,7 @@ method and its execution time is not factored into the benchmarks.</p>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">ViewImageSuite</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Benchmarks for viewing images in the viewer.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Benchmarks for viewing images in the viewer."""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span> <span class="ow">or</span> <span class="n">QApplication</span><span class="p">([])</span>
@@ -639,7 +639,7 @@ method and its execution time is not factored into the benchmarks.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">time_view_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Time to view an image.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Time to view an image."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -730,7 +730,7 @@ enough for airspeed velocity to report.</p>
 <p>where <code class="docutils literal notranslate"><span class="pre">benchmark_qt_viewer</span></code> is the file name, <code class="docutils literal notranslate"><span class="pre">QtViewerSuite</span></code> is the test suite class name,
 and <code class="docutils literal notranslate"><span class="pre">time_create_viewer</span></code> is the test method.</p>
 <p>To profile a particular parameterized benchmark you can run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv<span class="w"> </span>profile<span class="w"> </span><span class="s2">&quot;benchmark_image_layer.Image2DSuite.time_create_layer\(512\)&quot;</span><span class="w"> </span>-g<span class="w"> </span>snakeviz<span class="w"> </span>--python<span class="o">=</span>same
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv<span class="w"> </span>profile<span class="w"> </span><span class="s2">"benchmark_image_layer.Image2DSuite.time_create_layer\(512\)"</span><span class="w"> </span>-g<span class="w"> </span>snakeviz<span class="w"> </span>--python<span class="o">=</span>same
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">benchmark_image_layer</span></code> is the file name, <code class="docutils literal notranslate"><span class="pre">Image2DSuite</span></code> is the test suite class name,

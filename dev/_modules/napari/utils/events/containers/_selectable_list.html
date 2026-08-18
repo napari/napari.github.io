@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../../../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -826,13 +826,13 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.containers._nested_list</span><span class="w"> </span><span class="kn">import</span> <span class="n">NestableEventedList</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.containers._selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">Selectable</span>
 
-<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;_T&#39;</span><span class="p">)</span>
+<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'_T'</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="SelectableEventedList">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SelectableEventedList</span><span class="p">(</span><span class="n">Selectable</span><span class="p">[</span><span class="n">_T</span><span class="p">],</span> <span class="n">EventedList</span><span class="p">[</span><span class="n">_T</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;List model that also supports selection.</span>
+<span class="w">    </span><span class="sd">"""List model that also supports selection.</span>
 
 <span class="sd">    Events</span>
 <span class="sd">    ------</span>
@@ -862,7 +862,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        emitted when the current item has changed.</span>
 <span class="sd">    selection._current (value: _T)</span>
 <span class="sd">        emitted when the current item has changed. (Private event)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_activate_on_insert</span> <span class="o">=</span> <span class="kc">True</span>
@@ -872,10 +872,10 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">_pre_add_hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preselect_hook</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_preselect_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_T</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called before adding an item to the selection.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Called before adding an item to the selection."""</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;Cannot select item that is not in list: </span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s1">&#39;</span>
+                <span class="sa">f</span><span class="s1">'Cannot select item that is not in list: </span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s1">'</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">value</span>
 
@@ -894,14 +894,14 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="SelectableEventedList.select_all">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList.select_all">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">select_all</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Select all items in the list.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Select all items in the list."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="SelectableEventedList.remove_selected">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList.remove_selected">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">remove_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove selected items from list.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Remove selected items from list."""</span>
         <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">):</span>
             <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
@@ -920,7 +920,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="SelectableEventedList.move_selected">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList.move_selected">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">move_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">insert</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reorder list by moving the item at index and inserting it</span>
+<span class="w">        </span><span class="sd">"""Reorder list by moving the item at index and inserting it</span>
 <span class="sd">        at the insert index. If additional items are selected these will</span>
 <span class="sd">        get inserted at the insert index too. This allows for rearranging</span>
 <span class="sd">        the list based on dragging and dropping a selection of items, where</span>
@@ -938,10 +938,10 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Index of primary item to be moved</span>
 <span class="sd">        insert : int</span>
 <span class="sd">            Index that item(s) will be inserted at</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># this is just here for now to support the old layerlist API</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="s1">&#39;move_selected is deprecated since 0.4.16. Please use layers.move_multiple with layers.selection instead.&#39;</span><span class="p">,</span>
+            <span class="s1">'move_selected is deprecated since 0.4.16. Please use layers.move_multiple with layers.selection instead.'</span><span class="p">,</span>
             <span class="ne">FutureWarning</span><span class="p">,</span>
             <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
@@ -957,7 +957,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="SelectableEventedList.select_next">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList.select_next">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">select_next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">shift</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Selects next item from list.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Selects next item from list."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">_current</span><span class="p">:</span>
             <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">_current</span><span class="p">)</span> <span class="o">+</span> <span class="n">step</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
@@ -978,7 +978,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="SelectableEventedList.select_previous">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList.select_previous">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">select_previous</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shift</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Selects previous item from list.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Selects previous item from list."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">select_next</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="n">shift</span><span class="p">)</span></div>
 </div>
 

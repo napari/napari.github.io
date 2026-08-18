@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -840,12 +840,12 @@ window.runMermaid = runMermaid;</script>
 <a class="viewcode-back" href="../../api/napari.Viewer.html#napari.Viewer">[docs]</a>
 <span class="nd">@mgui</span><span class="o">.</span><span class="n">register_type</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">_magicgui</span><span class="o">.</span><span class="n">proxy_viewer_ancestor</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Viewer</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Napari ndarray viewer.</span>
+<span class="w">    </span><span class="sd">"""Napari ndarray viewer.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    title : string, optional</span>
-<span class="sd">        The title of the viewer window. By default &#39;napari&#39;.</span>
+<span class="sd">        The title of the viewer window. By default 'napari'.</span>
 <span class="sd">    ndisplay : {2, 3}, optional</span>
 <span class="sd">        Number of displayed dimensions. By default 2.</span>
 <span class="sd">    order : tuple of int, optional</span>
@@ -856,15 +856,15 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Dimension names. By default they are labeled with sequential numbers</span>
 <span class="sd">    show : bool, optional</span>
 <span class="sd">        Whether to show the viewer after instantiation. By default True.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">_window</span><span class="p">:</span> <span class="s1">&#39;Window&#39;</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore</span>
-    <span class="n">_instances</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">ClassVar</span><span class="p">[</span><span class="n">WeakSet</span><span class="p">[</span><span class="s1">&#39;Viewer&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">WeakSet</span><span class="p">()</span>
+    <span class="n">_window</span><span class="p">:</span> <span class="s1">'Window'</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">ClassVar</span><span class="p">[</span><span class="n">WeakSet</span><span class="p">[</span><span class="s1">'Viewer'</span><span class="p">]]</span> <span class="o">=</span> <span class="n">WeakSet</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">title</span><span class="o">=</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s1">'napari'</span><span class="p">,</span>
         <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="n">order</span><span class="o">=</span><span class="p">(),</span>
         <span class="n">axis_labels</span><span class="o">=</span><span class="p">(),</span>
@@ -895,7 +895,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_instances</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Overload __new__ to facilitate temporary monkey-patching.</span>
+<span class="w">        </span><span class="sd">"""Overload __new__ to facilitate temporary monkey-patching.</span>
 
 <span class="sd">        This method simplifies scenarios where temporary patching of `__new__`</span>
 <span class="sd">        is needed—for example, to ensure only one viewer instance exists</span>
@@ -913,33 +913,33 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        &gt;&gt;&gt; Viewer.__new__ = old_new</span>
 
 <span class="sd">        may fail afterward because the restored original `__new__` (typically `object.__new__`)</span>
-<span class="sd">        doesn&#39;t accept extra arguments, raising a TypeError.</span>
+<span class="sd">        doesn't accept extra arguments, raising a TypeError.</span>
 
 <span class="sd">        This explicit override accepts arbitrary arguments but intentionally discards them,</span>
 <span class="sd">        forwarding only the class to `object.__new__`, thus making temporary patching safe and convenient.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
 
     <span class="c1"># Expose private window publicly. This is needed to keep window off pydantic model</span>
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Window&#39;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'Window'</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_window</span>
 
 <div class="viewcode-block" id="Viewer.update_console">
 <a class="viewcode-back" href="../../api/napari.Viewer.html#napari.Viewer.update_console">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_console</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update console&#39;s namespace with desired variables.</span>
+<span class="w">        </span><span class="sd">"""Update console's namespace with desired variables.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        variables : dict, str or list/tuple of str</span>
-<span class="sd">            The variables to inject into the console&#39;s namespace.  If a dict, a</span>
+<span class="sd">            The variables to inject into the console's namespace.  If a dict, a</span>
 <span class="sd">            simple update is done.  If a str, the string is assumed to have</span>
 <span class="sd">            variable names separated by spaces.  A list/tuple of str can also</span>
 <span class="sd">            be used to give the variable names.  If just the variable names are</span>
 <span class="sd">            give (list/tuple/str) then the variable values looked up in the</span>
 <span class="sd">            callers frame.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">_console</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">add_to_console_backlog</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span>
             <span class="k">return</span>
@@ -955,7 +955,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">scale_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">flash</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Export an image of the full extent of the displayed layer data.</span>
+<span class="w">        </span><span class="sd">"""Export an image of the full extent of the displayed layer data.</span>
 
 <span class="sd">        This function finds a tight boundary around the data, resets the view</span>
 <span class="sd">        around that boundary, takes a screenshot for which each pixel is equal</span>
@@ -994,7 +994,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        image : array</span>
 <span class="sd">            Numpy array of type ubyte and shape (h, w, 4). Index [0, 0] is the</span>
 <span class="sd">            upper-left corner of the rendered region.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">export_figure</span><span class="p">(</span>
             <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
             <span class="n">scale</span><span class="o">=</span><span class="n">scale_factor</span><span class="p">,</span>
@@ -1007,10 +1007,10 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">export_rois</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">rois</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
-        <span class="n">paths</span><span class="p">:</span> <span class="s1">&#39;str | Path | list[str | Path] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">paths</span><span class="p">:</span> <span class="s1">'str | Path | list[str | Path] | None'</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Export the given rectangular rois to specified file paths.</span>
+<span class="w">        </span><span class="sd">"""Export the given rectangular rois to specified file paths.</span>
 
 <span class="sd">        Iteratively take a screenshot of each given roi. Note that 3D rois</span>
 <span class="sd">        or taking rois when number of dimensions displayed in the viewer</span>
@@ -1038,7 +1038,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        screenshot_list: list</span>
 <span class="sd">            The list containing all the screenshots.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Check to see if roi has shape (n,2,2)</span>
         <span class="n">screenshot_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">export_rois</span><span class="p">(</span>
             <span class="n">rois</span><span class="p">,</span> <span class="n">paths</span><span class="o">=</span><span class="n">paths</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span>
@@ -1058,7 +1058,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">canvas_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">flash</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Take currently displayed screen and convert to an image array.</span>
+<span class="w">        </span><span class="sd">"""Take currently displayed screen and convert to an image array.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1084,7 +1084,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        image : array</span>
 <span class="sd">            Numpy array of type ubyte and shape (h, w, 4). Index [0, 0] is the</span>
 <span class="sd">            upper-left corner of the rendered region.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">screenshot</span><span class="p">(</span>
             <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
             <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span>
@@ -1097,14 +1097,14 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Viewer.show">
 <a class="viewcode-back" href="../../api/napari.Viewer.html#napari.Viewer.show">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resize, show, and raise the viewer window.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Resize, show, and raise the viewer window."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="n">block</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Viewer.close">
 <a class="viewcode-back" href="../../api/napari.Viewer.html#napari.Viewer.close">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Close the viewer window.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Close the viewer window."""</span>
         <span class="c1"># Shutdown the slicer first to avoid processing any more tasks.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
         <span class="c1"># Disconnect changes to dims before removing layers one-by-one</span>
@@ -1122,7 +1122,7 @@ window.runMermaid = runMermaid;</script>
 <a class="viewcode-back" href="../../api/napari.Viewer.html#napari.Viewer.close_all">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">close_all</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Class method, Close all existing viewer instances.</span>
 
 <span class="sd">        This is mostly exposed to avoid leaking of viewers when running tests.</span>
@@ -1135,7 +1135,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        int</span>
 <span class="sd">            number of viewer closed.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># copy to not iterate while changing.</span>
         <span class="n">viewers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_instances</span><span class="p">)</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">viewers</span><span class="p">)</span>
@@ -1149,7 +1149,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="current_viewer">
 <a class="viewcode-back" href="../../api/napari.html#napari.current_viewer">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">current_viewer</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Viewer</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the currently active napari viewer.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Return the currently active napari viewer."""</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.qt_main_window</span><span class="w"> </span><span class="kn">import</span> <span class="n">_QtMainWindow</span>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>

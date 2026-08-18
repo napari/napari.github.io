@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -857,7 +857,7 @@
 
 <span class="c1"># Enums are a convenient way to get a dropdown menu</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Operation</span><span class="p">(</span><a href="https://docs.python.org/3/library/enum.html#enum.Enum" title="enum.Enum" class="sphx-glr-backref-module-enum sphx-glr-backref-type-py-class"><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span></a><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A set of valid arithmetic operations for image_arithmetic.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""A set of valid arithmetic operations for image_arithmetic."""</span>
 
     <span class="n">add</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">add</span></a>
     <span class="n">subtract</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">subtract</span></a>
@@ -869,18 +869,18 @@
 <span class="c1"># Note that we can use forward references for the napari type annotations.</span>
 <span class="c1"># You can read more about them here:</span>
 <span class="c1"># https://peps.python.org/pep-0484/#forward-references</span>
-<span class="c1"># In this example, because we have already imported napari anyway, it doesn&#39;t</span>
+<span class="c1"># In this example, because we have already imported napari anyway, it doesn't</span>
 <span class="c1"># really matter. But this syntax would let you specify that a parameter is a</span>
 <span class="c1"># napari object type without actually importing or depending on napari.</span>
 <span class="c1"># Note: here we use `napari.types.ImageData` as our parameter annotations,</span>
 <span class="c1"># which means our function will be passed layer.data instead of</span>
 <span class="c1"># the full layer instance</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">image_arithmetic</span><span class="p">(</span>
-    <span class="n">layerA</span><span class="p">:</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">,</span>
+    <span class="n">layerA</span><span class="p">:</span> <span class="s1">'napari.types.ImageData'</span><span class="p">,</span>
     <span class="n">operation</span><span class="p">:</span> <a href="https://docs.python.org/3/library/enum.html#enum.Enum" title="enum.Enum" class="sphx-glr-backref-module-enum sphx-glr-backref-type-py-class"><span class="n">Operation</span></a><span class="p">,</span>
-    <span class="n">layerB</span><span class="p">:</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adds, subtracts, multiplies, or divides two same-shaped image layers.&quot;&quot;&quot;</span>
+    <span class="n">layerB</span><span class="p">:</span> <span class="s1">'napari.types.ImageData'</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'napari.types.ImageData'</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Adds, subtracts, multiplies, or divides two same-shaped image layers."""</span>
     <span class="k">if</span> <span class="n">layerA</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">layerB</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">operation</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">layerA</span><span class="p">,</span> <span class="n">layerB</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">None</span>
@@ -889,13 +889,13 @@
 <span class="c1"># create a new viewer with a couple image layers</span>
 <span class="c1"># Since the input layers have been scaled, the resulting returned layer will inherit the same scale value.</span>
 <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">()</span>
-<a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.rand.html#numpy.random.rand" title="numpy.random.rand" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span></a><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Layer 1&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.rand.html#numpy.random.rand" title="numpy.random.rand" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span></a><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Layer 2&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.rand.html#numpy.random.rand" title="numpy.random.rand" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span></a><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'Layer 1'</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.rand.html#numpy.random.rand" title="numpy.random.rand" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span></a><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'Layer 2'</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 
 <span class="c1"># Add our magic function to napari</span>
 <a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel.window" title="napari.components.ViewerModel.window" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-attribute"><span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_function_widget</span></a><span class="p">(</span><span class="n">image_arithmetic</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -819,7 +819,7 @@ window.runMermaid = runMermaid;</script>
                 <article class="bd-article">
                   
   <h1>Source code for napari.utils.perf._timers</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;PerfTimers class and global instance.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""PerfTimers class and global instance."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -835,19 +835,19 @@ window.runMermaid = runMermaid;</script>
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Generator</span>
 
-<span class="n">USE_PERFMON</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NAPARI_PERFMON&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;0&#39;</span>
+<span class="n">USE_PERFMON</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'NAPARI_PERFMON'</span><span class="p">,</span> <span class="s1">'0'</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">'0'</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">PerfTimers</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Timers for performance monitoring.</span>
+<span class="w">    </span><span class="sd">"""Timers for performance monitoring.</span>
 
 <span class="sd">    Timers are best added using the perfmon config file, which will</span>
 <span class="sd">    monkey-patch the timers into the code at startup. See</span>
 <span class="sd">    napari.utils.perf._config for details.</span>
 
 <span class="sd">    The collecting timing information can be used in two ways:</span>
-<span class="sd">    1) Writing a JSON trace file in Chrome&#39;s Tracing format.</span>
-<span class="sd">    2) Napari&#39;s real-time QtPerformance widget.</span>
+<span class="sd">    1) Writing a JSON trace file in Chrome's Tracing format.</span>
+<span class="sd">    2) Napari's real-time QtPerformance widget.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -863,35 +863,35 @@ window.runMermaid = runMermaid;</script>
 
 <span class="sd">    However our self.timers dictionary and thus our QtPerformance widget do not</span>
 <span class="sd">    currently understand nesting. So if they say two timers each took 1ms, you</span>
-<span class="sd">    can&#39;t tell if one called the other or not.</span>
+<span class="sd">    can't tell if one called the other or not.</span>
 
 <span class="sd">    Despite this limitation when the QtPerformance widget reports slow timers it</span>
 <span class="sd">    still gives you a good idea what was slow. And then you can use the</span>
 <span class="sd">    chrome://tracing GUI to see the full story.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create PerfTimers.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Create PerfTimers."""</span>
         <span class="c1"># Maps a timer name to one Stat object.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Stat</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="c1"># Menu item &quot;Debug -&gt; Record Trace File...&quot; starts a trace.</span>
+        <span class="c1"># Menu item "Debug -&gt; Record Trace File..." starts a trace.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">trace_file</span><span class="p">:</span> <span class="n">PerfTraceFile</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">add_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">PerfEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save an event to performance trace file and</span>
-<span class="sd">        update the timers if the event has phase &#39;X&#39;.</span>
+<span class="w">        </span><span class="sd">"""Save an event to performance trace file and</span>
+<span class="sd">        update the timers if the event has phase 'X'.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        event : PerfEvent</span>
 <span class="sd">            Add this event.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Add event if tracing.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trace_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">trace_file</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">phase</span> <span class="o">==</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span>  <span class="c1"># Complete Event</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">phase</span> <span class="o">==</span> <span class="s1">'X'</span><span class="p">:</span>  <span class="c1"># Complete Event</span>
             <span class="c1"># Update our self.timers (in milliseconds).</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span>
             <span class="n">duration_ms</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">duration_ms</span><span class="p">)</span>
@@ -909,28 +909,28 @@ window.runMermaid = runMermaid;</script>
         <span class="n">thread_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Build and add one event of length 0.</span>
+<span class="w">        </span><span class="sd">"""Build and add one event of length 0.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        name : str</span>
 <span class="sd">            Add this event.</span>
 <span class="sd">        category : str | None</span>
-<span class="sd">            Comma separated categories such as &quot;render,update&quot;.</span>
+<span class="sd">            Comma separated categories such as "render,update".</span>
 <span class="sd">        process_id : int | None</span>
 <span class="sd">            The process id that produced the event.</span>
 <span class="sd">        thread_id : int | None</span>
 <span class="sd">            The thread id that produced the event.</span>
 <span class="sd">        **kwargs</span>
 <span class="sd">            Arguments to display in the Args section of the Tracing GUI.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">now</span> <span class="o">=</span> <span class="n">perf_counter_ns</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span>
             <span class="n">PerfEvent</span><span class="p">(</span>
                 <span class="n">name</span><span class="p">,</span>
                 <span class="n">now</span><span class="p">,</span>
                 <span class="n">now</span><span class="p">,</span>
-                <span class="n">phase</span><span class="o">=</span><span class="s1">&#39;I&#39;</span><span class="p">,</span>
+                <span class="n">phase</span><span class="o">=</span><span class="s1">'I'</span><span class="p">,</span>
                 <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">,</span>
                 <span class="n">process_id</span><span class="o">=</span><span class="n">process_id</span><span class="p">,</span>
                 <span class="n">thread_id</span><span class="o">=</span><span class="n">thread_id</span><span class="p">,</span>
@@ -939,26 +939,26 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">add_counter_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one counter event.</span>
+<span class="w">        </span><span class="sd">"""Add one counter event.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        name : str</span>
-<span class="sd">            The name of this event like &quot;draw&quot;.</span>
+<span class="sd">            The name of this event like "draw".</span>
 <span class="sd">        **kwargs : float</span>
 <span class="sd">            The individual counters for this event.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
-<span class="sd">        For example add_counter_event(&quot;draw&quot;, triangles=5, squares=10).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        For example add_counter_event("draw", triangles=5, squares=10).</span>
+<span class="sd">        """</span>
         <span class="n">now</span> <span class="o">=</span> <span class="n">perf_counter_ns</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span>
             <span class="n">PerfEvent</span><span class="p">(</span>
                 <span class="n">name</span><span class="p">,</span>
                 <span class="n">now</span><span class="p">,</span>
                 <span class="n">now</span><span class="p">,</span>
-                <span class="n">phase</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">,</span>
+                <span class="n">phase</span><span class="o">=</span><span class="s1">'C'</span><span class="p">,</span>
                 <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">process_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">thread_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -967,23 +967,23 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear all timers.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Clear all timers."""</span>
         <span class="c1"># After the GUI displays timing information it clears the timers</span>
         <span class="c1"># so that we start accumulating fresh information.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">start_trace_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start recording a trace file to disk.</span>
+<span class="w">        </span><span class="sd">"""Start recording a trace file to disk.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        path : str</span>
 <span class="sd">            Write the trace to this path.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">trace_file</span> <span class="o">=</span> <span class="n">PerfTraceFile</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">stop_trace_file</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stop recording a trace file.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Stop recording a trace file."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trace_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">trace_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">trace_file</span> <span class="o">=</span> <span class="kc">None</span>
@@ -999,10 +999,10 @@ window.runMermaid = runMermaid;</script>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">process_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">thread_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">phase</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+    <span class="n">phase</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'X'</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">PerfEvent</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Time a block of code.</span>
+<span class="w">    </span><span class="sd">"""Time a block of code.</span>
 
 <span class="sd">    block_timer can be used when perfmon is disabled. Use perf_timer instead</span>
 <span class="sd">    if you want your timer to do nothing when perfmon is disabled.</span>
@@ -1010,7 +1010,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    Most of the time you should use the perfmon config file to monkey-patch</span>
-<span class="sd">    perf_timer&#39;s into methods and functions. Then you do not need to use</span>
+<span class="sd">    perf_timer's into methods and functions. Then you do not need to use</span>
 <span class="sd">    block_timer or perf_timer context objects explicitly at all.</span>
 
 <span class="sd">    Parameters</span>
@@ -1018,22 +1018,22 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    name : str</span>
 <span class="sd">        The name of this timer.</span>
 <span class="sd">    category : str</span>
-<span class="sd">        Comma separated categories such as &quot;render,update&quot;.</span>
+<span class="sd">        Comma separated categories such as "render,update".</span>
 <span class="sd">    print_time : bool</span>
 <span class="sd">        Print the duration of the timer when it finishes.</span>
 <span class="sd">    **kwargs : dict</span>
-<span class="sd">        Additional keyword arguments for the &quot;args&quot; field of the event.</span>
+<span class="sd">        Additional keyword arguments for the "args" field of the event.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 
 <span class="sd">    .. code-block:: python</span>
 
-<span class="sd">        with block_timer(&quot;draw&quot;) as event:</span>
+<span class="sd">        with block_timer("draw") as event:</span>
 <span class="sd">            draw_stuff()</span>
-<span class="sd">        print(f&quot;The timer took {event.duration_ms} milliseconds.&quot;)</span>
+<span class="sd">        print(f"The timer took {event.duration_ms} milliseconds.")</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">start_ns</span> <span class="o">=</span> <span class="n">perf_counter_ns</span><span class="p">()</span>
 
     <span class="c1"># Pass in start_ns for start and end, we call update_end_ns</span>
@@ -1056,15 +1056,15 @@ window.runMermaid = runMermaid;</script>
     <span class="k">if</span> <span class="n">timers</span><span class="p">:</span>
         <span class="n">timers</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">print_time</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">duration_ms</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">ms&#39;</span><span class="p">)</span>  <span class="c1"># noqa: T201</span></div>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">duration_ms</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">ms'</span><span class="p">)</span>  <span class="c1"># noqa: T201</span></div>
 
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">DummyTimer</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    An empty timer to use when perfmon is disabled.</span>
 <span class="sd">    It implements the same interface as PerfTimers.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">trace_file</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1072,19 +1072,19 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_instant_event</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;empty timer to use when perfmon is disabled&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""empty timer to use when perfmon is disabled"""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">add_counter_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;empty timer to use when perfmon is disabled&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""empty timer to use when perfmon is disabled"""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">add_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">PerfEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;empty timer to use when perfmon is disabled&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""empty timer to use when perfmon is disabled"""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">start_trace_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;empty timer to use when perfmon is disabled&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""empty timer to use when perfmon is disabled"""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">stop_trace_file</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;empty timer to use when perfmon is disabled&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""empty timer to use when perfmon is disabled"""</span>
 
 
 <div class="viewcode-block" id="add_instant_event">
@@ -1097,21 +1097,21 @@ window.runMermaid = runMermaid;</script>
     <span class="n">thread_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add one instant event.</span>
+<span class="w">    </span><span class="sd">"""Add one instant event.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    name : str</span>
 <span class="sd">        Add this event.</span>
 <span class="sd">    category : str | None</span>
-<span class="sd">        Comma separated categories such as &quot;render,update&quot;.</span>
+<span class="sd">        Comma separated categories such as "render,update".</span>
 <span class="sd">    process_id : int | None</span>
 <span class="sd">        The process id that produced the event.</span>
 <span class="sd">    thread_id : int | None</span>
 <span class="sd">        The thread id that produced the event.</span>
 <span class="sd">    **kwargs</span>
 <span class="sd">        Arguments to display in the Args section of the Chrome Tracing GUI.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">timers</span><span class="o">.</span><span class="n">add_instant_event</span><span class="p">(</span>
         <span class="n">name</span><span class="p">,</span>
         <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">,</span>
@@ -1125,19 +1125,19 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="add_counter_event">
 <a class="viewcode-back" href="../../../../api/napari.utils.perf.html#napari.utils.perf.add_counter_event">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">add_counter_event</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add one counter event.</span>
+<span class="w">    </span><span class="sd">"""Add one counter event.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    name : str</span>
-<span class="sd">        The name of this event like &quot;draw&quot;.</span>
+<span class="sd">        The name of this event like "draw".</span>
 <span class="sd">    **kwargs : float</span>
 <span class="sd">        The individual counters for this event.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    For example add_counter_event(&quot;draw&quot;, triangles=5, squares=10).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    For example add_counter_event("draw", triangles=5, squares=10).</span>
+<span class="sd">    """</span>
     <span class="n">timers</span><span class="o">.</span><span class="n">add_counter_event</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
@@ -1163,10 +1163,10 @@ window.runMermaid = runMermaid;</script>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">process_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">thread_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">phase</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+        <span class="n">phase</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'X'</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Do nothing when perfmon is disabled.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Do nothing when perfmon is disabled."""</span>
         <span class="k">yield</span></div>
 
 </pre></div>

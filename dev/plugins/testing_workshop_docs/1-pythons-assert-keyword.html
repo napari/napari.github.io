@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -598,9 +598,9 @@
 <p>Here is a simple function, <code class="docutils literal notranslate"><span class="pre">get_grade_from_mark</span></code>. It takes a mark (score) from zero to 100. If the mark (score) is more than 50, the grade is <code class="docutils literal notranslate"><span class="pre">Pass</span></code>; if it’s less than 50, the grade is <code class="docutils literal notranslate"><span class="pre">Fail</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">mark</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s1">&#39;Pass&#39;</span>
+        <span class="k">return</span> <span class="s1">'Pass'</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s1">&#39;Fail&#39;</span>
+        <span class="k">return</span> <span class="s1">'Fail'</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">get_grade_from_mark</span></code> can be tested by writing two test functions. The first one is for when the mark is &gt; 50.</p>
@@ -610,7 +610,7 @@
 <p>When the mark is &gt; 50, call <code class="docutils literal notranslate"><span class="pre">get_grade_from_mark</span></code> and assert that the grade is what we expect (either <code class="docutils literal notranslate"><span class="pre">Pass</span></code> or <code class="docutils literal notranslate"><span class="pre">Fail</span></code>). When testing the passing case, test that the grade is <code class="docutils literal notranslate"><span class="pre">Pass</span></code>. If it’s not <code class="docutils literal notranslate"><span class="pre">Pass</span></code>, the best practice is to write a helpful error message like, <code class="docutils literal notranslate"><span class="pre">&quot;Expected</span> <span class="pre">{mark}</span> <span class="pre">to</span> <span class="pre">pass</span> <span class="pre">but</span> <span class="pre">result</span> <span class="pre">was</span> <span class="pre">{grade}.&quot;</span></code></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_get_grade_pass</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
     <span class="n">grade</span> <span class="o">=</span> <span class="n">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s2">&quot;Pass&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s2"> to pass, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s2">"Pass"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s2"> to pass, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s2">"</span>
 </pre></div>
 </div>
 </section>
@@ -619,14 +619,14 @@
 <p>Test the same thing for <code class="docutils literal notranslate"><span class="pre">Fail</span></code> to test all options. Everything is almost the same, so copy and paste and change a few words to create the second test.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_get_grade_fail</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
     <span class="n">grade</span> <span class="o">=</span> <span class="n">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s2">&quot;Fail&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s2"> to fail, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s2">"Fail"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s2"> to fail, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s2">"</span>
 </pre></div>
 </div>
 <p>We can now write code to run both of the functions with expected values. For example, we expect 65 to pass and 43 to fail. After running both functions, if no exception has been raised we print “All passing.”</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">test_get_grade_pass</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span>
     <span class="n">test_get_grade_fail</span><span class="p">(</span><span class="mi">43</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;All passing.&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'All passing.'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We can place all this code in a Python file, e.g. <a class="reference external" href="https://github.com/DragaDoncila/plugin-tests/blob/main/example_func.py">example_test.py</a>, and run it from the command line.</p>
@@ -635,10 +635,10 @@
 </pre></div>
 </div>
 <p>We now update the test to see what a failure looks like:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">test_get_grade_pass</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span>
     <span class="n">test_get_grade_fail</span><span class="p">(</span><span class="mi">70</span><span class="p">)</span>  <span class="c1"># updated this to 70 to force failure</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;All passing.&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'All passing.'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If we assert that 70 fails, the <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code>, “Expected something to fail, but the result was pass.” would be thrown, which is correct. It would look like this:</p>

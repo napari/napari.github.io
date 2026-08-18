@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -835,13 +835,13 @@ window.runMermaid = runMermaid;</script>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">imsave_png</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NotebookScreenshot&#39;</span><span class="p">,</span> <span class="s1">&#39;nbscreenshot&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'NotebookScreenshot'</span><span class="p">,</span> <span class="s1">'nbscreenshot'</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="NotebookScreenshot">
 <a class="viewcode-back" href="../../../api/napari.utils.NotebookScreenshot.html#napari.utils.NotebookScreenshot">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NotebookScreenshot</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Display a napari screenshot in a jupyter notebook.</span>
+<span class="w">    </span><span class="sd">"""Display a napari screenshot in a jupyter notebook.</span>
 
 <span class="sd">    Functions returning an object with a _repr_png_() method</span>
 <span class="sd">    will be displayed as a rich image in a jupyter notebook.</span>
@@ -870,12 +870,12 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    &gt;&gt;&gt; from skimage.data import chelsea</span>
 
 <span class="sd">    &gt;&gt;&gt; viewer = napari.Viewer()</span>
-<span class="sd">    &gt;&gt;&gt; viewer.add_image(chelsea(), name=&#39;chelsea-the-cat&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; viewer.add_image(chelsea(), name='chelsea-the-cat')</span>
 <span class="sd">    &gt;&gt;&gt; nbscreenshot(viewer)</span>
 <span class="sd">    # screenshot just the canvas without the napari viewer framing it</span>
 <span class="sd">    &gt;&gt;&gt; nbscreenshot(viewer, canvas_only=True)</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -884,7 +884,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">canvas_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">alt_text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize screenshot object.</span>
+<span class="w">        </span><span class="sd">"""Initialize screenshot object.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -899,23 +899,23 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Good alt-text describes the image and any text within the image</span>
 <span class="sd">            in no more than three short, complete sentences.</span>
 <span class="sd">            By default, None.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span> <span class="o">=</span> <span class="n">viewer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas_only</span> <span class="o">=</span> <span class="n">canvas_only</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">alt_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clean_alt_text</span><span class="p">(</span><span class="n">alt_text</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_clean_alt_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alt_text</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clean user input to prevent script injection.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Clean user input to prevent script injection."""</span>
         <span class="k">if</span> <span class="n">alt_text</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">lxml_unavailable</span><span class="p">:</span>
                 <span class="n">warn</span><span class="p">(</span>
-                    <span class="s1">&#39;The lxml_html_clean library is not installed, and is &#39;</span>
-                    <span class="s1">&#39;required to sanitize alt text for napari screenshots. &#39;</span>
-                    <span class="s1">&#39;Alt Text will be stripped altogether.&#39;</span>
+                    <span class="s1">'The lxml_html_clean library is not installed, and is '</span>
+                    <span class="s1">'required to sanitize alt text for napari screenshots. '</span>
+                    <span class="s1">'Alt Text will be stripped altogether.'</span>
                 <span class="p">)</span>
                 <span class="k">return</span> <span class="kc">None</span>
-            <span class="c1"># cleaner won&#39;t recognize escaped script tags, so always unescape</span>
+            <span class="c1"># cleaner won't recognize escaped script tags, so always unescape</span>
             <span class="c1"># to be safe</span>
             <span class="n">alt_text</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">unescape</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">alt_text</span><span class="p">))</span>
             <span class="n">cleaner</span> <span class="o">=</span> <span class="n">Cleaner</span><span class="p">()</span>
@@ -924,21 +924,21 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">alt_text</span> <span class="o">=</span> <span class="n">cleaner</span><span class="o">.</span><span class="n">clean_html</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">()</span>
             <span class="k">except</span> <span class="n">ParserError</span><span class="p">:</span>
                 <span class="n">warn</span><span class="p">(</span>
-                    <span class="s1">&#39;The provided alt text does not constitute valid html, so it was discarded.&#39;</span><span class="p">,</span>
+                    <span class="s1">'The provided alt text does not constitute valid html, so it was discarded.'</span><span class="p">,</span>
                     <span class="n">stacklevel</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                 <span class="p">)</span>
-                <span class="n">alt_text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-            <span class="k">if</span> <span class="n">alt_text</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="n">alt_text</span> <span class="o">=</span> <span class="s1">''</span>
+            <span class="k">if</span> <span class="n">alt_text</span> <span class="o">==</span> <span class="s1">''</span><span class="p">:</span>
                 <span class="n">alt_text</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">alt_text</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_repr_png_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;PNG representation of the viewer object for IPython.</span>
+<span class="w">        </span><span class="sd">"""PNG representation of the viewer object for IPython.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        In memory binary stream containing PNG screenshot image.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.qt_event_loop</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_qapp</span>
 
         <span class="n">get_qapp</span><span class="p">()</span><span class="o">.</span><span class="n">processEvents</span><span class="p">()</span>
@@ -953,9 +953,9 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">png</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repr_png_</span><span class="p">()</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;data:image/png;base64,&#39;</span> <span class="o">+</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">png</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-        <span class="n">_alt</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alt_text</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alt_text</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;img src=&quot;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s1">&quot; alt=&quot;</span><span class="si">{</span><span class="n">_alt</span><span class="si">}</span><span class="s1">&quot;&gt;&lt;/img&gt;&#39;</span></div>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">'data:image/png;base64,'</span> <span class="o">+</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">png</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)</span>
+        <span class="n">_alt</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alt_text</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alt_text</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">''</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">'&lt;img src="</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s1">" alt="</span><span class="si">{</span><span class="n">_alt</span><span class="si">}</span><span class="s1">"&gt;&lt;/img&gt;'</span></div>
 
 
 
@@ -967,7 +967,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">canvas_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">alt_text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NotebookScreenshot</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Display a napari screenshot in a Jupyter notebook.</span>
+<span class="w">    </span><span class="sd">"""Display a napari screenshot in a Jupyter notebook.</span>
 
 <span class="sd">    This is a convenience wrapper around `NotebookScreenshot` for the common</span>
 <span class="sd">    use case of returning a rich display object directly from a notebook cell.</span>
@@ -999,11 +999,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    &gt;&gt;&gt; from skimage.data import chelsea</span>
 
 <span class="sd">    &gt;&gt;&gt; viewer = napari.Viewer()</span>
-<span class="sd">    &gt;&gt;&gt; viewer.add_image(chelsea(), name=&#39;chelsea-the-cat&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; viewer.add_image(chelsea(), name='chelsea-the-cat')</span>
 <span class="sd">    &gt;&gt;&gt; nbscreenshot(viewer)</span>
 <span class="sd">    &gt;&gt;&gt; # screenshot just the canvas without the napari viewer framing it</span>
 <span class="sd">    &gt;&gt;&gt; nbscreenshot(viewer, canvas_only=True)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">NotebookScreenshot</span><span class="p">(</span>
         <span class="n">viewer</span><span class="p">,</span>
         <span class="n">canvas_only</span><span class="o">=</span><span class="n">canvas_only</span><span class="p">,</span>

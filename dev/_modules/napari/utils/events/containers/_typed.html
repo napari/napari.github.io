@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../../../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -834,14 +834,14 @@ window.runMermaid = runMermaid;</script>
 
 <span class="n">Index</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">]</span>
 
-<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;_T&#39;</span><span class="p">)</span>
-<span class="n">_L</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;_L&#39;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">Any</span><span class="p">)</span>
+<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'_T'</span><span class="p">)</span>
+<span class="n">_L</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'_L'</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">Any</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="TypedMutableSequence">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.TypedMutableSequence.html#napari.utils.events.TypedMutableSequence">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TypedMutableSequence</span><span class="p">(</span><span class="n">MutableSequence</span><span class="p">[</span><span class="n">_T</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;List mixin that enforces item type, and enables custom indexing.</span>
+<span class="w">    </span><span class="sd">"""List mixin that enforces item type, and enables custom indexing.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -856,9 +856,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Mapping between a type, and a function that converts items in the list</span>
 <span class="sd">        to that type.  This is used for custom indexing.  For example, if a</span>
 <span class="sd">        ``lookup`` of {str: lambda x: x.name} is provided, then you can index</span>
-<span class="sd">        into the list using ``list[&#39;frank&#39;]`` and it will search for an object</span>
-<span class="sd">        whos attribute ``.name`` equals ``&#39;frank&#39;``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        into the list using ``list['frank']`` and it will search for an object</span>
+<span class="sd">        whos attribute ``.name`` equals ``'frank'``.</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -886,8 +886,8 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_list</span> <span class="o">==</span> <span class="n">other</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="c1"># it&#39;s important to add this to allow this object to be hashable</span>
-        <span class="c1"># given that we&#39;ve also reimplemented __eq__</span>
+        <span class="c1"># it's important to add this to allow this object to be hashable</span>
+        <span class="c1"># given that we've also reimplemented __eq__</span>
         <span class="k">return</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="nd">@overload</span>
@@ -901,7 +901,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Can only assign an iterable to slice&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'Can only assign an iterable to slice'</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -931,10 +931,10 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@overload</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">slice</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TypedMutableSequence[_T]&#39;</span><span class="p">:</span> <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'TypedMutableSequence[_T]'</span><span class="p">:</span> <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get an item from the list</span>
+<span class="w">        </span><span class="sd">"""Get an item from the list</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -953,7 +953,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        KeyError:</span>
 <span class="sd">            If type(key) is in self._lookup and the key is not in the list (after)</span>
 <span class="sd">            applying the self._lookup[key] function to each item in the list</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
@@ -972,13 +972,13 @@ window.runMermaid = runMermaid;</script>
             <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_basetypes</span>
         <span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;Cannot add object with type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">!r}</span><span class="s1"> to TypedList expecting type </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_basetypes</span><span class="si">!r}</span><span class="s1">&#39;</span>
+                <span class="sa">f</span><span class="s1">'Cannot add object with type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">!r}</span><span class="s1"> to TypedList expecting type </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_basetypes</span><span class="si">!r}</span><span class="s1">'</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">e</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__newlike__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">iterable</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TypedMutableSequence[_T]&#39;</span><span class="p">:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'TypedMutableSequence[_T]'</span><span class="p">:</span>
         <span class="n">new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">()</span>
         <span class="c1"># separating this allows subclasses to omit these from their `__init__`</span>
         <span class="n">new</span><span class="o">.</span><span class="n">_basetypes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_basetypes</span>
@@ -988,30 +988,30 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="TypedMutableSequence.copy">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.TypedMutableSequence.html#napari.utils.events.TypedMutableSequence.copy">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TypedMutableSequence[_T]&#39;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a shallow copy of the list.&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'TypedMutableSequence[_T]'</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Return a shallow copy of the list."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__newlike__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;TypedMutableSequence[_T]&#39;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add other to self, return new object.&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">'TypedMutableSequence[_T]'</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Add other to self, return new object."""</span>
         <span class="n">copy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">copy</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">copy</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add other to self in place (self += other).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Add other to self in place (self += other)."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add other to self in place (self += other).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Add other to self in place (self += other)."""</span>
         <span class="k">return</span> <span class="n">other</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="TypedMutableSequence.index">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.TypedMutableSequence.html#napari.utils.events.TypedMutableSequence.index">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_L</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return first index of value.</span>
+<span class="w">        </span><span class="sd">"""Return first index of value.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1033,7 +1033,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        ------</span>
 <span class="sd">        ValueError</span>
 <span class="sd">            If the value is not present</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="n">start</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">stop</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">stop</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -1046,17 +1046,17 @@ window.runMermaid = runMermaid;</script>
             <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="n">value</span> <span class="ow">or</span> <span class="n">v</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">i</span>
 
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s1"> is not in list&#39;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s1"> is not in list'</span><span class="p">)</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_iter_indices</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Iter indices from start to stop.</span>
+<span class="w">        </span><span class="sd">"""Iter indices from start to stop.</span>
 
 <span class="sd">        While this is trivial for this basic sequence type, this method lets</span>
 <span class="sd">        subclasses (like NestableEventedList modify how they are traversed).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">yield from</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">if</span> <span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">stop</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_ipython_key_completions_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

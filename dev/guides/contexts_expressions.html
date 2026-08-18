@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -864,11 +864,11 @@ order to evaluate that expression, we need to be able to fill in the values for
 the variable <strong>names</strong> “<code class="docutils literal notranslate"><span class="pre">x</span></code>” and “<code class="docutils literal notranslate"><span class="pre">y</span></code>”. Those values are provided by some
 <strong>context</strong> (or “namespace”), which maps the variable names to their values.</p>
 <p>The value of an <code class="docutils literal notranslate"><span class="pre">expression</span></code> depends on the context in which it is evaluated.</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">expression</span> <span class="o">=</span> <span class="s2">&quot;x &gt; 5 and y == &#39;hello&#39;&quot;</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">expression</span> <span class="o">=</span> <span class="s2">"x &gt; 5 and y == 'hello'"</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">context_a</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;hello&#39;</span><span class="p">}</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">context_a</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'x'</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">:</span> <span class="s1">'hello'</span><span class="p">}</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">context_b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;howdie!&#39;</span><span class="p">}</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">context_b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'x'</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">:</span> <span class="s1">'howdie!'</span><span class="p">}</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="nb">eval</span><span class="p">(</span><span class="n">expression</span><span class="p">,</span> <span class="n">context_a</span><span class="p">)</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="kc">True</span>
@@ -898,7 +898,7 @@ module, see <a class="reference external" href="https://greentreesnakes.readthed
 <code class="docutils literal notranslate"><span class="pre">parse_expression</span></code> function:</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_expression</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">expr</span> <span class="o">=</span> <span class="n">parse_expression</span><span class="p">(</span><span class="s2">&quot;x &gt; 5 and y == &#39;hello&#39;&quot;</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">expr</span> <span class="o">=</span> <span class="n">parse_expression</span><span class="p">(</span><span class="s2">"x &gt; 5 and y == 'hello'"</span><span class="p">)</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">expr</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span>
@@ -906,14 +906,14 @@ module, see <a class="reference external" href="https://greentreesnakes.readthed
   <span class="n">op</span><span class="o">=</span><span class="n">And</span><span class="p">(),</span>
   <span class="n">values</span><span class="o">=</span><span class="p">[</span>
     <span class="n">Compare</span><span class="p">(</span>
-      <span class="n">left</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">ctx</span><span class="o">=</span><span class="n">Load</span><span class="p">()),</span>
+      <span class="n">left</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span> <span class="n">ctx</span><span class="o">=</span><span class="n">Load</span><span class="p">()),</span>
       <span class="n">ops</span><span class="o">=</span><span class="p">[</span><span class="n">Gt</span><span class="p">()],</span>
       <span class="n">comparators</span><span class="o">=</span><span class="p">[</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">5</span><span class="p">)]</span>
     <span class="p">),</span>
     <span class="n">Compare</span><span class="p">(</span>
-      <span class="n">left</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">ctx</span><span class="o">=</span><span class="n">Load</span><span class="p">()),</span>
+      <span class="n">left</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">'y'</span><span class="p">,</span> <span class="n">ctx</span><span class="o">=</span><span class="n">Load</span><span class="p">()),</span>
       <span class="n">ops</span><span class="o">=</span><span class="p">[</span><span class="n">Eq</span><span class="p">()],</span>
-      <span class="n">comparators</span><span class="o">=</span><span class="p">[</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;hello&#39;</span><span class="p">)]</span>
+      <span class="n">comparators</span><span class="o">=</span><span class="p">[</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">'hello'</span><span class="p">)]</span>
     <span class="p">)</span>
   <span class="p">]</span>
 <span class="p">)</span>
@@ -921,7 +921,7 @@ module, see <a class="reference external" href="https://greentreesnakes.readthed
 </div>
 <p>The expression object can be evaluated by passing a context (a Mapping) to
 its <code class="docutils literal notranslate"><span class="pre">eval</span></code> method:</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">expr</span><span class="o">.</span><span class="n">eval</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;hello&#39;</span><span class="p">})</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">expr</span><span class="o">.</span><span class="n">eval</span><span class="p">({</span><span class="s1">'x'</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">:</span> <span class="s1">'hello'</span><span class="p">})</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="kc">True</span>
 </pre></div>
 </div>
@@ -929,7 +929,7 @@ its <code class="docutils literal notranslate"><span class="pre">eval</span></co
 <strong>operators</strong>:</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">new_expr</span> <span class="o">=</span> <span class="n">expr</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">7</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># always False</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="n">new_expr</span><span class="o">.</span><span class="n">eval</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;hello&#39;</span><span class="p">})</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="n">new_expr</span><span class="o">.</span><span class="n">eval</span><span class="p">({</span><span class="s1">'x'</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">:</span> <span class="s1">'hello'</span><span class="p">})</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="kc">False</span>
 </pre></div>
 </div>
@@ -1041,18 +1041,18 @@ declared as class attributes on a <code class="docutils literal notranslate"><sp
 <span class="k">class</span><span class="w"> </span><span class="nc">LayerListContextKeys</span><span class="p">(</span><span class="n">ContextNamespace</span><span class="p">):</span>
     <span class="n">layers_selection_count</span> <span class="o">=</span> <span class="n">ContextKey</span><span class="p">(</span>
         <span class="n">default_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Number of layers currently selected&#39;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">'Number of layers currently selected'</span><span class="p">,</span>
         <span class="n">getter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">sel</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">sel</span><span class="p">),</span>
     <span class="p">)</span>
     <span class="n">active_layer_is_rgb</span> <span class="o">=</span> <span class="n">ContextKey</span><span class="p">(</span>
         <span class="n">default_value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;True when the active layer is RGB&#39;</span><span class="p">,</span>
-        <span class="n">getter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">sel</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sel</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="s1">&#39;rgb&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">'True when the active layer is RGB'</span><span class="p">,</span>
+        <span class="n">getter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">sel</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sel</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="s1">'rgb'</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
     <span class="p">)</span>
     <span class="n">active_layer_ndim</span> <span class="o">=</span> <span class="n">ContextKey</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
-        <span class="s1">&#39;Number of dimensions in the active layer, or `None` if nothing is active&#39;</span><span class="p">,</span>
-        <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">active</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;ndim&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="s1">'Number of dimensions in the active layer, or `None` if nothing is active'</span><span class="p">,</span>
+        <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">active</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s1">'ndim'</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
     <span class="p">)</span>
 </pre></div>
 </div>
@@ -1062,16 +1062,16 @@ Similar to a python <code class="docutils literal notranslate"><span class="pre"
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">LayerListContextKeys</span><span class="o">.</span><span class="n">__members__</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">13</span><span class="p">]:</span>
 <span class="n">mappingproxy</span><span class="p">({</span>
-    <span class="s1">&#39;layers_selection_count&#39;</span><span class="p">:</span> <span class="n">ContextKey</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;layers_selection_count&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;active_layer_is_rgb&#39;</span><span class="p">:</span> <span class="n">ContextKey</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;active_layer_is_rgb&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;active_layer_ndim&#39;</span><span class="p">:</span> <span class="n">ContextKey</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;active_layer_ndim&#39;</span><span class="p">)</span>
+    <span class="s1">'layers_selection_count'</span><span class="p">:</span> <span class="n">ContextKey</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">'layers_selection_count'</span><span class="p">),</span>
+    <span class="s1">'active_layer_is_rgb'</span><span class="p">:</span> <span class="n">ContextKey</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">'active_layer_is_rgb'</span><span class="p">),</span>
+    <span class="s1">'active_layer_ndim'</span><span class="p">:</span> <span class="n">ContextKey</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">'active_layer_ndim'</span><span class="p">)</span>
 <span class="p">})</span>
 </pre></div>
 </div>
 <p>A nice aspect of <code class="docutils literal notranslate"><span class="pre">ContextKeys</span></code> is that they can be used in expressions:</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="n">expr</span> <span class="o">=</span> <span class="n">LayerListContextKeys</span><span class="o">.</span><span class="n">active_layer_ndim</span> <span class="o">&gt;=</span> <span class="mi">3</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="n">expr</span><span class="o">.</span><span class="n">eval</span><span class="p">({</span><span class="s1">&#39;active_layer_ndim&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="n">expr</span><span class="o">.</span><span class="n">eval</span><span class="p">({</span><span class="s1">'active_layer_ndim'</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="kc">False</span>
 </pre></div>
 </div>
@@ -1113,17 +1113,17 @@ For example because a <code class="docutils literal notranslate"><span class="pr
 <span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">ctx</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">Context</span><span class="p">(</span>
     <span class="p">{</span>
-    <span class="s1">&#39;layers_selection_count&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="s1">&#39;all_layers_linked&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s1">&#39;unselected_linked_layers&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="s1">&#39;active_layer_is_rgb&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s1">&#39;active_layer_type&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="s1">&#39;only_images_selected&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s1">&#39;only_labels_selected&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s1">&#39;active_layer_ndim&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="s1">&#39;active_layer_shape&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="s1">&#39;active_layer_dtype&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="s1">&#39;all_layers_same_shape&#39;</span><span class="p">:</span> <span class="kc">False</span>
+    <span class="s1">'layers_selection_count'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">'all_layers_linked'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">'unselected_linked_layers'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">'active_layer_is_rgb'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">'active_layer_type'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s1">'only_images_selected'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">'only_labels_selected'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">'active_layer_ndim'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s1">'active_layer_shape'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s1">'active_layer_dtype'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s1">'all_layers_same_shape'</span><span class="p">:</span> <span class="kc">False</span>
     <span class="p">},</span>
     <span class="p">{},</span>  <span class="c1"># the viewer context ... (no keys yet)</span>
     <span class="n">SettingsAwareContext</span><span class="p">({})</span>
@@ -1133,8 +1133,8 @@ For example because a <code class="docutils literal notranslate"><span class="pr
 <p>The “root” context is a special <code class="docutils literal notranslate"><span class="pre">SettingsAwareContext</span></code> that can access keys in
 the global <code class="docutils literal notranslate"><span class="pre">settings</span></code>. Because contexts are <code class="docutils literal notranslate"><span class="pre">ChainMaps</span></code>, they can all access
 the settings:</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">ctx</span><span class="p">[</span><span class="s1">&#39;settings.appearance.theme&#39;</span><span class="p">]</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="s1">&#39;dark&#39;</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">ctx</span><span class="p">[</span><span class="s1">'settings.appearance.theme'</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="s1">'dark'</span>
 </pre></div>
 </div>
 <p>When we evaluate an expression, we can provide it one of these context objects:</p>
@@ -1162,7 +1162,7 @@ setters!) of their respective <code class="docutils literal notranslate"><span c
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">llck</span><span class="o">.</span><span class="n">layers_selection_count</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="mi">0</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">ctx</span><span class="p">[</span><span class="s1">&#39;layers_selection_count&#39;</span><span class="p">]</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">ctx</span><span class="p">[</span><span class="s1">'layers_selection_count'</span><span class="p">]</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="mi">0</span>
 </pre></div>
 </div>
@@ -1175,12 +1175,12 @@ in <code class="docutils literal notranslate"><span class="pre">LayerListContext
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">llck</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">()</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">Points</span> <span class="n">layer</span> <span class="s1">&#39;Points&#39;</span> <span class="n">at</span> <span class="mh">0x13c62b1f0</span><span class="o">&gt;</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">Points</span> <span class="n">layer</span> <span class="s1">'Points'</span> <span class="n">at</span> <span class="mh">0x13c62b1f0</span><span class="o">&gt;</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="n">llck</span><span class="o">.</span><span class="n">layers_selection_count</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="mi">1</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="n">ctx</span><span class="p">[</span><span class="s1">&#39;layers_selection_count&#39;</span><span class="p">]</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="n">ctx</span><span class="p">[</span><span class="s1">'layers_selection_count'</span><span class="p">]</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="mi">1</span>
 </pre></div>
 </div>
@@ -1193,13 +1193,13 @@ in <code class="docutils literal notranslate"><span class="pre">LayerListContext
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">LayerListContextKeys</span><span class="p">(</span><span class="n">ContextNamespace</span><span class="p">):</span>
     <span class="n">active_layer_type</span> <span class="o">=</span> <span class="n">ContextKey</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
-        <span class="s1">&#39;Lowercase name of active layer type, or None of none active.&#39;</span><span class="p">,</span>
+        <span class="s1">'Lowercase name of active layer type, or None of none active.'</span><span class="p">,</span>
         <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">active</span> <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">_type_string</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">active_layer_is_rgb</span> <span class="o">=</span> <span class="n">ContextKey</span><span class="p">(</span>
         <span class="kc">False</span><span class="p">,</span>
-        <span class="s1">&#39;True when the active layer is RGB&#39;</span><span class="p">,</span>
-        <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="s1">&#39;rgb&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="s1">'True when the active layer is RGB'</span><span class="p">,</span>
+        <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="s1">'rgb'</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
     <span class="p">)</span>
 </pre></div>
 </div>
@@ -1209,11 +1209,11 @@ expressions in an IDE-friendly way. For example, here we are declaratively
 populating the layer-list context menu; this is a function that will split
 the current stack into multiple layers, but it is only enabled when the
 selected image is a (non-RGB) <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;napari:split_stack&#39;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Split Stack&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="n">_split_stack</span><span class="p">,</span>
-    <span class="s1">&#39;enable_when&#39;</span><span class="p">:</span> <span class="n">LLCK</span><span class="o">.</span><span class="n">active_layer_type</span> <span class="o">==</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span>
-    <span class="s1">&#39;show_when&#39;</span><span class="p">:</span> <span class="o">~</span><span class="n">LLCK</span><span class="o">.</span><span class="n">active_layer_is_rgb</span><span class="p">,</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">'napari:split_stack'</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">'description'</span><span class="p">:</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">'Split Stack'</span><span class="p">),</span>
+    <span class="s1">'action'</span><span class="p">:</span> <span class="n">_split_stack</span><span class="p">,</span>
+    <span class="s1">'enable_when'</span><span class="p">:</span> <span class="n">LLCK</span><span class="o">.</span><span class="n">active_layer_type</span> <span class="o">==</span> <span class="s2">"image"</span><span class="p">,</span>
+    <span class="s1">'show_when'</span><span class="p">:</span> <span class="o">~</span><span class="n">LLCK</span><span class="o">.</span><span class="n">active_layer_is_rgb</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>

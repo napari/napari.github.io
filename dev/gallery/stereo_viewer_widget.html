@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -888,7 +888,7 @@ screen size. Cross-eyed viewing: use a negative separation.</p>
 <span class="k">class</span><span class="w"> </span><span class="nc">StereoViewerWindow</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># Avoid macOS black-space quirk when closing while fullscreen</span>
-        <span class="c1"># (borrowed idea from napari&#39;s main window closeEvent).</span>
+        <span class="c1"># (borrowed idea from napari's main window closeEvent).</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isFullScreen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">showNormal</span><span class="p">()</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">closeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
@@ -899,13 +899,13 @@ screen size. Cross-eyed viewing: use a negative separation.</p>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">StereoViewerWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Side-by-side 3D viewers with a stereo camera offset.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Side-by-side 3D viewers with a stereo camera offset."""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="p">:</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer_left</span> <span class="o">=</span> <a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel" title="napari.components.ViewerModel" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class"><span class="n">ViewerModel</span></a><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;left eye&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer_right</span> <span class="o">=</span> <a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel" title="napari.components.ViewerModel" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class"><span class="n">ViewerModel</span></a><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;right eye&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer_left</span> <span class="o">=</span> <a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel" title="napari.components.ViewerModel" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class"><span class="n">ViewerModel</span></a><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">'left eye'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer_right</span> <span class="o">=</span> <a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel" title="napari.components.ViewerModel" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class"><span class="n">ViewerModel</span></a><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">'right eye'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_block</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_eye_separation</span> <span class="o">=</span> <span class="mf">20.0</span>
         <span class="c1"># Reused only to derive view/up directions from Euler angles.</span>
@@ -924,7 +924,7 @@ screen size. Cross-eyed viewing: use a negative separation.</p>
 
         <span class="c1"># eye separation control</span>
         <span class="n">controls</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
-        <span class="n">controls</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Eye separation&#39;</span><span class="p">))</span>
+        <span class="n">controls</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">'Eye separation'</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">separation_spin</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">separation_spin</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mf">500.0</span><span class="p">,</span> <span class="mf">500.0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">separation_spin</span><span class="o">.</span><span class="n">setSingleStep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
@@ -962,7 +962,7 @@ screen size. Cross-eyed viewing: use a negative separation.</p>
     <span class="k">def</span><span class="w"> </span><span class="nf">_camera_right_vector</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">angles</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class"><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span></a><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Unit vector pointing right on the canvas for the given Euler angles.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Unit vector pointing right on the canvas for the given Euler angles."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_direction_camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="n">angles</span>
         <span class="n">right</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.cross.html#numpy.cross" title="numpy.cross" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">cross</span></a><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_direction_camera</span><span class="o">.</span><span class="n">up_direction</span><span class="p">,</span>
@@ -994,7 +994,7 @@ screen size. Cross-eyed viewing: use a negative separation.</p>
         <span class="n">angles</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
         <span class="n">center</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class"><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span></a><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Shared (cyclopean) look-at center implied by an eye camera center.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Shared (cyclopean) look-at center implied by an eye camera center."""</span>
         <span class="n">right_direction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera_right_vector</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
         <span class="n">half</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eye_separation</span> <span class="o">/</span> <span class="mf">2.0</span>
         <span class="n">center_arr</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.asarray.html#numpy.asarray" title="numpy.asarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">asarray</span></a><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
@@ -1011,7 +1011,7 @@ screen size. Cross-eyed viewing: use a negative separation.</p>
         <span class="n">zoom</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply shared camera state with left/right look-at offsets.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Apply shared camera state with left/right look-at offsets."""</span>
         <span class="n">right_direction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera_right_vector</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
         <span class="n">half</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eye_separation</span> <span class="o">/</span> <span class="mf">2.0</span>
         <span class="n">base</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.asarray.html#numpy.asarray" title="numpy.asarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">asarray</span></a><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
@@ -1037,7 +1037,7 @@ screen size. Cross-eyed viewing: use a negative separation.</p>
             <span class="k">return</span>
         <span class="n">source_cam</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span>
         <span class="n">model</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_models</span><span class="p">()</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">camera</span> <span class="ow">is</span> <span class="n">source_cam</span><span class="p">)</span>
-        <span class="c1"># shared look-at without this eye&#39;s stereo offset</span>
+        <span class="c1"># shared look-at without this eye's stereo offset</span>
         <span class="n">base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_center_from</span><span class="p">(</span>
             <span class="n">model</span><span class="p">,</span> <span class="n">source_cam</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span> <span class="n">source_cam</span><span class="o">.</span><span class="n">center</span>
         <span class="p">)</span>
@@ -1050,17 +1050,17 @@ screen size. Cross-eyed viewing: use a negative separation.</p>
         <span class="p">)</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="c1"># Needed so additional OpenGL canvases can share contexts with the main viewer.</span>
     <span class="n">QApplication</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ApplicationAttribute</span><span class="o">.</span><span class="n">AA_ShareOpenGLContexts</span><span class="p">)</span>
 
     <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-    <a href="../api/napari.Viewer.html#napari.Viewer.open_sample" title="napari.Viewer.open_sample" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">open_sample</span></a><span class="p">(</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span> <span class="s1">&#39;cells3d&#39;</span><span class="p">)</span>
+    <a href="../api/napari.Viewer.html#napari.Viewer.open_sample" title="napari.Viewer.open_sample" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">open_sample</span></a><span class="p">(</span><span class="s1">'napari'</span><span class="p">,</span> <span class="s1">'cells3d'</span><span class="p">)</span>
     <a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span></a> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">)</span>
 
     <span class="n">window</span> <span class="o">=</span> <span class="n">StereoViewerWindow</span><span class="p">()</span>
     <span class="n">window</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><a href="../api/napari.qt.html#napari.qt.get_stylesheet" title="napari.qt.get_stylesheet" class="sphx-glr-backref-module-napari-qt sphx-glr-backref-type-py-function"><span class="n">get_stylesheet</span></a><span class="p">(</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">theme</span><span class="p">))</span>
-    <span class="n">window</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Stereo 3D&#39;</span><span class="p">)</span>
+    <span class="n">window</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">'Stereo 3D'</span><span class="p">)</span>
     <span class="n">window</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="n">StereoViewerWidget</span><span class="p">(</span><a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="p">))</span>
     <span class="n">window</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
     <span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>

@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -597,12 +597,12 @@ napari event or action that would trigger their plugin to do something. For
 example, let’s say you have a dock widget that connects a mouse callback to the
 viewer:</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyWidget</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;napari.Viewer&#39;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">'napari.Viewer'</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_viewer</span> <span class="o">=</span> <span class="n">viewer</span>
 
         <span class="nd">@viewer</span><span class="o">.</span><span class="n">mouse_move_callbacks</span><span class="o">.</span><span class="n">append</span>
         <span class="k">def</span><span class="w"> </span><span class="nf">_on_mouse_move</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-            <span class="k">if</span> <span class="s1">&#39;Shift&#39;</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">'Shift'</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">:</span>
                 <span class="o">...</span>
 </pre></div>
 </div>
@@ -615,14 +615,14 @@ objects that emulate, or “mock” the objects that your function expects to
 receive from napari. You may also need to slightly reorganize your code. Let’s
 modify the above widget to make it easier to test:</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyWidget</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;napari.Viewer&#39;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">'napari.Viewer'</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_viewer</span> <span class="o">=</span> <span class="n">viewer</span>
         <span class="c1"># connecting to a method rather than a local function</span>
         <span class="c1"># makes it easier to test</span>
         <span class="n">viewer</span><span class="o">.</span><span class="n">mouse_move_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_mouse_move</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_mouse_move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="k">if</span> <span class="s1">&#39;Shift&#39;</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">'Shift'</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">:</span>
             <span class="o">...</span>
 </pre></div>
 </div>
@@ -631,7 +631,7 @@ then call the methods directly. As for the <code class="docutils literal notrans
 care about in this plugin is that it has a <code class="docutils literal notranslate"><span class="pre">modifiers</span></code> attribute that may or may
 not contain the string <code class="docutils literal notranslate"><span class="pre">&quot;Shift&quot;</span></code>. So let’s just fake it!</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">FakeEvent</span><span class="p">:</span>
-    <span class="n">modifiers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Shift&#39;</span><span class="p">}</span>
+    <span class="n">modifiers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Shift'</span><span class="p">}</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">test_mouse_callback</span><span class="p">(</span><span class="n">make_napari_viewer</span><span class="p">):</span>
     <span class="n">viewer</span> <span class="o">=</span> <span class="n">make_napari_viewer</span><span class="p">()</span>

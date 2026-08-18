@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -844,8 +844,8 @@ this tutorial. Please use <code class="docutils literal notranslate"><span class
 This GUI could be useful for making annotations required to train algorithms for markless tracking of animals (e.g., <a class="reference external" href="http://www.mackenziemathislab.org/deeplabcut">DeepLabCut</a>).
 In this tutorial, we will cover creating and interacting with a Points layer with features (i.e., labels for the points), connecting custom UI elements to events, and creating custom keybindings.</p>
 <p>At the end of this tutorial, we will have created a GUI for annotating points in videos that we can simply call by:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">im_path</span> <span class="o">=</span> <span class="s1">&#39;&lt;path to directory with data&gt;/*.png&#39;</span>
-<span class="n">point_annotator</span><span class="p">(</span><span class="n">im_path</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ear_l&#39;</span><span class="p">,</span> <span class="s1">&#39;ear_r&#39;</span><span class="p">,</span> <span class="s1">&#39;tail&#39;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">im_path</span> <span class="o">=</span> <span class="s1">'&lt;path to directory with data&gt;/*.png'</span>
+<span class="n">point_annotator</span><span class="p">(</span><span class="n">im_path</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">'ear_l'</span><span class="p">,</span> <span class="s1">'ear_r'</span><span class="p">,</span> <span class="s1">'tail'</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>The resulting viewer looks like this (images from <a class="reference external" href="https://www.nature.com/articles/s41593-018-0209-y">Mathis et al., 2018</a>, downloaded from <a class="reference external" href="https://github.com/DeepLabCut/DeepLabCut/tree/f21321ef8060c537f9df0ce9346189bda07701b5/examples/openfield-Pranav-2018-10-30/labeled-data/m4s1">here</a>):</p>
@@ -868,21 +868,21 @@ We will walk through the code in the following sections.</p>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="n">COLOR_CYCLE</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#ff7f0e&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#2ca02c&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#d62728&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#9467bd&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#8c564b&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#e377c2&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#7f7f7f&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#bcbd22&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#17becf&#39;</span><span class="p">,</span>
+    <span class="s1">'#1f77b4'</span><span class="p">,</span>
+    <span class="s1">'#ff7f0e'</span><span class="p">,</span>
+    <span class="s1">'#2ca02c'</span><span class="p">,</span>
+    <span class="s1">'#d62728'</span><span class="p">,</span>
+    <span class="s1">'#9467bd'</span><span class="p">,</span>
+    <span class="s1">'#8c564b'</span><span class="p">,</span>
+    <span class="s1">'#e377c2'</span><span class="p">,</span>
+    <span class="s1">'#7f7f7f'</span><span class="p">,</span>
+    <span class="s1">'#bcbd22'</span><span class="p">,</span>
+    <span class="s1">'#17becf'</span><span class="p">,</span>
 <span class="p">]</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">create_label_menu</span><span class="p">(</span><span class="n">points_layer</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a label menu widget that can be added to the napari viewer dock</span>
+<span class="w">    </span><span class="sd">"""Create a label menu widget that can be added to the napari viewer dock</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -895,23 +895,23 @@ We will walk through the code in the following sections.</p>
 <span class="sd">    -------</span>
 <span class="sd">    label_menu : Container</span>
 <span class="sd">        the magicgui Container with our dropdown menu widget</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Create the label selection menu</span>
-    <span class="n">label_menu</span> <span class="o">=</span> <span class="n">ComboBox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;feature_label&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">label_menu</span> <span class="o">=</span> <span class="n">ComboBox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">'feature_label'</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
     <span class="n">label_widget</span> <span class="o">=</span> <span class="n">Container</span><span class="p">(</span><span class="n">widgets</span><span class="o">=</span><span class="p">[</span><span class="n">label_menu</span><span class="p">])</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">update_label_menu</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the label menu when the point selection changes&quot;&quot;&quot;</span>
-        <span class="n">new_label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="w">        </span><span class="sd">"""Update the label menu when the point selection changes"""</span>
+        <span class="n">new_label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span><span class="p">[</span><span class="s1">'label'</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">new_label</span> <span class="o">!=</span> <span class="n">label_menu</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
             <span class="n">label_menu</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">new_label</span>
 
     <span class="n">points_layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">feature_defaults</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">update_label_menu</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">label_changed</span><span class="p">(</span><span class="n">selected_label</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the Points layer when the label menu selection changes&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update the Points layer when the label menu selection changes"""</span>
         <span class="n">feature_defaults</span> <span class="o">=</span> <span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span>
-        <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">selected_label</span>
+        <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">'label'</span><span class="p">]</span> <span class="o">=</span> <span class="n">selected_label</span>
         <span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span> <span class="o">=</span> <span class="n">feature_defaults</span>
         <span class="n">points_layer</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
 
@@ -924,7 +924,7 @@ We will walk through the code in the following sections.</p>
     <span class="n">im_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a GUI for annotating points in a series of images.</span>
+<span class="w">    </span><span class="sd">"""Create a GUI for annotating points in a series of images.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -932,41 +932,41 @@ We will walk through the code in the following sections.</p>
 <span class="sd">        glob-like string for the images to be labeled.</span>
 <span class="sd">    labels : List[str]</span>
 <span class="sd">        list of the labels for each keypoint to be annotated (e.g., the body parts to be labeled).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">stack</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">im_path</span><span class="p">)</span>
 
     <span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
     <span class="n">points_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span>
         <span class="n">ndim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-        <span class="n">features</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">([],</span> <span class="n">categories</span><span class="o">=</span><span class="n">labels</span><span class="p">)}),</span>
-        <span class="n">border_color</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">,</span>
+        <span class="n">features</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'label'</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">([],</span> <span class="n">categories</span><span class="o">=</span><span class="n">labels</span><span class="p">)}),</span>
+        <span class="n">border_color</span><span class="o">=</span><span class="s1">'label'</span><span class="p">,</span>
         <span class="n">border_color_cycle</span><span class="o">=</span><span class="n">COLOR_CYCLE</span><span class="p">,</span>
-        <span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
-        <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
+        <span class="n">symbol</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span>
+        <span class="n">face_color</span><span class="o">=</span><span class="s1">'transparent'</span><span class="p">,</span>
         <span class="n">border_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>  <span class="c1"># fraction of point size</span>
         <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">points_layer</span><span class="o">.</span><span class="n">border_color_mode</span> <span class="o">=</span> <span class="s1">&#39;cycle&#39;</span>
+    <span class="n">points_layer</span><span class="o">.</span><span class="n">border_color_mode</span> <span class="o">=</span> <span class="s1">'cycle'</span>
 
     <span class="c1"># add the label menu widget to the viewer</span>
     <span class="n">label_widget</span> <span class="o">=</span> <span class="n">create_label_menu</span><span class="p">(</span><span class="n">points_layer</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
     <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">label_widget</span><span class="p">)</span>
 
-    <span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+    <span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">next_label</span><span class="p">(</span><span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Keybinding to advance to the next label with wraparound&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Keybinding to advance to the next label with wraparound"""</span>
         <span class="n">feature_defaults</span> <span class="o">=</span> <span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span>
-        <span class="n">default_label</span> <span class="o">=</span> <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">default_label</span> <span class="o">=</span> <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">'label'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">ind</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">default_label</span><span class="p">)</span>
         <span class="n">new_ind</span> <span class="o">=</span> <span class="p">(</span><span class="n">ind</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
         <span class="n">new_label</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">new_ind</span><span class="p">]</span>
-        <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_label</span>
+        <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">'label'</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_label</span>
         <span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span> <span class="o">=</span> <span class="n">feature_defaults</span>
         <span class="n">points_layer</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">next_on_click</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Mouse click binding to advance the label when a point is added&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;add&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Mouse click binding to advance the label when a point is added"""</span>
+        <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">'add'</span><span class="p">:</span>
             <span class="c1"># By default, napari selects the point that was just added.</span>
             <span class="c1"># Disable that behavior, as the highlight gets in the way</span>
             <span class="c1"># and also causes next_label to change the color of the</span>
@@ -974,18 +974,18 @@ We will walk through the code in the following sections.</p>
             <span class="n">layer</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
             <span class="n">next_label</span><span class="p">()</span>
 
-    <span class="n">points_layer</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;add&#39;</span>
+    <span class="n">points_layer</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s1">'add'</span>
     <span class="n">points_layer</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_on_click</span><span class="p">)</span>
 
-    <span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">prev_label</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Keybinding to decrement to the previous label with wraparound&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Keybinding to decrement to the previous label with wraparound"""</span>
         <span class="n">feature_defaults</span> <span class="o">=</span> <span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span>
-        <span class="n">default_label</span> <span class="o">=</span> <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">default_label</span> <span class="o">=</span> <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">'label'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">ind</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">default_label</span><span class="p">)</span>
         <span class="n">n_labels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
         <span class="n">new_ind</span> <span class="o">=</span> <span class="p">((</span><span class="n">ind</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">n_labels</span><span class="p">)</span> <span class="o">%</span> <span class="n">n_labels</span>
-        <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">new_ind</span><span class="p">]</span>
+        <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">'label'</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">new_ind</span><span class="p">]</span>
         <span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span> <span class="o">=</span> <span class="n">feature_defaults</span>
         <span class="n">points_layer</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
 
@@ -1001,7 +1001,7 @@ See below for the function definition.</p>
     <span class="n">im_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a GUI for annotating points in a series of images.</span>
+<span class="w">    </span><span class="sd">"""Create a GUI for annotating points in a series of images.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1009,7 +1009,7 @@ See below for the function definition.</p>
 <span class="sd">        glob-like string for the images to be labeled.</span>
 <span class="sd">    labels : List[str]</span>
 <span class="sd">        list of the labels for each keypoint to be annotated (e.g., the body parts to be labeled).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 </pre></div>
 </div>
 </section>
@@ -1043,11 +1043,11 @@ As discussed above, we will be storing which feature of interest each point corr
 To visualize the feature each point represents, we set the border color as a color cycle mapped to the <code class="docutils literal notranslate"><span class="pre">label</span></code> feature (<code class="docutils literal notranslate"><span class="pre">border_color='label'</span></code>).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">points_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span>
     <span class="n">ndim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-    <span class="n">features</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">([],</span> <span class="n">categories</span><span class="o">=</span><span class="n">labels</span><span class="p">)}),</span>
-    <span class="n">border_color</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">,</span>
+    <span class="n">features</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'label'</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">([],</span> <span class="n">categories</span><span class="o">=</span><span class="n">labels</span><span class="p">)}),</span>
+    <span class="n">border_color</span><span class="o">=</span><span class="s1">'label'</span><span class="p">,</span>
     <span class="n">border_color_cycle</span><span class="o">=</span><span class="n">COLOR_CYCLE</span><span class="p">,</span>
-    <span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
-    <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
+    <span class="n">symbol</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span>
+    <span class="n">face_color</span><span class="o">=</span><span class="s1">'transparent'</span><span class="p">,</span>
     <span class="n">border_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>  <span class="c1"># fraction of point size</span>
     <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
 <span class="p">)</span>
@@ -1058,22 +1058,22 @@ You can define your own color cycle as a list of colors.
 The colors can be defined as hex strings, standard color names or RGBA arrays.
 For example, the <a class="reference external" href="https://github.com/d3/d3-3.x-api-reference/blob/master/Ordinal-Scales.md#category10">category10 color palette</a> would be:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">COLOR_CYCLE</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#ff7f0e&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#2ca02c&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#d62728&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#9467bd&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#8c564b&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#e377c2&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#7f7f7f&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#bcbd22&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#17becf&#39;</span><span class="p">,</span>
+    <span class="s1">'#1f77b4'</span><span class="p">,</span>
+    <span class="s1">'#ff7f0e'</span><span class="p">,</span>
+    <span class="s1">'#2ca02c'</span><span class="p">,</span>
+    <span class="s1">'#d62728'</span><span class="p">,</span>
+    <span class="s1">'#9467bd'</span><span class="p">,</span>
+    <span class="s1">'#8c564b'</span><span class="p">,</span>
+    <span class="s1">'#e377c2'</span><span class="p">,</span>
+    <span class="s1">'#7f7f7f'</span><span class="p">,</span>
+    <span class="s1">'#bcbd22'</span><span class="p">,</span>
+    <span class="s1">'#17becf'</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>
 </div>
 <p>We set the points <code class="docutils literal notranslate"><span class="pre">ndim</span></code> to 3 so that the coordinates for the point annotations we add will be 3 dimensional (time + 2D).</p>
 <p>Finally, we set the border color to a color cycle:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">points_layer</span><span class="o">.</span><span class="n">border_color_mode</span> <span class="o">=</span> <span class="s1">&#39;cycle&#39;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">points_layer</span><span class="o">.</span><span class="n">border_color_mode</span> <span class="o">=</span> <span class="s1">'cycle'</span>
 </pre></div>
 </div>
 </section>
@@ -1085,7 +1085,7 @@ and the list of labels we will annotate with and return the label menu GUI.
 Additionally, we will create and connect all the required callbacks to make the
 GUI interactive.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_label_menu</span><span class="p">(</span><span class="n">points_layer</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a label menu widget that can be added to the napari viewer dock</span>
+<span class="w">    </span><span class="sd">"""Create a label menu widget that can be added to the napari viewer dock</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    -----------</span>
@@ -1098,14 +1098,14 @@ GUI interactive.</p>
 <span class="sd">    --------</span>
 <span class="sd">    label_menu : Container</span>
 <span class="sd">        the magicgui Container with our dropdown menu widget</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 </pre></div>
 </div>
 <p>Within <code class="docutils literal notranslate"><span class="pre">create_label_menu()</span></code>, we will use magicgui to add a dropdown menu for selecting which the label for the point we are about to add or the point we have selected.
 <a class="reference external" href="https://github.com/napari/magicgui">magicgui</a> is a library from the napari team for building GUIs from functions and works by applying function decorators.
 To make the a dropdown menu populated with the valid point labels, we simply create a magicgui <code class="docutils literal notranslate"><span class="pre">ComboBox</span></code>. We set the label (title) for the <code class="docutils literal notranslate"><span class="pre">ComboBox</span></code> with the <code class="docutils literal notranslate"><span class="pre">label</span></code> keyword argument and we set the dropdown menu options via the <code class="docutils literal notranslate"><span class="pre">choices</span></code> keyword argument. Recall that the labels names are passed to the <code class="docutils literal notranslate"><span class="pre">create_label_menu()</span></code> function as a list via the <code class="docutils literal notranslate"><span class="pre">labels</span></code> parameter. Next, we wrap the <code class="docutils literal notranslate"><span class="pre">label_menu</span></code> in a magicgui <code class="docutils literal notranslate"><span class="pre">Container</span></code> to finish our GUI widget.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the label selection menu</span>
-<span class="n">label_menu</span> <span class="o">=</span> <span class="n">ComboBox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;feature_label&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">label_menu</span> <span class="o">=</span> <span class="n">ComboBox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">'feature_label'</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
 <span class="n">label_widget</span> <span class="o">=</span> <span class="n">Container</span><span class="p">(</span><span class="n">widgets</span><span class="o">=</span><span class="p">[</span><span class="n">label_menu</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -1115,8 +1115,8 @@ On the points layer, the feature values of the next point to be added are stored
 The points layer has an event that gets emitted when the <code class="docutils literal notranslate"><span class="pre">feature_defaults</span></code> property is changed (<code class="docutils literal notranslate"><span class="pre">points_layer.events.feature_defaults</span></code>).
 We connect the function we created to the event so that <code class="docutils literal notranslate"><span class="pre">update_label_menu()</span></code> is called whenever <code class="docutils literal notranslate"><span class="pre">Points.feature_defaults</span></code> is changed.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">update_label_menu</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update the label menu when the point selection changes&quot;&quot;&quot;</span>
-    <span class="n">new_label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="w">    </span><span class="sd">"""Update the label menu when the point selection changes"""</span>
+    <span class="n">new_label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span><span class="p">[</span><span class="s1">'label'</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">if</span> <span class="n">new_label</span> <span class="o">!=</span> <span class="n">label_menu</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
         <span class="n">label_menu</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">new_label</span>
 
@@ -1128,9 +1128,9 @@ We connect the function we created to the event so that <code class="docutils li
 Similar to the points layer, the magicgui object has an event that gets emitted whenever the selected label is changed (<code class="docutils literal notranslate"><span class="pre">label_menu.changed</span></code>).
 To ensure the points layer is updated whenever the GUI selection is changed, we connect <code class="docutils literal notranslate"><span class="pre">label_changed()</span></code> to the <code class="docutils literal notranslate"><span class="pre">label_menu.changed</span></code> event.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">label_changed</span><span class="p">(</span><span class="n">selected_label</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update the Points layer when the label menu selection changes&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Update the Points layer when the label menu selection changes"""</span>
     <span class="n">feature_defaults</span> <span class="o">=</span> <span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span>
-    <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">selected_label</span>
+    <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">'label'</span><span class="p">]</span> <span class="o">=</span> <span class="n">selected_label</span>
     <span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span> <span class="o">=</span> <span class="n">feature_defaults</span>
     <span class="n">points_layer</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
 
@@ -1151,29 +1151,29 @@ To ensure the points layer is updated whenever the GUI selection is changed, we 
 <p>First, we define a function to increment to the next label and decorate it with the viewer key binding decorator.
 The decorator requires that we pass the key to bind the function to as a string and the decorated function should take an event as an input argument.
 In this case, we are binding <code class="docutils literal notranslate"><span class="pre">next_label()</span></code> to the <kbd class="kbd docutils literal notranslate">.</kbd> key.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">next_label</span><span class="p">(</span><span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Keybinding to advance to the next label with wraparound&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Keybinding to advance to the next label with wraparound"""</span>
     <span class="n">feature_defaults</span> <span class="o">=</span> <span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span>
-    <span class="n">default_label</span> <span class="o">=</span> <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">default_label</span> <span class="o">=</span> <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">'label'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">ind</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">default_label</span><span class="p">)</span>
     <span class="n">new_ind</span> <span class="o">=</span> <span class="p">(</span><span class="n">ind</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
     <span class="n">new_label</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">new_ind</span><span class="p">]</span>
-    <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_label</span>
+    <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">'label'</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_label</span>
     <span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span> <span class="o">=</span> <span class="n">feature_defaults</span>
     <span class="n">points_layer</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>We can do the same with another function that instead decrements the label with wraparound.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">prev_label</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Keybinding to decrement to the previous label with wraparound&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Keybinding to decrement to the previous label with wraparound"""</span>
     <span class="n">feature_defaults</span> <span class="o">=</span> <span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span>
-    <span class="n">default_label</span> <span class="o">=</span> <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">default_label</span> <span class="o">=</span> <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">'label'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">ind</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">default_label</span><span class="p">)</span>
     <span class="n">n_labels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
     <span class="n">new_ind</span> <span class="o">=</span> <span class="p">((</span><span class="n">ind</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">n_labels</span><span class="p">)</span> <span class="o">%</span> <span class="n">n_labels</span>
-    <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">new_ind</span><span class="p">]</span>
+    <span class="n">feature_defaults</span><span class="p">[</span><span class="s1">'label'</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">new_ind</span><span class="p">]</span>
     <span class="n">points_layer</span><span class="o">.</span><span class="n">feature_defaults</span> <span class="o">=</span> <span class="n">feature_defaults</span>
     <span class="n">points_layer</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
 </pre></div>
@@ -1188,8 +1188,8 @@ To achieve this, we first check if the points layer is the the adding mode (<cod
 If so, we then reuse the <code class="docutils literal notranslate"><span class="pre">next_label()</span></code> function we defined above in the keybindings to increment the label.
 Finally,</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">next_on_click</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mouse click binding to advance the label when a point is added&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;add&#39;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Mouse click binding to advance the label when a point is added"""</span>
+    <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">'add'</span><span class="p">:</span>
         <span class="c1"># By default, napari selects the point that was just added.</span>
         <span class="c1"># Disable that behavior, as the highlight gets in the way</span>
         <span class="c1"># and also causes next_label to change the color of the</span>
@@ -1212,9 +1212,9 @@ see the examples [<a class="reference external" href="https://github.com/napari/
 <section id="launching-the-gui">
 <h3>Launching the GUI<a class="headerlink" href="#launching-the-gui" title="Link to this heading">#</a></h3>
 <p>Now that you’ve put it all together, you should be ready to test! You can call the function as shown below.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">im_path</span> <span class="o">=</span> <span class="s1">&#39;&lt;path to directory with data&gt;/*.png&#39;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">im_path</span> <span class="o">=</span> <span class="s1">'&lt;path to directory with data&gt;/*.png'</span>
 
-<span class="n">point_annotator</span><span class="p">(</span><span class="n">im_path</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ear_l&#39;</span><span class="p">,</span> <span class="s1">&#39;ear_r&#39;</span><span class="p">,</span> <span class="s1">&#39;tail&#39;</span><span class="p">])</span>
+<span class="n">point_annotator</span><span class="p">(</span><span class="n">im_path</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">'ear_l'</span><span class="p">,</span> <span class="s1">'ear_r'</span><span class="p">,</span> <span class="s1">'tail'</span><span class="p">])</span>
 </pre></div>
 </div>
 </section>
@@ -1226,7 +1226,7 @@ From here you can enter the file path and save the annotation coordinates as a C
 <p><img alt="Viewer with green box around a points layer in layer list. Label in green says &quot;1. Select Points layer in the layer list&quot;. Dialog in the middle of the viewer has options to add save file name and choose save location, with Cancel and Save buttons in the bottom right." src="../_images/points_save_dialog.png" /></p>
 <p>Alternatively, we can use the <code class="docutils literal notranslate"><span class="pre">points_layer.save()</span></code> method to save the coordinates from the points layer to a CSV file.
 We can enter the command either in the script (e.g., bind a save function to a hot key) or the napari terminal.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">points_layer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;path/to/file.csv&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">points_layer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">'path/to/file.csv'</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>

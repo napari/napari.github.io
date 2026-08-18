@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -611,7 +611,7 @@ To profile an entire script, use the call:</p>
    <span class="n">Ordered</span> <span class="n">by</span><span class="p">:</span> <span class="n">internal</span> <span class="n">time</span>
 
    <span class="n">ncalls</span>  <span class="n">tottime</span>  <span class="n">percall</span>  <span class="n">cumtime</span>  <span class="n">percall</span> <span class="n">filename</span><span class="p">:</span><span class="n">lineno</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
-    <span class="mi">21241</span>    <span class="mf">0.252</span>    <span class="mf">0.000</span>    <span class="mf">0.252</span>    <span class="mf">0.000</span> <span class="p">{</span><span class="n">method</span> <span class="s1">&#39;reduce&#39;</span> <span class="n">of</span> <span class="s1">&#39;numpy.ufunc&#39;</span> <span class="n">objects</span><span class="p">}</span>
+    <span class="mi">21241</span>    <span class="mf">0.252</span>    <span class="mf">0.000</span>    <span class="mf">0.252</span>    <span class="mf">0.000</span> <span class="p">{</span><span class="n">method</span> <span class="s1">'reduce'</span> <span class="n">of</span> <span class="s1">'numpy.ufunc'</span> <span class="n">objects</span><span class="p">}</span>
 <span class="mi">80547</span><span class="o">/</span><span class="mi">57578</span>    <span class="mf">0.080</span>    <span class="mf">0.000</span>    <span class="mf">0.765</span>    <span class="mf">0.000</span> <span class="p">{</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">numpy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">_multiarray_umath</span><span class="o">.</span><span class="n">implement_array_function</span><span class="p">}</span>
      <span class="mi">1048</span>    <span class="mf">0.060</span>    <span class="mf">0.000</span>    <span class="mf">0.060</span>    <span class="mf">0.000</span> <span class="p">{</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">marshal</span><span class="o">.</span><span class="n">loads</span><span class="p">}</span>
     <span class="mi">62683</span>    <span class="mf">0.052</span>    <span class="mf">0.000</span>    <span class="mf">0.052</span>    <span class="mf">0.000</span> <span class="p">{</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">}</span>
@@ -639,8 +639,8 @@ which can be investigated later. To save the output to file use the <code class=
 <p>You can parse the profile output using the <code class="docutils literal notranslate"><span class="pre">Stats</span></code> object from the <code class="docutils literal notranslate"><span class="pre">pstats</span></code> built-in library. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">Stats</span>
 
-<span class="n">stat</span> <span class="o">=</span> <span class="n">Stats</span><span class="p">(</span><span class="s1">&#39;path/to/result.pstat&#39;</span><span class="p">)</span>
-<span class="n">stat</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s1">&#39;tottime&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">print_stats</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">stat</span> <span class="o">=</span> <span class="n">Stats</span><span class="p">(</span><span class="s1">'path/to/result.pstat'</span><span class="p">)</span>
+<span class="n">stat</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s1">'tottime'</span><span class="p">)</span><span class="o">.</span><span class="n">print_stats</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You can find more documentation about the Stats object in the Python documentation <a class="reference external" href="https://docs.python.org/3/library/profile.html#the-stats-class">here</a>.</p>
@@ -686,7 +686,7 @@ You can restrict profiling to particular code sections using
 
 <span class="k">with</span> <span class="n">cProfile</span><span class="o">.</span><span class="n">Profile</span><span class="p">()</span> <span class="k">as</span> <span class="n">pr</span><span class="p">:</span>
     <span class="n">code_for_profile</span><span class="p">()</span>
-<span class="n">pr</span><span class="o">.</span><span class="n">dump_stats</span><span class="p">(</span><span class="s1">&#39;result.pstat&#39;</span><span class="p">)</span>
+<span class="n">pr</span><span class="o">.</span><span class="n">dump_stats</span><span class="p">(</span><span class="s1">'result.pstat'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The resulting profile can then be visualized using the above methods.</p>
@@ -697,10 +697,10 @@ button to trigger profiling:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">testing_fun</span><span class="p">():</span>
     <span class="k">with</span> <span class="n">cProfile</span><span class="o">.</span><span class="n">Profile</span><span class="p">()</span> <span class="k">as</span> <span class="n">pr</span><span class="p">:</span>
         <span class="n">code_for_profile</span><span class="p">()</span>
-    <span class="n">pr</span><span class="o">.</span><span class="n">dump_stats</span><span class="p">(</span><span class="s1">&#39;camera_layers.pstat&#39;</span><span class="p">)</span>
+    <span class="n">pr</span><span class="o">.</span><span class="n">dump_stats</span><span class="p">(</span><span class="s1">'camera_layers.pstat'</span><span class="p">)</span>
 
 
-<span class="n">testing_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Profile&#39;</span><span class="p">)</span>
+<span class="n">testing_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">'Profile'</span><span class="p">)</span>
 <span class="n">testing_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">testing_fun</span><span class="p">)</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">testing_btn</span><span class="p">)</span>
 </pre></div>

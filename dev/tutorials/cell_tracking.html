@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -854,12 +854,12 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">skimage.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">imread</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">skimage.measure</span><span class="w"> </span><span class="kn">import</span> <span class="n">regionprops_table</span>
 
-<span class="n">PATH</span> <span class="o">=</span> <span class="s1">&#39;/path/to/Fluo-N3DH-CE/&#39;</span>
+<span class="n">PATH</span> <span class="o">=</span> <span class="s1">'/path/to/Fluo-N3DH-CE/'</span>
 <span class="n">NUM_IMAGES</span> <span class="o">=</span> <span class="mi">195</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">load_image</span><span class="p">(</span><span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load an image from the sequence.</span>
+<span class="w">    </span><span class="sd">"""Load an image from the sequence.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -870,8 +870,8 @@
 <span class="sd">    -------</span>
 <span class="sd">    image : np.ndarray</span>
 <span class="sd">       The image specified by the index, idx</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;01_GT/TRA&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;man_track</span><span class="si">{</span><span class="n">idx</span><span class="si">:</span><span class="s1">0&gt;3</span><span class="si">}</span><span class="s1">.tif&#39;</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">'01_GT/TRA'</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'man_track</span><span class="si">{</span><span class="n">idx</span><span class="si">:</span><span class="s1">0&gt;3</span><span class="si">}</span><span class="s1">.tif'</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">imread</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
 
@@ -880,7 +880,7 @@
 </div>
 <p>For each image in the time-lapse sequence, we will now extract the unique track label (<code class="docutils literal notranslate"><span class="pre">track_id</span></code>), centroid and timestamp in order to create the track data we will pass to the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer. For more information on the format of the track data, please see the “tracks data” section of the <a class="reference internal" href="../howtos/layers/tracks.html#layers-tracks"><span class="std std-ref">tracks layer guide</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">regionprops_plus_time</span><span class="p">(</span><span class="n">idx</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the unique track label, centroid and time for each track vertex.</span>
+<span class="w">    </span><span class="sd">"""Return the unique track label, centroid and time for each track vertex.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -891,9 +891,9 @@
 <span class="sd">    -------</span>
 <span class="sd">    data_df : pd.DataFrame</span>
 <span class="sd">       The dataframe of track data for one time step (specified by idx).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">props</span> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span><span class="n">stack</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;centroid&#39;</span><span class="p">))</span>
-    <span class="n">props</span><span class="p">[</span><span class="s1">&#39;frame&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">props</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">props</span> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span><span class="n">stack</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s1">'label'</span><span class="p">,</span> <span class="s1">'centroid'</span><span class="p">))</span>
+    <span class="n">props</span><span class="p">[</span><span class="s1">'frame'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">props</span><span class="p">[</span><span class="s1">'label'</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">props</span><span class="p">)</span>
 
 
@@ -901,11 +901,11 @@
     <span class="p">[</span><span class="n">regionprops_plus_time</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_IMAGES</span><span class="p">)]</span>
 <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="c1"># sort the data lexicographically by track_id and time</span>
-<span class="n">data_df</span> <span class="o">=</span> <span class="n">data_df_raw</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;frame&#39;</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data_df</span> <span class="o">=</span> <span class="n">data_df_raw</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">'label'</span><span class="p">,</span> <span class="s1">'frame'</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># create the final data array: track_id, T, Z, Y, X</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">data_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
-    <span class="p">:,</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;frame&#39;</span><span class="p">,</span> <span class="s1">&#39;centroid-0&#39;</span><span class="p">,</span> <span class="s1">&#39;centroid-1&#39;</span><span class="p">,</span> <span class="s1">&#39;centroid-2&#39;</span><span class="p">]</span>
+    <span class="p">:,</span> <span class="p">[</span><span class="s1">'label'</span><span class="p">,</span> <span class="s1">'frame'</span><span class="p">,</span> <span class="s1">'centroid-0'</span><span class="p">,</span> <span class="s1">'centroid-1'</span><span class="p">,</span> <span class="s1">'centroid-2'</span><span class="p">]</span>
 <span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -913,7 +913,7 @@
 At this point, there is no concept of track <em>links</em>, lineages, or tracks splitting or merging.
 These single tracks are sometimes known as tracklets:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;tracklets&#39;</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'tracklets'</span><span class="p">)</span>
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -932,7 +932,7 @@ E - a zero-based temporal index of the frame in which the track ends
 P - label of the parent track (0 is used when no parent is defined)</p>
 </div></blockquote>
 <p>To extract the graph, we load the text file and convert it to a Nx4 integer numpy array, where the rows represent individual tracks and the columns represent L, B, E and P:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lbep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;01_GT/TRA&#39;</span><span class="p">,</span> <span class="s1">&#39;man_track.txt&#39;</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lbep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">'01_GT/TRA'</span><span class="p">,</span> <span class="s1">'man_track.txt'</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We can then create a dictionary representing the graph, where the key is the unique track label (L) and the value is the label of the parent track (P).</p>
@@ -949,7 +949,7 @@ P - label of the parent track (0 is used when no parent is defined)</p>
 <p>One property that is useful to visualize in single cell tracking is the <code class="docutils literal notranslate"><span class="pre">track_id</span></code> of the root node of the lineage trees, <em>i.e.</em> the founder cell.
 We create it with the following code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">root</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recursive function to determine the root node of each subgraph.</span>
+<span class="w">    </span><span class="sd">"""Recursive function to determine the root node of each subgraph.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -960,7 +960,7 @@ We create it with the following code:</p>
 <span class="sd">    -------</span>
 <span class="sd">    root_id : int</span>
 <span class="sd">       The track_id of the root of the track specified by node.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">full_graph</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># we found the root</span>
         <span class="k">return</span> <span class="n">node</span>
     <span class="k">return</span> <span class="n">root</span><span class="p">(</span><span class="n">full_graph</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
@@ -970,7 +970,7 @@ We create it with the following code:</p>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer enables the vertices of the tracks to be colored by user specified features. Here, we will create a feature which represents the <code class="docutils literal notranslate"><span class="pre">root_id</span></code> of each tree, so that cells with a common ancestor are colored the same:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;root_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">roots</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'root_id'</span><span class="p">:</span> <span class="p">[</span><span class="n">roots</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]}</span>
 </pre></div>
 </div>
 </section>
@@ -978,7 +978,7 @@ We create it with the following code:</p>
 <h3>Visualizing the tracks with napari<a class="headerlink" href="#visualizing-the-tracks-with-napari" title="Link to this heading">#</a></h3>
 <p>Alongside the tracks, we can also visualize the fluorescence imaging data.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">timelapse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
-    <span class="p">[</span><span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;01&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;t</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s1">0&gt;3</span><span class="si">}</span><span class="s1">.tif&#39;</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_IMAGES</span><span class="p">)]</span>
+    <span class="p">[</span><span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">'01'</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'t</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s1">0&gt;3</span><span class="si">}</span><span class="s1">.tif'</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_IMAGES</span><span class="p">)]</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -989,8 +989,8 @@ We create it with the following code:</p>
 </div>
 <p>We can now visualize the full, linked tracks in napari!</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">timelapse</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">SCALE</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Fluo-N3DH-CE&#39;</span><span class="p">)</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">SCALE</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;tracks&#39;</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">timelapse</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">SCALE</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'Fluo-N3DH-CE'</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">SCALE</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'tracks'</span><span class="p">)</span>
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1013,14 +1013,14 @@ We create it with the following code:</p>
 </pre></div>
 </div>
 <p>We start by loading a file containing the centroids of all the found cells in each frame of the source movie. Note that this file only contains the locations of cells in the movie, there are no tracks yet. We can use the <code class="docutils literal notranslate"><span class="pre">btrack</span></code> library to load this file as a list of <code class="docutils literal notranslate"><span class="pre">objects</span></code> that contain information about each found cell, including the TZYX position. The example dataset can be downloaded <a class="reference external" href="https://github.com/quantumjot/btrack/blob/0f8bbd937535193bde20e3ebe91a323f6bb915e9/examples/napari_example.csv">here</a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">objects</span> <span class="o">=</span> <span class="n">btrack</span><span class="o">.</span><span class="n">dataio</span><span class="o">.</span><span class="n">import_CSV</span><span class="p">(</span><span class="s1">&#39;napari_example.csv&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">objects</span> <span class="o">=</span> <span class="n">btrack</span><span class="o">.</span><span class="n">dataio</span><span class="o">.</span><span class="n">import_CSV</span><span class="p">(</span><span class="s1">'napari_example.csv'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Next, we set up a <code class="docutils literal notranslate"><span class="pre">btrack.BayesianTracker</span></code> instance using a context manager to ensure the library is properly initialized. The <code class="docutils literal notranslate"><span class="pre">objects</span></code> are added to the tracker using the <code class="docutils literal notranslate"><span class="pre">.append()</span></code> method. We also set the imaging volume using the <code class="docutils literal notranslate"><span class="pre">volume</span></code> property. As this is a 2D dataset, the limits of the volume are set to the XY dimensions of the image dataset, while the Z dimension is set to be very large (±1e5). In this case, setting the Z limits of the volume to be very large penalises tracks which initialize or terminate in the centre of the XY plane, unless they can be explained by corresponding cell division or death events.</p>
 <p>The tracker performs the process of linking individual cell observations into tracks and the generating the associated track graph:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">btrack</span><span class="o">.</span><span class="n">BayesianTracker</span><span class="p">()</span> <span class="k">as</span> <span class="n">tracker</span><span class="p">:</span>
     <span class="c1"># configure the tracker using a config file</span>
-    <span class="n">tracker</span><span class="o">.</span><span class="n">configure_from_file</span><span class="p">(</span><span class="s1">&#39;cell_config.json&#39;</span><span class="p">)</span>
+    <span class="n">tracker</span><span class="o">.</span><span class="n">configure_from_file</span><span class="p">(</span><span class="s1">'cell_config.json'</span><span class="p">)</span>
 
     <span class="n">tracker</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">objects</span><span class="p">)</span>
     <span class="n">tracker</span><span class="o">.</span><span class="n">volume</span> <span class="o">=</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1600</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1200</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">1e5</span><span class="p">,</span> <span class="mf">1e5</span><span class="p">))</span>

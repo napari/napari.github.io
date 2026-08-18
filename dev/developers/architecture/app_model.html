@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -649,7 +649,7 @@ currently intention to use plain strings for command <code class="docutils liter
 
 
 <span class="c1"># `layers` will be injected later when this action is invoked</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">split_rgb_layer</span><span class="p">(</span><span class="n">layers</span><span class="p">:</span> <span class="s1">&#39;LayerList&#39;</span><span class="p">):</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">split_rgb_layer</span><span class="p">(</span><span class="n">layers</span><span class="p">:</span> <span class="s1">'LayerList'</span><span class="p">):</span> <span class="o">...</span>
 
 
 <span class="n">action</span> <span class="o">=</span> <span class="n">Action</span><span class="p">(</span>
@@ -658,12 +658,12 @@ currently intention to use plain strings for command <code class="docutils liter
     <span class="n">callback</span><span class="o">=</span><span class="n">split_rgb_layer</span><span class="p">,</span>
     <span class="n">menus</span><span class="o">=</span><span class="p">[</span>
         <span class="p">{</span>
-            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">MenuId</span><span class="o">.</span><span class="n">LAYERLIST_CONTEXT</span><span class="p">,</span>
-            <span class="s1">&#39;group&#39;</span><span class="p">:</span> <span class="n">MenuGroup</span><span class="o">.</span><span class="n">LAYERLIST_CONTEXT</span><span class="o">.</span><span class="n">SPLIT_MERGE</span><span class="p">,</span>
-            <span class="s1">&#39;when&#39;</span><span class="p">:</span> <span class="n">LLCK</span><span class="o">.</span><span class="n">active_layer_is_rgb</span><span class="p">,</span>
+            <span class="s1">'id'</span><span class="p">:</span> <span class="n">MenuId</span><span class="o">.</span><span class="n">LAYERLIST_CONTEXT</span><span class="p">,</span>
+            <span class="s1">'group'</span><span class="p">:</span> <span class="n">MenuGroup</span><span class="o">.</span><span class="n">LAYERLIST_CONTEXT</span><span class="o">.</span><span class="n">SPLIT_MERGE</span><span class="p">,</span>
+            <span class="s1">'when'</span><span class="p">:</span> <span class="n">LLCK</span><span class="o">.</span><span class="n">active_layer_is_rgb</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">],</span>
-    <span class="n">keybindings</span><span class="o">=</span><span class="p">[{</span><span class="s1">&#39;primary&#39;</span><span class="p">:</span> <span class="n">KeyMod</span><span class="o">.</span><span class="n">CtrlCmd</span> <span class="o">|</span> <span class="n">KeyMod</span><span class="o">.</span><span class="n">Alt</span> <span class="o">|</span> <span class="n">KeyCode</span><span class="o">.</span><span class="n">KeyT</span><span class="p">}],</span>
+    <span class="n">keybindings</span><span class="o">=</span><span class="p">[{</span><span class="s1">'primary'</span><span class="p">:</span> <span class="n">KeyMod</span><span class="o">.</span><span class="n">CtrlCmd</span> <span class="o">|</span> <span class="n">KeyMod</span><span class="o">.</span><span class="n">Alt</span> <span class="o">|</span> <span class="n">KeyCode</span><span class="o">.</span><span class="n">KeyT</span><span class="p">}],</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -685,7 +685,7 @@ singleton <code class="docutils literal notranslate"><span class="pre">app</span
 <p class="admonition-title">Note</p>
 <p>If you’re following along in the console, you may see the following error
 when executing the above code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ne">ValueError</span><span class="p">:</span> <span class="n">Command</span> <span class="s1">&#39;napari:layer:split_rgb&#39;</span> <span class="n">already</span> <span class="n">registered</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ne">ValueError</span><span class="p">:</span> <span class="n">Command</span> <span class="s1">'napari:layer:split_rgb'</span> <span class="n">already</span> <span class="n">registered</span>
 </pre></div>
 </div>
 <p>This is because command id’s may currently only be registered once, and associated with a single callback (and napari’s internal app already used the <code class="docutils literal notranslate"><span class="pre">CommandId.LAYER_SPLIT_RGB</span></code> id).</p>
@@ -784,25 +784,25 @@ Menu objects become simple to construct:</p>
 
 <span class="go"># create a QMenu with all of the commands registered in the</span>
 <span class="go"># layerlist context menu</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">menu</span> <span class="o">=</span> <span class="n">QModelMenu</span><span class="p">(</span><span class="n">menu_id</span><span class="o">=</span><span class="n">MenuId</span><span class="o">.</span><span class="n">LAYERLIST_CONTEXT</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="s1">&#39;napari&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">menu</span> <span class="o">=</span> <span class="n">QModelMenu</span><span class="p">(</span><span class="n">menu_id</span><span class="o">=</span><span class="n">MenuId</span><span class="o">.</span><span class="n">LAYERLIST_CONTEXT</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="s1">'napari'</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">i</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">menu</span><span class="o">.</span><span class="n">actions</span><span class="p">()])</span>
 <span class="go">[</span>
-<span class="go">    &#39;Toggle visibility&#39;,</span>
-<span class="go">    &#39;&#39;,</span>
-<span class="go">    &#39;Convert to Labels&#39;,</span>
-<span class="go">    &#39;Convert to Image&#39;,</span>
-<span class="go">    &#39;Convert data type&#39;,</span>
-<span class="go">    &#39;&#39;,</span>
-<span class="go">    &#39;Duplicate Layer&#39;,</span>
-<span class="go">    &#39;Split Stack&#39;,</span>
-<span class="go">    &#39;Split RGB&#39;,</span>
-<span class="go">    &#39;Merge to Stack&#39;,</span>
-<span class="go">    &#39;Projections&#39;,</span>
-<span class="go">    &#39;&#39;,</span>
-<span class="go">    &#39;Link Layers&#39;,</span>
-<span class="go">    &#39;Unlink Layers&#39;,</span>
-<span class="go">    &#39;Select Linked Layers&#39;</span>
+<span class="go">    'Toggle visibility',</span>
+<span class="go">    '',</span>
+<span class="go">    'Convert to Labels',</span>
+<span class="go">    'Convert to Image',</span>
+<span class="go">    'Convert data type',</span>
+<span class="go">    '',</span>
+<span class="go">    'Duplicate Layer',</span>
+<span class="go">    'Split Stack',</span>
+<span class="go">    'Split RGB',</span>
+<span class="go">    'Merge to Stack',</span>
+<span class="go">    'Projections',</span>
+<span class="go">    '',</span>
+<span class="go">    'Link Layers',</span>
+<span class="go">    'Unlink Layers',</span>
+<span class="go">    'Select Linked Layers'</span>
 <span class="go">]</span>
 </pre></div>
 </div>
@@ -916,7 +916,7 @@ details.</p>
 <p>A user/plugin provides a function, using the <code class="docutils literal notranslate"><span class="pre">Points</span></code> annotation:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># some user provided function declares a need</span>
 <span class="c1"># for Points by using type annotations.</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">process_points</span><span class="p">(</span><span class="n">points</span><span class="p">:</span> <span class="s1">&#39;Points&#39;</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_points</span><span class="p">(</span><span class="n">points</span><span class="p">:</span> <span class="s1">'Points'</span><span class="p">):</span>
     <span class="c1"># do something with points</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
@@ -935,7 +935,7 @@ Processors can be registered in the same way.</p>
 
 
 <span class="c1"># return annotation indicates what this provider provides</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">provide_points</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;Points&#39;</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">provide_points</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">'Points'</span><span class="p">]:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">napari.viewer</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Points</span>
 
@@ -960,13 +960,13 @@ points:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">injected_func</span><span class="p">()</span>
 
 <span class="go">TypeError: After injecting dependencies for NO arguments,</span>
-<span class="go">process_points() missing 1 required positional argument: &#39;points&#39;</span>
+<span class="go">process_points() missing 1 required positional argument: 'points'</span>
 </pre></div>
 </div>
 <p>Our provider was context dependent. Only when we have an active viewer with a
 points layer, can it be provided:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Some Points&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'Some Points'</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">injected_func</span><span class="p">()</span>
 <span class="go">Some Points</span>

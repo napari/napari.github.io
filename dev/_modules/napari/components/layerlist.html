@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -845,18 +845,18 @@ window.runMermaid = runMermaid;</script>
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">npe2.manifest.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">WriterContribution</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;LayerList&#39;</span><span class="p">,)</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'LayerList'</span><span class="p">,)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_name</span><span class="p">(</span><span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the name of a layer.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Return the name of a layer."""</span>
     <span class="k">return</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span>
 
 
 <div class="viewcode-block" id="LayerList">
 <a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LayerList</span><span class="p">(</span><span class="n">SelectableEventedList</span><span class="p">[</span><span class="n">Layer</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;List-like layer collection with built-in reordering and callback hooks.</span>
+<span class="w">    </span><span class="sd">"""List-like layer collection with built-in reordering and callback hooks.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -927,22 +927,22 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    &lt;built-in method append of list object at 0x7fc225764780&gt;</span>
 
 <span class="sd">    &gt;&gt;&gt; viewer.add_image(astronaut())</span>
-<span class="sd">    &lt;Image layer &#39;Image&#39; at 0x7f0fe7fa9e90&gt;</span>
+<span class="sd">    &lt;Image layer 'Image' at 0x7f0fe7fa9e90&gt;</span>
 <span class="sd">    &gt;&gt;&gt; viewer.add_points()</span>
-<span class="sd">    &lt;Points layer &#39;Points&#39; at 0x7f102f962350&gt;</span>
+<span class="sd">    &lt;Points layer 'Points' at 0x7f102f962350&gt;</span>
 <span class="sd">    &gt;&gt;&gt; viewer.layers</span>
-<span class="sd">    [&lt;Image layer &#39;Image&#39; at 0x7f0fe7fa9e90&gt;, &lt;Points layer &#39;Points&#39; at 0x7f102f962350&gt;]</span>
+<span class="sd">    [&lt;Image layer 'Image' at 0x7f0fe7fa9e90&gt;, &lt;Points layer 'Points' at 0x7f102f962350&gt;]</span>
 
 <span class="sd">    Inspecting the list of events, we see:</span>
 
 <span class="sd">    &gt;&gt;&gt; event_list[0].type</span>
-<span class="sd">    &#39;inserting&#39;</span>
+<span class="sd">    'inserting'</span>
 <span class="sd">    &gt;&gt;&gt; viewer.layers.pop(1)</span>
-<span class="sd">    &lt;Points layer &#39;Points&#39; at 0x7f102f962350&gt;</span>
+<span class="sd">    &lt;Points layer 'Points' at 0x7f102f962350&gt;</span>
 <span class="sd">    &gt;&gt;&gt; event_list[-1].type</span>
-<span class="sd">    &#39;removed&#39;</span>
+<span class="sd">    'removed'</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_units</span> <span class="o">=</span> <span class="kc">None</span>
@@ -959,28 +959,28 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_create_contexts</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_layer_inserted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect to layer events when a new layer is inserted.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Connect to layer events when a new layer is inserted."""</span>
         <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layer_renamed</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_layer_removed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Disconnect from layer events when a layer is removed.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Disconnect from layer events when a layer is removed."""</span>
         <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layer_renamed</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_layer_renamed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Re-emit layer name changes from a layer as a LayerList event.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Re-emit layer name changes from a layer as a LayerList event."""</span>
         <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span>
         <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">renamed</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_create_contexts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create contexts to manage enabled/visible action/menu states.</span>
+<span class="w">        </span><span class="sd">"""Create contexts to manage enabled/visible action/menu states.</span>
 
 <span class="sd">        Connects LayerList and Selection[Layer] to their context keys to allow</span>
 <span class="sd">        actions and menu items (in the GUI) to be dynamically enabled/disabled</span>
 <span class="sd">        and visible/hidden based on the state of layers in the list.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="c1"># TODO: figure out how to move this context creation bit.</span>
         <span class="c1"># Ideally, the app should be aware of the layerlist, but not vice versa.</span>
@@ -1017,10 +1017,10 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_clean_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">cached_properties</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s1">&#39;extent&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;_extent_world&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;_extent_world_augmented&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;_step_size&#39;</span><span class="p">,</span>
+            <span class="s1">'extent'</span><span class="p">,</span>
+            <span class="s1">'_extent_world'</span><span class="p">,</span>
+            <span class="s1">'_extent_world_augmented'</span><span class="p">,</span>
+            <span class="s1">'_step_size'</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">cached_properties</span><span class="p">]</span>
 
@@ -1028,7 +1028,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">LayerList</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_coerce_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerce a name into a unique equivalent.</span>
+<span class="w">        </span><span class="sd">"""Coerce a name into a unique equivalent.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1041,7 +1041,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        new_name : str</span>
 <span class="sd">            Coerced, unique name.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">existing_layers</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">layer</span><span class="p">}</span>
         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
             <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">existing_layers</span><span class="p">:</span>
@@ -1049,7 +1049,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">name</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerce name of the layer in `event.layer`.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Coerce name of the layer in `event.layer`."""</span>
         <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coerce_name</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span>
 
@@ -1059,7 +1059,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bad</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Layer &#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&#39; is already present in layer list&quot;</span>
+                    <span class="sa">f</span><span class="s2">"Layer '</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">' is already present in layer list"</span>
                 <span class="p">)</span>
         <span class="k">return</span> <span class="n">values</span>
 
@@ -1083,7 +1083,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="LayerList.insert">
 <a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.insert">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Layer</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Insert ``value`` before index.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Insert ``value`` before index."""</span>
         <span class="p">(</span><span class="n">value</span><span class="p">,)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_unique</span><span class="p">((</span><span class="n">value</span><span class="p">,))</span>
         <span class="n">new_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="n">new_layer</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coerce_name</span><span class="p">(</span><span class="n">new_layer</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -1101,7 +1101,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="LayerList.remove_selected">
 <a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.remove_selected">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">remove_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove selected layers from LayerList, but first unlink them.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Remove selected layers from LayerList, but first unlink them."""</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="n">deletable</span> <span class="o">=</span> <span class="p">{</span><span class="n">layer</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">layer</span><span class="o">.</span><span class="n">locked</span><span class="p">}</span>
@@ -1109,11 +1109,11 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="n">locked</span><span class="p">:</span>
             <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.notifications</span><span class="w"> </span><span class="kn">import</span> <span class="n">show_info</span>
 
-            <span class="n">names</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                 <span class="nb">repr</span><span class="p">(</span><span class="n">lay</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">lay</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">locked</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
             <span class="p">)</span>
             <span class="n">show_info</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;Layer(s) </span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s1"> are locked and cannot be deleted.&#39;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s1">'Layer(s) </span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s1"> are locked and cannot be deleted.'</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">deletable</span><span class="p">:</span>
             <span class="k">return</span>
@@ -1130,7 +1130,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="LayerList.toggle_selected_visibility">
 <a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.toggle_selected_visibility">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">toggle_selected_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle visibility of selected layers&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Toggle visibility of selected layers"""</span>
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
             <span class="n">layer</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">layer</span><span class="o">.</span><span class="n">visible</span></div>
 
@@ -1139,7 +1139,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_extent_world</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layers in world coordinates.</span>
+<span class="w">        </span><span class="sd">"""Extent of layers in world coordinates.</span>
 
 <span class="sd">        Default to 2D with (-0.5, 511.5) min/ max values if no data is present.</span>
 <span class="sd">        Corresponds to pixels centered at [0, ..., 511].</span>
@@ -1147,7 +1147,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        extent_world : array, shape (2, D)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_extent_world</span><span class="p">(</span>
             <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">extent</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span>
         <span class="p">)</span>
@@ -1156,7 +1156,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_extent_world_augmented</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layers in world coordinates.</span>
+<span class="w">        </span><span class="sd">"""Extent of layers in world coordinates.</span>
 
 <span class="sd">        Default to 2D with (-0.5, 511.5) min/ max values if no data is present.</span>
 <span class="sd">        Corresponds to pixels centered at [0, ..., 511].</span>
@@ -1164,7 +1164,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        extent_world : array, shape (2, D)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_extent_world</span><span class="p">(</span>
             <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">_extent_augmented</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">],</span>
             <span class="n">augmented</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -1184,8 +1184,8 @@ window.runMermaid = runMermaid;</script>
             <span class="c1"># behaviour is acceptable and we can filter the</span>
             <span class="c1"># warning</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span>
-                <span class="s1">&#39;ignore&#39;</span><span class="p">,</span>
-                <span class="n">message</span><span class="o">=</span><span class="s1">&#39;All-NaN axis encountered&#39;</span><span class="p">,</span>
+                <span class="s1">'ignore'</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="s1">'All-NaN axis encountered'</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">min_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span>
                 <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">zip_longest</span><span class="p">(</span><span class="o">*</span><span class="n">mins_list</span><span class="p">,</span> <span class="n">fillvalue</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)),</span>
@@ -1209,7 +1209,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">augmented</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">units</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pint</span><span class="o">.</span><span class="n">Unit</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layers in world coordinates.</span>
+<span class="w">        </span><span class="sd">"""Extent of layers in world coordinates.</span>
 
 <span class="sd">        Default to 2D image-like with (0, 511) min/ max values if no data is present.</span>
 <span class="sd">        Corresponds to image with 512 pixels in each dimension.</span>
@@ -1217,7 +1217,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        extent_world : array, shape (2, D)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">min_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
             <span class="n">max_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="mf">511.0</span><span class="p">)</span>
@@ -1243,7 +1243,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@cached_property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_step_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ideal step size between planes in world coordinates.</span>
+<span class="w">        </span><span class="sd">"""Ideal step size between planes in world coordinates.</span>
 
 <span class="sd">        Computes the best step size that allows all data planes to be</span>
 <span class="sd">        sampled if moving through the full range of world coordinates.</span>
@@ -1252,7 +1252,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        step_size : array, shape (D,)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_step_size</span><span class="p">([</span><span class="n">layer</span><span class="o">.</span><span class="n">extent</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">])</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_step_size_from_scales</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scales</span><span class="p">):</span>
@@ -1270,7 +1270,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">from_units</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pint</span><span class="o">.</span><span class="n">Unit</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
         <span class="n">to_units</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pint</span><span class="o">.</span><span class="n">Unit</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert units of scale to target units.</span>
+<span class="w">        </span><span class="sd">"""Convert units of scale to target units.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1285,7 +1285,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Converted scale.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">clipped_target_units</span> <span class="o">=</span> <span class="n">to_units</span><span class="p">[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">from_units</span><span class="p">)</span> <span class="p">:]</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
             <span class="p">[</span>
@@ -1317,7 +1317,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="LayerList.get_extent">
 <a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.get_extent">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_extent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layers</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Layer</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">LayerListExtent</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return extent for a given layer list.</span>
 
 <span class="sd">        Extent bounds are inclusive. This function is useful for calculating the extent</span>
@@ -1333,7 +1333,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        extent : LayerListExtent</span>
 <span class="sd">            extent for selected layers</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">extent_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">extent</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">]</span>
         <span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_units</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_units</span><span class="p">(</span><span class="n">extent_list</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">LayerListExtent</span><span class="p">(</span>
@@ -1348,7 +1348,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_units</span><span class="p">(</span>
         <span class="n">layers_extent</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Extent</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pint</span><span class="o">.</span><span class="n">Unit</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get units for a given list of layer extents.</span>
+<span class="w">        </span><span class="sd">"""Get units for a given list of layer extents.</span>
 
 <span class="sd">        Given extents could be of all layers in the `LayerList` or only a subset.</span>
 
@@ -1362,7 +1362,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        units : list of pint.Unit or None</span>
 <span class="sd">            consistent units for given layer extents.</span>
 <span class="sd">            If cannot be determined, returns None.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">layers_extent</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
@@ -1370,7 +1370,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">units</span> <span class="o">=</span> <span class="p">()</span>
         <span class="n">dimensionality_to_unit</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">pint</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">UnitsContainer</span><span class="p">,</span> <span class="n">pint</span><span class="o">.</span><span class="n">Unit</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># for each dimensionality of units (time, length, mass, etc.)</span>
-        <span class="c1"># we will store the &#39;smallest&#39; unit (e.g for nm and um, we will choose nm)</span>
+        <span class="c1"># we will store the 'smallest' unit (e.g for nm and um, we will choose nm)</span>
 
         <span class="k">for</span> <span class="n">extent</span> <span class="ow">in</span> <span class="n">layers_extent</span><span class="p">:</span>
             <span class="n">update_u_dkt</span><span class="p">(</span><span class="n">extent</span><span class="o">.</span><span class="n">units</span><span class="p">,</span> <span class="n">dimensionality_to_unit</span><span class="p">,</span> <span class="n">reg</span><span class="p">)</span>
@@ -1385,17 +1385,17 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@cached_property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">extent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LayerListExtent</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Extent of layers in data and world coordinates.</span>
 
 <span class="sd">        Extent bounds are inclusive. See Layer.extent for a detailed explanation</span>
 <span class="sd">        of how extents are calculated.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_extent</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_ranges</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">RangeTuple</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get ranges for Dims.range in world coordinates.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get ranges for Dims.range in world coordinates."""</span>
         <span class="n">ext</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span>
             <span class="n">RangeTuple</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
@@ -1404,26 +1404,26 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">units</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pint</span><span class="o">.</span><span class="n">Unit</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Units of layers in world coordinates.</span>
+<span class="w">        </span><span class="sd">"""Units of layers in world coordinates.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        units : tuple[pint.Unit, ...] or None</span>
 <span class="sd">            Units of layers in world coordinates.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_units</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">units</span>
 
     <span class="nd">@units</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pint</span><span class="o">.</span><span class="n">Unit</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set override of units of layers in world coordinates.</span>
+<span class="w">        </span><span class="sd">"""Set override of units of layers in world coordinates.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        units : tuple[pint.Unit, ...] or None</span>
 <span class="sd">            Units to set for layers in world coordinates. If None, units are not changed.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_units</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">()</span>
@@ -1432,12 +1432,12 @@ window.runMermaid = runMermaid;</script>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s1">&#39;Cannot set units when layers have inconsistent dimensionality.&#39;</span>
+                <span class="s1">'Cannot set units when layers have inconsistent dimensionality.'</span>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">units</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s1">&#39;Number of units must be at least the number of dimensions.&#39;</span>
+                <span class="s1">'Number of units must be at least the number of dimensions.'</span>
             <span class="p">)</span>
         <span class="n">units</span> <span class="o">=</span> <span class="n">get_units_from_name</span><span class="p">(</span><span class="n">units</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">new_unit</span><span class="p">,</span> <span class="n">old_unit</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
@@ -1445,9 +1445,9 @@ window.runMermaid = runMermaid;</script>
         <span class="p">):</span>
             <span class="k">if</span> <span class="n">new_unit</span><span class="o">.</span><span class="n">dimensionality</span> <span class="o">!=</span> <span class="n">old_unit</span><span class="o">.</span><span class="n">dimensionality</span><span class="p">:</span>
                 <span class="n">text</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="sa">f</span><span class="s1">&#39;On axis -</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1"> units must be consistent across all dimensions.&#39;</span>
-                    <span class="sa">f</span><span class="s1">&#39;The new dimensionality is </span><span class="si">{</span><span class="n">new_unit</span><span class="o">.</span><span class="n">dimensionality</span><span class="si">}</span><span class="s1"> &#39;</span>
-                    <span class="sa">f</span><span class="s1">&#39;while the previous dimensionality was </span><span class="si">{</span><span class="n">old_unit</span><span class="o">.</span><span class="n">dimensionality</span><span class="si">}</span><span class="s1">.&#39;</span>
+                    <span class="sa">f</span><span class="s1">'On axis -</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1"> units must be consistent across all dimensions.'</span>
+                    <span class="sa">f</span><span class="s1">'The new dimensionality is </span><span class="si">{</span><span class="n">new_unit</span><span class="o">.</span><span class="n">dimensionality</span><span class="si">}</span><span class="s1"> '</span>
+                    <span class="sa">f</span><span class="s1">'while the previous dimensionality was </span><span class="si">{</span><span class="n">old_unit</span><span class="o">.</span><span class="n">dimensionality</span><span class="si">}</span><span class="s1">.'</span>
                 <span class="p">)</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_units</span> <span class="o">=</span> <span class="n">units</span>
@@ -1455,35 +1455,35 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">units</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_trigger_check_ndim_and_maybe_clean_units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Trigger check of new layer&#39;s ndim and maybe clean units.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Trigger check of new layer's ndim and maybe clean units."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_ndim_and_maybe_clean_units</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_check_ndim_and_maybe_clean_units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_units</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">ndim</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_units</span><span class="p">):</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s1">&#39;New layer has more dimensions than the current units, dropping units override.&#39;</span><span class="p">,</span>
+                <span class="s1">'New layer has more dimensions than the current units, dropping units override.'</span><span class="p">,</span>
                 <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Maximum dimensionality of layers.</span>
+<span class="w">        </span><span class="sd">"""Maximum dimensionality of layers.</span>
 
 <span class="sd">        Defaults to 2 if no data is present.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        ndim : int</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">max</span><span class="p">((</span><span class="n">layer</span><span class="o">.</span><span class="n">ndim</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_find_longest_annotated</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the annotated axis labels spanning the most dimensions.</span>
+<span class="w">        </span><span class="sd">"""Return the annotated axis labels spanning the most dimensions.</span>
 
 <span class="sd">        Returns () when no layer is annotated. When more are equally long,</span>
 <span class="sd">        the most recent layer wins.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">annotated_list</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">layer</span><span class="o">.</span><span class="n">axis_labels</span>
             <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span>
@@ -1493,11 +1493,11 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">axis_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Axis labels for the layer list.</span>
+<span class="w">        </span><span class="sd">"""Axis labels for the layer list.</span>
 
 <span class="sd">        Uses the labels from the layer with the longest annotated axis labels.</span>
 <span class="sd">        Missing axes annotations fall back to default indices.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">axis_labels</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
         <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_longest_annotated</span><span class="p">()</span>
         <span class="n">offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
@@ -1530,13 +1530,13 @@ window.runMermaid = runMermaid;</script>
         <span class="n">layers</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">Layer</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">attributes</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Links the selected layers.</span>
 
 <span class="sd">        Once layers are linked, any action performed on one layer will be</span>
 <span class="sd">        performed on all linked layers at the same time.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_link_layers</span><span class="p">(</span><span class="s1">&#39;link_layers&#39;</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)</span></div>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_link_layers</span><span class="p">(</span><span class="s1">'link_layers'</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="LayerList.unlink_layers">
@@ -1546,12 +1546,12 @@ window.runMermaid = runMermaid;</script>
         <span class="n">layers</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">Layer</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">attributes</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Unlinks previously linked layers.</span>
+<span class="w">        </span><span class="sd">"""Unlinks previously linked layers.</span>
 
-<span class="sd">        Changes to one of the layer&#39;s properties no longer result in the same</span>
+<span class="sd">        Changes to one of the layer's properties no longer result in the same</span>
 <span class="sd">        changes to the previously linked layers.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_link_layers</span><span class="p">(</span><span class="s1">&#39;unlink_layers&#39;</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)</span></div>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_link_layers</span><span class="p">(</span><span class="s1">'unlink_layers'</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="LayerList.save">
@@ -1564,7 +1564,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">plugin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">_writer</span><span class="p">:</span> <span class="n">WriterContribution</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save all or only selected layers to a path using writer plugins.</span>
+<span class="w">        </span><span class="sd">"""Save all or only selected layers to a path using writer plugins.</span>
 
 <span class="sd">        If ``plugin`` is provided, we attempt to write with that plugin.</span>
 <span class="sd">        If ``plugin`` is not provided, we call the first compatible writer for</span>
@@ -1591,7 +1591,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        list of str</span>
 <span class="sd">            File paths of any files that were written.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.plugins.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_layers</span>
 
         <span class="n">layers</span> <span class="o">=</span> <span class="p">(</span>
@@ -1600,7 +1600,7 @@ window.runMermaid = runMermaid;</script>
             <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="p">)</span>
 
-        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;No layers selected&#39;</span> <span class="k">if</span> <span class="n">selected</span> <span class="k">else</span> <span class="s1">&#39;No layers to save&#39;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">'No layers selected'</span> <span class="k">if</span> <span class="n">selected</span> <span class="k">else</span> <span class="s1">'No layers to save'</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">layers</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
@@ -1612,7 +1612,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="LayerList.clear">
 <a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.clear">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove all layers from viewer.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Remove all layers from viewer."""</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">batched_update</span><span class="p">():</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
 
@@ -1628,7 +1628,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">cmp</span><span class="p">(</span><span class="n">u1</span><span class="p">:</span> <span class="n">pint</span><span class="o">.</span><span class="n">Unit</span><span class="p">,</span> <span class="n">u2</span><span class="p">:</span> <span class="n">pint</span><span class="o">.</span><span class="n">Unit</span><span class="p">,</span> <span class="n">registry</span><span class="p">:</span> <span class="n">pint</span><span class="o">.</span><span class="n">UnitRegistry</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Compare two units using pint register</span>
 
 <span class="sd">    Parameters</span>
@@ -1645,7 +1645,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    bool</span>
 <span class="sd">        True if u1 is smaller than u2, False otherwise</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_base_units</span><span class="p">(</span><span class="n">u1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_base_units</span><span class="p">(</span><span class="n">u2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
 
@@ -1654,11 +1654,11 @@ window.runMermaid = runMermaid;</script>
     <span class="n">dimensionality_to_unit</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">pint</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">UnitsContainer</span><span class="p">,</span> <span class="n">pint</span><span class="o">.</span><span class="n">Unit</span><span class="p">],</span>
     <span class="n">registry</span><span class="p">:</span> <span class="n">pint</span><span class="o">.</span><span class="n">UnitRegistry</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update the dimensionality_to_unit dictionary with the smallest units.</span>
+<span class="w">    </span><span class="sd">"""Update the dimensionality_to_unit dictionary with the smallest units.</span>
 
 <span class="sd">    Iterate over the units in units_t and for each dimensionality,</span>
 <span class="sd">    check if it is already in the dimensionality_to_unit dictionary.</span>
-<span class="sd">    If it is not, or if the current unit is &#39;smaller&#39; than the existing</span>
+<span class="sd">    If it is not, or if the current unit is 'smaller' than the existing</span>
 <span class="sd">    unit (as determined by the cmp function), update the dictionary</span>
 
 <span class="sd">    Parameters</span>
@@ -1670,7 +1670,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        dictionary mapping dimensionality to the smallest unit</span>
 <span class="sd">    registry : pint.UnitRegistry</span>
 <span class="sd">        unit registry used for unit comparison</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">units_l</span><span class="p">:</span>
         <span class="n">dim</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">dimensionality</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>

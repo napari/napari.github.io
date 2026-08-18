@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -856,31 +856,31 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s1">&#39;Colormap&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;ColormapInterpolationMode&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;CyclicLabelColormap&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;DirectLabelColormap&#39;</span><span class="p">,</span>
+    <span class="s1">'Colormap'</span><span class="p">,</span>
+    <span class="s1">'ColormapInterpolationMode'</span><span class="p">,</span>
+    <span class="s1">'CyclicLabelColormap'</span><span class="p">,</span>
+    <span class="s1">'DirectLabelColormap'</span><span class="p">,</span>
 <span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">ColormapInterpolationMode</span><span class="p">(</span><span class="n">StrEnum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;INTERPOLATION: Interpolation mode for colormaps.</span>
+<span class="w">    </span><span class="sd">"""INTERPOLATION: Interpolation mode for colormaps.</span>
 
 <span class="sd">    Selects an interpolation mode for the colormap.</span>
 <span class="sd">            * linear: colors are defined by linear interpolation between</span>
 <span class="sd">              colors of neighboring controls points.</span>
 <span class="sd">            * zero: colors are defined by the value of the color in the</span>
 <span class="sd">              bin between by neighboring controls points.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">LINEAR</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>
-    <span class="n">ZERO</span> <span class="o">=</span> <span class="s1">&#39;zero&#39;</span>
+    <span class="n">LINEAR</span> <span class="o">=</span> <span class="s1">'linear'</span>
+    <span class="n">ZERO</span> <span class="o">=</span> <span class="s1">'zero'</span>
 
 
 <div class="viewcode-block" id="Colormap">
 <a class="viewcode-back" href="../../../../api/napari.utils.Colormap.html#napari.utils.Colormap">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Colormap</span><span class="p">(</span><span class="n">EventedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Colormap that relates intensity values to colors.</span>
+<span class="w">    </span><span class="sd">"""Colormap that relates intensity values to colors.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -893,27 +893,27 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    controls : array, shape (N,) or (N+1,)</span>
 <span class="sd">        Control points of the colormap.</span>
 <span class="sd">    interpolation : str</span>
-<span class="sd">        Colormap interpolation mode, either &#39;linear&#39; or</span>
-<span class="sd">        &#39;zero&#39;. If &#39;linear&#39;, ncontrols = ncolors (one</span>
-<span class="sd">        color per control point). If &#39;zero&#39;, ncontrols</span>
+<span class="sd">        Colormap interpolation mode, either 'linear' or</span>
+<span class="sd">        'zero'. If 'linear', ncontrols = ncolors (one</span>
+<span class="sd">        color per control point). If 'zero', ncontrols</span>
 <span class="sd">        = ncolors+1 (one color per bin).</span>
 <span class="sd">    nan_color : ColorValue</span>
-<span class="sd">        Mapping for NaN values. Equivalent to matplotlib&#39;s `bad_color`</span>
+<span class="sd">        Mapping for NaN values. Equivalent to matplotlib's `bad_color`</span>
 <span class="sd">    high_color : ColorValue</span>
 <span class="sd">        Mapping for values equal to or greater than 1.</span>
 <span class="sd">    low_color : ColorValue</span>
 <span class="sd">        Mapping for values equal to or less than 0.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># fields</span>
     <span class="n">colors</span><span class="p">:</span> <span class="n">ColorArray</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;custom&#39;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'custom'</span>
     <span class="n">_display_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">interpolation</span><span class="p">:</span> <span class="n">ColormapInterpolationMode</span> <span class="o">=</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">LINEAR</span>
     <span class="n">controls</span><span class="p">:</span> <span class="n">Array</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">cast</span><span class="p">(</span><span class="n">Array</span><span class="p">,</span> <span class="p">[]),</span> <span class="n">validate_default</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">)</span>
-    <span class="n">nan_color</span><span class="p">:</span> <span class="n">ColorValue</span> <span class="o">=</span> <span class="n">ColorValue</span><span class="p">(</span><span class="s1">&#39;transparent&#39;</span><span class="p">)</span>
+    <span class="n">nan_color</span><span class="p">:</span> <span class="n">ColorValue</span> <span class="o">=</span> <span class="n">ColorValue</span><span class="p">(</span><span class="s1">'transparent'</span><span class="p">)</span>
     <span class="n">high_color</span><span class="p">:</span> <span class="n">ColorValue</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">low_color</span><span class="p">:</span> <span class="n">ColorValue</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -921,43 +921,43 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">display_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">display_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">display_name</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;custom&#39;</span><span class="p">)</span>
+            <span class="n">display_name</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'custom'</span><span class="p">)</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span> <span class="o">=</span> <span class="n">display_name</span>
 
     <span class="c1"># controls validator must be called even if None for correct initialization</span>
-    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">&#39;controls&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;after&#39;</span><span class="p">)</span>
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">'controls'</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'after'</span><span class="p">)</span>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_check_controls</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
         <span class="c1"># If no control points provided generate defaults</span>
         <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">n_controls</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;colors&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span>
-                <span class="n">info</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;interpolation&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">ZERO</span>
+            <span class="n">n_controls</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'colors'</span><span class="p">])</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span>
+                <span class="n">info</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'interpolation'</span><span class="p">]</span> <span class="o">==</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">ZERO</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_controls</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
         <span class="c1"># Check control end points are correct</span>
         <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s1">&#39;Control points must start with 0.0 and end with 1.0. &#39;</span>
-                <span class="sa">f</span><span class="s1">&#39;Got </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> and </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="s1">'Control points must start with 0.0 and end with 1.0. '</span>
+                <span class="sa">f</span><span class="s1">'Got </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> and </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span>
             <span class="p">)</span>
 
         <span class="c1"># Check control points are sorted correctly</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">v</span><span class="p">)):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s1">&#39;Control points need to be sorted in ascending order&#39;</span>
+                <span class="s1">'Control points need to be sorted in ascending order'</span>
             <span class="p">)</span>
 
         <span class="c1"># Check number of control points is correct</span>
-        <span class="n">n_controls_target</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;colors&#39;</span><span class="p">,</span> <span class="p">[]))</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span>
-            <span class="n">info</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;interpolation&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">ZERO</span>
+        <span class="n">n_controls_target</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'colors'</span><span class="p">,</span> <span class="p">[]))</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">info</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'interpolation'</span><span class="p">]</span> <span class="o">==</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">ZERO</span>
         <span class="p">)</span>
         <span class="n">n_controls</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">n_controls</span> <span class="o">!=</span> <span class="n">n_controls_target</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;Wrong number of control points provided. Expected </span><span class="si">{</span><span class="n">n_controls_target</span><span class="si">}</span><span class="s1">, got </span><span class="si">{</span><span class="n">n_controls</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="sa">f</span><span class="s1">'Wrong number of control points provided. Expected </span><span class="si">{</span><span class="n">n_controls_target</span><span class="si">}</span><span class="s1">, got </span><span class="si">{</span><span class="n">n_controls</span><span class="si">}</span><span class="s1">'</span>
             <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">v</span>
@@ -978,13 +978,13 @@ window.runMermaid = runMermaid;</script>
             <span class="c1"># One color per bin</span>
             <span class="c1"># Colors beyond max clipped to final bin</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s1">'right'</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
                 <span class="mi">0</span><span class="p">,</span>
                 <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="n">indices</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unrecognized Colormap Interpolation Mode&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Unrecognized Colormap Interpolation Mode'</span><span class="p">)</span>
 
         <span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
         <span class="c1"># map NaNs, lows, and highs</span>
@@ -1000,7 +1000,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">colorbar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">make_colorbar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">same_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Colormap&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">same_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">'Colormap'</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">controls</span><span class="p">)</span>
             <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span>
@@ -1013,7 +1013,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">_RebuildableCache</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cache dict that is emptied on (deep)copy and rebuilt lazily.</span>
+<span class="w">    </span><span class="sd">"""Cache dict that is emptied on (deep)copy and rebuilt lazily.</span>
 
 <span class="sd">    ``DirectLabelColormap`` stores a numba ``typed.Dict`` here after a layer</span>
 <span class="sd">    has been rendered; that object holds an unpicklable</span>
@@ -1022,7 +1022,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    always safe -- it is recomputed on the next ``map`` call. Defending the</span>
 <span class="sd">    value itself keeps this independent of where pydantic stores private</span>
 <span class="sd">    attributes or which hook a copy routes through.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__deepcopy__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memo</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)()</span>
@@ -1060,7 +1060,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_data_to_texture</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map input values to values for send to GPU.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Map input values to values for send to GPU."""</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_cmap_without_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
@@ -1073,10 +1073,10 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_mapping_from_cache</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">data_dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;For given dtype, return precomputed array mapping values to colors.</span>
+<span class="w">        </span><span class="sd">"""For given dtype, return precomputed array mapping values to colors.</span>
 
 <span class="sd">        Returns None if the dtype itemsize is greater than 2.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">target_dtype</span> <span class="o">=</span> <span class="n">_texture_dtype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_unique_colors</span><span class="p">,</span> <span class="n">data_dtype</span><span class="p">)</span>
         <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_dtype</span><span class="p">,</span> <span class="n">target_dtype</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_mapping</span> <span class="ow">and</span> <span class="n">data_dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
@@ -1087,21 +1087,21 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_mapping</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_clear_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Mechanism to clean cached properties&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Mechanism to clean cached properties"""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cache_mapping</span> <span class="o">=</span> <span class="n">_RebuildableCache</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cache_other</span> <span class="o">=</span> <span class="n">_RebuildableCache</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_num_unique_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of unique colors, not counting transparent black.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Number of unique colors, not counting transparent black."""</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_map_without_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Function that maps values to colors without selection or cache&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Function that maps values to colors without selection or cache"""</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_selection_as_minimum_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Treat selection as given dtype and calculate value with min dtype.</span>
+<span class="w">        </span><span class="sd">"""Treat selection as given dtype and calculate value with min dtype.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1112,14 +1112,14 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        int</span>
 <span class="sd">            The selection converted.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_to_texture</span><span class="p">(</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">)))</span>
 
 
 <div class="viewcode-block" id="CyclicLabelColormap">
 <a class="viewcode-back" href="../../../../api/napari.utils.CyclicLabelColormap.html#napari.utils.CyclicLabelColormap">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CyclicLabelColormap</span><span class="p">(</span><span class="n">LabelColormapBase</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Color cycle with a background value.</span>
+<span class="w">    </span><span class="sd">"""Color cycle with a background value.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -1135,26 +1135,26 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    background_value : int</span>
 <span class="sd">        Which value should be treated as a background</span>
 <span class="sd">        and mapped to transparent color.</span>
-<span class="sd">    interpolation : Literal[&#39;zero&#39;]</span>
+<span class="sd">    interpolation : Literal['zero']</span>
 <span class="sd">        required by implementation, please do not set value</span>
 <span class="sd">    seed : float</span>
 <span class="sd">        seed used for random color generation. Used for reproducibility.</span>
 <span class="sd">        It will be removed in the future release.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">seed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
 
-    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">&#39;colors&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;after&#39;</span><span class="p">)</span>
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">'colors'</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'after'</span><span class="p">)</span>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_validate_color</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s1">&#39;Only up to 2**16=65535 colors are supported for LabelColormap&#39;</span>
+                <span class="s1">'Only up to 2**16=65535 colors are supported for LabelColormap'</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">v</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_background_as_minimum_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Treat background as given dtype and calculate value with min dtype.</span>
+<span class="w">        </span><span class="sd">"""Treat background as given dtype and calculate value with min dtype.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1165,7 +1165,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        int</span>
 <span class="sd">            The background converted.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_to_texture</span><span class="p">(</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">background_value</span><span class="p">)))</span>
 
     <span class="nd">@overload</span>
@@ -1177,7 +1177,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_data_to_texture</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map input values to values for send to GPU.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Map input values to values for send to GPU."""</span>
         <span class="k">return</span> <span class="n">_cast_labels_data_to_texture_dtype_auto</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_map_without_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -1194,7 +1194,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="CyclicLabelColormap.map">
 <a class="viewcode-back" href="../../../../api/napari.utils.CyclicLabelColormap.html#napari.utils.CyclicLabelColormap.map">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span> <span class="o">|</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map values to colors.</span>
+<span class="w">        </span><span class="sd">"""Map values to colors.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1206,11 +1206,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        np.ndarray of the same shape as values,</span>
 <span class="sd">            but with the last dimension of size 4</span>
 <span class="sd">            Mapped colors.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">original_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
         <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;f&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">'f'</span><span class="p">:</span>
             <span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
         <span class="n">mapper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_mapping_from_cache</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">mapper</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1226,13 +1226,13 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="CyclicLabelColormap.shuffle">
 <a class="viewcode-back" href="../../../../api/napari.utils.CyclicLabelColormap.html#napari.utils.CyclicLabelColormap.shuffle">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Shuffle the colormap colors.</span>
+<span class="w">        </span><span class="sd">"""Shuffle the colormap colors.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        seed : int</span>
 <span class="sd">            Seed for the random number generator.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">colors</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span></div>
 </div>
@@ -1241,16 +1241,16 @@ window.runMermaid = runMermaid;</script>
 
 <span class="n">LabelColormap</span> <span class="o">=</span> <span class="n">deprecated_class_name</span><span class="p">(</span>
     <span class="n">CyclicLabelColormap</span><span class="p">,</span>
-    <span class="s1">&#39;LabelColormap&#39;</span><span class="p">,</span>
-    <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.5.0&#39;</span><span class="p">,</span>
-    <span class="n">since_version</span><span class="o">=</span><span class="s1">&#39;0.4.19&#39;</span><span class="p">,</span>
+    <span class="s1">'LabelColormap'</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s1">'0.5.0'</span><span class="p">,</span>
+    <span class="n">since_version</span><span class="o">=</span><span class="s1">'0.4.19'</span><span class="p">,</span>
 <span class="p">)</span>
 
 
 <div class="viewcode-block" id="DirectLabelColormap">
 <a class="viewcode-back" href="../../../../api/napari.utils.DirectLabelColormap.html#napari.utils.DirectLabelColormap">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DirectLabelColormap</span><span class="p">(</span><span class="n">LabelColormapBase</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Colormap using a direct mapping from labels to color using a dict.</span>
+<span class="w">    </span><span class="sd">"""Colormap using a direct mapping from labels to color using a dict.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -1264,7 +1264,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        The selected label.</span>
 <span class="sd">    colors : ColorArray</span>
 <span class="sd">        Exist because of implementation details. Please do not use it.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">color_dict</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">[</span>
         <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
@@ -1274,22 +1274,22 @@ window.runMermaid = runMermaid;</script>
     <span class="n">selection</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="s1">&#39;colors&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;colors&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'colors'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'colors'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Overwrite from base class because .color is a dummy array.</span>
+<span class="w">        </span><span class="sd">"""Overwrite from base class because .color is a dummy array.</span>
 
 <span class="sd">        This returns the number of colors in the colormap, including</span>
 <span class="sd">        background and unmapped labels.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_unique_colors</span> <span class="o">+</span> <span class="mi">2</span>
 
-    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">&#39;color_dict&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;before&#39;</span><span class="p">)</span>
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">'color_dict'</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'before'</span><span class="p">)</span>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_validate_color_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">ValidationInfo</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ensure colors are RGBA arrays, not strings.</span>
+<span class="w">        </span><span class="sd">"""Ensure colors are RGBA arrays, not strings.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1307,24 +1307,24 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        res : (default)dict[int, np.ndarray[float]]</span>
 <span class="sd">            A properly-formatted dictionary mapping labels to RGBA arrays.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">defaultdict</span><span class="p">)</span> <span class="ow">and</span> <span class="kc">None</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
             <span class="n">warn</span><span class="p">(</span>
-                <span class="s1">&#39;color_dict did not provide a default color. &#39;</span>
-                <span class="s1">&#39;Missing keys will be transparent. &#39;</span>
-                <span class="s1">&#39;To provide a default color, use the key `None`, &#39;</span>
-                <span class="s1">&#39;or provide a defaultdict instance.&#39;</span>
+                <span class="s1">'color_dict did not provide a default color. '</span>
+                <span class="s1">'Missing keys will be transparent. '</span>
+                <span class="s1">'To provide a default color, use the key `None`, '</span>
+                <span class="s1">'or provide a defaultdict instance.'</span>
             <span class="p">)</span>
-            <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">v</span><span class="p">,</span> <span class="kc">None</span><span class="p">:</span> <span class="s1">&#39;transparent&#39;</span><span class="p">}</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">v</span><span class="p">,</span> <span class="kc">None</span><span class="p">:</span> <span class="s1">'transparent'</span><span class="p">}</span>
         <span class="n">res</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">label</span><span class="p">:</span> <span class="n">transform_color</span><span class="p">(</span><span class="n">color_str</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">color_str</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="p">(</span>
-            <span class="s1">&#39;background_value&#39;</span> <span class="ow">in</span> <span class="n">values</span><span class="o">.</span><span class="n">data</span>
-            <span class="ow">and</span> <span class="p">(</span><span class="n">bg</span> <span class="o">:=</span> <span class="n">values</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;background_value&#39;</span><span class="p">])</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">res</span>
+            <span class="s1">'background_value'</span> <span class="ow">in</span> <span class="n">values</span><span class="o">.</span><span class="n">data</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="n">bg</span> <span class="o">:=</span> <span class="n">values</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'background_value'</span><span class="p">])</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">res</span>
         <span class="p">):</span>
-            <span class="n">res</span><span class="p">[</span><span class="n">bg</span><span class="p">]</span> <span class="o">=</span> <span class="n">transform_color</span><span class="p">(</span><span class="s1">&#39;transparent&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">res</span><span class="p">[</span><span class="n">bg</span><span class="p">]</span> <span class="o">=</span> <span class="n">transform_color</span><span class="p">(</span><span class="s1">'transparent'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">defaultdict</span><span class="p">):</span>
             <span class="n">res</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">default_factory</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">res</span>
@@ -1345,13 +1345,13 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_data_to_texture</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map input values to values for send to GPU.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Map input values to values for send to GPU."""</span>
         <span class="k">return</span> <span class="n">_cast_labels_data_to_texture_dtype_direct</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DirectLabelColormap.map">
 <a class="viewcode-back" href="../../../../api/napari.utils.DirectLabelColormap.html#napari.utils.DirectLabelColormap.map">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span> <span class="o">|</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map values to colors.</span>
+<span class="w">        </span><span class="sd">"""Map values to colors.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1362,7 +1362,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray of same shape as values, but with last dimension of size 4</span>
 <span class="sd">            Mapped colors.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
             <span class="n">values</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
@@ -1371,8 +1371,8 @@ window.runMermaid = runMermaid;</script>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_color</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="nb">list</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">):</span>
             <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">or</span> <span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="ow">in</span> <span class="s1">&#39;fU&#39;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;DirectLabelColormap can only be used with int&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">or</span> <span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="ow">in</span> <span class="s1">'fU'</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'DirectLabelColormap can only be used with int'</span><span class="p">)</span>
         <span class="n">mapper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_mapping_from_cache</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">mapper</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">mapped</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">[</span><span class="n">values</span><span class="p">]</span>
@@ -1393,7 +1393,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_precast</span><span class="p">(</span><span class="n">cast</span><span class="p">,</span> <span class="n">apply_selection</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_map_precast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">apply_selection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map values to colors.</span>
+<span class="w">        </span><span class="sd">"""Map values to colors.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1410,7 +1410,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -----</span>
 <span class="sd">        it is implemented for thumbnail labels,</span>
 <span class="sd">        where we already have cast values</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">mapped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="n">colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_values_mapping_to_minimum_values_set</span><span class="p">(</span><span class="n">apply_selection</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
@@ -1420,26 +1420,26 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@cached_property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_num_unique_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Count the number of unique colors in the colormap.</span>
+<span class="w">        </span><span class="sd">"""Count the number of unique colors in the colormap.</span>
 
 <span class="sd">        This number does not include background or the default color for</span>
 <span class="sd">        unmapped labels.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">({</span><span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()})</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_clear_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_clear_cache</span><span class="p">()</span>
-        <span class="k">if</span> <span class="s1">&#39;_num_unique_colors&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
-            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;_num_unique_colors&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="s1">&#39;_label_mapping_and_color_dict&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
-            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;_label_mapping_and_color_dict&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="s1">&#39;_array_map&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
-            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;_array_map&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">'_num_unique_colors'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">'_num_unique_colors'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">'_label_mapping_and_color_dict'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">'_label_mapping_and_color_dict'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">'_array_map'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">'_array_map'</span><span class="p">]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_values_mapping_to_minimum_values_set</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">apply_selection</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create mapping from original values to minimum values set.</span>
+<span class="w">        </span><span class="sd">"""Create mapping from original values to minimum values set.</span>
 <span class="sd">        To use minimum possible dtype for labels.</span>
 
 <span class="sd">        Returns</span>
@@ -1449,7 +1449,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Dict[int, np.ndarray]</span>
 <span class="sd">            Mapping from new values to colors.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_selection</span> <span class="ow">and</span> <span class="n">apply_selection</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span>
                 <span class="mi">0</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
@@ -1489,8 +1489,8 @@ window.runMermaid = runMermaid;</script>
 
         <span class="k">return</span> <span class="n">labels_to_new_labels</span><span class="p">,</span> <span class="n">new_color_dict</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_get_typed_dict_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;typed.Dict&#39;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create mapping from label values to texture values of smaller dtype.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_typed_dict_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'typed.Dict'</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create mapping from label values to texture values of smaller dtype.</span>
 
 <span class="sd">        In https://github.com/napari/napari/issues/6397, we noticed that using</span>
 <span class="sd">        float32 textures was much slower than uint8 or uint16 textures. When</span>
@@ -1507,11 +1507,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        Dict[Optional[int], int]</span>
 <span class="sd">            Mapping from original values to minimal texture value set.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="c1"># we cache the result to avoid recomputing it on each slice;</span>
-        <span class="c1"># check first if it&#39;s already in the cache.</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">data_dtype</span><span class="si">}</span><span class="s1">_typed_dict&#39;</span>
+        <span class="c1"># check first if it's already in the cache.</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">data_dtype</span><span class="si">}</span><span class="s1">_typed_dict'</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_other</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_other</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
@@ -1539,7 +1539,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@cached_property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_array_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an array to map labels to texture values of smaller dtype.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Create an array to map labels to texture values of smaller dtype."""</span>
 
         <span class="n">max_value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
             <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_dict</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span>
@@ -1548,8 +1548,8 @@ window.runMermaid = runMermaid;</script>
             <span class="n">max_value</span> <span class="o">*=</span> <span class="mi">2</span>
         <span class="k">if</span> <span class="n">max_value</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>  <span class="c1"># pragma: no cover</span>
-                <span class="s1">&#39;Cannot use numpy implementation for large values of labels &#39;</span>
-                <span class="s1">&#39;direct colormap. Please install numba.&#39;</span>
+                <span class="s1">'Cannot use numpy implementation for large values of labels '</span>
+                <span class="s1">'direct colormap. Please install numba.'</span>
             <span class="p">)</span>
         <span class="n">dtype</span> <span class="o">=</span> <span class="n">_accel_cmap</span><span class="o">.</span><span class="n">minimum_dtype_for_labels</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_num_unique_colors</span> <span class="o">+</span> <span class="mi">2</span>
@@ -1592,7 +1592,7 @@ window.runMermaid = runMermaid;</script>
 <span class="k">def</span><span class="w"> </span><span class="nf">_convert_small_ints_to_unsigned</span><span class="p">(</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert (u)int8 to uint8 and (u)int16 to uint16.</span>
+<span class="w">    </span><span class="sd">"""Convert (u)int8 to uint8 and (u)int16 to uint16.</span>
 
 <span class="sd">    Otherwise, return the original array.</span>
 
@@ -1605,7 +1605,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray | np.integer</span>
 <span class="sd">        Converted data.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="c1"># for fast rendering of int8</span>
         <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
@@ -1633,7 +1633,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">,</span>
     <span class="n">colormap</span><span class="p">:</span> <span class="n">CyclicLabelColormap</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert labels data to the data type used in the texture.</span>
+<span class="w">    </span><span class="sd">"""Convert labels data to the data type used in the texture.</span>
 
 <span class="sd">    In https://github.com/napari/napari/issues/6397, we noticed that using</span>
 <span class="sd">    float32 textures was much slower than uint8 or uint16 textures. Here we</span>
@@ -1659,7 +1659,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray | np.integer</span>
 <span class="sd">        Converted labels data.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">original_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_convert_small_ints_to_unsigned</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -1705,7 +1705,7 @@ window.runMermaid = runMermaid;</script>
 <span class="k">def</span><span class="w"> </span><span class="nf">_cast_labels_data_to_texture_dtype_direct</span><span class="p">(</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">,</span> <span class="n">direct_colormap</span><span class="p">:</span> <span class="n">DirectLabelColormap</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert labels data to the data type used in the texture.</span>
+<span class="w">    </span><span class="sd">"""Convert labels data to the data type used in the texture.</span>
 
 <span class="sd">    In https://github.com/napari/napari/issues/6397, we noticed that using</span>
 <span class="sd">    float32 textures was much slower than uint8 or uint16 textures. Here we</span>
@@ -1717,7 +1717,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    - higher precision integer data (u)int{32,64} are mapped to an intermediate</span>
 <span class="sd">      space of sequential values based on the colors they map to. As an</span>
 <span class="sd">      example, if the values are [1, 2**25, and 2**50], and the direct</span>
-<span class="sd">      colormap maps them to [&#39;red&#39;, &#39;green&#39;, &#39;red&#39;], then the intermediate map</span>
+<span class="sd">      colormap maps them to ['red', 'green', 'red'], then the intermediate map</span>
 <span class="sd">      is {1: 1, 2**25: 2, 2**50: 1}. The labels can then be converted to a</span>
 <span class="sd">      uint8 texture and a smaller direct colormap with only two values.</span>
 
@@ -1735,7 +1735,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray | np.integer</span>
 <span class="sd">        Converted labels data.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">_convert_small_ints_to_unsigned</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
@@ -1759,13 +1759,13 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_texture_dtype</span><span class="p">(</span><span class="n">num_colors</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute VisPy texture dtype given number of colors and raw data dtype.</span>
+<span class="w">    </span><span class="sd">"""Compute VisPy texture dtype given number of colors and raw data dtype.</span>
 
 <span class="sd">    - for data of type int8 and uint8 we can use uint8 directly, with no copy.</span>
 <span class="sd">    - for int16 and uint16 we can use uint16 with no copy.</span>
 <span class="sd">    - for any other dtype, we fall back on `minimum_dtype_for_labels`, which</span>
 <span class="sd">      will require on-CPU mapping between the raw data and the texture dtype.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
@@ -1776,7 +1776,7 @@ window.runMermaid = runMermaid;</script>
 <span class="k">def</span><span class="w"> </span><span class="nf">_normalize_label_colormap</span><span class="p">(</span>
     <span class="n">any_colormap_like</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CyclicLabelColormap</span> <span class="o">|</span> <span class="n">DirectLabelColormap</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience function to convert color containers to LabelColormaps.</span>
+<span class="w">    </span><span class="sd">"""Convenience function to convert color containers to LabelColormaps.</span>
 
 <span class="sd">    A list of colors or 2D nparray of colors is interpreted as a color cycle</span>
 <span class="sd">    (`CyclicLabelColormap`), and a mapping of colors is interpreted as a direct</span>
@@ -1792,7 +1792,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    CyclicLabelColormap | DirectLabelColormap</span>
 <span class="sd">        The computed LabelColormap object.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
         <span class="n">any_colormap_like</span><span class="p">,</span> <span class="n">CyclicLabelColormap</span> <span class="o">|</span> <span class="n">DirectLabelColormap</span>
     <span class="p">):</span>
@@ -1808,7 +1808,7 @@ window.runMermaid = runMermaid;</script>
     <span class="p">):</span>
         <span class="k">return</span> <span class="n">CyclicLabelColormap</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="n">any_colormap_like</span><span class="p">)</span>
     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s1">&#39;Unable to interpret as labels colormap: </span><span class="si">{</span><span class="n">any_colormap_like</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="sa">f</span><span class="s1">'Unable to interpret as labels colormap: </span><span class="si">{</span><span class="n">any_colormap_like</span><span class="si">}</span><span class="s1">'</span>
     <span class="p">)</span>
 </pre></div>
 

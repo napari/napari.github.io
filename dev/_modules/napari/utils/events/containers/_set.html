@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../../../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -838,7 +838,7 @@ window.runMermaid = runMermaid;</script>
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">GetCoreSchemaHandler</span>
 
-<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;_T&#39;</span><span class="p">)</span>
+<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'_T'</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">sequence_like</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -848,7 +848,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="EventedSet">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">EventedSet</span><span class="p">(</span><span class="n">MutableSet</span><span class="p">[</span><span class="n">_T</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An unordered collection of unique elements.</span>
+<span class="w">    </span><span class="sd">"""An unordered collection of unique elements.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -860,14 +860,14 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    changed (added: Set[_T], removed: Set[_T])</span>
 <span class="sd">        Emitted when the set changes, includes item(s) that have been added</span>
 <span class="sd">        and/or removed from the set.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">events</span><span class="p">:</span> <span class="n">EmitterGroup</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">changed</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1"># For inheritance: If the mro already provides an EmitterGroup, add...</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;events&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="n">EmitterGroup</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'events'</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="n">EmitterGroup</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">changed</span><span class="o">=</span><span class="n">changed</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># otherwise create a new one</span>
@@ -906,7 +906,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="EventedSet.add">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.add">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add an element to the set, if not already present.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Add an element to the set, if not already present."""</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pre_add_hook</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -916,10 +916,10 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="EventedSet.discard">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.discard">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove an element from a set if it is a member.</span>
+<span class="w">        </span><span class="sd">"""Remove an element from a set if it is a member.</span>
 
 <span class="sd">        If the element is not a member, do nothing.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_emit_change</span><span class="p">(</span><span class="n">added</span><span class="o">=</span><span class="nb">set</span><span class="p">(),</span> <span class="n">removed</span><span class="o">=</span><span class="p">{</span><span class="n">value</span><span class="p">})</span></div>
@@ -946,12 +946,12 @@ window.runMermaid = runMermaid;</script>
 
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="si">!r}</span><span class="s1">)&#39;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="si">!r}</span><span class="s1">)'</span>
 
 <div class="viewcode-block" id="EventedSet.update">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.update">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update this set with the union of this set and others&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update this set with the union of this set and others"""</span>
         <span class="n">to_add</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">others</span><span class="p">)</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">to_add</span><span class="p">:</span>
             <span class="n">to_add</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_pre_add_hook</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">to_add</span><span class="p">}</span>
@@ -962,21 +962,21 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="EventedSet.copy">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.copy">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EventedSet</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a shallow copy of this set.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Return a shallow copy of this set."""</span>
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="EventedSet.difference">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.difference">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">difference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="n">EventedSet</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return set of all elements that are in this set but not other.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Return set of all elements that are in this set but not other."""</span>
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">others</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="EventedSet.difference_update">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.difference_update">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">difference_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove all elements of another set from this set.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Remove all elements of another set from this set."""</span>
         <span class="n">to_remove</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">others</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">to_remove</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">difference_update</span><span class="p">(</span><span class="n">to_remove</span><span class="p">)</span>
@@ -986,46 +986,46 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="EventedSet.intersection">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.intersection">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="n">EventedSet</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return all elements that are in both sets as a new set.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Return all elements that are in both sets as a new set."""</span>
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">others</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="EventedSet.intersection_update">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.intersection_update">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">intersection_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove all elements of in this set that are not present in other.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Remove all elements of in this set that are not present in other."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">difference_update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">others</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="EventedSet.issubset">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.issubset">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">issubset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns whether another set contains this set or not&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Returns whether another set contains this set or not"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">others</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="EventedSet.issuperset">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.issuperset">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">issuperset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns whether this set contains another set or not&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Returns whether this set contains another set or not"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">issuperset</span><span class="p">(</span><span class="n">others</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="EventedSet.symmetric_difference">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.symmetric_difference">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">symmetric_difference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">EventedSet</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns set of elements that are in exactly one of the sets&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Returns set of elements that are in exactly one of the sets"""</span>
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">others</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="EventedSet.symmetric_difference_update">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.symmetric_difference_update">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">symmetric_difference_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update set to the symmetric difference of itself and another.</span>
+<span class="w">        </span><span class="sd">"""Update set to the symmetric difference of itself and another.</span>
 
 <span class="sd">        This will remove any items in this set that are also in `other`, and</span>
 <span class="sd">        add any items in others that are not present in this set.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">to_add</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">others</span><span class="p">)</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="p">)</span>
         <span class="n">to_remove</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">others</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">difference_update</span><span class="p">(</span><span class="n">to_remove</span><span class="p">)</span>
@@ -1036,7 +1036,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="EventedSet.union">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.union">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="n">EventedSet</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a set containing the union of sets&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Return a set containing the union of sets"""</span>
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">others</span><span class="p">))</span></div>
 
 
@@ -1058,7 +1058,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">core_schema</span><span class="o">.</span><span class="n">union_schema</span><span class="p">([</span><span class="n">instance_schema</span><span class="p">,</span> <span class="n">non_instance_schema</span><span class="p">])</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_json_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an object that can be used by json.dumps.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Return an object that can be used by json.dumps."""</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 </pre></div>

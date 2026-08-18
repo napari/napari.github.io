@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -603,7 +603,7 @@ in your base dependencies.</p></li>
 <li><p>You can include an optional <code class="docutils literal notranslate"><span class="pre">all</span></code> dependency on <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code> to mimic the simple,
 command line installation in a fresh environment. In <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> this would be:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">project</span><span class="o">.</span><span class="n">optional</span><span class="o">-</span><span class="n">dependencies</span><span class="p">]</span>
-<span class="nb">all</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;napari[all]&quot;</span><span class="p">]</span>
+<span class="nb">all</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"napari[all]"</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>And then your plugin could be installed with napari and the default Qt backend using:</p>
@@ -699,7 +699,7 @@ clause:</p>
 
 
 <span class="nd">@magicgui</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">my_func</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">my_func</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="s1">'napari.types.ImageData'</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'napari.types.ImageData'</span><span class="p">:</span> <span class="o">...</span>
 </pre></div>
 </div>
 <p>This will not require napari at runtime, but if it is installed in your
@@ -717,13 +717,13 @@ state.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># my_plugin/module.py</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 
-<span class="n">data_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;some_data_in_my_plugin.json&quot;</span><span class="p">)</span>
+<span class="n">data_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"some_data_in_my_plugin.json"</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Instead, make sure to close your resource after grabbing the data (ideally by
 using a context manager, but manually otherwise):</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;some_data_in_my_plugin.json&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">data_file</span><span class="p">:</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"some_data_in_my_plugin.json"</span><span class="p">)</span> <span class="k">as</span> <span class="n">data_file</span><span class="p">:</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -772,13 +772,13 @@ already docked in the viewer.</p>
 <span class="k">class</span><span class="w"> </span><span class="nc">MyInputDialog</span><span class="p">(</span><span class="n">QDialog</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">QWidget</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;My Input Dialog&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">'My Input Dialog'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">QSpinBox</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ok_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;OK&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Cancel&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ok_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">'OK'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">'Cancel'</span><span class="p">)</span>
 
         <span class="n">layout</span> <span class="o">=</span> <span class="n">QGridLayout</span><span class="p">()</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Number:&#39;</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">'Number:'</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ok_btn</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -789,10 +789,10 @@ already docked in the viewer.</p>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">MyWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;napari.Viewer&#39;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">'napari.Viewer'</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span> <span class="o">=</span> <span class="n">viewer</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">open_dialog</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Open dialog&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_dialog</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">'Open dialog'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">open_dialog</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_dialog_clicked</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">open_dialog_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -880,7 +880,7 @@ the napari plugin template. Howevever, if that’s unfeasible, you can fix this 
 <span class="o">...</span>
 <span class="n">setup</span><span class="p">(</span>
     <span class="o">...</span>
-    <span class="n">packages</span><span class="o">=</span><span class="n">find_packages</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;tests&quot;</span><span class="p">,</span> <span class="s2">&quot;tests.*&quot;</span><span class="p">)),</span>
+    <span class="n">packages</span><span class="o">=</span><span class="n">find_packages</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">(</span><span class="s2">"tests"</span><span class="p">,</span> <span class="s2">"tests.*"</span><span class="p">)),</span>
     <span class="o">...</span>
 <span class="p">)</span>
 </pre></div>

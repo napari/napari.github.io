@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=d655cf8c"></script>
+    <script src="../../../../_static/documentation_options.js?v=7bb2284f"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -841,7 +841,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Tracks">
 <a class="viewcode-back" href="../../../../api/napari.layers.Tracks.html#napari.layers.Tracks">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Tracks</span><span class="p">(</span><span class="n">Layer</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tracks layer.</span>
+<span class="w">    </span><span class="sd">"""Tracks layer.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -857,11 +857,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        provided scale, rotate, and shear values.</span>
 <span class="sd">    axis_labels : tuple of str, optional</span>
 <span class="sd">        Dimension names of the layer data.</span>
-<span class="sd">        If not provided, axis_labels will be set to (..., &#39;-2&#39;, &#39;-1&#39;).</span>
+<span class="sd">        If not provided, axis_labels will be set to (..., '-2', '-1').</span>
 <span class="sd">    blending : str</span>
 <span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
 <span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
-<span class="sd">        {&#39;opaque&#39;, &#39;translucent&#39;, and &#39;additive&#39;}.</span>
+<span class="sd">        {'opaque', 'translucent', and 'additive'}.</span>
 <span class="sd">    cache : bool</span>
 <span class="sd">        Whether slices of out-of-core datasets should be cached upon retrieval.</span>
 <span class="sd">        Currently, this only applies to dask arrays.</span>
@@ -877,7 +877,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        rather than having a global colormap for everything.</span>
 <span class="sd">    experimental_clipping_planes : list of dicts, list of ClippingPlane, or ClippingPlaneList</span>
 <span class="sd">        Each dict defines a clipping plane in 3D in data coordinates.</span>
-<span class="sd">        Valid dictionary keys are {&#39;position&#39;, &#39;normal&#39;, and &#39;enabled&#39;}.</span>
+<span class="sd">        Valid dictionary keys are {'position', 'normal', and 'enabled'}.</span>
 <span class="sd">        Values on the negative side of the normal are discarded if the plane is enabled.</span>
 <span class="sd">    features : Dataframe-like</span>
 <span class="sd">        Features table where each row corresponds to a point and each column</span>
@@ -928,12 +928,12 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        If not provided, the default units are assumed to be pixels.</span>
 <span class="sd">    visible : bool</span>
 <span class="sd">        Whether the layer visual is currently being displayed.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># The max number of tracks that will ever be used to render the thumbnail</span>
     <span class="c1"># If more tracks are present then they are randomly subsampled</span>
     <span class="n">_max_tracks_thumbnail</span> <span class="o">=</span> <span class="mi">1024</span>
-    <span class="n">_slicing_state</span><span class="p">:</span> <span class="s1">&#39;_TracksSlicingState&#39;</span>
+    <span class="n">_slicing_state</span><span class="p">:</span> <span class="s1">'_TracksSlicingState'</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -941,10 +941,10 @@ window.runMermaid = runMermaid;</script>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">axis_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">blending</span><span class="o">=</span><span class="s1">&#39;additive&#39;</span><span class="p">,</span>
+        <span class="n">blending</span><span class="o">=</span><span class="s1">'additive'</span><span class="p">,</span>
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">color_by</span><span class="o">=</span><span class="s1">&#39;track_id&#39;</span><span class="p">,</span>
-        <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">,</span>
+        <span class="n">color_by</span><span class="o">=</span><span class="s1">'track_id'</span><span class="p">,</span>
+        <span class="n">colormap</span><span class="o">=</span><span class="s1">'turbo'</span><span class="p">,</span>
         <span class="n">colormaps_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -954,7 +954,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-        <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+        <span class="n">projection_mode</span><span class="o">=</span><span class="s1">'none'</span><span class="p">,</span>
         <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1012,7 +1012,7 @@ window.runMermaid = runMermaid;</script>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_track_colors</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_colormaps_dict</span> <span class="o">=</span> <span class="n">colormaps_dict</span> <span class="ow">or</span> <span class="p">{}</span>  <span class="c1"># additional colormaps</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_color_by</span> <span class="o">=</span> <span class="s1">&#39;track_id&#39;</span>  <span class="c1"># default color by ID</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_color_by</span> <span class="o">=</span> <span class="s1">'track_id'</span>  <span class="c1"># default color by ID</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span> <span class="o">=</span> <span class="n">colormap</span>
 
         <span class="c1"># use this to update shaders when the displayed dims change</span>
@@ -1052,12 +1052,12 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_extent_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layer in data coordinates.</span>
+<span class="w">        </span><span class="sd">"""Extent of layer in data coordinates.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        extent_data : array, shape (2, D)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">extrema</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1067,31 +1067,31 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">extrema</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine number of dimensions of the layer.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Determine number of dimensions of the layer."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">ndim</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get dictionary of layer state.</span>
+<span class="w">        </span><span class="sd">"""Get dictionary of layer state.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        state : dict of str to Any</span>
 <span class="sd">            Dictionary of layer state.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_base_state</span><span class="p">()</span>
         <span class="n">state</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="p">{</span>
-                <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-                <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
-                <span class="s1">&#39;graph&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span>
-                <span class="s1">&#39;color_by&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_by</span><span class="p">,</span>
-                <span class="s1">&#39;colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="p">,</span>
-                <span class="s1">&#39;colormaps_dict&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormaps_dict</span><span class="p">,</span>
-                <span class="s1">&#39;tail_width&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tail_width</span><span class="p">,</span>
-                <span class="s1">&#39;tail_length&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tail_length</span><span class="p">,</span>
-                <span class="s1">&#39;head_length&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_length</span><span class="p">,</span>
-                <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">,</span>
-                <span class="s1">&#39;hide_completed_tracks&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">hide_completed_tracks</span><span class="p">,</span>
+                <span class="s1">'data'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                <span class="s1">'properties'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
+                <span class="s1">'graph'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span>
+                <span class="s1">'color_by'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_by</span><span class="p">,</span>
+                <span class="s1">'colormap'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="p">,</span>
+                <span class="s1">'colormaps_dict'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormaps_dict</span><span class="p">,</span>
+                <span class="s1">'tail_width'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tail_width</span><span class="p">,</span>
+                <span class="s1">'tail_length'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tail_length</span><span class="p">,</span>
+                <span class="s1">'head_length'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_length</span><span class="p">,</span>
+                <span class="s1">'features'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">,</span>
+                <span class="s1">'hide_completed_tracks'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">hide_completed_tracks</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span>
@@ -1100,7 +1100,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Value of the data at a position in data coordinates.</span>
+<span class="w">        </span><span class="sd">"""Value of the data at a position in data coordinates.</span>
 
 <span class="sd">        Use a kd-tree to lookup the ID of the nearest tree.</span>
 
@@ -1113,14 +1113,14 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        value : int or None</span>
 <span class="sd">            Index of track that is at the current coordinate if any.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">position</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update thumbnail with current points and colors.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update thumbnail with current points and colors."""</span>
         <span class="n">colormapped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">)</span>
         <span class="n">colormapped</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 
@@ -1168,17 +1168,17 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_view_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;return a view of the data&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""return a view of the data"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_view_data</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_view_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;return a view of the graph&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""return a view of the graph"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_view_graph</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">current_time</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;current time according to the first dimension&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""current time according to the first dimension"""</span>
         <span class="c1"># TODO(arl): get the correct index here</span>
         <span class="n">time_step</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span><span class="o">.</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -1191,18 +1191,18 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">use_fade</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;toggle whether we fade the tail of the track, depending on whether</span>
-<span class="sd">        the time dimension is displayed&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""toggle whether we fade the tail of the track, depending on whether</span>
+<span class="sd">        the time dimension is displayed"""</span>
         <span class="k">return</span> <span class="mi">0</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;array (N, D+1): Coordinates for N points in D+1 dimensions.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""array (N, D+1): Coordinates for N points in D+1 dimensions."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">data</span>
 
     <span class="nd">@data</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;set the data and build the vispy arrays for display&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""set the data and build the vispy arrays for display"""</span>
         <span class="c1"># set the data and build the tracks</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">build_tracks</span><span class="p">()</span>
@@ -1223,8 +1223,8 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reset_editable</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">features</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;pd.DataFrame&#39;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dataframe-like features table.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">features</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'pd.DataFrame'</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Dataframe-like features table.</span>
 
 <span class="sd">        It is an implementation detail that this is a `pandas.DataFrame`. In the future,</span>
 <span class="sd">        we will target the currently-in-development Data API dataframe protocol [1].</span>
@@ -1237,13 +1237,13 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        References</span>
 <span class="sd">        ----------</span>
 <span class="sd">        .. [1]: https://data-apis.org/dataframe-protocol/latest/API.html</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">features</span>
 
     <span class="nd">@features</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">features</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">features</span><span class="p">:</span> <span class="s1">&#39;dict[str, np.ndarray] | pd.DataFrame&#39;</span><span class="p">,</span>
+        <span class="n">features</span><span class="p">:</span> <span class="s1">'dict[str, np.ndarray] | pd.DataFrame'</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">features</span> <span class="o">=</span> <span class="n">features</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_color_by_in_features</span><span class="p">()</span>
@@ -1251,28 +1251,28 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;dict {str: np.ndarray (N,)}: Properties for each track.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""dict {str: np.ndarray (N,)}: Properties for each track."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">properties</span>
 
     <span class="nd">@properties</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;set track properties&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""set track properties"""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">features</span> <span class="o">=</span> <span class="n">properties</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">properties_to_color_by</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;track properties that can be used for coloring etc...&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""track properties that can be used for coloring etc..."""</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">graph</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;dict {int: list}: Graph representing associations between tracks.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""dict {int: list}: Graph representing associations between tracks."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">graph</span>
 
     <span class="nd">@graph</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the track graph.&quot;&quot;&quot;</span>
-        <span class="c1"># Ignored type, because mypy can&#39;t handle different signatures</span>
+<span class="w">        </span><span class="sd">"""Set the track graph."""</span>
+        <span class="c1"># Ignored type, because mypy can't handle different signatures</span>
         <span class="c1"># on getters and setters; see https://github.com/python/mypy/issues/3004</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">build_graph</span><span class="p">()</span>
@@ -1280,7 +1280,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">tail_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;float: Width for all vectors in pixels.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""float: Width for all vectors in pixels."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail_width</span>
 
     <span class="nd">@tail_width</span><span class="o">.</span><span class="n">setter</span>
@@ -1290,9 +1290,9 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">hide_completed_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: If True, tracks that have completed before the current time</span>
+<span class="w">        </span><span class="sd">"""bool: If True, tracks that have completed before the current time</span>
 <span class="sd">        point are not displayed, regardless of the value of `tail_length`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hide_completed_tracks</span>
 
     <span class="nd">@hide_completed_tracks</span><span class="o">.</span><span class="n">setter</span>
@@ -1302,7 +1302,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">tail_length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;float: Width for all vectors in pixels.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""float: Width for all vectors in pixels."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail_length</span>
 
     <span class="nd">@tail_length</span><span class="o">.</span><span class="n">setter</span>
@@ -1325,7 +1325,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">display_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;display the track id&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""display the track id"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_id</span>
 
     <span class="nd">@display_id</span><span class="o">.</span><span class="n">setter</span>
@@ -1338,7 +1338,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">display_tail</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;display the track tail&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""display the track tail"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_tail</span>
 
     <span class="nd">@display_tail</span><span class="o">.</span><span class="n">setter</span>
@@ -1348,7 +1348,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">display_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;display the graph edges&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""display the graph edges"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_graph</span>
 
     <span class="nd">@display_graph</span><span class="o">.</span><span class="n">setter</span>
@@ -1362,9 +1362,9 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@color_by</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">color_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_by</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;set the property to color vertices by&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""set the property to color vertices by"""</span>
         <span class="k">if</span> <span class="n">color_by</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties_to_color_by</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">color_by</span><span class="si">}</span><span class="s1"> is not a valid property key&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">color_by</span><span class="si">}</span><span class="s1"> is not a valid property key'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_color_by</span> <span class="o">=</span> <span class="n">color_by</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_recolor_tracks</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">color_by</span><span class="p">()</span>
@@ -1375,9 +1375,9 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@colormap</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colormap</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;set the default colormap&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""set the default colormap"""</span>
         <span class="k">if</span> <span class="n">colormap</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">AVAILABLE_COLORMAPS</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Colormap </span><span class="si">{</span><span class="n">colormap</span><span class="si">}</span><span class="s1"> not available&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Colormap </span><span class="si">{</span><span class="n">colormap</span><span class="si">}</span><span class="s1"> not available'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span> <span class="o">=</span> <span class="n">colormap</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_recolor_tracks</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">colormap</span><span class="p">()</span>
@@ -1392,13 +1392,13 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_colormaps_dict</span> <span class="o">=</span> <span class="n">colormaps_dict</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_recolor_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;recolor the tracks&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""recolor the tracks"""</span>
 
         <span class="c1"># this catch prevents a problem coloring the tracks if the data is</span>
         <span class="c1"># updated before the properties are. properties should always contain</span>
         <span class="c1"># a track_id key</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_by</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties_to_color_by</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_color_by</span> <span class="o">=</span> <span class="s1">&#39;track_id&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_color_by</span> <span class="o">=</span> <span class="s1">'track_id'</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">color_by</span><span class="p">()</span>
 
         <span class="c1"># if we change the coloring, rebuild the vertex colors array</span>
@@ -1410,7 +1410,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_by</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormaps_dict</span><span class="p">:</span>
             <span class="n">colormap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormaps_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">color_by</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># if we don&#39;t have a colormap, get one and scale the properties</span>
+            <span class="c1"># if we don't have a colormap, get one and scale the properties</span>
             <span class="n">colormap</span> <span class="o">=</span> <span class="n">AVAILABLE_COLORMAPS</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="p">]</span>
             <span class="n">vertex_properties</span> <span class="o">=</span> <span class="n">_norm</span><span class="p">(</span><span class="n">vertex_properties</span><span class="p">)</span>
 
@@ -1419,7 +1419,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">track_connex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;vertex connections for drawing track lines&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""vertex connections for drawing track lines"""</span>
         <span class="c1"># Update manager state before getting track_connex</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">hide_completed_tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hide_completed_tracks</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">current_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_time</span>
@@ -1427,12 +1427,12 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">track_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return current vertex colors.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Return current vertex colors."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_track_colors</span>
 
     <span class="nd">@track_colors</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">track_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colors</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set vertex colors directly and emit corresponding event.</span>
+<span class="w">        </span><span class="sd">"""Set vertex colors directly and emit corresponding event.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1442,28 +1442,28 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            then by timepoint, so the color ordering must match this order,</span>
 <span class="sd">            which may not be the input order. Use `Tracks.data` to find the</span>
 <span class="sd">            current sorted data.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_track_colors</span> <span class="o">=</span> <span class="n">colors</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">color_by</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">graph_connex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;vertex connections for drawing the graph&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""vertex connections for drawing the graph"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">graph_connex</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">track_times</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;time points associated with each track vertex&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""time points associated with each track vertex"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">track_times</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">graph_times</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;time points associated with each graph vertex&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""time points associated with each graph vertex"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">graph_times</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">track_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;return track labels at the current time&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""return track labels at the current time"""</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">labels</span><span class="p">,</span> <span class="n">positions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">track_labels</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_time</span><span class="p">)</span>
 
@@ -1477,15 +1477,15 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_check_color_by_in_features</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_by</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
             <span class="n">warn</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;Previous color_by key </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color_by</span><span class="si">!r}</span><span class="s1"> not present in features. Falling back to track_id&#39;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s1">'Previous color_by key </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color_by</span><span class="si">!r}</span><span class="s1"> not present in features. Falling back to track_id'</span><span class="p">,</span>
                 <span class="ne">UserWarning</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_color_by</span> <span class="o">=</span> <span class="s1">&#39;track_id&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_color_by</span> <span class="o">=</span> <span class="s1">'track_id'</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">color_by</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_layer_slicing_state</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LayerDataType</span><span class="p">,</span> <span class="n">cache</span><span class="p">:</span> <span class="nb">bool</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;_TracksSlicingState&#39;</span><span class="p">:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'_TracksSlicingState'</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_TracksSlicingState</span><span class="p">(</span><span class="n">layer</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">)</span></div>
 
 
@@ -1498,7 +1498,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_displayed_dims</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the view given the indices to slice with.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Sets the view given the indices to slice with."""</span>
 
         <span class="c1"># if the displayed dims have changed, update the shader data</span>
         <span class="n">dims_displayed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span>
@@ -1509,27 +1509,27 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">slice_done</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_pad_display_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertices</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;pad display data when moving between 2d and 3d&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""pad display data when moving between 2d and 3d"""</span>
         <span class="k">if</span> <span class="n">vertices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
         <span class="n">data</span> <span class="o">=</span> <span class="n">vertices</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
-        <span class="c1"># if we&#39;re only displaying two dimensions, then pad the display dim</span>
+        <span class="c1"># if we're only displaying two dimensions, then pad the display dim</span>
         <span class="c1"># with zeros</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="s1">&#39;constant&#39;</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="s1">'constant'</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">data</span><span class="p">[:,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>  <span class="c1"># y, x, z -&gt; x, y, z</span>
 
         <span class="k">return</span> <span class="n">data</span><span class="p">[:,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>  <span class="c1"># z, y, x -&gt; x, y, z</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_view_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;return a view of the data&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""return a view of the data"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pad_display_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">track_vertices</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_view_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;return a view of the graph&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""return a view of the graph"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pad_display_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">graph_vertices</span><span class="p">)</span>
 </pre></div>
 

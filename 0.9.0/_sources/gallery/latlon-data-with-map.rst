@@ -19,7 +19,7 @@ with the POI. Requires geopandas and contextily to be installed.
 
 .. tags:: gui, geodata
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-109
+.. GENERATED FROM PYTHON SOURCE LINES 11-110
 
 
 
@@ -29,21 +29,8 @@ with the POI. Requires geopandas and contextily to be installed.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-      theme_type=get_system_theme(),
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-      theme_type=get_system_theme(),
 
 
-
-
-
-
-|
 
 .. code-block:: Python
 
@@ -52,6 +39,7 @@ with the POI. Requires geopandas and contextily to be installed.
     import geopandas as gpd
     import pandas as pd
     import zarr
+    from requests.exceptions import HTTPError
 
     import napari
 
@@ -91,7 +79,7 @@ with the POI. Requires geopandas and contextily to be installed.
     # fails, perhaps because CI is spamming the API, fall back on napari test data.
     try:
         bg_map, bg_extent = ctx.bounds2img(*bounds, zoom=13)
-    except ConnectionError:
+    except (ConnectionError, HTTPError):
         bg_map = zarr.open('https://data.napari.dev/prague-map.zarr')
         bg_extent = (
                 1599674.1279521685, 1609458.067572671,
@@ -113,7 +101,7 @@ with the POI. Requires geopandas and contextily to be installed.
     # display the background map in napari
     viewer = napari.Viewer()
     viewer.scene.camera.orientation2d = 'up','right'
-    viewer.floating_axes.visible = True
+    viewer.canvas.overlays.axes.visible = True
     viewer.dims.axis_labels = 'lat','lon'
     viewer.window.add_plugin_dock_widget('napari', 'Features table widget')
 

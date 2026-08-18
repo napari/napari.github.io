@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -642,17 +642,17 @@ npe2</label><div class="sd-tab-content docutils">
 <span class="n">ReaderFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">PathOrPaths</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]]</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s2">&quot;PathOrPaths&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;ReaderFunction&quot;</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s2">"PathOrPaths"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">"ReaderFunction"</span><span class="p">]:</span>
     <span class="c1"># If we recognize the format, we return the actual reader function</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.xyz&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".xyz"</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">xyz_file_reader</span>
     <span class="c1"># otherwise we return None.</span>
     <span class="k">return</span> <span class="kc">None</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">xyz_file_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s2">&quot;PathOrPaths&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="s2">&quot;LayerData&quot;</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">xyz_file_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s2">"PathOrPaths"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="s2">"LayerData"</span><span class="p">]:</span>
     <span class="n">data</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># somehow read data from path</span>
-    <span class="n">layer_attributes</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;etc...&quot;</span><span class="p">}</span>
+    <span class="n">layer_attributes</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"etc..."</span><span class="p">}</span>
     <span class="k">return</span> <span class="p">[(</span><span class="n">data</span><span class="p">,</span> <span class="n">layer_attributes</span><span class="p">)]</span>
 </pre></div>
 </div>
@@ -662,12 +662,12 @@ for field details.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.read_xyz</span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Read &quot;.xyz&quot; files</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Read ".xyz" files</span>
 <span class="w">    </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_plugin.some_module:get_reader</span>
 <span class="w">  </span><span class="nt">readers</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.read_xyz</span>
 <span class="w">    </span><span class="nt">filename_patterns</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;*.xyz&#39;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'*.xyz'</span>
 <span class="w">    </span><span class="nt">accepts_directories</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </pre></div>
 </div>
@@ -687,7 +687,7 @@ napari-plugin-engine</label><div class="sd-tab-content docutils">
 <span class="nd">@napari_hook_implementation</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">napari_get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">PathOrPaths</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ReaderFunction</span><span class="p">]:</span>
     <span class="c1"># If we recognize the format, we return the actual reader function</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.xyz&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".xyz"</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">xyz_file_reader</span>
     <span class="c1"># otherwise we return None.</span>
     <span class="k">return</span> <span class="kc">None</span>
@@ -695,7 +695,7 @@ napari-plugin-engine</label><div class="sd-tab-content docutils">
 
 <span class="k">def</span><span class="w"> </span><span class="nf">xyz_file_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">PathOrPaths</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]:</span>
     <span class="n">data</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># somehow read data from path</span>
-    <span class="n">layer_properties</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;etc...&quot;</span><span class="p">}</span>
+    <span class="n">layer_properties</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"etc..."</span><span class="p">}</span>
     <span class="k">return</span> <span class="p">[(</span><span class="n">data</span><span class="p">,</span> <span class="n">layer_properties</span><span class="p">)]</span>
 </pre></div>
 </div>
@@ -754,7 +754,7 @@ by the corresponding writer contribution in the manifest).</p>
 <p>The formal type is as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DataType</span> <span class="o">=</span> <span class="n">Any</span>  <span class="c1"># usually something like a numpy array, but varies by layer</span>
 <span class="n">LayerAttributes</span> <span class="o">=</span> <span class="nb">dict</span>
-<span class="n">LayerName</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;graph&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">,</span> <span class="s2">&quot;points&quot;</span><span class="p">,</span> <span class="s2">&quot;shapes&quot;</span><span class="p">,</span> <span class="s2">&quot;surface&quot;</span><span class="p">,</span> <span class="s2">&quot;tracks&quot;</span><span class="p">,</span> <span class="s2">&quot;vectors&quot;</span><span class="p">]</span>
+<span class="n">LayerName</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"graph"</span><span class="p">,</span> <span class="s2">"image"</span><span class="p">,</span> <span class="s2">"labels"</span><span class="p">,</span> <span class="s2">"points"</span><span class="p">,</span> <span class="s2">"shapes"</span><span class="p">,</span> <span class="s2">"surface"</span><span class="p">,</span> <span class="s2">"tracks"</span><span class="p">,</span> <span class="s2">"vectors"</span><span class="p">]</span>
 <span class="n">FullLayerData</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">DataType</span><span class="p">,</span> <span class="n">LayerAttributes</span><span class="p">,</span> <span class="n">LayerName</span><span class="p">]</span>
 <span class="n">MultiWriterFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">FullLayerData</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
 </pre></div>
@@ -785,8 +785,8 @@ compatible with that type.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">writers</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.some_writer</span>
-<span class="w">    </span><span class="nt">layer_types</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;image+&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;points?&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">filename_extensions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;.ext&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">layer_types</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"image+"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"points?"</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">filename_extensions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">".ext"</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
 <p>This writer would be considered when 1 or more <code class="docutils literal notranslate"><span class="pre">Image</span></code> layers and 0 or 1
@@ -803,7 +803,7 @@ npe2</label><div class="sd-tab-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">write_points</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">layer_data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">attributes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">):</span>
         <span class="o">...</span>  <span class="c1"># save layer_data and attributes to file</span>
 
     <span class="c1"># return path to any file(s) that were successfully written</span>
@@ -840,7 +840,7 @@ napari-plugin-engine</label><div class="sd-tab-content docutils">
 
 <span class="nd">@napari_hook_implementation</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">napari_write_points</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write points data and metadata into a path.</span>
+<span class="w">    </span><span class="sd">"""Write points data and metadata into a path.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -856,7 +856,7 @@ napari-plugin-engine</label><div class="sd-tab-content docutils">
 <span class="sd">    path : str or None</span>
 <span class="sd">        If data is successfully written, return the ``path`` that was written.</span>
 <span class="sd">        Otherwise, if nothing was done, return ``None``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 </pre></div>
 </div>
 <div class="docutils">
@@ -898,7 +898,7 @@ specification:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QWidget</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">MyPluginWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;napari.viewer.Viewer&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">'napari.viewer.Viewer'</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_viewer</span> <span class="o">=</span> <span class="n">viewer</span>
 </pre></div>
@@ -908,7 +908,7 @@ specification:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">magicgui</span><span class="w"> </span><span class="kn">import</span> <span class="n">magic_factory</span>
 
 <span class="nd">@magic_factory</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">create_widget</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_widget</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="s1">'napari.types.ImageData'</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'napari.types.ImageData'</span><span class="p">:</span>
     <span class="o">...</span>
 </pre></div>
 </div>
@@ -940,34 +940,34 @@ avoid including <code class="docutils literal notranslate"><span class="pre">nap
 npe2</label><div class="sd-tab-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
-<span class="n">Widget</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;magicgui.widgets.Widget&quot;</span><span class="p">,</span> <span class="s2">&quot;qtpy.QtWidgets.QWidget&quot;</span><span class="p">]</span>
+<span class="n">Widget</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="s2">"magicgui.widgets.Widget"</span><span class="p">,</span> <span class="s2">"qtpy.QtWidgets.QWidget"</span><span class="p">]</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">MyWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Any QtWidgets.QWidget or magicgui.widgets.Widget subclass can be used.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Any QtWidgets.QWidget or magicgui.widgets.Widget subclass can be used."""</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s2">&quot;napari.viewer.Viewer&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s2">"napari.viewer.Viewer"</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="o">...</span>
 
 <span class="nd">@magic_factory</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">widget_factory</span><span class="p">(</span>
-    <span class="n">image</span><span class="p">:</span> <span class="s2">&quot;napari.types.ImageData&quot;</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;napari.types.LabelsData&quot;</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate thresholded image.</span>
+    <span class="n">image</span><span class="p">:</span> <span class="s2">"napari.types.ImageData"</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"napari.types.LabelsData"</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Generate thresholded image.</span>
 
 <span class="sd">    This pattern uses magicgui.magic_factory directly to turn a function</span>
 <span class="sd">    into a callable that returns a widget.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">image</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">threshold</span><span class="p">(</span>
-    <span class="n">image</span><span class="p">:</span> <span class="s2">&quot;napari.types.ImageData&quot;</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;napari.types.LabelsData&quot;</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate thresholded image.</span>
+    <span class="n">image</span><span class="p">:</span> <span class="s2">"napari.types.ImageData"</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"napari.types.LabelsData"</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Generate thresholded image.</span>
 
 <span class="sd">    This function will be turned into a widget using `autogenerate: true`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">image</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1009,30 +1009,30 @@ napari-plugin-engine</label><div class="sd-tab-content docutils">
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">AnimationWizard</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s2">&quot;napari.viewer.Viewer&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s2">"napari.viewer.Viewer"</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="o">...</span>
 
 
 <span class="nd">@magic_factory</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">widget_factory</span><span class="p">(</span>
-    <span class="n">image</span><span class="p">:</span> <span class="s2">&quot;napari.types.ImageData&quot;</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;napari.types.LabelsData&quot;</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate thresholded image.</span>
+    <span class="n">image</span><span class="p">:</span> <span class="s2">"napari.types.ImageData"</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"napari.types.LabelsData"</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Generate thresholded image.</span>
 
 <span class="sd">    This pattern uses magicgui.magic_factory directly to turn a function</span>
 <span class="sd">    into a callable that returns a widget.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">image</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">threshold</span><span class="p">(</span>
-    <span class="n">image</span><span class="p">:</span> <span class="s2">&quot;napari.types.ImageData&quot;</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;napari.types.LabelsData&quot;</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate thresholded image.</span>
+    <span class="n">image</span><span class="p">:</span> <span class="s2">"napari.types.ImageData"</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"napari.types.LabelsData"</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Generate thresholded image.</span>
 
 <span class="sd">    This function will be turned into a widget using `autogenerate: true`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">image</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
 
@@ -1105,13 +1105,13 @@ manifest</label><div class="sd-tab-content docutils">
 <label class="sd-tab-label" for="sd-tab-item-7">
 python implementation</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># napari_demo module</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">all_thresholds</span><span class="p">(</span><span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;napari.viewer.Viewer&#39;</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">all_thresholds</span><span class="p">(</span><span class="n">viewer</span><span class="p">:</span> <span class="s1">'napari.viewer.Viewer'</span><span class="p">):</span>
     <span class="o">...</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">threshold_otsu</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;napari.types.LabelsData&#39;</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">threshold_otsu</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="s1">'napari.types.ImageData'</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'napari.types.LabelsData'</span><span class="p">:</span>
     <span class="o">...</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">threshold_li</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;napari.types.LabelsData&#39;</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">threshold_li</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="s1">'napari.types.ImageData'</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'napari.types.LabelsData'</span><span class="p">:</span>
     <span class="o">...</span>
 </pre></div>
 </div>
@@ -1172,13 +1172,13 @@ will cause an error.</p>
 npe2</label><div class="sd-tab-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">create_fractal</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="s2">&quot;LayerData&quot;</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An example of a  Sample Data Function.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_fractal</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="s2">"LayerData"</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""An example of a  Sample Data Function.</span>
 
-<span class="sd">    Note: Sample Data with URIs don&#39;t need python code.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    Note: Sample Data with URIs don't need python code.</span>
+<span class="sd">    """</span>
     <span class="n">data</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># do something cool to create a fractal</span>
-    <span class="k">return</span> <span class="p">[(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;My cool fractal&quot;</span><span class="p">})]</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"My cool fractal"</span><span class="p">})]</span>
 </pre></div>
 </div>
 <p><strong>manifest</strong></p>
@@ -1213,21 +1213,254 @@ napari-plugin-engine</label><div class="sd-tab-content docutils">
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_generate_random_data</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)):</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">[(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;random data&#39;</span><span class="p">})]</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'random data'</span><span class="p">})]</span>
 
 <span class="nd">@napari_hook_implementation</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">napari_provide_sample_data</span><span class="p">():</span>
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s1">&#39;random data&#39;</span><span class="p">:</span> <span class="n">_generate_random_data</span><span class="p">,</span>
-        <span class="s1">&#39;random image&#39;</span><span class="p">:</span> <span class="s1">&#39;https://picsum.photos/1024&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;sample_key&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;display_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Some Random Data (512 x 512)&#39;</span>
-            <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">_generate_random_data</span><span class="p">,</span>
+        <span class="s1">'random data'</span><span class="p">:</span> <span class="n">_generate_random_data</span><span class="p">,</span>
+        <span class="s1">'random image'</span><span class="p">:</span> <span class="s1">'https://picsum.photos/1024'</span><span class="p">,</span>
+        <span class="s1">'sample_key'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'display_name'</span><span class="p">:</span> <span class="s1">'Some Random Data (512 x 512)'</span>
+            <span class="s1">'data'</span><span class="p">:</span> <span class="n">_generate_random_data</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">}</span>
 </pre></div>
 </div>
 </div>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+<section id="configurations">
+<span id="configurations-contribution-guide"></span><h2>Configurations<a class="headerlink" href="#configurations" title="Link to this heading">#</a></h2>
+<p>Plugin settings allow your plugin to expose user-configurable options in
+napari’s <strong>Preferences</strong> dialog. They are declared in the
+manifest under <code class="docutils literal notranslate"><span class="pre">contributions.configurations</span></code> and are rendered automatically —
+no Python code is needed to build the settings UI.</p>
+<p>Configuration contribution values are exposed at runtime via
+<code class="docutils literal notranslate"><span class="pre">napari.settings.get_plugin_settings(&quot;example-plugin&quot;)</span></code> and persisted to
+<code class="docutils literal notranslate"><span class="pre">&lt;config</span> <span class="pre">dir&gt;/example-plugin.yaml</span></code>. Settings are written to disk
+<em>automatically</em> whenever a value changes.</p>
+<section id="a-minimal-example">
+<h3>A minimal example<a class="headerlink" href="#a-minimal-example" title="Link to this heading">#</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">configurations</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">pre_processing_widget</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pre-processing Widget</span>
+<span class="w">      </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">colormap</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Default colormap</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">          </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gray</span>
+<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Colormap applied to output images.</span>
+<span class="w">          </span><span class="nt">enum</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gray</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">green</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">viridis</span>
+<span class="w">        </span><span class="nt">gamma</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Gamma correction</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">          </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Gamma value applied to output images.</span>
+<span class="w">          </span><span class="nt">minimum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">          </span><span class="nt">maximum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+<span class="w">    </span><span class="nt">reader</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reader</span>
+<span class="w">      </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">max_size_mb</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Max in-memory image size (MB)</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">          </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
+<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Images larger than this are lazy-loaded via dask instead of</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">being loaded eagerly.</span>
+<span class="w">          </span><span class="nt">minimum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">          </span><span class="nt">maximum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4096</span>
+<span class="w">        </span><span class="nt">auto_contrast</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Auto-contrast on open</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="w">          </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Turn on auto-contrast on all opened layers.</span>
+</pre></div>
+</div>
+<p>Each entry in <code class="docutils literal notranslate"><span class="pre">contributions.configurations</span></code> is a <strong>category</strong> of settings,
+keyed by a configuration key. The example above declares two categories,
+<code class="docutils literal notranslate"><span class="pre">pre_processing_widget</span></code> and <code class="docutils literal notranslate"><span class="pre">reader</span></code>, each with its own properties.</p>
+</section>
+<section id="configurationcontribution-or-categories">
+<h3><code class="docutils literal notranslate"><span class="pre">ConfigurationContribution</span></code> or Categories<a class="headerlink" href="#configurationcontribution-or-categories" title="Link to this heading">#</a></h3>
+<p>Each <code class="docutils literal notranslate"><span class="pre">ConfigurationContribution</span></code>, or category of setting, is declared with a
+key in the manifest e.g. <code class="docutils literal notranslate"><span class="pre">pre_processing_widget</span></code> or <code class="docutils literal notranslate"><span class="pre">reader</span></code>. These keys must be
+valid, non-reserved Python identifiers that do not begin with an underscore (see
+<a class="reference internal" href="#validation">Validation</a>), and must be unique within a manifest. These keys are
+<strong>never shown in the UI</strong>, but are used to access your <code class="docutils literal notranslate"><span class="pre">ConfigurationContribution</span></code>
+programmatically at <code class="docutils literal notranslate"><span class="pre">get_plugin_settings(&quot;example-plugin&quot;).&lt;configuration-key&gt;</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">title</span></code> of the <code class="docutils literal notranslate"><span class="pre">ConfigurationContribution</span></code> is displayed as a section header
+on the plugin’s preferences page.</p>
+</section>
+<section id="configurationproperty-or-fields">
+<h3><code class="docutils literal notranslate"><span class="pre">ConfigurationProperty</span></code> or Fields<a class="headerlink" href="#configurationproperty-or-fields" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ConfigurationContribution</span></code>s contain one or more <code class="docutils literal notranslate"><span class="pre">ConfigurationProperty</span></code>. Each
+<code class="docutils literal notranslate"><span class="pre">ConfigurationProperty</span></code> is an individual setting or field the user can configure.
+Each <code class="docutils literal notranslate"><span class="pre">ConfigurationProperty</span></code> has a key in the manifest. These keys must be
+valid, non-reserved Python identifiers that do not begin with an underscore (see
+<a class="reference internal" href="#validation">Validation</a>), and must be unique within their <code class="docutils literal notranslate"><span class="pre">ConfigurationContribution</span></code>.
+These keys are <strong>never shown in the UI</strong>, but are used to access your <code class="docutils literal notranslate"><span class="pre">ConfigurationContribution</span></code>
+programmatically at <code class="docutils literal notranslate"><span class="pre">get_plugin_settings(&quot;example-plugin&quot;).&lt;configuration-key&gt;.&lt;property-key&gt;</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">title</span></code> of the <code class="docutils literal notranslate"><span class="pre">ConfigurationProperty</span></code> is displayed as a label to the left of
+the widget that allows the user to configure the value for this field.</p>
+<p>To access an individual field in your plugin preferences:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_plugin_settings</span>
+
+<span class="n">my_settings</span> <span class="o">=</span> <span class="n">get_plugin_settings</span><span class="p">(</span><span class="s2">"example-plugin"</span><span class="p">)</span>
+<span class="n">my_settings</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">max_size_mb</span>               <span class="c1"># &lt;category key&gt;.&lt;property key&gt;</span>
+<span class="n">my_settings</span><span class="o">.</span><span class="n">pre_processing_widget</span><span class="o">.</span><span class="n">colormap</span>
+</pre></div>
+</div>
+<p>Each <code class="docutils literal notranslate"><span class="pre">ConfigurationProperty</span></code> must have a set <code class="docutils literal notranslate"><span class="pre">title</span></code>, <code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">default</span></code> value.</p>
+<section id="types-constraints">
+<h4>Types &amp; Constraints<a class="headerlink" href="#types-constraints" title="Link to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">type</span></code> declared for a <code class="docutils literal notranslate"><span class="pre">ConfigurationProperty</span></code> determines the widget
+that will be created to allow the user to set the value of this property.</p>
+<p>We currently only support simple types like <code class="docutils literal notranslate"><span class="pre">boolean</span></code>, <code class="docutils literal notranslate"><span class="pre">integer</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code> or <code class="docutils literal notranslate"><span class="pre">string</span></code>.
+Depending on the <code class="docutils literal notranslate"><span class="pre">type</span></code> you’ve selected, you can also set basic constraints
+to validate the user’s provided value e.g. for <code class="docutils literal notranslate"><span class="pre">integer</span></code> types you can set a minimum
+and a maximum value. For the full list of available types, and their constraints, see
+the <a class="reference internal" href="../technical_references/contributions.html#contributions-configurationproperty"><span class="std std-ref">ConfigurationProperty reference</span></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">enum</span></code> is supported on <strong>any</strong> property type (it renders a dropdown), not just
+strings. Both YAML styles are valid — a flow list (<code class="docutils literal notranslate"><span class="pre">enum:</span> <span class="pre">[gray,</span> <span class="pre">green,</span> <span class="pre">viridis]</span></code>) or a block list (as in the example above); the block style is
+clearer when there are many options.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">default</span></code> is required for every property. Constraints are enforced by the
+settings model, so invalid values cannot be saved.</p>
+</section>
+</section>
+<section id="how-settings-render-in-napari">
+<h3>How settings render in napari<a class="headerlink" href="#how-settings-render-in-napari" title="Link to this heading">#</a></h3>
+<p>For the example plugin above, the Preferences dialog shows one page per
+plugin, with each category rendered as its own group:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Preferences
+  ...              ── existing napari sections ──
+  ----Plugin Preferences----
+  Example Plugin   ◄── page per plugin (display_name)
+
+  ╔═ Pre-processing Widget ══════════════╗   ◄── category title
+  ║  Default colormap          [dropdown] ║   ◄── property title + widget
+  ║  Gamma correction               [1.0] ║
+  ╚══════════════════════════════════════╝
+  ╔═ Reader ═════════════════════════════╗
+  ║  Max in-memory image size (MB)  [512] ║
+  ║  Auto-contrast on open            [x] ║
+  ╚══════════════════════════════════════╝
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">title</span></code> of each category becomes a group-box header, and each property
+renders as a labelled input (<code class="docutils literal notranslate"><span class="pre">title:</span></code> label + widget chosen by <code class="docutils literal notranslate"><span class="pre">type:</span></code>). The
+property <code class="docutils literal notranslate"><span class="pre">description:</span></code> becomes the widget’s help/tooltip text.</p>
+</section>
+<section id="events-reacting-to-settings-changes">
+<h3>Events: Reacting to settings changes<a class="headerlink" href="#events-reacting-to-settings-changes" title="Link to this heading">#</a></h3>
+<p>Settings are napari <code class="docutils literal notranslate"><span class="pre">EventedModel</span></code>s, so changing a value emits a
+<a class="reference external" href="https://github.com/pyapp-kit/psygnal">psygnal</a> event that you can connect to.
+Each category exposes an <code class="docutils literal notranslate"><span class="pre">events</span></code> emitter group with one emitter per setting:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_settings</span> <span class="o">=</span> <span class="n">get_plugin_settings</span><span class="p">(</span><span class="s2">"example-plugin"</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">on_max_size_changed</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"max size is now"</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+<span class="n">my_settings</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">max_size_mb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">on_max_size_changed</span><span class="p">)</span>
+
+<span class="n">my_settings</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">max_size_mb</span> <span class="o">=</span> <span class="mi">1024</span>  <span class="c1"># event causes a print: "max size is now 1024"</span>
+</pre></div>
+</div>
+<p>The top-level settings object also re-emits every change as a single
+<code class="docutils literal notranslate"><span class="pre">changed</span></code> event carrying a dotted <code class="docutils literal notranslate"><span class="pre">&lt;category&gt;.&lt;property&gt;</span></code> key, so one
+connection covers all of a plugin’s settings:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_settings</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+<span class="c1"># after the assignment above -&gt; "reader.max_size_mb 1024"</span>
+</pre></div>
+</div>
+<p>These events fire whether a value is changed in code or in the Preferences
+dialog, and the change is auto-saved to the config file.</p>
+</section>
+<section id="validation">
+<h3>Validation<a class="headerlink" href="#validation" title="Link to this heading">#</a></h3>
+<p>npe2 validates that configuration keys and property keys are valid,
+non-reserved Python identifiers that do not begin with an underscore (they are
+used verbatim as attribute names on the generated settings model), and
+that every property has a valid <code class="docutils literal notranslate"><span class="pre">type</span></code>, <code class="docutils literal notranslate"><span class="pre">default</span></code>, and constraints.</p>
+</section>
+<section id="testing-your-settings">
+<h3>Testing your settings<a class="headerlink" href="#testing-your-settings" title="Link to this heading">#</a></h3>
+<p>In a normal napari session your installed plugin is discovered and
+<code class="docutils literal notranslate"><span class="pre">get_plugin_settings(&quot;example-plugin&quot;)</span></code> just works. For testing,
+use <code class="docutils literal notranslate"><span class="pre">npe2</span></code>’s <code class="docutils literal notranslate"><span class="pre">npe2pm</span></code> pytest fixture for a clean plugin manager,
+and <code class="docutils literal notranslate"><span class="pre">napari</span></code>’s <code class="docutils literal notranslate"><span class="pre">plugin_settings</span></code> pytest fixture for fresh settings
+in each test. These two fixtures will be available to you if you
+have <code class="docutils literal notranslate"><span class="pre">napari</span></code> and <code class="docutils literal notranslate"><span class="pre">npe2</span></code> installed in your testing environment.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="c1"># the plugin's actual napari.yaml; adjust the path for your package layout</span>
+<span class="n">MANIFEST_PATH</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">'src'</span> <span class="o">/</span> <span class="s1">'example_plugin'</span> <span class="o">/</span> <span class="s1">'napari.yaml'</span>
+<span class="p">)</span>
+
+
+<span class="c1"># plugin_settings fixture is exposed by napari</span>
+<span class="c1"># npe2pm fixture is exposed by npe2</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_plugin_settings_defaults_and_updates</span><span class="p">(</span><span class="n">plugin_settings</span><span class="p">,</span> <span class="n">npe2pm</span><span class="p">):</span>
+    <span class="c1"># with npe2pm fixture this plugin is scoped only to this test;</span>
+    <span class="c1"># tmp_plugin accepts a path to a manifest file</span>
+    <span class="k">with</span> <span class="n">npe2pm</span><span class="o">.</span><span class="n">tmp_plugin</span><span class="p">(</span><span class="n">manifest</span><span class="o">=</span><span class="n">MANIFEST_PATH</span><span class="p">):</span>
+        <span class="c1"># with plugin_settings fixture, these settings are scoped</span>
+        <span class="c1"># only to this test</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_plugin_settings</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="n">get_plugin_settings</span><span class="p">(</span><span class="s1">'example-plugin'</span><span class="p">)</span>
+
+        <span class="c1"># defaults come straight from the manifest</span>
+        <span class="k">assert</span> <span class="n">settings</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">lazy</span> <span class="ow">is</span> <span class="kc">False</span>
+        <span class="k">assert</span> <span class="n">settings</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">max_size_mb</span> <span class="o">==</span> <span class="mi">512</span>
+
+        <span class="c1"># changing a value auto-saves to the yaml file at settings.config_path</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">max_size_mb</span> <span class="o">=</span> <span class="mi">1024</span>
+        <span class="k">assert</span> <span class="n">settings</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">max_size_mb</span> <span class="o">==</span> <span class="mi">1024</span>
+        <span class="k">assert</span> <span class="s1">'max_size_mb: 1024'</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">config_path</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+
+    <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+<section id="supporting-older-napari">
+<h3>Supporting older napari<a class="headerlink" href="#supporting-older-napari" title="Link to this heading">#</a></h3>
+<p>Declared <code class="docutils literal notranslate"><span class="pre">contributions.configurations</span></code> are ignored by older versions of <code class="docutils literal notranslate"><span class="pre">napari</span></code>
+and <code class="docutils literal notranslate"><span class="pre">npe2</span></code>. However, the <code class="docutils literal notranslate"><span class="pre">get_plugin_settings</span></code> API, and automatic GUI generation,
+is only available in napari&gt;=0.9.0.</p>
+<p>If you need to support older napari, feature-detect the API and fall back to
+defaults — you don’t need a full settings shim, only the values your code
+actually reads.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimpleNamespace</span>
+
+<span class="c1"># Defaults mirroring your manifest (only the values your code reads).</span>
+<span class="n">_DEFAULTS</span> <span class="o">=</span> <span class="n">SimpleNamespace</span><span class="p">(</span>
+    <span class="n">reader</span><span class="o">=</span><span class="n">SimpleNamespace</span><span class="p">(</span><span class="n">max_size_mb</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">auto_contrast</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">my_settings</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Return napari's settings, or defaults on napari &lt; 0.9.0."""</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_plugin_settings</span>
+        <span class="k">return</span> <span class="n">get_plugin_settings</span><span class="p">(</span><span class="s2">"example-plugin"</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_DEFAULTS</span>
+</pre></div>
+</div>
+<p>If you only read one or two settings, inline the fallback instead:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">max_size_mb</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_plugin_settings</span>
+        <span class="k">return</span> <span class="n">get_plugin_settings</span><span class="p">(</span><span class="s2">"example-plugin"</span><span class="p">)</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">max_size_mb</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">512.0</span>
+</pre></div>
 </div>
 <hr class="docutils" />
 </section>
@@ -1269,7 +1502,7 @@ layer type is assumed to be <code class="docutils literal notranslate"><span cla
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">Sequence</span>
 
 <span class="n">LayerTypeName</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span>
-    <span class="s1">&#39;image&#39;</span><span class="p">,</span> <span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;points&#39;</span><span class="p">,</span> <span class="s1">&#39;shapes&#39;</span><span class="p">,</span> <span class="s1">&#39;surface&#39;</span><span class="p">,</span> <span class="s1">&#39;tracks&#39;</span><span class="p">,</span> <span class="s1">&#39;vectors&#39;</span>
+    <span class="s1">'image'</span><span class="p">,</span> <span class="s1">'labels'</span><span class="p">,</span> <span class="s1">'points'</span><span class="p">,</span> <span class="s1">'shapes'</span><span class="p">,</span> <span class="s1">'surface'</span><span class="p">,</span> <span class="s1">'tracks'</span><span class="p">,</span> <span class="s1">'vectors'</span>
 <span class="p">]</span>
 <span class="n">LayerProps</span> <span class="o">=</span> <span class="n">Dict</span>
 <span class="n">DataType</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]]</span>
@@ -1277,7 +1510,7 @@ layer type is assumed to be <code class="docutils literal notranslate"><span cla
 <span class="n">LayerData</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">DataType</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">DataType</span><span class="p">,</span> <span class="n">LayerProps</span><span class="p">],</span> <span class="n">FullLayerData</span><span class="p">]</span>
 
 
-<span class="c1"># where &quot;ArrayLike&quot; is very roughly ...</span>
+<span class="c1"># where "ArrayLike" is very roughly ...</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">ArrayLike</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
     <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span>
@@ -1287,7 +1520,7 @@ layer type is assumed to be <code class="docutils literal notranslate"><span cla
     <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArrayLike</span><span class="p">:</span> <span class="o">...</span>
 
 
-<span class="c1"># the main point is that we&#39;re more concerned with structural</span>
+<span class="c1"># the main point is that we're more concerned with structural</span>
 <span class="c1"># typing than literal array types (e.g. numpy, dask, xarray, etc...)</span>
 </pre></div>
 </div>
@@ -1304,13 +1537,13 @@ layer type is assumed to be <code class="docutils literal notranslate"><span cla
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the first three are equivalent, just an image array with default settings</span>
 <span class="p">(</span><span class="n">data</span><span class="p">,)</span>
 <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{})</span>
-<span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{},</span> <span class="s1">&#39;image&#39;</span><span class="p">)</span>
+<span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{},</span> <span class="s1">'image'</span><span class="p">)</span>
 
 <span class="c1"># provide kwargs for image constructor</span>
-<span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;My Image&#39;</span><span class="p">,</span> <span class="s1">&#39;colormap&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">})</span>
+<span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'My Image'</span><span class="p">,</span> <span class="s1">'colormap'</span><span class="p">:</span> <span class="s1">'red'</span><span class="p">})</span>
 
 <span class="c1"># labels layer instead of image:</span>
-<span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;My Labels&#39;</span><span class="p">,</span> <span class="s1">&#39;blending&#39;</span><span class="p">:</span> <span class="s1">&#39;additive&#39;</span><span class="p">},</span> <span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'My Labels'</span><span class="p">,</span> <span class="s1">'blending'</span><span class="p">:</span> <span class="s1">'additive'</span><span class="p">},</span> <span class="s1">'labels'</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -1318,7 +1551,7 @@ layer type is assumed to be <code class="docutils literal notranslate"><span cla
 <h3>Creation from a <code class="docutils literal notranslate"><span class="pre">Layer</span></code> instance.<a class="headerlink" href="#creation-from-a-layer-instance" title="Link to this heading">#</a></h3>
 <p>Note, the <code class="xref py py-meth docutils literal notranslate"><span class="pre">as_layer_data_tuple()</span></code> method will create a layer data
 tuple from a given layer</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">as_layer_data_tuple</span><span class="p">()</span>
 <span class="go">Out[7]:</span>
@@ -1326,28 +1559,28 @@ tuple from a given layer</p>
 <span class="go">    array([[0.94414642, 0.89192899],</span>
 <span class="go">       [0.21258344, 0.85242735]]),</span>
 <span class="go">    {</span>
-<span class="go">        &#39;name&#39;: &#39;Image&#39;,</span>
-<span class="go">        &#39;metadata&#39;: {},</span>
-<span class="go">        &#39;scale&#39;: [4.0, 4.0],</span>
-<span class="go">        &#39;translate&#39;: [0.0, 0.0],</span>
-<span class="go">        &#39;rotate&#39;: [[1.0, 0.0], [0.0, 1.0]],</span>
-<span class="go">        &#39;shear&#39;: [0.0],</span>
-<span class="go">        &#39;opacity&#39;: 1,</span>
-<span class="go">        &#39;blending&#39;: &#39;translucent&#39;,</span>
-<span class="go">        &#39;visible&#39;: True,</span>
-<span class="go">        &#39;experimental_clipping_planes&#39;: [],</span>
-<span class="go">        &#39;rgb&#39;: False,</span>
-<span class="go">        &#39;multiscale&#39;: False,</span>
-<span class="go">        &#39;colormap&#39;: &#39;green&#39;,</span>
-<span class="go">        &#39;contrast_limits&#39;: [0.2125834437981784, 0.9441464162780605],</span>
-<span class="go">        &#39;interpolation&#39;: &#39;nearest&#39;,</span>
-<span class="go">        &#39;rendering&#39;: &#39;mip&#39;,</span>
-<span class="go">        &#39;experimental_slicing_plane&#39;: {&#39;normal&#39;: (1.0, 0.0, 0.0), &#39;position&#39;: (0.0, 0.0, 0.0), &#39;enabled&#39;: False, &#39;thickness&#39;: 1.0},</span>
-<span class="go">        &#39;iso_threshold&#39;: 0.5,</span>
-<span class="go">        &#39;attenuation&#39;: 0.05,</span>
-<span class="go">        &#39;gamma&#39;: 1</span>
+<span class="go">        'name': 'Image',</span>
+<span class="go">        'metadata': {},</span>
+<span class="go">        'scale': [4.0, 4.0],</span>
+<span class="go">        'translate': [0.0, 0.0],</span>
+<span class="go">        'rotate': [[1.0, 0.0], [0.0, 1.0]],</span>
+<span class="go">        'shear': [0.0],</span>
+<span class="go">        'opacity': 1,</span>
+<span class="go">        'blending': 'translucent',</span>
+<span class="go">        'visible': True,</span>
+<span class="go">        'experimental_clipping_planes': [],</span>
+<span class="go">        'rgb': False,</span>
+<span class="go">        'multiscale': False,</span>
+<span class="go">        'colormap': 'green',</span>
+<span class="go">        'contrast_limits': [0.2125834437981784, 0.9441464162780605],</span>
+<span class="go">        'interpolation': 'nearest',</span>
+<span class="go">        'rendering': 'mip',</span>
+<span class="go">        'experimental_slicing_plane': {'normal': (1.0, 0.0, 0.0), 'position': (0.0, 0.0, 0.0), 'enabled': False, 'thickness': 1.0},</span>
+<span class="go">        'iso_threshold': 0.5,</span>
+<span class="go">        'attenuation': 0.05,</span>
+<span class="go">        'gamma': 1</span>
 <span class="go">    },</span>
-<span class="go">    &#39;image&#39;</span>
+<span class="go">    'image'</span>
 <span class="go">)</span>
 </pre></div>
 </div>
@@ -1355,7 +1588,7 @@ tuple from a given layer</p>
 <section id="adding-to-the-viewer">
 <h3>Adding to the viewer<a class="headerlink" href="#adding-to-the-viewer" title="Link to this heading">#</a></h3>
 <p>To add a <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple to the napari viewer, use :meth:<code class="docutils literal notranslate"><span class="pre">Layer.create</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">image_layer_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;My Image&#39;</span><span class="p">,</span> <span class="s1">&#39;colormap&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">},</span> <span class="s1">&#39;image&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">image_layer_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'My Image'</span><span class="p">,</span> <span class="s1">'colormap'</span><span class="p">:</span> <span class="s1">'red'</span><span class="p">},</span> <span class="s1">'image'</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">current_viewer</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">viewer</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Layer</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">*</span><span class="n">image_layer_data</span><span class="p">))</span>
 </pre></div>
@@ -1440,6 +1673,20 @@ tuple from a given layer</p>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-data">Sample Data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-data-example">Sample Data example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurations">Configurations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-minimal-example">A minimal example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurationcontribution-or-categories"><code class="docutils literal notranslate"><span class="pre">ConfigurationContribution</span></code> or Categories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurationproperty-or-fields"><code class="docutils literal notranslate"><span class="pre">ConfigurationProperty</span></code> or Fields</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#types-constraints">Types &amp; Constraints</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-settings-render-in-napari">How settings render in napari</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#events-reacting-to-settings-changes">Events: Reacting to settings changes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation">Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-your-settings">Testing your settings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supporting-older-napari">Supporting older napari</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-layerdata-tuple">The LayerData tuple</a><ul class="nav section-nav flex-column">

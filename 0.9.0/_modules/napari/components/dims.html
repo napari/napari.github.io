@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -845,7 +845,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Dims">
 <a class="viewcode-back" href="../../../api/napari.components.Dims.html#napari.components.Dims">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Dims</span><span class="p">(</span><span class="n">EventedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dimensions object modeling slicing and displaying.</span>
+<span class="w">    </span><span class="sd">"""Dimensions object modeling slicing and displaying.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -915,7 +915,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        ``displayed`` dimensions.</span>
 <span class="sd">    rollable :  tuple of bool</span>
 <span class="sd">        Tuple of axis roll state. If True the axis is rollable.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># fields</span>
     <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
@@ -941,45 +941,45 @@ window.runMermaid = runMermaid;</script>
     <span class="c1"># validators</span>
     <span class="c1"># check fields is false to allow private fields to work</span>
     <span class="nd">@field_validator</span><span class="p">(</span>
-        <span class="s1">&#39;order&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;axis_labels&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;rollable&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;point&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;margin_left&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;margin_right&#39;</span><span class="p">,</span>
-        <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;before&#39;</span><span class="p">,</span>
+        <span class="s1">'order'</span><span class="p">,</span>
+        <span class="s1">'axis_labels'</span><span class="p">,</span>
+        <span class="s1">'rollable'</span><span class="p">,</span>
+        <span class="s1">'point'</span><span class="p">,</span>
+        <span class="s1">'margin_left'</span><span class="p">,</span>
+        <span class="s1">'margin_right'</span><span class="p">,</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s1">'before'</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_as_tuple</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
-    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;before&#39;</span><span class="p">)</span>
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">'range'</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'before'</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_check_ranges</span><span class="p">(</span><span class="n">ranges</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Ensure the range values are sane.</span>
 
 <span class="sd">        - start &lt; stop</span>
 <span class="sd">        - step &gt; 0</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ranges</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="n">stop</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s1">&#39;start and stop must be strictly increasing, but got (</span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">stop</span><span class="si">}</span><span class="s1">) for axis </span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="sa">f</span><span class="s1">'start and stop must be strictly increasing, but got (</span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">stop</span><span class="si">}</span><span class="s1">) for axis </span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s1">'</span>
                 <span class="p">)</span>
             <span class="k">if</span> <span class="n">step</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s1">&#39;step must be strictly positive, but got </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s1"> for axis </span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s1">.&#39;</span>
+                    <span class="sa">f</span><span class="s1">'step must be strictly positive, but got </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s1"> for axis </span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s1">.'</span>
                 <span class="p">)</span>
         <span class="k">return</span> <span class="n">ranges</span>
 
-    <span class="nd">@model_validator</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;after&#39;</span><span class="p">)</span>
+    <span class="nd">@model_validator</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">'after'</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_check_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check the consistency of dimensionality for all attributes.</span>
+<span class="w">        </span><span class="sd">"""Check the consistency of dimensionality for all attributes.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        values : dict</span>
 <span class="sd">            Values dictionary to update dims model with.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validating</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validating_ctx</span><span class="p">():</span>
@@ -1019,14 +1019,14 @@ window.runMermaid = runMermaid;</script>
             <span class="c1"># Check the order is a permutation of 0, ..., ndim - 1</span>
             <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">)):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s1">&#39;Invalid ordering </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="si">}</span><span class="s1"> for </span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s1"> dimensions&#39;</span>
+                    <span class="sa">f</span><span class="s1">'Invalid ordering </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="si">}</span><span class="s1"> for </span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s1"> dimensions'</span>
                 <span class="p">)</span>
 
         <span class="c1"># Check the axis labels tuple has same number of elements as ndim</span>
         <span class="n">axis_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis_labels</span>
         <span class="n">labels_ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_labels</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">labels_ndim</span> <span class="o">&lt;</span> <span class="n">ndim</span><span class="p">:</span>
-            <span class="c1"># Append new &quot;default&quot; labels to existing ones</span>
+            <span class="c1"># Append new "default" labels to existing ones</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">axis_labels</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">ndim</span><span class="p">,</span> <span class="o">-</span><span class="n">labels_ndim</span><span class="p">)))</span> <span class="o">+</span> <span class="n">axis_labels</span>
@@ -1054,7 +1054,7 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_nsteps_from_range</span><span class="p">(</span><span class="n">dims_range</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span>
-            <span class="c1"># &quot;or 1&quot; ensures degenerate dimension works</span>
+            <span class="c1"># "or 1" ensures degenerate dimension works</span>
             <span class="nb">int</span><span class="p">((</span><span class="n">rng</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">step</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
             <span class="k">for</span> <span class="n">rng</span> <span class="ow">in</span> <span class="n">dims_range</span>
         <span class="p">)</span>
@@ -1144,12 +1144,12 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Tuple: Dimensions that are displayed.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Tuple: Dimensions that are displayed."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndisplay</span> <span class="p">:]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">not_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Tuple: Dimensions that are not displayed.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Tuple: Dimensions that are not displayed."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">[:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">]</span>
 
     <span class="nd">@property</span>
@@ -1163,7 +1163,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
         <span class="n">_range</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]],</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets ranges (min, max, step) for the given dimensions.</span>
+<span class="w">        </span><span class="sd">"""Sets ranges (min, max, step) for the given dimensions.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1172,7 +1172,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        _range : tuple or sequence of tuple</span>
 <span class="sd">            Range specified as (min, max, step) or a sequence of these range</span>
 <span class="sd">            tuples.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">axis</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sanitize_input</span><span class="p">(</span>
             <span class="n">axis</span><span class="p">,</span> <span class="n">_range</span><span class="p">,</span> <span class="n">value_is_sequence</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
@@ -1189,7 +1189,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
         <span class="n">value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets point to slice dimension in world coordinates.</span>
+<span class="w">        </span><span class="sd">"""Sets point to slice dimension in world coordinates.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1197,7 +1197,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Dimension index or a sequence of axes whos point will be set.</span>
 <span class="sd">        value : scalar or sequence of scalars</span>
 <span class="sd">            Value of the point for each axis.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">axis</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sanitize_input</span><span class="p">(</span>
             <span class="n">axis</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value_is_sequence</span><span class="o">=</span><span class="kc">False</span>
         <span class="p">)</span>
@@ -1229,7 +1229,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
         <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets new axis labels for the given axes.</span>
+<span class="w">        </span><span class="sd">"""Sets new axis labels for the given axes.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1237,7 +1237,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Dimension index or a sequence of axes whos labels will be set.</span>
 <span class="sd">        label : str or sequence of str</span>
 <span class="sd">            Given labels for the specified axes.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">axis</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sanitize_input</span><span class="p">(</span>
             <span class="n">axis</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">value_is_sequence</span><span class="o">=</span><span class="kc">False</span>
         <span class="p">)</span>
@@ -1250,8 +1250,8 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Dims.reset">
 <a class="viewcode-back" href="../../../api/napari.components.Dims.html#napari.components.Dims.reset">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset dims values to initial states.&quot;&quot;&quot;</span>
-        <span class="c1"># Don&#39;t reset axis labels</span>
+<span class="w">        </span><span class="sd">"""Reset dims values to initial states."""</span>
+        <span class="c1"># Don't reset axis labels</span>
         <span class="c1"># TODO: could be optimized with self.update, but need to fix</span>
         <span class="c1">#       event firing in EventedModel first</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
@@ -1265,42 +1265,42 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Dims.transpose">
 <a class="viewcode-back" href="../../../api/napari.components.Dims.html#napari.components.Dims.transpose">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">transpose</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Transpose displayed dimensions.</span>
+<span class="w">        </span><span class="sd">"""Transpose displayed dimensions.</span>
 
 <span class="sd">        This swaps the order of the last two displayed dimensions.</span>
 <span class="sd">        The order of the displayed is taken from Dims.order.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">order</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
         <span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">order</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_increment_dims_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Increment dimensions to the right along given axis, or last used axis if None</span>
+<span class="w">        </span><span class="sd">"""Increment dimensions to the right along given axis, or last used axis if None</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        axis : int, optional</span>
 <span class="sd">            Axis along which to increment dims, by default None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_used</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_current_step</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_step</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_increment_dims_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Increment dimensions to the left along given axis, or last used axis if None</span>
+<span class="w">        </span><span class="sd">"""Increment dimensions to the left along given axis, or last used axis if None</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        axis : int, optional</span>
 <span class="sd">            Axis along which to increment dims, by default None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_used</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_current_step</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_step</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_focus_up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Shift focused dimension slider to be the next slider above.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Shift focused dimension slider to be the next slider above."""</span>
         <span class="n">sliders</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">not_displayed</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nsteps</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sliders</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span>
@@ -1309,7 +1309,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_used</span> <span class="o">=</span> <span class="n">sliders</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_focus_down</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Shift focused dimension slider to be the next slider bellow.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Shift focused dimension slider to be the next slider bellow."""</span>
         <span class="n">sliders</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">not_displayed</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nsteps</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sliders</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span>
@@ -1320,12 +1320,12 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Dims.roll">
 <a class="viewcode-back" href="../../../api/napari.components.Dims.html#napari.components.Dims.roll">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">roll</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Roll order of dimensions for display.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Roll order of dimensions for display."""</span>
         <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
-        <span class="c1"># we combine &quot;rollable&quot; and &quot;nsteps&quot; into a mask for rolling</span>
-        <span class="c1"># this mask has to be aligned to &quot;order&quot; as &quot;rollable&quot; and</span>
-        <span class="c1"># &quot;nsteps&quot; are static but order is dynamic, meaning &quot;rollable&quot;</span>
-        <span class="c1"># and &quot;nsteps&quot; encode the axes by position, whereas &quot;order&quot;</span>
+        <span class="c1"># we combine "rollable" and "nsteps" into a mask for rolling</span>
+        <span class="c1"># this mask has to be aligned to "order" as "rollable" and</span>
+        <span class="c1"># "nsteps" are static but order is dynamic, meaning "rollable"</span>
+        <span class="c1"># and "nsteps" encode the axes by position, whereas "order"</span>
         <span class="c1"># encodes axis by number</span>
         <span class="n">valid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rollable</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nsteps</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)[</span><span class="n">order</span><span class="p">]</span>
         <span class="n">order</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="n">valid</span><span class="p">],</span> <span class="n">shift</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -1338,17 +1338,17 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_sanitize_input</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value_is_sequence</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">list</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Ensure that axis and value are the same length, that axes are not</span>
 <span class="sd">        out of bounds, and coerces to lists for easier processing.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">Integral</span><span class="p">):</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">)</span>
                 <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
                 <span class="ow">and</span> <span class="ow">not</span> <span class="n">value_is_sequence</span>
             <span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;cannot set multiple values to a single axis&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'cannot set multiple values to a single axis'</span><span class="p">)</span>
             <span class="n">axis</span> <span class="o">=</span> <span class="p">[</span><span class="n">axis</span><span class="p">]</span>
             <span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1356,7 +1356,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">value</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;axis and value sequences must have equal length&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'axis and value sequences must have equal length'</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axis</span><span class="p">:</span>
             <span class="n">ensure_axis_in_bounds</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
@@ -1374,7 +1374,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">ensure_len</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">length</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">pad_width</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Ensure that the value has the required number of elements.</span>
 
 <span class="sd">    Right-crop if value is too long; left-pad with default if too short.</span>
@@ -1387,7 +1387,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Number of desired values.</span>
 <span class="sd">    default : Tuple</span>
 <span class="sd">        Default element for left-padding.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">:</span>
         <span class="c1"># left pad</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="n">pad_width</span><span class="p">,)</span> <span class="o">*</span> <span class="p">(</span><span class="n">length</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span> <span class="n">value</span>
@@ -1398,7 +1398,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">ensure_axis_in_bounds</span><span class="p">(</span><span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ensure a given value is inside the existing axes of the image.</span>
+<span class="w">    </span><span class="sd">"""Ensure a given value is inside the existing axes of the image.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -1411,9 +1411,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    ------</span>
 <span class="sd">    ValueError</span>
 <span class="sd">        The given axis index is out of bounds.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">axis</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">ndim</span><span class="p">,</span> <span class="n">ndim</span><span class="p">):</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Axis </span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s1"> not defined for dimensionality </span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s1">. Must be in [</span><span class="si">{</span><span class="o">-</span><span class="n">ndim</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s1">).&#39;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'Axis </span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s1"> not defined for dimensionality </span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s1">. Must be in [</span><span class="si">{</span><span class="o">-</span><span class="n">ndim</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s1">).'</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">axis</span> <span class="o">%</span> <span class="n">ndim</span>

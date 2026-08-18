@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -868,7 +868,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">QtLayerButtons</span><span class="p">(</span><span class="n">QFrame</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Button controls for napari layers.</span>
+<span class="w">    </span><span class="sd">"""Button controls for napari layers.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -887,7 +887,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Button to add new Shapes layer.</span>
 <span class="sd">    viewer : napari.components.ViewerModel</span>
 <span class="sd">        Napari viewer containing the rendered scene, layers, and controls.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="n">ViewerModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -895,37 +895,37 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span> <span class="o">=</span> <span class="n">viewer</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">deleteButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
-            <span class="s1">&#39;delete_button&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;napari:delete_selected_layers&#39;</span>
+            <span class="s1">'delete_button'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">'napari:delete_selected_layers'</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
-            <span class="s1">&#39;new_points&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Create a new points layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;This button is highlighted if a layer is selected;</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;the new points layer will inherit the shape and all transforms of this layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;If multiple layers are selected, the new points layer will span their extent.</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;If no layers are selected, the new points layer will have no scale/transform.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">'new_points'</span><span class="p">,</span>
+            <span class="s1">'Create a new points layer.</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'This button is highlighted if a layer is selected;</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'the new points layer will inherit the shape and all transforms of this layer.</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'If multiple layers are selected, the new points layer will span their extent.</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'If no layers are selected, the new points layer will have no scale/transform.</span><span class="se">\n</span><span class="s1">'</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_new_points</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">newShapesButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
-            <span class="s1">&#39;new_shapes&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Create a new shapes layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;This button is highlighted if a layer is selected;</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;the new shapes layer will inherit the shape and all transforms of this layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;If multiple layers are selected, the new shapes layer will span their extent.</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;If no layers are selected, the new points layer will have no scale/transform.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">'new_shapes'</span><span class="p">,</span>
+            <span class="s1">'Create a new shapes layer.</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'This button is highlighted if a layer is selected;</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'the new shapes layer will inherit the shape and all transforms of this layer.</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'If multiple layers are selected, the new shapes layer will span their extent.</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'If no layers are selected, the new points layer will have no scale/transform.</span><span class="se">\n</span><span class="s1">'</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_new_shapes</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">newLabelsButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
-            <span class="s1">&#39;new_labels&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Create a new labels layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;If a Labels or Image layer is selected, the newly created Labels layer</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;will inherit the shape and all transforms of the selected layer.</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;If any other layer type or multiple layers are selected, the resulting</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;Labels layer will span their extent. (Warning: could be huge!)</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;If layers are present in the Viewer but none are selected, the Labels button is disabled.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">'new_labels'</span><span class="p">,</span>
+            <span class="s1">'Create a new labels layer.</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'If a Labels or Image layer is selected, the newly created Labels layer</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'will inherit the shape and all transforms of the selected layer.</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'If any other layer type or multiple layers are selected, the resulting</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'Labels layer will span their extent. (Warning: could be huge!)</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'If layers are present in the Viewer but none are selected, the Labels button is disabled.</span><span class="se">\n</span><span class="s1">'</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_new_labels</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="c1"># Labels button disabled when there are layers present but none are selected</span>
@@ -956,11 +956,11 @@ window.runMermaid = runMermaid;</script>
         <span class="n">new_shapes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_selection_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update button selection/enablement state based on the layer selection.</span>
+<span class="w">        </span><span class="sd">"""Update button selection/enablement state based on the layer selection.</span>
 
 <span class="sd">        This allows indicating which mode of buttons will be triggered after</span>
 <span class="sd">        clicking on it.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span><span class="o">.</span><span class="n">_change_selection_state</span><span class="p">(</span>
                 <span class="n">LayerCreationState</span><span class="o">.</span><span class="n">FULL</span>
@@ -1003,7 +1003,7 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_layers_present_and_none_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if there are layers present but none selected.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Check if there are layers present but none selected."""</span>
         <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span>
         <span class="p">)</span>
@@ -1017,7 +1017,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">decimals</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QLabeledDoubleSlider</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a labeled double slider widget.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Create a labeled double slider widget."""</span>
     <span class="n">slider</span> <span class="o">=</span> <span class="n">QLabeledDoubleSlider</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
     <span class="n">slider</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">*</span><span class="n">value_range</span><span class="p">)</span>
     <span class="n">slider</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -1033,7 +1033,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">current_enum</span><span class="p">:</span> <span class="n">Enum</span><span class="p">,</span>
     <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Enum</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QEnumComboBox</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an enum combobox widget.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Create an enum combobox widget."""</span>
     <span class="n">combo</span> <span class="o">=</span> <span class="n">QEnumComboBox</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">enum_class</span><span class="o">=</span><span class="n">enum_class</span><span class="p">)</span>
     <span class="n">combo</span><span class="o">.</span><span class="n">setCurrentEnum</span><span class="p">(</span><span class="n">current_enum</span><span class="p">)</span>
     <span class="n">combo</span><span class="o">.</span><span class="n">currentEnumChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
@@ -1044,9 +1044,9 @@ window.runMermaid = runMermaid;</script>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">parent</span><span class="p">:</span> <span class="n">QtPopup</span><span class="p">,</span>
     <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">object_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;help_label&#39;</span><span class="p">,</span>
+    <span class="n">object_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'help_label'</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtToolTipLabel</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a help tooltip widget.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Create a help tooltip widget."""</span>
     <span class="n">help_symbol</span> <span class="o">=</span> <span class="n">QtToolTipLabel</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
     <span class="n">help_symbol</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="n">object_name</span><span class="p">)</span>
     <span class="n">help_symbol</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
@@ -1056,7 +1056,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="QtViewerButtons">
 <a class="viewcode-back" href="../../../../api/napari.qt.QtViewerButtons.html#napari.qt.QtViewerButtons">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">QtViewerButtons</span><span class="p">(</span><span class="n">QFrame</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Button controls for the napari viewer.</span>
+<span class="w">    </span><span class="sd">"""Button controls for the napari viewer.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1079,7 +1079,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Button to toggle number of displayed dimensions.</span>
 <span class="sd">    viewer : napari.components.ViewerModel</span>
 <span class="sd">        Napari viewer containing the rendered scene, layers, and controls.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="n">ViewerModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -1087,9 +1087,9 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span> <span class="o">=</span> <span class="n">viewer</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">consoleButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
-            <span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;napari:toggle_console_visibility&#39;</span>
+            <span class="s1">'console'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">'napari:toggle_console_visibility'</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">consoleButton</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;expanded&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">consoleButton</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">'expanded'</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
         <span class="n">kernel_is_running</span> <span class="o">=</span> <span class="n">in_ipython</span><span class="p">()</span> <span class="ow">or</span> <span class="n">in_jupyter</span><span class="p">()</span> <span class="ow">or</span> <span class="n">in_python_repl</span><span class="p">()</span>
         <span class="n">set_widgets_enabled_with_opacity</span><span class="p">(</span>
@@ -1098,23 +1098,23 @@ window.runMermaid = runMermaid;</script>
             <span class="n">enabled</span><span class="o">=</span><span class="ow">not</span> <span class="n">kernel_is_running</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="n">rdb</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span><span class="s1">&#39;roll&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;napari:roll_axes&#39;</span><span class="p">)</span>
+        <span class="n">rdb</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span><span class="s1">'roll'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">'napari:roll_axes'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rollDimsButton</span> <span class="o">=</span> <span class="n">rdb</span>
         <span class="n">rdb</span><span class="o">.</span><span class="n">setContextMenuPolicy</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ContextMenuPolicy</span><span class="o">.</span><span class="n">CustomContextMenu</span><span class="p">)</span>
         <span class="n">rdb</span><span class="o">.</span><span class="n">customContextMenuRequested</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_open_roll_popup</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">transposeDimsButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
-            <span class="s1">&#39;transpose&#39;</span><span class="p">,</span>
-            <span class="n">action</span><span class="o">=</span><span class="s1">&#39;napari:transpose_axes&#39;</span><span class="p">,</span>
-            <span class="n">extra_tooltip_text</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Alt/option-click to rotate visible axes&#39;</span><span class="p">,</span>
+            <span class="s1">'transpose'</span><span class="p">,</span>
+            <span class="n">action</span><span class="o">=</span><span class="s1">'napari:transpose_axes'</span><span class="p">,</span>
+            <span class="n">extra_tooltip_text</span><span class="o">=</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Alt/option-click to rotate visible axes'</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">transposeDimsButton</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">resetViewButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
-            <span class="s1">&#39;home&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;napari:reset_view&#39;</span>
+            <span class="s1">'home'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">'napari:reset_view'</span>
         <span class="p">)</span>
         <span class="n">gvb</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
-            <span class="s1">&#39;grid_view_button&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;napari:toggle_grid&#39;</span>
+            <span class="s1">'grid_view_button'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">'napari:toggle_grid'</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gridViewButton</span> <span class="o">=</span> <span class="n">gvb</span>
         <span class="n">gvb</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
@@ -1126,7 +1126,7 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
         <span class="n">ndb</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
-            <span class="s1">&#39;ndisplay_button&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;napari:toggle_ndisplay&#39;</span>
+            <span class="s1">'ndisplay_button'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">'napari:toggle_ndisplay'</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ndisplayButton</span> <span class="o">=</span> <span class="n">ndb</span>
         <span class="n">ndb</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
@@ -1152,14 +1152,14 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="QtViewerButtons.eventFilter">
 <a class="viewcode-back" href="../../../../api/napari.qt.QtViewerButtons.html#napari.qt.QtViewerButtons.eventFilter">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">eventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qobject</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Have Alt/Option key rotate layers with the transpose button.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Have Alt/Option key rotate layers with the transpose button."""</span>
         <span class="n">modifiers</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">keyboardModifiers</span><span class="p">()</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">modifiers</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">AltModifier</span>
             <span class="ow">and</span> <span class="n">qobject</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">transposeDimsButton</span>
             <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonPress</span>
         <span class="p">):</span>
-            <span class="n">action_manager</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">&#39;napari:rotate_layers&#39;</span><span class="p">)</span>
+            <span class="n">action_manager</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">'napari:rotate_layers'</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
@@ -1167,12 +1167,12 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_position_popup_inside_viewer</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">popup</span><span class="p">:</span> <span class="n">QtPopup</span><span class="p">,</span> <span class="n">button</span><span class="p">:</span> <span class="n">QPushButton</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Position the popup so that it remains with the viewer.</span>
+<span class="w">        </span><span class="sd">"""Position the popup so that it remains with the viewer.</span>
 
 <span class="sd">        Use the location of the button as a reference and place the popup</span>
 <span class="sd">        above it. move_to will adjust the position if the popup is too close</span>
 <span class="sd">        to the edge of the screen.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">button_rect</span> <span class="o">=</span> <span class="n">button</span><span class="o">.</span><span class="n">rect</span><span class="p">()</span>
         <span class="n">button_pos</span> <span class="o">=</span> <span class="n">button</span><span class="o">.</span><span class="n">mapToGlobal</span><span class="p">(</span><span class="n">button_rect</span><span class="o">.</span><span class="n">topLeft</span><span class="p">())</span>
         <span class="n">popup</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span>
@@ -1186,15 +1186,15 @@ window.runMermaid = runMermaid;</script>
         <span class="n">popup</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_first_camera_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the camera angle along axis 0.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update the camera angle along axis 0."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_angles</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_second_camera_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the camera angle along axis 1.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update the camera angle along axis 1."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_angles</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_third_camera_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the camera angle along axis 2.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update the camera angle along axis 2."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_angles</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_add_3d_camera_controls</span><span class="p">(</span>
@@ -1202,7 +1202,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">popup</span><span class="p">:</span> <span class="n">QtPopup</span><span class="p">,</span>
         <span class="n">grid_layout</span><span class="p">:</span> <span class="n">QGridLayout</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add 3D camera controls to the popup.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Add 3D camera controls to the popup."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">perspective</span> <span class="o">=</span> <span class="n">labeled_double_slider</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
             <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">perspective</span><span class="p">,</span>
@@ -1212,7 +1212,7 @@ window.runMermaid = runMermaid;</script>
 
         <span class="n">perspective_help_symbol</span> <span class="o">=</span> <span class="n">help_tooltip</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
-            <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Controls perspective projection strength. 0 is orthographic, larger values increase perspective effect.&#39;</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="s1">'Controls perspective projection strength. 0 is orthographic, larger values increase perspective effect.'</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">rz</span> <span class="o">=</span> <span class="n">labeled_double_slider</span><span class="p">(</span>
@@ -1240,21 +1240,21 @@ window.runMermaid = runMermaid;</script>
 
         <span class="n">angle_help_symbol</span> <span class="o">=</span> <span class="n">help_tooltip</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
-            <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Controls the rotation angles around each axis in degrees.&#39;</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="s1">'Controls the rotation angles around each axis in degrees.'</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Perspective:&#39;</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">'Perspective:'</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">perspective</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">perspective_help_symbol</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Angles    Z:&#39;</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">'Angles    Z:'</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rz</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">angle_help_symbol</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;               Y:&#39;</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">'               Y:'</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ry</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;               X:&#39;</span><span class="p">),</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">'               X:'</span><span class="p">),</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_add_shared_camera_controls</span><span class="p">(</span>
@@ -1262,7 +1262,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">popup</span><span class="p">:</span> <span class="n">QtPopup</span><span class="p">,</span>
         <span class="n">grid_layout</span><span class="p">:</span> <span class="n">QGridLayout</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add shared camera controls to the popup.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Add shared camera controls to the popup."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">labeled_double_slider</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
             <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span>
@@ -1273,29 +1273,29 @@ window.runMermaid = runMermaid;</script>
 
         <span class="n">zoom_help_symbol</span> <span class="o">=</span> <span class="n">help_tooltip</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
-            <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Controls zoom level of the camera. Larger values zoom in, smaller values zoom out.&#39;</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="s1">'Controls zoom level of the camera. Larger values zoom in, smaller values zoom out.'</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Zoom:&#39;</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">'Zoom:'</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">zoom_help_symbol</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_verical_axis_orientation</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">VerticalAxisOrientationStr</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the vertical axis orientation of the camera.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update the vertical axis orientation of the camera."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_orientation</span><span class="p">(</span><span class="n">VerticalAxisOrientation</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_horizontal_axis_orientation</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">HorizontalAxisOrientationStr</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the horizontal axis orientation of the camera.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update the horizontal axis orientation of the camera."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_orientation</span><span class="p">(</span><span class="n">HorizontalAxisOrientation</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_depth_axis_orientation</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">DepthAxisOrientationStr</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the depth axis orientation of the camera.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update the depth axis orientation of the camera."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_orientation</span><span class="p">(</span><span class="n">DepthAxisOrientation</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_add_orientation_controls</span><span class="p">(</span>
@@ -1303,7 +1303,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">popup</span><span class="p">:</span> <span class="n">QtPopup</span><span class="p">,</span>
         <span class="n">grid_layout</span><span class="p">:</span> <span class="n">QGridLayout</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add orientation controls to the popup.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Add orientation controls to the popup."""</span>
         <span class="n">orientation_widget</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">(</span><span class="n">popup</span><span class="p">)</span>
         <span class="n">orientation_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
         <span class="n">orientation_layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -1327,7 +1327,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">orientation_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">horizontal_combo</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">orientation_help_symbol</span> <span class="o">=</span> <span class="n">help_tooltip</span><span class="p">(</span>
                 <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
-                <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Controls the orientation of the vertical and horizontal camera axes.&#39;</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="s1">'Controls the orientation of the vertical and horizontal camera axes.'</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
@@ -1344,7 +1344,7 @@ window.runMermaid = runMermaid;</script>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">orientation_help_symbol</span> <span class="o">=</span> <span class="n">help_tooltip</span><span class="p">(</span>
                 <span class="n">parent</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span>
-                <span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># updated dynamically</span>
+                <span class="n">text</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span>  <span class="c1"># updated dynamically</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_handedness_help_symbol</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
@@ -1353,22 +1353,22 @@ window.runMermaid = runMermaid;</script>
 
         <span class="n">orientation_widget</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">orientation_layout</span><span class="p">)</span>
 
-        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Orientation:&#39;</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">'Orientation:'</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">orientation_widget</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">orientation_help_symbol</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_handedness_help_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the handedness symbol based on the camera orientation.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Update the handedness symbol based on the camera orientation."""</span>
         <span class="n">handedness</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">handedness</span>
         <span class="n">tooltip_text</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s1">&#39;Controls the orientation of the depth, vertical, and horizontal camera axes.</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;Default is right-handed (towards, down, right).</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;Default prior to 0.6.0 was left-handed (away, down, right).</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="sa">f</span><span class="s1">&#39;Currently orientation is </span><span class="si">{</span><span class="n">handedness</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">-handed.&#39;</span>
+            <span class="s1">'Controls the orientation of the depth, vertical, and horizontal camera axes.</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'Default is right-handed (towards, down, right).</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'Default prior to 0.6.0 was left-handed (away, down, right).</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="sa">f</span><span class="s1">'Currently orientation is </span><span class="si">{</span><span class="n">handedness</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">-handed.'</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">orientation_help_symbol</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">tooltip_text</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">orientation_help_symbol</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">handedness</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">hand_label&#39;</span>
+            <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">handedness</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">hand_label'</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">orientation_help_symbol</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">polish</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">orientation_help_symbol</span>
@@ -1379,13 +1379,13 @@ window.runMermaid = runMermaid;</script>
         <span class="n">popup</span><span class="p">:</span> <span class="n">QtPopup</span><span class="p">,</span>
         <span class="n">grid_layout</span><span class="p">:</span> <span class="n">QGridLayout</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add synced camera toggle to the popup.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Add synced camera toggle to the popup."""</span>
         <span class="n">row</span> <span class="o">=</span> <span class="n">grid_layout</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera_synced_checkbox</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s1">&#39;Sync 2D/3D camera&#39;</span><span class="p">,</span> <span class="n">popup</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_synced_checkbox</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s1">'Sync 2D/3D camera'</span><span class="p">,</span> <span class="n">popup</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">camera_synced_checkbox</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">synced</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">camera_synced_checkbox</span><span class="o">.</span><span class="n">stateChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="k">lambda</span> <span class="n">checked</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="s1">&#39;synced&#39;</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">checked</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="s1">'synced'</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">checked</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span>
         <span class="n">synced_help_symbol</span> <span class="o">=</span> <span class="n">help_tooltip</span><span class="p">(</span>
@@ -1398,7 +1398,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="QtViewerButtons.open_ndisplay_camera_popup">
 <a class="viewcode-back" href="../../../../api/napari.qt.QtViewerButtons.html#napari.qt.QtViewerButtons.open_ndisplay_camera_popup">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">open_ndisplay_camera_popup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show controls for camera settings based on ndisplay mode.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Show controls for camera settings based on ndisplay mode."""</span>
         <span class="n">popup</span> <span class="o">=</span> <span class="n">QtPopup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">grid_layout</span> <span class="o">=</span> <span class="n">QGridLayout</span><span class="p">()</span>
 
@@ -1434,7 +1434,7 @@ window.runMermaid = runMermaid;</script>
             <span class="o">|</span> <span class="n">HorizontalAxisOrientationStr</span>
         <span class="p">),</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the orientation of the camera.</span>
+<span class="w">        </span><span class="sd">"""Update the orientation of the camera.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1442,7 +1442,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            The orientation type (which implies the position/axis) to update.</span>
 <span class="sd">        value : DepthAxisOrientationStr | VerticalAxisOrientationStr | HorizontalAxisOrientationStr</span>
 <span class="sd">            New orientation value for the updated axis.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">axes</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">DepthAxisOrientation</span><span class="p">,</span>
             <span class="n">VerticalAxisOrientation</span><span class="p">,</span>
@@ -1454,7 +1454,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">new_orientation</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_camera_angles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the camera angles.</span>
+<span class="w">        </span><span class="sd">"""Update the camera angles.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1462,41 +1462,41 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Index of the angle to update. In the euler order of (rz, ry, rx).</span>
 <span class="sd">        value : float</span>
 <span class="sd">            New angle value.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="n">angles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">)</span>
         <span class="n">angles</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_zoom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the camera zoom.</span>
+<span class="w">        </span><span class="sd">"""Update the camera zoom.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        value : float</span>
 <span class="sd">            New camera.zoom value.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_perspective</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the camera perspective.</span>
+<span class="w">        </span><span class="sd">"""Update the camera perspective.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        value : float</span>
 <span class="sd">            New camera.perspective value.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">perspective</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_open_roll_popup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open a grid popup to manually order the dimensions&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Open a grid popup to manually order the dimensions"""</span>
         <span class="n">pop</span> <span class="o">=</span> <span class="n">QtPopup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="c1"># dims sorter widget</span>
         <span class="n">dim_sorter</span> <span class="o">=</span> <span class="n">QtDimsSorter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span>
-        <span class="n">dim_sorter</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">&#39;dim_sorter&#39;</span><span class="p">)</span>
+        <span class="n">dim_sorter</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">'dim_sorter'</span><span class="p">)</span>
 
         <span class="c1"># make layout</span>
         <span class="n">layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
@@ -1510,7 +1510,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">gridViewButton</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_open_grid_popup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open grid options pop up widget.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Open grid options pop up widget."""</span>
 
         <span class="c1"># widgets</span>
         <span class="n">popup</span> <span class="o">=</span> <span class="n">QtPopup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -1523,25 +1523,25 @@ window.runMermaid = runMermaid;</script>
         <span class="n">spacing_help_symbol</span> <span class="o">=</span> <span class="n">QtToolTipLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="n">shape_help_msg</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s1">&#39;Number of rows and columns in the grid.</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;A value of -1 for either or both of width and height will trigger an</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;auto calculation of the necessary grid shape to appropriately fill</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;all the layers at the appropriate stride. 0 is not a valid entry.&#39;</span>
+            <span class="s1">'Number of rows and columns in the grid.</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'A value of -1 for either or both of width and height will trigger an</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'auto calculation of the necessary grid shape to appropriately fill</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'all the layers at the appropriate stride. 0 is not a valid entry.'</span>
         <span class="p">)</span>
 
         <span class="n">stride_help_msg</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s1">&#39;Number of layers to place in each grid viewbox before moving on to the next viewbox.</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;A negative stride will cause the order in which the layers are placed in the grid to be reversed.</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;0 is not a valid entry.&#39;</span>
+            <span class="s1">'Number of layers to place in each grid viewbox before moving on to the next viewbox.</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'A negative stride will cause the order in which the layers are placed in the grid to be reversed.</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'0 is not a valid entry.'</span>
         <span class="p">)</span>
 
         <span class="n">spacing_help_msg</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s1">&#39;The amount of spacing between grid viewboxes.</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;If between 0 and 1, it is interpreted as a proportion of the size of the viewboxes.</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;If equal or greater than 1, it is interpreted as screen pixels.&#39;</span>
+            <span class="s1">'The amount of spacing between grid viewboxes.</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'If between 0 and 1, it is interpreted as a proportion of the size of the viewboxes.</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'If equal or greater than 1, it is interpreted as screen pixels.'</span>
         <span class="p">)</span>
 
-        <span class="n">grid_stride</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">&#39;gridStrideBox&#39;</span><span class="p">)</span>
+        <span class="n">grid_stride</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">'gridStrideBox'</span><span class="p">)</span>
         <span class="n">grid_stride</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
         <span class="c1"># Magic number to allow for negative strides, but not too large to be unreasonable.</span>
         <span class="c1"># 1000 is arbitrary.</span>
@@ -1551,7 +1551,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">grid_stride</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_grid_stride</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_stride_box</span> <span class="o">=</span> <span class="n">grid_stride</span>
 
-        <span class="n">grid_width</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">&#39;gridWidthBox&#39;</span><span class="p">)</span>
+        <span class="n">grid_width</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">'gridWidthBox'</span><span class="p">)</span>
         <span class="n">grid_width</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
         <span class="n">grid_width</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">grid_width</span><span class="o">.</span><span class="n">setProhibitValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -1559,7 +1559,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">grid_width</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_grid_width</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_width_box</span> <span class="o">=</span> <span class="n">grid_width</span>
 
-        <span class="n">grid_height</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">&#39;gridStrideBox&#39;</span><span class="p">)</span>
+        <span class="n">grid_height</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">'gridStrideBox'</span><span class="p">)</span>
         <span class="n">grid_height</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
         <span class="n">grid_height</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">grid_height</span><span class="o">.</span><span class="n">setProhibitValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -1570,7 +1570,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># set up spacing</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings._application</span><span class="w"> </span><span class="kn">import</span> <span class="n">MAX_GRID_SPACING</span>
 
-        <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">&#39;gridSpacingBox&#39;</span><span class="p">)</span>
+        <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">'gridSpacingBox'</span><span class="p">)</span>
         <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
         <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_spacing</span><span class="o">.</span><span class="n">setMaximum</span><span class="p">(</span><span class="n">MAX_GRID_SPACING</span><span class="p">)</span>
@@ -1581,30 +1581,30 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_spacing_box</span> <span class="o">=</span> <span class="n">grid_spacing</span>
 
         <span class="c1"># help symbols</span>
-        <span class="n">shape_help_symbol</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">&#39;help_label&#39;</span><span class="p">)</span>
+        <span class="n">shape_help_symbol</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">'help_label'</span><span class="p">)</span>
         <span class="n">shape_help_symbol</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">shape_help_msg</span><span class="p">)</span>
 
-        <span class="n">stride_help_symbol</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">&#39;help_label&#39;</span><span class="p">)</span>
+        <span class="n">stride_help_symbol</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">'help_label'</span><span class="p">)</span>
         <span class="n">stride_help_symbol</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">stride_help_msg</span><span class="p">)</span>
 
-        <span class="n">spacing_help_symbol</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">&#39;help_label&#39;</span><span class="p">)</span>
+        <span class="n">spacing_help_symbol</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s1">'help_label'</span><span class="p">)</span>
         <span class="n">spacing_help_symbol</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">spacing_help_msg</span><span class="p">)</span>
 
         <span class="c1"># layout</span>
         <span class="n">grid_layout</span> <span class="o">=</span> <span class="n">QGridLayout</span><span class="p">()</span>
-        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Grid stride:&#39;</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">'Grid stride:'</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">grid_stride</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">stride_help_symbol</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Grid width:&#39;</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">'Grid width:'</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">grid_width</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">shape_help_symbol</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Span rows</span>
 
-        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Grid height:&#39;</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">'Grid height:'</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">grid_height</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Grid spacing:&#39;</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">'Grid spacing:'</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">grid_spacing</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">spacing_help_symbol</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
@@ -1612,13 +1612,13 @@ window.runMermaid = runMermaid;</script>
         <span class="n">popup</span><span class="o">.</span><span class="n">show_above_mouse</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_grid_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the width value in grid shape.</span>
+<span class="w">        </span><span class="sd">"""Update the width value in grid shape.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        value : int</span>
 <span class="sd">            New grid width value.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
@@ -1626,24 +1626,24 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_grid_stride</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update stride in grid settings.</span>
+<span class="w">        </span><span class="sd">"""Update stride in grid settings.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        value : int</span>
 <span class="sd">            New grid stride value.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_grid_height</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update height value in grid shape.</span>
+<span class="w">        </span><span class="sd">"""Update height value in grid shape.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        value : int</span>
 <span class="sd">            New grid height value.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">value</span><span class="p">,</span>
@@ -1651,13 +1651,13 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_grid_spacing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update spacing value in grid settings.</span>
+<span class="w">        </span><span class="sd">"""Update spacing value in grid settings.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        value : float</span>
 <span class="sd">            New grid spacing value.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">spacing</span> <span class="o">=</span> <span class="n">value</span></div>
 
 
@@ -1667,31 +1667,31 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s1">&#39;viewer argument is deprecated since 0.4.14 and should not be used&#39;</span><span class="p">,</span>
+                <span class="s1">'viewer argument is deprecated since 0.4.14 and should not be used'</span><span class="p">,</span>
                 <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
                 <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
-        <span class="k">if</span> <span class="s1">&#39;viewer&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">'viewer'</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s1">&#39;viewer argument is deprecated since 0.4.14 and should not be used&#39;</span><span class="p">,</span>
+                <span class="s1">'viewer argument is deprecated since 0.4.14 and should not be used'</span><span class="p">,</span>
                 <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
                 <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;viewer&#39;</span><span class="p">]</span>
+            <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">'viewer'</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">constructor</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">_func</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">LayerCreationState</span><span class="p">(</span><span class="n">StrEnum</span><span class="p">):</span>
-    <span class="n">NONE</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span>
-    <span class="n">FULL</span> <span class="o">=</span> <span class="s1">&#39;full&#39;</span>
-    <span class="n">PARTIAL</span> <span class="o">=</span> <span class="s1">&#39;partial&#39;</span>
+    <span class="n">NONE</span> <span class="o">=</span> <span class="s1">'none'</span>
+    <span class="n">FULL</span> <span class="o">=</span> <span class="s1">'full'</span>
+    <span class="n">PARTIAL</span> <span class="o">=</span> <span class="s1">'partial'</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">QtViewerPushButton</span><span class="p">(</span><span class="n">QPushButton</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Push button.</span>
+<span class="w">    </span><span class="sd">"""Push button.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1703,21 +1703,21 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        callable to be triggered on button click</span>
 <span class="sd">    action : str</span>
 <span class="sd">        action name to be triggered on button click</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="nd">@_omit_viewer_args</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">button_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">tooltip</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">tooltip</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span>
         <span class="n">slot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">action</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-        <span class="n">extra_tooltip_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">action</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span>
+        <span class="n">extra_tooltip_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">tooltip</span> <span class="ow">or</span> <span class="n">button_name</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;mode&#39;</span><span class="p">,</span> <span class="n">button_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">'mode'</span><span class="p">,</span> <span class="n">button_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">slot</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">slot</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">action</span><span class="p">:</span>
@@ -1726,12 +1726,12 @@ window.runMermaid = runMermaid;</script>
             <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_change_selection_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">LayerCreationState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Change the selection state of a new-layer button.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;creation_state&#39;</span><span class="p">,</span> <span class="n">LayerCreationState</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">"""Change the selection state of a new-layer button."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">'creation_state'</span><span class="p">,</span> <span class="n">LayerCreationState</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_qss</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_refresh_qss</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Refresh the button&#39;s QSS (Qt Style Sheet).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Refresh the button's QSS (Qt Style Sheet)."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">unpolish</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">polish</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>

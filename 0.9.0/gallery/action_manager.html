@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -847,18 +847,14 @@
 <p><a class="reference download internal" download="" href="../_downloads/96c511da65583f68ec27a0549dec923e/action_manager.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Notebook</span> <span class="pre">(.ipynb)</span></code></a></p>
 </div>
 </div>
-<img src="../_images/sphx_glr_action_manager_001.png" srcset="../_images/sphx_glr_action_manager_001.png" alt="action manager" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-  theme_type=get_system_theme(),
-/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-  theme_type=get_system_theme(),
-/home/runner/work/docs/docs/napari/examples/action_manager.py:44: FutureWarning: Public access to Window.qt_viewer is deprecated and will be removed in
-no earlier than v0.9.0. It is considered an &quot;implementation detail&quot; of the napari
+<img src="../_images/sphx_glr_action_manager_001.png" srcset="../_images/sphx_glr_action_manager_001.png" alt="action manager" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/docs/docs/napari/examples/action_manager.py:44: FutureWarning: Public access to Window.qt_viewer is deprecated and will be removed in
+no earlier than v0.9.0. It is considered an "implementation detail" of the napari
 application, not part of the napari viewer model. If your use case
 requires access to qt_viewer, please open an issue to discuss.
   layer_buttons = viewer.window.qt_viewer.layerButtons
-calling &lt;function bind_shortcut at 0x7f2e5d4eafc0&gt;
-calling &lt;function register_action at 0x7f2e5d4ea0c0&gt;
-calling &lt;function bind_button at 0x7f2e5d4ea160&gt;
+calling &lt;function register_action at 0x7fe5c8609bc0&gt;
+calling &lt;function bind_button at 0x7fe5c86674c0&gt;
+calling &lt;function bind_shortcut at 0x7fe5c86671a0&gt;
 </pre></div>
 </div>
 <div class="line-block">
@@ -876,7 +872,7 @@ calling &lt;function bind_button at 0x7f2e5d4ea160&gt;
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">rotate45</span><span class="p">(</span><a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="p">:</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Rotate layer 0 of the viewer by 45º</span>
 
 <span class="sd">    Parameters</span>
@@ -888,7 +884,7 @@ calling &lt;function bind_button at 0x7f2e5d4ea160&gt;
 <span class="sd">    -----</span>
 <span class="sd">    The `viewer` parameter needs to be named `viewer`, the action manager will</span>
 <span class="sd">    infer that we need an instance of viewer.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">angle</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a> <span class="o">/</span> <span class="mi">4</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.cos.html#numpy.cos" title="numpy.cos" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">cos</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.sin.html#numpy.sin" title="numpy.sin" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">sin</span></a>
 
@@ -906,7 +902,7 @@ calling &lt;function bind_button at 0x7f2e5d4ea160&gt;
 <span class="c1"># Button do not need to do anything, just need to be pretty; all the action</span>
 <span class="c1"># binding and (un) binding will be done with the action manager, idem for</span>
 <span class="c1"># setting the tooltip.</span>
-<span class="n">rot_button</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span><span class="s1">&#39;warning&#39;</span><span class="p">)</span>
+<span class="n">rot_button</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span><span class="s1">'warning'</span><span class="p">)</span>
 <span class="n">layer_buttons</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span><span class="o">.</span><span class="n">insertWidget</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">rot_button</span><span class="p">)</span>
 
 
@@ -920,9 +916,9 @@ calling &lt;function bind_button at 0x7f2e5d4ea160&gt;
     <span class="c1"># By convention (may be enforced later), we do give an action name which is prefixed</span>
     <span class="c1"># by the name of the package it is defined in, here napari,</span>
     <span class="n">action_manager</span><span class="o">.</span><span class="n">register_action</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;napari:rotate45&#39;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">'napari:rotate45'</span><span class="p">,</span>
         <span class="n">command</span><span class="o">=</span><span class="n">rotate45</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Rotate layer 0 by 45deg&#39;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">'Rotate layer 0 by 45deg'</span><span class="p">,</span>
         <span class="n">keymapprovider</span><span class="o">=</span><a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel" title="napari.components.ViewerModel" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class"><span class="n">ViewerModel</span></a><span class="p">,</span>
     <span class="p">)</span>
 
@@ -930,12 +926,12 @@ calling &lt;function bind_button at 0x7f2e5d4ea160&gt;
 <span class="k">def</span><span class="w"> </span><span class="nf">bind_shortcut</span><span class="p">():</span>
     <span class="c1"># note that the tooltip of the corresponding button will be updated to</span>
     <span class="c1"># remove the shortcut.</span>
-    <span class="n">action_manager</span><span class="o">.</span><span class="n">unbind_shortcut</span><span class="p">(</span><span class="s1">&#39;napari:reset_view&#39;</span><span class="p">)</span>  <span class="c1"># Control-R</span>
-    <span class="n">action_manager</span><span class="o">.</span><span class="n">bind_shortcut</span><span class="p">(</span><span class="s1">&#39;napari:rotate45&#39;</span><span class="p">,</span> <span class="s1">&#39;Control-R&#39;</span><span class="p">)</span>
+    <span class="n">action_manager</span><span class="o">.</span><span class="n">unbind_shortcut</span><span class="p">(</span><span class="s1">'napari:reset_view'</span><span class="p">)</span>  <span class="c1"># Control-R</span>
+    <span class="n">action_manager</span><span class="o">.</span><span class="n">bind_shortcut</span><span class="p">(</span><span class="s1">'napari:rotate45'</span><span class="p">,</span> <span class="s1">'Control-R'</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">bind_button</span><span class="p">():</span>
-    <span class="n">action_manager</span><span class="o">.</span><span class="n">bind_button</span><span class="p">(</span><span class="s1">&#39;napari:rotate45&#39;</span><span class="p">,</span> <span class="n">rot_button</span><span class="p">)</span>
+    <span class="n">action_manager</span><span class="o">.</span><span class="n">bind_button</span><span class="p">(</span><span class="s1">'napari:rotate45'</span><span class="p">,</span> <span class="n">rot_button</span><span class="p">)</span>
 
 
 <span class="c1"># we can all bind_shortcut or register_action or bind_button in any order;</span>
@@ -944,7 +940,7 @@ calling &lt;function bind_button at 0x7f2e5d4ea160&gt;
 
 <a href="https://docs.python.org/3/library/random.html#random.shuffle" title="random.shuffle" class="sphx-glr-backref-module-random sphx-glr-backref-type-py-function"><span class="n">shuffle</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">callbacks</span></a><span class="p">)</span>
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">callbacks</span></a><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;calling&#39;</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'calling'</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
     <span class="n">c</span><span class="p">()</span>
 
 
@@ -954,18 +950,18 @@ calling &lt;function bind_button at 0x7f2e5d4ea160&gt;
 
 <span class="n">action_manager</span><span class="o">.</span><span class="n">_debug</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># Let&#39;s also modify some existing shortcuts, by unbinding a few existing actions,</span>
+<span class="c1"># Let's also modify some existing shortcuts, by unbinding a few existing actions,</span>
 <span class="c1"># and rebinding them with new shortcuts; below we change the add and select mode</span>
 <span class="c1"># to be the = (same as + key on US Keyboards but without modifiers) and - keys.</span>
-<span class="c1"># unbinding returns the old key if it exists; but we don&#39;t use it.</span>
+<span class="c1"># unbinding returns the old key if it exists; but we don't use it.</span>
 
-<span class="c1"># in practice you likely don&#39;t need to modify the shortcuts this way as it will</span>
+<span class="c1"># in practice you likely don't need to modify the shortcuts this way as it will</span>
 <span class="c1"># be implemented in settings, though you could imagine a plugin that would</span>
 <span class="c1"># allow toggling between many keymaps.</span>
 
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">settings</span></a> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;napari:activate_points_add_mode&#39;</span> <span class="p">:</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;napari:activate_points_select_mode&#39;</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span>
+        <span class="s1">'napari:activate_points_add_mode'</span> <span class="p">:</span> <span class="s1">'='</span><span class="p">,</span>
+        <span class="s1">'napari:activate_points_select_mode'</span><span class="p">:</span> <span class="s1">'-'</span><span class="p">,</span>
 <span class="p">}</span>
 
 
@@ -973,7 +969,7 @@ calling &lt;function bind_button at 0x7f2e5d4ea160&gt;
    <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_old_shortcut</span></a> <span class="o">=</span> <span class="n">action_manager</span><span class="o">.</span><span class="n">unbind_shortcut</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">action</span></a><span class="p">)</span>
    <span class="n">action_manager</span><span class="o">.</span><span class="n">bind_shortcut</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">action</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">key</span></a><span class="p">)</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>

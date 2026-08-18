@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../../../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -833,26 +833,26 @@ window.runMermaid = runMermaid;</script>
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_core.core_schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">DictSchema</span><span class="p">,</span> <span class="n">TypedDictSchema</span>
 
-<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;_T&#39;</span><span class="p">)</span>
-<span class="n">_S</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;_S&#39;</span><span class="p">)</span>
+<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'_T'</span><span class="p">)</span>
+<span class="n">_S</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'_S'</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">sequence_like</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check whether an object is sequence-like.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Check whether an object is sequence-like."""</span>
     <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">set</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">,</span> <span class="n">GeneratorType</span><span class="p">,</span> <span class="n">deque</span><span class="p">))</span>
 
 
 <div class="viewcode-block" id="Selection">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.Selection.html#napari.utils.events.Selection">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Selection</span><span class="p">(</span><span class="n">EventedSet</span><span class="p">[</span><span class="n">_T</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A model of selected items, with ``active`` and ``current`` item.</span>
+<span class="w">    </span><span class="sd">"""A model of selected items, with ``active`` and ``current`` item.</span>
 
 <span class="sd">    There can only be one ``active`` and one ``current`` item, but there can be</span>
-<span class="sd">    multiple selected items.  An &quot;active&quot; item is defined as a single selected</span>
+<span class="sd">    multiple selected items.  An "active" item is defined as a single selected</span>
 <span class="sd">    item (if multiple items are selected, there is no active item).  The</span>
-<span class="sd">    &quot;current&quot; item is mostly useful for (e.g.) keyboard actions: even with</span>
+<span class="sd">    "current" item is mostly useful for (e.g.) keyboard actions: even with</span>
 <span class="sd">    multiple items selected, you may only have one current item, and keyboard</span>
-<span class="sd">    events (like up and down) can modify that current item.  It&#39;s possible to</span>
+<span class="sd">    events (like up and down) can modify that current item.  It's possible to</span>
 <span class="sd">    have a current item without an active item, but an active item will always</span>
 <span class="sd">    be the current item.</span>
 
@@ -884,7 +884,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        emitted when the current item has changed.</span>
 <span class="sd">    _current (value: _T)</span>
 <span class="sd">        emitted when the current item has changed. (Private event)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_active</span><span class="p">:</span> <span class="n">_T</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -906,20 +906,20 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_emit_change</span><span class="p">(</span><span class="n">added</span><span class="o">=</span><span class="n">added</span><span class="p">,</span> <span class="n">removed</span><span class="o">=</span><span class="n">removed</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="si">!r}</span><span class="s1">)&#39;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="si">!r}</span><span class="s1">)'</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make selection hashable.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Make selection hashable."""</span>
         <span class="k">return</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_current</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_T</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get current item.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get current item."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_</span>
 
     <span class="nd">@_current</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_current</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">_T</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set current item.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Set current item."""</span>
         <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_</span> <span class="o">=</span> <span class="n">index</span>
@@ -927,15 +927,15 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">active</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_T</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the currently active item or None.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Return the currently active item or None."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_active</span>
 
     <span class="nd">@active</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">active</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the active item.</span>
+<span class="w">        </span><span class="sd">"""Set the active item.</span>
 
 <span class="sd">        This make `value` the only selected item, and make it current.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_active</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_active</span> <span class="o">=</span> <span class="n">value</span>
@@ -944,10 +944,10 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_active</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;On a selection event, update the active item based on selection.</span>
+<span class="w">        </span><span class="sd">"""On a selection event, update the active item based on selection.</span>
 
 <span class="sd">        (An active item is a single selected item).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -957,14 +957,14 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Selection.clear">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.Selection.html#napari.utils.events.Selection.clear">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keep_current</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear the selection.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Clear the selection."""</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">keep_current</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_current</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_add_and_remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">],</span> <span class="n">remove</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add and remove obj from selection.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Add and remove obj from selection."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">add</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">difference_update</span><span class="p">(</span><span class="n">remove</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_active</span><span class="p">()</span>
@@ -976,14 +976,14 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Selection.toggle">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.Selection.html#napari.utils.events.Selection.toggle">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">toggle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle selection state of obj.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Toggle selection state of obj."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">symmetric_difference_update</span><span class="p">({</span><span class="n">obj</span><span class="p">})</span></div>
 
 
 <div class="viewcode-block" id="Selection.select_only">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.Selection.html#napari.utils.events.Selection.select_only">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">select_only</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Unselect everything but `obj`. Add to selection if not present.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Unselect everything but `obj`. Add to selection if not present."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">intersection_update</span><span class="p">({</span><span class="n">obj</span><span class="p">})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></div>
 
@@ -1004,10 +1004,10 @@ window.runMermaid = runMermaid;</script>
             <span class="p">)</span>
             <span class="n">dict_schema</span> <span class="o">=</span> <span class="n">core_schema</span><span class="o">.</span><span class="n">typed_dict_schema</span><span class="p">(</span>
                 <span class="p">{</span>
-                    <span class="s1">&#39;selection&#39;</span><span class="p">:</span> <span class="n">core_schema</span><span class="o">.</span><span class="n">typed_dict_field</span><span class="p">(</span>
+                    <span class="s1">'selection'</span><span class="p">:</span> <span class="n">core_schema</span><span class="o">.</span><span class="n">typed_dict_field</span><span class="p">(</span>
                         <span class="n">core_schema</span><span class="o">.</span><span class="n">list_schema</span><span class="p">(</span><span class="n">item_schema</span><span class="p">)</span>
                     <span class="p">),</span>
-                    <span class="s1">&#39;_current&#39;</span><span class="p">:</span> <span class="n">core_schema</span><span class="o">.</span><span class="n">typed_dict_field</span><span class="p">(</span>
+                    <span class="s1">'_current'</span><span class="p">:</span> <span class="n">core_schema</span><span class="o">.</span><span class="n">typed_dict_field</span><span class="p">(</span>
                         <span class="n">current_schema</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span>
                     <span class="p">),</span>
                 <span class="p">}</span>
@@ -1029,13 +1029,13 @@ window.runMermaid = runMermaid;</script>
 
         <span class="k">def</span><span class="w"> </span><span class="nf">_serialize</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="n">Selection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">{</span>
-                <span class="s1">&#39;selection&#39;</span><span class="p">:</span> <span class="n">EventedSet</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">_json_encode</span><span class="p">(),</span>
-                <span class="s1">&#39;_current&#39;</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">_current</span><span class="p">,</span>
+                <span class="s1">'selection'</span><span class="p">:</span> <span class="n">EventedSet</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">_json_encode</span><span class="p">(),</span>
+                <span class="s1">'_current'</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">_current</span><span class="p">,</span>
             <span class="p">}</span>
 
         <span class="n">serialize</span> <span class="o">=</span> <span class="n">core_schema</span><span class="o">.</span><span class="n">plain_serializer_function_ser_schema</span><span class="p">(</span>
             <span class="n">_serialize</span><span class="p">,</span>
-            <span class="n">when_used</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span>
+            <span class="n">when_used</span><span class="o">=</span><span class="s1">'json'</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">core_schema</span><span class="o">.</span><span class="n">union_schema</span><span class="p">(</span>
             <span class="p">[</span><span class="n">instance_schema</span><span class="p">,</span> <span class="n">non_instance_schema</span><span class="p">],</span> <span class="n">serialization</span><span class="o">=</span><span class="n">serialize</span>
@@ -1044,12 +1044,12 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_validate_selection</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
-        <span class="n">v</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s1">&#39;Selection&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Selection&#39;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pydantic validator.&quot;&quot;&quot;</span>
+        <span class="n">v</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s1">'Selection'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'Selection'</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Pydantic validator."""</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;selection&#39;</span><span class="p">,</span> <span class="p">[])</span>
-            <span class="n">current</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_current&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'selection'</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'_current'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Selection</span><span class="p">):</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">_set</span>
             <span class="n">current</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">_current</span>
@@ -1062,14 +1062,14 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">obj</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_json_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>  <span class="c1"># type: ignore[override]</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an object that can be used by json.dumps.&quot;&quot;&quot;</span>
-        <span class="c1"># we don&#39;t serialize active, as it&#39;s gleaned from the selection.</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;selection&#39;</span><span class="p">:</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_json_encode</span><span class="p">(),</span> <span class="s1">&#39;_current&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current</span><span class="p">}</span></div>
+<span class="w">        </span><span class="sd">"""Return an object that can be used by json.dumps."""</span>
+        <span class="c1"># we don't serialize active, as it's gleaned from the selection.</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">'selection'</span><span class="p">:</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_json_encode</span><span class="p">(),</span> <span class="s1">'_current'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current</span><span class="p">}</span></div>
 
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">Selectable</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">_S</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mixin that adds a selection model to an object.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Mixin that adds a selection model to an object."""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">:</span> <span class="n">Selection</span><span class="p">[</span><span class="n">_S</span><span class="p">]</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">()</span>
@@ -1077,12 +1077,12 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">selection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Selection</span><span class="p">[</span><span class="n">_S</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get current selection.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get current selection."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span>
 
     <span class="nd">@selection</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">selection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_selection</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_S</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set selection, without deleting selection model object.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Set selection, without deleting selection model object."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">intersection_update</span><span class="p">(</span><span class="n">new_selection</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_selection</span><span class="p">)</span>
 </pre></div>

@@ -42,6 +42,7 @@ graph LR
 	napari._qt._qapp_model.qactions._help --> napari._qt.qt_main_window
 	napari._qt._qapp_model.qactions._help --> napari._qt.widgets.qt_logger
 	napari._qt._qapp_model.qactions._help --> napari._qt.widgets.qt_tips
+	napari._qt._qapp_model.qactions._help --> napari._qt.widgets.qt_viewer_tour
 	click napari._qt._qapp_model.qactions._help "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_help.py" _blank
 	napari._qt._qapp_model.qactions._layerlist_context(napari._qt._qapp_model.qactions._layerlist_context)
 	click napari._qt._qapp_model.qactions._layerlist_context "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_layerlist_context.py" _blank
@@ -80,6 +81,7 @@ graph LR
 	napari._qt.qt_main_window --> napari._qt.dialogs.screenshot_dialog
 	napari._qt.qt_main_window --> napari._qt.qt_viewer
 	napari._qt.qt_main_window --> napari._qt.widgets.qt_command_palette
+	napari._qt.qt_main_window --> napari._qt.widgets.qt_viewer_tour
 	napari._qt.qt_main_window --> napari.viewer
 	click napari._qt.qt_main_window "https://github.com/napari/napari/tree/main/napari/_qt/qt_main_window.py" _blank
 	napari._qt.qt_viewer(napari._qt.qt_viewer)
@@ -103,6 +105,11 @@ graph LR
 	napari._qt.widgets.qt_viewer_buttons --> napari._qt.dialogs.qt_modal
 	napari._qt.widgets.qt_viewer_buttons --> napari.viewer
 	click napari._qt.widgets.qt_viewer_buttons "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_buttons.py" _blank
+	napari._qt.widgets.qt_viewer_tour(napari._qt.widgets.qt_viewer_tour)
+	napari._qt.widgets.qt_viewer_tour --> napari._qt._qapp_model.qactions
+	napari._qt.widgets.qt_viewer_tour --> napari._qt._qapp_model.qactions._help
+	napari._qt.widgets.qt_viewer_tour --> napari._qt.qt_main_window
+	click napari._qt.widgets.qt_viewer_tour "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_tour.py" _blank
 	napari.viewer(napari.viewer)
 	napari.viewer --> napari._qt
 	napari.viewer --> napari._qt.qt_main_window
@@ -153,6 +160,7 @@ graph LR
 		 napari._qt.widgets.qt_logger
 		 napari._qt.widgets.qt_tips
 		 napari._qt.widgets.qt_viewer_buttons
+		 napari._qt.widgets.qt_viewer_tour
 	end
 	class module.napari._qt.widgets subgraphs
 	classDef subgraphs fill:white,strock:black,color:black;	classDef default fill:#00c3ff,color:black;
@@ -162,37 +170,38 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
-├─_qt/
-│ ├─_qapp_model/
-│ │ ├─qactions/
-│ │ │ ├─_help.py
-│ │ │ ├─_debug.py
-│ │ │ ├─_file.py
-│ │ │ ├─_view.py
-│ │ │ ├─__init__.py
-│ │ │ ├─_toggle_action.py
-│ │ │ ├─_layers_actions.py
-│ │ │ ├─_window.py
-│ │ │ ├─_layerlist_context.py
-│ │ │ └─_plugins.py
-│ │ └─injection/
-│ │   ├─_qproviders.py
-│ │   └─_qprocessors.py
-│ ├─__init__.py
-│ ├─dialogs/
-│ │ ├─qt_modal.py
-│ │ ├─screenshot_dialog.py
-│ │ ├─confirm_close_dialog.py
-│ │ ├─qt_about.py
-│ │ ├─qt_reader_dialog.py
-│ │ └─preferences_dialog.py
-│ ├─qt_main_window.py
-│ ├─qt_viewer.py
-│ ├─qthreading.py
-│ └─widgets/
-│   ├─qt_command_palette.py
-│   ├─qt_tips.py
-│   ├─qt_viewer_buttons.py
-│   └─qt_logger.py
-└─viewer.py
+├─viewer.py
+└─_qt/
+  ├─__init__.py
+  ├─dialogs/
+  │ ├─preferences_dialog.py
+  │ ├─screenshot_dialog.py
+  │ ├─confirm_close_dialog.py
+  │ ├─qt_modal.py
+  │ ├─qt_about.py
+  │ └─qt_reader_dialog.py
+  ├─qt_main_window.py
+  ├─widgets/
+  │ ├─qt_viewer_tour.py
+  │ ├─qt_tips.py
+  │ ├─qt_command_palette.py
+  │ ├─qt_logger.py
+  │ └─qt_viewer_buttons.py
+  ├─qthreading.py
+  ├─_qapp_model/
+  │ ├─qactions/
+  │ │ ├─__init__.py
+  │ │ ├─_window.py
+  │ │ ├─_layerlist_context.py
+  │ │ ├─_layers_actions.py
+  │ │ ├─_plugins.py
+  │ │ ├─_file.py
+  │ │ ├─_debug.py
+  │ │ ├─_toggle_action.py
+  │ │ ├─_view.py
+  │ │ └─_help.py
+  │ └─injection/
+  │   ├─_qproviders.py
+  │   └─_qprocessors.py
+  └─qt_viewer.py
 ```

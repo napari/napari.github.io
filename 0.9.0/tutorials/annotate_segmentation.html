@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -835,10 +835,10 @@
 <p>In this tutorial, we will use napari to view and annotate a segmentation with bounding boxes and text labels. Here we perform a segmentation by setting an intensity threshold with Otsu’s method, but this same approach could also be used to visualize the results of other image processing algorithms such as <a class="reference external" href="https://www.tensorflow.org/lite/examples/object_detection/overview">object detection with neural networks</a>.</p>
 <p><img alt="napari viewer showing eight roughly circular shapes. The shapes are classified according to circularity and have bounding boxes automatically generated around them showing a circularity parameter and an integer for a label." src="../_images/annotated_bbox.png" /></p>
 <p>The completed code is shown below and also can be found in the napari examples directory (<a class="reference external" href="https://github.com/napari/napari/blob/main/examples/annotate_segmentation_with_text.py"><code class="docutils literal notranslate"><span class="pre">annotate_segmentation_with_text.py</span></code></a>).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">"""</span>
 <span class="sd">Perform a segmentation and annotate the results with</span>
 <span class="sd">bounding boxes and text</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">skimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">data</span>
@@ -850,8 +850,8 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">segment</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Segment an image using an intensity threshold determined via</span>
-<span class="sd">    Otsu&#39;s method.</span>
+<span class="w">    </span><span class="sd">"""Segment an image using an intensity threshold determined via</span>
+<span class="sd">    Otsu's method.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -862,7 +862,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    label_image : np.ndarray</span>
 <span class="sd">        The resulting image where each detected object labeled with a unique integer.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># apply threshold</span>
     <span class="n">thresh</span> <span class="o">=</span> <span class="n">threshold_otsu</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
     <span class="n">bw</span> <span class="o">=</span> <span class="n">closing</span><span class="p">(</span><span class="n">image</span> <span class="o">&gt;</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">square</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
@@ -877,7 +877,7 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">make_bbox</span><span class="p">(</span><span class="n">bbox_extents</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the coordinates of the corners of a</span>
+<span class="w">    </span><span class="sd">"""Get the coordinates of the corners of a</span>
 <span class="sd">    bounding box from the extents</span>
 
 <span class="sd">    Parameters</span>
@@ -891,7 +891,7 @@
 <span class="sd">    bbox_rect : np.ndarray</span>
 <span class="sd">        The corners of the bounding box. Can be input directly into a</span>
 <span class="sd">        napari Shapes layer.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">minr</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">minc</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">maxr</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -904,7 +904,7 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">circularity</span><span class="p">(</span><span class="n">perimeter</span><span class="p">,</span> <span class="n">area</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the circularity of the region</span>
+<span class="w">    </span><span class="sd">"""Calculate the circularity of the region</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -917,7 +917,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    circularity : float</span>
 <span class="sd">        The circularity of the region as defined by 4*pi*area / perimeter^2</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">circularity</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">area</span> <span class="o">/</span> <span class="p">(</span><span class="n">perimeter</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">circularity</span>
@@ -929,35 +929,35 @@
 
 <span class="c1"># create the features dictionary</span>
 <span class="n">feature</span> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span>
-    <span class="n">label_image</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;bbox&#39;</span><span class="p">,</span> <span class="s1">&#39;perimeter&#39;</span><span class="p">,</span> <span class="s1">&#39;area&#39;</span><span class="p">)</span>
+    <span class="n">label_image</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s1">'label'</span><span class="p">,</span> <span class="s1">'bbox'</span><span class="p">,</span> <span class="s1">'perimeter'</span><span class="p">,</span> <span class="s1">'area'</span><span class="p">)</span>
 <span class="p">)</span>
-<span class="n">features</span><span class="p">[</span><span class="s1">&#39;circularity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;perimeter&#39;</span><span class="p">],</span> <span class="n">features</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">])</span>
+<span class="n">features</span><span class="p">[</span><span class="s1">'circularity'</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s1">'perimeter'</span><span class="p">],</span> <span class="n">features</span><span class="p">[</span><span class="s1">'area'</span><span class="p">])</span>
 
 <span class="c1"># create the bounding box rectangles</span>
-<span class="n">bbox_rects</span> <span class="o">=</span> <span class="n">make_bbox</span><span class="p">([</span><span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;bbox-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
+<span class="n">bbox_rects</span> <span class="o">=</span> <span class="n">make_bbox</span><span class="p">([</span><span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s1">'bbox-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
 
 <span class="c1"># specify the display parameters for the text</span>
 <span class="n">text_parameters</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="s1">&#39;label: </span><span class="si">{label}</span><span class="se">\n</span><span class="s1">circ: </span><span class="si">{circularity:.2f}</span><span class="s1">&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-    <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;anchor&#39;</span><span class="p">:</span> <span class="s1">&#39;upper_left&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;translation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="s1">'string'</span><span class="p">:</span> <span class="s1">'label: </span><span class="si">{label}</span><span class="se">\n</span><span class="s1">circ: </span><span class="si">{circularity:.2f}</span><span class="s1">'</span><span class="p">,</span>
+    <span class="s1">'size'</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'green'</span><span class="p">,</span>
+    <span class="s1">'anchor'</span><span class="p">:</span> <span class="s1">'upper_left'</span><span class="p">,</span>
+    <span class="s1">'translation'</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="p">}</span>
 
 <span class="c1"># initialise viewer with coins image</span>
-<span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;coins&#39;</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'coins'</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># add the labels</span>
-<span class="n">label_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">label_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;segmentation&#39;</span><span class="p">)</span>
+<span class="n">label_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">label_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'segmentation'</span><span class="p">)</span>
 
 <span class="n">shapes_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">(</span>
     <span class="n">bbox_rects</span><span class="p">,</span>
-    <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
-    <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span>
+    <span class="n">face_color</span><span class="o">=</span><span class="s1">'transparent'</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span>
     <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="n">text_parameters</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bounding box&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">'bounding box'</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
@@ -966,8 +966,8 @@
 <h2>Segmentation<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>We start by defining a function to perform segmentation of an image based on intensity. Based on the <a class="reference external" href="https://scikit-image.org/docs/stable/auto_examples/applications/plot_thresholding_guide.html">skimage segmentation example</a>, we determine the threshold intensity that separates the foreground and background pixels using <a class="reference external" href="https://en.wikipedia.org/wiki/Otsu%27s_method">Otsu’s method</a>. We then perform some cleanup and generate a label image where each discrete region is given a unique integer index.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">segment</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Segment an image using an intensity threshold</span>
-<span class="sd">    determined via Otsu&#39;s method.</span>
+<span class="w">    </span><span class="sd">"""Segment an image using an intensity threshold</span>
+<span class="sd">    determined via Otsu's method.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -979,7 +979,7 @@
 <span class="sd">    label_image : np.ndarray</span>
 <span class="sd">        The resulting image where each detected object</span>
 <span class="sd">        is labeled with a unique integer.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># apply threshold</span>
     <span class="n">thresh</span> <span class="o">=</span> <span class="n">threshold_otsu</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
     <span class="n">bw</span> <span class="o">=</span> <span class="n">closing</span><span class="p">(</span><span class="n">image</span> <span class="o">&gt;</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">square</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
@@ -999,10 +999,10 @@
 <span class="n">label_image</span> <span class="o">=</span> <span class="n">segment</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
 <span class="c1"># initialize viewer with coins image</span>
-<span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;coins&#39;</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'coins'</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># add the labels</span>
-<span class="n">label_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">label_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;segmentation&#39;</span><span class="p">)</span>
+<span class="n">label_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">label_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'segmentation'</span><span class="p">)</span>
 
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
@@ -1014,18 +1014,18 @@
 <p>Next, we use <a class="reference external" href="https://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.regionprops_table"><code class="docutils literal notranslate"><span class="pre">regionprops_table</span></code></a> from skimage to quantify some parameters of each detection object (e.g., area and perimeter).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the features dictionary</span>
 <span class="n">features</span> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span>
-    <span class="n">label_image</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;bbox&#39;</span><span class="p">,</span> <span class="s1">&#39;perimeter&#39;</span><span class="p">,</span> <span class="s1">&#39;area&#39;</span><span class="p">)</span>
+    <span class="n">label_image</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s1">'label'</span><span class="p">,</span> <span class="s1">'bbox'</span><span class="p">,</span> <span class="s1">'perimeter'</span><span class="p">,</span> <span class="s1">'area'</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>Conveniently, <code class="docutils literal notranslate"><span class="pre">regionprops_table()</span></code> returns a dictionary that can be used as input for a napari layer’s features table, so we will be able to use it directly. If we inspect the values of features, we see each key is the name of the feature and the values are arrays with an element containing the feature value for each shape. Note that the bounding boxes have been output as <code class="docutils literal notranslate"><span class="pre">bbox-0</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-1</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-1</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-2</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-3</span></code> which correspond with the <code class="docutils literal notranslate"><span class="pre">min_row</span></code>, <code class="docutils literal notranslate"><span class="pre">min_column</span></code>, <code class="docutils literal notranslate"><span class="pre">max_row</span></code>, and <code class="docutils literal notranslate"><span class="pre">max_column</span></code> of each bounding box, respectively.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]),</span>
-    <span class="s1">&#39;bbox-0&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">46</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">122</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">129</span><span class="p">]),</span>
-    <span class="s1">&#39;bbox-1&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">195</span><span class="p">,</span> <span class="mi">136</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">139</span><span class="p">,</span> <span class="mi">201</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">85</span><span class="p">]),</span>
-    <span class="s1">&#39;bbox-2&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">94</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">167</span><span class="p">,</span> <span class="mi">167</span><span class="p">]),</span>
-    <span class="s1">&#39;bbox-3&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">246</span><span class="p">,</span> <span class="mi">177</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">187</span><span class="p">,</span> <span class="mi">247</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">124</span><span class="p">]),</span>
-    <span class="s1">&#39;perimeter&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">(</span>
+    <span class="s1">'label'</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]),</span>
+    <span class="s1">'bbox-0'</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">46</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">122</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">129</span><span class="p">]),</span>
+    <span class="s1">'bbox-1'</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">195</span><span class="p">,</span> <span class="mi">136</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">139</span><span class="p">,</span> <span class="mi">201</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">85</span><span class="p">]),</span>
+    <span class="s1">'bbox-2'</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">94</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">167</span><span class="p">,</span> <span class="mi">167</span><span class="p">]),</span>
+    <span class="s1">'bbox-3'</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">246</span><span class="p">,</span> <span class="mi">177</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">187</span><span class="p">,</span> <span class="mi">247</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">124</span><span class="p">]),</span>
+    <span class="s1">'perimeter'</span><span class="p">:</span> <span class="n">array</span><span class="p">(</span>
         <span class="p">[</span>
             <span class="mf">165.88225099</span><span class="p">,</span>
             <span class="mf">129.05382387</span><span class="p">,</span>
@@ -1037,13 +1037,13 @@
             <span class="mf">125.39696962</span><span class="p">,</span>
         <span class="p">]</span>
     <span class="p">),</span>
-    <span class="s1">&#39;area&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">1895</span><span class="p">,</span> <span class="mi">1212</span><span class="p">,</span> <span class="mi">1124</span><span class="p">,</span> <span class="mi">1102</span><span class="p">,</span> <span class="mi">1720</span><span class="p">,</span> <span class="mi">1519</span><span class="p">,</span> <span class="mi">1475</span><span class="p">,</span> <span class="mi">1155</span><span class="p">]),</span>
+    <span class="s1">'area'</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">1895</span><span class="p">,</span> <span class="mi">1212</span><span class="p">,</span> <span class="mi">1124</span><span class="p">,</span> <span class="mi">1102</span><span class="p">,</span> <span class="mi">1720</span><span class="p">,</span> <span class="mi">1519</span><span class="p">,</span> <span class="mi">1475</span><span class="p">,</span> <span class="mi">1155</span><span class="p">]),</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Since we know the coins are circular, we want to calculate the circularity of each detected region. We define a function <code class="docutils literal notranslate"><span class="pre">circularity()</span></code> to determine the circularity of each region.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">circularity</span><span class="p">(</span><span class="n">perimeter</span><span class="p">,</span> <span class="n">area</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the circularity of the region</span>
+<span class="w">    </span><span class="sd">"""Calculate the circularity of the region</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1056,19 +1056,19 @@
 <span class="sd">    -------</span>
 <span class="sd">    circularity : float</span>
 <span class="sd">        The circularity of the region as defined by 4*pi*area / perimeter^2</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">circularity</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">area</span> <span class="o">/</span> <span class="p">(</span><span class="n">perimeter</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">circularity</span>
 </pre></div>
 </div>
 <p>We can then calculate the circularity of each region and save it as a feature.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;circularity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;perimeter&#39;</span><span class="p">],</span> <span class="n">features</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">features</span><span class="p">[</span><span class="s1">'circularity'</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s1">'perimeter'</span><span class="p">],</span> <span class="n">features</span><span class="p">[</span><span class="s1">'area'</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>We will use a napari shapes layer to visualize the bounding box of the segmentation. The napari shapes layer requires each shape to be defined by the coordinates of corner. Since regionprops returns the bounding box as a tuple of <code class="docutils literal notranslate"><span class="pre">(min_row,</span> <span class="pre">min_column,</span> <span class="pre">max_row,</span> <span class="pre">max_column)</span></code> we define a function <code class="docutils literal notranslate"><span class="pre">make_bbox()</span></code> to convert the regionprops bounding box to the napari shapes format.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_bbox</span><span class="p">(</span><span class="n">bbox_extents</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the coordinates of the corners of a</span>
+<span class="w">    </span><span class="sd">"""Get the coordinates of the corners of a</span>
 <span class="sd">    bounding box from the extents</span>
 
 <span class="sd">    Parameters</span>
@@ -1082,7 +1082,7 @@
 <span class="sd">    bbox_rect : np.ndarray</span>
 <span class="sd">        The corners of the bounding box. Can be input directly into a</span>
 <span class="sd">        napari Shapes layer.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">minr</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">minc</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">maxr</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -1096,7 +1096,7 @@
 </div>
 <p>Finally, we can use an list comprehension to pass the bounding box extents to <code class="docutils literal notranslate"><span class="pre">make_bbox()</span></code> and calculate the bounding box corners required by the <code class="docutils literal notranslate"><span class="pre">Shapes</span></code> layer.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the bounding box rectangles</span>
-<span class="n">bbox_rects</span> <span class="o">=</span> <span class="n">make_bbox</span><span class="p">([</span><span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;bbox-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
+<span class="n">bbox_rects</span> <span class="o">=</span> <span class="n">make_bbox</span><span class="p">([</span><span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s1">'bbox-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
 </pre></div>
 </div>
 </section>
@@ -1105,10 +1105,10 @@
 <p>Now that we have performed out analysis, we can visualize the results in napari. To do so, we will utilize 3 napari layer types: (1) Image, (2) Labels, and (3) Shapes.</p>
 <p>As we saw above in the segmentation section, we can visualize the original image and the resulting label images as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># initialise viewer with coins image</span>
-<span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;coins&#39;</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'coins'</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># add the labels</span>
-<span class="n">label_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">label_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;segmentation&#39;</span><span class="p">)</span>
+<span class="n">label_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">label_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'segmentation'</span><span class="p">)</span>
 
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
@@ -1116,9 +1116,9 @@
 <p>Next, we will use the Shapes layer to overlay the bounding boxes for each detected object as well as display the calculated circularity. The code for creating the Shapes layer is listed here and each keyword argument is explained below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">shapes_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">(</span>
         <span class="n">bbox_rects</span><span class="p">,</span>
-        <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
-        <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span>
-        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bounding box&#39;</span>
+        <span class="n">face_color</span><span class="o">=</span><span class="s1">'transparent'</span><span class="p">,</span>
+        <span class="n">edge_color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">'bounding box'</span>
     <span class="p">)</span>
 </pre></div>
 </div>
@@ -1130,29 +1130,29 @@
 <p>We can further annotate our analysis by using text to display features of each segmentation. The code to create a shapes layer with text is pasted here and explained below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">shapes_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">(</span>
         <span class="n">bbox_rects</span><span class="p">,</span>
-        <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
-        <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span>
+        <span class="n">face_color</span><span class="o">=</span><span class="s1">'transparent'</span><span class="p">,</span>
+        <span class="n">edge_color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span>
         <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
         <span class="n">text</span><span class="o">=</span><span class="n">text_parameters</span><span class="p">,</span>
-        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bounding box&#39;</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">'bounding box'</span>
     <span class="p">)</span>
 </pre></div>
 </div>
 <p>We will use <code class="docutils literal notranslate"><span class="pre">Shapes.features</span></code> to store the annotations for each bounding box. The features are defined as a table where each column is the name of the feature (i.e., label, circularity) and the values are rows where each element contains the value for the corresponding shape (i.e., index matched to the Shape data). As a reminder, we created <code class="docutils literal notranslate"><span class="pre">labels</span></code> and <code class="docutils literal notranslate"><span class="pre">circularity</span></code> above and each is a list containing where each element is feature value for the corresponding (i.e., index matched) shape.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the features table</span>
 <span class="n">features</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">labels</span><span class="p">,</span>
-    <span class="s1">&#39;circularity&#39;</span><span class="p">:</span> <span class="n">circularity</span><span class="p">,</span>
+    <span class="s1">'label'</span><span class="p">:</span> <span class="n">labels</span><span class="p">,</span>
+    <span class="s1">'circularity'</span><span class="p">:</span> <span class="n">circularity</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Each bounding box can be annotated with text drawn from the layer <code class="docutils literal notranslate"><span class="pre">features</span></code>. To specify the text and display properties of the text, we pass a dictionary with the text parameters (<code class="docutils literal notranslate"><span class="pre">text_parameters</span></code>). We define <code class="docutils literal notranslate"><span class="pre">text_parameters</span></code> as:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text_parameters</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="s1">&#39;label: </span><span class="si">{label}</span><span class="se">\n</span><span class="s1">circ: </span><span class="si">{circularity:.2f}</span><span class="s1">&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-    <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;anchor&#39;</span><span class="p">:</span> <span class="s1">&#39;upper_left&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;translation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="s1">'string'</span><span class="p">:</span> <span class="s1">'label: </span><span class="si">{label}</span><span class="se">\n</span><span class="s1">circ: </span><span class="si">{circularity:.2f}</span><span class="s1">'</span><span class="p">,</span>
+    <span class="s1">'size'</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'green'</span><span class="p">,</span>
+    <span class="s1">'anchor'</span><span class="p">:</span> <span class="s1">'upper_left'</span><span class="p">,</span>
+    <span class="s1">'translation'</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1166,32 +1166,32 @@
 <p>All together, the visualization code is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the features table</span>
 <span class="n">features</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">labels</span><span class="p">,</span>
-    <span class="s1">&#39;circularity&#39;</span><span class="p">:</span> <span class="n">circularity</span><span class="p">,</span>
+    <span class="s1">'label'</span><span class="p">:</span> <span class="n">labels</span><span class="p">,</span>
+    <span class="s1">'circularity'</span><span class="p">:</span> <span class="n">circularity</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="c1"># specify the display parameters for the text</span>
 <span class="n">text_kwargs</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="s1">&#39;label: </span><span class="si">{label}</span><span class="se">\n</span><span class="s1">circ: </span><span class="si">{circularity:.2f}</span><span class="s1">&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-    <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;anchor&#39;</span><span class="p">:</span> <span class="s1">&#39;upper_left&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;translation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="s1">'string'</span><span class="p">:</span> <span class="s1">'label: </span><span class="si">{label}</span><span class="se">\n</span><span class="s1">circ: </span><span class="si">{circularity:.2f}</span><span class="s1">'</span><span class="p">,</span>
+    <span class="s1">'size'</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'green'</span><span class="p">,</span>
+    <span class="s1">'anchor'</span><span class="p">:</span> <span class="s1">'upper_left'</span><span class="p">,</span>
+    <span class="s1">'translation'</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="p">}</span>
 
 <span class="c1"># initialise viewer with coins image</span>
-<span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;coins&#39;</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'coins'</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># add the labels</span>
-<span class="n">label_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">label_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;segmentation&#39;</span><span class="p">)</span>
+<span class="n">label_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">label_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'segmentation'</span><span class="p">)</span>
 
 <span class="n">shapes_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">(</span>
     <span class="n">bbox_rects</span><span class="p">,</span>
-    <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
-    <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span>
+    <span class="n">face_color</span><span class="o">=</span><span class="s1">'transparent'</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span>
     <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="n">text_parameters</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bounding box&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">'bounding box'</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>

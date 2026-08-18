@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/gallery/add_shapes_with_text.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When the window is closed it will print the coordinates of your shapes. Tags: visualization-basic Python (.py) Notebook (.ipynb), Download Jupyter notebook: add_shapes_with_text.ipynb Download Python source..." />
+<meta property="og:description" content="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When the window is closed it will print the coordinates of your shapes. Tags: visualization-basic Python (.py) Notebook (.ipynb) Download Jupyter notebook: add_shapes_with_text.ipynb Download Python source ..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When the window is closed it will print the coordinates of your shapes. Tags: visualization-basic Python (.py) Notebook (.ipynb), Download Jupyter notebook: add_shapes_with_text.ipynb Download Python source..." />
+<meta name="description" content="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When the window is closed it will print the coordinates of your shapes. Tags: visualization-basic Python (.py) Notebook (.ipynb) Download Jupyter notebook: add_shapes_with_text.ipynb Download Python source ..." />
 
     <title>Add shapes with text &#8212; napari</title>
   
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -850,23 +850,14 @@ your shapes.</p>
 <p><a class="reference download internal" download="" href="../_downloads/debaf5e1419823203fcd8d05e1d5f81a/add_shapes_with_text.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Notebook</span> <span class="pre">(.ipynb)</span></code></a></p>
 </div>
 </div>
-<img src="../_images/sphx_glr_add_shapes_with_text_001.png" srcset="../_images/sphx_glr_add_shapes_with_text_001.png" alt="add shapes with text" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-  theme_type=get_system_theme(),
-/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-  theme_type=get_system_theme(),
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<img src="../_images/sphx_glr_add_shapes_with_text_001.png" srcset="../_images/sphx_glr_add_shapes_with_text_001.png" alt="add shapes with text" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">skimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">data</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 
 <span class="c1"># add the image</span>
 <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">()</span>
-<a href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">camera</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;photographer&#39;</span><span class="p">)</span>
+<a href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">camera</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'photographer'</span><span class="p">)</span>
 
 <span class="c1"># create a list of polygons</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">polygons</span></a> <span class="o">=</span> <span class="p">[</span>
@@ -877,39 +868,39 @@ your shapes.</p>
 
 <span class="c1"># create features</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">features</span></a> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;likelihood&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">21.23423</span><span class="p">,</span> <span class="mf">51.2315</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
-    <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;hand&#39;</span><span class="p">,</span> <span class="s1">&#39;face&#39;</span><span class="p">,</span> <span class="s1">&#39;camera&#39;</span><span class="p">],</span>
+    <span class="s1">'likelihood'</span><span class="p">:</span> <span class="p">[</span><span class="mf">21.23423</span><span class="p">,</span> <span class="mf">51.2315</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+    <span class="s1">'class'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'hand'</span><span class="p">,</span> <span class="s1">'face'</span><span class="p">,</span> <span class="s1">'camera'</span><span class="p">],</span>
 <span class="p">}</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">edge_color_cycle</span></a> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">edge_color_cycle</span></a> <span class="o">=</span> <span class="p">[</span><span class="s1">'blue'</span><span class="p">,</span> <span class="s1">'magenta'</span><span class="p">,</span> <span class="s1">'green'</span><span class="p">]</span>
 
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">text</span></a> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{class}</span><span class="s1">: </span><span class="si">{likelihood:0.1f}</span><span class="s1">%&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;anchor&#39;</span><span class="p">:</span> <span class="s1">&#39;upper_left&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;translation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-    <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-    <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
+    <span class="s1">'string'</span><span class="p">:</span> <span class="s1">'</span><span class="si">{class}</span><span class="s1">: </span><span class="si">{likelihood:0.1f}</span><span class="s1">%'</span><span class="p">,</span>
+    <span class="s1">'anchor'</span><span class="p">:</span> <span class="s1">'upper_left'</span><span class="p">,</span>
+    <span class="s1">'translation'</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="s1">'size'</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'green'</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="c1"># add polygons</span>
 <a href="../api/napari.layers.Shapes.html#napari.layers.Shapes" title="napari.layers.Shapes" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shapes_layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_shapes" title="napari.Viewer.add_shapes" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span></a><span class="p">(</span>
     <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">polygons</span></a><span class="p">,</span>
     <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">features</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">features</span></a><span class="p">,</span>
-    <span class="n">shape_type</span><span class="o">=</span><span class="s1">&#39;polygon&#39;</span><span class="p">,</span>
+    <span class="n">shape_type</span><span class="o">=</span><span class="s1">'polygon'</span><span class="p">,</span>
     <span class="n">edge_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-    <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;class&#39;</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="s1">'class'</span><span class="p">,</span>
     <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">edge_color_cycle</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">edge_color_cycle</span></a><span class="p">,</span>
-    <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
+    <span class="n">face_color</span><span class="o">=</span><span class="s1">'transparent'</span><span class="p">,</span>
     <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">text</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">text</span></a><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;shapes&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">'shapes'</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># change some attributes of the layer</span>
 <a href="../api/napari.layers.Shapes.html#napari.layers.Shapes.opacity" title="napari.layers.Shapes.opacity" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">shapes_layer</span><span class="o">.</span><span class="n">opacity</span></a> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="c1"># To save layers to svg:</span>
-<span class="c1"># viewer.layers.save(&#39;viewer.svg&#39;, plugin=&#39;svg&#39;)</span>
+<span class="c1"># viewer.layers.save('viewer.svg', plugin='svg')</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>

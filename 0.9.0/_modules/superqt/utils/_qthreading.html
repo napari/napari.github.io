@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -839,7 +839,7 @@ window.runMermaid = runMermaid;</script>
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Sequence</span>
 
-    <span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_T&quot;</span><span class="p">)</span>
+    <span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"_T"</span><span class="p">)</span>
 
     <span class="k">class</span><span class="w"> </span><span class="nc">SigInst</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">_T</span><span class="p">]):</span>
         <span class="nd">@staticmethod</span>
@@ -855,25 +855,25 @@ window.runMermaid = runMermaid;</script>
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParamSpec</span>
 
-    <span class="n">_P</span> <span class="o">=</span> <span class="n">ParamSpec</span><span class="p">(</span><span class="s2">&quot;_P&quot;</span><span class="p">)</span>
+    <span class="n">_P</span> <span class="o">=</span> <span class="n">ParamSpec</span><span class="p">(</span><span class="s2">"_P"</span><span class="p">)</span>
 <span class="c1"># maintain runtime compatibility with older typing_extensions</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParamSpec</span>
 
-        <span class="n">_P</span> <span class="o">=</span> <span class="n">ParamSpec</span><span class="p">(</span><span class="s2">&quot;_P&quot;</span><span class="p">)</span>
+        <span class="n">_P</span> <span class="o">=</span> <span class="n">ParamSpec</span><span class="p">(</span><span class="s2">"_P"</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-        <span class="n">_P</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_P&quot;</span><span class="p">)</span>
+        <span class="n">_P</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"_P"</span><span class="p">)</span>
 
-<span class="n">_Y</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_Y&quot;</span><span class="p">)</span>
-<span class="n">_S</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_S&quot;</span><span class="p">)</span>
-<span class="n">_R</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_R&quot;</span><span class="p">)</span>
+<span class="n">_Y</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"_Y"</span><span class="p">)</span>
+<span class="n">_S</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"_S"</span><span class="p">)</span>
+<span class="n">_R</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"_R"</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">as_generator_function</span><span class="p">(</span>
     <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">_R</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">_R</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Turns a regular function (single return) into a generator function.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Turns a regular function (single return) into a generator function."""</span>
 
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">genwrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">_R</span><span class="p">]:</span>
@@ -898,7 +898,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="WorkerBase">
 <a class="viewcode-back" href="../../../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">WorkerBase</span><span class="p">(</span><span class="n">QRunnable</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">_R</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for creating a Worker that can run in another thread.</span>
+<span class="w">    </span><span class="sd">"""Base class for creating a Worker that can run in another thread.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -909,7 +909,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    ----------</span>
 <span class="sd">    signals: WorkerBaseSignals</span>
 <span class="sd">        signal emitter object. To allow identify which worker thread emitted signal.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1">#: A set of Workers.  Add to set using `WorkerBase.start`</span>
     <span class="n">_worker_set</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">set</span><span class="p">[</span><span class="n">WorkerBase</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -930,7 +930,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">signals</span> <span class="o">=</span> <span class="n">SignalsClass</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SigInst</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pass through attr requests to signals to simplify connection API.</span>
+<span class="w">        </span><span class="sd">"""Pass through attr requests to signals to simplify connection API.</span>
 
 <span class="sd">        The goal is to enable `worker.yielded.connect` instead of</span>
 <span class="sd">        `worker.signals.yielded.connect`. Because multiple inheritance of Qt</span>
@@ -938,7 +938,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        (signals are provided by QObjects, and QRunnable is not a QObject). So</span>
 <span class="sd">        this passthrough allows us to connect to signals on the `_signals`</span>
 <span class="sd">        object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># the Signal object is actually a class attribute</span>
         <span class="n">attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">Signal</span><span class="p">):</span>
@@ -947,36 +947,36 @@ window.runMermaid = runMermaid;</script>
             <span class="c1"># `pyqtBoundSignal` in PyQt)</span>
             <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">!r}</span><span class="s2"> object has no attribute </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">!r}</span><span class="s2"> object has no attribute </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">"</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="WorkerBase.quit">
 <a class="viewcode-back" href="../../../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.quit">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a request to abort the worker.</span>
+<span class="w">        </span><span class="sd">"""Send a request to abort the worker.</span>
 
 <span class="sd">        !!! note</span>
 <span class="sd">            It is entirely up to subclasses to honor this method by checking</span>
 <span class="sd">            `self.abort_requested` periodically in their `worker.work`</span>
 <span class="sd">            method, and exiting if `True`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_abort_requested</span> <span class="o">=</span> <span class="kc">True</span></div>
 
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">abort_requested</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Whether the worker has been requested to stop.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Whether the worker has been requested to stop."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_abort_requested</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_running</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Whether the worker has been started.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Whether the worker has been started."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_running</span>
 
 <div class="viewcode-block" id="WorkerBase.run">
 <a class="viewcode-back" href="../../../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start the worker.</span>
+<span class="w">        </span><span class="sd">"""Start the worker.</span>
 
 <span class="sd">        The end-user should never need to call this function.</span>
 <span class="sd">        But it cannot be made private or renamed, since it is called by Qt.</span>
@@ -997,12 +997,12 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        method, and emits a few signals.  Subclasses should NOT override this</span>
 <span class="sd">        method (except with good reason), and instead should implement</span>
 <span class="sd">        `work()`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">started</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;always&quot;</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"always"</span><span class="p">)</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">showwarning</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">w</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">warned</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="p">()</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">):</span>
@@ -1012,7 +1012,7 @@ window.runMermaid = runMermaid;</script>
                     <span class="c1"># error that will cause segfault if we try to do much other</span>
                     <span class="c1"># than simply notify the user.</span>
                     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;RuntimeError in aborted thread: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="sa">f</span><span class="s2">"RuntimeError in aborted thread: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                         <span class="ne">RuntimeWarning</span><span class="p">,</span>
                         <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                     <span class="p">)</span>
@@ -1031,7 +1031,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="WorkerBase.work">
 <a class="viewcode-back" href="../../../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.work">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">work</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="ne">Exception</span> <span class="o">|</span> <span class="n">_R</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Main method to execute the worker.</span>
+<span class="w">        </span><span class="sd">"""Main method to execute the worker.</span>
 
 <span class="sd">        The end-user should never need to call this function.</span>
 <span class="sd">        But subclasses must implement this method (See</span>
@@ -1054,16 +1054,16 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">                        break</span>
 <span class="sd">                    time.sleep(0.5)</span>
 <span class="sd">        ```</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&quot; failed to define work() method&#39;</span>
+            <span class="sa">f</span><span class="s1">'"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">" failed to define work() method'</span>
         <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="WorkerBase.start">
 <a class="viewcode-back" href="../../../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.start">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start this worker in a thread and add it to the global threadpool.</span>
+<span class="w">        </span><span class="sd">"""Start this worker in a thread and add it to the global threadpool.</span>
 
 <span class="sd">        The order of method calls when starting a worker is:</span>
 
@@ -1075,9 +1075,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">           V               V             V</span>
 <span class="sd">           worker.start -&gt; worker.run -&gt; worker.work</span>
 <span class="sd">        ```</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_worker_set</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;This worker is already started!&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"This worker is already started!"</span><span class="p">)</span>
 
         <span class="c1"># This will raise a RunTimeError if the worker is already deleted</span>
         <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -1085,7 +1085,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_worker_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_discard</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">QThread</span><span class="o">.</span><span class="n">currentThread</span><span class="p">()</span><span class="o">.</span><span class="n">loopLevel</span><span class="p">():</span>
-            <span class="c1"># if we&#39;re in a thread with an eventloop, queue the worker to start</span>
+            <span class="c1"># if we're in a thread with an eventloop, queue the worker to start</span>
             <span class="n">start_</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">QThreadPool</span><span class="o">.</span><span class="n">globalInstance</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
             <span class="n">QTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1101,7 +1101,7 @@ window.runMermaid = runMermaid;</script>
 <a class="viewcode-back" href="../../../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.await_workers">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">await_workers</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">msecs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ask all workers to quit, and wait up to `msec` for quit.</span>
+<span class="w">        </span><span class="sd">"""Ask all workers to quit, and wait up to `msec` for quit.</span>
 
 <span class="sd">        Attempts to clean up all running workers by calling `worker.quit()`</span>
 <span class="sd">        method.  Any workers in the `WorkerBase._worker_set` set will have this</span>
@@ -1116,7 +1116,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        !!! important</span>
 
 <span class="sd">            If the user does not put any yields in their function, and the function</span>
-<span class="sd">            is super long, it will just hang... For instance, there&#39;s no graceful</span>
+<span class="sd">            is super long, it will just hang... For instance, there's no graceful</span>
 <span class="sd">            way to kill this thread in python:</span>
 
 <span class="sd">            ```python</span>
@@ -1125,7 +1125,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">                time.sleep(10000000)</span>
 <span class="sd">            ```</span>
 
-<span class="sd">            This is why it&#39;s always advisable to use a generator that periodically</span>
+<span class="sd">            This is why it's always advisable to use a generator that periodically</span>
 <span class="sd">            yields for long-running computations in another thread.</span>
 
 <span class="sd">            See [this stack-overflow</span>
@@ -1144,21 +1144,21 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        RuntimeError</span>
 <span class="sd">            If a timeout is provided and workers do not quit successfully within</span>
 <span class="sd">            the time allotted.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">for</span> <span class="n">worker</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_worker_set</span><span class="p">:</span>
             <span class="n">worker</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 
         <span class="n">msecs</span> <span class="o">=</span> <span class="n">msecs</span> <span class="k">if</span> <span class="n">msecs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">QThreadPool</span><span class="o">.</span><span class="n">globalInstance</span><span class="p">()</span><span class="o">.</span><span class="n">waitForDone</span><span class="p">(</span><span class="n">msecs</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Workers did not quit gracefully in the time allotted (</span><span class="si">{</span><span class="n">msecs</span><span class="si">}</span><span class="s2"> ms)&quot;</span>
+                <span class="sa">f</span><span class="s2">"Workers did not quit gracefully in the time allotted (</span><span class="si">{</span><span class="n">msecs</span><span class="si">}</span><span class="s2"> ms)"</span>
             <span class="p">)</span></div>
 </div>
 
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">FunctionWorker</span><span class="p">(</span><span class="n">WorkerBase</span><span class="p">[</span><span class="n">_R</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;QRunnable with signals that wraps a simple long-running function.</span>
+<span class="w">    </span><span class="sd">"""QRunnable with signals that wraps a simple long-running function.</span>
 
 <span class="sd">    !!! note</span>
 <span class="sd">        `FunctionWorker` does not provide a way to stop a very long-running</span>
@@ -1179,13 +1179,13 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    ------</span>
 <span class="sd">    TypeError</span>
 <span class="sd">        If `func` is a generator function and not a regular function.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">_R</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isgeneratorfunction</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Generator function </span><span class="si">{</span><span class="n">func</span><span class="si">}</span><span class="s2"> cannot be used with FunctionWorker, &quot;</span>
-                <span class="s2">&quot;use GeneratorWorker instead&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">"Generator function </span><span class="si">{</span><span class="n">func</span><span class="si">}</span><span class="s2"> cannot be used with FunctionWorker, "</span>
+                <span class="s2">"use GeneratorWorker instead"</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
@@ -1211,7 +1211,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">GeneratorWorker</span><span class="p">(</span><span class="n">WorkerBase</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">_Y</span><span class="p">,</span> <span class="n">_S</span><span class="p">,</span> <span class="n">_R</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;QRunnable with signals that wraps a long-running generator.</span>
+<span class="w">    </span><span class="sd">"""QRunnable with signals that wraps a long-running generator.</span>
 
 <span class="sd">    Provides a convenient way to run a generator function in another thread,</span>
 <span class="sd">    while allowing 2-way communication between threads, using plain-python</span>
@@ -1228,7 +1228,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Will be passed to func on instantiation</span>
 <span class="sd">    **kwargs</span>
 <span class="sd">        Will be passed to func on instantiation</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">yielded</span><span class="p">:</span> <span class="n">SigInst</span><span class="p">[</span><span class="n">_Y</span><span class="p">]</span>
     <span class="n">paused</span><span class="p">:</span> <span class="n">SigInst</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span>
@@ -1244,8 +1244,8 @@ window.runMermaid = runMermaid;</script>
     <span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isgeneratorfunction</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Regular function </span><span class="si">{</span><span class="n">func</span><span class="si">}</span><span class="s2"> cannot be used with GeneratorWorker, &quot;</span>
-                <span class="s2">&quot;use FunctionWorker instead&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">"Regular function </span><span class="si">{</span><span class="n">func</span><span class="si">}</span><span class="s2"> cannot be used with GeneratorWorker, "</span>
+                <span class="s2">"use FunctionWorker instead"</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">SignalsClass</span><span class="o">=</span><span class="n">SignalsClass</span><span class="p">)</span>
 
@@ -1262,13 +1262,13 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="GeneratorWorker.work">
 <a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.work">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">work</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_R</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="ne">Exception</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Core event loop that calls the original function.</span>
+<span class="w">        </span><span class="sd">"""Core event loop that calls the original function.</span>
 
 <span class="sd">        Enters a continual loop, yielding and returning from the original</span>
 <span class="sd">        function.  Checks for various events (quit, pause, resume, etc...).</span>
 <span class="sd">        (To clarify: we are creating a rudimentary event loop here because</span>
 <span class="sd">        there IS NO Qt event loop running in the other thread to hook into)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort_requested</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">aborted</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
@@ -1302,7 +1302,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="GeneratorWorker.send">
 <a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.send">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_S</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a value into the function (if a generator was used).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Send a value into the function (if a generator was used)."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_incoming_value</span> <span class="o">=</span> <span class="n">value</span></div>
 
 
@@ -1315,13 +1315,13 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_paused</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Whether the worker is currently paused.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Whether the worker is currently paused."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paused</span>
 
 <div class="viewcode-block" id="GeneratorWorker.toggle_pause">
 <a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.toggle_pause">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">toggle_pause</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Request to pause the worker if playing or resume if paused.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Request to pause the worker if playing or resume if paused."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_paused</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_resume_requested</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1331,7 +1331,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="GeneratorWorker.pause">
 <a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.pause">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Request to pause the worker.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Request to pause the worker."""</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_paused</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_pause_requested</span> <span class="o">=</span> <span class="kc">True</span></div>
 
@@ -1339,7 +1339,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="GeneratorWorker.resume">
 <a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.resume">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a request to resume the worker.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Send a request to resume the worker."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_paused</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_resume_requested</span> <span class="o">=</span> <span class="kc">True</span></div>
 
@@ -1383,7 +1383,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">_ignore_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FunctionWorker</span> <span class="o">|</span> <span class="n">GeneratorWorker</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience function to start a function in another thread.</span>
+<span class="w">    </span><span class="sd">"""Convenience function to start a function in another thread.</span>
 
 <span class="sd">    By default, uses `FunctionWorker` for functions and `GeneratorWorker` for</span>
 <span class="sd">    generators, but a custom `WorkerBase` subclass may be provided.  If so, it must be a</span>
@@ -1398,7 +1398,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        must be manually started with `worker.start()`. by default it will be</span>
 <span class="sd">        `False` if the `_connect` argument is `None`, otherwise `True`.</span>
 <span class="sd">    _connect : Dict[str, Union[Callable, Sequence]], optional</span>
-<span class="sd">        A mapping of `&quot;signal_name&quot;` -&gt; `callable` or list of `callable`:</span>
+<span class="sd">        A mapping of `"signal_name"` -&gt; `callable` or list of `callable`:</span>
 <span class="sd">        callback functions to connect to the various signals offered by the</span>
 <span class="sd">        worker class. by default `None`</span>
 <span class="sd">    _worker_class : type of `GeneratorWorker` or `FunctionWorker`, optional</span>
@@ -1438,7 +1438,7 @@ window.runMermaid = runMermaid;</script>
 
 <span class="sd">    worker = create_worker(long_function, 10)</span>
 <span class="sd">    ```</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">worker</span><span class="p">:</span> <span class="n">FunctionWorker</span> <span class="o">|</span> <span class="n">GeneratorWorker</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_worker_class</span><span class="p">:</span>
@@ -1448,13 +1448,13 @@ window.runMermaid = runMermaid;</script>
             <span class="n">_worker_class</span> <span class="o">=</span> <span class="n">FunctionWorker</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">_worker_class</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">_worker_class</span><span class="p">,</span> <span class="n">WorkerBase</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Worker </span><span class="si">{</span><span class="n">_worker_class</span><span class="si">}</span><span class="s2"> must be a subclass of WorkerBase&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Worker </span><span class="si">{</span><span class="n">_worker_class</span><span class="si">}</span><span class="s2"> must be a subclass of WorkerBase"</span><span class="p">)</span>
 
     <span class="n">worker</span> <span class="o">=</span> <span class="n">_worker_class</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">_connect</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_connect</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The &#39;_connect&#39; argument must be a dict&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"The '_connect' argument must be a dict"</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">_start_thread</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">_start_thread</span> <span class="o">=</span> <span class="kc">True</span>
@@ -1464,14 +1464,14 @@ window.runMermaid = runMermaid;</script>
             <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">_val</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;_connect[</span><span class="si">{</span><span class="n">key</span><span class="si">!r}</span><span class="s2">] must be a function or sequence of functions&quot;</span>
+                        <span class="sa">f</span><span class="s2">"_connect[</span><span class="si">{</span><span class="n">key</span><span class="si">!r}</span><span class="s2">] must be a function or sequence of functions"</span>
                     <span class="p">)</span>
                 <span class="nb">getattr</span><span class="p">(</span><span class="n">worker</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
-    <span class="c1"># if the user has not provided a default connection for the &quot;errored&quot;</span>
+    <span class="c1"># if the user has not provided a default connection for the "errored"</span>
     <span class="c1"># signal... and they have not explicitly set `ignore_errors=True`</span>
     <span class="c1"># Then rereaise any errors from the thread.</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">_ignore_errors</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">_connect</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;errored&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_ignore_errors</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">_connect</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"errored"</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
 
         <span class="k">def</span><span class="w"> </span><span class="nf">reraise</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">e</span>
@@ -1520,7 +1520,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">worker_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">WorkerBase</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">ignore_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decorator that runs a function in a separate thread when called.</span>
+<span class="w">    </span><span class="sd">"""Decorator that runs a function in a separate thread when called.</span>
 
 <span class="sd">    When called, the decorated function returns a</span>
 <span class="sd">    [`WorkerBase`][superqt.utils.WorkerBase].  See</span>
@@ -1564,7 +1564,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        must be manually started with `worker.start()`. by default it will be</span>
 <span class="sd">        `False` if the `_connect` argument is `None`, otherwise `True`.</span>
 <span class="sd">    connect : Dict[str, Union[Callable, Sequence]]</span>
-<span class="sd">        A mapping of `&quot;signal_name&quot;` -&gt; `callable` or list of `callable`:</span>
+<span class="sd">        A mapping of `"signal_name"` -&gt; `callable` or list of `callable`:</span>
 <span class="sd">        callback functions to connect to the various signals offered by the</span>
 <span class="sd">        worker class. by default None</span>
 <span class="sd">    worker_class : Type[WorkerBase]</span>
@@ -1594,7 +1594,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            yield i</span>
 
 <span class="sd">        # do teardown</span>
-<span class="sd">        return &quot;anything&quot;</span>
+<span class="sd">        return "anything"</span>
 
 
 <span class="sd">    # call the function to start running in another thread.</span>
@@ -1605,17 +1605,17 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    # case the worker will start immediately when long_function() is called</span>
 <span class="sd">    worker.start()</span>
 <span class="sd">    ```</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_inner</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
         <span class="k">def</span><span class="w"> </span><span class="nf">worker_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="c1"># decorator kwargs can be overridden at call time by using the</span>
             <span class="c1"># underscore-prefixed version of the kwarg.</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;_start_thread&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_start_thread&quot;</span><span class="p">,</span> <span class="n">start_thread</span><span class="p">)</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;_connect&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_connect&quot;</span><span class="p">,</span> <span class="n">connect</span><span class="p">)</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;_worker_class&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_worker_class&quot;</span><span class="p">,</span> <span class="n">worker_class</span><span class="p">)</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;_ignore_errors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_ignore_errors&quot;</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">"_start_thread"</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"_start_thread"</span><span class="p">,</span> <span class="n">start_thread</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">"_connect"</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"_connect"</span><span class="p">,</span> <span class="n">connect</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">"_worker_class"</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"_worker_class"</span><span class="p">,</span> <span class="n">worker_class</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">"_ignore_errors"</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"_ignore_errors"</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">create_worker</span><span class="p">(</span>
                 <span class="n">func</span><span class="p">,</span>
                 <span class="o">*</span><span class="n">args</span><span class="p">,</span>
@@ -1658,7 +1658,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">_connect</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience function to start a worker in a `QThread`.</span>
+<span class="w">    </span><span class="sd">"""Convenience function to start a worker in a `QThread`.</span>
 
 <span class="sd">    thread, not as the actual code or object that runs in that</span>
 <span class="sd">    thread.  The QThread object is created on the main thread and lives there.</span>
@@ -1666,10 +1666,10 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    Worker objects which derive from QObject are the things that actually do</span>
 <span class="sd">    the work. They can be moved to a QThread as is done here.</span>
 
-<span class="sd">    ??? &quot;Mostly ignorable detail&quot;</span>
+<span class="sd">    ??? "Mostly ignorable detail"</span>
 
 <span class="sd">        While the signals/slots syntax of the worker looks very similar to</span>
-<span class="sd">        standard &quot;single-threaded&quot; signals &amp; slots, note that inter-thread</span>
+<span class="sd">        standard "single-threaded" signals &amp; slots, note that inter-thread</span>
 <span class="sd">        signals and slots (automatically) use an event-based QueuedConnection, while</span>
 <span class="sd">        intra-thread signals use a DirectConnection. See [Signals and Slots Across</span>
 <span class="sd">        Threads](https://doc.qt.io/qt-6/threads-qobject.html#signals-and-slots-across-threads&gt;)</span>
@@ -1684,7 +1684,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        be manually started with thread.start().</span>
 <span class="sd">    _connect : dict</span>
 <span class="sd">        Optional dictionary of {signal: function} to connect to the new worker.</span>
-<span class="sd">        for instance:  _connect = {&#39;incremented&#39;: myfunc} will result in:</span>
+<span class="sd">        for instance:  _connect = {'incremented': myfunc} will result in:</span>
 <span class="sd">        worker.incremented.connect(myfunc)</span>
 <span class="sd">    *args</span>
 <span class="sd">        will be passed to the Worker class on instantiation.</span>
@@ -1724,14 +1724,14 @@ window.runMermaid = runMermaid;</script>
 
 <span class="sd">    worker, thread = new_worker_qthread(</span>
 <span class="sd">        Worker,</span>
-<span class="sd">        &quot;argument&quot;,</span>
+<span class="sd">        "argument",</span>
 <span class="sd">        _start_thread=True,</span>
-<span class="sd">        _connect={&quot;increment&quot;: print},</span>
+<span class="sd">        _connect={"increment": print},</span>
 <span class="sd">    )</span>
 <span class="sd">    ```</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">_connect</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_connect</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;_connect parameter must be a dict&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"_connect parameter must be a dict"</span><span class="p">)</span>
 
     <span class="n">thread</span> <span class="o">=</span> <span class="n">QThread</span><span class="p">()</span>
     <span class="n">worker</span> <span class="o">=</span> <span class="n">Worker</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>

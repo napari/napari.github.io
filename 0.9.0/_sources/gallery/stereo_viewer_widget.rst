@@ -39,11 +39,6 @@ screen size. Cross-eyed viewing: use a negative separation.
 
  .. code-block:: none
 
-    Attribute Qt::AA_ShareOpenGLContexts must be set before QCoreApplication is created.
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-      theme_type=get_system_theme(),
-    /home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-      theme_type=get_system_theme(),
     /home/runner/work/docs/docs/napari/examples/stereo_viewer_widget.py:214: DeprecationWarning: viewer.camera is a deprecated attribute since 0.9.0. Use viewer.scene.camera instead. There is currently no planned date for removal of the legacy attribute.
       window.setCentralWidget(StereoViewerWidget(viewer))
     /home/runner/work/docs/docs/napari/examples/stereo_viewer_widget.py:189: DeprecationWarning: viewer.camera is a deprecated attribute since 0.9.0. Use viewer.scene.camera instead. There is currently no planned date for removal of the legacy attribute.

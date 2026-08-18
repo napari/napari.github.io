@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -690,8 +690,8 @@ cutting down on any unnecessary complexities.</p>
     <span class="n">negate_rule</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">block_rule</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_id</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">negate_rule</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">block_rule</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_id</span> <span class="o">==</span> <span class="s1">''</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">negate_rule</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'-'</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -700,20 +700,20 @@ cutting down on any unnecessary complexities.</p>
 <p>There are three ways to modify how a key binding interacts with a command: an assign rule, a negate rule, and a block rule. Note that negate and block rules only affect key bindings of their weight and below.</p>
 <p>An assign rule tells the dispatcher to execute the given command when the rule is enabled:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ctrl+y&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;command_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;redo&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ctrl+y"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"command_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redo"</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>A negate rule is denoted by prefixing the <code class="docutils literal notranslate"><span class="pre">command_id</span></code> with <code class="docutils literal notranslate"><span class="pre">-</span></code> and effectively cancels out assign rules to the same command for that key sequence. For example, to rebind the example for the <code class="docutils literal notranslate"><span class="pre">redo</span></code> command above from <code class="docutils literal notranslate"><span class="pre">ctrl+y</span></code> to <code class="docutils literal notranslate"><span class="pre">ctrl+shift+z</span></code>, one would need the following rules:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ctrl+y&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;command_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-redo&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ctrl+y"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"command_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-redo"</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ctrl+shift+z&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;command_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;redo&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ctrl+shift+z"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"command_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redo"</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="p">]</span>
 </pre></div>
@@ -721,19 +721,19 @@ cutting down on any unnecessary complexities.</p>
 <p>A block rule is denoted by simply leaving the <code class="docutils literal notranslate"><span class="pre">command_id</span></code> as blank and prevents any commands for that key sequence from being executed. This cannot be set via the GUI. The below example includes a block rule that disables the previous two rules bound to <code class="docutils literal notranslate"><span class="pre">tab</span></code>:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tab&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;command_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;points.toggle_last_mode&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;when&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;layer_type == &#39;points&#39;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tab"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"command_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"points.toggle_last_mode"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"layer_type == 'points'"</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tab&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;command_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;labels.toggle_last_mode&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;when&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;layer_type == &#39;labels&#39;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tab"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"command_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"labels.toggle_last_mode"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"layer_type == 'labels'"</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tab&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;command_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;_comment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This disables the two previous rules.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tab"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"command_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"_comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This disables the two previous rules."</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="p">]</span>
 </pre></div>
@@ -865,7 +865,7 @@ conflicts with another key binding</p></li>
         <span class="k">def</span><span class="w"> </span><span class="nf">inner</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">key</span> <span class="o">&gt;</span> <span class="n">PART_0_MASK</span> <span class="ow">and</span> <span class="n">key</span> <span class="o">&amp;</span> <span class="n">PART_0_MASK</span> <span class="o">==</span> <span class="n">conflict_key</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># don&#39;t handle anything more complex</span>
+        <span class="c1"># don't handle anything more complex</span>
         <span class="k">def</span><span class="w"> </span><span class="nf">inner</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">NotImplemented</span>
 
@@ -992,7 +992,7 @@ conflicts with another key binding</p></li>
 <p>A change in the key binding dispatch system would affect anyone using <code class="docutils literal notranslate"><span class="pre">keymap</span></code> or <code class="docutils literal notranslate"><span class="pre">class_keymap</span></code> from the original <code class="docutils literal notranslate"><span class="pre">KeymapProvider</span></code>, as well as <code class="docutils literal notranslate"><span class="pre">bind_key</span></code> <a class="footnote-reference brackets" href="#id9" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
 <p>While <code class="docutils literal notranslate"><span class="pre">keymap</span></code> and <code class="docutils literal notranslate"><span class="pre">class_keymap</span></code> are unlikely to be commonly used, <code class="docutils literal notranslate"><span class="pre">bind_key</span></code> is, and thus will receive proper deprecation and continue to work by creating an equivalent entry in the new key binding dispatch system.</p>
 <p>For example, following is how a user might have defined a key binding for an <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@Image</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">&#39;Control-C&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@Image</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">'Control-C'</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="n">layer</span><span class="p">):</span>
     <span class="o">...</span>
 </pre></div>
@@ -1002,10 +1002,10 @@ conflicts with another key binding</p></li>
     <span class="k">yield from</span> <span class="n">foo</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
 <span class="n">action</span> <span class="o">=</span> <span class="n">Action</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">foo</span><span class="o">.</span><span class="vm">__qualname__</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">foo</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">wrapper</span><span class="p">)</span>
-<span class="n">entry</span> <span class="o">=</span> <span class="n">KeyBindingEntry</span><span class="p">(</span><span class="n">command_id</span><span class="o">=</span><span class="n">foo</span><span class="o">.</span><span class="vm">__qualname__</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">KeyBindingWeight</span><span class="o">.</span><span class="n">USER</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="n">parse_expression</span><span class="p">(</span><span class="s2">&quot;active_layer_type == &#39;image&#39;&quot;</span><span class="p">))</span>
+<span class="n">entry</span> <span class="o">=</span> <span class="n">KeyBindingEntry</span><span class="p">(</span><span class="n">command_id</span><span class="o">=</span><span class="n">foo</span><span class="o">.</span><span class="vm">__qualname__</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">KeyBindingWeight</span><span class="o">.</span><span class="n">USER</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="n">parse_expression</span><span class="p">(</span><span class="s2">"active_layer_type == 'image'"</span><span class="p">))</span>
 
 <span class="n">register_action</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
-<span class="n">register_key_binding</span><span class="p">(</span><span class="s1">&#39;Ctrl+C&#39;</span><span class="p">,</span> <span class="n">entry</span><span class="p">)</span>
+<span class="n">register_key_binding</span><span class="p">(</span><span class="s1">'Ctrl+C'</span><span class="p">,</span> <span class="n">entry</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>

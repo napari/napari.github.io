@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -831,119 +831,119 @@ window.runMermaid = runMermaid;</script>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 
-<span class="n">OS_RELEASE_PATH</span> <span class="o">=</span> <span class="s1">&#39;/etc/os-release&#39;</span>
+<span class="n">OS_RELEASE_PATH</span> <span class="o">=</span> <span class="s1">'/etc/os-release'</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_linux_sys_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Try to discover linux system name base on /etc/os-release file or lsb_release command output</span>
 <span class="sd">    https://www.freedesktop.org/software/systemd/man/os-release.html</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">OS_RELEASE_PATH</span><span class="p">):</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">OS_RELEASE_PATH</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_p</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f_p</span><span class="p">:</span>
-                <span class="n">field</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
-                <span class="n">data</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;PRETTY_NAME&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;PRETTY_NAME&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="s1">&#39;NAME&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s1">&#39;VERSION&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-                <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;VERSION&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
-            <span class="k">if</span> <span class="s1">&#39;VERSION_ID&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-                <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;VERSION_ID&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
-            <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> (no version)&#39;</span>
+                <span class="n">field</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'='</span><span class="p">)</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">'"'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'PRETTY_NAME'</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="s1">'PRETTY_NAME'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">'NAME'</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">'VERSION'</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">"NAME"</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">"VERSION"</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span>
+            <span class="k">if</span> <span class="s1">'VERSION_ID'</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">"NAME"</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">"VERSION_ID"</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">"NAME"</span><span class="p">]</span><span class="si">}</span><span class="s1"> (no version)'</span>
 
     <span class="k">return</span> <span class="n">_linux_sys_name_lsb_release</span><span class="p">()</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_linux_sys_name_lsb_release</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Try to discover linux system name base on lsb_release command output</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">):</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-            <span class="p">[</span><span class="s1">&#39;lsb_release&#39;</span><span class="p">,</span> <span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;-r&#39;</span><span class="p">],</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">[</span><span class="s1">'lsb_release'</span><span class="p">,</span> <span class="s1">'-d'</span><span class="p">,</span> <span class="s1">'-r'</span><span class="p">],</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
-            <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">):</span>
+            <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">':'</span><span class="p">)</span>
             <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="n">version_str</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">version_str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Release&#39;</span><span class="p">]):</span>
-            <span class="n">version_str</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Release&#39;</span><span class="p">]</span>
+        <span class="n">version_str</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'Description'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">version_str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">'Release'</span><span class="p">]):</span>
+            <span class="n">version_str</span> <span class="o">+=</span> <span class="s1">' '</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">'Release'</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">version_str</span>
-    <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">return</span> <span class="s1">''</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_sys_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Discover MacOS or Linux Human readable information. For Linux provide information about distribution.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;linux&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">'linux'</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">_linux_sys_name</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;darwin&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">'darwin'</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">):</span>
                 <span class="n">res</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-                    <span class="p">[</span><span class="s1">&#39;sw_vers&#39;</span><span class="p">,</span> <span class="s1">&#39;-productVersion&#39;</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s1">'sw_vers'</span><span class="p">,</span> <span class="s1">'-productVersion'</span><span class="p">],</span>
                     <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
-                <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;MacOS </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span>
-    <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">return</span> <span class="sa">f</span><span class="s1">'MacOS </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s1">'</span>
+    <span class="k">return</span> <span class="s1">''</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_desktop_env</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;linux&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;XDG_SESSION_TYPE&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;XDG_SESSION_DESKTOP&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
-    <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">'linux'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"XDG_SESSION_TYPE"</span><span class="p">)</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"XDG_SESSION_DESKTOP"</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span>
+    <span class="k">return</span> <span class="s1">''</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_napari_from_conda</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Try to check if napari was installed using conda.</span>
 
 <span class="sd">    This is done by checking for the presence of a conda metadata json file</span>
-<span class="sd">    in the current environment&#39;s conda-meta directory.</span>
+<span class="sd">    in the current environment's conda-meta directory.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    bool</span>
 <span class="sd">        True if the main napari application is installed via conda, False otherwise.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Check for napari-related conda metadata files</span>
     <span class="n">napari_conda_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-        <span class="n">Path</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">,</span> <span class="s1">&#39;conda-meta&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;napari-*.json&#39;</span><span class="p">)</span>
+        <span class="n">Path</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">,</span> <span class="s1">'conda-meta'</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">'napari-*.json'</span><span class="p">)</span>
     <span class="p">)</span>
     <span class="c1"># Match only the napari package by using napari-&lt;version&gt;.json</span>
     <span class="c1"># This is to exclude plugins napari-svg, etc.</span>
-    <span class="n">napari_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^napari-\d+(\.\d+)*.*\.json$&#39;</span><span class="p">)</span>
+    <span class="n">napari_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^napari-\d+(\.\d+)*.*\.json$'</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">napari_pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">napari_conda_files</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_launch_command</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the information how the program was launched.</span>
+<span class="w">    </span><span class="sd">"""Get the information how the program was launched.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    str</span>
 <span class="sd">        The command used to launch the program.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_plugin_list</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get a list of installed plugins.</span>
+<span class="w">    </span><span class="sd">"""Get a list of installed plugins.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    str</span>
 <span class="sd">        A string containing the names and versions of installed plugins.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">npe2</span><span class="w"> </span><span class="kn">import</span> <span class="n">PluginManager</span>
 
@@ -951,30 +951,30 @@ window.runMermaid = runMermaid;</script>
         <span class="n">pm</span><span class="o">.</span><span class="n">discover</span><span class="p">(</span><span class="n">include_npe1</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">pm</span><span class="o">.</span><span class="n">index_npe1_adapters</span><span class="p">()</span>  <span class="c1"># type: ignore[no-untyped-call]</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;name&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;package_metadata.version&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;contributions&#39;</span><span class="p">,</span>
+            <span class="s1">'name'</span><span class="p">,</span>
+            <span class="s1">'package_metadata.version'</span><span class="p">,</span>
+            <span class="s1">'contributions'</span><span class="p">,</span>
         <span class="p">]</span>
         <span class="n">pm_dict</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="nb">set</span><span class="p">(</span><span class="n">fields</span><span class="p">))</span>
 
         <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="k">for</span> <span class="n">plugin</span> <span class="ow">in</span> <span class="n">pm_dict</span><span class="p">[</span><span class="s1">&#39;plugins&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">plugin</span> <span class="ow">in</span> <span class="n">pm_dict</span><span class="p">[</span><span class="s1">'plugins'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">count_contributions</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
                 <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">plugin</span><span class="p">[</span><span class="s1">&#39;contributions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">plugin</span><span class="p">[</span><span class="s1">'contributions'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
                 <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="p">)</span>
             <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;  - </span><span class="si">{</span><span class="n">plugin</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">plugin</span><span class="p">[</span><span class="s2">&quot;package_metadata&quot;</span><span class="p">][</span><span class="s2">&quot;version&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">count_contributions</span><span class="si">}</span><span class="s1"> contributions)&#39;</span>
+                <span class="sa">f</span><span class="s1">'  - </span><span class="si">{</span><span class="n">plugin</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">plugin</span><span class="p">[</span><span class="s2">"package_metadata"</span><span class="p">][</span><span class="s2">"version"</span><span class="p">]</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">count_contributions</span><span class="si">}</span><span class="s1"> contributions)'</span>
             <span class="p">)</span>
-        <span class="k">return</span> <span class="s1">&#39;&lt;br&gt;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&lt;br&gt;&#39;</span>
+        <span class="k">return</span> <span class="s1">'&lt;br&gt;'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'&lt;br&gt;'</span>
     <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Failed to load plugin information: &lt;br&gt; </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">'Failed to load plugin information: &lt;br&gt; </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">'</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">startup_script</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get information about the startup script if executed.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Get information about the startup script if executed."""</span>
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._startup_script</span><span class="w"> </span><span class="kn">import</span> <span class="n">startup_script_status_info</span>
@@ -984,138 +984,138 @@ window.runMermaid = runMermaid;</script>
             <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">startup_script</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">script_path</span><span class="o">.</span><span class="n">samefile</span><span class="p">(</span><span class="n">Path</span><span class="p">()):</span>
-            <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;br&gt;&lt;b&gt;Startup script:&lt;/b&gt;&lt;br&gt; - script path: </span><span class="si">{</span><span class="n">script_path</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
-        <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s1">'&lt;br&gt;&lt;b&gt;Startup script:&lt;/b&gt;&lt;br&gt; - script path: </span><span class="si">{</span><span class="n">script_path</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
+        <span class="k">return</span> <span class="s1">''</span>
 
-    <span class="n">code_html</span> <span class="o">=</span> <span class="n">startup_script_status_info</span><span class="o">.</span><span class="n">script_code</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;br&gt;&#39;</span><span class="p">)</span>
+    <span class="n">code_html</span> <span class="o">=</span> <span class="n">startup_script_status_info</span><span class="o">.</span><span class="n">script_code</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'&lt;br&gt;'</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="sa">f</span><span class="s2">"""</span>
 <span class="s2">    &lt;br&gt;&lt;b&gt;Startup script:&lt;/b&gt;&lt;br&gt;</span>
 <span class="s2">     - load time: </span><span class="si">{</span><span class="n">startup_script_status_info</span><span class="o">.</span><span class="n">startup_time</span><span class="si">}</span><span class="s2">&lt;br&gt;</span>
 <span class="s2">     - script path: </span><span class="si">{</span><span class="n">startup_script_status_info</span><span class="o">.</span><span class="n">script_path</span><span class="si">}</span><span class="s2">&lt;br&gt;</span>
 <span class="s2">     - script code: </span><span class="si">{</span><span class="n">code_html</span><span class="si">}</span><span class="s2">&lt;br&gt;</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="p">)</span>
+<span class="s2">    """</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="sys_info">
 <a class="viewcode-back" href="../../../api/napari.utils.html#napari.sys_info">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">sys_info</span><span class="p">(</span><span class="n">as_html</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Gathers relevant module versions for troubleshooting purposes.</span>
+<span class="w">    </span><span class="sd">"""Gathers relevant module versions for troubleshooting purposes.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    as_html : bool</span>
 <span class="sd">        if True, info will be returned as HTML, suitable for a QTextEdit widget</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">sys_version</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;napari&lt;/b&gt;: </span><span class="si">{</span><span class="n">napari</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="sd">    """</span>
+    <span class="n">sys_version</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">,</span> <span class="s1">' '</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'&lt;b&gt;napari&lt;/b&gt;: </span><span class="si">{</span><span class="n">napari</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">'</span>
     <span class="k">if</span> <span class="n">_napari_from_conda</span><span class="p">():</span>
-        <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39; (from conda)&#39;</span>
-    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;br&gt;&lt;b&gt;Platform&lt;/b&gt;: </span><span class="si">{</span><span class="n">platform</span><span class="o">.</span><span class="n">platform</span><span class="p">()</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="s1">' (from conda)'</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'&lt;br&gt;&lt;b&gt;Platform&lt;/b&gt;: </span><span class="si">{</span><span class="n">platform</span><span class="o">.</span><span class="n">platform</span><span class="p">()</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
 
     <span class="n">__sys_name</span> <span class="o">=</span> <span class="n">_sys_name</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">__sys_name</span><span class="p">:</span>
-        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;System&lt;/b&gt;: </span><span class="si">{</span><span class="n">__sys_name</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'&lt;b&gt;System&lt;/b&gt;: </span><span class="si">{</span><span class="n">__sys_name</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
     <span class="n">__desktop_env</span> <span class="o">=</span> <span class="n">_desktop_env</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">__desktop_env</span><span class="p">:</span>
-        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;Session&lt;/b&gt;: </span><span class="si">{</span><span class="n">__desktop_env</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'&lt;b&gt;Session&lt;/b&gt;: </span><span class="si">{</span><span class="n">__desktop_env</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
 
-    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;Python&lt;/b&gt;: </span><span class="si">{</span><span class="n">sys_version</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'&lt;b&gt;Python&lt;/b&gt;: </span><span class="si">{</span><span class="n">sys_version</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">qtpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">API_NAME</span><span class="p">,</span> <span class="n">PYQT_VERSION</span><span class="p">,</span> <span class="n">PYSIDE_VERSION</span><span class="p">,</span> <span class="n">QtCore</span>
 
-        <span class="k">if</span> <span class="n">API_NAME</span> <span class="o">==</span> <span class="s1">&#39;PySide6&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">API_NAME</span> <span class="o">==</span> <span class="s1">'PySide6'</span><span class="p">:</span>
             <span class="n">API_VERSION</span> <span class="o">=</span> <span class="n">PYSIDE_VERSION</span>
-        <span class="k">elif</span> <span class="n">API_NAME</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;PyQt5&#39;</span><span class="p">,</span> <span class="s1">&#39;PyQt6&#39;</span><span class="p">}:</span>
+        <span class="k">elif</span> <span class="n">API_NAME</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">'PyQt5'</span><span class="p">,</span> <span class="s1">'PyQt6'</span><span class="p">}:</span>
             <span class="n">API_VERSION</span> <span class="o">=</span> <span class="n">PYQT_VERSION</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">API_VERSION</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">API_VERSION</span> <span class="o">=</span> <span class="s1">''</span>
 
         <span class="n">text</span> <span class="o">+=</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;Qt&lt;/b&gt;: </span><span class="si">{</span><span class="n">QtCore</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
-            <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;</span><span class="si">{</span><span class="n">API_NAME</span><span class="si">}</span><span class="s1">&lt;/b&gt;: </span><span class="si">{</span><span class="n">API_VERSION</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+            <span class="sa">f</span><span class="s1">'&lt;b&gt;Qt&lt;/b&gt;: </span><span class="si">{</span><span class="n">QtCore</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
+            <span class="sa">f</span><span class="s1">'&lt;b&gt;</span><span class="si">{</span><span class="n">API_NAME</span><span class="si">}</span><span class="s1">&lt;/b&gt;: </span><span class="si">{</span><span class="n">API_VERSION</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
         <span class="p">)</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># noqa BLE001</span>
-        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;Qt&lt;/b&gt;: Import failed (</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">)&lt;br&gt;&#39;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'&lt;b&gt;Qt&lt;/b&gt;: Import failed (</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">)&lt;br&gt;'</span>
 
     <span class="n">modules</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="p">(</span><span class="s1">&#39;numpy&#39;</span><span class="p">,</span> <span class="s1">&#39;NumPy&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;scipy&#39;</span><span class="p">,</span> <span class="s1">&#39;SciPy&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;dask&#39;</span><span class="p">,</span> <span class="s1">&#39;Dask&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;vispy&#39;</span><span class="p">,</span> <span class="s1">&#39;VisPy&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;magicgui&#39;</span><span class="p">,</span> <span class="s1">&#39;magicgui&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;superqt&#39;</span><span class="p">,</span> <span class="s1">&#39;superqt&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;in_n_out&#39;</span><span class="p">,</span> <span class="s1">&#39;in-n-out&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;app_model&#39;</span><span class="p">,</span> <span class="s1">&#39;app-model&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;psygnal&#39;</span><span class="p">,</span> <span class="s1">&#39;psygnal&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;npe2&#39;</span><span class="p">,</span> <span class="s1">&#39;npe2&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;pydantic&#39;</span><span class="p">,</span> <span class="s1">&#39;pydantic&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'numpy'</span><span class="p">,</span> <span class="s1">'NumPy'</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'scipy'</span><span class="p">,</span> <span class="s1">'SciPy'</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'dask'</span><span class="p">,</span> <span class="s1">'Dask'</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'vispy'</span><span class="p">,</span> <span class="s1">'VisPy'</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'magicgui'</span><span class="p">,</span> <span class="s1">'magicgui'</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'superqt'</span><span class="p">,</span> <span class="s1">'superqt'</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'in_n_out'</span><span class="p">,</span> <span class="s1">'in-n-out'</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'app_model'</span><span class="p">,</span> <span class="s1">'app-model'</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'psygnal'</span><span class="p">,</span> <span class="s1">'psygnal'</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'npe2'</span><span class="p">,</span> <span class="s1">'npe2'</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'pydantic'</span><span class="p">,</span> <span class="s1">'pydantic'</span><span class="p">),</span>
     <span class="p">)</span>
 
     <span class="n">loaded</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">module</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">modules</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">loaded</span><span class="p">[</span><span class="n">module</span><span class="p">]</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&lt;/b&gt;: </span><span class="si">{</span><span class="n">version</span><span class="p">(</span><span class="n">module</span><span class="p">)</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'&lt;b&gt;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&lt;/b&gt;: </span><span class="si">{</span><span class="n">version</span><span class="p">(</span><span class="n">module</span><span class="p">)</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
         <span class="k">except</span> <span class="n">PackageNotFoundError</span><span class="p">:</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;b&gt;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&lt;/b&gt;: Import failed&lt;br&gt;&#39;</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'&lt;b&gt;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&lt;/b&gt;: Import failed&lt;br&gt;'</span>
 
-    <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&lt;br&gt;&lt;b&gt;OpenGL:&lt;/b&gt;&lt;br&gt;&#39;</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="s1">'&lt;br&gt;&lt;b&gt;OpenGL:&lt;/b&gt;&lt;br&gt;'</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">OpenGL.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">pyopengl_version</span>
 
-        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - PyOpenGL: </span><span class="si">{</span><span class="n">pyopengl_version</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'  - PyOpenGL: </span><span class="si">{</span><span class="n">pyopengl_version</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-        <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;  - PyOpenGL: Import failed&lt;br&gt;&#39;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="s1">'  - PyOpenGL: Import failed&lt;br&gt;'</span>
 
-    <span class="k">if</span> <span class="n">loaded</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vispy&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">loaded</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'vispy'</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari._vispy.utils.gl</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_max_texture_sizes</span>
 
         <span class="n">sys_info_text</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s1">&#39;&lt;br&gt;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="s1">'&lt;br&gt;'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                 <span class="p">[</span>
-                    <span class="n">loaded</span><span class="p">[</span><span class="s1">&#39;vispy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sys_info</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="n">index</span><span class="p">]</span>
+                    <span class="n">loaded</span><span class="p">[</span><span class="s1">'vispy'</span><span class="p">]</span><span class="o">.</span><span class="n">sys_info</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)[</span><span class="n">index</span><span class="p">]</span>
                     <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">]</span>
                 <span class="p">]</span>
             <span class="p">)</span>
-            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;br&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;br&gt;  - &#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"'"</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'&lt;br&gt;'</span><span class="p">,</span> <span class="s1">'&lt;br&gt;  - '</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - </span><span class="si">{</span><span class="n">sys_info_text</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'  - </span><span class="si">{</span><span class="n">sys_info_text</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">max_3d_texture_size</span> <span class="o">=</span> <span class="n">get_max_texture_sizes</span><span class="p">()</span>
-        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - GL_MAX_3D_TEXTURE_SIZE: </span><span class="si">{</span><span class="n">max_3d_texture_size</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'  - GL_MAX_3D_TEXTURE_SIZE: </span><span class="si">{</span><span class="n">max_3d_texture_size</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;  - failed to load vispy&#39;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="s1">'  - failed to load vispy'</span>
 
-    <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&lt;br&gt;&lt;b&gt;Screens:&lt;/b&gt;&lt;br&gt;&#39;</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="s1">'&lt;br&gt;&lt;b&gt;Screens:&lt;/b&gt;&lt;br&gt;'</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QGuiApplication</span>
 
         <span class="n">screen_list</span> <span class="o">=</span> <span class="n">QGuiApplication</span><span class="o">.</span><span class="n">screens</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">screen</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">screen_list</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - screen </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">: resolution </span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">()</span><span class="si">}</span><span class="s1">x</span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span><span class="si">}</span><span class="s1">, scale </span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">devicePixelRatio</span><span class="p">()</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'  - screen </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">: resolution </span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">()</span><span class="si">}</span><span class="s1">x</span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span><span class="si">}</span><span class="s1">, scale </span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">devicePixelRatio</span><span class="p">()</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># noqa BLE001</span>
-        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - failed to load screen information </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'  - failed to load screen information </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">'</span>
 
-    <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&lt;br&gt;&lt;b&gt;Optional:&lt;/b&gt;&lt;br&gt;&#39;</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="s1">'&lt;br&gt;&lt;b&gt;Optional:&lt;/b&gt;&lt;br&gt;'</span>
 
     <span class="n">optional_modules</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="p">(</span><span class="s1">&#39;numba&#39;</span><span class="p">,</span> <span class="s1">&#39;numba&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;triangle&#39;</span><span class="p">,</span> <span class="s1">&#39;triangle&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;napari_plugin_manager&#39;</span><span class="p">,</span> <span class="s1">&#39;napari-plugin-manager&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;bermuda&#39;</span><span class="p">,</span> <span class="s1">&#39;bermuda&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;PartSegCore_compiled_backend&#39;</span><span class="p">,</span> <span class="s1">&#39;PartSegCore&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'numba'</span><span class="p">,</span> <span class="s1">'numba'</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'triangle'</span><span class="p">,</span> <span class="s1">'triangle'</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'napari_plugin_manager'</span><span class="p">,</span> <span class="s1">'napari-plugin-manager'</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'bermuda'</span><span class="p">,</span> <span class="s1">'bermuda'</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">'PartSegCore_compiled_backend'</span><span class="p">,</span> <span class="s1">'PartSegCore'</span><span class="p">),</span>
     <span class="p">)</span>
 
     <span class="k">for</span> <span class="n">module</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">optional_modules</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - &lt;b&gt;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&lt;/b&gt;: </span><span class="si">{</span><span class="n">version</span><span class="p">(</span><span class="n">module</span><span class="p">)</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'  - &lt;b&gt;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&lt;/b&gt;: </span><span class="si">{</span><span class="n">version</span><span class="p">(</span><span class="n">module</span><span class="p">)</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
         <span class="k">except</span> <span class="n">PackageNotFoundError</span><span class="p">:</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> not installed&lt;br&gt;&#39;</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'  - </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> not installed&lt;br&gt;'</span>
 
     <span class="n">_config_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span>
     <span class="k">try</span><span class="p">:</span>
@@ -1130,40 +1130,40 @@ window.runMermaid = runMermaid;</script>
     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._platformdirs</span><span class="w"> </span><span class="kn">import</span> <span class="n">user_config_dir</span>
 
-        <span class="n">_async_setting</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NAPARI_ASYNC&#39;</span><span class="p">,</span> <span class="s1">&#39;False&#39;</span><span class="p">))</span>
-        <span class="n">_autoswap_buffers</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NAPARI_AUTOSWAP&#39;</span><span class="p">,</span> <span class="s1">&#39;False&#39;</span><span class="p">))</span>
+        <span class="n">_async_setting</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'NAPARI_ASYNC'</span><span class="p">,</span> <span class="s1">'False'</span><span class="p">))</span>
+        <span class="n">_autoswap_buffers</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'NAPARI_AUTOSWAP'</span><span class="p">,</span> <span class="s1">'False'</span><span class="p">))</span>
         <span class="n">_triangulation_backend</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NAPARI_TRIANGULATION_BACKEND&#39;</span><span class="p">,</span> <span class="s1">&#39;Fastest available&#39;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'NAPARI_TRIANGULATION_BACKEND'</span><span class="p">,</span> <span class="s1">'Fastest available'</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="n">_config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NAPARI_CONFIG&#39;</span><span class="p">,</span> <span class="n">user_config_dir</span><span class="p">())</span>
+        <span class="n">_config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'NAPARI_CONFIG'</span><span class="p">,</span> <span class="n">user_config_dir</span><span class="p">())</span>
 
-    <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&lt;br&gt;&lt;b&gt;Experimental Settings:&lt;/b&gt;&lt;br&gt;&#39;</span>
-    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - Async: </span><span class="si">{</span><span class="n">_async_setting</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
-    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - Autoswap buffers: </span><span class="si">{</span><span class="n">_autoswap_buffers</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
-    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - Triangulation backend: </span><span class="si">{</span><span class="n">_triangulation_backend</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="s1">'&lt;br&gt;&lt;b&gt;Experimental Settings:&lt;/b&gt;&lt;br&gt;'</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'  - Async: </span><span class="si">{</span><span class="n">_async_setting</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'  - Autoswap buffers: </span><span class="si">{</span><span class="n">_autoswap_buffers</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'  - Triangulation backend: </span><span class="si">{</span><span class="n">_triangulation_backend</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
 
-    <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&lt;br&gt;&lt;b&gt;Settings path:&lt;/b&gt;&lt;br&gt;&#39;</span>
-    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - </span><span class="si">{</span><span class="n">_config_path</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="s1">'&lt;br&gt;&lt;b&gt;Settings path:&lt;/b&gt;&lt;br&gt;'</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'  - </span><span class="si">{</span><span class="n">_config_path</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
 
-    <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&lt;br&gt;&lt;b&gt;Launch command:&lt;/b&gt;&lt;br&gt;&#39;</span>
-    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  - </span><span class="si">{</span><span class="n">get_launch_command</span><span class="p">()</span><span class="si">}</span><span class="s1">&lt;br&gt;&#39;</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="s1">'&lt;br&gt;&lt;b&gt;Launch command:&lt;/b&gt;&lt;br&gt;'</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'  - </span><span class="si">{</span><span class="n">get_launch_command</span><span class="p">()</span><span class="si">}</span><span class="s1">&lt;br&gt;'</span>
 
-    <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&lt;br&gt;&lt;b&gt;Plugins:&lt;/b&gt;&lt;br&gt;&#39;</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="s1">'&lt;br&gt;&lt;b&gt;Plugins:&lt;/b&gt;&lt;br&gt;'</span>
     <span class="n">text</span> <span class="o">+=</span> <span class="n">get_plugin_list</span><span class="p">()</span>
     <span class="n">text</span> <span class="o">+=</span> <span class="n">startup_script</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">as_html</span><span class="p">:</span>
         <span class="n">text</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;br&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;b&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;/b&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'&lt;br&gt;'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'&lt;b&gt;'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'&lt;/b&gt;'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">text</span></div>
 
 
 
 <span class="n">citation_text</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s1">&#39;napari contributors (2019). napari: a &#39;</span>
-    <span class="s1">&#39;multi-dimensional image viewer for python. &#39;</span>
-    <span class="s1">&#39;doi:10.5281/zenodo.3555620&#39;</span>
+    <span class="s1">'napari contributors (2019). napari: a '</span>
+    <span class="s1">'multi-dimensional image viewer for python. '</span>
+    <span class="s1">'doi:10.5281/zenodo.3555620'</span>
 <span class="p">)</span>
 </pre></div>
 

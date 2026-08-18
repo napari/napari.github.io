@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -824,7 +824,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">compose_linear_matrix</span><span class="p">(</span><span class="n">rotate</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">shear</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compose linear transform matrix from rotate, shear, scale.</span>
+<span class="w">    </span><span class="sd">"""Compose linear transform matrix from rotate, shear, scale.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -847,7 +847,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    matrix : array</span>
 <span class="sd">        nD array representing the composed linear transform.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">rotate_mat</span> <span class="o">=</span> <span class="n">_make_rotate_mat</span><span class="p">(</span><span class="n">rotate</span><span class="p">)</span>
     <span class="n">scale_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
     <span class="n">shear_mat</span> <span class="o">=</span> <span class="n">_make_shear_mat</span><span class="p">(</span><span class="n">shear</span><span class="p">)</span>
@@ -863,7 +863,7 @@ window.runMermaid = runMermaid;</script>
 <span class="k">def</span><span class="w"> </span><span class="nf">infer_ndim</span><span class="p">(</span>
     <span class="o">*</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">linear_matrix</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Infer the dimensionality of a transformation from its input components.</span>
+<span class="w">    </span><span class="sd">"""Infer the dimensionality of a transformation from its input components.</span>
 
 <span class="sd">    This is most useful when the dimensions of the inputs do not match, either</span>
 <span class="sd">    when broadcasting is desired or when an input represents a parameterization</span>
@@ -896,7 +896,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    ndim : int</span>
 <span class="sd">        The maximum dimensionality of the component inputs.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">ndim</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">if</span> <span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ndim</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ndim</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">scale</span><span class="p">))</span>
@@ -910,7 +910,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">translate_to_vector</span><span class="p">(</span><span class="n">translate</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">ndim</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a translate input into an n-dimensional transform component.</span>
+<span class="w">    </span><span class="sd">"""Convert a translate input into an n-dimensional transform component.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -926,7 +926,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        The translate component as a 1D numpy array of length ndim.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">translate_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">translate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">translate_arr</span><span class="p">[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">translate</span><span class="p">)</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">translate</span>
@@ -934,7 +934,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">scale_to_vector</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">ndim</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a scale input into an n-dimensional transform component.</span>
+<span class="w">    </span><span class="sd">"""Convert a scale input into an n-dimensional transform component.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -950,7 +950,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        The scale component as a 1D numpy array of length ndim.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">scale_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">scale_arr</span><span class="p">[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">scale</span>
@@ -958,7 +958,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">rotate_to_matrix</span><span class="p">(</span><span class="n">rotate</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">ndim</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a rotate input into an n-dimensional transform component.</span>
+<span class="w">    </span><span class="sd">"""Convert a rotate input into an n-dimensional transform component.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -975,7 +975,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        The rotate component as a 2D numpy array of size ndim.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">full_rotate_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">rotate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">rotate_mat</span> <span class="o">=</span> <span class="n">_make_rotate_mat</span><span class="p">(</span><span class="n">rotate</span><span class="p">)</span>
@@ -993,16 +993,16 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_make_2d_rotation</span><span class="p">(</span><span class="n">theta_degrees</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Makes a 2D rotation matrix from an angle in degrees.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Makes a 2D rotation matrix from an angle in degrees."""</span>
     <span class="n">cos_theta</span><span class="p">,</span> <span class="n">sin_theta</span> <span class="o">=</span> <span class="n">_cos_sin_degrees</span><span class="p">(</span><span class="n">theta_degrees</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">cos_theta</span><span class="p">,</span> <span class="o">-</span><span class="n">sin_theta</span><span class="p">],</span> <span class="p">[</span><span class="n">sin_theta</span><span class="p">,</span> <span class="n">cos_theta</span><span class="p">]])</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_make_3d_rotation</span><span class="p">(</span><span class="n">alpha_degrees</span><span class="p">,</span> <span class="n">beta_degrees</span><span class="p">,</span> <span class="n">gamma_degrees</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Makes a 3D rotation matrix from roll, pitch, and yaw in degrees.</span>
+<span class="w">    </span><span class="sd">"""Makes a 3D rotation matrix from roll, pitch, and yaw in degrees.</span>
 
 <span class="sd">    For more details, see: https://en.wikipedia.org/wiki/Rotation_matrix#General_rotations</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">cos_alpha</span><span class="p">,</span> <span class="n">sin_alpha</span> <span class="o">=</span> <span class="n">_cos_sin_degrees</span><span class="p">(</span><span class="n">alpha_degrees</span><span class="p">)</span>
     <span class="n">R_alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
         <span class="p">[</span>
@@ -1039,7 +1039,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">shear_to_matrix</span><span class="p">(</span><span class="n">shear</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">ndim</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a shear input into an n-dimensional transform component.</span>
+<span class="w">    </span><span class="sd">"""Convert a shear input into an n-dimensional transform component.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1053,7 +1053,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        The shear component as a triangular 2D numpy array of size ndim.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">full_shear_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">shear</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">shear_mat</span> <span class="o">=</span> <span class="n">_make_shear_mat</span><span class="p">(</span><span class="n">shear</span><span class="p">)</span>
@@ -1067,20 +1067,20 @@ window.runMermaid = runMermaid;</script>
     <span class="c1"># a full nD shear matrix has been passed</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">shear</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s1">&#39;Scalars are not valid values for shear. Shear must be an upper triangular vector or square matrix with ones along the main diagonal.&#39;</span>
+            <span class="s1">'Scalars are not valid values for shear. Shear must be an upper triangular vector or square matrix with ones along the main diagonal.'</span>
         <span class="p">)</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shear</span><span class="p">)</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">expand_upper_triangular</span><span class="p">(</span><span class="n">shear</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">is_matrix_triangular</span><span class="p">(</span><span class="n">shear</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;Only upper triangular or lower triangular matrices are accepted for shear, got </span><span class="si">{</span><span class="n">shear</span><span class="si">}</span><span class="s1">. For other matrices, set the affine_matrix or linear_matrix directly.&#39;</span>
+            <span class="sa">f</span><span class="s1">'Only upper triangular or lower triangular matrices are accepted for shear, got </span><span class="si">{</span><span class="n">shear</span><span class="si">}</span><span class="s1">. For other matrices, set the affine_matrix or linear_matrix directly.'</span>
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shear</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">expand_upper_triangular</span><span class="p">(</span><span class="n">vector</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Expand a vector into an upper triangular matrix.</span>
+<span class="w">    </span><span class="sd">"""Expand a vector into an upper triangular matrix.</span>
 
 <span class="sd">    Decomposition is based on code from https://github.com/matthew-brett/transforms3d.</span>
 <span class="sd">    In particular, the `striu2mat` function in the `shears` module.</span>
@@ -1095,11 +1095,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    upper_tri : np.array shape (N, N)</span>
 <span class="sd">        Upper triangular matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
     <span class="n">N</span> <span class="o">=</span> <span class="p">((</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># n+1 th root</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">!=</span> <span class="n">N</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> is a strange number of shear elements&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> is a strange number of shear elements'</span><span class="p">)</span>
 
     <span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
     <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">triu</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
@@ -1109,7 +1109,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">embed_in_identity_matrix</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">ndim</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Embed an MxM matrix bottom right of larger NxN identity matrix.</span>
+<span class="w">    </span><span class="sd">"""Embed an MxM matrix bottom right of larger NxN identity matrix.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1122,9 +1122,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    full_matrix : np.array shape (N, N)</span>
 <span class="sd">        Larger matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Improper transform matrix </span><span class="si">{</span><span class="n">matrix</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Improper transform matrix </span><span class="si">{</span><span class="n">matrix</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">ndim</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">matrix</span>
@@ -1137,7 +1137,7 @@ window.runMermaid = runMermaid;</script>
 <span class="k">def</span><span class="w"> </span><span class="nf">decompose_linear_matrix</span><span class="p">(</span>
     <span class="n">matrix</span><span class="p">,</span> <span class="n">upper_triangular</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decompose linear transform matrix into rotate, scale, shear.</span>
+<span class="w">    </span><span class="sd">"""Decompose linear transform matrix into rotate, scale, shear.</span>
 
 <span class="sd">    Decomposition is based on code from https://github.com/matthew-brett/transforms3d.</span>
 <span class="sd">    In particular, the `decompose` function in the `affines` module.</span>
@@ -1167,7 +1167,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    shear : 1-D array or n-D array</span>
 <span class="sd">        1-D array of upper triangular values or an n-D matrix if lower</span>
 <span class="sd">        triangular.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">scipy.linalg</span>
 
     <span class="n">n</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -1200,7 +1200,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="shear_matrix_from_angle">
 <a class="viewcode-back" href="../../../../api/napari.utils.transforms.html#napari.utils.transforms.shear_matrix_from_angle">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">shear_matrix_from_angle</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a shear matrix from an angle.</span>
+<span class="w">    </span><span class="sd">"""Create a shear matrix from an angle.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1216,7 +1216,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    matrix : np.ndarray</span>
 <span class="sd">        Shear matrix with ones along the main diagonal</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
     <span class="n">matrix</span><span class="p">[</span><span class="n">axes</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mi">90</span> <span class="o">-</span> <span class="n">angle</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">matrix</span></div>
@@ -1224,7 +1224,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">is_matrix_upper_triangular</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if a matrix is upper triangular.</span>
+<span class="w">    </span><span class="sd">"""Check if a matrix is upper triangular.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1235,12 +1235,12 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    bool</span>
 <span class="sd">        Whether matrix is upper triangular or not.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">triu</span><span class="p">(</span><span class="n">matrix</span><span class="p">))</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">is_matrix_lower_triangular</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if a matrix is lower triangular.</span>
+<span class="w">    </span><span class="sd">"""Check if a matrix is lower triangular.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1251,12 +1251,12 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    bool</span>
 <span class="sd">        Whether matrix is lower triangular or not.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">tril</span><span class="p">(</span><span class="n">matrix</span><span class="p">))</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">is_matrix_triangular</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if a matrix is triangular.</span>
+<span class="w">    </span><span class="sd">"""Check if a matrix is triangular.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1267,14 +1267,14 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    bool</span>
 <span class="sd">        Whether matrix is triangular or not.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">is_matrix_upper_triangular</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span> <span class="ow">or</span> <span class="n">is_matrix_lower_triangular</span><span class="p">(</span>
         <span class="n">matrix</span>
     <span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">is_diagonal</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Determine whether a matrix is diagonal up to some tolerance.</span>
+<span class="w">    </span><span class="sd">"""Determine whether a matrix is diagonal up to some tolerance.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1287,9 +1287,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    -------</span>
 <span class="sd">    is_diag : bool</span>
 <span class="sd">        True if matrix is diagonal, False otherwise.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;matrix must be square, but shape=</span><span class="si">{</span><span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'matrix must be square, but shape=</span><span class="si">{</span><span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
     <span class="n">non_diag</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)]</span>
     <span class="k">if</span> <span class="n">tol</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">non_diag</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>

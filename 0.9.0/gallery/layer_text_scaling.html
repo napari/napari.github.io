@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -852,63 +852,54 @@ This world scaling is useful when there are many points and the text would other
 <p><a class="reference download internal" download="" href="../_downloads/35dd997b4ff3b382c7db605b3223157d/layer_text_scaling.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Notebook</span> <span class="pre">(.ipynb)</span></code></a></p>
 </div>
 </div>
-<img src="../_images/sphx_glr_layer_text_scaling_001.png" srcset="../_images/sphx_glr_layer_text_scaling_001.png" alt="layer text scaling" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-  theme_type=get_system_theme(),
-/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-  theme_type=get_system_theme(),
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<img src="../_images/sphx_glr_layer_text_scaling_001.png" srcset="../_images/sphx_glr_layer_text_scaling_001.png" alt="layer text scaling" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 
 <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">()</span>
-<a href="../api/napari.Viewer.html#napari.Viewer.open_sample" title="napari.Viewer.open_sample" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">open_sample</span></a><span class="p">(</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span> <span class="s1">&#39;astronaut&#39;</span><span class="p">)</span>
+<a href="../api/napari.Viewer.html#napari.Viewer.open_sample" title="napari.Viewer.open_sample" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">open_sample</span></a><span class="p">(</span><span class="s1">'napari'</span><span class="p">,</span> <span class="s1">'astronaut'</span><span class="p">)</span>
 
 <span class="c1"># add points with text features</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">points</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">120</span><span class="p">],</span> <span class="p">[</span><span class="mi">140</span><span class="p">,</span> <span class="mi">140</span><span class="p">],</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">160</span><span class="p">]])</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">text_scaled</span></a> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Point 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Point 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Point 3&#39;</span><span class="p">,</span> <span class="s1">&#39;Point 4&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-    <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;magenta&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;anchor&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;scaling&#39;</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="s1">'string'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Point 1'</span><span class="p">,</span> <span class="s1">'Point 2'</span><span class="p">,</span> <span class="s1">'Point 3'</span><span class="p">,</span> <span class="s1">'Point 4'</span><span class="p">],</span>
+    <span class="s1">'size'</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'magenta'</span><span class="p">,</span>
+    <span class="s1">'anchor'</span><span class="p">:</span> <span class="s1">'center'</span><span class="p">,</span>
+    <span class="s1">'scaling'</span><span class="p">:</span> <span class="kc">True</span>
 <span class="p">}</span>
 <a href="../api/napari.layers.Points.html#napari.layers.Points" title="napari.layers.Points" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">points_layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_points" title="napari.Viewer.add_points" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span></a><span class="p">(</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">points</span></a><span class="p">,</span>
     <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">text_scaled</span></a><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;scaled_text (magenta)&#39;</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">'scaled_text (magenta)'</span>
 <span class="p">)</span>
 <span class="c1"># points_layer.text.scaling = True  # alternative way to set scaling</span>
 
 <span class="c1"># add a second points layer slightly offset and show without scaling</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">text_unscaled</span></a> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Point 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Point 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Point 3&#39;</span><span class="p">,</span> <span class="s1">&#39;Point 4&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-    <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;anchor&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+    <span class="s1">'string'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Point 1'</span><span class="p">,</span> <span class="s1">'Point 2'</span><span class="p">,</span> <span class="s1">'Point 3'</span><span class="p">,</span> <span class="s1">'Point 4'</span><span class="p">],</span>
+    <span class="s1">'size'</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'green'</span><span class="p">,</span>
+    <span class="s1">'anchor'</span><span class="p">:</span> <span class="s1">'center'</span><span class="p">,</span>
 <span class="p">}</span>
 <a href="../api/napari.layers.Points.html#napari.layers.Points" title="napari.layers.Points" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">points_layer2</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_points" title="napari.Viewer.add_points" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span></a><span class="p">(</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">points</span></a> <span class="o">+</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
     <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">text_unscaled</span></a><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;unscaled_text (green)&#39;</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">'unscaled_text (green)'</span>
 <span class="p">)</span>
 
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shape_text</span></a> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Triangle&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-    <span class="s1">&#39;scaling&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">'string'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Triangle'</span><span class="p">],</span>
+    <span class="s1">'size'</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">'scaling'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">}</span>
 <a href="../api/napari.layers.Shapes.html#napari.layers.Shapes" title="napari.layers.Shapes" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shapes_layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_shapes" title="napari.Viewer.add_shapes" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span></a><span class="p">(</span>
     <span class="n">data</span><span class="o">=</span><span class="p">[[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">],</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">]],</span>
-    <span class="n">shape_type</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;polygon&#39;</span><span class="p">],</span>
+    <span class="n">shape_type</span><span class="o">=</span><span class="p">[</span><span class="s1">'polygon'</span><span class="p">],</span>
     <span class="n">text</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shape_text</span></a><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;scaled_text_shapes&#39;</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">'scaled_text_shapes'</span>
 <span class="p">)</span>
 
 <span class="k">for</span> <a href="../api/napari.layers.Shapes.html#napari.layers.Shapes" title="napari.layers.Shapes" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">layer</span></a> <span class="ow">in</span> <a href="../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span></a><span class="p">:</span>
@@ -916,7 +907,7 @@ This world scaling is useful when there are many points and the text would other
 
 <a href="../api/napari.Viewer.html#napari.Viewer.reset_view" title="napari.Viewer.reset_view" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">reset_view</span></a><span class="p">()</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>

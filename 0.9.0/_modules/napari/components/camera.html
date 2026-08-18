@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -844,22 +844,22 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="n">_SYNCED_CAMERA_DESCRIPTION</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s1">&#39;Controls how camera state is managed when switching between</span><span class="se">\n</span><span class="s1">&#39;</span>
-    <span class="s1">&#39;2D and 3D views. When checked, camera center and zoom are</span><span class="se">\n</span><span class="s1">&#39;</span>
-    <span class="s1">&#39;shared between views, with the depth (Z) component synced via</span><span class="se">\n</span><span class="s1">&#39;</span>
-    <span class="s1">&#39;the dims slider. When unchecked, each mode remembers</span><span class="se">\n</span><span class="s1">&#39;</span>
-    <span class="s1">&#39;its own camera state independently.&#39;</span>
+    <span class="s1">'Controls how camera state is managed when switching between</span><span class="se">\n</span><span class="s1">'</span>
+    <span class="s1">'2D and 3D views. When checked, camera center and zoom are</span><span class="se">\n</span><span class="s1">'</span>
+    <span class="s1">'shared between views, with the depth (Z) component synced via</span><span class="se">\n</span><span class="s1">'</span>
+    <span class="s1">'the dims slider. When unchecked, each mode remembers</span><span class="se">\n</span><span class="s1">'</span>
+    <span class="s1">'its own camera state independently.'</span>
 <span class="p">)</span>
 
 
 <span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">_CameraState</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Captured camera state for a single ndisplay mode.</span>
+<span class="w">    </span><span class="sd">"""Captured camera state for a single ndisplay mode.</span>
 
 <span class="sd">    This is a lightweight private data container used internally by</span>
 <span class="sd">    :class:`Camera` to preserve per-mode center, zoom, and angles when</span>
 <span class="sd">    switching between 2D and 3D views.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">center</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
     <span class="n">zoom</span><span class="p">:</span> <span class="nb">float</span>
@@ -869,7 +869,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Camera">
 <a class="viewcode-back" href="../../../api/napari.components.Camera.html#napari.components.Camera">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Camera</span><span class="p">(</span><span class="n">EventedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Camera object modeling position and view of the camera.</span>
+<span class="w">    </span><span class="sd">"""Camera object modeling position and view of the camera.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -886,12 +886,12 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Stored or returned angle values may differ from those that were set,</span>
 <span class="sd">        while still representing an equivalent camera orientation.</span>
 <span class="sd">    perspective : float</span>
-<span class="sd">        Perspective (aka &quot;field of view&quot; in vispy) of the camera (if 3D).</span>
+<span class="sd">        Perspective (aka "field of view" in vispy) of the camera (if 3D).</span>
 <span class="sd">    mouse_pan : bool</span>
 <span class="sd">        If the camera interactive panning with the mouse is enabled or not.</span>
 <span class="sd">    mouse_zoom : bool</span>
 <span class="sd">        If the camera interactive zooming with the mouse is enabled or not.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># fields</span>
     <span class="n">center</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
@@ -911,12 +911,12 @@ window.runMermaid = runMermaid;</script>
     <span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_ORIENTATION_TYPED</span>
     <span class="n">synced</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">_SYNCED_CAMERA_DESCRIPTION</span><span class="p">)</span>
 
-    <span class="c1"># Per-mode camera state cache for the &quot;separate&quot; (synced=False) mode.</span>
+    <span class="c1"># Per-mode camera state cache for the "separate" (synced=False) mode.</span>
     <span class="n">_cached_2d_state</span><span class="p">:</span> <span class="n">_CameraState</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">_cached_3d_state</span><span class="p">:</span> <span class="n">_CameraState</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_cache_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ndisplay_mode</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save current camera state for a given ndisplay mode.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Save current camera state for a given ndisplay mode."""</span>
         <span class="n">state</span> <span class="o">=</span> <span class="n">_CameraState</span><span class="p">(</span>
             <span class="n">center</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">,</span>
             <span class="n">zoom</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span>
@@ -928,7 +928,7 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cached_3d_state</span> <span class="o">=</span> <span class="n">state</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_pop_cached_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ndisplay_mode</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_CameraState</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieve and remove cached state for a given ndisplay mode.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Retrieve and remove cached state for a given ndisplay mode."""</span>
         <span class="k">if</span> <span class="n">ndisplay_mode</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
             <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_2d_state</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cached_2d_state</span> <span class="o">=</span> <span class="kc">None</span>
@@ -937,41 +937,41 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cached_3d_state</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">state</span>
 
-    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="s1">&#39;angles&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;before&#39;</span><span class="p">)</span>
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s1">'center'</span><span class="p">,</span> <span class="s1">'angles'</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'before'</span><span class="p">)</span>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_ensure_3_tuple</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">ensure_n_tuple</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">view_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;3D view direction vector of the camera.</span>
+<span class="w">        </span><span class="sd">"""3D view direction vector of the camera.</span>
 
 <span class="sd">        View direction is calculated from the Euler angles and returned as a</span>
 <span class="sd">        3-tuple. This direction is in 3D scene coordinates, the world coordinate</span>
 <span class="sd">        system for three currently displayed dimensions.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial.transform</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rotation</span> <span class="k">as</span> <span class="n">R</span>
 
-        <span class="c1"># once we&#39;re in scene-land, we pretend to be in xyz space (axes names don&#39;t</span>
+        <span class="c1"># once we're in scene-land, we pretend to be in xyz space (axes names don't</span>
         <span class="c1"># mean anything after all...) which simplifies the logic a lot.</span>
-        <span class="n">rotation</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">rotation</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s1">'xyz'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="c1"># view direction is given by the z component, but flipping the sign.</span>
         <span class="c1"># This is because the default view direction at angles (0, 0, 0) is (-1, 0, 0)</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="o">-</span><span class="n">rotation</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">up_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;3D direction vector pointing up on the canvas.</span>
+<span class="w">        </span><span class="sd">"""3D direction vector pointing up on the canvas.</span>
 
 <span class="sd">        Up direction is calculated from the Euler angles and returned as a</span>
 <span class="sd">        3-tuple. This direction is in 3D scene coordinates, the world coordinate</span>
 <span class="sd">        system for three currently displayed dimensions.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial.transform</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rotation</span> <span class="k">as</span> <span class="n">R</span>
 
-        <span class="c1"># once we&#39;re in scene-land, we pretend to be in xyz space (axes names don&#39;t</span>
+        <span class="c1"># once we're in scene-land, we pretend to be in xyz space (axes names don't</span>
         <span class="c1"># mean anything after all...) which simplifies the logic a lot.</span>
-        <span class="n">rotation</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">rotation</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s1">'xyz'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="c1"># up direction is given by the y component, but flipping the sign.</span>
         <span class="c1"># This is because the default up direction at angles (0, 0, 0) is (0, -1, 0)</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="o">-</span><span class="n">rotation</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
@@ -983,7 +983,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">view_direction</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
         <span class="n">up_direction</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set camera angles from direction vectors.</span>
+<span class="w">        </span><span class="sd">"""Set camera angles from direction vectors.</span>
 
 <span class="sd">        Both the view direction and the up direction are specified in 3D scene</span>
 <span class="sd">        coordinates, the world coordinate system for three currently displayed</span>
@@ -1003,7 +1003,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            A direction vector which will point upwards on the canvas. Defaults</span>
 <span class="sd">            to (0, -1, 0) unless the view direction is parallel to the y-axis,</span>
 <span class="sd">            in which case will default to (-1, 0, 0).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial.transform</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rotation</span> <span class="k">as</span> <span class="n">R</span>
 
         <span class="c1"># project up onto view so we can remove the parallel component</span>
@@ -1018,13 +1018,13 @@ window.runMermaid = runMermaid;</script>
         <span class="n">up_direction_arr</span> <span class="o">=</span> <span class="n">up_direction_arr</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">up_direction_arr</span><span class="p">)</span>
         <span class="n">right_direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">up_direction_arr</span><span class="p">,</span> <span class="n">view_direction_arr</span><span class="p">)</span>
 
-        <span class="c1"># once we&#39;re in scene-land, we pretend to be in xyz space (axes names don&#39;t</span>
+        <span class="c1"># once we're in scene-land, we pretend to be in xyz space (axes names don't</span>
         <span class="c1"># mean anything after all...) which simplifies the logic a lot. We also</span>
         <span class="c1"># flip all signs (see explanations in self.view_direction, and self.up_direction)</span>
         <span class="n">matrix</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
             <span class="p">(</span><span class="n">view_direction_arr</span><span class="p">,</span> <span class="n">up_direction_arr</span><span class="p">,</span> <span class="n">right_direction</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="o">.</span><span class="n">as_euler</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="o">.</span><span class="n">as_euler</span><span class="p">(</span><span class="s1">'xyz'</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Camera.calculate_nd_view_direction">
@@ -1032,7 +1032,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">calculate_nd_view_direction</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the nD view direction vector of the camera.</span>
+<span class="w">        </span><span class="sd">"""Calculate the nD view direction vector of the camera.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1045,7 +1045,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        view_direction_nd : np.ndarray</span>
 <span class="sd">            nD view direction vector as an (ndim, ) ndarray</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="n">view_direction_nd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
@@ -1058,7 +1058,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">calculate_nd_up_direction</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the nD up direction vector of the camera.</span>
+<span class="w">        </span><span class="sd">"""Calculate the nD up direction vector of the camera.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1071,7 +1071,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        up_direction_nd : np.ndarray</span>
 <span class="sd">            nD view direction vector as an (ndim, ) ndarray</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="n">up_direction_nd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
@@ -1101,7 +1101,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">handedness</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Handedness</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Right or left-handedness of the current orientation.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Right or left-handedness of the current orientation."""</span>
         <span class="c1"># we know default orientation is right-handed, so an odd number of</span>
         <span class="c1"># differences from default means left-handed.</span>
         <span class="n">diffs</span> <span class="o">=</span> <span class="p">[</span>

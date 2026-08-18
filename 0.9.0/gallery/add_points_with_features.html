@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/gallery/add_points_with_features.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Display a points layer on top of an image layer using the add_points and add_image APIs Tags: visualization-basic, features-table Python (.py) Notebook (.ipynb), Download Jupyter notebook: add_points_with_features.ipynb Download Python source code: add_points_with_features.py Download zipped: add..." />
+<meta property="og:description" content="Display a points layer on top of an image layer using the add_points and add_image APIs Tags: visualization-basic, features-table Python (.py) Notebook (.ipynb) Download Jupyter notebook: add_points_with_features.ipynb Download Python source code: add_points_with_features.py Download zipped: add_..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="Display a points layer on top of an image layer using the add_points and add_image APIs Tags: visualization-basic, features-table Python (.py) Notebook (.ipynb), Download Jupyter notebook: add_points_with_features.ipynb Download Python source code: add_points_with_features.py Download zipped: add..." />
+<meta name="description" content="Display a points layer on top of an image layer using the add_points and add_image APIs Tags: visualization-basic, features-table Python (.py) Notebook (.ipynb) Download Jupyter notebook: add_points_with_features.ipynb Download Python source code: add_points_with_features.py Download zipped: add_..." />
 
     <title>Add points with features &#8212; napari</title>
   
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -849,16 +849,7 @@
 <p><a class="reference download internal" download="" href="../_downloads/1146ba8e4f1210c48ff4b8d6321c5f44/add_points_with_features.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Notebook</span> <span class="pre">(.ipynb)</span></code></a></p>
 </div>
 </div>
-<img src="../_images/sphx_glr_add_points_with_features_001.png" srcset="../_images/sphx_glr_add_points_with_features_001.png" alt="add points with features" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-  theme_type=get_system_theme(),
-/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-  theme_type=get_system_theme(),
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<img src="../_images/sphx_glr_add_points_with_features_001.png" srcset="../_images/sphx_glr_add_points_with_features_001.png" alt="add points with features" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">skimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">data</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">skimage.color</span><span class="w"> </span><span class="kn">import</span> <span class="n">rgb2gray</span>
 
@@ -872,12 +863,12 @@
 
 <span class="c1"># create features for each point</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">features</span></a> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;confidence&#39;</span><span class="p">:</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
-    <span class="s1">&#39;good_point&#39;</span><span class="p">:</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+    <span class="s1">'confidence'</span><span class="p">:</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
+    <span class="s1">'good_point'</span><span class="p">:</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
 <span class="p">}</span>
 
 <span class="c1"># define the color cycle for the face_color annotation</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">face_color_cycle</span></a> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">face_color_cycle</span></a> <span class="o">=</span> <span class="p">[</span><span class="s1">'blue'</span><span class="p">,</span> <span class="s1">'green'</span><span class="p">]</span>
 
 <span class="c1"># create a points layer where the face_color is set by the good_point feature</span>
 <span class="c1"># and the border_color is set via a color map (grayscale) on the confidence</span>
@@ -888,24 +879,24 @@
     <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
     <span class="n">border_width</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
     <span class="n">border_width_is_relative</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">border_color</span><span class="o">=</span><span class="s1">&#39;confidence&#39;</span><span class="p">,</span>
-    <span class="n">border_colormap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
-    <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;good_point&#39;</span><span class="p">,</span>
+    <span class="n">border_color</span><span class="o">=</span><span class="s1">'confidence'</span><span class="p">,</span>
+    <span class="n">border_colormap</span><span class="o">=</span><span class="s1">'gray'</span><span class="p">,</span>
+    <span class="n">face_color</span><span class="o">=</span><span class="s1">'good_point'</span><span class="p">,</span>
     <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">face_color_cycle</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">face_color_cycle</span></a>
 <span class="p">)</span>
 
 <span class="c1"># set the border_color mode to colormap</span>
-<a href="../api/napari.layers.Points.html#id5" title="napari.layers.Points.border_color_mode" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">border_color_mode</span></a> <span class="o">=</span> <span class="s1">&#39;colormap&#39;</span>
+<a href="../api/napari.layers.Points.html#id5" title="napari.layers.Points.border_color_mode" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">border_color_mode</span></a> <span class="o">=</span> <span class="s1">'colormap'</span>
 
 
 <span class="c1"># bind a function to toggle the good_point annotation of the selected points</span>
-<span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">'t'</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">toggle_point_annotation</span><span class="p">(</span><a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="p">):</span>
     <span class="n">selected_points</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><a href="../api/napari.layers.Points.html#id25" title="napari.layers.Points.selected_data" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">selected_data</span></a><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_points</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">good_point</span> <span class="o">=</span> <a href="../api/napari.layers.Points.html#id22" title="napari.layers.Points.features" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">features</span></a><span class="p">[</span><span class="s1">&#39;good_point&#39;</span><span class="p">]</span>
+        <span class="n">good_point</span> <span class="o">=</span> <a href="../api/napari.layers.Points.html#id22" title="napari.layers.Points.features" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">features</span></a><span class="p">[</span><span class="s1">'good_point'</span><span class="p">]</span>
         <span class="n">good_point</span><span class="p">[</span><span class="n">selected_points</span><span class="p">]</span> <span class="o">=</span> <span class="o">~</span><span class="n">good_point</span><span class="p">[</span><span class="n">selected_points</span><span class="p">]</span>
-        <a href="../api/napari.layers.Points.html#id22" title="napari.layers.Points.features" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">features</span></a><span class="p">[</span><span class="s1">&#39;good_point&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">good_point</span>
+        <a href="../api/napari.layers.Points.html#id22" title="napari.layers.Points.features" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">features</span></a><span class="p">[</span><span class="s1">'good_point'</span><span class="p">]</span> <span class="o">=</span> <span class="n">good_point</span>
 
         <span class="c1"># we need to manually refresh since we did not use the Points.features</span>
         <span class="c1"># setter to avoid changing the color map if all points get toggled to</span>
@@ -914,7 +905,7 @@
         <a href="../api/napari.layers.Points.html#napari.layers.Points.refresh_colors" title="napari.layers.Points.refresh_colors" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-method"><span class="n">points_layer</span><span class="o">.</span><span class="n">refresh_colors</span></a><span class="p">(</span><span class="n">update_color_mapping</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>

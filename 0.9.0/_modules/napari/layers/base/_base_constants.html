@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -825,7 +825,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">Blending</span><span class="p">(</span><span class="n">StringEnum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;BLENDING: Blending mode for the layer.</span>
+<span class="w">    </span><span class="sd">"""BLENDING: Blending mode for the layer.</span>
 
 <span class="sd">    Selects a preset blending mode in vispy that determines how</span>
 <span class="sd">            RGB and alpha values get mixed.</span>
@@ -835,26 +835,26 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Blending.TRANSLUCENT</span>
 <span class="sd">                Allows for multiple layers to be blended with different opacity</span>
 <span class="sd">                and corresponds to depth_test=True, cull_face=False,</span>
-<span class="sd">                blend=True, blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;),</span>
-<span class="sd">                and blend_equation=(&#39;func_add&#39;).</span>
+<span class="sd">                blend=True, blend_func=('src_alpha', 'one_minus_src_alpha'),</span>
+<span class="sd">                and blend_equation=('func_add').</span>
 <span class="sd">            Blending.TRANSLUCENT_NO_DEPTH</span>
 <span class="sd">                Allows for multiple layers to be blended with different opacity,</span>
 <span class="sd">                but no depth testing is performed.</span>
 <span class="sd">                and corresponds to depth_test=False, cull_face=False,</span>
-<span class="sd">                blend=True, blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;),</span>
-<span class="sd">                and blend_equation=(&#39;func_add&#39;).</span>
+<span class="sd">                blend=True, blend_func=('src_alpha', 'one_minus_src_alpha'),</span>
+<span class="sd">                and blend_equation=('func_add').</span>
 <span class="sd">            Blending.ADDITIVE</span>
 <span class="sd">                Allows for multiple layers to be blended together with</span>
 <span class="sd">                different colors and opacity. Useful for creating overlays. It</span>
 <span class="sd">                corresponds to depth_test=False, cull_face=False, blend=True,</span>
-<span class="sd">                blend_func=(&#39;src_alpha&#39;, &#39;one&#39;).</span>
+<span class="sd">                blend_func=('src_alpha', 'one').</span>
 <span class="sd">            Blending.MINIMUM</span>
 <span class="sd">                Allows for multiple layers to be blended together such that</span>
 <span class="sd">                the minimum of each color and alpha are selected.</span>
 <span class="sd">                Useful for creating overlays with inverted colormaps. It</span>
 <span class="sd">                corresponds to depth_test=False, cull_face=False, blend=True,</span>
-<span class="sd">                blend_equation=&#39;min&#39;.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">                blend_equation='min'.</span>
+<span class="sd">    """</span>
 
     <span class="n">TRANSLUCENT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">TRANSLUCENT_NO_DEPTH</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
@@ -865,19 +865,19 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">Mode</span><span class="p">(</span><span class="n">StringEnum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Mode: Interactive mode. The normal, default mode is PAN_ZOOM, which</span>
 <span class="sd">    allows for normal interactivity with the canvas.</span>
 
 <span class="sd">    TRANSFORM allows for manipulation of the layer transform.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">PAN_ZOOM</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">TRANSFORM</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">InteractionBoxHandle</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Handle indices for the InteractionBox overlay.</span>
 
 <span class="sd">    Vertices are generated according to the following scheme:</span>
@@ -890,7 +890,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    1---7---3</span>
 
 <span class="sd">    Note that y is actually upside down in the canvas in vispy coordinates.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">TOP_LEFT</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">TOP_CENTER</span> <span class="o">=</span> <span class="mi">4</span>
@@ -905,8 +905,8 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">opposite_handle</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">,</span> <span class="n">handle</span><span class="p">:</span> <span class="s1">&#39;InteractionBoxHandle&#39;</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;InteractionBoxHandle&#39;</span><span class="p">:</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">handle</span><span class="p">:</span> <span class="s1">'InteractionBoxHandle'</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'InteractionBoxHandle'</span><span class="p">:</span>
         <span class="n">opposites</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">InteractionBoxHandle</span><span class="o">.</span><span class="n">TOP_LEFT</span><span class="p">:</span> <span class="n">InteractionBoxHandle</span><span class="o">.</span><span class="n">BOTTOM_RIGHT</span><span class="p">,</span>
             <span class="n">InteractionBoxHandle</span><span class="o">.</span><span class="n">TOP_CENTER</span><span class="p">:</span> <span class="n">InteractionBoxHandle</span><span class="o">.</span><span class="n">BOTTOM_CENTER</span><span class="p">,</span>
@@ -916,17 +916,17 @@ window.runMermaid = runMermaid;</script>
 
         <span class="n">opposites</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">opposites</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">opposite</span> <span class="o">:=</span> <span class="n">opposites</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">handle</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">handle</span><span class="si">}</span><span class="s1"> has no opposite handle.&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">handle</span><span class="si">}</span><span class="s1"> has no opposite handle.'</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">opposite</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">corners</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span>
-        <span class="s1">&#39;InteractionBoxHandle&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;InteractionBoxHandle&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;InteractionBoxHandle&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;InteractionBoxHandle&#39;</span><span class="p">,</span>
+        <span class="s1">'InteractionBoxHandle'</span><span class="p">,</span>
+        <span class="s1">'InteractionBoxHandle'</span><span class="p">,</span>
+        <span class="s1">'InteractionBoxHandle'</span><span class="p">,</span>
+        <span class="s1">'InteractionBoxHandle'</span><span class="p">,</span>
     <span class="p">]:</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">TOP_LEFT</span><span class="p">,</span>
@@ -937,9 +937,9 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">ActionType</span><span class="p">(</span><span class="n">StringEnum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Action types for layer.events.data of Shapes and Points layer.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">ADDING</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">REMOVING</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
@@ -950,11 +950,11 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">BaseProjectionMode</span><span class="p">(</span><span class="n">StringEnum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Projection mode for aggregating a thick nD slice onto displayed dimensions.</span>
 
 <span class="sd">        * NONE: ignore slice thickness, only using the dims point</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">NONE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
 
@@ -962,7 +962,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="LayerLock">
 <a class="viewcode-back" href="../../../../api/napari.layers.LayerLock.html#napari.layers.LayerLock">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LayerLock</span><span class="p">(</span><span class="n">Flag</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Flags describing which UI operations are locked on a layer.</span>
+<span class="w">    </span><span class="sd">"""Flags describing which UI operations are locked on a layer.</span>
 
 <span class="sd">    Composable so future lock dimensions can be added without breaking the</span>
 <span class="sd">    ``Layer.locked`` API. ``bool(value)`` is truthy when any flag is set.</span>
@@ -972,7 +972,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">          stack split/merge are also blocked because they delete the</span>
 <span class="sd">          original layer.</span>
 <span class="sd">        * ALL: every defined lock dimension is engaged.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">NONE</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">DELETION</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>

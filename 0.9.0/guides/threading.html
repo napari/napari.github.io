@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -896,7 +896,7 @@ Continuing with the example above:</p>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-<span class="n">worker</span> <span class="o">=</span> <span class="n">average_large_image</span><span class="p">()</span>  <span class="c1"># create &quot;worker&quot; object</span>
+<span class="n">worker</span> <span class="o">=</span> <span class="n">average_large_image</span><span class="p">()</span>  <span class="c1"># create "worker" object</span>
 <span class="hll"><span class="n">worker</span><span class="o">.</span><span class="n">returned</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">)</span>  <span class="c1"># connect callback functions</span>
 </span><span class="hll"><span class="n">worker</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>  <span class="c1"># start the thread!</span>
 </span><span class="hll"><span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
@@ -920,7 +920,7 @@ the above example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
 
 
-<span class="nd">@thread_worker</span><span class="p">(</span><span class="n">connect</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;returned&#39;</span><span class="p">:</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">})</span>
+<span class="nd">@thread_worker</span><span class="p">(</span><span class="n">connect</span><span class="o">=</span><span class="p">{</span><span class="s1">'returned'</span><span class="p">:</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">})</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">average_large_image</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
@@ -961,12 +961,12 @@ any exceptions in the main thread. But just as we connected the
 also connect your own custom handler to the <code class="docutils literal notranslate"><span class="pre">worker.errored</span></code> event:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">my_handler</span><span class="p">(</span><span class="n">exc</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exc</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;We had a minor problem </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'We had a minor problem </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">exc</span>
 
 
-<span class="nd">@thread_worker</span><span class="p">(</span><span class="n">connect</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;errored&#39;</span><span class="p">:</span> <span class="n">my_handler</span><span class="p">})</span>
+<span class="nd">@thread_worker</span><span class="p">(</span><span class="n">connect</span><span class="o">=</span><span class="p">{</span><span class="s1">'errored'</span><span class="p">:</span> <span class="n">my_handler</span><span class="p">})</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">error_prone_function</span><span class="p">():</span> <span class="o">...</span>
 </pre></div>
 </div>
@@ -1021,14 +1021,14 @@ stack) we can watch the mean projection as it builds:</p>
 <span class="k">def</span><span class="w"> </span><span class="nf">update_layer</span><span class="p">(</span><span class="n">new_image</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># if the layer exists, update the data</span>
-        <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">new_image</span>
+        <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">'result'</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">new_image</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
         <span class="c1"># otherwise add it to the viewer</span>
         <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span>
-            <span class="n">new_image</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">(</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;result&#39;</span>
+            <span class="n">new_image</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">(</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'result'</span>
         <span class="p">)</span>
 
-<span class="nd">@thread_worker</span><span class="p">(</span><span class="n">connect</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;yielded&#39;</span><span class="p">:</span> <span class="n">update_layer</span><span class="p">})</span>
+<span class="nd">@thread_worker</span><span class="p">(</span><span class="n">connect</span><span class="o">=</span><span class="p">{</span><span class="s1">'yielded'</span><span class="p">:</span> <span class="n">update_layer</span><span class="p">})</span>
 <span class="hll"><span class="k">def</span><span class="w"> </span><span class="nf">large_random_images</span><span class="p">():</span>
 </span>    <span class="n">cumsum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1024</span><span class="p">):</span>
@@ -1068,10 +1068,10 @@ yielding generator, but add a button that aborts the worker when clicked:</p>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">update_layer</span><span class="p">(</span><span class="n">new_image</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">new_image</span>
+        <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">'result'</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">new_image</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
         <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span>
-            <span class="n">new_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
+            <span class="n">new_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'result'</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
         <span class="p">)</span>
 
 <span class="nd">@thread_worker</span>
@@ -1086,7 +1086,7 @@ yielding generator, but add a button that aborts the worker when clicked:</p>
 <span class="n">worker</span><span class="o">.</span><span class="n">yielded</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">update_layer</span><span class="p">)</span>
 
 <span class="c1"># add a button to the viewer that, when clicked, stops the worker</span>
-<span class="n">button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;STOP!&quot;</span><span class="p">)</span>
+<span class="n">button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">"STOP!"</span><span class="p">)</span>
 <span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">worker</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
 <span class="hll"><span class="n">worker</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">disconnect</span><span class="p">)</span>
 </span><span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
@@ -1146,7 +1146,7 @@ hits “0”:</p>
 <span class="hll">        <span class="n">new</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">total</span>
 </span><span class="hll">        <span class="n">total</span> <span class="o">*=</span> <span class="n">new</span> <span class="k">if</span> <span class="n">new</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">1</span>
 </span><span class="hll">        <span class="k">if</span> <span class="n">total</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-</span>            <span class="k">return</span> <span class="s2">&quot;Game Over!&quot;</span>
+</span>            <span class="k">return</span> <span class="s2">"Game Over!"</span>
 
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
 
@@ -1169,10 +1169,10 @@ hits “0”:</p>
 <span class="k">def</span><span class="w"> </span><span class="nf">on_yielded</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
     <span class="n">worker</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
 <span class="hll">    <span class="n">result_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-</span>    <span class="n">line_edit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+</span>    <span class="n">line_edit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">'1'</span><span class="p">)</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">on_return</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-    <span class="n">line_edit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">line_edit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span>
     <span class="n">line_edit</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">result_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
@@ -1229,7 +1229,7 @@ depending on your function type. The following three examples are equivalent:</p
 <span class="k">def</span><span class="w"> </span><span class="nf">my_function</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> <span class="o">...</span>
 
 
-<span class="n">worker</span> <span class="o">=</span> <span class="n">my_function</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">arg2</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">worker</span> <span class="o">=</span> <span class="n">my_function</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">,</span> <span class="n">arg2</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Using the</strong> <code class="docutils literal notranslate"><span class="pre">create_worker</span></code> <strong>function:</strong></p>
@@ -1239,7 +1239,7 @@ depending on your function type. The following three examples are equivalent:</p
 <span class="k">def</span><span class="w"> </span><span class="nf">my_function</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> <span class="o">...</span>
 
 
-<span class="n">worker</span> <span class="o">=</span> <span class="n">create_worker</span><span class="p">(</span><span class="n">my_function</span><span class="p">,</span> <span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">arg2</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">worker</span> <span class="o">=</span> <span class="n">create_worker</span><span class="p">(</span><span class="n">my_function</span><span class="p">,</span> <span class="s1">'hello'</span><span class="p">,</span> <span class="n">arg2</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Using a</strong> <code class="docutils literal notranslate"><span class="pre">Worker</span></code> <strong>class:</strong></p>
@@ -1249,7 +1249,7 @@ depending on your function type. The following three examples are equivalent:</p
 <span class="k">def</span><span class="w"> </span><span class="nf">my_function</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> <span class="o">...</span>
 
 
-<span class="n">worker</span> <span class="o">=</span> <span class="n">FunctionWorker</span><span class="p">(</span><span class="n">my_function</span><span class="p">,</span> <span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">arg2</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">worker</span> <span class="o">=</span> <span class="n">FunctionWorker</span><span class="p">(</span><span class="n">my_function</span><span class="p">,</span> <span class="s1">'hello'</span><span class="p">,</span> <span class="n">arg2</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>(the main difference between using <code class="docutils literal notranslate"><span class="pre">create_worker</span></code> and directly instantiating
@@ -1317,7 +1317,7 @@ worker namespace). To add custom signals to a
     <span class="n">signal_name</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>
 
 
-<span class="c1"># or subclass one of the existing signals objects to &quot;add&quot;</span>
+<span class="c1"># or subclass one of the existing signals objects to "add"</span>
 <span class="c1"># additional signals:</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.qt.threading</span><span class="w"> </span><span class="kn">import</span> <span class="n">WorkerBaseSignals</span>

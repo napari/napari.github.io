@@ -15,6 +15,7 @@ graph LR
 	napari._qt.qt_main_window --> napari._qt.threads.status_checker
 	napari._qt.qt_main_window --> napari._qt.widgets.qt_command_palette
 	napari._qt.qt_main_window --> napari._qt.widgets.qt_viewer_status_bar
+	napari._qt.qt_main_window --> napari._qt.widgets.qt_viewer_tour
 	napari._qt.qt_main_window --> napari.viewer
 	click napari._qt.qt_main_window "https://github.com/napari/napari/tree/main/napari/_qt/qt_main_window.py" _blank
 	napari._qt.threads.status_checker(napari._qt.threads.status_checker)
@@ -28,6 +29,9 @@ graph LR
 	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.dialogs.qt_activity_dialog
 	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.qt_main_window
 	click napari._qt.widgets.qt_viewer_status_bar "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_status_bar.py" _blank
+	napari._qt.widgets.qt_viewer_tour(napari._qt.widgets.qt_viewer_tour)
+	napari._qt.widgets.qt_viewer_tour --> napari._qt.qt_main_window
+	click napari._qt.widgets.qt_viewer_tour "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_tour.py" _blank
 	napari.viewer(napari.viewer)
 	napari.viewer --> napari._qt
 	napari.viewer --> napari._qt.qt_main_window
@@ -53,6 +57,7 @@ graph LR
 		 napari._qt.widgets.qt_command_palette
 		 napari._qt.widgets.qt_progress_bar
 		 napari._qt.widgets.qt_viewer_status_bar
+		 napari._qt.widgets.qt_viewer_tour
 	end
 	class module.napari._qt.widgets subgraphs
 	classDef subgraphs fill:white,strock:black,color:black;	classDef default fill:#00c3ff,color:black;
@@ -62,16 +67,17 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
-├─_qt/
-│ ├─threads/
-│ │ └─status_checker.py
-│ ├─__init__.py
-│ ├─dialogs/
-│ │ └─qt_activity_dialog.py
-│ ├─qt_main_window.py
-│ └─widgets/
-│   ├─qt_viewer_status_bar.py
-│   ├─qt_progress_bar.py
-│   └─qt_command_palette.py
-└─viewer.py
+├─viewer.py
+└─_qt/
+  ├─__init__.py
+  ├─dialogs/
+  │ └─qt_activity_dialog.py
+  ├─qt_main_window.py
+  ├─widgets/
+  │ ├─qt_viewer_tour.py
+  │ ├─qt_command_palette.py
+  │ ├─qt_viewer_status_bar.py
+  │ └─qt_progress_bar.py
+  └─threads/
+    └─status_checker.py
 ```

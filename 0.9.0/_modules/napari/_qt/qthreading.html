@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -840,11 +840,11 @@ window.runMermaid = runMermaid;</script>
     <span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">FunctionType</span><span class="p">,</span> <span class="n">GeneratorType</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;FunctionWorker&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;GeneratorWorker&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;create_worker&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;register_threadworker_processors&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;thread_worker&#39;</span><span class="p">,</span>
+    <span class="s1">'FunctionWorker'</span><span class="p">,</span>
+    <span class="s1">'GeneratorWorker'</span><span class="p">,</span>
+    <span class="s1">'create_worker'</span><span class="p">,</span>
+    <span class="s1">'register_threadworker_processors'</span><span class="p">,</span>
+    <span class="s1">'thread_worker'</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="n">wait_for_workers_to_quit</span> <span class="o">=</span> <span class="n">_qthreading</span><span class="o">.</span><span class="n">WorkerBase</span><span class="o">.</span><span class="n">await_workers</span>
@@ -867,9 +867,9 @@ window.runMermaid = runMermaid;</script>
         <span class="n">notification_manager</span><span class="o">.</span><span class="n">receive_warning</span><span class="p">(</span><span class="o">*</span><span class="n">show_warn_args</span><span class="p">)</span>
 
 
-<span class="n">_Y</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;_Y&#39;</span><span class="p">)</span>
-<span class="n">_S</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;_S&#39;</span><span class="p">)</span>
-<span class="n">_R</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;_R&#39;</span><span class="p">)</span>
+<span class="n">_Y</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'_Y'</span><span class="p">)</span>
+<span class="n">_S</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'_S'</span><span class="p">)</span>
+<span class="n">_R</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'_R'</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="FunctionWorker">
@@ -901,7 +901,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">_ignore_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FunctionWorker</span> <span class="o">|</span> <span class="n">GeneratorWorker</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience function to start a function in another thread.</span>
+<span class="w">    </span><span class="sd">"""Convenience function to start a function in another thread.</span>
 
 <span class="sd">    By default, uses :class:`Worker`, but a custom ``WorkerBase`` subclass may</span>
 <span class="sd">    be provided.  If so, it must be a subclass of :class:`Worker`, which</span>
@@ -916,16 +916,16 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        must be manually started with ``worker.start()``. by default it will be</span>
 <span class="sd">        ``False`` if the ``_connect`` argument is ``None``, otherwise ``True``.</span>
 <span class="sd">    _connect : Dict[str, Union[Callable, Sequence]], optional</span>
-<span class="sd">        A mapping of ``&quot;signal_name&quot;`` -&gt; ``callable`` or list of ``callable``:</span>
+<span class="sd">        A mapping of ``"signal_name"`` -&gt; ``callable`` or list of ``callable``:</span>
 <span class="sd">        callback functions to connect to the various signals offered by the</span>
 <span class="sd">        worker class. by default None</span>
 <span class="sd">    _progress : Union[bool, Dict[str, Union[int, bool, str]]], optional</span>
 <span class="sd">        Can be True, to provide indeterminate progress bar, or dictionary.</span>
-<span class="sd">        If dict, requires mapping of &#39;total&#39; to number of expected yields.</span>
+<span class="sd">        If dict, requires mapping of 'total' to number of expected yields.</span>
 <span class="sd">        If total is not provided, progress bar will be indeterminate. Will connect</span>
 <span class="sd">        progress bar update to yields and display this progress in the viewer.</span>
-<span class="sd">        Can also take a mapping of &#39;desc&#39; to the progress bar description.</span>
-<span class="sd">        Progress bar will become indeterminate when number of yields exceeds &#39;total&#39;.</span>
+<span class="sd">        Can also take a mapping of 'desc' to the progress bar description.</span>
+<span class="sd">        Progress bar will become indeterminate when number of yields exceeds 'total'.</span>
 <span class="sd">        By default None.</span>
 <span class="sd">    _worker_class : Type[WorkerBase], optional</span>
 <span class="sd">        The :class`WorkerBase` to instantiate, by default</span>
@@ -964,7 +964,7 @@ window.runMermaid = runMermaid;</script>
 
 <span class="sd">        worker = create_worker(long_function, 10)</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># provide our own classes with the notification mixins</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_worker_class</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isgeneratorfunction</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
@@ -987,11 +987,11 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_progress</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
             <span class="n">_progress</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="n">desc</span> <span class="o">=</span> <span class="n">_progress</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;desc&#39;</span><span class="p">)</span>
-        <span class="n">total</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">_progress</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;total&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="n">_progress</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'desc'</span><span class="p">)</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">_progress</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'total'</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">worker</span><span class="p">,</span> <span class="n">FunctionWorker</span><span class="p">)</span> <span class="ow">and</span> <span class="n">total</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s1">&#39;_progress total != 0 but worker is FunctionWorker and will not yield. Returning indeterminate progress bar...&#39;</span><span class="p">,</span>
+                <span class="s1">'_progress total != 0 but worker is FunctionWorker and will not yield. Returning indeterminate progress bar...'</span><span class="p">,</span>
                 <span class="ne">RuntimeWarning</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1017,9 +1017,9 @@ window.runMermaid = runMermaid;</script>
     <span class="k">if</span> <span class="n">viewer</span> <span class="o">:=</span> <span class="n">current_viewer</span><span class="p">():</span>
         <span class="n">window</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">window</span>
         <span class="n">worker_status_id</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">_register_task_status</span><span class="p">(</span>
-            <span class="s1">&#39;napari-worker&#39;</span><span class="p">,</span>
+            <span class="s1">'napari-worker'</span><span class="p">,</span>
             <span class="n">Status</span><span class="o">.</span><span class="n">PENDING</span><span class="p">,</span>
-            <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">func</span><span class="si">}</span><span class="s1"> execution pending&#39;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">func</span><span class="si">}</span><span class="s1"> execution pending'</span><span class="p">,</span>
             <span class="n">cancel_callback</span><span class="o">=</span><span class="n">worker</span><span class="o">.</span><span class="n">quit</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">worker</span><span class="o">.</span><span class="n">started</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
@@ -1027,7 +1027,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="k">lambda</span> <span class="n">task_status_id</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">window</span><span class="o">.</span><span class="n">_update_task_status</span><span class="p">(</span>
                     <span class="n">task_status_id</span><span class="p">,</span>
                     <span class="n">Status</span><span class="o">.</span><span class="n">BUSY</span><span class="p">,</span>
-                    <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Executing </span><span class="si">{</span><span class="n">function</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s1">'Executing </span><span class="si">{</span><span class="n">function</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="n">worker_status_id</span><span class="p">,</span>
                 <span class="n">func</span><span class="p">,</span>
@@ -1038,7 +1038,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="k">lambda</span> <span class="n">task_status_id</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">window</span><span class="o">.</span><span class="n">_update_task_status</span><span class="p">(</span>
                     <span class="n">task_status_id</span><span class="p">,</span>
                     <span class="n">Status</span><span class="o">.</span><span class="n">FAILED</span><span class="p">,</span>
-                    <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">function</span><span class="si">}</span><span class="s1"> execution failed&#39;</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">function</span><span class="si">}</span><span class="s1"> execution failed'</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="n">worker_status_id</span><span class="p">,</span>
                 <span class="n">func</span><span class="p">,</span>
@@ -1049,20 +1049,20 @@ window.runMermaid = runMermaid;</script>
                 <span class="k">lambda</span> <span class="n">task_status_id</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">window</span><span class="o">.</span><span class="n">_update_task_status</span><span class="p">(</span>
                     <span class="n">task_status_id</span><span class="p">,</span>
                     <span class="n">Status</span><span class="o">.</span><span class="n">COMPLETED</span><span class="p">,</span>
-                    <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">function</span><span class="si">}</span><span class="s1"> execution completed&#39;</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">function</span><span class="si">}</span><span class="s1"> execution completed'</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="n">worker_status_id</span><span class="p">,</span>
                 <span class="n">func</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">worker</span><span class="o">.</span><span class="n">signals</span><span class="p">,</span> <span class="s1">&#39;aborted&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">worker</span><span class="o">.</span><span class="n">signals</span><span class="p">,</span> <span class="s1">'aborted'</span><span class="p">):</span>
             <span class="n">worker</span><span class="o">.</span><span class="n">aborted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
                 <span class="n">partial</span><span class="p">(</span>
                     <span class="k">lambda</span> <span class="n">task_status_id</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="p">(</span>
                         <span class="n">window</span><span class="o">.</span><span class="n">_update_task_status</span><span class="p">(</span>
                             <span class="n">task_status_id</span><span class="p">,</span>
                             <span class="n">Status</span><span class="o">.</span><span class="n">CANCELLED</span><span class="p">,</span>
-                            <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">function</span><span class="si">}</span><span class="s1"> execution cancelled&#39;</span><span class="p">,</span>
+                            <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">function</span><span class="si">}</span><span class="s1"> execution cancelled'</span><span class="p">,</span>
                         <span class="p">)</span>
                     <span class="p">),</span>
                     <span class="n">worker_status_id</span><span class="p">,</span>
@@ -1089,7 +1089,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">worker_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">FunctionWorker</span> <span class="o">|</span> <span class="n">GeneratorWorker</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">ignore_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decorator that runs a function in a separate thread when called.</span>
+<span class="w">    </span><span class="sd">"""Decorator that runs a function in a separate thread when called.</span>
 
 <span class="sd">    When called, the decorated function returns a :class:`WorkerBase`.  See</span>
 <span class="sd">    :func:`create_worker` for additional keyword arguments that can be used</span>
@@ -1131,16 +1131,16 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        must be manually started with ``worker.start()``. by default it will be</span>
 <span class="sd">        ``False`` if the ``_connect`` argument is ``None``, otherwise ``True``.</span>
 <span class="sd">    connect : Dict[str, Union[Callable, Sequence]], optional</span>
-<span class="sd">        A mapping of ``&quot;signal_name&quot;`` -&gt; ``callable`` or list of ``callable``:</span>
+<span class="sd">        A mapping of ``"signal_name"`` -&gt; ``callable`` or list of ``callable``:</span>
 <span class="sd">        callback functions to connect to the various signals offered by the</span>
 <span class="sd">        worker class. by default None</span>
 <span class="sd">    progress : Union[bool, Dict[str, Union[int, bool, str]]], optional</span>
 <span class="sd">        Can be True, to provide indeterminate progress bar, or dictionary.</span>
-<span class="sd">        If dict, requires mapping of &#39;total&#39; to number of expected yields.</span>
+<span class="sd">        If dict, requires mapping of 'total' to number of expected yields.</span>
 <span class="sd">        If total is not provided, progress bar will be indeterminate. Will connect</span>
 <span class="sd">        progress bar update to yields and display this progress in the viewer.</span>
-<span class="sd">        Can also take a mapping of &#39;desc&#39; to the progress bar description.</span>
-<span class="sd">        Progress bar will become indeterminate when number of yields exceeds &#39;total&#39;.</span>
+<span class="sd">        Can also take a mapping of 'desc' to the progress bar description.</span>
+<span class="sd">        Progress bar will become indeterminate when number of yields exceeds 'total'.</span>
 <span class="sd">        By default None. Must be used in conjunction with a generator function.</span>
 <span class="sd">    worker_class : Type[WorkerBase], optional</span>
 <span class="sd">        The :class`WorkerBase` to instantiate, by default</span>
@@ -1169,7 +1169,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">                yield i</span>
 
 <span class="sd">            # do teardown</span>
-<span class="sd">            return &#39;anything&#39;</span>
+<span class="sd">            return 'anything'</span>
 
 <span class="sd">        # call the function to start running in another thread.</span>
 <span class="sd">        worker = long_function()</span>
@@ -1177,19 +1177,19 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        # `connect` argument in the `@thread_worker` decorator... in which</span>
 <span class="sd">        # case the worker will start immediately when long_function() is called</span>
 <span class="sd">        worker.start()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_inner</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
         <span class="k">def</span><span class="w"> </span><span class="nf">worker_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="c1"># decorator kwargs can be overridden at call time by using the</span>
             <span class="c1"># underscore-prefixed version of the kwarg.</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;_start_thread&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_start_thread&#39;</span><span class="p">,</span> <span class="n">start_thread</span><span class="p">)</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;_connect&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_connect&#39;</span><span class="p">,</span> <span class="n">connect</span><span class="p">)</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;_progress&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_progress&#39;</span><span class="p">,</span> <span class="n">progress</span><span class="p">)</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;_worker_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_worker_class&#39;</span><span class="p">,</span> <span class="n">worker_class</span><span class="p">)</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;_ignore_errors&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="s1">&#39;_ignore_errors&#39;</span><span class="p">,</span> <span class="n">ignore_errors</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'_start_thread'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'_start_thread'</span><span class="p">,</span> <span class="n">start_thread</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'_connect'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'_connect'</span><span class="p">,</span> <span class="n">connect</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'_progress'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'_progress'</span><span class="p">,</span> <span class="n">progress</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'_worker_class'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'_worker_class'</span><span class="p">,</span> <span class="n">worker_class</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'_ignore_errors'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="s1">'_ignore_errors'</span><span class="p">,</span> <span class="n">ignore_errors</span>
             <span class="p">)</span>
 
             <span class="k">return</span> <span class="n">create_worker</span><span class="p">(</span>
@@ -1250,7 +1250,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">processors</span><span class="o">=</span><span class="p">{</span><span class="n">t</span><span class="p">:</span> <span class="n">_add_worker_data_from_tuple</span><span class="p">}</span>
         <span class="p">)</span>
     <span class="k">for</span> <span class="n">layer_name</span> <span class="ow">in</span> <span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">:</span>
-        <span class="n">_type</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">layer_name</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">Data&#39;</span><span class="p">)</span>
+        <span class="n">_type</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">layer_name</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">Data'</span><span class="p">)</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">FunctionWorker</span><span class="p">[</span><span class="n">_type</span><span class="p">]</span>
         <span class="n">magicgui</span><span class="o">.</span><span class="n">register_type</span><span class="p">(</span>
             <span class="n">t</span><span class="p">,</span>

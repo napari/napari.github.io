@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -879,8 +879,8 @@ telescope:</p>
     <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">636</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span>
 <span class="p">]</span>
 
-<span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hubble_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;image&#39;</span><span class="p">)</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">tracks_data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;tracks&#39;</span><span class="p">)</span>
+<span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hubble_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'image'</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">tracks_data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'tracks'</span><span class="p">)</span>
 
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
@@ -1055,10 +1055,10 @@ From a layer that has already been constructed,
 we can set the track width via the <code class="docutils literal notranslate"><span class="pre">layer.tail_width</span></code> property.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a tracks layer with a tail width of 5 pixels</span>
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tail_width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_tracks&#39;</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tail_width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'my_tracks'</span><span class="p">)</span>
 
 <span class="c1"># update the tail width to 3 pixels</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;my_tracks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tail_width</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">'my_tracks'</span><span class="p">]</span><span class="o">.</span><span class="n">tail_width</span> <span class="o">=</span> <span class="mi">3</span>
 </pre></div>
 </div>
 <p>Additionally, we can adjust the width of the track in the GUI using the
@@ -1083,10 +1083,10 @@ already been constructed, we can set the track width via the <code class="docuti
 property.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a tracks layer with a tail length of 5 time units</span>
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tail_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_tracks&#39;</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tail_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'my_tracks'</span><span class="p">)</span>
 
 <span class="c1"># update the tail width to 3 pixels</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;my_tracks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tail_length</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">'my_tracks'</span><span class="p">]</span><span class="o">.</span><span class="n">tail_length</span> <span class="o">=</span> <span class="mi">3</span>
 </pre></div>
 </div>
 <p>Additionally, we can adjust the width of the track in the GUI using the “tail
@@ -1136,7 +1136,7 @@ dropdown menu.</p>
     <span class="p">]</span>
 <span class="p">)</span>
 <span class="n">track_confidence</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">]</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">]</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">])</span>
-<span class="n">features</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">tracks_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;confidence&#39;</span><span class="p">:</span> <span class="n">track_confidence</span><span class="p">}</span>
+<span class="n">features</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'time'</span><span class="p">:</span> <span class="n">tracks_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'confidence'</span><span class="p">:</span> <span class="n">track_confidence</span><span class="p">}</span>
 
 <span class="n">viewer</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hubble_image</span><span class="p">)</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">tracks_data</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">)</span>

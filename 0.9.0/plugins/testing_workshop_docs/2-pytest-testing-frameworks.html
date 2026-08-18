@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -641,24 +641,24 @@
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">mark</span> <span class="o">&gt;</span> <span class="mi">50</span>
-        <span class="k">return</span> <span class="s2">&quot;Pass&quot;</span>
+        <span class="k">return</span> <span class="s2">"Pass"</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;Fail&quot;</span>
+        <span class="k">return</span> <span class="s2">"Fail"</span>
 
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;mark&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">65</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">"mark"</span><span class="p">,</span> <span class="p">[</span><span class="mi">65</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">test_get_grade_pass</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
     <span class="n">grade</span> <span class="o">=</span> <span class="n">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s2">&quot;Pass&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s2"> to pass, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s2">"Pass"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s2"> to pass, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s2">"</span>
 
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;mark&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">])</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">"mark"</span><span class="p">,</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">])</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">test_get_grade_fail</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
     <span class="n">grade</span> <span class="o">=</span> <span class="n">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s2">&quot;Fail&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s2"> to fail, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s2">"Fail"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s2"> to fail, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s2">"</span>
 
-<span class="k">if</span> <span class="n">_name_</span> <span class="o">==</span> <span class="s2">&quot;_main_&quot;</span><span class="p">;</span>
+<span class="k">if</span> <span class="n">_name_</span> <span class="o">==</span> <span class="s2">"_main_"</span><span class="p">;</span>
     <span class="n">test_get_grade_pass</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span>
     <span class="n">test_get_grade_fail</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All passing.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"All passing."</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> which finds and runs <code class="docutils literal notranslate"><span class="pre">test_get_grade_pass(mark)</span></code>. <code class="docutils literal notranslate"><span class="pre">test_get_grade_pass(mark)</span></code> fails because the code says <code class="docutils literal notranslate"><span class="pre">mark</span> <span class="pre">&gt;</span> <span class="pre">50</span></code>, so a mark of 50 still fails. The code should say <code class="docutils literal notranslate"><span class="pre">&gt;=50</span></code> for a mark to pass.</p>

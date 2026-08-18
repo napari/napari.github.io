@@ -21,6 +21,10 @@ This tour assumes you have already installed **napari** and know how to launch t
 
 This tour will teach you about the **napari** viewer, including how to use its graphical user interface (GUI) and how the data within it is organized. At the end, you should understand both the layout of the viewer on the screen and the data inside of it.
 
+```{tip}
+napari also includes an interactive version of this viewer overview at **Help > Take a tour**.
+```
+
 +++
 
 ## Launching the viewer

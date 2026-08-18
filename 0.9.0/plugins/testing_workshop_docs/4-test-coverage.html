@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -638,15 +638,15 @@
 <p>Because we never provided a list of paths, we don’t know what will happen in that case. We also never ran code that tests not returning a reader. In other words, we never tested the failed cases. We can and should add those tests. The first one is <code class="docutils literal notranslate"><span class="pre">test_get_reader_pass</span></code>. We’ll call it with a file that doesn’t end in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> and assert that it returned <code class="docutils literal notranslate"><span class="pre">None</span></code>. Then we’ll create a second test to call with a list of paths.</p>
 <p>Using the <code class="docutils literal notranslate"><span class="pre">write_im_to_file</span></code> fixture again, we can write two files, call <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> with two paths and assert that it still returns a callable.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_get_reader_pass</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calling get_reader with non-numpy file path returns None&quot;&quot;&quot;</span>
-    <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="s1">&#39;fake.file&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">"""Calling get_reader with non-numpy file path returns None"""</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="s1">'fake.file'</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">reader</span> <span class="ow">is</span> <span class="kc">None</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">test_get_reader_path_list</span><span class="p">(</span><span class="n">write_im_to_file</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calling get_reader on list of numpy files returns callable&quot;&quot;&quot;</span>
-    <span class="n">pth1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s1">&#39;myfile1.npy&#39;</span><span class="p">)</span>
-    <span class="n">pth2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s1">&#39;myfile2.npy&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">"""Calling get_reader on list of numpy files returns callable"""</span>
+    <span class="n">pth1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s1">'myfile1.npy'</span><span class="p">)</span>
+    <span class="n">pth2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s1">'myfile2.npy'</span><span class="p">)</span>
 
 
 <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">([</span><span class="n">pth1</span><span class="p">,</span> <span class="n">pth2</span><span class="p">])</span>

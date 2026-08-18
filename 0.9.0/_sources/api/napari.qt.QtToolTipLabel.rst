@@ -23,6 +23,9 @@ napari.qt.QtToolTipLabel
       ~QtToolTipLabel.accessibleDescription
    
    
+      ~QtToolTipLabel.accessibleIdentifier
+   
+   
       ~QtToolTipLabel.accessibleName
    
    
@@ -260,9 +263,6 @@ napari.qt.QtToolTipLabel
       ~QtToolTipLabel.geometry
    
    
-      ~QtToolTipLabel.getContentsMargins
-   
-   
       ~QtToolTipLabel.grab
    
    
@@ -375,6 +375,9 @@ napari.qt.QtToolTipLabel
    
    
       ~QtToolTipLabel.isModal
+   
+   
+      ~QtToolTipLabel.isQuickItemType
    
    
       ~QtToolTipLabel.isRightToLeft
@@ -620,6 +623,9 @@ napari.qt.QtToolTipLabel
       ~QtToolTipLabel.resizeEvent
    
    
+      ~QtToolTipLabel.resourceProvider
+   
+   
       ~QtToolTipLabel.restoreGeometry
    
    
@@ -648,6 +654,9 @@ napari.qt.QtToolTipLabel
    
    
       ~QtToolTipLabel.setAccessibleDescription
+   
+   
+      ~QtToolTipLabel.setAccessibleIdentifier
    
    
       ~QtToolTipLabel.setAccessibleName
@@ -806,7 +815,13 @@ napari.qt.QtToolTipLabel
       ~QtToolTipLabel.setProperty
    
    
+      ~QtToolTipLabel.setResourceProvider
+   
+   
       ~QtToolTipLabel.setScaledContents
+   
+   
+      ~QtToolTipLabel.setScreen
    
    
       ~QtToolTipLabel.setSelection
@@ -1087,6 +1102,8 @@ napari.qt.QtToolTipLabel
       ~QtToolTipLabel.Panel
       ~QtToolTipLabel.PdmDepth
       ~QtToolTipLabel.PdmDevicePixelRatio
+      ~QtToolTipLabel.PdmDevicePixelRatioF_EncodedA
+      ~QtToolTipLabel.PdmDevicePixelRatioF_EncodedB
       ~QtToolTipLabel.PdmDevicePixelRatioScaled
       ~QtToolTipLabel.PdmDpiX
       ~QtToolTipLabel.PdmDpiY

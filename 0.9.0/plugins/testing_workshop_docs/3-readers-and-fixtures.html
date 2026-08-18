@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -614,10 +614,10 @@
 <p>Using <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> with this path, we assert that the reader is callable. A function should be returned. If it isn’t, we could put an error message here.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># tmp_path is a pytest fixture</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">test_get_reader_returns_callable</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calling get_reader on numpy file returns callable&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Calling get_reader on numpy file returns callable"""</span>
 
     <span class="c1"># write some fake data</span>
-    <span class="n">my_test_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s1">&#39;myfile.npy&#39;</span><span class="p">)</span>
+    <span class="n">my_test_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s1">'myfile.npy'</span><span class="p">)</span>
     <span class="n">original_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
     <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span><span class="p">)</span>
 
@@ -631,10 +631,10 @@
 <p>If the file did not end in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> the test would fail because what was returned wasn’t callable. This code has been modified to produce an error:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># tmp_path is a pytest fixture</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">test_get_reader_returns_callable</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calling get_reader on numpy file returns callable&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Calling get_reader on numpy file returns callable"""</span>
 
     <span class="c1"># write some fake data</span>
-    <span class="n">my_test_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s1">&#39;myfile.np&#39;</span><span class="p">)</span>  <span class="c1"># note ends in .np</span>
+    <span class="n">my_test_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s1">'myfile.np'</span><span class="p">)</span>  <span class="c1"># note ends in .np</span>
     <span class="n">original_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
     <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span><span class="p">)</span>
 
@@ -667,7 +667,7 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">test_reader_round_trip</span><span class="p">(</span><span class="n">write_im_to_file</span><span class="p">):</span>
-    <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s1">&#39;myfile.npy&#39;</span><span class="p">)</span>
+    <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s1">'myfile.npy'</span><span class="p">)</span>
 
     <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
@@ -684,7 +684,7 @@
 <p>We will test that inside that list is what we expected - layer data tuples. The first item of a layer data tuple is the actual data. We’re going to test that explicitly.</p>
 <p>Then we assert, using <code class="docutils literal notranslate"><span class="pre">numpy</span></code>’s asserting mechanism, <code class="docutils literal notranslate"><span class="pre">np.testing.assert_allclose</span></code> that they are all close, even though they should be exactly the same. This is standard practice when working with floating point precision. NumPy also has <a class="reference external" href="https://numpy.org/doc/stable/reference/routines.testing.html">other assertion options</a> you may find useful. The layer data we read back with the reader function should be the same as the original data. If that’s true, then we made the entire round trip. We saved the file and we used the reader to read the file.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_reader_round_trip</span><span class="p">(</span><span class="n">write_im_to_file</span><span class="p">):</span>
-    <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s1">&#39;myfile.npy&#39;</span><span class="p">)</span>
+    <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s1">'myfile.npy'</span><span class="p">)</span>
 
     <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>

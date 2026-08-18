@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -841,21 +841,21 @@ and then display them with Napari.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span>
 
 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Please specify one or more images as arguments.&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Please specify one or more images as arguments.'</span><span class="p">)</span>
     <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">imagej</span>
 <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
-    <span class="k">raise</span> <span class="ne">ModuleNotFoundError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;This example uses ImageJ but pyimagej is not</span>
-<span class="s2">    installed. To install try &#39;conda install pyimagej&#39;.&quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">ModuleNotFoundError</span><span class="p">(</span><span class="s2">"""This example uses ImageJ but pyimagej is not</span>
+<span class="s2">    installed. To install try 'conda install pyimagej'."""</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--&gt; Initializing imagej&#39;</span><span class="p">)</span>
-<span class="n">ij</span> <span class="o">=</span> <span class="n">imagej</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="s1">&#39;sc.fiji:fiji&#39;</span><span class="p">)</span>  <span class="c1"># Fiji includes Bio-Formats.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'--&gt; Initializing imagej'</span><span class="p">)</span>
+<span class="n">ij</span> <span class="o">=</span> <span class="n">imagej</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="s1">'sc.fiji:fiji'</span><span class="p">)</span>  <span class="c1"># Fiji includes Bio-Formats.</span>
 
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; Reading </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'--&gt; Reading </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
     <span class="n">dataset</span> <span class="o">=</span> <span class="n">ij</span><span class="o">.</span><span class="n">io</span><span class="p">()</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
     <span class="n">image</span> <span class="o">=</span> <span class="n">ij</span><span class="o">.</span><span class="n">py</span><span class="o">.</span><span class="n">from_java</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
@@ -903,7 +903,7 @@ and then display them with Napari.</p>
 </pre></div>
 </div>
 <p>This works because the console in napari is running in the correctly initialized Qt GUI/main thread. However,if we even touch the Java UI from Python it locks up i.e. Python will now lock up even for the simplest line of code such as:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ij</span><span class="o">.</span><span class="n">ui</span><span class="p">()</span><span class="o">.</span><span class="n">showDialog</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ij</span><span class="o">.</span><span class="n">ui</span><span class="p">()</span><span class="o">.</span><span class="n">showDialog</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>To fix this we can use either of these 3 following methods :</p>
@@ -913,24 +913,24 @@ and then display them with Napari.</p>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">JavaRunnable</span><span class="p">(</span><span class="n">PythonJavaClass</span><span class="p">):</span>
-    <span class="n">__javainterfaces__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;java/lang/Runnable&#39;</span><span class="p">]</span>
+    <span class="n">__javainterfaces__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'java/lang/Runnable'</span><span class="p">]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">JavaRunnable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_f</span> <span class="o">=</span> <span class="n">f</span>
 
-    <span class="nd">@java_method</span><span class="p">(</span><span class="s1">&#39;()V&#39;</span><span class="p">)</span>
+    <span class="nd">@java_method</span><span class="p">(</span><span class="s1">'()V'</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_f</span><span class="p">()</span>
 
 
-<span class="n">EventQueue</span> <span class="o">=</span> <span class="n">autoclass</span><span class="p">(</span><span class="s1">&#39;java.awt.EventQueue&#39;</span><span class="p">)</span>
-<span class="n">EventQueue</span><span class="o">.</span><span class="n">invokeLater</span><span class="p">(</span><span class="n">JavaRunnable</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">ij</span><span class="o">.</span><span class="n">ui</span><span class="p">()</span><span class="o">.</span><span class="n">showDialog</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)))</span>
+<span class="n">EventQueue</span> <span class="o">=</span> <span class="n">autoclass</span><span class="p">(</span><span class="s1">'java.awt.EventQueue'</span><span class="p">)</span>
+<span class="n">EventQueue</span><span class="o">.</span><span class="n">invokeLater</span><span class="p">(</span><span class="n">JavaRunnable</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">ij</span><span class="o">.</span><span class="n">ui</span><span class="p">()</span><span class="o">.</span><span class="n">showDialog</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">)))</span>
 </pre></div>
 </div>
 </li>
 <li><p>Use the SciJava ScriptService:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ij</span><span class="o">.</span><span class="n">script</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;.groovy&#39;</span><span class="p">,</span> <span class="s2">&quot;#@ ImageJ ij</span><span class="se">\n</span><span class="s2">ij.ui().showDialog(&#39;hello&#39;)&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ij</span><span class="o">.</span><span class="n">script</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">'.groovy'</span><span class="p">,</span> <span class="s2">"#@ ImageJ ij</span><span class="se">\n</span><span class="s2">ij.ui().showDialog('hello')"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
@@ -953,13 +953,13 @@ and then display them with Napari.</p>
         <span class="n">ij</span> <span class="o">=</span> <span class="n">imagej</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">headless</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">ij</span><span class="o">.</span><span class="n">getVersion</span><span class="p">())</span>
         <span class="n">ij</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Launched ImageJ&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'Launched ImageJ'</span><span class="p">)</span>
 
     <span class="n">QtCore</span><span class="o">.</span><span class="n">QTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_imagej</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>

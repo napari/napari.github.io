@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -426,7 +426,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -974,6 +974,7 @@ window.runMermaid = runMermaid;</script>
 	napari._qt.qt_main_window --&gt; napari._qt.widgets.qt_command_palette
 	napari._qt.qt_main_window --&gt; napari._qt.widgets.qt_viewer_dock_widget
 	napari._qt.qt_main_window --&gt; napari._qt.widgets.qt_viewer_status_bar
+	napari._qt.qt_main_window --&gt; napari._qt.widgets.qt_viewer_tour
 	click napari._qt.qt_main_window &quot;https://github.com/napari/napari/tree/main/napari/_qt/qt_main_window.py&quot; _blank
 	napari._qt.qt_viewer(napari._qt.qt_viewer)
 	napari._qt.qt_viewer --&gt; napari._qt.containers
@@ -1035,6 +1036,10 @@ window.runMermaid = runMermaid;</script>
 	napari._qt.widgets.qt_viewer_status_bar(napari._qt.widgets.qt_viewer_status_bar)
 	napari._qt.widgets.qt_viewer_status_bar --&gt; napari._qt.qt_main_window
 	click napari._qt.widgets.qt_viewer_status_bar &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_status_bar.py&quot; _blank
+	napari._qt.widgets.qt_viewer_tour(napari._qt.widgets.qt_viewer_tour)
+	napari._qt.widgets.qt_viewer_tour --&gt; napari._qt._qapp_model.qactions
+	napari._qt.widgets.qt_viewer_tour --&gt; napari._qt.qt_main_window
+	click napari._qt.widgets.qt_viewer_tour &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_tour.py&quot; _blank
 	napari._qt.widgets.qt_welcome(napari._qt.widgets.qt_welcome)
 	napari._qt.widgets.qt_welcome --&gt; napari.components.viewer_model
 	click napari._qt.widgets.qt_welcome &quot;https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_welcome.py&quot; _blank
@@ -1061,6 +1066,7 @@ window.runMermaid = runMermaid;</script>
 	napari.components.dims(napari.components.dims)
 	click napari.components.dims &quot;https://github.com/napari/napari/tree/main/napari/components/dims.py&quot; _blank
 	napari.components.grid(napari.components.grid)
+	napari.components.grid --&gt; napari.layers
 	click napari.components.grid &quot;https://github.com/napari/napari/tree/main/napari/components/grid.py&quot; _blank
 	napari.components.layerlist(napari.components.layerlist)
 	napari.components.layerlist --&gt; napari.components.dims
@@ -1124,6 +1130,7 @@ window.runMermaid = runMermaid;</script>
 		 napari._qt.widgets.qt_viewer_buttons
 		 napari._qt.widgets.qt_viewer_dock_widget
 		 napari._qt.widgets.qt_viewer_status_bar
+		 napari._qt.widgets.qt_viewer_tour
 		 napari._qt.widgets.qt_welcome
 	end
 	class module.napari._qt.widgets subgraphs
@@ -1156,53 +1163,54 @@ window.runMermaid = runMermaid;</script>
 <h2>Source code directory layout (related to modules inside <code class="docutils literal notranslate"><span class="pre">napari</span></code>)<a class="headerlink" href="#source-code-directory-layout-related-to-modules-inside-napari" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>napari/
 ├─_qt/
+│ ├─utils.py
+│ ├─dialogs/
+│ │ └─__init__.py
+│ ├─containers/
+│ │ └─__init__.py
+│ ├─qt_main_window.py
+│ ├─widgets/
+│ │ ├─qt_tooltip.py
+│ │ ├─qt_mirrored_sliders_popup.py
+│ │ ├─qt_dims_sorter.py
+│ │ ├─qt_dims_slider.py
+│ │ ├─qt_viewer_dock_widget.py
+│ │ ├─qt_viewer_tour.py
+│ │ ├─qt_spinbox.py
+│ │ ├─qt_dims.py
+│ │ ├─qt_command_palette.py
+│ │ ├─qt_viewer_status_bar.py
+│ │ ├─qt_scrollbar.py
+│ │ ├─qt_welcome.py
+│ │ └─qt_viewer_buttons.py
 │ ├─threads/
-│ │ ├─status_checker.py
+│ │ ├─__init__.py
+│ │ └─status_checker.py
+│ ├─layer_controls/
 │ │ └─__init__.py
 │ ├─_qapp_model/
 │ │ └─qactions/
-│ │   ├─_debug.py
-│ │   └─__init__.py
-│ ├─containers/
+│ │   ├─__init__.py
+│ │   └─_debug.py
+│ └─qt_viewer.py
+├─components/
+│ ├─layerlist.py
+│ ├─cursor.py
+│ ├─_layer_slicer.py
+│ ├─_viewer_constants.py
+│ ├─_viewer_key_bindings.py
+│ ├─camera.py
+│ ├─overlays/
 │ │ └─__init__.py
-│ ├─dialogs/
-│ │ └─__init__.py
-│ ├─qt_main_window.py
-│ ├─qt_viewer.py
-│ ├─layer_controls/
-│ │ └─__init__.py
-│ ├─widgets/
-│ │ ├─qt_tooltip.py
-│ │ ├─qt_welcome.py
-│ │ ├─qt_spinbox.py
-│ │ ├─qt_dims_slider.py
-│ │ ├─qt_mirrored_sliders_popup.py
-│ │ ├─qt_viewer_status_bar.py
-│ │ ├─qt_dims_sorter.py
-│ │ ├─qt_scrollbar.py
-│ │ ├─qt_viewer_dock_widget.py
-│ │ ├─qt_command_palette.py
-│ │ ├─qt_viewer_buttons.py
-│ │ └─qt_dims.py
-│ └─utils.py
-├─layers/
-│ └─__init__.py
-└─components/
-  ├─dims.py
-  ├─canvas.py
-  ├─_layer_slicer.py
-  ├─viewer_model.py
-  ├─_viewer_mouse_bindings.py
-  ├─layerlist.py
-  ├─scene.py
-  ├─camera.py
-  ├─overlays/
-  │ └─__init__.py
-  ├─_viewer_key_bindings.py
-  ├─cursor.py
-  ├─tooltip.py
-  ├─_viewer_constants.py
-  └─grid.py
+│ ├─tooltip.py
+│ ├─grid.py
+│ ├─canvas.py
+│ ├─_viewer_mouse_bindings.py
+│ ├─scene.py
+│ ├─viewer_model.py
+│ └─dims.py
+└─layers/
+  └─__init__.py
 </pre></div>
 </div>
 </section>

@@ -72,6 +72,8 @@ napari
 Starting with release 0.6.0, you can use the [command palette](command-palette) to launch any command. 🎨
 ```
 
+After napari opens, you can start an interactive overview of the viewer from **Help > Take a tour**.
+
 ## Open an image
 
 napari natively supports tiff and many other formats supported by [skimage.io.imread](https://scikit-image.org/docs/dev/api/skimage.io.html) as input image file format.

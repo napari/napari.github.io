@@ -23,6 +23,9 @@ napari.qt.QtViewerButtons
       ~QtViewerButtons.accessibleDescription
    
    
+      ~QtViewerButtons.accessibleIdentifier
+   
+   
       ~QtViewerButtons.accessibleName
    
    
@@ -251,9 +254,6 @@ napari.qt.QtViewerButtons
       ~QtViewerButtons.geometry
    
    
-      ~QtViewerButtons.getContentsMargins
-   
-   
       ~QtViewerButtons.grab
    
    
@@ -357,6 +357,9 @@ napari.qt.QtViewerButtons
    
    
       ~QtViewerButtons.isModal
+   
+   
+      ~QtViewerButtons.isQuickItemType
    
    
       ~QtViewerButtons.isRightToLeft
@@ -614,6 +617,9 @@ napari.qt.QtViewerButtons
       ~QtViewerButtons.setAccessibleDescription
    
    
+      ~QtViewerButtons.setAccessibleIdentifier
+   
+   
       ~QtViewerButtons.setAccessibleName
    
    
@@ -741,6 +747,9 @@ napari.qt.QtViewerButtons
    
    
       ~QtViewerButtons.setProperty
+   
+   
+      ~QtViewerButtons.setScreen
    
    
       ~QtViewerButtons.setShortcutAutoRepeat
@@ -994,6 +1003,8 @@ napari.qt.QtViewerButtons
       ~QtViewerButtons.Panel
       ~QtViewerButtons.PdmDepth
       ~QtViewerButtons.PdmDevicePixelRatio
+      ~QtViewerButtons.PdmDevicePixelRatioF_EncodedA
+      ~QtViewerButtons.PdmDevicePixelRatioF_EncodedB
       ~QtViewerButtons.PdmDevicePixelRatioScaled
       ~QtViewerButtons.PdmDpiX
       ~QtViewerButtons.PdmDpiY

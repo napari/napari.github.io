@@ -31,11 +31,10 @@ layer first, then explore the GUI controls.
 
 ## When to use the `surface` layer
 
-The surface layer allows you to display a precomputed surface mesh that is
-defined by an `NxD` array of `N` vertices in `D` coordinates, an `Mx3` integer
-array of the indices of the triangles making up the faces of the surface, and a
-length `N` list of values to associate with each vertex to use alongside a
-colormap.
+The surface layer allows you to display a precomputed surface mesh: a set of
+vertices connected into triangular faces. Each vertex can optionally carry a
+value that is mapped through a colormap to color the surface. The exact data
+format is described in the [Surface data](#surface-data) section.
 
 ## A simple example
 
@@ -79,6 +78,13 @@ viewer.close()
 Once you have created a `surface` layer programmatically, the following GUI
 controls are available in the viewer:
 
+Controls related to `contrast limits`, `auto-contrast`, `gamma`, and
+`colormap` are only available when the surface color is computed from
+`vertex_values`. If you provide `vertex_colors`, napari uses those colors
+directly and disables those controls because they no longer affect rendering.
+When a texture is present, napari multiplies the texture color by the
+underlying surface color.
+
 - **Buttons**
   - Pan/zoom - ![image: Pan/zoom tool](../../_static/images/pan-zoom-tool.png) is the default
     mode of the layer and supports panning and zooming. Press the `1` key when the
@@ -116,12 +122,30 @@ help(napari.Viewer.add_surface)
 
 ## Surface data
 
-The data for a `surface` layer is defined by a 3-tuple of its vertices, faces,
-and vertex values. The vertices are an `NxD` array of `N` vertices in `D`
-coordinates. The faces are an `Mx3` integer array of the indices of the
-triangles making up the faces of the surface. The vertex values are a length `N`
-list of values to associate with each vertex to use alongside a colormap. This
-3-tuple is accessible through the `layer.data` property.
+The data for a `surface` layer can be given as either a 2-tuple
+`(vertices, faces)` or a 3-tuple `(vertices, faces, vertex_values)`.
+- The vertices are an `NxD` array of `N` vertices in `D` coordinates.
+- The faces are an `Mx3` integer array of the indices of the triangles
+  making up the faces of the surface.
+- The optional vertex values are a length `N` array of scalar values to
+  associate with each vertex for colormap-based rendering. They can also have
+  additional leading dimensions (for example, a time series), in the form
+  `(D1, D2, ..., N)`, which napari treats as extra dimensions of the layer.
+  If you omit `vertex_values`, napari fills them with ones, so the default
+  underlying surface color is white.
+
+## How surface colors are computed
+
+- `vertex_values` are mapped through the selected `colormap`. `contrast limits`,
+  `auto-contrast`, and `gamma` all operate on this scalar-coloring path.
+- `vertex_colors` provide direct per-vertex colors and override any color that
+  would otherwise come from `vertex_values`. When `vertex_colors` are present,
+  the GUI disables the scalar-coloring controls because they do not affect the
+  rendered surface.
+- `texture` plus `texcoords` multiplies the texture color by the underlying
+  surface color. If that underlying color comes from `vertex_values`, the
+  scalar-coloring controls still affect the result. If it comes from
+  `vertex_colors`, they do not.
 
 ## 3D rendering
 
@@ -176,3 +200,8 @@ what values get applied the minimum and maximum of the colormap and follow the
 same principles as the `contrast_limits` described in the
 [image layer guide](layers-image). They are also accessible through the same keyword
 arguments, properties, and GUI layer controls as in the image layer.
+
+These controls only apply when the surface is colored from `vertex_values`.
+That includes textured surfaces whose texture is multiplied by a color derived
+from `vertex_values`. They do not apply when the surface is colored directly by
+`vertex_colors`.

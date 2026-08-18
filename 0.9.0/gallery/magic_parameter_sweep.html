@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/gallery/magic_parameter_sweep.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Example showing how to accomplish a napari parameter sweep with magicgui. It demonstrates: 1. overriding the default widget type with a custom class 2. the auto_call option, which calls the function whenever a parameter changes Tags: gui Python (.py) Notebook (.ipynb), Download Jupyter notebook: ..." />
+<meta property="og:description" content="Example showing how to accomplish a napari parameter sweep with magicgui. It demonstrates: 1. overriding the default widget type with a custom class 2. the auto_call option, which calls the function whenever a parameter changes Tags: gui Python (.py) Notebook (.ipynb) Download Jupyter notebook: m..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="Example showing how to accomplish a napari parameter sweep with magicgui. It demonstrates: 1. overriding the default widget type with a custom class 2. the auto_call option, which calls the function whenever a parameter changes Tags: gui Python (.py) Notebook (.ipynb), Download Jupyter notebook: ..." />
+<meta name="description" content="Example showing how to accomplish a napari parameter sweep with magicgui. It demonstrates: 1. overriding the default widget type with a custom class 2. the auto_call option, which calls the function whenever a parameter changes Tags: gui Python (.py) Notebook (.ipynb) Download Jupyter notebook: m..." />
 
     <title>magicgui parameter sweep &#8212; napari</title>
   
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -851,16 +851,7 @@
 <p><a class="reference download internal" download="" href="../_downloads/158594d7f8a3021c56637ff836b0c8dd/magic_parameter_sweep.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Notebook</span> <span class="pre">(.ipynb)</span></code></a></p>
 </div>
 </div>
-<img src="../_images/sphx_glr_magic_parameter_sweep_001.png" srcset="../_images/sphx_glr_magic_parameter_sweep_001.png" alt="magic parameter sweep" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-  theme_type=get_system_theme(),
-/home/runner/work/docs/docs/.venv/lib/python3.12/site-packages/napari/_qt/qt_event_loop.py:49: UserWarning: System theme detection requires a Qt6 backend. Please switch to PyQt6 or PySide6 to use it.
-  theme_type=get_system_theme(),
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <a href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="typing.Annotated" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">Annotated</span></a>
+<img src="../_images/sphx_glr_magic_parameter_sweep_001.png" srcset="../_images/sphx_glr_magic_parameter_sweep_001.png" alt="magic parameter sweep" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <a href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="typing.Annotated" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">Annotated</span></a>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">skimage.data</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">skimage.filters</span>
@@ -872,7 +863,7 @@
 <span class="c1"># Note that we can use forward references for the napari type annotations.</span>
 <span class="c1"># You can read more about them here:</span>
 <span class="c1"># https://peps.python.org/pep-0484/#forward-references</span>
-<span class="c1"># In this example, because we have already imported napari anyway, it doesn&#39;t</span>
+<span class="c1"># In this example, because we have already imported napari anyway, it doesn't</span>
 <span class="c1"># really matter. But this syntax would let you specify that a parameter is a</span>
 <span class="c1"># napari object type without actually importing or depending on napari.</span>
 <span class="c1"># We also use the `Annotated` type to pass an additional dictionary that can be used</span>
@@ -880,11 +871,11 @@
 <span class="c1"># the corresponding magicgui widget type. For more information see</span>
 <span class="c1"># https://napari.org/magicgui/api/widgets.html.</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">gaussian_blur</span><span class="p">(</span>
-    <span class="n">layer</span><span class="p">:</span> <span class="s1">&#39;napari.layers.Image&#39;</span><span class="p">,</span>
-    <span class="n">sigma</span><span class="p">:</span> <a href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="typing.Annotated" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">Annotated</span></a><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;widget_type&#39;</span><span class="p">:</span> <span class="s1">&#39;FloatSlider&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
-    <span class="n">mode</span><span class="p">:</span> <a href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="typing.Annotated" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">Annotated</span></a><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;choices&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;reflect&#39;</span><span class="p">,</span> <span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="s1">&#39;mirror&#39;</span><span class="p">,</span> <span class="s1">&#39;wrap&#39;</span><span class="p">]}]</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;napari.types.ImageData | None&#39;</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Apply a gaussian blur to ``layer``.&quot;&quot;&quot;</span>
+    <span class="n">layer</span><span class="p">:</span> <span class="s1">'napari.layers.Image'</span><span class="p">,</span>
+    <span class="n">sigma</span><span class="p">:</span> <a href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="typing.Annotated" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">Annotated</span></a><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="p">{</span><span class="s1">'widget_type'</span><span class="p">:</span> <span class="s1">'FloatSlider'</span><span class="p">,</span> <span class="s1">'max'</span><span class="p">:</span> <span class="mi">6</span><span class="p">}]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">mode</span><span class="p">:</span> <a href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="typing.Annotated" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">Annotated</span></a><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="p">{</span><span class="s1">'choices'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'reflect'</span><span class="p">,</span> <span class="s1">'constant'</span><span class="p">,</span> <span class="s1">'nearest'</span><span class="p">,</span> <span class="s1">'mirror'</span><span class="p">,</span> <span class="s1">'wrap'</span><span class="p">]}]</span><span class="o">=</span><span class="s1">'nearest'</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'napari.types.ImageData | None'</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Apply a gaussian blur to ``layer``."""</span>
     <span class="k">if</span> <span class="n">layer</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">skimage</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">gaussian</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">None</span>
@@ -892,13 +883,13 @@
 
 <span class="c1"># create a viewer and add some images</span>
 <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">()</span>
-<a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><span class="n">skimage</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;astronaut&#39;</span><span class="p">)</span>
-<a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><span class="n">skimage</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">grass</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;grass&#39;</span><span class="p">)</span>
+<a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><span class="n">skimage</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'astronaut'</span><span class="p">)</span>
+<a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><span class="n">skimage</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">grass</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'float'</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'grass'</span><span class="p">)</span>
 
 <span class="c1"># Add our magic function to napari</span>
 <a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel.window" title="napari.components.ViewerModel.window" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-attribute"><span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_function_widget</span></a><span class="p">(</span><span class="n">gaussian_blur</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>

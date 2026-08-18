@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -819,7 +819,7 @@ window.runMermaid = runMermaid;</script>
                 <article class="bd-article">
                   
   <h1>Source code for napari.utils.perf._event</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;PerfEvent class.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""PerfEvent class."""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
@@ -827,7 +827,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">Span</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The span of time that the event ocurred.</span>
+<span class="w">    </span><span class="sd">"""The span of time that the event ocurred.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -835,14 +835,14 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Start time in nanoseconds.</span>
 <span class="sd">    end_ns : int</span>
 <span class="sd">        End time in nanoseconds.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">start_ns</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">end_ns</span><span class="p">:</span> <span class="nb">int</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">Origin</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;What process/thread produced the event.</span>
+<span class="w">    </span><span class="sd">"""What process/thread produced the event.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -850,7 +850,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        The process id that produced the event.</span>
 <span class="sd">    thread_id : int</span>
 <span class="sd">        The thread id that produced the event.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">process_id</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">thread_id</span><span class="p">:</span> <span class="nb">int</span>
@@ -859,45 +859,45 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="PerfEvent">
 <a class="viewcode-back" href="../../../../api/napari.utils.perf.PerfEvent.html#napari.utils.perf.PerfEvent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PerfEvent</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A performance related event: timer, counter, etc.</span>
+<span class="w">    </span><span class="sd">"""A performance related event: timer, counter, etc.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    name : str</span>
-<span class="sd">        The name of this event like &quot;draw&quot;.</span>
+<span class="sd">        The name of this event like "draw".</span>
 <span class="sd">    start_ns : int</span>
 <span class="sd">        Start time in nanoseconds.</span>
 <span class="sd">    end_ns : int</span>
 <span class="sd">        End time in nanoseconds.</span>
 <span class="sd">    category :str</span>
-<span class="sd">        Comma separated categories such has &quot;render,update&quot;.</span>
+<span class="sd">        Comma separated categories such has "render,update".</span>
 <span class="sd">    process_id : int</span>
 <span class="sd">        The process id that produced the event.</span>
 <span class="sd">    thread_id : int</span>
 <span class="sd">        The thread id that produced the event.</span>
 <span class="sd">    phase : str</span>
-<span class="sd">        The Chrome Tracing &quot;phase&quot; such as &quot;X&quot;, &quot;I&quot;, &quot;C&quot;.</span>
+<span class="sd">        The Chrome Tracing "phase" such as "X", "I", "C".</span>
 <span class="sd">    **kwargs : dict</span>
-<span class="sd">        Additional keyword arguments for the &quot;args&quot; field of the event.</span>
+<span class="sd">        Additional keyword arguments for the "args" field of the event.</span>
 
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    name : str</span>
-<span class="sd">        The name of this event like &quot;draw&quot;.</span>
+<span class="sd">        The name of this event like "draw".</span>
 <span class="sd">    span : Span</span>
 <span class="sd">        The time span when the event happened.</span>
 <span class="sd">    category : str</span>
-<span class="sd">        Comma separated categories such as &quot;render,update&quot;.</span>
+<span class="sd">        Comma separated categories such as "render,update".</span>
 <span class="sd">    origin : Origin</span>
 <span class="sd">        The process and thread that produced the event.</span>
 <span class="sd">    args : dict</span>
 <span class="sd">        Arbitrary keyword arguments for this event.</span>
 <span class="sd">    phase : str</span>
 <span class="sd">        The Chrome Tracing phase (event type):</span>
-<span class="sd">          &quot;X&quot; - Complete Events</span>
-<span class="sd">          &quot;I&quot; - Instant Events</span>
-<span class="sd">          &quot;C&quot; - Counter Events</span>
+<span class="sd">          "X" - Complete Events</span>
+<span class="sd">          "I" - Instant Events</span>
+<span class="sd">          "C" - Counter Events</span>
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    The time stamps are from perf_counter_ns() and do not indicate time of</span>
@@ -905,8 +905,8 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    valid span of wall clock time. If start is the same as the end the</span>
 <span class="sd">    event was instant.</span>
 
-<span class="sd">    Google the phrase &quot;Trace Event Format&quot; for the full Chrome Tracing spec.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    Google the phrase "Trace Event Format" for the full Chrome Tracing spec.</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -916,7 +916,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">category</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">process_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">thread_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">phase</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>  <span class="c1"># &quot;X&quot; is a &quot;complete event&quot; in their spec.</span>
+        <span class="n">phase</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'X'</span><span class="p">,</span>  <span class="c1"># "X" is a "complete event" in their spec.</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">process_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -934,39 +934,39 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="PerfEvent.update_end_ns">
 <a class="viewcode-back" href="../../../../api/napari.utils.perf.PerfEvent.html#napari.utils.perf.PerfEvent.update_end_ns">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_end_ns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">end_ns</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update our end_ns with this new end_ns.</span>
+<span class="w">        </span><span class="sd">"""Update our end_ns with this new end_ns.</span>
 
 <span class="sd">        Attributes</span>
 <span class="sd">        ----------</span>
 <span class="sd">        end_ns : int</span>
 <span class="sd">            The new ending time in nanoseconds.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">span</span> <span class="o">=</span> <span class="n">Span</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">start_ns</span><span class="p">,</span> <span class="n">end_ns</span><span class="p">)</span></div>
 
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">start_us</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start time in microseconds.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Start time in microseconds."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">start_ns</span> <span class="o">/</span> <span class="mf">1e3</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">start_ms</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start time in milliseconds.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Start time in milliseconds."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">start_ns</span> <span class="o">/</span> <span class="mf">1e6</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">duration_ns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Duration in nanoseconds.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Duration in nanoseconds."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">end_ns</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">start_ns</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">duration_us</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Duration in microseconds.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Duration in microseconds."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration_ns</span> <span class="o">/</span> <span class="mf">1e3</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">duration_ms</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Duration in milliseconds.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Duration in milliseconds."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration_ns</span> <span class="o">/</span> <span class="mf">1e6</span></div>
 
 </pre></div>

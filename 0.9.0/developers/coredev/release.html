@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -699,7 +699,7 @@ For each release generate the list to include everything since the last release 
 are release notes (which should just be the last release).</p>
 <p>Prior to generating release notes, you will need to set your GitHub token environment variable:
 On Linux or MacOS:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">GH_TOKEN</span><span class="o">=</span><span class="s1">&#39;&lt;your-gh-api-token&gt;&#39;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">GH_TOKEN</span><span class="o">=</span><span class="s1">'&lt;your-gh-api-token&gt;'</span>
 </pre></div>
 </div>
 <p>or on Windows:</p>
@@ -795,15 +795,15 @@ It is also recommend to add a tag message containing the release notes, with the
 If you have the docs repo checked out next to the napari repo as <code class="docutils literal notranslate"><span class="pre">napari-docs</span></code>, you can do this as follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>fetch<span class="w"> </span>upstream
 git<span class="w"> </span>checkout<span class="w"> </span>upstream/main
-git<span class="w"> </span>tag<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;vX.Y.Zrc0&quot;</span><span class="w"> </span>-F<span class="w"> </span>../napari-docs/release/release_X_Y_Z.md
+git<span class="w"> </span>tag<span class="w"> </span>-s<span class="w"> </span><span class="s2">"vX.Y.Zrc0"</span><span class="w"> </span>-F<span class="w"> </span>../napari-docs/release/release_X_Y_Z.md
 </pre></div>
 </div>
 <p>If you would like to check that the tag is correct, you can use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">show</span></code> command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>show<span class="w"> </span><span class="s2">&quot;vX.Y.Zrc0&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>show<span class="w"> </span><span class="s2">"vX.Y.Zrc0"</span>
 </pre></div>
 </div>
 <p>If the tag is meant for a previous version of main, simply reference the specific commit:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>tag<span class="w"> </span><span class="s2">&quot;vX.Y.Zrc0&quot;</span><span class="w"> </span>abcde42
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>tag<span class="w"> </span><span class="s2">"vX.Y.Zrc0"</span><span class="w"> </span>abcde42
 </pre></div>
 </div>
 <p>Note here how we are using <code class="docutils literal notranslate"><span class="pre">rc</span></code> for release candidate to create a version of our release we can test
@@ -818,7 +818,7 @@ You can trigger this by pushing the new tag to <code class="docutils literal not
 </pre></div>
 </div>
 <p>The release candidate can then be tested with</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[all]&gt;=X.Y.Zrc0&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"napari[all]&gt;=X.Y.Zrc0"</span>
 </pre></div>
 </div>
 <p>It is recommended that the release candidate is tested in a virtual environment in order to isolate dependencies.</p>
@@ -830,7 +830,7 @@ incrementing the number after <code class="docutils literal notranslate"><span c
 <h3>Generating the actual release<a class="headerlink" href="#generating-the-actual-release" title="Link to this heading">#</a></h3>
 <p>To generate the actual release you will now repeat the processes above but now dropping the <code class="docutils literal notranslate"><span class="pre">rc</span></code>.
 For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>tag<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;vX.Y.Z&quot;</span><span class="w"> </span>-F<span class="w"> </span>../napari-docs/release/release_X_Y_Z.md
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>tag<span class="w"> </span>-s<span class="w"> </span><span class="s2">"vX.Y.Z"</span><span class="w"> </span>-F<span class="w"> </span>../napari-docs/release/release_X_Y_Z.md
 git<span class="w"> </span>push<span class="w"> </span>upstream<span class="w"> </span>--tags
 </pre></div>
 </div>

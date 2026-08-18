@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../../../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -819,7 +819,7 @@ window.runMermaid = runMermaid;</script>
                 <article class="bd-article">
                   
   <h1>Source code for napari.utils.events.containers._evented_dict</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;MutableMapping that emits events when altered.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""MutableMapping that emits events when altered."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
@@ -836,7 +836,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="EventedDict">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedDict.html#napari.utils.events.EventedDict">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">EventedDict</span><span class="p">(</span><span class="n">TypedMutableMapping</span><span class="p">[</span><span class="n">_K</span><span class="p">,</span> <span class="n">_T</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mutable dictionary that emits events when altered.</span>
+<span class="w">    </span><span class="sd">"""Mutable dictionary that emits events when altered.</span>
 
 <span class="sd">    This class is designed to behave exactly like builtin ``dict``, but</span>
 <span class="sd">    will emit events before and after all mutations (addition, removal, and</span>
@@ -868,26 +868,26 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        subclasses to give them an option to trigger some update after ``value``</span>
 <span class="sd">        was changed and this class did not register it. This can be useful if</span>
 <span class="sd">        the ``basetype`` is not an evented object.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">events</span><span class="p">:</span> <span class="n">EmitterGroup</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">data</span><span class="p">:</span> <span class="s1">&#39;Mapping[_K, _T] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">basetype</span><span class="p">:</span> <span class="s1">&#39;type[_T] | Sequence[type[_T]]&#39;</span> <span class="o">=</span> <span class="p">(),</span>
+        <span class="n">data</span><span class="p">:</span> <span class="s1">'Mapping[_K, _T] | None'</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">basetype</span><span class="p">:</span> <span class="s1">'type[_T] | Sequence[type[_T]]'</span> <span class="o">=</span> <span class="p">(),</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">_events</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;changing&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s1">&#39;changed&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s1">&#39;adding&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s1">&#39;added&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s1">&#39;removing&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s1">&#39;removed&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s1">&#39;updated&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">'changing'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">'changed'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">'adding'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">'added'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">'removing'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">'removed'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">'updated'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="c1"># For inheritance: If the mro already provides an EmitterGroup, add...</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;events&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="n">EmitterGroup</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'events'</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="n">EmitterGroup</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">**</span><span class="n">_events</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># otherwise create a new one</span>
@@ -902,9 +902,9 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="EventedDict.first_callback_connect">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedDict.html#napari.utils.events.EventedDict.first_callback_connect">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">first_callback_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;When the first callback is connected to `self.events`,</span>
+<span class="w">        </span><span class="sd">"""When the first callback is connected to `self.events`,</span>
 <span class="sd">        connect to all child emitters.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_connect_child_emitters</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
 
@@ -912,9 +912,9 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="EventedDict.last_callback_disconnect">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedDict.html#napari.utils.events.EventedDict.last_callback_disconnect">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">last_callback_disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;When the last callback is disconnected from `self.events`, disconnect</span>
+<span class="w">        </span><span class="sd">"""When the last callback is disconnected from `self.events`, disconnect</span>
 <span class="sd">        from all child emitters.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">callbacks</span><span class="p">:</span>
             <span class="c1"># to not disconnect child emitters if there are</span>
             <span class="c1"># still callbacks connected to this emitter</span>
@@ -946,34 +946,34 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">item</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_reemit_child_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;An item in the dict emitted an event.  Re-emit with key&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="s1">&#39;key&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""An item in the dict emitted an event.  Re-emit with key"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="s1">'key'</span><span class="p">):</span>
             <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
 
-        <span class="c1"># re-emit with this object&#39;s EventEmitter</span>
+        <span class="c1"># re-emit with this object's EventEmitter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_reemit_child_event_psygnal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">EmissionInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">source</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">instance</span>
         <span class="n">key</span><span class="p">:</span> <span class="n">_K</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">source</span><span class="p">)</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">source</span><span class="p">)</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s1">'</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
-        <span class="n">event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>
         <span class="n">event</span><span class="o">.</span><span class="n">_push_source</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_disconnect_child_emitters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Disconnect all events from the child from the re-emitter.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Disconnect all events from the child from the re-emitter."""</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">PsygnalModel</span><span class="p">):</span>
             <span class="n">child</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reemit_child_event_psygnal</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">SupportsEvents</span><span class="p">):</span>
             <span class="n">child</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reemit_child_event</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_connect_child_emitters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect all events from the child to be re-emitted.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Connect all events from the child to be re-emitted."""</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">PsygnalModel</span><span class="p">):</span>
             <span class="n">child</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_reemit_child_event_psygnal</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span>
@@ -987,7 +987,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="EventedDict.key">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedDict.html#napari.utils.events.EventedDict.key">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_K</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return first instance of value.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Return first instance of value."""</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="n">value</span> <span class="ow">or</span> <span class="n">v</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">k</span>
@@ -999,14 +999,14 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="EventedDictNamespace">
 <a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedDictNamespace.html#napari.utils.events.EventedDictNamespace">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">EventedDictNamespace</span><span class="p">(</span><span class="n">EventedDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_T</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An evented dict that also exposes its elements as a simple namespace.</span>
+<span class="w">    </span><span class="sd">"""An evented dict that also exposes its elements as a simple namespace.</span>
 
 <span class="sd">    Needs keys to be str.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_T</span><span class="p">:</span>
         <span class="c1"># we need some special cases cause they are accessed before full initialization</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;events&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">'events'</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
@@ -1016,7 +1016,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># we need some special cases cause they are accessed before full initialization</span>
         <span class="k">if</span> <span class="p">(</span>
-            <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;events&#39;</span><span class="p">,</span> <span class="s1">&#39;_dict&#39;</span><span class="p">,</span> <span class="s1">&#39;_basetypes&#39;</span><span class="p">)</span>
+            <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'events'</span><span class="p">,</span> <span class="s1">'_dict'</span><span class="p">,</span> <span class="s1">'_basetypes'</span><span class="p">)</span>
             <span class="ow">or</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__dir__</span><span class="p">()</span>
         <span class="p">):</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
@@ -1028,7 +1028,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># unless they are private</span>
         <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span>
             <span class="nb">set</span><span class="p">(</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__dir__</span><span class="p">())</span>
-            <span class="o">|</span> <span class="p">{</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)}</span>
+            <span class="o">|</span> <span class="p">{</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'_'</span><span class="p">)}</span>
         <span class="p">)</span></div>
 
 </pre></div>

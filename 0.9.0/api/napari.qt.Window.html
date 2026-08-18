@@ -55,7 +55,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -67,7 +67,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -881,9 +881,9 @@ By default, True.</p></li>
 wrapper.</p>
 <p>If you need to control the dock widget itself (for example, to show or
 raise a docked widget tab), access the wrapper via the Qt parent:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;My widget&quot;</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">name</span> <span class="o">=</span> <span class="s2">"My widget"</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">widget</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">dock_widgets</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qt_widget</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">native</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s2">&quot;native&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">widget</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qt_widget</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">native</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s2">"native"</span><span class="p">)</span> <span class="k">else</span> <span class="n">widget</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dock_widget</span> <span class="o">=</span> <span class="n">qt_widget</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>  <span class="c1"># QtViewerDockWidget / QDockWidget</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dock_widget</span><span class="o">.</span><span class="n">show</span><span class="p">();</span> <span class="n">dock_widget</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
 </pre></div>

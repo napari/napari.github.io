@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=6306e1b2"></script>
+    <script src="../../../_static/documentation_options.js?v=b74c444a"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0a2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -838,31 +838,31 @@ window.runMermaid = runMermaid;</script>
     <span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">TracebackType</span>
 
 <span class="n">name2num</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
-    <span class="s1">&#39;warning&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
-    <span class="s1">&#39;info&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-    <span class="s1">&#39;debug&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-    <span class="s1">&#39;none&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">'error'</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+    <span class="s1">'warning'</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="s1">'info'</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s1">'debug'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">'none'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;ErrorNotification&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Notification&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;NotificationManager&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;NotificationSeverity&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;WarningNotification&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;show_console_notification&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;show_debug&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;show_error&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;show_info&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;show_warning&#39;</span><span class="p">,</span>
+    <span class="s1">'ErrorNotification'</span><span class="p">,</span>
+    <span class="s1">'Notification'</span><span class="p">,</span>
+    <span class="s1">'NotificationManager'</span><span class="p">,</span>
+    <span class="s1">'NotificationSeverity'</span><span class="p">,</span>
+    <span class="s1">'WarningNotification'</span><span class="p">,</span>
+    <span class="s1">'show_console_notification'</span><span class="p">,</span>
+    <span class="s1">'show_debug'</span><span class="p">,</span>
+    <span class="s1">'show_error'</span><span class="p">,</span>
+    <span class="s1">'show_info'</span><span class="p">,</span>
+    <span class="s1">'show_warning'</span><span class="p">,</span>
 <span class="p">]</span>
 
 
 <div class="viewcode-block" id="NotificationSeverity">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.NotificationSeverity.html#napari.utils.notifications.NotificationSeverity">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NotificationSeverity</span><span class="p">(</span><span class="n">StringEnum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Severity levels for the notification dialog.  Along with icons for each.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Severity levels for the notification dialog.  Along with icons for each."""</span>
 
     <span class="n">ERROR</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">WARNING</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
@@ -872,11 +872,11 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">as_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ERROR</span><span class="p">:</span> <span class="s1">&#39;ⓧ&#39;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">WARNING</span><span class="p">:</span> <span class="s1">&#39;⚠️&#39;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">INFO</span><span class="p">:</span> <span class="s1">&#39;ⓘ&#39;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span> <span class="s1">&#39;🐛&#39;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">NONE</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ERROR</span><span class="p">:</span> <span class="s1">'ⓧ'</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">WARNING</span><span class="p">:</span> <span class="s1">'⚠️'</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">INFO</span><span class="p">:</span> <span class="s1">'ⓘ'</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span> <span class="s1">'🐛'</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">NONE</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
         <span class="p">}[</span><span class="bp">self</span><span class="p">]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
@@ -905,7 +905,7 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="Notification">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.Notification.html#napari.utils.notifications.Notification">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Notification</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A Notifcation event.  Usually created by :class:`NotificationManager`.</span>
+<span class="w">    </span><span class="sd">"""A Notifcation event.  Usually created by :class:`NotificationManager`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -919,7 +919,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        is a name for the action (which may, for example, be put on a button),</span>
 <span class="sd">        and the callable is a callback to perform when the action is triggered.</span>
 <span class="sd">        (for example, one might show a traceback dialog). by default ()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -933,7 +933,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="n">message</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">=</span> <span class="n">actions</span>
 
-        <span class="c1"># let&#39;s store when the object was created;</span>
+        <span class="c1"># let's store when the object was created;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -953,22 +953,22 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">WarningNotification</span><span class="p">(</span><span class="n">warning</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">severity</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s1">&#39;</span></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">severity</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s1">'</span></div>
 
 
 
 <div class="viewcode-block" id="ErrorNotification">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.ErrorNotification.html#napari.utils.notifications.ErrorNotification">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ErrorNotification</span><span class="p">(</span><span class="n">Notification</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Notification at an Error severity level.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">exception</span><span class="p">:</span> <span class="ne">BaseException</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">exception</span><span class="p">))</span>
-        <span class="n">actions</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="s1">&#39;actions&#39;</span><span class="p">,</span> <span class="p">())</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="s1">'message'</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">exception</span><span class="p">))</span>
+        <span class="n">actions</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="s1">'actions'</span><span class="p">,</span> <span class="p">())</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span> <span class="n">actions</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">exception</span> <span class="o">=</span> <span class="n">exception</span>
 
@@ -992,7 +992,7 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="o">.</span><span class="n">__traceback__</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">fmt</span><span class="p">(</span><span class="n">exc_info</span><span class="p">,</span> <span class="n">as_html</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;NoColor&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fmt</span><span class="p">(</span><span class="n">exc_info</span><span class="p">,</span> <span class="n">as_html</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'NoColor'</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._tracebacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_tb_formatter</span>
@@ -1010,17 +1010,17 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="WarningNotification">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.WarningNotification.html#napari.utils.notifications.WarningNotification">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">WarningNotification</span><span class="p">(</span><span class="n">Notification</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Notification at a Warning severity level.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">warning</span><span class="p">:</span> <span class="ne">Warning</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">warning</span><span class="p">:</span> <span class="ne">Warning</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lineno</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">warning</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">warning</span><span class="p">))</span>
-        <span class="n">actions</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">warning</span><span class="p">,</span> <span class="s1">&#39;actions&#39;</span><span class="p">,</span> <span class="p">())</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">warning</span><span class="p">,</span> <span class="s1">'message'</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">warning</span><span class="p">))</span>
+        <span class="n">actions</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">warning</span><span class="p">,</span> <span class="s1">'actions'</span><span class="p">,</span> <span class="p">())</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span> <span class="n">actions</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">warning</span> <span class="o">=</span> <span class="n">warning</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
@@ -1028,14 +1028,14 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">category</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">warning</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lineno</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">category</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">warning</span><span class="si">}</span><span class="s1">!&#39;</span></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lineno</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">category</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">warning</span><span class="si">}</span><span class="s1">!'</span></div>
 
 
 
 <div class="viewcode-block" id="NotificationManager">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.NotificationManager.html#napari.utils.notifications.NotificationManager">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NotificationManager</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A notification manager, to route all notifications through.</span>
 
 <span class="sd">    Only one instance is in general available through napari; as we need</span>
@@ -1053,17 +1053,17 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    Currently the original except and show warnings hooks are not called; but</span>
 <span class="sd">    this could be changed in the future; this poses some questions with the</span>
 <span class="sd">    re-entrency of the hooks themselves.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">records</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Notification</span><span class="p">]</span>
     <span class="n">_instance</span><span class="p">:</span> <span class="n">NotificationManager</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Notification</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_error</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NAPARI_EXIT_ON_ERROR&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">catch_error</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NAPARI_CATCH_ERRORS&#39;</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span>
-            <span class="s1">&#39;0&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;False&#39;</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_error</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'NAPARI_EXIT_ON_ERROR'</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'True'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">catch_error</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'NAPARI_CATCH_ERRORS'</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="s1">'0'</span><span class="p">,</span>
+            <span class="s1">'False'</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">notification_ready</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">changed</span> <span class="o">=</span> <span class="n">EventEmitter</span><span class="p">(</span>
             <span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_class</span><span class="o">=</span><span class="n">Notification</span>
@@ -1083,11 +1083,11 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="NotificationManager.install_hooks">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.NotificationManager.html#napari.utils.notifications.NotificationManager.install_hooks">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">install_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Install a `sys.excepthook`, a `showwarning` hook and a</span>
 <span class="sd">        threading.excepthook to display any message in the UI,</span>
 <span class="sd">        storing the previous hooks to be restored if necessary.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># TODO: we might want to display the additional thread information</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_originals_thread_except_hooks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">excepthook</span><span class="p">)</span>
         <span class="n">threading</span><span class="o">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">receive_thread_error</span>
@@ -1102,9 +1102,9 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="NotificationManager.restore_hooks">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.NotificationManager.html#napari.utils.notifications.NotificationManager.restore_hooks">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">restore_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Remove hooks installed by `install_hooks` and restore previous hooks.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">threading</span><span class="o">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_originals_thread_except_hooks</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
 
         <span class="n">sys</span><span class="o">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_originals_except_hooks</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
@@ -1134,11 +1134,11 @@ window.runMermaid = runMermaid;</script>
         <span class="n">thread</span><span class="p">:</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="ne">KeyboardInterrupt</span><span class="p">):</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Closed by KeyboardInterrupt&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">'Closed by KeyboardInterrupt'</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_error</span><span class="p">:</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">__excepthook__</span><span class="p">(</span><span class="n">exctype</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Exit on error&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">'Exit on error'</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">catch_error</span><span class="p">:</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">__excepthook__</span><span class="p">(</span><span class="n">exctype</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">)</span>
             <span class="k">return</span>
@@ -1164,7 +1164,7 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">receive_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">Notification</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s1">&#39;INFO&#39;</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">Notification</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s1">'INFO'</span><span class="p">))</span></div>
 
 
 
@@ -1174,9 +1174,9 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="show_debug">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_debug">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_debug</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Show a debug message in the notification manager.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">notification_manager</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span>
         <span class="n">Notification</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
     <span class="p">)</span></div>
@@ -1186,9 +1186,9 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="show_info">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_info">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_info</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Show an info message in the notification manager.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">notification_manager</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span>
         <span class="n">Notification</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
     <span class="p">)</span></div>
@@ -1198,9 +1198,9 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="show_warning">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_warning">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_warning</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Show a warning in the notification manager.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">notification_manager</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span>
         <span class="n">Notification</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
     <span class="p">)</span></div>
@@ -1210,9 +1210,9 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="show_error">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_error">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_error</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Show an error in the notification manager.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">notification_manager</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span>
         <span class="n">Notification</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
     <span class="p">)</span></div>
@@ -1222,9 +1222,9 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="show_console_notification">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_console_notification">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_console_notification</span><span class="p">(</span><span class="n">notification</span><span class="p">:</span> <span class="n">Notification</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Show a notification in the console.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span>
 
@@ -1236,10 +1236,10 @@ window.runMermaid = runMermaid;</script>
 
         <span class="nb">print</span><span class="p">(</span><span class="n">notification</span><span class="p">)</span>  <span class="c1"># noqa: T201</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;napari&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span>
-            <span class="s1">&#39;An error occurred while trying to format an error and show it in console.</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;You can try to uninstall IPython to disable rich traceback formatting</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="s1">&#39;And/or report a bug to napari&#39;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'napari'</span><span class="p">)</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span>
+            <span class="s1">'An error occurred while trying to format an error and show it in console.</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'You can try to uninstall IPython to disable rich traceback formatting</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="s1">'And/or report a bug to napari'</span>
         <span class="p">)</span>
         <span class="c1"># this will likely get silenced by QT.</span>
         <span class="k">raise</span></div>

@@ -116,6 +116,7 @@ nbscreenshot(viewer, alt_text="3D cell nuclei and membranes rendered as 2D slice
 
 again noting that the last two values are meaningless, but must be provided when using the API in this way.
 
+(thick-slicing)=
 ### Margins and thick slicing
 
 napari's API also has some support for performing thick slicing, which integrates over sub-volumes of data instead of selecting sub-regions.

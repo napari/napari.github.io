@@ -4,6 +4,7 @@
 
 We welcome your contributions! Here you will find a guide to the contribution
 workflow and tips for contributing to napari.
+If you are looking for an overview of all the repositories in the napari organization, see the [repository map](napari-repositories).
 If you are looking to learn more about the napari code base, see the [napari architecture guide](architecture-index).
 Please [contact](contact) us if you have any queries.
 

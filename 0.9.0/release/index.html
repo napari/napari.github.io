@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/release/index.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: August 18, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.9.0 (August 2026) Fuzzy find in command palette Implement fuzzy find for..." />
+<meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: August 19, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.9.0 (August 2026) Auto-labelling of viewer axes napari 0.5.0 laid the gr..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="napari" />
-<meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: August 18, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.9.0 (August 2026) Fuzzy find in command palette Implement fuzzy find for..." />
+<meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: August 19, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.9.0 (August 2026) Auto-labelling of viewer axes napari 0.5.0 laid the gr..." />
 
     <title>Release Notes &#8212; napari</title>
   
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=b74c444a"></script>
+    <script src="../_static/documentation_options.js?v=e767cfdd"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -830,34 +830,170 @@
   <section class="tex2jax_ignore mathjax_ignore" id="release-notes">
 <span id="id1"></span><h1>Release Notes<a class="headerlink" href="#release-notes" title="Link to this heading">#</a></h1>
 <p>Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.</p>
-<p><em>Last updated: August 18, 2026</em></p>
+<p><em>Last updated: August 19, 2026</em></p>
 <section id="recent-releases-last-3-months">
 <h2>Recent Releases (Last 3 Months)<a class="headerlink" href="#recent-releases-last-3-months" title="Link to this heading">#</a></h2>
 <p>Latest features and improvements:</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">napari 0.9.0 (August 2026)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="rubric" id="fuzzy-find-in-command-palette">Fuzzy find in command palette</p>
-<p class="sd-card-text">Implement fuzzy find for the command palette (<a class="reference external" href="https://github.com/napari/napari/pull/8661">#8661</a>)</p>
-<p class="rubric" id="adjust-grid-rendering-with-hidden-layers">Adjust grid rendering with hidden layers</p>
-<p class="sd-card-text">If using grid layout without using stride, there are no blanks fields for hidden layers
-thanks to <a class="reference external" href="https://github.com/napari/napari/pull/9244">#9244</a></p>
-<p class="rubric" id="inherit-axis-labels-from-layers">Inherit axis labels from layers</p>
-<p class="sd-card-text">Thanks to <a class="reference external" href="https://github.com/napari/napari/pull/9282">#9282</a> the axis labels in interface, next to slide and <code class="docutils literal notranslate"><span class="pre">Dims.axis_labels</span></code>
-are calculated based on axis labels of layers</p>
+<p class="rubric" id="auto-labelling-of-viewer-axes">Auto-labelling of viewer axes</p>
+<p class="sd-card-text">napari 0.5.0 laid the ground work for more accurate metadata handling by
+allowing users and plugins to set the <code class="docutils literal notranslate"><span class="pre">axis_labels</span></code> on layers. napari 0.9.0
+<em>finally</em> capitalises on that work by automatically labelling viewer axes based
+on the axis labels of layers present in the viewer.
+(<a class="reference external" href="https://github.com/napari/napari/pull/9282">#9282</a>)</p>
+<p class="sd-card-text">Now, opening a dataset with labelled axes will result in correctly labelled
+axes in the viewer:</p>
+<p class="sd-card-text"><img alt="napari screenshot showing inherited labeled viewer axes" src="https://us1.discourse-cdn.com/flex015/uploads/imagej/original/3X/6/7/67f30f24a32465ffdee330b59a7e342ec89e1ce1.png" />]</p>
+<p class="sd-card-text">Additionally, when you create a new layer from an existing one using the
+buttons in the GUI, the new layer now inherits the axis labels of the layer(s)
+it was derived from. (<a class="reference external" href="https://github.com/napari/napari/pull/9293">#9293</a>)</p>
+<p class="sd-card-text">There is still work to be done here. For example, if layers have labels that
+are inconsistent with each other, napari will simply ignore layers with fewer
+dimensions, or layers added later. But, for most use cases, layer and viewer
+metadata will now be much more informative!</p>
+<p class="rubric" id="layer-controls-for-multiple-selected-layers">Layer controls for multiple selected layers</p>
+<p class="sd-card-text">Until now, layer controls only appeared when a single layer was selected. Now,
+napari dynamically builds the layer controls from your selection, so
+when you select several layers at once you can see and use the controls that
+are shared between them. Pan-zoom is always available, while the layer-specific
+buttons still appear only when a single layer is selected.
+(<a class="reference external" href="https://github.com/napari/napari/pull/9318">#9318</a>)</p>
+<p class="sd-card-text">There’s also an experimental setting, <em>Generate GUI layer controls dynamically
+instead of using premade panels</em>, that makes napari use the new dynamic
+controls even for single layers.</p>
+<p class="rubric" id="xarray-metadata-is-now-inherited">Xarray metadata is now inherited</p>
+<p class="sd-card-text">If you work with <a class="reference external" href="https://docs.xarray.dev/">Xarray</a> — common in climate,
+geoscience, and many places where data ships with labelled coordinates — napari
+now reads metadata straight from your <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>s. When you add an xarray
+object to the viewer, napari will use its dimension names as axis labels, infer
+<code class="docutils literal notranslate"><span class="pre">scale</span></code> and <code class="docutils literal notranslate"><span class="pre">translate</span></code> from the coordinate values, and pick up <code class="docutils literal notranslate"><span class="pre">units</span></code> from
+CF-convention <code class="docutils literal notranslate"><span class="pre">units</span></code> attributes on coordinates (<a class="reference external" href="https://github.com/napari/napari/pull/9316">#9316</a>).
+This closed an 8-year old issue: <a class="reference external" href="https://github.com/napari/napari/issues/14">#14</a>!</p>
 <p class="rubric" id="status-bar-coordinates-as-floats">Status bar coordinates as floats</p>
-<p class="sd-card-text">Thanks to <a class="reference external" href="https://github.com/napari/napari/pull/9287">#9287</a> we no longer render coordinates on scale bar
-as integers, but as floats. It is important for all who use fractional
-<code class="docutils literal notranslate"><span class="pre">Layer.scale</span></code></p>
+<p class="sd-card-text">Continuing on the theme of improved metadata, when scale and/or unit metadata
+is set on the layer, the status bar coordinates now have increased precision,
+where before they were limited to just integers. This means you can have more
+accurate physical estimates of your data coordinates when exploring data.
+(<a class="reference external" href="https://github.com/napari/napari/pull/9287">#9287</a>)</p>
+<p class="rubric" id="take-a-guided-tour-of-the-viewer">Take a guided tour of the viewer</p>
+<p class="sd-card-text">New to napari, or just want a quick refresher on where everything lives? There’s
+now a guided tour, available from <strong>Help → Take a tour</strong>. The tour highlights
+the main areas of the viewer — the canvas, the layer list, layer controls, the
+viewer buttons, the dimension sliders, and the status bar — so you can get your
+bearings in seconds. If the viewer is empty, napari opens the built-in <em>Balls</em>
+(3D) sample data so the walkthrough has something to show (<a class="reference external" href="https://github.com/napari/napari/pull/9290">#9290</a>).</p>
+<p class="rubric" id="contributable-plugin-preferences">Contributable plugin preferences</p>
+<p class="sd-card-text">Plugins can now ship their own preferences (<a class="reference external" href="https://github.com/napari/napari/pull/9308">#9308</a>)!
+By declaring <code class="docutils literal notranslate"><span class="pre">configurations</span></code> in
+their <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> manifest, plugins get their own settings — stored
+separately from napari’s own settings, automatically added to and editable from
+the napari <strong>Preferences</strong> dialog, and accessible programmatically from Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_plugin_settings</span>
+
+<span class="n">settings</span> <span class="o">=</span> <span class="n">get_plugin_settings</span><span class="p">(</span><span class="s2">"my-plugin"</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">lazy</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p class="sd-card-text">Read more in the <a class="reference external" href="https://napari.org/dev/plugins/building_a_plugin/guides.html#configurations">Configurations Guide</a>
+to learn more about how to add this new contribution to your own plugins.</p>
+<p class="rubric" id="adjust-grid-rendering-with-hidden-layers">Adjust grid rendering with hidden layers</p>
+<p class="sd-card-text">Speaking of grid mode: grid mode with hidden layers is much improved: empty
+grid spaces are never shown and stride operates on the <em>full</em> layer list, so
+layer grouping doesn’t change when you show or hide layers (<a class="reference external" href="https://github.com/napari/napari/pull/9244">#9244</a>).</p>
+<p class="rubric" id="fuzzy-find-in-command-palette">Fuzzy find in command palette</p>
+<p class="sd-card-text">Have you used our <a class="reference internal" href="../getting_started/features.html#command-palette"><span class="std std-ref">command palette</span></a> yet? It’s a great way to
+quickly access and even discover napari functionality. Now, thanks to
+<a class="reference external" href="https://github.com/napari/napari/pull/8661">#8661</a>, it’s easier to find
+functions when you don’t know the exact name, or you mistyped something. You’ll
+need to have <a class="reference external" href="https://rapidfuzz.github.io/RapidFuzz/">rapidfuzz</a> installed to
+make use of it. It’s automatically installed with <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code> or
+<code class="docutils literal notranslate"><span class="pre">napari[optional]</span></code>. And if the search feels a bit off, you can set just how
+fuzzy you want it to be in Preferences &gt; Experimental &gt; Fuzzy Search Threshold.</p>
+<p class="sd-card-text">[screenshot or movie to be provided by Lorenzo]</p>
+<p class="rubric" id="d-slicing-of-surfaces">2D slicing of surfaces</p>
+<p class="sd-card-text">Ever since we added surfaces, they have been invisible in 2D slices. Now,
+thanks to all the work done on <a class="reference internal" href="../guides/rendering.html#thick-slicing"><span class="std std-ref">thick slicing</span></a>, surface
+slices appear in 2D view (<a class="reference external" href="https://github.com/napari/napari/pull/8783">#8783</a>).
+This enhancement is accompanied by support for async slicing, which should
+improve viewer responsiveness when slicing large, time varying surfaces, for
+example.</p>
+<p class="sd-card-text">[movie of ND-cows and slicing]</p>
+<p class="sd-card-text">… And you can try this out yourself with common .obj surface files thanks to
+a new built-in reader plugin!
+(<a class="reference external" href="https://github.com/napari/napari/pull/9228">#9228</a>)</p>
+<p class="sd-card-text">You should now be able to drag and drop .obj files into napari and see them
+instantly.</p>
 <p class="rubric" id="public-api-for-auto-contrast-limit">Public API for auto contrast limit</p>
-<p class="sd-card-text">In <a class="reference external" href="https://github.com/napari/napari/pull/9271">#9271</a> the public API for auto contrast limits is added</p>
+<p class="sd-card-text">For a very long time, it’s been possible to set automatic contrast limits
+updating on a layer <em>only</em> through the graphical user interface. This means an
+extra click for many workflows and poorer reproducibility. Thanks to
+<a class="reference external" href="https://github.com/napari/napari/pull/9271">#9271</a>, you can now set the
+<code class="docutils literal notranslate"><span class="pre">auto_contrast</span></code> attribute on Image layers:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">auto_contrast</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># or</span>
+<span class="n">image_layer</span><span class="o">.</span><span class="n">auto_contrast</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p class="rubric" id="the-life-changing-magic-of-tidying-up-the-viewer-model">The life-changing magic of tidying up the Viewer model</p>
+<p class="sd-card-text">The napari Viewer model, for historical reasons, is a grab-bag of <em>many</em>
+attributes, which makes usage, discoverability, and code modularity and
+composability a major issue. We’ve taken some <em>big</em> steps towards cleaning up
+one of our most important namespaces by creating Canvas
+(<a class="reference external" href="https://github.com/napari/napari/pull/8633">#8633</a>) and Scene
+(<a class="reference external" href="https://github.com/napari/napari/pull/9323">#9323</a>) models, which cleans up
+(<a class="reference external" href="https://github.com/napari/napari/pull/9363">#9363</a>) and clarifies
+(<a class="reference external" href="https://github.com/napari/docs/pull/1083">napari/docs#1083</a>) many parts of
+the API.</p>
+<p class="sd-card-text">The old API is in extremely widespread use, so although it is silently
+deprecated, it will continue to work for the foreseeable future. In the
+meantime, the new API should be much friendlier to work with by carefully
+grouping related concepts and APIs. Some examples:</p>
 <ul class="simple">
-<li><p class="sd-card-text">Canvas model (<a class="reference external" href="https://github.com/napari/napari/pull/8633">#8633</a>)</p></li>
-<li><p class="sd-card-text">Implement Surface slicing with async request/response (<a class="reference external" href="https://github.com/napari/napari/pull/8783">#8783</a>)</p></li>
-<li><p class="sd-card-text">Remove translations code (<a class="reference external" href="https://github.com/napari/napari/pull/8935">#8935</a>)</p></li>
-<li><p class="sd-card-text">Add builtin Wavefront OBJ to surfaces reader (<a class="reference external" href="https://github.com/napari/napari/pull/9228">#9228</a>)</p></li>
-<li><p class="sd-card-text">Dynamically construct layer controls based on selection (<a class="reference external" href="https://github.com/napari/napari/pull/9318">#9318</a>)</p></li>
+<li><p class="sd-card-text"><code class="docutils literal notranslate"><span class="pre">viewer.axes</span></code> and <code class="docutils literal notranslate"><span class="pre">viewer.floating_axes</span></code> become <code class="docutils literal notranslate"><span class="pre">viewer.scene.overlays.axes</span></code>
+and <code class="docutils literal notranslate"><span class="pre">viewer.canvas.overlays.axes</span></code>.</p></li>
+<li><p class="sd-card-text">From that API, you may also guess that the scale bar is on
+<code class="docutils literal notranslate"><span class="pre">viewer.canvas.overlays.scale_bar</span></code>.</p></li>
+<li><p class="sd-card-text">You can even get a list of the current overlays (both visible and invisible)
+with <code class="docutils literal notranslate"><span class="pre">list(viewer.canvas.overlays)</span></code> and <code class="docutils literal notranslate"><span class="pre">list(viewer.scene.overlays)</span></code>. (But
+do note that overlays with a <code class="docutils literal notranslate"><span class="pre">_</span></code> prefix are private and may change!)</p></li>
+<li><p class="sd-card-text"><code class="docutils literal notranslate"><span class="pre">viewer.camera</span></code> is now <code class="docutils literal notranslate"><span class="pre">viewer.scene.camera</span></code>.</p></li>
+<li><p class="sd-card-text">Grid mode is now accessed at <code class="docutils literal notranslate"><span class="pre">viewer.canvas.grid</span></code> (e.g.
+<code class="docutils literal notranslate"><span class="pre">viewer.canvas.grid.enabled</span> <span class="pre">=</span> <span class="pre">True</span></code>).</p></li>
 </ul>
+<p class="sd-card-text">This has also enabled a new public API: you can now query the canvas size (in
+pixels) without accessing private napari APIs! Check <code class="docutils literal notranslate"><span class="pre">viewer.canvas.size</span></code>!</p>
+<p class="sd-card-text">The TL;DR:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Canvas Model</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">scale_bar</span> <span class="o">-&gt;</span> <span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">scale_bar</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">text_overlay</span> <span class="o">-&gt;</span> <span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">text</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">floating_axes</span> <span class="o">-&gt;</span> <span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">axes</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">grid</span> <span class="o">-&gt;</span> <span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span>
+<span class="n">NOW</span> <span class="n">EXPOSED</span> <span class="o">-&gt;</span> <span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">current_slice</span>
+<span class="n">NEW</span> <span class="o">-&gt;</span> <span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">overlay_tiling</span>
+<span class="n">NEW</span> <span class="o">-&gt;</span> <span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">background_color</span> <span class="o">&amp;</span> <span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">background_color_override</span>
+<span class="n">NEW</span> <span class="o">-&gt;</span> <span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">size</span>
+
+<span class="c1"># Scene Model</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">camera</span> <span class="o">-&gt;</span> <span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">axes</span> <span class="o">-&gt;</span> <span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">axes</span>
+</pre></div>
+</div>
+<p class="rubric" id="removal-of-translation-code">Removal of translation code</p>
+<p class="sd-card-text">Several years ago, we started working on implementing localization machinery
+into napari. Unfortunately, this work has been sitting unfinished and unused,
+while making maintaining napari harder. Given the extra maintenance burden
+without benefit, we made the difficult decision to remove it from our codebase
+(<a class="reference external" href="https://github.com/napari/napari/pull/8935">#8935</a>), with the hope that in
+the future we might restart this effort with a better plan.</p>
+<p class="sd-card-text">We do aim to revisit when napari’s foundations are more solid, but for now,
+<code class="docutils literal notranslate"><span class="pre">napari.utils.translations</span></code> is deprecated. If you have this code in your
+codebase:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">translations</span> <span class="k">as</span> <span class="n">trans</span>
+</pre></div>
+</div>
+<p class="sd-card-text">please remove it. (For now, <code class="docutils literal notranslate"><span class="pre">trans._()</span></code> is a no-op.)</p>
 <p class="sd-card-text"><a class="reference internal" href="release_0_9_0.html"><span class="doc std std-doc">View full release notes →</span></a></p>
 </div>
 </details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">

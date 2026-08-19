@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=b74c444a"></script>
+    <script src="../../../_static/documentation_options.js?v=e767cfdd"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0b1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -980,6 +980,61 @@ window.runMermaid = runMermaid;</script>
             <span class="n">Application</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="s1">'test_app'</span><span class="p">)</span>
             <span class="n">_initialize_plugins</span><span class="o">.</span><span class="n">cache_clear</span><span class="p">()</span>
             <span class="n">init_qactions</span><span class="o">.</span><span class="n">cache_clear</span><span class="p">()</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plugin_settings</span><span class="p">(</span><span class="n">npe2pm</span><span class="p">,</span> <span class="n">tmp_path</span><span class="p">,</span> <span class="n">monkeypatch</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Make `napari.settings.get_plugin_settings` fresh for each test.</span>
+
+<span class="sd">    Clears the `_PLUGIN_SETTINGS` cache and redirects the default plugin</span>
+<span class="sd">    settings directory to this test's `tmp_path` (by patching `_CFG_PATH`,</span>
+<span class="sd">    the same variable `get_plugin_settings` uses to locate napari's own</span>
+<span class="sd">    settings file), so plugin settings are never read from or written to</span>
+<span class="sd">    the real config directory.</span>
+
+<span class="sd">    This depends on npe2's `npe2pm` fixture, so plugin discovery is</span>
+<span class="sd">    blocked and any plugins you register only exist for this test.</span>
+
+<span class="sd">    It also connects `_clear_plugin_settings_cache` to `npe2pm`'s</span>
+<span class="sd">    `plugins_registered` and `enablement_changed` signals for the duration</span>
+<span class="sd">    of the test to allow dynamic registration/enablement during testing.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; def test_my_settings(plugin_settings, npe2pm):</span>
+<span class="sd">    ...     if 'example-plugin' not in npe2pm:</span>
+<span class="sd">    ...         npe2pm.register(</span>
+<span class="sd">    ...             PluginManifest.from_distribution('example-plugin')</span>
+<span class="sd">    ...         )</span>
+<span class="sd">    ...     from napari.settings import get_plugin_settings</span>
+<span class="sd">    ...     s = get_plugin_settings('example-plugin')</span>
+<span class="sd">    ...     assert s.reader.max_size_mb == 512 # default value</span>
+<span class="sd">    ...     s.reader.max_size_mb = 1024  # auto-saves under tmp_path</span>
+<span class="sd">    ...     assert 'max_size_mb: 1024' in s.config_path.read_text()</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari</span><span class="w"> </span><span class="kn">import</span> <span class="n">settings</span> <span class="k">as</span> <span class="n">napari_settings</span>
+
+    <span class="n">npe2pm</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">plugins_registered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">napari_settings</span><span class="o">.</span><span class="n">_clear_plugin_settings_cache</span>
+    <span class="p">)</span>
+    <span class="n">npe2pm</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">enablement_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">napari_settings</span><span class="o">.</span><span class="n">_clear_plugin_settings_cache</span>
+    <span class="p">)</span>
+    <span class="n">napari_settings</span><span class="o">.</span><span class="n">_clear_plugin_settings_cache</span><span class="p">()</span>
+    <span class="c1"># redirect the default plugin-settings directory to this test's tmp_path</span>
+    <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setattr</span><span class="p">(</span>
+        <span class="n">napari_settings</span><span class="p">,</span> <span class="s1">'_CFG_PATH'</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s1">'settings.yaml'</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="k">yield</span>
+
+    <span class="n">npe2pm</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">plugins_registered</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span>
+        <span class="n">napari_settings</span><span class="o">.</span><span class="n">_clear_plugin_settings_cache</span>
+    <span class="p">)</span>
+    <span class="n">npe2pm</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">enablement_changed</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span>
+        <span class="n">napari_settings</span><span class="o">.</span><span class="n">_clear_plugin_settings_cache</span>
+    <span class="p">)</span>
+    <span class="n">napari_settings</span><span class="o">.</span><span class="n">_clear_plugin_settings_cache</span><span class="p">()</span>
 
 
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

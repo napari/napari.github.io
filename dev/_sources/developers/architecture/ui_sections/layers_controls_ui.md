@@ -10,6 +10,284 @@ graph LR
 	napari._qt.layer_controls(napari._qt.layer_controls)
 	napari._qt.layer_controls --> napari._qt.layer_controls.qt_layer_controls_container
 	click napari._qt.layer_controls "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/__init__.py" _blank
+	napari._qt.layer_controls.dynamic(napari._qt.layer_controls.dynamic)
+	click napari._qt.layer_controls.dynamic "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/__init__.py" _blank
+	napari._qt.layer_controls.dynamic.buttons(napari._qt.layer_controls.dynamic.buttons)
+	napari._qt.layer_controls.dynamic.buttons --> napari._qt.layer_controls.dynamic.buttons.qt_image_buttons
+	napari._qt.layer_controls.dynamic.buttons --> napari._qt.layer_controls.dynamic.buttons.qt_labels_buttons
+	napari._qt.layer_controls.dynamic.buttons --> napari._qt.layer_controls.dynamic.buttons.qt_layer_buttons_base
+	napari._qt.layer_controls.dynamic.buttons --> napari._qt.layer_controls.dynamic.buttons.qt_points_buttons
+	napari._qt.layer_controls.dynamic.buttons --> napari._qt.layer_controls.dynamic.buttons.qt_shapes_buttons
+	napari._qt.layer_controls.dynamic.buttons --> napari._qt.layer_controls.dynamic.buttons.qt_surface_buttons
+	napari._qt.layer_controls.dynamic.buttons --> napari._qt.layer_controls.dynamic.buttons.qt_tracks_buttons
+	napari._qt.layer_controls.dynamic.buttons --> napari._qt.layer_controls.dynamic.buttons.qt_vectors_buttons
+	click napari._qt.layer_controls.dynamic.buttons "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/buttons/__init__.py" _blank
+	napari._qt.layer_controls.dynamic.buttons.qt_image_buttons(napari._qt.layer_controls.dynamic.buttons.qt_image_buttons)
+	napari._qt.layer_controls.dynamic.buttons.qt_image_buttons --> napari._qt.layer_controls.dynamic.buttons.qt_layer_buttons_base
+	napari._qt.layer_controls.dynamic.buttons.qt_image_buttons --> napari.layers
+	click napari._qt.layer_controls.dynamic.buttons.qt_image_buttons "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/buttons/qt_image_buttons.py" _blank
+	napari._qt.layer_controls.dynamic.buttons.qt_labels_buttons(napari._qt.layer_controls.dynamic.buttons.qt_labels_buttons)
+	napari._qt.layer_controls.dynamic.buttons.qt_labels_buttons --> napari._qt.layer_controls.dynamic.buttons.qt_layer_buttons_base
+	napari._qt.layer_controls.dynamic.buttons.qt_labels_buttons --> napari._qt.widgets.qt_mode_buttons
+	napari._qt.layer_controls.dynamic.buttons.qt_labels_buttons --> napari.layers
+	click napari._qt.layer_controls.dynamic.buttons.qt_labels_buttons "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/buttons/qt_labels_buttons.py" _blank
+	napari._qt.layer_controls.dynamic.buttons.qt_layer_buttons_base(napari._qt.layer_controls.dynamic.buttons.qt_layer_buttons_base)
+	napari._qt.layer_controls.dynamic.buttons.qt_layer_buttons_base --> napari._qt.widgets.qt_mode_buttons
+	click napari._qt.layer_controls.dynamic.buttons.qt_layer_buttons_base "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/buttons/qt_layer_buttons_base.py" _blank
+	napari._qt.layer_controls.dynamic.buttons.qt_points_buttons(napari._qt.layer_controls.dynamic.buttons.qt_points_buttons)
+	napari._qt.layer_controls.dynamic.buttons.qt_points_buttons --> napari._qt.layer_controls.dynamic.buttons.qt_layer_buttons_base
+	napari._qt.layer_controls.dynamic.buttons.qt_points_buttons --> napari._qt.widgets.qt_mode_buttons
+	napari._qt.layer_controls.dynamic.buttons.qt_points_buttons --> napari.layers
+	click napari._qt.layer_controls.dynamic.buttons.qt_points_buttons "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/buttons/qt_points_buttons.py" _blank
+	napari._qt.layer_controls.dynamic.buttons.qt_shapes_buttons(napari._qt.layer_controls.dynamic.buttons.qt_shapes_buttons)
+	napari._qt.layer_controls.dynamic.buttons.qt_shapes_buttons --> napari._qt.layer_controls.dynamic.buttons.qt_layer_buttons_base
+	napari._qt.layer_controls.dynamic.buttons.qt_shapes_buttons --> napari._qt.widgets.qt_mode_buttons
+	napari._qt.layer_controls.dynamic.buttons.qt_shapes_buttons --> napari.layers
+	click napari._qt.layer_controls.dynamic.buttons.qt_shapes_buttons "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/buttons/qt_shapes_buttons.py" _blank
+	napari._qt.layer_controls.dynamic.buttons.qt_surface_buttons(napari._qt.layer_controls.dynamic.buttons.qt_surface_buttons)
+	napari._qt.layer_controls.dynamic.buttons.qt_surface_buttons --> napari._qt.layer_controls.dynamic.buttons.qt_layer_buttons_base
+	napari._qt.layer_controls.dynamic.buttons.qt_surface_buttons --> napari.layers
+	click napari._qt.layer_controls.dynamic.buttons.qt_surface_buttons "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/buttons/qt_surface_buttons.py" _blank
+	napari._qt.layer_controls.dynamic.buttons.qt_tracks_buttons(napari._qt.layer_controls.dynamic.buttons.qt_tracks_buttons)
+	napari._qt.layer_controls.dynamic.buttons.qt_tracks_buttons --> napari._qt.layer_controls.dynamic.buttons.qt_layer_buttons_base
+	napari._qt.layer_controls.dynamic.buttons.qt_tracks_buttons --> napari.layers
+	click napari._qt.layer_controls.dynamic.buttons.qt_tracks_buttons "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/buttons/qt_tracks_buttons.py" _blank
+	napari._qt.layer_controls.dynamic.buttons.qt_vectors_buttons(napari._qt.layer_controls.dynamic.buttons.qt_vectors_buttons)
+	napari._qt.layer_controls.dynamic.buttons.qt_vectors_buttons --> napari._qt.layer_controls.dynamic.buttons.qt_layer_buttons_base
+	napari._qt.layer_controls.dynamic.buttons.qt_vectors_buttons --> napari.layers
+	click napari._qt.layer_controls.dynamic.buttons.qt_vectors_buttons "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/buttons/qt_vectors_buttons.py" _blank
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls(napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls)
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.buttons
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets._image
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets._labels
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets._points
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets._shapes
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets._surface
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets._tracks
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets._vectors
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets.qt_colormap_control
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets.qt_contrast_limits
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets.qt_face_color
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets.qt_gamma_slider
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets.qt_histogram_control
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets.qt_multiscale_level_control
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets.qt_projection_mode_control
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari._qt.layer_controls.dynamic.widgets.qt_text_visibility
+	napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls --> napari.layers
+	click napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/qt_dynamic_layer_controls.py" _blank
+	napari._qt.layer_controls.dynamic.widgets(napari._qt.layer_controls.dynamic.widgets)
+	napari._qt.layer_controls.dynamic.widgets --> napari._qt.layer_controls.dynamic.widgets.qt_colormap_control
+	napari._qt.layer_controls.dynamic.widgets --> napari._qt.layer_controls.dynamic.widgets.qt_contrast_limits
+	napari._qt.layer_controls.dynamic.widgets --> napari._qt.layer_controls.dynamic.widgets.qt_face_color
+	napari._qt.layer_controls.dynamic.widgets --> napari._qt.layer_controls.dynamic.widgets.qt_gamma_slider
+	napari._qt.layer_controls.dynamic.widgets --> napari._qt.layer_controls.dynamic.widgets.qt_histogram_control
+	napari._qt.layer_controls.dynamic.widgets --> napari._qt.layer_controls.dynamic.widgets.qt_multiscale_level_control
+	napari._qt.layer_controls.dynamic.widgets --> napari._qt.layer_controls.dynamic.widgets.qt_opacity_blending_controls
+	napari._qt.layer_controls.dynamic.widgets --> napari._qt.layer_controls.dynamic.widgets.qt_projection_mode_control
+	napari._qt.layer_controls.dynamic.widgets --> napari._qt.layer_controls.dynamic.widgets.qt_text_visibility
+	napari._qt.layer_controls.dynamic.widgets --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	click napari._qt.layer_controls.dynamic.widgets "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/__init__.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._image(napari._qt.layer_controls.dynamic.widgets._image)
+	napari._qt.layer_controls.dynamic.widgets._image --> napari._qt.layer_controls.dynamic.widgets._image.qt_depiction_control
+	napari._qt.layer_controls.dynamic.widgets._image --> napari._qt.layer_controls.dynamic.widgets._image.qt_interpolation_combobox
+	napari._qt.layer_controls.dynamic.widgets._image --> napari._qt.layer_controls.dynamic.widgets._image.qt_render_control
+	napari._qt.layer_controls.dynamic.widgets._image --> napari._qt.layer_controls.dynamic.widgets.qt_histogram_control
+	click napari._qt.layer_controls.dynamic.widgets._image "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_image/__init__.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._image.qt_depiction_control(napari._qt.layer_controls.dynamic.widgets._image.qt_depiction_control)
+	napari._qt.layer_controls.dynamic.widgets._image.qt_depiction_control --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._image.qt_depiction_control --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._image.qt_depiction_control "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_image/qt_depiction_control.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._image.qt_interpolation_combobox(napari._qt.layer_controls.dynamic.widgets._image.qt_interpolation_combobox)
+	napari._qt.layer_controls.dynamic.widgets._image.qt_interpolation_combobox --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._image.qt_interpolation_combobox --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._image.qt_interpolation_combobox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_image/qt_interpolation_combobox.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._image.qt_render_control(napari._qt.layer_controls.dynamic.widgets._image.qt_render_control)
+	napari._qt.layer_controls.dynamic.widgets._image.qt_render_control --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._image.qt_render_control --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._image.qt_render_control "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_image/qt_render_control.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._labels(napari._qt.layer_controls.dynamic.widgets._labels)
+	napari._qt.layer_controls.dynamic.widgets._labels --> napari._qt.layer_controls.dynamic.widgets._labels.qt_brush_size_slider
+	napari._qt.layer_controls.dynamic.widgets._labels --> napari._qt.layer_controls.dynamic.widgets._labels.qt_color_mode_combobox
+	napari._qt.layer_controls.dynamic.widgets._labels --> napari._qt.layer_controls.dynamic.widgets._labels.qt_contiguous_checkbox
+	napari._qt.layer_controls.dynamic.widgets._labels --> napari._qt.layer_controls.dynamic.widgets._labels.qt_contour_spinbox
+	napari._qt.layer_controls.dynamic.widgets._labels --> napari._qt.layer_controls.dynamic.widgets._labels.qt_current_label_controls
+	napari._qt.layer_controls.dynamic.widgets._labels --> napari._qt.layer_controls.dynamic.widgets._labels.qt_display_selected_label_checkbox
+	napari._qt.layer_controls.dynamic.widgets._labels --> napari._qt.layer_controls.dynamic.widgets._labels.qt_ndim_spinbox
+	napari._qt.layer_controls.dynamic.widgets._labels --> napari._qt.layer_controls.dynamic.widgets._labels.qt_preserve_labels_checkbox
+	napari._qt.layer_controls.dynamic.widgets._labels --> napari._qt.layer_controls.dynamic.widgets._labels.qt_rendering_control
+	click napari._qt.layer_controls.dynamic.widgets._labels "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_labels/__init__.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_brush_size_slider(napari._qt.layer_controls.dynamic.widgets._labels.qt_brush_size_slider)
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_brush_size_slider --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_brush_size_slider --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._labels.qt_brush_size_slider "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_labels/qt_brush_size_slider.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_color_mode_combobox(napari._qt.layer_controls.dynamic.widgets._labels.qt_color_mode_combobox)
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_color_mode_combobox --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_color_mode_combobox --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._labels.qt_color_mode_combobox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_labels/qt_color_mode_combobox.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_contiguous_checkbox(napari._qt.layer_controls.dynamic.widgets._labels.qt_contiguous_checkbox)
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_contiguous_checkbox --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_contiguous_checkbox --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._labels.qt_contiguous_checkbox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_labels/qt_contiguous_checkbox.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_contour_spinbox(napari._qt.layer_controls.dynamic.widgets._labels.qt_contour_spinbox)
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_contour_spinbox --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_contour_spinbox --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._labels.qt_contour_spinbox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_labels/qt_contour_spinbox.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_current_label_controls(napari._qt.layer_controls.dynamic.widgets._labels.qt_current_label_controls)
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_current_label_controls --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_current_label_controls --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._labels.qt_current_label_controls "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_labels/qt_current_label_controls.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_display_selected_label_checkbox(napari._qt.layer_controls.dynamic.widgets._labels.qt_display_selected_label_checkbox)
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_display_selected_label_checkbox --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_display_selected_label_checkbox --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._labels.qt_display_selected_label_checkbox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_labels/qt_display_selected_label_checkbox.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_ndim_spinbox(napari._qt.layer_controls.dynamic.widgets._labels.qt_ndim_spinbox)
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_ndim_spinbox --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_ndim_spinbox --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._labels.qt_ndim_spinbox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_labels/qt_ndim_spinbox.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_preserve_labels_checkbox(napari._qt.layer_controls.dynamic.widgets._labels.qt_preserve_labels_checkbox)
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_preserve_labels_checkbox --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_preserve_labels_checkbox --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._labels.qt_preserve_labels_checkbox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_labels/qt_preserve_labels_checkbox.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_rendering_control(napari._qt.layer_controls.dynamic.widgets._labels.qt_rendering_control)
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_rendering_control --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._labels.qt_rendering_control --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._labels.qt_rendering_control "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_labels/qt_rendering_control.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._points(napari._qt.layer_controls.dynamic.widgets._points)
+	napari._qt.layer_controls.dynamic.widgets._points --> napari._qt.layer_controls.dynamic.widgets._points.qt_border_color
+	napari._qt.layer_controls.dynamic.widgets._points --> napari._qt.layer_controls.dynamic.widgets._points.qt_current_size_slider
+	napari._qt.layer_controls.dynamic.widgets._points --> napari._qt.layer_controls.dynamic.widgets._points.qt_symbol_combobox
+	click napari._qt.layer_controls.dynamic.widgets._points "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_points/__init__.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._points.qt_border_color(napari._qt.layer_controls.dynamic.widgets._points.qt_border_color)
+	napari._qt.layer_controls.dynamic.widgets._points.qt_border_color --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._points.qt_border_color --> napari._qt.widgets.qt_color_swatch
+	napari._qt.layer_controls.dynamic.widgets._points.qt_border_color --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._points.qt_border_color "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_points/qt_border_color.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._points.qt_current_size_slider(napari._qt.layer_controls.dynamic.widgets._points.qt_current_size_slider)
+	napari._qt.layer_controls.dynamic.widgets._points.qt_current_size_slider --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._points.qt_current_size_slider --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._points.qt_current_size_slider "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_points/qt_current_size_slider.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._points.qt_symbol_combobox(napari._qt.layer_controls.dynamic.widgets._points.qt_symbol_combobox)
+	napari._qt.layer_controls.dynamic.widgets._points.qt_symbol_combobox --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._points.qt_symbol_combobox --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._points.qt_symbol_combobox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_points/qt_symbol_combobox.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._shapes(napari._qt.layer_controls.dynamic.widgets._shapes)
+	napari._qt.layer_controls.dynamic.widgets._shapes --> napari._qt.layer_controls.dynamic.widgets._shapes.qt_edge_color
+	napari._qt.layer_controls.dynamic.widgets._shapes --> napari._qt.layer_controls.dynamic.widgets._shapes.qt_edge_width_slider
+	click napari._qt.layer_controls.dynamic.widgets._shapes "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_shapes/__init__.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._shapes.qt_edge_color(napari._qt.layer_controls.dynamic.widgets._shapes.qt_edge_color)
+	napari._qt.layer_controls.dynamic.widgets._shapes.qt_edge_color --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._shapes.qt_edge_color --> napari._qt.widgets.qt_color_swatch
+	napari._qt.layer_controls.dynamic.widgets._shapes.qt_edge_color --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._shapes.qt_edge_color "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_shapes/qt_edge_color.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._shapes.qt_edge_width_slider(napari._qt.layer_controls.dynamic.widgets._shapes.qt_edge_width_slider)
+	napari._qt.layer_controls.dynamic.widgets._shapes.qt_edge_width_slider --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._shapes.qt_edge_width_slider --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._shapes.qt_edge_width_slider "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_shapes/qt_edge_width_slider.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._surface(napari._qt.layer_controls.dynamic.widgets._surface)
+	napari._qt.layer_controls.dynamic.widgets._surface --> napari._qt.layer_controls.dynamic.widgets._surface.qt_shading_combobox
+	click napari._qt.layer_controls.dynamic.widgets._surface "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_surface/__init__.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._surface.qt_shading_combobox(napari._qt.layer_controls.dynamic.widgets._surface.qt_shading_combobox)
+	napari._qt.layer_controls.dynamic.widgets._surface.qt_shading_combobox --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._surface.qt_shading_combobox --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._surface.qt_shading_combobox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_surface/qt_shading_combobox.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._tracks(napari._qt.layer_controls.dynamic.widgets._tracks)
+	napari._qt.layer_controls.dynamic.widgets._tracks --> napari._qt.layer_controls.dynamic.widgets._tracks.qt_color_properties_combobox
+	napari._qt.layer_controls.dynamic.widgets._tracks --> napari._qt.layer_controls.dynamic.widgets._tracks.qt_colormap_control
+	napari._qt.layer_controls.dynamic.widgets._tracks --> napari._qt.layer_controls.dynamic.widgets._tracks.qt_graph_checkbox
+	napari._qt.layer_controls.dynamic.widgets._tracks --> napari._qt.layer_controls.dynamic.widgets._tracks.qt_head_slider
+	napari._qt.layer_controls.dynamic.widgets._tracks --> napari._qt.layer_controls.dynamic.widgets._tracks.qt_hide_completed_tracks_checkbox
+	napari._qt.layer_controls.dynamic.widgets._tracks --> napari._qt.layer_controls.dynamic.widgets._tracks.qt_id_checkbox
+	napari._qt.layer_controls.dynamic.widgets._tracks --> napari._qt.layer_controls.dynamic.widgets._tracks.qt_tail_control
+	click napari._qt.layer_controls.dynamic.widgets._tracks "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_tracks/__init__.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_color_properties_combobox(napari._qt.layer_controls.dynamic.widgets._tracks.qt_color_properties_combobox)
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_color_properties_combobox --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_color_properties_combobox --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._tracks.qt_color_properties_combobox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_tracks/qt_color_properties_combobox.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_colormap_control(napari._qt.layer_controls.dynamic.widgets._tracks.qt_colormap_control)
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_colormap_control --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_colormap_control --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._tracks.qt_colormap_control "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_tracks/qt_colormap_control.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_graph_checkbox(napari._qt.layer_controls.dynamic.widgets._tracks.qt_graph_checkbox)
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_graph_checkbox --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_graph_checkbox --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._tracks.qt_graph_checkbox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_tracks/qt_graph_checkbox.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_head_slider(napari._qt.layer_controls.dynamic.widgets._tracks.qt_head_slider)
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_head_slider --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_head_slider --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._tracks.qt_head_slider "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_tracks/qt_head_slider.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_hide_completed_tracks_checkbox(napari._qt.layer_controls.dynamic.widgets._tracks.qt_hide_completed_tracks_checkbox)
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_hide_completed_tracks_checkbox --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_hide_completed_tracks_checkbox --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._tracks.qt_hide_completed_tracks_checkbox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_tracks/qt_hide_completed_tracks_checkbox.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_id_checkbox(napari._qt.layer_controls.dynamic.widgets._tracks.qt_id_checkbox)
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_id_checkbox --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_id_checkbox --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._tracks.qt_id_checkbox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_tracks/qt_id_checkbox.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_tail_control(napari._qt.layer_controls.dynamic.widgets._tracks.qt_tail_control)
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_tail_control --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._tracks.qt_tail_control --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._tracks.qt_tail_control "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_tracks/qt_tail_control.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._vectors(napari._qt.layer_controls.dynamic.widgets._vectors)
+	napari._qt.layer_controls.dynamic.widgets._vectors --> napari._qt.layer_controls.dynamic.widgets._vectors.qt_edge_color
+	napari._qt.layer_controls.dynamic.widgets._vectors --> napari._qt.layer_controls.dynamic.widgets._vectors.qt_line_dimension_spinbox
+	napari._qt.layer_controls.dynamic.widgets._vectors --> napari._qt.layer_controls.dynamic.widgets._vectors.qt_vector_style_combobox
+	click napari._qt.layer_controls.dynamic.widgets._vectors "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_vectors/__init__.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._vectors.qt_edge_color(napari._qt.layer_controls.dynamic.widgets._vectors.qt_edge_color)
+	napari._qt.layer_controls.dynamic.widgets._vectors.qt_edge_color --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._vectors.qt_edge_color --> napari._qt.widgets.qt_color_swatch
+	napari._qt.layer_controls.dynamic.widgets._vectors.qt_edge_color --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._vectors.qt_edge_color "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_vectors/qt_edge_color.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._vectors.qt_line_dimension_spinbox(napari._qt.layer_controls.dynamic.widgets._vectors.qt_line_dimension_spinbox)
+	napari._qt.layer_controls.dynamic.widgets._vectors.qt_line_dimension_spinbox --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._vectors.qt_line_dimension_spinbox --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._vectors.qt_line_dimension_spinbox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_vectors/qt_line_dimension_spinbox.py" _blank
+	napari._qt.layer_controls.dynamic.widgets._vectors.qt_vector_style_combobox(napari._qt.layer_controls.dynamic.widgets._vectors.qt_vector_style_combobox)
+	napari._qt.layer_controls.dynamic.widgets._vectors.qt_vector_style_combobox --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets._vectors.qt_vector_style_combobox --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets._vectors.qt_vector_style_combobox "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/_vectors/qt_vector_style_combobox.py" _blank
+	napari._qt.layer_controls.dynamic.widgets.qt_colormap_control(napari._qt.layer_controls.dynamic.widgets.qt_colormap_control)
+	napari._qt.layer_controls.dynamic.widgets.qt_colormap_control --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets.qt_colormap_control --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets.qt_colormap_control "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/qt_colormap_control.py" _blank
+	napari._qt.layer_controls.dynamic.widgets.qt_contrast_limits(napari._qt.layer_controls.dynamic.widgets.qt_contrast_limits)
+	napari._qt.layer_controls.dynamic.widgets.qt_contrast_limits --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets.qt_contrast_limits --> napari._qt.widgets.qt_histogram_content
+	napari._qt.layer_controls.dynamic.widgets.qt_contrast_limits --> napari._qt.widgets.qt_mode_buttons
+	napari._qt.layer_controls.dynamic.widgets.qt_contrast_limits --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets.qt_contrast_limits "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/qt_contrast_limits.py" _blank
+	napari._qt.layer_controls.dynamic.widgets.qt_face_color(napari._qt.layer_controls.dynamic.widgets.qt_face_color)
+	napari._qt.layer_controls.dynamic.widgets.qt_face_color --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets.qt_face_color --> napari._qt.widgets.qt_color_swatch
+	napari._qt.layer_controls.dynamic.widgets.qt_face_color --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets.qt_face_color "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/qt_face_color.py" _blank
+	napari._qt.layer_controls.dynamic.widgets.qt_gamma_slider(napari._qt.layer_controls.dynamic.widgets.qt_gamma_slider)
+	napari._qt.layer_controls.dynamic.widgets.qt_gamma_slider --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets.qt_gamma_slider --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets.qt_gamma_slider "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/qt_gamma_slider.py" _blank
+	napari._qt.layer_controls.dynamic.widgets.qt_histogram_control(napari._qt.layer_controls.dynamic.widgets.qt_histogram_control)
+	napari._qt.layer_controls.dynamic.widgets.qt_histogram_control --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets.qt_histogram_control --> napari._qt.widgets.qt_histogram
+	napari._qt.layer_controls.dynamic.widgets.qt_histogram_control --> napari._qt.widgets.qt_histogram_content
+	napari._qt.layer_controls.dynamic.widgets.qt_histogram_control --> napari._qt.widgets.qt_histogram_settings
+	napari._qt.layer_controls.dynamic.widgets.qt_histogram_control --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets.qt_histogram_control "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/qt_histogram_control.py" _blank
+	napari._qt.layer_controls.dynamic.widgets.qt_multiscale_level_control(napari._qt.layer_controls.dynamic.widgets.qt_multiscale_level_control)
+	napari._qt.layer_controls.dynamic.widgets.qt_multiscale_level_control --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets.qt_multiscale_level_control --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets.qt_multiscale_level_control "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/qt_multiscale_level_control.py" _blank
+	napari._qt.layer_controls.dynamic.widgets.qt_opacity_blending_controls(napari._qt.layer_controls.dynamic.widgets.qt_opacity_blending_controls)
+	napari._qt.layer_controls.dynamic.widgets.qt_opacity_blending_controls --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	click napari._qt.layer_controls.dynamic.widgets.qt_opacity_blending_controls "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/qt_opacity_blending_controls.py" _blank
+	napari._qt.layer_controls.dynamic.widgets.qt_projection_mode_control(napari._qt.layer_controls.dynamic.widgets.qt_projection_mode_control)
+	napari._qt.layer_controls.dynamic.widgets.qt_projection_mode_control --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	click napari._qt.layer_controls.dynamic.widgets.qt_projection_mode_control "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/qt_projection_mode_control.py" _blank
+	napari._qt.layer_controls.dynamic.widgets.qt_text_visibility(napari._qt.layer_controls.dynamic.widgets.qt_text_visibility)
+	napari._qt.layer_controls.dynamic.widgets.qt_text_visibility --> napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.dynamic.widgets.qt_text_visibility --> napari.layers
+	click napari._qt.layer_controls.dynamic.widgets.qt_text_visibility "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/qt_text_visibility.py" _blank
+	napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base(napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base)
+	click napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/dynamic/widgets/qt_widget_controls_base.py" _blank
 	napari._qt.layer_controls.qt_image_controls(napari._qt.layer_controls.qt_image_controls)
 	napari._qt.layer_controls.qt_image_controls --> napari._qt.layer_controls.qt_image_controls_base
 	napari._qt.layer_controls.qt_image_controls --> napari._qt.layer_controls.widgets
@@ -34,6 +312,8 @@ graph LR
 	napari._qt.layer_controls.qt_layer_controls_base --> napari._qt.widgets.qt_mode_buttons
 	click napari._qt.layer_controls.qt_layer_controls_base "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/qt_layer_controls_base.py" _blank
 	napari._qt.layer_controls.qt_layer_controls_container(napari._qt.layer_controls.qt_layer_controls_container)
+	napari._qt.layer_controls.qt_layer_controls_container --> napari._qt.layer_controls.dynamic
+	napari._qt.layer_controls.qt_layer_controls_container --> napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls
 	napari._qt.layer_controls.qt_layer_controls_container --> napari._qt.layer_controls.qt_image_controls
 	napari._qt.layer_controls.qt_layer_controls_container --> napari._qt.layer_controls.qt_labels_controls
 	napari._qt.layer_controls.qt_layer_controls_container --> napari._qt.layer_controls.qt_points_controls
@@ -159,6 +439,7 @@ graph LR
 	click napari._qt.layer_controls.widgets._points "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/_points/__init__.py" _blank
 	napari._qt.layer_controls.widgets._points.qt_border_color(napari._qt.layer_controls.widgets._points.qt_border_color)
 	napari._qt.layer_controls.widgets._points.qt_border_color --> napari._qt.layer_controls.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.widgets._points.qt_border_color --> napari._qt.widgets.qt_color_swatch
 	napari._qt.layer_controls.widgets._points.qt_border_color --> napari.layers
 	click napari._qt.layer_controls.widgets._points.qt_border_color "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/_points/qt_border_color.py" _blank
 	napari._qt.layer_controls.widgets._points.qt_current_size_slider(napari._qt.layer_controls.widgets._points.qt_current_size_slider)
@@ -175,6 +456,7 @@ graph LR
 	click napari._qt.layer_controls.widgets._shapes "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/_shapes/__init__.py" _blank
 	napari._qt.layer_controls.widgets._shapes.qt_edge_color(napari._qt.layer_controls.widgets._shapes.qt_edge_color)
 	napari._qt.layer_controls.widgets._shapes.qt_edge_color --> napari._qt.layer_controls.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.widgets._shapes.qt_edge_color --> napari._qt.widgets.qt_color_swatch
 	napari._qt.layer_controls.widgets._shapes.qt_edge_color --> napari.layers
 	click napari._qt.layer_controls.widgets._shapes.qt_edge_color "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/_shapes/qt_edge_color.py" _blank
 	napari._qt.layer_controls.widgets._shapes.qt_edge_width_slider(napari._qt.layer_controls.widgets._shapes.qt_edge_width_slider)
@@ -232,6 +514,7 @@ graph LR
 	click napari._qt.layer_controls.widgets._vectors "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/_vectors/__init__.py" _blank
 	napari._qt.layer_controls.widgets._vectors.qt_edge_color(napari._qt.layer_controls.widgets._vectors.qt_edge_color)
 	napari._qt.layer_controls.widgets._vectors.qt_edge_color --> napari._qt.layer_controls.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.widgets._vectors.qt_edge_color --> napari._qt.widgets.qt_color_swatch
 	napari._qt.layer_controls.widgets._vectors.qt_edge_color --> napari.layers
 	click napari._qt.layer_controls.widgets._vectors.qt_edge_color "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/_vectors/qt_edge_color.py" _blank
 	napari._qt.layer_controls.widgets._vectors.qt_line_dimension_spinbox(napari._qt.layer_controls.widgets._vectors.qt_line_dimension_spinbox)
@@ -247,11 +530,13 @@ graph LR
 	click napari._qt.layer_controls.widgets.qt_colormap_control "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_colormap_control.py" _blank
 	napari._qt.layer_controls.widgets.qt_contrast_limits(napari._qt.layer_controls.widgets.qt_contrast_limits)
 	napari._qt.layer_controls.widgets.qt_contrast_limits --> napari._qt.layer_controls.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.widgets.qt_contrast_limits --> napari._qt.widgets.qt_histogram_content
 	napari._qt.layer_controls.widgets.qt_contrast_limits --> napari._qt.widgets.qt_mode_buttons
 	napari._qt.layer_controls.widgets.qt_contrast_limits --> napari.layers
 	click napari._qt.layer_controls.widgets.qt_contrast_limits "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_contrast_limits.py" _blank
 	napari._qt.layer_controls.widgets.qt_face_color(napari._qt.layer_controls.widgets.qt_face_color)
 	napari._qt.layer_controls.widgets.qt_face_color --> napari._qt.layer_controls.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.widgets.qt_face_color --> napari._qt.widgets.qt_color_swatch
 	napari._qt.layer_controls.widgets.qt_face_color --> napari.layers
 	click napari._qt.layer_controls.widgets.qt_face_color "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_face_color.py" _blank
 	napari._qt.layer_controls.widgets.qt_gamma_slider(napari._qt.layer_controls.widgets.qt_gamma_slider)
@@ -259,6 +544,9 @@ graph LR
 	click napari._qt.layer_controls.widgets.qt_gamma_slider "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_gamma_slider.py" _blank
 	napari._qt.layer_controls.widgets.qt_histogram_control(napari._qt.layer_controls.widgets.qt_histogram_control)
 	napari._qt.layer_controls.widgets.qt_histogram_control --> napari._qt.layer_controls.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.widgets.qt_histogram_control --> napari._qt.widgets.qt_histogram
+	napari._qt.layer_controls.widgets.qt_histogram_control --> napari._qt.widgets.qt_histogram_content
+	napari._qt.layer_controls.widgets.qt_histogram_control --> napari._qt.widgets.qt_histogram_settings
 	napari._qt.layer_controls.widgets.qt_histogram_control --> napari.layers
 	click napari._qt.layer_controls.widgets.qt_histogram_control "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_histogram_control.py" _blank
 	napari._qt.layer_controls.widgets.qt_multiscale_level_control(napari._qt.layer_controls.widgets.qt_multiscale_level_control)
@@ -289,9 +577,20 @@ graph LR
 	napari._qt.qt_viewer --> napari._qt.widgets.qt_viewer_dock_widget
 	napari._qt.qt_viewer --> napari.layers
 	click napari._qt.qt_viewer "https://github.com/napari/napari/tree/main/napari/_qt/qt_viewer.py" _blank
+	napari._qt.widgets.qt_color_swatch(napari._qt.widgets.qt_color_swatch)
+	click napari._qt.widgets.qt_color_swatch "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_color_swatch.py" _blank
 	napari._qt.widgets.qt_command_palette(napari._qt.widgets.qt_command_palette)
 	napari._qt.widgets.qt_command_palette --> napari._qt.qt_main_window
 	click napari._qt.widgets.qt_command_palette "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_command_palette.py" _blank
+	napari._qt.widgets.qt_histogram(napari._qt.widgets.qt_histogram)
+	napari._qt.widgets.qt_histogram --> napari.layers
+	click napari._qt.widgets.qt_histogram "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_histogram.py" _blank
+	napari._qt.widgets.qt_histogram_content(napari._qt.widgets.qt_histogram_content)
+	napari._qt.widgets.qt_histogram_content --> napari._qt.widgets.qt_histogram_settings
+	napari._qt.widgets.qt_histogram_content --> napari.layers
+	click napari._qt.widgets.qt_histogram_content "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_histogram_content.py" _blank
+	napari._qt.widgets.qt_histogram_settings(napari._qt.widgets.qt_histogram_settings)
+	click napari._qt.widgets.qt_histogram_settings "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_histogram_settings.py" _blank
 	napari._qt.widgets.qt_mode_buttons(napari._qt.widgets.qt_mode_buttons)
 	napari._qt.widgets.qt_mode_buttons --> napari.layers
 	click napari._qt.widgets.qt_mode_buttons "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_mode_buttons.py" _blank
@@ -321,6 +620,7 @@ graph LR
 	end
 	class module.napari._qt subgraphs
 	subgraph module.napari._qt.layer_controls[napari._qt.layer_controls]
+		 napari._qt.layer_controls.dynamic
 		 napari._qt.layer_controls.qt_image_controls
 		 napari._qt.layer_controls.qt_image_controls_base
 		 napari._qt.layer_controls.qt_labels_controls
@@ -334,6 +634,92 @@ graph LR
 		 napari._qt.layer_controls.widgets
 	end
 	class module.napari._qt.layer_controls subgraphs
+	subgraph module.napari._qt.layer_controls.dynamic[napari._qt.layer_controls.dynamic]
+		 napari._qt.layer_controls.dynamic.buttons
+		 napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls
+		 napari._qt.layer_controls.dynamic.widgets
+	end
+	class module.napari._qt.layer_controls.dynamic subgraphs
+	subgraph module.napari._qt.layer_controls.dynamic.buttons[napari._qt.layer_controls.dynamic.buttons]
+		 napari._qt.layer_controls.dynamic.buttons.qt_image_buttons
+		 napari._qt.layer_controls.dynamic.buttons.qt_labels_buttons
+		 napari._qt.layer_controls.dynamic.buttons.qt_layer_buttons_base
+		 napari._qt.layer_controls.dynamic.buttons.qt_points_buttons
+		 napari._qt.layer_controls.dynamic.buttons.qt_shapes_buttons
+		 napari._qt.layer_controls.dynamic.buttons.qt_surface_buttons
+		 napari._qt.layer_controls.dynamic.buttons.qt_tracks_buttons
+		 napari._qt.layer_controls.dynamic.buttons.qt_vectors_buttons
+	end
+	class module.napari._qt.layer_controls.dynamic.buttons subgraphs
+	subgraph module.napari._qt.layer_controls.dynamic.widgets[napari._qt.layer_controls.dynamic.widgets]
+		 napari._qt.layer_controls.dynamic.widgets._image
+		 napari._qt.layer_controls.dynamic.widgets._labels
+		 napari._qt.layer_controls.dynamic.widgets._points
+		 napari._qt.layer_controls.dynamic.widgets._shapes
+		 napari._qt.layer_controls.dynamic.widgets._surface
+		 napari._qt.layer_controls.dynamic.widgets._tracks
+		 napari._qt.layer_controls.dynamic.widgets._vectors
+		 napari._qt.layer_controls.dynamic.widgets.qt_colormap_control
+		 napari._qt.layer_controls.dynamic.widgets.qt_contrast_limits
+		 napari._qt.layer_controls.dynamic.widgets.qt_face_color
+		 napari._qt.layer_controls.dynamic.widgets.qt_gamma_slider
+		 napari._qt.layer_controls.dynamic.widgets.qt_histogram_control
+		 napari._qt.layer_controls.dynamic.widgets.qt_multiscale_level_control
+		 napari._qt.layer_controls.dynamic.widgets.qt_opacity_blending_controls
+		 napari._qt.layer_controls.dynamic.widgets.qt_projection_mode_control
+		 napari._qt.layer_controls.dynamic.widgets.qt_text_visibility
+		 napari._qt.layer_controls.dynamic.widgets.qt_widget_controls_base
+	end
+	class module.napari._qt.layer_controls.dynamic.widgets subgraphs
+	subgraph module.napari._qt.layer_controls.dynamic.widgets._image[napari._qt.layer_controls.dynamic.widgets._image]
+		 napari._qt.layer_controls.dynamic.widgets._image.qt_depiction_control
+		 napari._qt.layer_controls.dynamic.widgets._image.qt_interpolation_combobox
+		 napari._qt.layer_controls.dynamic.widgets._image.qt_render_control
+	end
+	class module.napari._qt.layer_controls.dynamic.widgets._image subgraphs
+	subgraph module.napari._qt.layer_controls.dynamic.widgets._labels[napari._qt.layer_controls.dynamic.widgets._labels]
+		 napari._qt.layer_controls.dynamic.widgets._labels.qt_brush_size_slider
+		 napari._qt.layer_controls.dynamic.widgets._labels.qt_color_mode_combobox
+		 napari._qt.layer_controls.dynamic.widgets._labels.qt_contiguous_checkbox
+		 napari._qt.layer_controls.dynamic.widgets._labels.qt_contour_spinbox
+		 napari._qt.layer_controls.dynamic.widgets._labels.qt_current_label_controls
+		 napari._qt.layer_controls.dynamic.widgets._labels.qt_display_selected_label_checkbox
+		 napari._qt.layer_controls.dynamic.widgets._labels.qt_ndim_spinbox
+		 napari._qt.layer_controls.dynamic.widgets._labels.qt_preserve_labels_checkbox
+		 napari._qt.layer_controls.dynamic.widgets._labels.qt_rendering_control
+	end
+	class module.napari._qt.layer_controls.dynamic.widgets._labels subgraphs
+	subgraph module.napari._qt.layer_controls.dynamic.widgets._points[napari._qt.layer_controls.dynamic.widgets._points]
+		 napari._qt.layer_controls.dynamic.widgets._points.qt_border_color
+		 napari._qt.layer_controls.dynamic.widgets._points.qt_current_size_slider
+		 napari._qt.layer_controls.dynamic.widgets._points.qt_symbol_combobox
+	end
+	class module.napari._qt.layer_controls.dynamic.widgets._points subgraphs
+	subgraph module.napari._qt.layer_controls.dynamic.widgets._shapes[napari._qt.layer_controls.dynamic.widgets._shapes]
+		 napari._qt.layer_controls.dynamic.widgets._shapes.qt_edge_color
+		 napari._qt.layer_controls.dynamic.widgets._shapes.qt_edge_width_slider
+	end
+	class module.napari._qt.layer_controls.dynamic.widgets._shapes subgraphs
+	subgraph module.napari._qt.layer_controls.dynamic.widgets._surface[napari._qt.layer_controls.dynamic.widgets._surface]
+		 napari._qt.layer_controls.dynamic.widgets._surface.qt_shading_combobox
+	end
+	class module.napari._qt.layer_controls.dynamic.widgets._surface subgraphs
+	subgraph module.napari._qt.layer_controls.dynamic.widgets._tracks[napari._qt.layer_controls.dynamic.widgets._tracks]
+		 napari._qt.layer_controls.dynamic.widgets._tracks.qt_color_properties_combobox
+		 napari._qt.layer_controls.dynamic.widgets._tracks.qt_colormap_control
+		 napari._qt.layer_controls.dynamic.widgets._tracks.qt_graph_checkbox
+		 napari._qt.layer_controls.dynamic.widgets._tracks.qt_head_slider
+		 napari._qt.layer_controls.dynamic.widgets._tracks.qt_hide_completed_tracks_checkbox
+		 napari._qt.layer_controls.dynamic.widgets._tracks.qt_id_checkbox
+		 napari._qt.layer_controls.dynamic.widgets._tracks.qt_tail_control
+	end
+	class module.napari._qt.layer_controls.dynamic.widgets._tracks subgraphs
+	subgraph module.napari._qt.layer_controls.dynamic.widgets._vectors[napari._qt.layer_controls.dynamic.widgets._vectors]
+		 napari._qt.layer_controls.dynamic.widgets._vectors.qt_edge_color
+		 napari._qt.layer_controls.dynamic.widgets._vectors.qt_line_dimension_spinbox
+		 napari._qt.layer_controls.dynamic.widgets._vectors.qt_vector_style_combobox
+	end
+	class module.napari._qt.layer_controls.dynamic.widgets._vectors subgraphs
 	subgraph module.napari._qt.layer_controls.widgets[napari._qt.layer_controls.widgets]
 		 napari._qt.layer_controls.widgets._image
 		 napari._qt.layer_controls.widgets._labels
@@ -404,7 +790,11 @@ graph LR
 	end
 	class module.napari._qt.layer_controls.widgets._vectors subgraphs
 	subgraph module.napari._qt.widgets[napari._qt.widgets]
+		 napari._qt.widgets.qt_color_swatch
 		 napari._qt.widgets.qt_command_palette
+		 napari._qt.widgets.qt_histogram
+		 napari._qt.widgets.qt_histogram_content
+		 napari._qt.widgets.qt_histogram_settings
 		 napari._qt.widgets.qt_mode_buttons
 		 napari._qt.widgets.qt_viewer_dock_widget
 		 napari._qt.widgets.qt_viewer_tour
@@ -422,14 +812,85 @@ napari/
 │ ├─__init__.py
 │ ├─qt_main_window.py
 │ ├─widgets/
+│ │ ├─qt_histogram_settings.py
+│ │ ├─qt_histogram.py
+│ │ ├─qt_histogram_content.py
 │ │ ├─qt_viewer_dock_widget.py
 │ │ ├─qt_viewer_tour.py
 │ │ ├─qt_mode_buttons.py
-│ │ └─qt_command_palette.py
+│ │ ├─qt_command_palette.py
+│ │ └─qt_color_swatch.py
 │ ├─layer_controls/
 │ │ ├─qt_shapes_controls.py
 │ │ ├─qt_tracks_controls.py
 │ │ ├─__init__.py
+│ │ ├─dynamic/
+│ │ │ ├─__init__.py
+│ │ │ ├─qt_dynamic_layer_controls.py
+│ │ │ ├─widgets/
+│ │ │ │ ├─_labels/
+│ │ │ │ │ ├─__init__.py
+│ │ │ │ │ ├─qt_rendering_control.py
+│ │ │ │ │ ├─qt_display_selected_label_checkbox.py
+│ │ │ │ │ ├─qt_contour_spinbox.py
+│ │ │ │ │ ├─qt_ndim_spinbox.py
+│ │ │ │ │ ├─qt_preserve_labels_checkbox.py
+│ │ │ │ │ ├─qt_brush_size_slider.py
+│ │ │ │ │ ├─qt_color_mode_combobox.py
+│ │ │ │ │ ├─qt_contiguous_checkbox.py
+│ │ │ │ │ └─qt_current_label_controls.py
+│ │ │ │ ├─__init__.py
+│ │ │ │ ├─qt_histogram_control.py
+│ │ │ │ ├─_vectors/
+│ │ │ │ │ ├─__init__.py
+│ │ │ │ │ ├─qt_edge_color.py
+│ │ │ │ │ ├─qt_line_dimension_spinbox.py
+│ │ │ │ │ └─qt_vector_style_combobox.py
+│ │ │ │ ├─_tracks/
+│ │ │ │ │ ├─qt_graph_checkbox.py
+│ │ │ │ │ ├─__init__.py
+│ │ │ │ │ ├─qt_tail_control.py
+│ │ │ │ │ ├─qt_color_properties_combobox.py
+│ │ │ │ │ ├─qt_head_slider.py
+│ │ │ │ │ ├─qt_hide_completed_tracks_checkbox.py
+│ │ │ │ │ ├─qt_id_checkbox.py
+│ │ │ │ │ └─qt_colormap_control.py
+│ │ │ │ ├─qt_widget_controls_base.py
+│ │ │ │ ├─_image/
+│ │ │ │ │ ├─__init__.py
+│ │ │ │ │ ├─qt_interpolation_combobox.py
+│ │ │ │ │ ├─qt_depiction_control.py
+│ │ │ │ │ └─qt_render_control.py
+│ │ │ │ ├─_surface/
+│ │ │ │ │ ├─__init__.py
+│ │ │ │ │ └─qt_shading_combobox.py
+│ │ │ │ ├─qt_face_color.py
+│ │ │ │ ├─qt_opacity_blending_controls.py
+│ │ │ │ ├─qt_gamma_slider.py
+│ │ │ │ ├─_shapes/
+│ │ │ │ │ ├─__init__.py
+│ │ │ │ │ ├─qt_edge_color.py
+│ │ │ │ │ └─qt_edge_width_slider.py
+│ │ │ │ ├─_points/
+│ │ │ │ │ ├─__init__.py
+│ │ │ │ │ ├─qt_current_size_slider.py
+│ │ │ │ │ ├─qt_symbol_combobox.py
+│ │ │ │ │ └─qt_border_color.py
+│ │ │ │ ├─qt_projection_mode_control.py
+│ │ │ │ ├─qt_multiscale_level_control.py
+│ │ │ │ ├─qt_contrast_limits.py
+│ │ │ │ ├─qt_text_visibility.py
+│ │ │ │ └─qt_colormap_control.py
+│ │ │ └─buttons/
+│ │ │   ├─__init__.py
+│ │ │   ├─qt_layer_buttons_base.py
+│ │ │   ├─qt_surface_buttons.py
+│ │ │   ├─qt_vectors_buttons.py
+│ │ │   ├─qt_image_buttons.py
+│ │ │   ├─qt_points_buttons.py
+│ │ │   ├─qt_tracks_buttons.py
+│ │ │   ├─qt_shapes_buttons.py
+│ │ │   └─qt_labels_buttons.py
 │ │ ├─qt_surface_controls.py
 │ │ ├─qt_labels_controls.py
 │ │ ├─qt_vectors_controls.py

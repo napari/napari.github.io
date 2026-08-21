@@ -1,6 +1,17 @@
 # About the project and team
 
-napari is a consensus-based community project. Anyone with an interest in the project can join the community, contribute to the project design, and participate in the decision making process. You can learn more about how the project is run by reading our [governance model](napari-governance). This page lists our current and emeritus [core team members](governance.md#core-team-members). Core team members are community members that have demonstrated a sustained commitment to the project through ongoing contributions and that they can maintain napari with care. We also list our current and emeritus steering council members. Finally, the project currently has a number of paid team members in various roles supported by grants. They are listed below under the [Team Roles](#team-roles) section
+napari is a consensus-based community project.
+Anyone with an interest in the project can join the community,
+contribute to the project design, and participate in the decision making process.
+You can learn more about how the project is run by reading our
+[governance model](napari-governance). This page lists our current and emeritus
+[core team members](governance.md#core-team-members). Core team members are
+community members that have demonstrated a sustained commitment to the project
+through ongoing contributions and that they can maintain napari with care.
+We also list our current and emeritus steering council members and our current
+triage team members. Finally, the project currently has a number of paid team
+members in various roles supported by grants. They are listed below under the
+[Team Roles](#team-roles) section.
 
 ## Current Core Team Members
 
@@ -48,6 +59,11 @@ napari is a consensus-based community project. Anyone with an interest in the pr
 - [Loic Royer](https://github.com/napari/napari/commits?author=royerloic) - [@royerloic](https://github.com/royerloic)
 - [Nicholas Sofroniew](https://github.com/napari/napari/commits?author=sofroniewn) - [@sofroniewn](https://github.com/sofroniewn)
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - [@tlambert03](https://github.com/tlambert03)
+
+## Current Triage Team Members
+
+- [Aniket Singh Yadav](https://github.com/napari/napari/commits?author=Aniketsy) - [@Aniketsy](https://github.com/Aniketsy)
+- [Jacopo Abramo](https://github.com/napari/napari/commits?author=jacopoabramo) - [@jacopoabramo](https://github.com/jacopoabramo)
 
 # Team Roles
 

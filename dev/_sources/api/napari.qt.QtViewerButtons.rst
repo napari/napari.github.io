@@ -359,6 +359,9 @@ napari.qt.QtViewerButtons
       ~QtViewerButtons.isModal
    
    
+      ~QtViewerButtons.isQmlExposed
+   
+   
       ~QtViewerButtons.isQuickItemType
    
    

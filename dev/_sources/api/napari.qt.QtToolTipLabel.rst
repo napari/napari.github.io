@@ -377,6 +377,9 @@ napari.qt.QtToolTipLabel
       ~QtToolTipLabel.isModal
    
    
+      ~QtToolTipLabel.isQmlExposed
+   
+   
       ~QtToolTipLabel.isQuickItemType
    
    

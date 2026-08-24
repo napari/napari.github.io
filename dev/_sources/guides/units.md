@@ -46,6 +46,17 @@ Pint also has logic to disambiguate unit names, for example,
 If you do not set units, napari assumes pixels.
 To set *no* units, use `layer.units = ('dimensionless',...)`.
 
+## Inheriting scale and units from xarray
+
+If you pass an [Xarray](https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html)
+`DataArray` to napari, it automatically inherits metadata from it: dimension
+names become the layer's axis labels, coordinate values are used for `scale`
+and `translate`, and CF-convention `units` attributes on coordinates (validated
+with [pint](https://pint.readthedocs.io/)) become the layer units. Even
+`datetime64` coordinates are converted to a sensible time unit. See the
+[xarray example](sphx_glr_gallery_xarray-latlon-timeseries.py) for a
+full demonstration.
+
 ## When units are consistent across layers
 
 napari can use units to render layers in the same physical space even when the

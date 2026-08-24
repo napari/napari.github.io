@@ -14,8 +14,8 @@
 <meta property="og:url" content="https://napari.org/stable/howtos/layers/image.html" />
 <meta property="og:site_name" content="napari" />
 <meta property="og:description" content="In this document, you will learn how to use the napari image layer, including the types of images that can be displayed, and how to set properties like contrast limits, opacity, colormaps, blending and interpolation. You will also understand how to add and manipulate a variety of different types ..." />
-<meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
-<meta property="og:image:alt" content="3D segmented tribolium embryo in the napari viewer" />
+<meta property="og:image" content="https://napari.org/stable/_images/histogram-overview.png" />
+<meta property="og:image:alt" content="napari histogram in layer controls" />
 <meta name="description" content="In this document, you will learn how to use the napari image layer, including the types of images that can be displayed, and how to set properties like contrast limits, opacity, colormaps, blending and interpolation. You will also understand how to add and manipulate a variety of different types ..." />
 <meta name="twitter:card" content="summary_large_image" />
 
@@ -1155,6 +1155,13 @@ on it you get back a NumPy array.</p>
 <p>The great thing about napari support of array-like objects is that you get to
 keep on using your favorite array libraries without worrying about any
 conversions. napari handles all of that for you.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you pass an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html">Xarray</a>
+<code class="docutils literal notranslate"><span class="pre">DataArray</span></code> to napari, it automatically inherits metadata from it, such as axis
+labels, <code class="docutils literal notranslate"><span class="pre">scale</span></code>, <code class="docutils literal notranslate"><span class="pre">translate</span></code>, and units. For details on how this metadata is
+used for rendering, see the <a class="reference internal" href="../../guides/units.html#units-guide"><span class="std std-ref">units guide</span></a>.</p>
+</div>
 <p>napari will also wait until just before it displays data onto the screen to
 actually generate a NumPy array from your data, and so if you’re using a library
 like <code class="docutils literal notranslate"><span class="pre">dask</span></code> or <code class="docutils literal notranslate"><span class="pre">zarr</span></code> that supports lazy loading and lazy evaluation, we won’t

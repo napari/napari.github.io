@@ -847,10 +847,10 @@ which was important for <a class="reference internal" href="../plugins/technical
 to provide this information. However, napari did not use that information for
 anything: it was up to the user to propagate it to <code class="docutils literal notranslate"><span class="pre">Viewer.dims</span></code>.</p></li>
 <li><p><strong>In 0.7.x,</strong> layer axis <em>units</em> propagate to <code class="docutils literal notranslate"><span class="pre">Viewer.dims</span></code> automatically,
-but layer axis <em>names</em> are still ignored by default.</p></li>
-<li><p><a class="reference internal" href="../roadmaps/active_roadmap.html#active-roadmap"><span class="std std-ref"><strong>In the hopefully near future,</strong></span></a>, layer axis names will be
-automatically combined to provide the viewer axis names, which will be the
-union of all layer axes.</p></li>
+but layer axis <em>names</em> were still ignored by default.</p></li>
+<li><p><strong>In 0.9.x,</strong> layer axis <em>names</em> now propagate to <code class="docutils literal notranslate"><span class="pre">Viewer.dims</span></code>
+automatically, and new layers created from a selected layer inherit its axis
+labels.</p></li>
 </ul>
 </div>
 <p>napari started out as a tool to look at NumPy arrays. As such, it mimics some
@@ -932,10 +932,26 @@ the display and NumPy behavior:</p>
 </tbody>
 </table>
 </div>
-<p>Of course, as a user, you can set the axis names for the viewer by
+<section id="automatic-axis-labels">
+<h2>Automatic axis labels<a class="headerlink" href="#automatic-axis-labels" title="Link to this heading">#</a></h2>
+<p>The viewer axis labels (<code class="docutils literal notranslate"><span class="pre">viewer.dims.axis_labels</span></code>) are updated automatically
+from the axis labels of the layers in the viewer. If you add a layer with <code class="docutils literal notranslate"><span class="pre">axis_labels</span></code> set — or use an <a class="reference external" href="https://docs.xarray.dev/">xarray</a> <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>
+with named dimensions — the viewer dimension sliders and axes overlay are
+labelled accordingly, with no extra work.</p>
+<p>When several layers have axis labels, napari uses the labels from the
+annotated layer with the most dimensions. If multiple equally long annotated
+layers are present, the topmost (most recently added) layer wins. Axes without
+an explicit label fall back to the default negative-index placeholders
+described above.</p>
+<p>Creating a new layer from a selected layer — for example, using the buttons
+in the GUI — also copies the axis labels of the source layer. If no layer is
+selected, or several layers are selected, the new layer falls back to the
+default labels.</p>
+<p>Of course, as a user, you can still set the axis names for the viewer by
 <a class="reference internal" href="../getting_started/viewer.html#gui-axis-renaming"><span class="std std-ref">right-clicking on the roll-dimensions button</span></a>, and for the
 layers by setting <code class="docutils literal notranslate"><span class="pre">layer.axis_labels</span></code> or by using the
 <a class="reference external" href="https://github.com/napari/napari-metadata">napari-metadata</a> plugin.</p>
+</section>
 </section>
 
 
@@ -976,6 +992,18 @@ layers by setting <code class="docutils literal notranslate"><span class="pre">l
                 <dialog id="pst-secondary-sidebar-modal"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-axis-labels">Automatic axis labels</a></li>
+</ul>
+  </nav></div>
 
   <div class="sidebar-secondary-item">
 

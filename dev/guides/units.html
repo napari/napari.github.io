@@ -871,6 +871,17 @@ Pint also has logic to disambiguate unit names, for example,
 <p>If you do not set units, napari assumes pixels.
 To set <em>no</em> units, use <code class="docutils literal notranslate"><span class="pre">layer.units</span> <span class="pre">=</span> <span class="pre">('dimensionless',...)</span></code>.</p>
 </section>
+<section id="inheriting-scale-and-units-from-xarray">
+<h2>Inheriting scale and units from xarray<a class="headerlink" href="#inheriting-scale-and-units-from-xarray" title="Link to this heading">#</a></h2>
+<p>If you pass an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html">Xarray</a>
+<code class="docutils literal notranslate"><span class="pre">DataArray</span></code> to napari, it automatically inherits metadata from it: dimension
+names become the layer’s axis labels, coordinate values are used for <code class="docutils literal notranslate"><span class="pre">scale</span></code>
+and <code class="docutils literal notranslate"><span class="pre">translate</span></code>, and CF-convention <code class="docutils literal notranslate"><span class="pre">units</span></code> attributes on coordinates (validated
+with <a class="reference external" href="https://pint.readthedocs.io/">pint</a>) become the layer units. Even
+<code class="docutils literal notranslate"><span class="pre">datetime64</span></code> coordinates are converted to a sensible time unit. See the
+<a class="reference internal" href="../gallery/xarray-latlon-timeseries.html#sphx-glr-gallery-xarray-latlon-timeseries-py"><span class="std std-ref">xarray example</span></a> for a
+full demonstration.</p>
+</section>
 <section id="when-units-are-consistent-across-layers">
 <h2>When units are consistent across layers<a class="headerlink" href="#when-units-are-consistent-across-layers" title="Link to this heading">#</a></h2>
 <p>napari can use units to render layers in the same physical space even when the
@@ -960,6 +971,7 @@ viewer, see <a class="reference internal" href="axis-names.html#axis-names"><spa
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scale-and-units-live-on-layers">Scale and units live on layers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inheriting-scale-and-units-from-xarray">Inheriting scale and units from xarray</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-units-are-consistent-across-layers">When units are consistent across layers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-scale-bar-gets-its-units">How the scale bar gets its units</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-units-do-not-do">What units do not do</a></li>

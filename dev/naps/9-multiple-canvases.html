@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/stable/naps/9-multiple-canvases.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Authors, Ashley Anderson &lt; aandersoniii@chanzuckerberg.com&gt;, Wouter-Michiel Vierdag, Lorenzo Gaifas,, Created, 2023-08-04,, Status, Draft,, Type, Standards Track,. Definitions: In order to facilitate discussion - this NAP will use the following definitions. Viewer- Currently maps basically ..." />
+<meta property="og:description" content="Authors, Ashley Anderson &lt; aandersoniii@chanzuckerberg.com&gt;, Wouter-Michiel Vierdag, Lorenzo Gaifas,, Created, 2023-08-04,, Status, Provisionally Accepted,, Type, Standards Track,. Definitions: In order to facilitate discussion - this NAP will use the following definitions. Viewer- Currentl..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="3D segmented tribolium embryo in the napari viewer" />
-<meta name="description" content="Authors, Ashley Anderson &lt; aandersoniii@chanzuckerberg.com&gt;, Wouter-Michiel Vierdag, Lorenzo Gaifas,, Created, 2023-08-04,, Status, Draft,, Type, Standards Track,. Definitions: In order to facilitate discussion - this NAP will use the following definitions. Viewer- Currently maps basically ..." />
+<meta name="description" content="Authors, Ashley Anderson &lt; aandersoniii@chanzuckerberg.com&gt;, Wouter-Michiel Vierdag, Lorenzo Gaifas,, Created, 2023-08-04,, Status, Provisionally Accepted,, Type, Standards Track,. Definitions: In order to facilitate discussion - this NAP will use the following definitions. Viewer- Currentl..." />
 <meta name="twitter:card" content="summary_large_image" />
 
     <title>NAP-9 — Multiple Views &#8212; napari</title>
@@ -594,7 +594,7 @@
 <dd class="field-even"><p>2023-08-04</p>
 </dd>
 <dt class="field-odd">Status<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Draft</p>
+<dd class="field-odd"><p>Provisionally Accepted</p>
 </dd>
 <dt class="field-even">Type<span class="colon">:</span></dt>
 <dd class="field-even"><p>Standards Track</p>
@@ -607,9 +607,9 @@
 <p>This NAP was previously discussed as <em>Multiple Canvases</em>, but due to the term <em>Canvas</em> having a well-established and more restrictive meaning of what we aim to implement, we’re shifting to using the term <em>View</em> for a (hopefully) clearer distinction from existing terms. For a more thorough discussion of terminology, see <a class="reference internal" href="#terminology">alternative terminology</a>.</p>
 </div>
 <p>In order to facilitate discussion - this NAP will use the following definitions.</p>
-<p><em>Viewer</em> - Currently maps basically 1:1 to the napari application main window, including canvas, dims sliders, layer list, layer controls, and dock widgets. Related is the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>, a class in napari that maintains the state of the Viewer.</p>
-<p><em>Canvas</em> - Currently usually used to refer to the central widget of the napari Viewer which renders the data from the current slice, as well as keeping track of all the visualisation scenegraph from vispy and various other napari-vispy interfaces.</p>
-<p><em>View</em> - New term introduced by this NAP in order to formalize and disentangle the previous notions of <em>Canvas</em> and <em>Viewer</em>. This NAP introduces a <code class="docutils literal notranslate"><span class="pre">View</span></code> class in napari with its own <code class="docutils literal notranslate"><span class="pre">Layerlist</span></code>, <code class="docutils literal notranslate"><span class="pre">Dims</span></code>, and <code class="docutils literal notranslate"><span class="pre">Camera</span></code>.</p>
+<p><em>Viewer</em> - Currently maps basically 1:1 to the napari application main window, including canvas, dims sliders, layer list, layer controls, and dock widgets. Related is the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>, a class in napari that maintains the state of the Viewer. This NAP plans to keep window-related stuff on the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> class.</p>
+<p><em>Canvas</em> - Formerly used to refer to the central widget of the napari Viewer which renders the data from the current slice, as well as keeping track of all the visualisation scenegraph from vispy and various other napari-vispy interfaces. Now also a model accessible on the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> that controls canvas and “screen” related features (such as overlays and the grid mode).</p>
+<p><em>View</em> - New term introduced by this NAP in order to formalize and disentangle the previous notions of <em>Canvas</em>, <em>Viewer</em> and <em>Window</em>. This NAP introduces a <code class="docutils literal notranslate"><span class="pre">View</span></code> class in napari with its own <code class="docutils literal notranslate"><span class="pre">Layerlist</span></code>, <code class="docutils literal notranslate"><span class="pre">Dims</span></code>, <code class="docutils literal notranslate"><span class="pre">Canvas</span></code> and <code class="docutils literal notranslate"><span class="pre">Scene</span></code>.</p>
 <p><em>Layer</em> - The base unit of the napari image data model. Currently, a <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> maintains an ordered list of <code class="docutils literal notranslate"><span class="pre">Layers</span></code> that it may display on its <code class="docutils literal notranslate"><span class="pre">View</span></code>.</p>
 <p><em>Layer Slice</em> - A subset of data from a Layer, reduced to 2D or 3D (via slicing and projecting) for visualization. This concept was introduced in <a class="reference external" href="https://napari.org/stable/naps/4-async-slicing.html">NAP-4</a> as part of the async slicing work, and was already implemented for most layer types in subsequent PRs (<code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code>, <code class="docutils literal notranslate"><span class="pre">Points</span></code>, and <code class="docutils literal notranslate"><span class="pre">Vectors</span></code>).</p>
 <div class="admonition warning">
@@ -618,7 +618,7 @@
 <ul class="simple">
 <li><p><a class="reference external" href="https://vispy.org/api/vispy.app.canvas.html#module-vispy.app.canvas"><code class="docutils literal notranslate"><span class="pre">Canvas</span></code></a>: the whole surface on which things can be rendered (and which can be embedded in the GUI as we do in napari)</p></li>
 <li><p><a class="reference external" href="https://vispy.org/api/vispy.scene.widgets.viewbox.html#module-vispy.scene.widgets.viewbox"><code class="docutils literal notranslate"><span class="pre">ViewBox</span></code></a>: a rectangular portion of a canvas where a Scene can be visualised</p></li>
-<li><p><a class="reference external" href="https://vispy.org/api/vispy.scene.html#module-vispy.scene"><code class="docutils literal notranslate"><span class="pre">Scene</span></code></a>: a collection of renderable objects and cameras that the canvas can use to render inside a ViewBox. In vispy, scenes are tree-like structures called scenegraphs composed by Nodes.</p></li>
+<li><p><a class="reference external" href="https://vispy.org/api/vispy.scene.html#module-vispy.scene"><code class="docutils literal notranslate"><span class="pre">Scene</span></code></a>: a collection of renderable objects and cameras that the canvas can use to render inside a ViewBox. In vispy, scenes are tree-like structures called scenegraphs composed by Nodes. <code class="docutils literal notranslate"><span class="pre">Scene</span></code> is also now a model on the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>.</p></li>
 </ul>
 <p>Where necessary to refer to these concepts in this NAP (or discussion), such concepts will be qualified accordingly (for example: “a VisPy Canvas”)</p>
 </div>
@@ -626,10 +626,15 @@
 <section id="abstract">
 <h2>Abstract<a class="headerlink" href="#abstract" title="Link to this heading">#</a></h2>
 <p>Current napari architecture supports a single canvas/camera/view per viewer. Simultaneously showing multiple views of the same (or different) data generally necessitates opening an entirely new napari viewer window or low-level work with Qt widgets and private napari APIs. This wastes resources (primarily memory) and complicates interaction.
-This NAP establishes a plan to implement a builtin system for opening, visualizing and interacting with multiple views within a single viewer.</p>
+This NAP establishes a plan to implement a builtin system for opening, visualizing and interacting with multiple views within a single window.</p>
 <p>We propose to achieve this in two parts that can be implemented independently:</p>
 <ol class="arabic simple">
-<li><p>Splitting of part of the current <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> into a new <code class="docutils literal notranslate"><span class="pre">View</span></code> model holding a <code class="docutils literal notranslate"><span class="pre">Layerlist</span></code>, a <code class="docutils literal notranslate"><span class="pre">Dims</span></code>, and a <code class="docutils literal notranslate"><span class="pre">Camera</span></code>. <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> will hold a <code class="docutils literal notranslate"><span class="pre">list</span></code>/<code class="docutils literal notranslate"><span class="pre">Sequence</span></code> of <code class="docutils literal notranslate"><span class="pre">Views</span></code>, allowing for multiple independent views.</p></li>
+<li><p>Splitting of the current <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> into two separate models:</p>
+<ul class="simple">
+<li><p>a <code class="docutils literal notranslate"><span class="pre">View</span></code> model holding a <code class="docutils literal notranslate"><span class="pre">Layerlist</span></code>, a <code class="docutils literal notranslate"><span class="pre">Dims</span></code>, a <code class="docutils literal notranslate"><span class="pre">Canvas</span></code> and a <code class="docutils literal notranslate"><span class="pre">Scene</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>,  which will hold stuff like the window title, the theme, etc, and a new list of <code class="docutils literal notranslate"><span class="pre">Views</span></code>, allowing for multiple independent views.</p></li>
+</ul>
+</li>
 <li><p>Completion of the async <code class="docutils literal notranslate"><span class="pre">LayerSlicer</span></code> and <code class="docutils literal notranslate"><span class="pre">SliceRequest</span></code>/<code class="docutils literal notranslate"><span class="pre">SliceResponse</span></code> work for each layer type, and subsequent complete separation of layer slicing state from the layer models. This will allow to reuse layer objects between different views.</p></li>
 </ol>
 </section>
@@ -657,7 +662,6 @@ This NAP establishes a plan to implement a builtin system for opening, visualizi
 <ul class="simple">
 <li><p>Improvements to VisPy to support multiple views of the same <code class="docutils literal notranslate"><span class="pre">SceneGraph</span></code> (sharing data, saving VRAM) - for relevant discussion start with <a class="reference external" href="https://github.com/vispy/vispy/issues/1992">vispy/#1992</a>.</p></li>
 <li><p>For now, view arrangement (for example: tiling behavior) will be handled in the viewer only (left to Qt or custom Qt widgets). Making this state (de)serializable is out of scope for this project, but may be relevant when implementing a “savable viewer state” feature.</p></li>
-<li><p>Normalizing slice data for different layer types to a uniform protocol/system, though this may benefit in the course of this work.</p></li>
 <li><p>Specific UI implementations will be explored as part of this work, but UX and UI will likely be formalized later. Since this NAP was first drafted, a lot of work and discussion a on UX and UI has already been carried on in <a class="reference external" href="https://github.com/napari/napari/issues/5348">#5348</a>, which may be included in this NAP or developed later depending on discussion.</p></li>
 <li><p>Supporting alternative frontend (Qt) and backend (Vispy) frameworks. While this work should not make such tasks more difficult in the future, explicit consideration is out-of-scope until further progress is made in these areas.</p></li>
 <li><p><a class="reference external" href="https://napari.org/dev/naps/3-spaces.html#non-goals">Non-goals also in NAP-3</a> are related but also considered out-of-scope here</p>
@@ -681,14 +685,15 @@ This NAP establishes a plan to implement a builtin system for opening, visualizi
 <li><p>Each view shall have independent:</p>
 <ul>
 <li><p>Layer list - or layerlist “subview” (see <a class="reference internal" href="#single-layerlist">#Alternative single LayerList</a> for details) (necessary for visualizing different data)</p></li>
-<li><p>Camera (necessary for viewing data from different POV)</p></li>
+<li><p>Scene (necessary for viewing data from different POV)</p></li>
+<li><p>Canvas (controls specific attributes of the canvas of each view)</p></li>
 <li><p>Dims model (necessary for viewing different slices/dimensions of the data)</p></li>
+<li><p>Scene and Canvas models (for overlays and other view-related objects)</p></li>
 </ul>
 </li>
 <li><p>The implementation should minimize changes to the existing public API.</p></li>
-<li><p>The napari application (<code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>) shall maintain a concept of a single “active” (currently focused) view.</p>
+<li><p>The main napari programmatic entry point (currently <code class="docutils literal notranslate"><span class="pre">Viewer/ViewerModel</span></code>) shall maintain a concept of a single “active” (currently focused) view (see <a class="reference internal" href="#main-view">#Alternative main view</a>).</p>
 <ul>
-<li><p>Alternatively, there could be a “main” view that does not change (“main” and “active” could even be simultaneously supported).</p></li>
 <li><p>There will be no possibility of a viewer with no views.</p></li>
 </ul>
 </li>
@@ -697,20 +702,20 @@ This NAP establishes a plan to implement a builtin system for opening, visualizi
 </section>
 <section id="design-considerations-decisions">
 <h2>Design Considerations &amp; Decisions<a class="headerlink" href="#design-considerations-decisions" title="Link to this heading">#</a></h2>
-<p>Part of this design document is intended to capture the desired behavior and prevent scope creep. At the extreme “multiple views” can be achieved with “multiple viewers”. Therefore we need to draw a line somewhere to differentiate a “view” from a “viewer”. <a class="footnote-reference brackets" href="#napari-lite" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
-<p>An important consideration is to minimize breaking changes to the public napari API. While napari is still pre-1.0, there is already a healthy developing ecosystem of plugins, scripts, and users. Changes to the API may be necessary and should be made if they constitute improvements, but should be minimized and well documented.</p>
+<p>Part of this design document is intended to capture the desired behavior and prevent scope creep. At the extreme “multiple views” can be achieved with “multiple viewers”. Therefore we need to draw a line somewhere to differentiate a “view” from the current “viewer”. <a class="footnote-reference brackets" href="#napari-lite" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
+<p>An important consideration is to minimize breaking changes to the public napari API. There are several years worth of scripts and plugins in the wild, and they rely on heavily used public API. Changes to the API may be necessary and should be made if they constitute improvements, but should be minimized and well documented.</p>
 <p>In addition to maintaining the model-view-controller (MVC) architecture of napari, this proposal aims to maintain or improve decoupling of the UI framework (currently Qt), the visualization library (currently VisPy), and the napari core code.</p>
 <section id="grid-mode-vs-multi-view">
 <h3>Grid mode vs Multi-View<a class="headerlink" href="#grid-mode-vs-multi-view" title="Link to this heading">#</a></h3>
-<p>The napari viewer currently has a <a class="reference external" href="https://napari.org/stable/tutorials/fundamentals/viewer.html#grid-button">grid mode</a> that can be activated to distribute all layers in a rectangular grid of vispy <code class="docutils literal notranslate"><span class="pre">ViewBox</span></code>es according to a few simple parameters (mainly shape and stride) (as of time of writing, the viewbox-based implementation in <a class="reference external" href="https://github.com/napari/napari/pull/7870">#7870</a> is not yet merged, but will be soon).</p>
+<p>The napari viewer currently has a <a class="reference external" href="https://napari.org/stable/tutorials/fundamentals/viewer.html#grid-button">grid mode</a> that can be activated to distribute all layers in a rectangular grid of vispy <code class="docutils literal notranslate"><span class="pre">ViewBox</span></code>es according to a few simple parameters (mainly shape and stride).</p>
 <p>This feature has some theoretical and functional overlap with the multi-view described in this NAP, but with a few key differences:</p>
 <ul class="simple">
 <li><p>grid mode allows <em>no</em> control over individual viewbox size and placement except through grid shape and stride. Viewboxes cannot be reordered, removed, or added.</p></li>
 <li><p>grid mode does not create views with independent dims and cameras. The same <code class="docutils literal notranslate"><span class="pre">Camera</span></code> and <code class="docutils literal notranslate"><span class="pre">Dims</span></code> are used to control all viewboxes.</p></li>
-<li><p>grid mode does not have fine-grained control of which layers are displayed in which viewbox. Layers are simply distributed based on the order of the layerlist and according to the stride.</p></li>
+<li><p>grid mode does not have fine-grained control of which layers are displayed in which viewbox. <em>All</em> layers are simply distributed based on the order of the layerlist and according to the stride.</p></li>
 </ul>
-<p>These limitations dramatically simplify the usability of grid mode (one button click is usually all that’s needed for most use cases). On the other hand, multi-view as described in this NAP offers greater control over every aspect described above, at the cost of a more complicate API and GUI accessibility.</p>
-<p>In this NAP, we assume that grid mode and multiple views remain separate features. For discussion about why (and whether they should instead be merged into a single feature) see <a class="reference internal" href="#multi-view-grid-mode">#Alternative: Multi-View grid mode</a>.</p>
+<p>These limitations dramatically simplify the usability of grid mode (one or two button clicks are usually all that’s needed for most use cases). On the other hand, multi-view as described in this NAP offers greater control over every aspect described above, at the cost of a more complicate API and GUI accessibility.</p>
+<p>In this NAP, we assume that grid mode and multiple views remain separate features. For discussion about why, see <a class="reference internal" href="#multi-view-grid-mode">#Alternative: Multi-View grid mode</a>.</p>
 </section>
 </section>
 <section id="related-work">
@@ -726,10 +731,11 @@ This NAP establishes a plan to implement a builtin system for opening, visualizi
 </section>
 <section id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Link to this heading">#</a></h2>
-<section id="part-1-view-model">
-<span id="id3"></span><h3>Part 1: View model<a class="headerlink" href="#part-1-view-model" title="Link to this heading">#</a></h3>
+<section id="part-1-viewer-and-view-model">
+<span id="part-1-view-model"></span><h3>Part 1: Viewer and View model<a class="headerlink" href="#part-1-viewer-and-view-model" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Introduce a minimally disruptive <code class="docutils literal notranslate"><span class="pre">_views</span></code> attribute on the ViewerModel, and implement a <code class="docutils literal notranslate"><span class="pre">View</span></code> model to hold a <code class="docutils literal notranslate"><span class="pre">Layerlist</span></code>, a <code class="docutils literal notranslate"><span class="pre">Dims</span></code>, and a <code class="docutils literal notranslate"><span class="pre">Camera</span></code> (as well as some related concepts and models).</p></li>
+<li><p>Change <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>, retaining everything that doesn’t go into <code class="docutils literal notranslate"><span class="pre">View</span></code>.</p></li>
+<li><p>Introduce a minimally disruptive <code class="docutils literal notranslate"><span class="pre">_views</span></code> attribute on the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>, and implement a <code class="docutils literal notranslate"><span class="pre">View</span></code> model to hold a <code class="docutils literal notranslate"><span class="pre">Layerlist</span></code>, a <code class="docutils literal notranslate"><span class="pre">Dims</span></code>, a <code class="docutils literal notranslate"><span class="pre">Canvas</span></code> and a <code class="docutils literal notranslate"><span class="pre">Scene</span></code> (as well as some related concepts and models).</p></li>
 <li><p>using a <code class="docutils literal notranslate"><span class="pre">SelectableEventedList</span></code> for <code class="docutils literal notranslate"><span class="pre">_views</span></code> lets us easily introduce the concept of an <code class="docutils literal notranslate"><span class="pre">active</span></code> View. This, together with some simple dispatch of current viewer elements to the active view, will make this part of the implementation a drop-in replacement.</p></li>
 <li><p>At this stage, only the active view will be displayed. This will leave the GUI identical to before. When a new view becomes active, the contents of the QtViewer and vispy canvas are simply swapped to be linked with the new layerlist, camera, and dims.</p></li>
 <li><p>Similarly, existing events and event callbacks will connected to the active view only.</p></li>
@@ -739,29 +745,36 @@ This NAP establishes a plan to implement a builtin system for opening, visualizi
 <p>Additionally, by providing access to the components of the active view through the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>, we can also seamlessly transition to a multiview system without breaking any high level API.</p>
 <p>Currently, the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> (when stripped down to its barebones) contains the following fields and functionality:</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ViewerModel</span><span class="p">:</span>
-    <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span>
+    <span class="n">canvas</span><span class="p">:</span> <span class="n">Canvas</span>
+    <span class="n">scene</span><span class="p">:</span> <span class="n">Scene</span>
     <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span>
     <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span>
-    <span class="n">grid</span><span class="p">:</span> <span class="n">GridCanvas</span>
     <span class="n">layers</span><span class="p">:</span> <span class="n">LayerList</span>
     <span class="n">help</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">status</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span>
     <span class="n">tooltip</span><span class="p">:</span> <span class="n">Tooltip</span>
     <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">_overlays</span><span class="p">:</span> <span class="n">EventedDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Overlay</span><span class="p">]</span>
     <span class="n">_layer_slicer</span><span class="p">:</span> <span class="n">_LayerSlicer</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_view</span><span class="p">(</span><span class="o">...</span><span class="p">):</span> <span class="o">...</span>  <span class="c1"># and similar</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_image</span><span class="p">(</span><span class="o">...</span><span class="p">):</span> <span class="o">...</span>  <span class="c1"># and similar</span>
 </pre></div>
 </div>
 <p>With this NAP and the above considerations, we expect to separate the above components roughly as follows:</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">View</span><span class="p">:</span>
-    <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span>
+    <span class="n">canvas</span><span class="p">:</span> <span class="n">Canvas</span>
+    <span class="n">scene</span><span class="p">:</span> <span class="n">Scene</span>
     <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span>
     <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">GridCanvas</span>
     <span class="n">layers</span><span class="p">:</span> <span class="n">LayerList</span>
-    <span class="n">_overlays</span><span class="p">:</span> <span class="n">EventedDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Overlay</span><span class="p">]</span>
     <span class="n">_layer_slicer</span><span class="p">:</span> <span class="n">_LayerSlicer</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_view</span><span class="p">(</span><span class="o">...</span><span class="p">):</span> <span class="o">...</span>  <span class="c1"># and similar</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_image</span><span class="p">(</span><span class="o">...</span><span class="p">):</span> <span class="o">...</span>  <span class="c1"># and similar</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">ViewerModel</span><span class="p">:</span>
     <span class="n">_views</span><span class="p">:</span> <span class="n">SelectableEventedList</span><span class="p">[</span><span class="n">View</span><span class="p">]</span>
@@ -770,18 +783,13 @@ This NAP establishes a plan to implement a builtin system for opening, visualizi
     <span class="n">tooltip</span><span class="p">:</span> <span class="n">Tooltip</span>
     <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">camera</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_views</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">camera</span>
-
-    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="admonition-todo admonition">
-<p class="admonition-title">TODO</p>
-<p>Discuss whether the LayerSlicer should be singleton on the viewer or one per view.</p>
-</div>
+<p>Noteworthy elements:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">_layer_slicer</span></code> will be per-View, eventually allowing for independent slicing of the same layer in different views</p></li>
+<li><p>old access patterns (such as <code class="docutils literal notranslate"><span class="pre">viewer.camera</span></code> or <code class="docutils literal notranslate"><span class="pre">viewer.dims</span></code> will be automatically redirected to the active view via <code class="docutils literal notranslate"><span class="pre">__getattr__</span></code>, with no need for extreme code duplication, retaining fully backward-compatible API.</p></li>
+</ul>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>An alternative implementation could maintain a single centralized <code class="docutils literal notranslate"><span class="pre">LayerList</span></code>, with <code class="docutils literal notranslate"><span class="pre">Views</span></code> only having control over layer visibility. See <a class="reference internal" href="#single-layerlist">#Alternative single LayerList</a> for pros and cons.</p>
@@ -795,23 +803,22 @@ This NAP establishes a plan to implement a builtin system for opening, visualizi
 <p>Therefore, it might be better to simple rewrite the layer classes from the ground up (as has been discussed and suggested in many other occasions).
 If that option were to be chosen, a new NAP will likely be in order.</p>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>While part 2 is essential for a fully realized multi-view experience, we can reach good intermediate and very usable results if we temporarily disallow certain more “stubborn” layers (Shapes and Tracks) from being used in multiple views.</p>
+</div>
 <ul class="simple">
-<li><p>following the existing implementations, add <code class="docutils literal notranslate"><span class="pre">SliceResponse</span></code> classes for each layer type (currently remaining: <code class="docutils literal notranslate"><span class="pre">Shapes</span></code>, <code class="docutils literal notranslate"><span class="pre">Surface</span></code>, <code class="docutils literal notranslate"><span class="pre">Tracks</span></code>).</p></li>
-<li><p>move <em>all</em> layer slicing state from <code class="docutils literal notranslate"><span class="pre">Layer</span></code>s to the <code class="docutils literal notranslate"><span class="pre">SliceResponse</span></code> objects living in the <code class="docutils literal notranslate"><span class="pre">View</span></code>s. This includes base attributes like <code class="docutils literal notranslate"><span class="pre">_slice_input</span></code>, <code class="docutils literal notranslate"><span class="pre">_data_slice</span></code> and so on, as well as layer-specific properties and methods such as all the <code class="docutils literal notranslate"><span class="pre">Points._view_*</span></code> attributes. One way of handling this is to add a (private?) mapping of layers to slice responses on the <code class="docutils literal notranslate"><span class="pre">View</span></code>, which is updated by the <code class="docutils literal notranslate"><span class="pre">LayerSlicer</span></code> when slicing occurs:</p></li>
+<li><p>following the existing implementations, add <code class="docutils literal notranslate"><span class="pre">SliceResponse</span></code> classes for each layer type (currently remaining: <code class="docutils literal notranslate"><span class="pre">Shapes</span></code>, <code class="docutils literal notranslate"><span class="pre">Tracks</span></code>).</p></li>
+<li><p>move <em>all</em> layer slicing state from <code class="docutils literal notranslate"><span class="pre">Layer</span></code>s to the <code class="docutils literal notranslate"><span class="pre">SliceResponse</span></code> objects living in the <code class="docutils literal notranslate"><span class="pre">View</span></code>s. This includes base attributes like <code class="docutils literal notranslate"><span class="pre">_slice_input</span></code>, <code class="docutils literal notranslate"><span class="pre">_data_slice</span></code> and so on, as well as layer-specific properties and methods such as all the <code class="docutils literal notranslate"><span class="pre">Points._view_*</span></code> attributes. This has already begun as part of the <code class="docutils literal notranslate"><span class="pre">_LayerSlicingState</span></code> family of classes.</p></li>
 </ul>
+<p>Eventually, the entirety of the “currently sliced state” should live in the slice responses themselves. Each <code class="docutils literal notranslate"><span class="pre">View</span></code> will have its own mapping of layers to currently used SlicingResponses, which is updated by the <code class="docutils literal notranslate"><span class="pre">LayerSlicer</span></code> when slicing occurs:</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">View</span><span class="p">:</span>
     <span class="o">...</span>
     <span class="n">_layer_slices</span><span class="p">:</span> <span class="n">EventedDict</span><span class="p">[</span><span class="n">Layer</span><span class="p">,</span> <span class="n">SliceResponse</span><span class="p">]</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>On the vispy side, <code class="docutils literal notranslate"><span class="pre">VispyLayer</span></code> subclasses will now hold references to their <code class="docutils literal notranslate"><span class="pre">Layer</span></code> (for rendering information) as well as a <code class="docutils literal notranslate"><span class="pre">SliceResponse</span></code> (for data).</p></li>
-<li><p>If we retain a singleton LayerSlicer, it will need to update the sync and async callbacks to pass a view parameter where the resulting sliced data will be stored, rather than storing it on the layer itself. Slice task cancellation logic will need to be revisited accordingly.</p>
-<ul>
-<li><p>async callback: <code class="docutils literal notranslate"><span class="pre">LayerSlicer._on_slice_done</span></code></p></li>
-<li><p>sync callback: <code class="docutils literal notranslate"><span class="pre">Layer._slice_dims</span></code></p></li>
-</ul>
-</li>
+<li><p>On the vispy side, <code class="docutils literal notranslate"><span class="pre">VispyLayer</span></code> subclasses will now hold references to their <code class="docutils literal notranslate"><span class="pre">Layer</span></code> (for rendering information) as well as a <code class="docutils literal notranslate"><span class="pre">SliceResponse</span></code> (for the currently sliced data).</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -820,6 +827,10 @@ If that option were to be chosen, a new NAP will likely be in order.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Consider to codify a protocol (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Protocol"><code class="docutils literal notranslate"><span class="pre">typing.Protocol</span></code></a>) for <code class="docutils literal notranslate"><span class="pre">Response</span></code> classes.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The table below is still useful, but partially outdated: many of these attributes have been moved to the <code class="docutils literal notranslate"><span class="pre">_LayerSlicingState</span></code> already.</p>
 </div>
 <p><em><strong>Table 1</strong> - Layer attributes and methods that hold, manipulate, or depend on slice data. For brevity, some implied attributes are left out (such as <code class="docutils literal notranslate"><span class="pre">_thumbnail</span></code> and <code class="docutils literal notranslate"><span class="pre">_thumbnail_shape</span></code> since the public <code class="docutils literal notranslate"><span class="pre">thumbnail</span></code> is listed). These attributes will either be moved from the Layer onto the SliceResponse objects, moved to mouse or shortcut callbacks (<code class="docutils literal notranslate"><span class="pre">Shapes._is_moving</span></code>), rendered obsolete (<code class="docutils literal notranslate"><span class="pre">update_draw</span></code>), refactored to not use slicing state (<code class="docutils literal notranslate"><span class="pre">get_value</span></code>), or require further discussion (<code class="docutils literal notranslate"><span class="pre">cursor</span></code>).</em></p>
 <div class="admonition note">
@@ -955,7 +966,7 @@ If that option were to be chosen, a new NAP will likely be in order.</p>
 </div>
 </section>
 <section id="part-3-gui-and-ux">
-<span id="id4"></span><h3>Part 3: GUI and UX<a class="headerlink" href="#part-3-gui-and-ux" title="Link to this heading">#</a></h3>
+<span id="id3"></span><h3>Part 3: GUI and UX<a class="headerlink" href="#part-3-gui-and-ux" title="Link to this heading">#</a></h3>
 <p>In this last step we want to unlock the ability to visualize multiple views <em>at the same time</em>. This requires changes to our <code class="docutils literal notranslate"><span class="pre">_qt</span></code> and <code class="docutils literal notranslate"><span class="pre">_vispy</span></code> modules (and any other potential future backend for GUI and rendering).</p>
 <section id="ux-design">
 <h4>UX design<a class="headerlink" href="#ux-design" title="Link to this heading">#</a></h4>
@@ -992,8 +1003,8 @@ Beyond showing a grid of views, it would be nice for individual views to be:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">GridLayout</span></code> would likely provide a quite simple but otherwise inflexible solution. For example this may make independent resizing of views difficult</p></li>
 </ul>
 </section>
-<section id="id5">
-<h4>Implementation<a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
+<section id="id4">
+<h4>Implementation<a class="headerlink" href="#id4" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">QtViewer</span></code> will be changed to hold a mapping (or list?) of <code class="docutils literal notranslate"><span class="pre">View</span></code>s to <code class="docutils literal notranslate"><span class="pre">VispyCanvas</span></code>es (with the latter likely being renamed to <code class="docutils literal notranslate"><span class="pre">VispyView</span></code> for consistency)</p></li>
 <li><p>Methods, shortcuts, and menus/buttons must be added to allow showing/hiding, reordering, adding/removing, and selecting views.</p></li>
@@ -1034,10 +1045,6 @@ From the user perspective this makes it a bit easier to keep track of layers (as
 On the flip side, this makes working with large layerlists and several views more cumbersome from the GUI as the layerlist gets more crowded.</p>
 <p>On the implementation side, this would require deprecating <code class="docutils literal notranslate"><span class="pre">Layer.visible</span></code> since layer visibility would now be a property of the <code class="docutils literal notranslate"><span class="pre">View</span></code>. This might accessible via something like a set of indices <code class="docutils literal notranslate"><span class="pre">View.visible_layers</span> <span class="pre">=</span> <span class="pre">{0,</span> <span class="pre">1}</span></code>. This could be completely transparent via the GUI, but would be significantly more cumbersome programmatically.</p>
 <p>A significant advantage of using multiple layerlists over a single one is that it allows us to proceed with <a class="reference internal" href="#part-1-view-model">part 1</a> (and potentially <a class="reference internal" href="#part-3-gui-and-ux">part 3</a> without depending on <a class="reference internal" href="#part-2-decouple-slicing-state">part 2</a>, by initially disallowing layers to live in myultiple views (and thus having multiple slicing states).</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">TODO</p>
-<p>discuss other differences</p>
-</div>
 </section>
 <section id="multi-view-grid-mode">
 <h3>Multi-View grid mode<a class="headerlink" href="#multi-view-grid-mode" title="Link to this heading">#</a></h3>
@@ -1055,6 +1062,10 @@ On the flip side, this makes working with large layerlists and several views mor
 <p>It’s unclear/undecided how the above should behave if at any point the user “breaks” the assumptions of the grid mode (e.g: reorders views manually, unlinks dims, then adds new layers, etc).</p>
 <p>While this alternative unified two code branches into a single one, the downsides for grid mode users are significant. With separate features, users of grid-mode who want more control can easily move to a multiview approach when needed, while retaining the one-click simplicity of grid mode.</p>
 <p>Additionally, differently from this NAP’s proposal, the implementation described above would disallow enabling grid mode in a canvas while retaining other canvases in “normal” mode. Refer to <a class="reference external" href="https://github.com/napari/napari/issues/5348">#5348</a> for extensive discussion about this.</p>
+</section>
+<section id="main-view">
+<h3>Main view<a class="headerlink" href="#main-view" title="Link to this heading">#</a></h3>
+<p>Instead of all views being the same and operations on the <code class="docutils literal notranslate"><span class="pre">Window</span></code> affecting the currently <code class="docutils literal notranslate"><span class="pre">active</span></code> view, we could have a special, always-present <code class="docutils literal notranslate"><span class="pre">main</span></code> view, so that <code class="docutils literal notranslate"><span class="pre">Window.layers</span></code> will redirect to <code class="docutils literal notranslate"><span class="pre">Window.views.main.layers</span></code>. This makes old code more reliable (as user interaction with the viewer cannot mess up code that relies on a single view), at the cost of making it less flexible (old code will not run on secondary views). We felt that the tradeoff was not worth it.</p>
 </section>
 <section id="users-can-open-multiple-napari-viewers">
 <h3>Users can open multiple napari viewers<a class="headerlink" href="#users-can-open-multiple-napari-viewers" title="Link to this heading">#</a></h3>
@@ -1082,8 +1093,8 @@ On the flip side, this makes working with large layerlists and several views mor
 <section id="copyright">
 <h2>Copyright<a class="headerlink" href="#copyright" title="Link to this heading">#</a></h2>
 <p>This document is dedicated to the public domain with the Creative Commons CC0
-license <a class="footnote-reference brackets" href="#id8" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>. Attribution to this source is encouraged where appropriate, as per
-CC0+BY <a class="footnote-reference brackets" href="#id9" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
+license <a class="footnote-reference brackets" href="#id7" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>. Attribution to this source is encouraged where appropriate, as per
+CC0+BY <a class="footnote-reference brackets" href="#id8" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
 </section>
 </section>
 <aside class="footnote-list brackets">
@@ -1095,13 +1106,13 @@ CC0+BY <a class="footnote-reference brackets" href="#id9" id="id7" role="doc-not
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
 <p>A lightweight “view” might be relevant to the implementation of <a class="reference external" href="https://github.com/napari/napari/issues/5940">“napari-lite”</a>.</p>
 </aside>
-<aside class="footnote brackets" id="id8" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">3</a><span class="fn-bracket">]</span></span>
+<aside class="footnote brackets" id="id7" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">3</a><span class="fn-bracket">]</span></span>
 <p>CC0 1.0 Universal (CC0 1.0) Public Domain Dedication,
 <a class="reference external" href="https://creativecommons.org/publicdomain/zero/1.0/">https://creativecommons.org/publicdomain/zero/1.0/</a></p>
 </aside>
-<aside class="footnote brackets" id="id9" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">4</a><span class="fn-bracket">]</span></span>
+<aside class="footnote brackets" id="id8" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">4</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://dancohen.org/2013/11/26/cc0-by/">https://dancohen.org/2013/11/26/cc0-by/</a></p>
 </aside>
 </aside>
@@ -1166,11 +1177,11 @@ CC0+BY <a class="footnote-reference brackets" href="#id9" id="id7" role="doc-not
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#related-work">Related Work</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-view-model">Part 1: View model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-viewer-and-view-model">Part 1: Viewer and View model</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-decouple-slicing-state-from-layer-models">Part 2: Decouple slicing state from layer models</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-gui-and-ux">Part 3: GUI and UX</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ux-design">UX design</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Implementation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Implementation</a></li>
 </ul>
 </li>
 </ul>
@@ -1181,6 +1192,7 @@ CC0+BY <a class="footnote-reference brackets" href="#id9" id="id7" role="doc-not
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#terminology">Terminology</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-layerlist">Single LayerList</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-view-grid-mode">Multi-View grid mode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#main-view">Main view</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#users-can-open-multiple-napari-viewers">Users can open multiple napari viewers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#leave-multiview-to-plugins-and-custom-widgets">Leave multiview to plugins and custom widgets</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-slices-using-shallow-layer-copies">Implement slices using shallow Layer copies</a></li>

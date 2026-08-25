@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://napari.org/stable/release/index.html" />
 <meta property="og:site_name" content="napari" />
 <meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: August 25, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.9.0 (August 2026) Auto-labelling of viewer axes napari 0.5.0 laid the gr..." />
-<meta property="og:image" content="https://us1.discourse-cdn.com/flex015/uploads/imagej/original/3X/6/7/67f30f24a32465ffdee330b59a7e342ec89e1ce1.png" />
+<meta property="og:image" content="https://napari.org/stable/_images/axis-labels.png" />
 <meta property="og:image:alt" content="napari screenshot showing inherited labeled viewer axes" />
 <meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: August 25, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.9.0 (August 2026) Auto-labelling of viewer axes napari 0.5.0 laid the gr..." />
 <meta name="twitter:card" content="summary_large_image" />
@@ -58,7 +58,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=d39cf4f6"></script>
+    <script src="../_static/documentation_options.js?v=0967b7c2"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -70,7 +70,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0rc3';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -846,7 +846,7 @@ on the axis labels of layers present in the viewer.
 (<a class="reference external" href="https://github.com/napari/napari/pull/9282">#9282</a>)</p>
 <p class="sd-card-text">Now, opening a dataset with labelled axes will result in correctly labelled
 axes in the viewer:</p>
-<p class="sd-card-text"><img alt="napari screenshot showing inherited labeled viewer axes" src="https://us1.discourse-cdn.com/flex015/uploads/imagej/original/3X/6/7/67f30f24a32465ffdee330b59a7e342ec89e1ce1.png" />]</p>
+<p class="sd-card-text"><img alt="napari screenshot showing inherited labeled viewer axes" src="../_images/axis-labels.png" /></p>
 <p class="sd-card-text">Additionally, when you create a new layer from an existing one using the
 buttons in the GUI, the new layer now inherits the axis labels of the layer(s)
 it was derived from. (<a class="reference external" href="https://github.com/napari/napari/pull/9293">#9293</a>)</p>
@@ -854,6 +854,21 @@ it was derived from. (<a class="reference external" href="https://github.com/nap
 are inconsistent with each other, napari will simply ignore layers with fewer
 dimensions, or layers added later. But, for most use cases, layer and viewer
 metadata will now be much more informative!</p>
+<p class="rubric" id="xarray-metadata-is-now-inherited">Xarray metadata is now inherited</p>
+<p class="sd-card-text">In the same vein, if you work with <a class="reference external" href="https://docs.xarray.dev/">Xarray</a> — common in climate,
+geoscience, and many places where data ships with labelled coordinates — napari
+now reads metadata straight from your <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>s. When you add an xarray
+object to the viewer, napari will use its dimension names as axis labels, infer
+<code class="docutils literal notranslate"><span class="pre">scale</span></code> and <code class="docutils literal notranslate"><span class="pre">translate</span></code> from the coordinate values, and pick up <code class="docutils literal notranslate"><span class="pre">units</span></code> from
+CF-convention <code class="docutils literal notranslate"><span class="pre">units</span></code> attributes on coordinates (<a class="reference external" href="https://github.com/napari/napari/pull/9316">#9316</a>).
+This closed an 8-year old, double-digit, nearly-as-old-as-napari-itself issue!
+(<a class="reference external" href="https://github.com/napari/napari/issues/14">#14</a>)</p>
+<p class="rubric" id="status-bar-coordinates-as-floats">Status bar coordinates as floats</p>
+<p class="sd-card-text">Continuing on the theme of improved metadata, when scale and/or unit metadata
+is set on the layer, the status bar coordinates now have increased precision,
+where before they were limited to just integers. This means you can have more
+accurate physical estimates of your data coordinates when exploring data.
+(<a class="reference external" href="https://github.com/napari/napari/pull/9287">#9287</a>)</p>
 <p class="rubric" id="layer-controls-for-multiple-selected-layers">Layer controls for multiple selected layers</p>
 <p class="sd-card-text">Until now, layer controls only appeared when a single layer was selected. Now,
 napari dynamically builds the layer controls from your selection, so
@@ -861,30 +876,26 @@ when you select several layers at once you can see and use the controls that
 are shared between them. Pan-zoom is always available, while the layer-specific
 buttons still appear only when a single layer is selected.
 (<a class="reference external" href="https://github.com/napari/napari/pull/9318">#9318</a>)</p>
-<p class="sd-card-text">There’s also an experimental setting, <em>Generate GUI layer controls dynamically
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/joint-controls.webm" type="video/webm" />
+    <source src="../_static/images/joint-controls.mp4" type="video/mp4" />
+    <img src="../_static/images/joint-controls.png"
+      title="Your browser does not support the video tag"
+      alt="Video showing the editing of multiple selected layers at once."
+    >
+  </video>
+</figure><p class="sd-card-text">There’s also an experimental setting, <em>Generate GUI layer controls dynamically
 instead of using premade panels</em>, that makes napari use the new dynamic
 controls even for single layers.</p>
-<p class="rubric" id="xarray-metadata-is-now-inherited">Xarray metadata is now inherited</p>
-<p class="sd-card-text">If you work with <a class="reference external" href="https://docs.xarray.dev/">Xarray</a> — common in climate,
-geoscience, and many places where data ships with labelled coordinates — napari
-now reads metadata straight from your <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>s. When you add an xarray
-object to the viewer, napari will use its dimension names as axis labels, infer
-<code class="docutils literal notranslate"><span class="pre">scale</span></code> and <code class="docutils literal notranslate"><span class="pre">translate</span></code> from the coordinate values, and pick up <code class="docutils literal notranslate"><span class="pre">units</span></code> from
-CF-convention <code class="docutils literal notranslate"><span class="pre">units</span></code> attributes on coordinates (<a class="reference external" href="https://github.com/napari/napari/pull/9316">#9316</a>).
-This closed an 8-year old issue: <a class="reference external" href="https://github.com/napari/napari/issues/14">#14</a>!</p>
-<p class="rubric" id="status-bar-coordinates-as-floats">Status bar coordinates as floats</p>
-<p class="sd-card-text">Continuing on the theme of improved metadata, when scale and/or unit metadata
-is set on the layer, the status bar coordinates now have increased precision,
-where before they were limited to just integers. This means you can have more
-accurate physical estimates of your data coordinates when exploring data.
-(<a class="reference external" href="https://github.com/napari/napari/pull/9287">#9287</a>)</p>
 <p class="rubric" id="take-a-guided-tour-of-the-viewer">Take a guided tour of the viewer</p>
 <p class="sd-card-text">New to napari, or just want a quick refresher on where everything lives? There’s
 now a guided tour, available from <strong>Help → Take a tour</strong>. The tour highlights
 the main areas of the viewer — the canvas, the layer list, layer controls, the
 viewer buttons, the dimension sliders, and the status bar — so you can get your
-bearings in seconds. If the viewer is empty, napari opens the built-in <em>Balls</em>
-(3D) sample data so the walkthrough has something to show (<a class="reference external" href="https://github.com/napari/napari/pull/9290">#9290</a>).</p>
+bearings in seconds. If the viewer is empty, napari opens the built-in <em>Balls
+(3D)</em> sample data so the walkthrough has something to show (<a class="reference external" href="https://github.com/napari/napari/pull/9290">#9290</a>).</p>
+<p class="sd-card-text">![Screenshot of the napari viewer guided tour][../_static/images/guided-tour.png)</p>
 <p class="rubric" id="contributable-plugin-preferences">Contributable plugin preferences</p>
 <p class="sd-card-text">Plugins can now ship their own preferences (<a class="reference external" href="https://github.com/napari/napari/pull/9308">#9308</a>)!
 By declaring <code class="docutils literal notranslate"><span class="pre">configurations</span></code> in
@@ -900,7 +911,7 @@ the napari <strong>Preferences</strong> dialog, and accessible programmatically 
 <p class="sd-card-text">Read more in the <a class="reference external" href="https://napari.org/dev/plugins/building_a_plugin/guides.html#configurations">Configurations Guide</a>
 to learn more about how to add this new contribution to your own plugins.</p>
 <p class="rubric" id="adjust-grid-rendering-with-hidden-layers">Adjust grid rendering with hidden layers</p>
-<p class="sd-card-text">Speaking of grid mode: grid mode with hidden layers is much improved: empty
+<p class="sd-card-text">Grid mode with hidden layers is much improved: empty
 grid spaces are never shown and stride operates on the <em>full</em> layer list, so
 layer grouping doesn’t change when you show or hide layers (<a class="reference external" href="https://github.com/napari/napari/pull/9244">#9244</a>).</p>
 <p class="rubric" id="fuzzy-find-in-command-palette">Fuzzy find in command palette</p>
@@ -912,7 +923,7 @@ need to have <a class="reference external" href="https://rapidfuzz.github.io/Rap
 make use of it. It’s automatically installed with <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code> or
 <code class="docutils literal notranslate"><span class="pre">napari[optional]</span></code>. And if the search feels a bit off, you can set just how
 fuzzy you want it to be in Preferences &gt; Experimental &gt; Fuzzy Search Threshold.</p>
-<p class="sd-card-text">[screenshot or movie to be provided by Lorenzo]</p>
+<p class="sd-card-text"><img alt="Example of fuzzy find using &quot;scle&quot; to find &quot;scale&quot;" src="https://github.com/user-attachments/assets/88d4d2e1-36e1-4921-8df6-6f8ded4df12e" /></p>
 <p class="rubric" id="d-slicing-of-surfaces">2D slicing of surfaces</p>
 <p class="sd-card-text">Ever since we added surfaces, they have been invisible in 2D slices. Now,
 thanks to all the work done on <a class="reference internal" href="../guides/rendering.html#thick-slicing"><span class="std std-ref">thick slicing</span></a>, surface
@@ -920,13 +931,21 @@ slices appear in 2D view (<a class="reference external" href="https://github.com
 This enhancement is accompanied by support for async slicing, which should
 improve viewer responsiveness when slicing large, time varying surfaces, for
 example.</p>
-<p class="sd-card-text">[movie of ND-cows and slicing]</p>
-<p class="sd-card-text">… And you can try this out yourself with common .obj surface files thanks to
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/slicing_surface.webm" type="video/webm" />
+    <source src="../_static/images/slicing_surface.mp4" type="video/mp4" />
+    <img src="../_static/images/slicing_surface.png"
+      title="Your browser does not support the video tag"
+      alt="Video showing a slicing of surface layers, with showing how to change thickness of slize and controlling slice mmode."
+    >
+  </video>
+</figure><p class="sd-card-text">… And you can try this out yourself with common .obj surface files thanks to
 a new built-in reader plugin!
 (<a class="reference external" href="https://github.com/napari/napari/pull/9228">#9228</a>)</p>
 <p class="sd-card-text">You should now be able to drag and drop .obj files into napari and see them
 instantly.</p>
-<p class="rubric" id="public-api-for-auto-contrast-limit">Public API for auto contrast limit</p>
+<p class="rubric" id="public-api-for-auto-contrast-limits">Public API for auto contrast limits</p>
 <p class="sd-card-text">For a very long time, it’s been possible to set automatic contrast limits
 updating on a layer <em>only</em> through the graphical user interface. This means an
 extra click for many workflows and poorer reproducibility. Thanks to

@@ -25,7 +25,7 @@ on the axis labels of layers present in the viewer.
 Now, opening a dataset with labelled axes will result in correctly labelled
 axes in the viewer:
 
-![napari screenshot showing inherited labeled viewer axes](https://us1.discourse-cdn.com/flex015/uploads/imagej/original/3X/6/7/67f30f24a32465ffdee330b59a7e342ec89e1ce1.png)]
+![napari screenshot showing inherited labeled viewer axes](../_static/images/axis-labels.png)
 
 Additionally, when you create a new layer from an existing one using the
 buttons in the GUI, the new layer now inherits the axis labels of the layer(s)
@@ -36,28 +36,16 @@ are inconsistent with each other, napari will simply ignore layers with fewer
 dimensions, or layers added later. But, for most use cases, layer and viewer
 metadata will now be much more informative!
 
-### Layer controls for multiple selected layers
-
-Until now, layer controls only appeared when a single layer was selected. Now,
-napari dynamically builds the layer controls from your selection, so
-when you select several layers at once you can see and use the controls that
-are shared between them. Pan-zoom is always available, while the layer-specific
-buttons still appear only when a single layer is selected.
-([#9318](https://github.com/napari/napari/pull/9318))
-
-There's also an experimental setting, *Generate GUI layer controls dynamically
-instead of using premade panels*, that makes napari use the new dynamic
-controls even for single layers.
-
 ### Xarray metadata is now inherited
 
-If you work with [Xarray](https://docs.xarray.dev/) — common in climate,
+In the same vein, if you work with [Xarray](https://docs.xarray.dev/) — common in climate,
 geoscience, and many places where data ships with labelled coordinates — napari
 now reads metadata straight from your `DataArray`s. When you add an xarray
 object to the viewer, napari will use its dimension names as axis labels, infer
 `scale` and `translate` from the coordinate values, and pick up `units` from
 CF-convention `units` attributes on coordinates ([#9316](https://github.com/napari/napari/pull/9316)).
-This closed an 8-year old issue: [#14](https://github.com/napari/napari/issues/14)!
+This closed an 8-year old, double-digit, nearly-as-old-as-napari-itself issue!
+([#14](https://github.com/napari/napari/issues/14))
 
 ### Status bar coordinates as floats
 
@@ -67,14 +55,42 @@ where before they were limited to just integers. This means you can have more
 accurate physical estimates of your data coordinates when exploring data.
 ([#9287](https://github.com/napari/napari/pull/9287))
 
+### Layer controls for multiple selected layers
+
+Until now, layer controls only appeared when a single layer was selected. Now,
+napari dynamically builds the layer controls from your selection, so
+when you select several layers at once you can see and use the controls that
+are shared between them. Pan-zoom is always available, while the layer-specific
+buttons still appear only when a single layer is selected.
+([#9318](https://github.com/napari/napari/pull/9318))
+
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/joint-controls.webm" type="video/webm" />
+    <source src="../_static/images/joint-controls.mp4" type="video/mp4" />
+    <img src="../_static/images/joint-controls.png"
+      title="Your browser does not support the video tag"
+      alt="Video showing the editing of multiple selected layers at once."
+    >
+  </video>
+</figure>
+```
+
+There's also an experimental setting, *Generate GUI layer controls dynamically
+instead of using premade panels*, that makes napari use the new dynamic
+controls even for single layers.
+
 ### Take a guided tour of the viewer
 
 New to napari, or just want a quick refresher on where everything lives? There's
 now a guided tour, available from **Help → Take a tour**. The tour highlights
 the main areas of the viewer — the canvas, the layer list, layer controls, the
 viewer buttons, the dimension sliders, and the status bar — so you can get your
-bearings in seconds. If the viewer is empty, napari opens the built-in *Balls*
-(3D) sample data so the walkthrough has something to show ([#9290](https://github.com/napari/napari/pull/9290)).
+bearings in seconds. If the viewer is empty, napari opens the built-in *Balls
+(3D)* sample data so the walkthrough has something to show ([#9290](https://github.com/napari/napari/pull/9290)).
+
+![Screenshot of the napari viewer guided tour][../_static/images/guided-tour.png)
 
 ### Contributable plugin preferences
 
@@ -96,7 +112,7 @@ to learn more about how to add this new contribution to your own plugins.
 
 ### Adjust grid rendering with hidden layers
 
-Speaking of grid mode: grid mode with hidden layers is much improved: empty
+Grid mode with hidden layers is much improved: empty
 grid spaces are never shown and stride operates on the *full* layer list, so
 layer grouping doesn't change when you show or hide layers ([#9244](https://github.com/napari/napari/pull/9244)).
 
@@ -111,7 +127,7 @@ make use of it. It's automatically installed with `napari[all]` or
 `napari[optional]`. And if the search feels a bit off, you can set just how
 fuzzy you want it to be in Preferences > Experimental > Fuzzy Search Threshold.
 
-[screenshot or movie to be provided by Lorenzo]
+![Example of fuzzy find using "scle" to find "scale"](https://github.com/user-attachments/assets/88d4d2e1-36e1-4921-8df6-6f8ded4df12e)
 
 ### 2D slicing of surfaces
 
@@ -122,7 +138,18 @@ This enhancement is accompanied by support for async slicing, which should
 improve viewer responsiveness when slicing large, time varying surfaces, for
 example.
 
-[movie of ND-cows and slicing]
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/slicing_surface.webm" type="video/webm" />
+    <source src="../_static/images/slicing_surface.mp4" type="video/mp4" />
+    <img src="../_static/images/slicing_surface.png"
+      title="Your browser does not support the video tag"
+      alt="Video showing a slicing of surface layers, with showing how to change thickness of slize and controlling slice mmode."
+    >
+  </video>
+</figure>
+```
 
 ... And you can try this out yourself with common .obj surface files thanks to
 a new built-in reader plugin!
@@ -131,7 +158,7 @@ a new built-in reader plugin!
 You should now be able to drag and drop .obj files into napari and see them
 instantly.
 
-### Public API for auto contrast limit
+### Public API for auto contrast limits
 
 For a very long time, it's been possible to set automatic contrast limits
 updating on a layer *only* through the graphical user interface. This means an

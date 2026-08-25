@@ -1,7 +1,6 @@
 # napari 0.9.0
-⚠️ *Note: these release notes are still in draft while 0.9.0rc1 is in prerelease testing.* ⚠️
 
-*Thu, Aug 20, 2026*
+*Tue, Aug 25, 2026*
 
 We're happy to announce the release of napari 0.9.0!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
@@ -27,7 +26,7 @@ on the axis labels of layers present in the viewer.
 Now, opening a dataset with labelled axes will result in correctly labelled
 axes in the viewer:
 
-![napari screenshot showing inherited labeled viewer axes](https://us1.discourse-cdn.com/flex015/uploads/imagej/original/3X/6/7/67f30f24a32465ffdee330b59a7e342ec89e1ce1.png)]
+![napari screenshot showing inherited labeled viewer axes](../_static/images/axis-labels.png)
 
 Additionally, when you create a new layer from an existing one using the
 buttons in the GUI, the new layer now inherits the axis labels of the layer(s)
@@ -38,28 +37,16 @@ are inconsistent with each other, napari will simply ignore layers with fewer
 dimensions, or layers added later. But, for most use cases, layer and viewer
 metadata will now be much more informative!
 
-### Layer controls for multiple selected layers
-
-Until now, layer controls only appeared when a single layer was selected. Now,
-napari dynamically builds the layer controls from your selection, so
-when you select several layers at once you can see and use the controls that
-are shared between them. Pan-zoom is always available, while the layer-specific
-buttons still appear only when a single layer is selected.
-([#9318](https://github.com/napari/napari/pull/9318))
-
-There's also an experimental setting, *Generate GUI layer controls dynamically
-instead of using premade panels*, that makes napari use the new dynamic
-controls even for single layers.
-
 ### Xarray metadata is now inherited
 
-If you work with [Xarray](https://docs.xarray.dev/) — common in climate,
+In the same vein, if you work with [Xarray](https://docs.xarray.dev/) — common in climate,
 geoscience, and many places where data ships with labelled coordinates — napari
 now reads metadata straight from your `DataArray`s. When you add an xarray
 object to the viewer, napari will use its dimension names as axis labels, infer
 `scale` and `translate` from the coordinate values, and pick up `units` from
 CF-convention `units` attributes on coordinates ([#9316](https://github.com/napari/napari/pull/9316)).
-This closed an 8-year old issue: [#14](https://github.com/napari/napari/issues/14)!
+This closed an 8-year old, double-digit, nearly-as-old-as-napari-itself issue!
+([#14](https://github.com/napari/napari/issues/14))
 
 ### Status bar coordinates as floats
 
@@ -69,14 +56,42 @@ where before they were limited to just integers. This means you can have more
 accurate physical estimates of your data coordinates when exploring data.
 ([#9287](https://github.com/napari/napari/pull/9287))
 
+### Layer controls for multiple selected layers
+
+Until now, layer controls only appeared when a single layer was selected. Now,
+napari dynamically builds the layer controls from your selection, so
+when you select several layers at once you can see and use the controls that
+are shared between them. Pan-zoom is always available, while the layer-specific
+buttons still appear only when a single layer is selected.
+([#9318](https://github.com/napari/napari/pull/9318))
+
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/joint-controls.webm" type="video/webm" />
+    <source src="../_static/images/joint-controls.mp4" type="video/mp4" />
+    <img src="../_static/images/joint-controls.png"
+      title="Your browser does not support the video tag"
+      alt="Video showing the editing of multiple selected layers at once."
+    >
+  </video>
+</figure>
+```
+
+There's also an experimental setting, *Generate GUI layer controls dynamically
+instead of using premade panels*, that makes napari use the new dynamic
+controls even for single layers.
+
 ### Take a guided tour of the viewer
 
 New to napari, or just want a quick refresher on where everything lives? There's
 now a guided tour, available from **Help → Take a tour**. The tour highlights
 the main areas of the viewer — the canvas, the layer list, layer controls, the
 viewer buttons, the dimension sliders, and the status bar — so you can get your
-bearings in seconds. If the viewer is empty, napari opens the built-in *Balls*
-(3D) sample data so the walkthrough has something to show ([#9290](https://github.com/napari/napari/pull/9290)).
+bearings in seconds. If the viewer is empty, napari opens the built-in *Balls
+(3D)* sample data so the walkthrough has something to show ([#9290](https://github.com/napari/napari/pull/9290)).
+
+![Screenshot of the napari viewer guided tour][../_static/images/guided-tour.png)
 
 ### Contributable plugin preferences
 
@@ -98,7 +113,7 @@ to learn more about how to add this new contribution to your own plugins.
 
 ### Adjust grid rendering with hidden layers
 
-Speaking of grid mode: grid mode with hidden layers is much improved: empty
+Grid mode with hidden layers is much improved: empty
 grid spaces are never shown and stride operates on the *full* layer list, so
 layer grouping doesn't change when you show or hide layers ([#9244](https://github.com/napari/napari/pull/9244)).
 
@@ -113,7 +128,7 @@ make use of it. It's automatically installed with `napari[all]` or
 `napari[optional]`. And if the search feels a bit off, you can set just how
 fuzzy you want it to be in Preferences > Experimental > Fuzzy Search Threshold.
 
-[screenshot or movie to be provided by Lorenzo]
+![Example of fuzzy find using "scle" to find "scale"](https://github.com/user-attachments/assets/88d4d2e1-36e1-4921-8df6-6f8ded4df12e)
 
 ### 2D slicing of surfaces
 
@@ -124,7 +139,18 @@ This enhancement is accompanied by support for async slicing, which should
 improve viewer responsiveness when slicing large, time varying surfaces, for
 example.
 
-[movie of ND-cows and slicing]
+```{raw} html
+<figure>
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="../_static/images/slicing_surface.webm" type="video/webm" />
+    <source src="../_static/images/slicing_surface.mp4" type="video/mp4" />
+    <img src="../_static/images/slicing_surface.png"
+      title="Your browser does not support the video tag"
+      alt="Video showing a slicing of surface layers, with showing how to change thickness of slize and controlling slice mmode."
+    >
+  </video>
+</figure>
+```
 
 ... And you can try this out yourself with common .obj surface files thanks to
 a new built-in reader plugin!
@@ -133,7 +159,7 @@ a new built-in reader plugin!
 You should now be able to drag and drop .obj files into napari and see them
 instantly.
 
-### Public API for auto contrast limit
+### Public API for auto contrast limits
 
 For a very long time, it's been possible to set automatic contrast limits
 updating on a layer *only* through the graphical user interface. This means an
@@ -252,6 +278,7 @@ please remove it. (For now, `trans._()` is a no-op.)
 - UX/UI: Bump the splitter (separator) size by 1px ([#9344](https://github.com/napari/napari/pull/9344))
 - Add middle position to canvas overlays (in addition to top and bottom) ([#9374](https://github.com/napari/napari/pull/9374))
 - Extend viewbox hiding behaviour on grid to non-1 stride values ([#9397](https://github.com/napari/napari/pull/9397))
+- Restyle (vendored) jsonschema form widgets for Validation Errors ([#9401](https://github.com/napari/napari/pull/9401))
 
 ## Performance
 
@@ -283,7 +310,13 @@ please remove it. (For now, `trans._()` is a no-op.)
 - fix(vectors): stop edge-color controls mutating the layer and hiding mode changes ([#9364](https://github.com/napari/napari/pull/9364))
 - Fix missing `f` for strings modified in #8935 ([#9371](https://github.com/napari/napari/pull/9371))
 - Fix the built-in `nan` colormap setting `bad_color` instead of `nan_color` ([#9373](https://github.com/napari/napari/pull/9373))
+- Fix dock widget positioning ([#9393](https://github.com/napari/napari/pull/9393))
 - fix: reset `dims axis_labels` when layer labels return to default ([#9398](https://github.com/napari/napari/pull/9398))
+- Fix background of contrast limit popup ([#9436](https://github.com/napari/napari/pull/9436))
+- Fix connection of callbacks of settings changes ([#9437](https://github.com/napari/napari/pull/9437))
+- Restore size policy for layerList docked widget ([#9447](https://github.com/napari/napari/pull/9447))
+- Fix spherical projection ([#9453](https://github.com/napari/napari/pull/9453))
+- Fix warning on new label button ([#9455](https://github.com/napari/napari/pull/9455))
 
 ## Deprecations
 
@@ -312,8 +345,15 @@ please remove it. (For now, `trans._()` is a no-op.)
 - Fix building docs with PyQt6 ([docs#1102](https://github.com/napari/docs/pull/1102))
 - Triage team and how-to docs ([docs#1106](https://github.com/napari/docs/pull/1106))
 - Mention guided viewer tour ([docs#1107](https://github.com/napari/docs/pull/1107))
+- Bring NAP 9 up to date ([docs#1108](https://github.com/napari/docs/pull/1108))
 - docs: add list of built-in `sample images` ([docs#1111](https://github.com/napari/docs/pull/1111))
 - Info about Xarray metadata inheritance ([docs#1113](https://github.com/napari/docs/pull/1113))
+- Update `axis_labels` guidance for 0.9 ([docs#1117](https://github.com/napari/docs/pull/1117))
+- Update handedness guide for 0.9 changes ([docs#1118](https://github.com/napari/docs/pull/1118))
+- Update opengraph preview image for 0.9 with script ([docs#1119](https://github.com/napari/docs/pull/1119))
+- Use a pages first image for OpenGraph Preview if there is one ([docs#1120](https://github.com/napari/docs/pull/1120))
+- Final update release notes for 0.9.0 ([docs#1121](https://github.com/napari/docs/pull/1121))
+- Update version switcher for 0.9.0 ([docs#1122](https://github.com/napari/docs/pull/1122))
 - Update overlay docstrings ([#9081](https://github.com/napari/napari/pull/9081))
 - Add stereo 3D viewer widget example ([#9219](https://github.com/napari/napari/pull/9219))
 - Update recommended Python version in README from 3.11 to 3.13 ([#9223](https://github.com/napari/napari/pull/9223))
@@ -325,6 +365,7 @@ please remove it. (For now, `trans._()` is a no-op.)
 - Load data from zarr in map example if contextily fails ([#9307](https://github.com/napari/napari/pull/9307))
 - Example: combine points and vectors to build a 3D structured object ([#9340](https://github.com/napari/napari/pull/9340))
 - Add projection mode to class Image attributes docstring ([#9378](https://github.com/napari/napari/pull/9378))
+- Add docstrings for relocated models on ViewerModel ([#9430](https://github.com/napari/napari/pull/9430))
 
 ## Other Pull Requests
 
@@ -392,17 +433,21 @@ please remove it. (For now, `trans._()` is a no-op.)
 - Fix broken shapes due to incomplete merge ([#9399](https://github.com/napari/napari/pull/9399))
 - Bump npe2 minimum for ConfigurationContribution ([#9400](https://github.com/napari/napari/pull/9400))
 - Update `hypothesis`, `numpy`, `platformdirs`, `pygments`, `pyside6`, `pytest-rerunfailures`, `tifffile`, `virtualenv` ([#9414](https://github.com/napari/napari/pull/9414))
+- Improve qproviders testing by remove part of make_napari_viewer ([#9416](https://github.com/napari/napari/pull/9416))
 - [pre-commit.ci] pre-commit autoupdate ([#9420](https://github.com/napari/napari/pull/9420))
 - Bump npe2 dependency and constraints to 0.9.0 ([#9422](https://github.com/napari/napari/pull/9422))
 - Fix Points.symbol type annotation ([#9423](https://github.com/napari/napari/pull/9423))
 - Follow-up: Rename PluginPreferences to PluginSettings ([#9424](https://github.com/napari/napari/pull/9424))
+- Fix comprehensive test configuration for examples job ([#9426](https://github.com/napari/napari/pull/9426))
+- Delay deprecation of qt_viewer and private access to 0.10.0 ([#9433](https://github.com/napari/napari/pull/9433))
+- Update `lxml`, `pyqt6`, `pyqt6-qt6`, `scipy`, `tifffile` ([#9443](https://github.com/napari/napari/pull/9443))
 
 
 ## 31 authors added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
-- [Aniket](https://github.com/napari/napari/commits?author=Aniketsy) - @Aniketsy
+- [Aniket](https://github.com/napari/napari/commits?author=Aniketsy) ([docs](https://github.com/napari/docs/commits?author=Aniketsy))  - @Aniketsy
 - [Anwai Archit](https://github.com/napari/napari/commits?author=anwai98) - @anwai98
 - [Arne Defauw](https://github.com/napari/napari/commits?author=ArneDefauw) - @ArneDefauw +
 - [Aroj Hada](https://github.com/napari/napari/commits?author=ArozHada) - @ArozHada +
@@ -438,9 +483,9 @@ please remove it. (For now, `trans._()` is a no-op.)
 
 (+) denotes first-time contributors 🥳
 
-- [Aniket](https://github.com/napari/napari/commits?author=Aniketsy) - @Aniketsy
-- [Anwai Archit](https://github.com/napari/napari/commits?author=anwai98) - @anwai98
-- [arbor](https://github.com/napari/docs/commits?author=arbormoss) - @arbormoss
+- [Aniket](https://github.com/napari/napari/commits?author=Aniketsy) ([docs](https://github.com/napari/docs/commits?author=Aniketsy))  - @Aniketsy
+- [Anwai Archit](https://github.com/napari/napari/commits?author=anwai98) - @anwai98 +
+- [arbor](https://github.com/napari/docs/commits?author=arbormoss) - @arbormoss +
 - [Arne Defauw](https://github.com/napari/napari/commits?author=ArneDefauw) - @ArneDefauw +
 - [Carlos Mario Rodriguez Reza](https://github.com/napari/napari/commits?author=carlosmariorr) - @carlosmariorr
 - [Carol Willing](https://github.com/napari/docs/commits?author=willingc) - @willingc
@@ -448,17 +493,17 @@ please remove it. (For now, `trans._()` is a no-op.)
 - [Filippo  Maria Castelli, PhD](https://github.com/napari/napari/commits?author=filippocastelli) - @filippocastelli +
 - [girochat](https://github.com/napari/napari/commits?author=girochat) - @girochat +
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
-- [Ian Hunt-Isaak](https://github.com/napari/docs/commits?author=ianhi) - @ianhi
+- [Ian Hunt-Isaak](https://github.com/napari/docs/commits?author=ianhi) - @ianhi +
 - [Jacopo Abramo](https://github.com/napari/napari/commits?author=jacopoabramo) - @jacopoabramo
 - [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) ([docs](https://github.com/napari/docs/commits?author=jni))  - @jni
-- [Justus Magin](https://github.com/napari/docs/commits?author=keewis) - @keewis
+- [Justus Magin](https://github.com/napari/docs/commits?author=keewis) - @keewis +
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) ([docs](https://github.com/napari/docs/commits?author=brisvag))  - @brisvag
 - [Margot Chazotte](https://github.com/napari/napari/commits?author=MargotCh) - @MargotCh
 - [Matthias Schabel](https://github.com/napari/napari/commits?author=matthiasschabel) - @matthiasschabel +
-- [Maxime Rey](https://github.com/napari/docs/commits?author=MaxJPRey) - @MaxJPRey
+- [Maxime Rey](https://github.com/napari/docs/commits?author=MaxJPRey) - @MaxJPRey +
 - [Melissa Weber Mendonça](https://github.com/napari/docs/commits?author=melissawm) - @melissawm
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
-- [Samuel Le Meur-Diebolt](https://github.com/napari/napari/commits?author=sdiebolt) ([docs](https://github.com/napari/docs/commits?author=sdiebolt))  - @sdiebolt
+- [Samuel Le Meur-Diebolt](https://github.com/napari/napari/commits?author=sdiebolt) ([docs](https://github.com/napari/docs/commits?author=sdiebolt))  - @sdiebolt +
 - [Sara Czasak](https://github.com/napari/docs/commits?author=sara-czasak) - @sara-czasak +
 - [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko
 - [Wouter-Michiel Vierdag](https://github.com/napari/docs/commits?author=melonora) - @melonora

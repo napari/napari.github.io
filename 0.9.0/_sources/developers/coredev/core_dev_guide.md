@@ -174,6 +174,7 @@ As a core member, you should be familiar with the following napari guides:
 
 - Our [contributor guide](napari-contributing).
 - Our [benchmarking guide](napari-benchmarks).
+- Our [triage guide](napari-triage).
 - Our [release guide](release).
 - Our [maintenance guide](maintenance).
 - Our [packaging guide](napari-packaging).
@@ -211,7 +212,10 @@ While there is no hard-and-fast rule about who can be nominated, ideally,
 they should have: been part of the project for at least two months, contributed
 significant changes of their own, contributed to the discussion and
 review of others' work, and collaborated in a way befitting our
-community values. After nomination voting will happen on a private mailing list.
+community values. Beyond the number of contributions, we value the *depth* of a
+nominee's interaction with the project — whether that is depth of usage (e.g.
+as a researcher or user), depth of contribution, or depth of understanding of
+maintenance. After nomination voting will happen on a private mailing list.
 While it is expected that most votes will be unanimous, a two-thirds majority of
 the cast votes is enough.
 

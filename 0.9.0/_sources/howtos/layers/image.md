@@ -176,6 +176,13 @@ The great thing about napari support of array-like objects is that you get to
 keep on using your favorite array libraries without worrying about any
 conversions. napari handles all of that for you.
 
+```{note}
+If you pass an [Xarray](https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html)
+`DataArray` to napari, it automatically inherits metadata from it, such as axis
+labels, `scale`, `translate`, and units. For details on how this metadata is
+used for rendering, see the [units guide](units-guide).
+```
+
 napari will also wait until just before it displays data onto the screen to
 actually generate a NumPy array from your data, and so if you're using a library
 like `dask` or `zarr` that supports lazy loading and lazy evaluation, we won't

@@ -74,6 +74,26 @@ can directly help to shape its future.
 
 Contributors are encouraged to read the [contributing guide](napari-contributing).
 
+### Triage team members
+
+Triage team members are community members who have demonstrated that they can
+help maintain napari with care, and are trusted to curate the issue trackers
+and pull requests of the napari repositories. Triage can be a step on the way
+to core team membership, but it is also a valued role in its own right, and
+there is no expectation that triage team members continue beyond it.
+
+Triage team members are granted limited permissions on the public napari
+repositories, such as labeling issues and pull requests, and closing or
+reopening them. They do not have write access to any repository and cannot
+merge pull requests.
+
+New triage team members are added by nomination by a core team member,
+followed by acceptance through a one-week consensus seeking period.
+Triage team members can step down at any time. The
+details of the role are described in the [triage guide](napari-triage) and 
+triage team members should also become familiar with the
+[core team member guide](core-dev-guide).
+
 ### Core team members
 
 ```{note}

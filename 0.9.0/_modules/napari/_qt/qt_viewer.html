@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=e767cfdd"></script>
+    <script src="../../../_static/documentation_options.js?v=d39cf4f6"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0rc1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0rc3';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -1162,6 +1162,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">layerListLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewerButtons</span><span class="p">)</span>
             <span class="n">layerListLayout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
             <span class="n">layerList</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layerListLayout</span><span class="p">)</span>
+            <span class="n">prev_policy</span> <span class="o">=</span> <span class="n">layerList</span><span class="o">.</span><span class="n">sizePolicy</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dockLayerList</span> <span class="o">=</span> <span class="n">QtViewerDockWidget</span><span class="p">(</span>
                 <span class="bp">self</span><span class="p">,</span>
                 <span class="n">layerList</span><span class="p">,</span>
@@ -1171,6 +1172,9 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">object_name</span><span class="o">=</span><span class="s1">'layer list'</span><span class="p">,</span>
                 <span class="n">close_btn</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="p">)</span>
+            <span class="c1"># restore policy to avoid empty space below buttons</span>
+            <span class="c1"># See https://github.com/napari/napari/pull/9447</span>
+            <span class="n">layerList</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">prev_policy</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dockLayerList</span>
 
     <span class="nd">@property</span>

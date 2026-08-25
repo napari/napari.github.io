@@ -404,6 +404,9 @@ napari.qt.QtViewer
       ~QtViewer.isModal
    
    
+      ~QtViewer.isQmlExposed
+   
+   
       ~QtViewer.isQuickItemType
    
    

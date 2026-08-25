@@ -11,12 +11,13 @@
     <link sizes="any" href="../_static/favicon/logo-silhouette-192.png" rel="icon" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/logo-noborder-180.png" type="image/png"><meta property="og:title" content="Scale and unit-aware rendering" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://napari.org/guides/units.html" />
+<meta property="og:url" content="https://napari.org/stable/guides/units.html" />
 <meta property="og:site_name" content="napari" />
 <meta property="og:description" content="Units in napari describe the physical meaning of each layer axis. They work alongside layer transforms such as scale and translate, combining into a spatial transformation with dimensions that carry physical meaning. All layers of napari contain these transforms and units metadata, and they work ..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
-<meta property="og:image:alt" content="napari" />
+<meta property="og:image:alt" content="3D segmented tribolium embryo in the napari viewer" />
 <meta name="description" content="Units in napari describe the physical meaning of each layer axis. They work alongside layer transforms such as scale and translate, combining into a spatial transformation with dimensions that carry physical meaning. All layers of napari contain these transforms and units metadata, and they work ..." />
+<meta name="twitter:card" content="summary_large_image" />
 
     <title>Scale and unit-aware rendering &#8212; napari</title>
   
@@ -57,7 +58,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=e767cfdd"></script>
+    <script src="../_static/documentation_options.js?v=d39cf4f6"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +70,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0rc1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0rc3';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -870,6 +871,17 @@ Pint also has logic to disambiguate unit names, for example,
 <p>If you do not set units, napari assumes pixels.
 To set <em>no</em> units, use <code class="docutils literal notranslate"><span class="pre">layer.units</span> <span class="pre">=</span> <span class="pre">('dimensionless',...)</span></code>.</p>
 </section>
+<section id="inheriting-scale-and-units-from-xarray">
+<h2>Inheriting scale and units from xarray<a class="headerlink" href="#inheriting-scale-and-units-from-xarray" title="Link to this heading">#</a></h2>
+<p>If you pass an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html">Xarray</a>
+<code class="docutils literal notranslate"><span class="pre">DataArray</span></code> to napari, it automatically inherits metadata from it: dimension
+names become the layer’s axis labels, coordinate values are used for <code class="docutils literal notranslate"><span class="pre">scale</span></code>
+and <code class="docutils literal notranslate"><span class="pre">translate</span></code>, and CF-convention <code class="docutils literal notranslate"><span class="pre">units</span></code> attributes on coordinates (validated
+with <a class="reference external" href="https://pint.readthedocs.io/">pint</a>) become the layer units. Even
+<code class="docutils literal notranslate"><span class="pre">datetime64</span></code> coordinates are converted to a sensible time unit. See the
+<a class="reference internal" href="../gallery/xarray-latlon-timeseries.html#sphx-glr-gallery-xarray-latlon-timeseries-py"><span class="std std-ref">xarray example</span></a> for a
+full demonstration.</p>
+</section>
 <section id="when-units-are-consistent-across-layers">
 <h2>When units are consistent across layers<a class="headerlink" href="#when-units-are-consistent-across-layers" title="Link to this heading">#</a></h2>
 <p>napari can use units to render layers in the same physical space even when the
@@ -959,6 +971,7 @@ viewer, see <a class="reference internal" href="axis-names.html#axis-names"><spa
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scale-and-units-live-on-layers">Scale and units live on layers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inheriting-scale-and-units-from-xarray">Inheriting scale and units from xarray</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-units-are-consistent-across-layers">When units are consistent across layers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-scale-bar-gets-its-units">How the scale bar gets its units</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-units-do-not-do">What units do not do</a></li>

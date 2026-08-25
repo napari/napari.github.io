@@ -334,18 +334,26 @@ viewer.layers.pop(i)
 One of the main strengths of **napari** is that it has been designed from the beginning to handle n-dimensional data. While much consumer photography is 2D and `RGB`, scientific image data can often be volumetric (i.e. 3D), volumetric timeseries (i.e. 4D), or even higher dimensional. **napari** places no limits on the dimensionality of its input data for all its layer types.
 
 Adding data with a dimensionality greater than 2D will cause dimension sliders to appear directly underneath the canvas and above the status bar. As many sliders as needed will appear to ensure the data can be fully browsed. For example, a 3D dataset needs one slider, a 4D dataset needs two sliders, and so on. The widths of the scroll bars of the dimension sliders are directly related to how many slices are in each dimension.
-To the left of each slider will be an integer indicating which dimension is being controlled by that slider. These integers are automatically updated when changing which dimensions are to be displayed. Alternately, the sliders can be labeled by double-clicking on the integer and editing the field. The labels can be retrieved programmatically as follows:
+To the left of each slider will be a label indicating which dimension is being
+controlled by that slider. By default these are integers that are automatically
+updated when changing which dimensions are to be displayed, but they are
+replaced by the axis labels of the layers in the viewer whenever those are
+available (see [axis-names](axis-names)). Alternately, the sliders can be
+labeled by double-clicking on the label and editing the field. The labels can
+be retrieved programmatically as follows:
 
 ```{code-cell} python
 # To get the dimension labels
 viewer.dims.axis_labels
 ```
 
-You can also set the axis labels programmatically as follows:
+You can also set the axis labels programmatically. The
+viewer axis labels are automatically derived from the axis labels of the
+layers, so set them on layers instead:
 
 ```{code-cell} python
-# To set new axis labels
-viewer.dims.axis_labels = ("label_1", "label_2")
+# To set new axis labels on a layer
+image_layer.axis_labels = ("label_1", "label_2")
 ```
 
 It is also possible to mix data of different shapes and dimensionality in different layers. If a 2D and 4D dataset are both added to the viewer then the sliders will affect only the 4D dataset, the 2D dataset will remain the
@@ -578,6 +586,10 @@ viewer: double click on the text to the right of the padlock icon. For
 example, for a 3D volume, double-click the default axis name `-3` (see
 [explanation](axis-names)) and change it to `Z`. The change will be reflected
 in the slider in 2D view and the `axes` overlay.
+
+The viewer axis labels are usually set automatically from
+the axis labels of the layers in the viewer (see [axis-names](axis-names));
+manual renaming is still available for fine-grained control.
 ```
 
 The dimension order can also be checked programmatically as follows:

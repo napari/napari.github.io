@@ -68,6 +68,9 @@ napari.qt.threading.GeneratorWorkerSignals
       ~GeneratorWorkerSignals.installEventFilter
    
    
+      ~GeneratorWorkerSignals.isQmlExposed
+   
+   
       ~GeneratorWorkerSignals.isQuickItemType
    
    

@@ -11,10 +11,11 @@
     <link sizes="any" href="../_static/favicon/logo-silhouette-192.png" rel="icon" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/logo-noborder-180.png" type="image/png"><meta property="og:title" content="napari.components.ViewerModel" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://napari.org/api/napari.components.ViewerModel.html" />
+<meta property="og:url" content="https://napari.org/stable/api/napari.components.ViewerModel.html" />
 <meta property="og:site_name" content="napari" />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
-<meta property="og:image:alt" content="napari" />
+<meta property="og:image:alt" content="3D segmented tribolium embryo in the napari viewer" />
+<meta name="twitter:card" content="summary_large_image" />
 
     <title>napari.components.ViewerModel &#8212; napari</title>
   
@@ -55,7 +56,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=e767cfdd"></script>
+    <script src="../_static/documentation_options.js?v=d39cf4f6"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -67,7 +68,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0rc1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0rc3';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -641,6 +642,20 @@ ndisplay is 2 or 3.</p></li>
 </dd>
 </dl>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.canvas">
+<span class="sig-name descname"><span class="pre">canvas</span></span><a class="headerlink" href="#napari.components.ViewerModel.canvas" title="Link to this definition">#</a></dt>
+<dd><p>The canvas model, controlling grid mode and canvas overlays.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 0.9.0.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>napari.components.canvas.Canvas</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.cursor">
 <span class="sig-name descname"><span class="pre">cursor</span></span><a class="headerlink" href="#napari.components.ViewerModel.cursor" title="Link to this definition">#</a></dt>
 <dd><p>The cursor object containing the position and properties of the cursor.</p>
@@ -691,6 +706,20 @@ ndisplay is 2 or 3.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.scene">
+<span class="sig-name descname"><span class="pre">scene</span></span><a class="headerlink" href="#napari.components.ViewerModel.scene" title="Link to this definition">#</a></dt>
+<dd><p>The scene model, controlling the camera and scene overlays.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 0.9.0.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>napari.components.scene.Scene</p>
 </dd>
 </dl>
 </dd></dl>
@@ -890,11 +919,11 @@ ndisplay is 2 or 3.</p></li>
 <p class="rubric">Attributes</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">axes</span></code></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.ViewerModel.axes" title="napari.components.ViewerModel.axes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">axes</span></code></a></p></td>
+<td><p>The overlay controlling the display of the scene axes.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">camera</span></code></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.ViewerModel.camera" title="napari.components.ViewerModel.camera"><code class="xref py py-obj docutils literal notranslate"><span class="pre">camera</span></code></a></p></td>
+<td><p>The camera model controlling the view of the scene.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">class_keymap</span></code></p></td>
 <td><p></p></td>
@@ -905,11 +934,11 @@ ndisplay is 2 or 3.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.ViewerModel.experimental" title="napari.components.ViewerModel.experimental"><code class="xref py py-obj docutils literal notranslate"><span class="pre">experimental</span></code></a></p></td>
 <td><p>Experimental commands for IPython console.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">floating_axes</span></code></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.ViewerModel.floating_axes" title="napari.components.ViewerModel.floating_axes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">floating_axes</span></code></a></p></td>
+<td><p>The overlay controlling the display of the canvas axes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid</span></code></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.ViewerModel.grid" title="napari.components.ViewerModel.grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid</span></code></a></p></td>
+<td><p>The model controlling the display of the grid mode.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">keymap</span></code></p></td>
 <td><p></p></td>
@@ -929,11 +958,11 @@ ndisplay is 2 or 3.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.ViewerModel.model_fields_set" title="napari.components.ViewerModel.model_fields_set"><code class="xref py py-obj docutils literal notranslate"><span class="pre">model_fields_set</span></code></a></p></td>
 <td><p>Returns the set of fields that have been explicitly set on this model instance.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale_bar</span></code></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.ViewerModel.scale_bar" title="napari.components.ViewerModel.scale_bar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale_bar</span></code></a></p></td>
+<td><p>The overlay controlling the display of the scale bar.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">text_overlay</span></code></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.ViewerModel.text_overlay" title="napari.components.ViewerModel.text_overlay"><code class="xref py py-obj docutils literal notranslate"><span class="pre">text_overlay</span></code></a></p></td>
+<td><p>The overlay controlling the display of text on the canvas.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1606,6 +1635,15 @@ Allowed values are {‘line’, ‘triangle’, and ‘arrow’}.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.axes">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">axes</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">SceneAxesOverlay</span></span><a class="headerlink" href="#napari.components.ViewerModel.axes" title="Link to this definition">#</a></dt>
+<dd><p>The overlay controlling the display of the scene axes.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.9.0: </span>The axes property is deprecated. Use <cite>viewer.scene.overlays.axes</cite> instead.</p>
+</div>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.bind_key">
 <span class="sig-name descname"><span class="pre">bind_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_bind</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.KeyBinding" title="(in App Model v0.0.0)"><span class="pre">KeyBinding</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/types.html#types.EllipsisType" title="(in Python v3.14)"><span class="pre">EllipsisType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.ViewerModel.bind_key" title="Link to this definition">#</a></dt>
@@ -1661,6 +1699,15 @@ into two statements with the yield keyword:</p>
 </pre></div>
 </div>
 <p>To create a keymap that will block others, <code class="docutils literal notranslate"><span class="pre">bind_key(...,</span> <span class="pre">...)`</span></code>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.camera">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">camera</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="napari.components.Camera.html#napari.components.Camera" title="napari.components.Camera"><span class="pre">Camera</span></a></span><a class="headerlink" href="#napari.components.ViewerModel.camera" title="Link to this definition">#</a></dt>
+<dd><p>The camera model controlling the view of the scene.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.9.0: </span>The camera property is deprecated. Use <cite>viewer.scene.camera</cite> instead.</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -1723,6 +1770,24 @@ are within the canvas.</p>
 data. Default is 0.05 (5% of the canvas).</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.floating_axes">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">floating_axes</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">CanvasAxesOverlay</span></span><a class="headerlink" href="#napari.components.ViewerModel.floating_axes" title="Link to this definition">#</a></dt>
+<dd><p>The overlay controlling the display of the canvas axes.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.9.0: </span>The floating_axes property is deprecated. Use <cite>viewer.canvas.overlays.axes</cite> instead.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.grid">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">grid</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">GridCanvas</span></span><a class="headerlink" href="#napari.components.ViewerModel.grid" title="Link to this definition">#</a></dt>
+<dd><p>The model controlling the display of the grid mode.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.9.0: </span>The grid property is deprecated. Use <cite>viewer.canvas.grid</cite> instead.</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -2102,6 +2167,24 @@ to view. Default is True.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.scale_bar">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">scale_bar</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ScaleBarOverlay</span></span><a class="headerlink" href="#napari.components.ViewerModel.scale_bar" title="Link to this definition">#</a></dt>
+<dd><p>The overlay controlling the display of the scale bar.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.9.0: </span>The scale_bar property is deprecated. Use <cite>viewer.canvas.overlays.scale_bar</cite> instead.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.text_overlay">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">text_overlay</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">TextOverlay</span></span><a class="headerlink" href="#napari.components.ViewerModel.text_overlay" title="Link to this definition">#</a></dt>
+<dd><p>The overlay controlling the display of text on the canvas.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.9.0: </span>The text_overlay property is deprecated. Use <cite>viewer.canvas.overlays.text</cite> instead.</p>
+</div>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.update">
 <span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="napari.utils.events.EventedModel.html#napari.utils.events.EventedModel" title="napari.utils.events.evented_model.EventedModel"><span class="pre">EventedModel</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.components.ViewerModel.update" title="Link to this definition">#</a></dt>
@@ -2179,11 +2262,13 @@ different realized types with different fields.</p></li>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel"><code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.canvas"><code class="docutils literal notranslate"><span class="pre">ViewerModel.canvas</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.cursor"><code class="docutils literal notranslate"><span class="pre">ViewerModel.cursor</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.dims"><code class="docutils literal notranslate"><span class="pre">ViewerModel.dims</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.help"><code class="docutils literal notranslate"><span class="pre">ViewerModel.help</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.layers"><code class="docutils literal notranslate"><span class="pre">ViewerModel.layers</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.mouse_over_canvas"><code class="docutils literal notranslate"><span class="pre">ViewerModel.mouse_over_canvas</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.scene"><code class="docutils literal notranslate"><span class="pre">ViewerModel.scene</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.theme"><code class="docutils literal notranslate"><span class="pre">ViewerModel.theme</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.title"><code class="docutils literal notranslate"><span class="pre">ViewerModel.title</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.tooltip"><code class="docutils literal notranslate"><span class="pre">ViewerModel.tooltip</span></code></a></li>
@@ -2198,11 +2283,15 @@ different realized types with different fields.</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.add_surface"><code class="docutils literal notranslate"><span class="pre">ViewerModel.add_surface()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.add_tracks"><code class="docutils literal notranslate"><span class="pre">ViewerModel.add_tracks()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.add_vectors"><code class="docutils literal notranslate"><span class="pre">ViewerModel.add_vectors()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.axes"><code class="docutils literal notranslate"><span class="pre">ViewerModel.axes</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.bind_key"><code class="docutils literal notranslate"><span class="pre">ViewerModel.bind_key()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.camera"><code class="docutils literal notranslate"><span class="pre">ViewerModel.camera</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.copy"><code class="docutils literal notranslate"><span class="pre">ViewerModel.copy()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.enums_as_values"><code class="docutils literal notranslate"><span class="pre">ViewerModel.enums_as_values()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.experimental"><code class="docutils literal notranslate"><span class="pre">ViewerModel.experimental</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.fit_to_view"><code class="docutils literal notranslate"><span class="pre">ViewerModel.fit_to_view()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.floating_axes"><code class="docutils literal notranslate"><span class="pre">ViewerModel.floating_axes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.grid"><code class="docutils literal notranslate"><span class="pre">ViewerModel.grid</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.json"><code class="docutils literal notranslate"><span class="pre">ViewerModel.json()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.model_config"><code class="docutils literal notranslate"><span class="pre">ViewerModel.model_config</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.model_construct"><code class="docutils literal notranslate"><span class="pre">ViewerModel.model_construct()</span></code></a></li>
@@ -2222,6 +2311,8 @@ different realized types with different fields.</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.open_sample"><code class="docutils literal notranslate"><span class="pre">ViewerModel.open_sample()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.reset"><code class="docutils literal notranslate"><span class="pre">ViewerModel.reset()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.reset_view"><code class="docutils literal notranslate"><span class="pre">ViewerModel.reset_view()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.scale_bar"><code class="docutils literal notranslate"><span class="pre">ViewerModel.scale_bar</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.text_overlay"><code class="docutils literal notranslate"><span class="pre">ViewerModel.text_overlay</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.update"><code class="docutils literal notranslate"><span class="pre">ViewerModel.update()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.components.ViewerModel.update_status_from_cursor"><code class="docutils literal notranslate"><span class="pre">ViewerModel.update_status_from_cursor()</span></code></a></li>
 </ul>

@@ -11,12 +11,13 @@
     <link sizes="any" href="../../_static/favicon/logo-silhouette-192.png" rel="icon" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/logo-noborder-180.png" type="image/png"><meta property="og:title" content="Core team member guide" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://napari.org/developers/coredev/core_dev_guide.html" />
+<meta property="og:url" content="https://napari.org/stable/developers/coredev/core_dev_guide.html" />
 <meta property="og:site_name" content="napari" />
 <meta property="og:description" content="Welcome, new core team member! The core team appreciate the quality of your work, and enjoy working with you; we have therefore invited you to join us. Thank you for your numerous contributions to the project so far. You can see a list of all the current core team members on our@napari/core-devs ..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
-<meta property="og:image:alt" content="napari" />
+<meta property="og:image:alt" content="3D segmented tribolium embryo in the napari viewer" />
 <meta name="description" content="Welcome, new core team member! The core team appreciate the quality of your work, and enjoy working with you; we have therefore invited you to join us. Thank you for your numerous contributions to the project so far. You can see a list of all the current core team members on our@napari/core-devs ..." />
+<meta name="twitter:card" content="summary_large_image" />
 
     <title>Core team member guide &#8212; napari</title>
   
@@ -57,7 +58,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=e767cfdd"></script>
+    <script src="../../_static/documentation_options.js?v=d39cf4f6"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +70,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0rc1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.0rc3';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -466,6 +467,7 @@
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Core team member guide</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="maintenance.html">Maintenance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="triage.html">Triage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release.html">Release guide</a></li>
 <li class="toctree-l2"><a class="reference internal" href="packaging.html">Packaging</a></li>
 </ul>
@@ -737,6 +739,7 @@ that responsibility seriously.</p>
 <ul class="simple">
 <li><p>Our <a class="reference internal" href="../contributing/index.html#napari-contributing"><span class="std std-ref">contributor guide</span></a>.</p></li>
 <li><p>Our <a class="reference internal" href="../contributing/performance/benchmarks.html#napari-benchmarks"><span class="std std-ref">benchmarking guide</span></a>.</p></li>
+<li><p>Our <a class="reference internal" href="triage.html#napari-triage"><span class="std std-ref">triage guide</span></a>.</p></li>
 <li><p>Our <a class="reference internal" href="release.html"><span class="doc std std-doc">release guide</span></a>.</p></li>
 <li><p>Our <a class="reference internal" href="maintenance.html"><span class="doc std std-doc">maintenance guide</span></a>.</p></li>
 <li><p>Our <a class="reference internal" href="packaging.html#napari-packaging"><span class="std std-ref">packaging guide</span></a>.</p></li>
@@ -777,7 +780,10 @@ While there is no hard-and-fast rule about who can be nominated, ideally,
 they should have: been part of the project for at least two months, contributed
 significant changes of their own, contributed to the discussion and
 review of others’ work, and collaborated in a way befitting our
-community values. After nomination voting will happen on a private mailing list.
+community values. Beyond the number of contributions, we value the <em>depth</em> of a
+nominee’s interaction with the project — whether that is depth of usage (e.g.
+as a researcher or user), depth of contribution, or depth of understanding of
+maintenance. After nomination voting will happen on a private mailing list.
 While it is expected that most votes will be unanimous, a two-thirds majority of
 the cast votes is enough.</p>
 <p>Core team members can choose to become emeritus core team members and suspend

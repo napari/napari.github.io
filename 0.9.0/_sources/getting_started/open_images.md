@@ -21,6 +21,46 @@ Sometimes you just need to open images to test some functionality of napari or a
 
 ![Open sample image](../_static/images/open_image.png)
 
+### Available built-in sample images
+Many samples come from the scikit-image example images available in [`skimage.data`](https://scikit-image.org/docs/stable/api/skimage.data.html#) which you can read to learn more about the images, including source and copyright status.
+| Sample image | Notes |
+| ------------ | ----- |
+| Astronaut (RGB) | Color photograph of an astronaut. |
+| Balls | 2D synthetic pattern of filled circles. |
+| Balls (3D) | 3D synthetic volume of spheres. |
+| Binary Blobs | 2D synthetic binary blob image. |
+| Binary Blobs (3D) | 3D synthetic binary blob volume. |
+| Brick | Grayscale photograph of a brick wall texture. |
+| Brain (3D) | 3D MRI brain volume. |
+| Camera | Grayscale "cameraman" test image. |
+| Cat (RGB) | Color photograph of a cat. |
+| Cell | Grayscale microscopy image of a single cell. |
+| Cells (3D+2Ch) | 3D fluorescence image with two channels. |
+| Checkerboard | Synthetic checkerboard target pattern. |
+| Clock | Photograph of a motion blurred wall clock. |
+| Coffee (RGB) | Color photograph of a cup of coffee. |
+| Coins | Grayscale photograph of several coins. |
+| Colorwheel (RGB) | Color-wheel test image. |
+| Eagle | Grayscale photograph of an eagle. |
+| Grass | Photograph of a grass texture. |
+| Gravel | Photograph of a gravel texture. |
+| Heat diffusion (4D) | 4D synthetic heat-diffusion volume (time + 3D). |
+| Horse | Silhouette image of a horse. |
+| Hubble Deep Field (RGB) | Deep-field astronomy image. |
+| Human Mitosis | Microscopy image of dividing cells. |
+| Immunohistochemistry (RGB) | Immunohistochemistry-stained tissue image. |
+| Kidney (3D+3Ch) | 3D kidney tissue data with three channels. |
+| Labeled Faces in the Wild | Subset of the LFW face dataset. |
+| Lily (4Ch) | 4-channel fluorescence image of a lily. |
+| Microaneurysms | Retinal image showing microaneurysms. |
+| Moon | Grayscale photograph of the moon. |
+| Page | Grayscale image of a printed text page. |
+| Retina (RGB) | Color retinal fundus image. |
+| Rocket (RGB) | Color photograph of a rocket launch. |
+| Shepp Logan Phantom | Synthetic medical imaging phantom. |
+| Skin (RGB) | Color microscopy image of skin tissue. |
+| Text | Grayscale image containing handwritten text. |
+
 ## Builtin napari reader
 
 napari natively supports TIFF and many other standard formats like PNG, JPG etc. When drag-and-dropping files, using one of the `File -> Open File/Folder` menu options, or using the `File -> Open Sample` menu with such formats, images will be read via the [imageio](https://imageio.readthedocs.io/en/stable/) library and appear in the viewer.

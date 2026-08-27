@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: August 25, 2026*
+*Last updated: August 27, 2026*
 
 
 ## Recent Releases (Last 3 Months)
@@ -90,7 +90,7 @@ viewer buttons, the dimension sliders, and the status bar — so you can get you
 bearings in seconds. If the viewer is empty, napari opens the built-in *Balls
 (3D)* sample data so the walkthrough has something to show ([#9290](https://github.com/napari/napari/pull/9290)).
 
-![Screenshot of the napari viewer guided tour][../_static/images/guided-tour.png)
+![Screenshot of the napari viewer guided tour](../_static/images/guided-tour.png)
 
 ### Contributable plugin preferences
 

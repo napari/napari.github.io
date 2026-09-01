@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../../_static/documentation_options.js?v=e9c8cb54"></script>
+    <script src="../../../../_static/documentation_options.js?v=a3835639"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -2528,6 +2528,9 @@ window.runMermaid = runMermaid;</script>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">'Layer.refresh: </span><span class="si">%s</span><span class="s1">'</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="c1"># If async is enabled then emit an event that the viewer should handle.</span>
         <span class="k">if</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">async_</span> <span class="ow">and</span> <span class="n">data_displayed</span><span class="p">:</span>
+            <span class="c1"># eagerly refresh the extent, even if the layer is invisible, because</span>
+            <span class="c1"># the viewer needs to know if the extent changed to update the gui</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_sync</span><span class="p">(</span><span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="c1"># full async slice reload, it will also update everything when done slicing</span>
             <span class="c1"># via the callback of layer.loaded which calls _refresh_sync</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">layer</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>

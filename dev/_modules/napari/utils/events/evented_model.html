@@ -26,8 +26,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
-<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+  <link href="../../../../_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/css/napari-sphinx-theme.css?v=3779b88c" />
@@ -41,12 +41,12 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=d2b87285" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
-<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../../_static/documentation_options.js?v=d4f4620a"></script>
+    <script src="../../../../_static/documentation_options.js?v=1e078ffa"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -413,7 +413,7 @@ window.addEventListener("load", load);
 window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/napari/utils/events/evented_model';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.21.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
@@ -862,7 +862,11 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__new__</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">cls</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">__eq_operators__</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">non_evented_properties</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+            <span class="bp">cls</span><span class="p">,</span> <span class="s1">'__non_evented_properties__'</span><span class="p">,</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="p">)</span>
+
+        <span class="bp">cls</span><span class="o">.</span><span class="n">__eq_operators__</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">'__eq_operators__'</span><span class="p">,</span> <span class="p">{})}</span>
         <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">model_fields</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">field_type</span> <span class="o">=</span> <span class="n">get_outer_type</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">annotation</span><span class="p">)</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">__eq_operators__</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">pick_equality_operator</span><span class="p">(</span><span class="n">field_type</span><span class="p">)</span>
@@ -881,8 +885,11 @@ window.runMermaid = runMermaid;</script>
                 <span class="p">)</span>
         <span class="c1"># check for properties defined on the class, so we can allow them</span>
         <span class="c1"># in EventedModel.__setattr__ and create events</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">__properties__</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># Current implementation ignores properties defined in mixins</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">__properties__</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">'__properties__'</span><span class="p">,</span> <span class="p">{})}</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">namespace</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">non_evented_properties</span><span class="p">:</span>
+                <span class="k">continue</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="nb">property</span><span class="p">):</span>
                 <span class="bp">cls</span><span class="o">.</span><span class="n">__properties__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span>
                 <span class="c1"># determine compare operator</span>
@@ -1003,6 +1010,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="c1"># mapping of name -&gt; property obj for methods that are properties</span>
     <span class="n">__properties__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">property</span><span class="p">]]</span>
+    <span class="n">__non_evented_properties__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'events'</span><span class="p">,</span> <span class="s1">'_defaults'</span><span class="p">}</span>
     <span class="c1"># mapping of field name -&gt; dependent set of property names</span>
     <span class="c1"># when field is changed, an event for dependent properties will be emitted.</span>
     <span class="n">__field_dependents__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span>
@@ -1192,7 +1200,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="bp">self</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="k">return</span> <span class="n">get_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="EventedModel.reset">
@@ -1379,8 +1387,8 @@ window.runMermaid = runMermaid;</script>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
-<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
 
   <footer class="napari-footer">
 <div class="bd-footer__inner bd-page-width">

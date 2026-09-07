@@ -39,7 +39,7 @@ napari follows [EffVer (Intended Effort Versioning)](https://effver.org/); this 
 - [pre-commit.ci] pre-commit autoupdate ([#9445](https://github.com/napari/napari/pull/9445))
 
 
-## 5 authors added to this release (alphabetical)
+## 6 authors added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
@@ -47,6 +47,7 @@ napari follows [EffVer (Intended Effort Versioning)](https://effver.org/); this 
 - [Juan Nunez-Iglesias](https://github.com/napari/docs/commits?author=jni) - @jni
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - @brisvag
 - [Matthias Schabel](https://github.com/napari/napari/commits?author=matthiasschabel) - @matthiasschabel
+- [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
 - [Suyash Naik](https://github.com/napari/napari/commits?author=Suyash-Naik) - @Suyash-Naik +
 
 ## 10 reviewers added to this release (alphabetical)
@@ -60,6 +61,6 @@ napari follows [EffVer (Intended Effort Versioning)](https://effver.org/); this 
 - [Juan Nunez-Iglesias](https://github.com/napari/docs/commits?author=jni) - @jni
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) - @brisvag
 - [Matthias Schabel](https://github.com/napari/napari/commits?author=matthiasschabel) - @matthiasschabel
-- [Peter Sobolewski](https://github.com/napari/docs/commits?author=psobolewskiPhD) - @psobolewskiPhD
+- [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
 - [Suyash Naik](https://github.com/napari/napari/commits?author=Suyash-Naik) - @Suyash-Naik +
 - [Tim Monko](https://github.com/napari/docs/commits?author=TimMonko) - @TimMonko

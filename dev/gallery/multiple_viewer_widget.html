@@ -58,7 +58,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../_static/documentation_options.js?v=1e078ffa"></script>
+    <script src="../_static/documentation_options.js?v=18237080"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -874,7 +874,7 @@ current dims point (<cite>viewer.dims.point</cite>).</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers</span><span class="w"> </span><span class="kn">import</span> <a href="../api/napari.layers.Labels.html#napari.layers.Labels" title="napari.layers.Labels" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class"><span class="n">Labels</span></a><span class="p">,</span> <a href="../api/napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.Layer" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class"><span class="n">Layer</span></a><span class="p">,</span> <a href="../api/napari.layers.Vectors.html#napari.layers.Vectors" title="napari.layers.Vectors" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class"><span class="n">Vectors</span></a>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.qt</span><span class="w"> </span><span class="kn">import</span> <a href="../api/napari.qt.QtViewer.html#napari.qt.QtViewer" title="napari.qt.QtViewer" class="sphx-glr-backref-module-napari-qt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QtViewer</span></a>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.action_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">action_manager</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.event</span><span class="w"> </span><span class="kn">import</span> <a href="../api/napari.utils.events.EventEmitter.html#napari.utils.events.EventEmitter" title="napari.utils.events.EventEmitter" class="sphx-glr-backref-module-napari-utils-events sphx-glr-backref-type-py-class"><span class="n">WarningEmitter</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.event</span><span class="w"> </span><span class="kn">import</span> <a href="../api/napari.utils.events.WarningEmitter.html#napari.utils.events.WarningEmitter" title="napari.utils.events.WarningEmitter" class="sphx-glr-backref-module-napari-utils-events sphx-glr-backref-type-py-class"><span class="n">WarningEmitter</span></a>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.notifications</span><span class="w"> </span><span class="kn">import</span> <a href="../api/napari.utils.notifications.html#napari.utils.notifications.show_info" title="napari.utils.notifications.show_info" class="sphx-glr-backref-module-napari-utils-notifications sphx-glr-backref-type-py-function"><span class="n">show_info</span></a>
 
 
@@ -888,7 +888,7 @@ current dims point (<cite>viewer.dims.point</cite>).</p>
     <span class="n">klass</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="vm">__class__</span>
     <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">event_name</span><span class="p">,</span> <span class="n">event_emitter</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">emitters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event_emitter</span><span class="p">,</span> <a href="../api/napari.utils.events.EventEmitter.html#napari.utils.events.EventEmitter" title="napari.utils.events.EventEmitter" class="sphx-glr-backref-module-napari-utils-events sphx-glr-backref-type-py-class"><span class="n">WarningEmitter</span></a><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event_emitter</span><span class="p">,</span> <a href="../api/napari.utils.events.WarningEmitter.html#napari.utils.events.WarningEmitter" title="napari.utils.events.WarningEmitter" class="sphx-glr-backref-module-napari-utils-events sphx-glr-backref-type-py-class"><span class="n">WarningEmitter</span></a><span class="p">):</span>
             <span class="k">continue</span>
         <span class="k">if</span> <span class="n">event_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'thumbnail'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">):</span>
             <span class="k">continue</span>

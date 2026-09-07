@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../../_static/documentation_options.js?v=1e078ffa"></script>
+    <script src="../../../../_static/documentation_options.js?v=18237080"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1655,6 +1655,8 @@ window.runMermaid = runMermaid;</script>
 
 
 
+<div class="viewcode-block" id="WarningEmitter">
+<a class="viewcode-back" href="../../../../api/napari.utils.events.WarningEmitter.html#napari.utils.events.WarningEmitter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">WarningEmitter</span><span class="p">(</span><span class="n">EventEmitter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    EventEmitter subclass used to allow deprecated events to be used with a</span>
@@ -1669,17 +1671,24 @@ window.runMermaid = runMermaid;</script>
         <span class="o">*</span><span class="n">args</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="n">message</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_warned</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_category</span> <span class="o">=</span> <span class="n">category</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stacklevel</span> <span class="o">=</span> <span class="n">stacklevel</span>
-        <span class="n">EventEmitter</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
+<div class="viewcode-block" id="WarningEmitter.connect">
+<a class="viewcode-back" href="../../../../api/napari.utils.events.WarningEmitter.html#napari.utils.events.WarningEmitter.connect">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_warn</span><span class="p">(</span><span class="n">cb</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">EventEmitter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">EventEmitter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_invoke_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""invoke callback with warn if not warned yet."""</span>
+        <span class="c1"># check if this is needed. The _invoke_callback is not called if there is a callback.</span>
+        <span class="c1"># but if there is a callback, then _warn was called in the connect.</span>
+        <span class="c1"># And warn emmit a warning only once.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_warn</span><span class="p">(</span><span class="n">cb</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">EventEmitter</span><span class="o">.</span><span class="n">_invoke_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
 
@@ -1696,7 +1705,62 @@ window.runMermaid = runMermaid;</script>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_message</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_category</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_stacklevel</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_warned</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_warned</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+
+<div class="viewcode-block" id="RenamedEmitter">
+<a class="viewcode-back" href="../../../../api/napari.utils.events.RenamedEmitter.html#napari.utils.events.RenamedEmitter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RenamedEmitter</span><span class="p">(</span><span class="n">WarningEmitter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Warning emitter to be used when an attribute was renamed or moved to a composition object.</span>
+<span class="sd">    It will connect to the new event once the callback is connected to the old one.</span>
+<span class="sd">    It will also warn the user that the attribute was renamed.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">new_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_new_name_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_name</span> <span class="o">=</span> <span class="n">new_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connected</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_new_emitter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">'Cannot connect to renamed emitter </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_new_name</span><span class="si">}</span><span class="s1"> because source is None'</span>
+            <span class="p">)</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_name_path</span><span class="p">:</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+        <span class="n">new_emitter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_emitter</span>
+
+<div class="viewcode-block" id="RenamedEmitter.connect">
+<a class="viewcode-back" href="../../../../api/napari.utils.events.RenamedEmitter.html#napari.utils.events.RenamedEmitter.connect">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connected</span><span class="p">:</span>
+            <span class="n">new_emitter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_new_emitter</span><span class="p">()</span>
+            <span class="n">new_emitter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connected</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RenamedEmitter.disconnect">
+<a class="viewcode-back" href="../../../../api/napari.utils.events.RenamedEmitter.html#napari.utils.events.RenamedEmitter.disconnect">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callback</span> <span class="o">|</span> <span class="n">CallbackRef</span> <span class="o">|</span> <span class="nb">object</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">:</span>
+            <span class="n">new_emitter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_new_emitter</span><span class="p">()</span>
+            <span class="n">new_emitter</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connected</span> <span class="o">=</span> <span class="kc">False</span></div>
+</div>
+
 
 
 <div class="viewcode-block" id="EmitterGroup">

@@ -24,10 +24,12 @@
       EventedModel
       EventedSet
       NestableEventedList
+      RenamedEmitter
       SelectableEventedList
       Selection
       SupportsEvents
       TypedMutableSequence
+      WarningEmitter
    
    
 

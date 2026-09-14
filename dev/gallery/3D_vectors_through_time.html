@@ -58,7 +58,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../_static/documentation_options.js?v=18237080"></script>
+    <script src="../_static/documentation_options.js?v=0e92d379"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -871,7 +871,7 @@ Although we’re also measuring rotations (and strains), but here we’re intere
 </dd>
 </dl>
 <p>Let’s download it!</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grey_files</span></a> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pooch</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grey_files</span></a> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pooch</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span>
     <span class="s2">"doi:10.5281/zenodo.17668709/grey.zip"</span><span class="p">,</span>
     <span class="n">known_hash</span><span class="o">=</span><span class="s2">"md5:760be2bad68366872111410776563760"</span><span class="p">,</span>
     <span class="n">processor</span><span class="o">=</span><a href="https://docs.python.org/3/library/abc.html#abc.ABC" title="abc.ABC" class="sphx-glr-backref-module-abc sphx-glr-backref-type-py-class"><span class="n">pooch</span><span class="o">.</span><span class="n">Unzip</span></a><span class="p">(),</span>
@@ -880,10 +880,10 @@ Although we’re also measuring rotations (and strains), but here we’re intere
 
 <span class="c1"># Load individual 3D images as a 4D with a list comprehension, skipping last one</span>
 <span class="c1"># result is a T, Z, Y, X 16-bit array</span>
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">greys</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="n">tifffile</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">grey_file</span><span class="p">)</span> <span class="k">for</span> <span class="n">grey_file</span> <span class="ow">in</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grey_files</span></a><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">greys</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="n">tifffile</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">grey_file</span><span class="p">)</span> <span class="k">for</span> <span class="n">grey_file</span> <span class="ow">in</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grey_files</span></a><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
 
 <span class="c1"># load incremental TSV tracking files from spam-ddic, [::2] is to skip VTK files also in folder</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracking_files</span></a> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pooch</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span>
+<a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracking_files</span></a> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pooch</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span>
     <span class="s2">"doi:10.5281/zenodo.17668709/ddic.zip"</span><span class="p">,</span>
     <span class="n">known_hash</span><span class="o">=</span><span class="s2">"md5:2d7c6a052f53b4a827ff4e4585644fac"</span><span class="p">,</span>
     <span class="n">processor</span><span class="o">=</span><a href="https://docs.python.org/3/library/abc.html#abc.ABC" title="abc.ABC" class="sphx-glr-backref-module-abc sphx-glr-backref-type-py-class"><span class="n">pooch</span><span class="o">.</span><span class="n">Unzip</span></a><span class="p">(),</span>
@@ -893,73 +893,65 @@ Although we’re also measuring rotations (and strains), but here we’re intere
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading...
 From (original): https://drive.google.com/uc?id=1UZEoOtHMMeJMXVoWr6IZraZnvQe8ExNJ
-From (redirected): https://drive.google.com/uc?id=1UZEoOtHMMeJMXVoWr6IZraZnvQe8ExNJ&amp;confirm=t&amp;uuid=ce5e0010-19be-4727-866c-19ba559ebc3b
-To: /home/runner/work/docs/docs/.cache/pooch/tmpw93aeibb
+From (redirected): https://drive.google.com/uc?id=1UZEoOtHMMeJMXVoWr6IZraZnvQe8ExNJ&amp;confirm=t&amp;uuid=cbbbe332-f43c-4213-a0c9-76cab4ff8fc1
+To: /home/runner/work/docs/docs/.cache/pooch/tmpchvdaz_1
 
   0%|          | 0.00/549M [00:00&lt;?, ?B/s]
-  0%|          | 1.05M/549M [00:00&lt;00:56, 9.70MB/s]
-  1%|          | 5.77M/549M [00:00&lt;00:17, 30.5MB/s]
-  2%|▏         | 11.0M/549M [00:00&lt;00:25, 21.1MB/s]
-  4%|▍         | 24.6M/549M [00:00&lt;00:10, 49.7MB/s]
-  6%|▌         | 31.5M/549M [00:00&lt;00:11, 43.5MB/s]
-  7%|▋         | 37.2M/549M [00:01&lt;00:16, 30.9MB/s]
-  8%|▊         | 42.5M/549M [00:01&lt;00:17, 29.4MB/s]
- 10%|█         | 55.1M/549M [00:01&lt;00:11, 44.0MB/s]
- 11%|█         | 60.8M/549M [00:01&lt;00:11, 42.7MB/s]
- 12%|█▏        | 66.1M/549M [00:02&lt;00:17, 28.2MB/s]
- 14%|█▍        | 76.0M/549M [00:02&lt;00:16, 28.5MB/s]
- 16%|█▌        | 88.1M/549M [00:02&lt;00:11, 41.1MB/s]
- 17%|█▋        | 94.4M/549M [00:02&lt;00:13, 33.0MB/s]
- 19%|█▉        | 105M/549M [00:02&lt;00:10, 40.3MB/s]
- 20%|██        | 111M/549M [00:03&lt;00:12, 35.5MB/s]
- 23%|██▎       | 124M/549M [00:03&lt;00:09, 42.6MB/s]
- 25%|██▍       | 135M/549M [00:03&lt;00:07, 52.2MB/s]
- 26%|██▌       | 143M/549M [00:03&lt;00:07, 57.1MB/s]
- 28%|██▊       | 151M/549M [00:03&lt;00:06, 62.3MB/s]
- 29%|██▉       | 160M/549M [00:03&lt;00:06, 59.3MB/s]
- 31%|███       | 169M/549M [00:03&lt;00:05, 65.7MB/s]
- 32%|███▏      | 177M/549M [00:04&lt;00:05, 62.4MB/s]
- 34%|███▍      | 188M/549M [00:04&lt;00:04, 73.1MB/s]
- 36%|███▌      | 196M/549M [00:04&lt;00:07, 49.0MB/s]
- 38%|███▊      | 211M/549M [00:04&lt;00:05, 66.7MB/s]
- 40%|████      | 220M/549M [00:04&lt;00:04, 67.1MB/s]
- 42%|████▏     | 228M/549M [00:04&lt;00:04, 69.8MB/s]
- 44%|████▍     | 242M/549M [00:05&lt;00:03, 80.3MB/s]
- 46%|████▌     | 251M/549M [00:05&lt;00:06, 46.7MB/s]
- 48%|████▊     | 266M/549M [00:05&lt;00:04, 63.3MB/s]
- 50%|█████     | 275M/549M [00:05&lt;00:04, 54.8MB/s]
- 53%|█████▎    | 292M/549M [00:05&lt;00:03, 69.8MB/s]
- 55%|█████▍    | 301M/549M [00:06&lt;00:03, 71.5MB/s]
- 57%|█████▋    | 314M/549M [00:06&lt;00:02, 80.2MB/s]
- 59%|█████▉    | 323M/549M [00:06&lt;00:04, 45.3MB/s]
- 62%|██████▏   | 340M/549M [00:06&lt;00:03, 64.0MB/s]
- 64%|██████▍   | 351M/549M [00:06&lt;00:02, 66.0MB/s]
- 67%|██████▋   | 365M/549M [00:07&lt;00:02, 70.7MB/s]
- 69%|██████▉   | 380M/549M [00:07&lt;00:01, 84.9MB/s]
- 71%|███████▏  | 391M/549M [00:07&lt;00:02, 74.8MB/s]
- 74%|███████▎  | 404M/549M [00:07&lt;00:01, 86.0MB/s]
- 76%|███████▌  | 415M/549M [00:07&lt;00:01, 90.5MB/s]
- 78%|███████▊  | 426M/549M [00:07&lt;00:01, 86.7MB/s]
- 79%|███████▉  | 436M/549M [00:07&lt;00:01, 72.1MB/s]
- 82%|████████▏ | 450M/549M [00:07&lt;00:01, 86.7MB/s]
- 84%|████████▍ | 460M/549M [00:08&lt;00:01, 74.6MB/s]
- 85%|████████▌ | 469M/549M [00:08&lt;00:01, 75.4MB/s]
- 87%|████████▋ | 479M/549M [00:08&lt;00:01, 50.2MB/s]
- 90%|████████▉ | 493M/549M [00:08&lt;00:00, 65.5MB/s]
- 93%|█████████▎| 508M/549M [00:08&lt;00:00, 81.2MB/s]
- 95%|█████████▍| 519M/549M [00:09&lt;00:00, 67.7MB/s]
- 97%|█████████▋| 534M/549M [00:09&lt;00:00, 82.8MB/s]
- 99%|█████████▉| 544M/549M [00:09&lt;00:00, 65.1MB/s]
-100%|██████████| 549M/549M [00:09&lt;00:00, 57.9MB/s]
+  0%|          | 2.10M/549M [00:00&lt;00:26, 20.9MB/s]
+  1%|          | 6.82M/549M [00:00&lt;00:20, 25.9MB/s]
+  3%|▎         | 15.2M/549M [00:00&lt;00:11, 46.7MB/s]
+  4%|▎         | 20.4M/549M [00:00&lt;00:11, 46.3MB/s]
+  5%|▍         | 25.7M/549M [00:00&lt;00:16, 31.3MB/s]
+  6%|▌         | 34.1M/549M [00:00&lt;00:13, 37.4MB/s]
+  9%|▊         | 46.7M/549M [00:01&lt;00:09, 55.5MB/s]
+ 10%|▉         | 53.5M/549M [00:01&lt;00:09, 54.6MB/s]
+ 11%|█         | 59.8M/549M [00:01&lt;00:08, 55.0MB/s]
+ 13%|█▎        | 71.8M/549M [00:01&lt;00:07, 63.0MB/s]
+ 14%|█▍        | 78.6M/549M [00:01&lt;00:10, 44.6MB/s]
+ 17%|█▋        | 90.7M/549M [00:01&lt;00:10, 44.7MB/s]
+ 19%|█▉        | 105M/549M [00:02&lt;00:09, 47.6MB/s]
+ 22%|██▏       | 118M/549M [00:02&lt;00:07, 55.7MB/s]
+ 24%|██▍       | 131M/549M [00:02&lt;00:06, 67.8MB/s]
+ 25%|██▌       | 139M/549M [00:02&lt;00:06, 61.0MB/s]
+ 27%|██▋       | 149M/549M [00:03&lt;00:10, 38.1MB/s]
+ 31%|███       | 168M/549M [00:03&lt;00:07, 53.7MB/s]
+ 32%|███▏      | 177M/549M [00:03&lt;00:07, 51.9MB/s]
+ 35%|███▍      | 191M/549M [00:03&lt;00:06, 55.9MB/s]
+ 38%|███▊      | 209M/549M [00:03&lt;00:04, 75.3MB/s]
+ 40%|███▉      | 219M/549M [00:04&lt;00:04, 72.1MB/s]
+ 43%|████▎     | 235M/549M [00:04&lt;00:03, 89.5MB/s]
+ 45%|████▌     | 249M/549M [00:04&lt;00:03, 99.3MB/s]
+ 48%|████▊     | 261M/549M [00:04&lt;00:03, 88.1MB/s]
+ 50%|████▉     | 272M/549M [00:04&lt;00:03, 73.1MB/s]
+ 53%|█████▎    | 289M/549M [00:04&lt;00:02, 93.9MB/s]
+ 55%|█████▍    | 301M/549M [00:04&lt;00:02, 91.0MB/s]
+ 57%|█████▋    | 311M/549M [00:05&lt;00:03, 62.0MB/s]
+ 60%|██████    | 330M/549M [00:05&lt;00:02, 84.2MB/s]
+ 62%|██████▏   | 342M/549M [00:05&lt;00:02, 87.7MB/s]
+ 65%|██████▍   | 355M/549M [00:05&lt;00:02, 93.1MB/s]
+ 67%|██████▋   | 368M/549M [00:05&lt;00:01, 102MB/s]
+ 69%|██████▉   | 380M/549M [00:05&lt;00:01, 86.7MB/s]
+ 73%|███████▎  | 399M/549M [00:05&lt;00:01, 109MB/s]
+ 75%|███████▌  | 412M/549M [00:06&lt;00:01, 74.5MB/s]
+ 78%|███████▊  | 429M/549M [00:06&lt;00:01, 93.3MB/s]
+ 81%|████████  | 442M/549M [00:06&lt;00:01, 92.0MB/s]
+ 84%|████████▍ | 460M/549M [00:06&lt;00:01, 71.4MB/s]
+ 87%|████████▋ | 479M/549M [00:06&lt;00:00, 90.4MB/s]
+ 89%|████████▉ | 491M/549M [00:07&lt;00:00, 82.9MB/s]
+ 93%|█████████▎| 508M/549M [00:07&lt;00:00, 99.5MB/s]
+ 95%|█████████▍| 521M/549M [00:07&lt;00:00, 87.2MB/s]
+ 98%|█████████▊| 537M/549M [00:07&lt;00:00, 93.0MB/s]
+100%|█████████▉| 548M/549M [00:07&lt;00:00, 80.0MB/s]
+100%|██████████| 549M/549M [00:07&lt;00:00, 70.3MB/s]
 Downloading...
 From: https://drive.google.com/uc?id=1-AAkBUXykxXG3Ve20jPk43co-m3f9ZWB
-To: /home/runner/work/docs/docs/.cache/pooch/tmprxmb7s9c
+To: /home/runner/work/docs/docs/.cache/pooch/tmpvcg86qzv
 
   0%|          | 0.00/6.72M [00:00&lt;?, ?B/s]
-  8%|▊         | 524k/6.72M [00:00&lt;00:01, 4.70MB/s]
- 39%|███▉      | 2.62M/6.72M [00:00&lt;00:00, 11.4MB/s]
-100%|██████████| 6.72M/6.72M [00:00&lt;00:00, 19.0MB/s]
-100%|██████████| 6.72M/6.72M [00:00&lt;00:00, 16.6MB/s]
+ 23%|██▎       | 1.57M/6.72M [00:00&lt;00:00, 14.9MB/s]
+ 47%|████▋     | 3.15M/6.72M [00:00&lt;00:00, 13.4MB/s]
+100%|██████████| 6.72M/6.72M [00:00&lt;00:00, 20.1MB/s]
+100%|██████████| 6.72M/6.72M [00:00&lt;00:00, 18.5MB/s]
 </pre></div>
 </div>
 </section>
@@ -973,21 +965,21 @@ To: /home/runner/work/docs/docs/.cache/pooch/tmprxmb7s9c
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disps_all</span></a> <span class="o">=</span> <span class="p">[]</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">lengths_all</span></a> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="k">for</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">t</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracking_file</span></a> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracking_files</span></a><span class="p">):</span>
+<span class="k">for</span> <a href="https://docs.python.org/3/builtins/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">t</span></a><span class="p">,</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracking_file</span></a> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracking_files</span></a><span class="p">):</span>
     <span class="c1"># load the indicator for convergence</span>
-    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">returnStatus</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt" title="numpy.genfromtxt" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracking_file</span></a><span class="p">,</span> <span class="n">skip_header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">19</span><span class="p">))</span>
+    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">returnStatus</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt" title="numpy.genfromtxt" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span></a><span class="p">(</span><a href="https://docs.python.org/3/builtins/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracking_file</span></a><span class="p">,</span> <span class="n">skip_header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">19</span><span class="p">))</span>
 
     <span class="c1"># Load coords and displacements, keeping only converged results (returnStatus==2)</span>
-    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">coords</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt" title="numpy.genfromtxt" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracking_file</span></a><span class="p">,</span> <span class="n">skip_header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))[</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">returnStatus</span></a><span class="o">==</span><span class="mi">2</span><span class="p">]</span>
-    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disps</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt" title="numpy.genfromtxt" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracking_file</span></a><span class="p">,</span> <span class="n">skip_header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">))[</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">returnStatus</span></a><span class="o">==</span><span class="mi">2</span><span class="p">]</span>
+    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">coords</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt" title="numpy.genfromtxt" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span></a><span class="p">(</span><a href="https://docs.python.org/3/builtins/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracking_file</span></a><span class="p">,</span> <span class="n">skip_header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))[</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">returnStatus</span></a><span class="o">==</span><span class="mi">2</span><span class="p">]</span>
+    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disps</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt" title="numpy.genfromtxt" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span></a><span class="p">(</span><a href="https://docs.python.org/3/builtins/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracking_file</span></a><span class="p">,</span> <span class="n">skip_header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">))[</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">returnStatus</span></a><span class="o">==</span><span class="mi">2</span><span class="p">]</span>
 
     <span class="c1"># Compute lengths in order to colour vectors</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">lengths</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linalg.norm.html#numpy.linalg.norm" title="numpy.linalg.norm" class="sphx-glr-backref-module-numpy-linalg sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disps</span></a><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c1"># Prepend an extra dimension to coordinates to place them in time, and fill it with the incremental t</span>
-    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">coords</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.hstack.html#numpy.hstack" title="numpy.hstack" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">hstack</span></a><span class="p">([</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ones.html#numpy.ones" title="numpy.ones" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">ones</span></a><span class="p">((</span><a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">coords</span><span class="o">.</span><span class="n">shape</span></a><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">t</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">coords</span></a><span class="p">])</span>
+    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">coords</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.hstack.html#numpy.hstack" title="numpy.hstack" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">hstack</span></a><span class="p">([</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ones.html#numpy.ones" title="numpy.ones" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">ones</span></a><span class="p">((</span><a href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">coords</span><span class="o">.</span><span class="n">shape</span></a><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><a href="https://docs.python.org/3/builtins/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">t</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">coords</span></a><span class="p">])</span>
     <span class="c1"># Preprend zeros to the displacements (the "end" of the vector), since they do not displace through time</span>
-    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disps</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.hstack.html#numpy.hstack" title="numpy.hstack" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">hstack</span></a><span class="p">([</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.zeros.html#numpy.zeros" title="numpy.zeros" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">zeros</span></a><span class="p">((</span><a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disps</span><span class="o">.</span><span class="n">shape</span></a><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">)),</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disps</span></a><span class="p">])</span>
+    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disps</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.hstack.html#numpy.hstack" title="numpy.hstack" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">hstack</span></a><span class="p">([</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.zeros.html#numpy.zeros" title="numpy.zeros" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">zeros</span></a><span class="p">((</span><a href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disps</span><span class="o">.</span><span class="n">shape</span></a><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">)),</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disps</span></a><span class="p">])</span>
 
     <span class="c1"># Add to lists</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">coords_all</span><span class="o">.</span><span class="n">append</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">coords</span></a><span class="p">)</span>
@@ -1019,8 +1011,8 @@ To: /home/runner/work/docs/docs/.cache/pooch/tmprxmb7s9c
   <span class="n">edge_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
 <span class="p">)</span>
 
-<a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span></a> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">97</span><span class="p">)</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span></a> <span class="o">=</span> <span class="p">(</span><span class="s1">'away'</span><span class="p">,</span><span class="s1">'up'</span><span class="p">,</span><span class="s1">'right'</span><span class="p">)</span>
+<a href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span></a> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">97</span><span class="p">)</span>
+<a href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span></a> <span class="o">=</span> <span class="p">(</span><span class="s1">'away'</span><span class="p">,</span><span class="s1">'up'</span><span class="p">,</span><span class="s1">'right'</span><span class="p">)</span>
 <a href="../api/napari.components.Dims.html#napari.components.Dims.current_step" title="napari.components.Dims.current_step" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-attribute"><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">current_step</span></a> <span class="o">=</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">199</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">124</span><span class="p">)</span>
 <a href="../api/napari.Viewer.html#napari.Viewer.fit_to_view" title="napari.Viewer.fit_to_view" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">fit_to_view</span></a><span class="p">()</span>
 
@@ -1031,7 +1023,7 @@ To: /home/runner/work/docs/docs/.cache/pooch/tmprxmb7s9c
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_3D_vectors_through_time_001.png" srcset="../_images/sphx_glr_3D_vectors_through_time_001.png" alt="3D vectors through time" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 28.704 seconds)</p>
+<img src="../_images/sphx_glr_3D_vectors_through_time_001.png" srcset="../_images/sphx_glr_3D_vectors_through_time_001.png" alt="3D vectors through time" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 25.975 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-3d-vectors-through-time-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/86d7f2e6204fe93e93d52e0c33205c62/3D_vectors_through_time.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">3D_vectors_through_time.ipynb</span></code></a></p>

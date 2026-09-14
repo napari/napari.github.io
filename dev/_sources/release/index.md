@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: September 08, 2026*
+*Last updated: September 14, 2026*
 
 
 ## Recent Releases (Last 3 Months)
@@ -378,6 +378,11 @@ WCAG-compliant theme? Try out the new WCAG table in
 
 ````
 
+
+
+
+## Releases from 3-6 Months Ago
+
 ````{dropdown} napari 0.7.1 (June 2026)
 :open:
 
@@ -429,11 +434,6 @@ In the future we plan to expand this feature to prevent not only deletion but al
 [View full release notes →](release_0_7_1)
 
 ````
-
-
-
-
-## Releases from 3-6 Months Ago
 
 ````{dropdown} napari 0.7.0 (March 2026)
 :open:

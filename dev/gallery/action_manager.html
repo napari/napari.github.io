@@ -58,7 +58,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../_static/documentation_options.js?v=18237080"></script>
+    <script src="../_static/documentation_options.js?v=0e92d379"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -854,9 +854,9 @@ no earlier than v0.10.0. It is considered an "implementation detail" of the napa
 application, not part of the napari viewer model. If your use case
 requires access to qt_viewer, please open an issue to discuss.
   layer_buttons = viewer.window.qt_viewer.layerButtons
-calling &lt;function bind_button at 0x7f3f07f95bc0&gt;
-calling &lt;function register_action at 0x7f3f07f965c0&gt;
-calling &lt;function bind_shortcut at 0x7f3f07f95760&gt;
+calling &lt;function bind_shortcut at 0x7f3c343cdd00&gt;
+calling &lt;function register_action at 0x7f3c343cd1c0&gt;
+calling &lt;function bind_button at 0x7f3bd4198ea0&gt;
 </pre></div>
 </div>
 <div class="line-block">
@@ -887,7 +887,7 @@ calling &lt;function bind_shortcut at 0x7f3f07f95760&gt;
 <span class="sd">    The `viewer` parameter needs to be named `viewer`, the action manager will</span>
 <span class="sd">    infer that we need an instance of viewer.</span>
 <span class="sd">    """</span>
-    <span class="n">angle</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a> <span class="o">/</span> <span class="mi">4</span>
+    <span class="n">angle</span> <span class="o">=</span> <a href="https://docs.python.org/3/builtins/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a> <span class="o">/</span> <span class="mi">4</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.cos.html#numpy.cos" title="numpy.cos" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">cos</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.sin.html#numpy.sin" title="numpy.sin" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">sin</span></a>
 
     <span class="n">r</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([[</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.cos.html#numpy.cos" title="numpy.cos" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">cos</span></a><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="o">-</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.sin.html#numpy.sin" title="numpy.sin" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">sin</span></a><span class="p">(</span><span class="n">angle</span><span class="p">)],</span> <span class="p">[</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.sin.html#numpy.sin" title="numpy.sin" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">sin</span></a><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.cos.html#numpy.cos" title="numpy.cos" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">cos</span></a><span class="p">(</span><span class="n">angle</span><span class="p">)]])</span>
@@ -938,10 +938,10 @@ calling &lt;function bind_shortcut at 0x7f3f07f95760&gt;
 
 <span class="c1"># we can all bind_shortcut or register_action or bind_button in any order;</span>
 <span class="c1"># this let us configure shortcuts even if plugins are loaded / unloaded.</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">callbacks</span></a> <span class="o">=</span> <span class="p">[</span><span class="n">register_action</span><span class="p">,</span> <span class="n">bind_shortcut</span><span class="p">,</span> <span class="n">bind_button</span><span class="p">]</span>
+<a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">callbacks</span></a> <span class="o">=</span> <span class="p">[</span><span class="n">register_action</span><span class="p">,</span> <span class="n">bind_shortcut</span><span class="p">,</span> <span class="n">bind_button</span><span class="p">]</span>
 
-<a href="https://docs.python.org/3/library/random.html#random.shuffle" title="random.shuffle" class="sphx-glr-backref-module-random sphx-glr-backref-type-py-function"><span class="n">shuffle</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">callbacks</span></a><span class="p">)</span>
-<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">callbacks</span></a><span class="p">:</span>
+<a href="https://docs.python.org/3/library/random.html#random.shuffle" title="random.shuffle" class="sphx-glr-backref-module-random sphx-glr-backref-type-py-function"><span class="n">shuffle</span></a><span class="p">(</span><a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">callbacks</span></a><span class="p">)</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">callbacks</span></a><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">'calling'</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
     <span class="n">c</span><span class="p">()</span>
 
@@ -961,15 +961,15 @@ calling &lt;function bind_shortcut at 0x7f3f07f95760&gt;
 <span class="c1"># be implemented in settings, though you could imagine a plugin that would</span>
 <span class="c1"># allow toggling between many keymaps.</span>
 
-<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">settings</span></a> <span class="o">=</span> <span class="p">{</span>
+<a href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">settings</span></a> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">'napari:activate_points_add_mode'</span> <span class="p">:</span> <span class="s1">'='</span><span class="p">,</span>
         <span class="s1">'napari:activate_points_select_mode'</span><span class="p">:</span> <span class="s1">'-'</span><span class="p">,</span>
 <span class="p">}</span>
 
 
-<span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">action</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">key</span></a> <span class="ow">in</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">settings</span></a><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-   <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_old_shortcut</span></a> <span class="o">=</span> <span class="n">action_manager</span><span class="o">.</span><span class="n">unbind_shortcut</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">action</span></a><span class="p">)</span>
-   <span class="n">action_manager</span><span class="o">.</span><span class="n">bind_shortcut</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">action</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">key</span></a><span class="p">)</span>
+<span class="k">for</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">action</span></a><span class="p">,</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">key</span></a> <span class="ow">in</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">settings</span></a><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+   <a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_old_shortcut</span></a> <span class="o">=</span> <span class="n">action_manager</span><span class="o">.</span><span class="n">unbind_shortcut</span><span class="p">(</span><a href="https://docs.python.org/3/builtins/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">action</span></a><span class="p">)</span>
+   <span class="n">action_manager</span><span class="o">.</span><span class="n">bind_shortcut</span><span class="p">(</span><a href="https://docs.python.org/3/builtins/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">action</span></a><span class="p">,</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">key</span></a><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>

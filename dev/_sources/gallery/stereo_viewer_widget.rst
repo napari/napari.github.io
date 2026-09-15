@@ -45,6 +45,10 @@ screen size. Cross-eyed viewing: use a negative separation.
       model = next(m for m in self._all_models() if m.camera is source_cam)
     /home/runner/work/docs/docs/napari/examples/stereo_viewer_widget.py:195: DeprecationWarning: viewer.camera is a deprecated attribute since 0.9.0. Use viewer.scene.camera instead. There is currently no planned date for removal of the legacy attribute.
       self._apply_stereo_from(
+    /home/runner/work/docs/docs/napari/examples/stereo_viewer_widget.py:195: DeprecationWarning: viewer.camera is a deprecated attribute since 0.9.0. Use viewer.scene.camera instead. There is currently no planned date for removal of the legacy attribute.
+      self._apply_stereo_from(
+    /home/runner/work/docs/docs/napari/examples/stereo_viewer_widget.py:195: DeprecationWarning: viewer.camera is a deprecated attribute since 0.9.0. Use viewer.scene.camera instead. There is currently no planned date for removal of the legacy attribute.
+      self._apply_stereo_from(
 
 
 

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../../_static/documentation_options.js?v=57e09288"></script>
+    <script src="../../../../_static/documentation_options.js?v=a282da8a"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -852,6 +852,7 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers._scalar_field</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScalarFieldBase</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.action_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">action_manager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.camera_orientations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AxisOrientation</span><span class="p">,</span>
     <span class="n">DepthAxisOrientation</span><span class="p">,</span>
     <span class="n">DepthAxisOrientationStr</span><span class="p">,</span>
     <span class="n">HorizontalAxisOrientation</span><span class="p">,</span>
@@ -1425,11 +1426,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_orientation</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">orientation_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span>
-            <span class="n">DepthAxisOrientation</span>
-            <span class="o">|</span> <span class="n">VerticalAxisOrientation</span>
-            <span class="o">|</span> <span class="n">HorizontalAxisOrientation</span>
-        <span class="p">],</span>
+        <span class="n">orientation_type</span><span class="p">:</span> <span class="n">AxisOrientation</span><span class="p">,</span>
         <span class="n">orientation_value</span><span class="p">:</span> <span class="p">(</span>
             <span class="n">DepthAxisOrientationStr</span>
             <span class="o">|</span> <span class="n">VerticalAxisOrientationStr</span>
@@ -1440,7 +1437,7 @@ window.runMermaid = runMermaid;</script>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        orientation_type : type[DepthAxisOrientation | VerticalAxisOrientation | HorizontalAxisOrientation]</span>
+<span class="sd">        orientation_type : AxisOrientation</span>
 <span class="sd">            The orientation type (which implies the position/axis) to update.</span>
 <span class="sd">        value : DepthAxisOrientationStr | VerticalAxisOrientationStr | HorizontalAxisOrientationStr</span>
 <span class="sd">            New orientation value for the updated axis.</span>

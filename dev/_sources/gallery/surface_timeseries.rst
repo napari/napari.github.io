@@ -31,8 +31,7 @@ Display a surface timeseries using data from nilearn
 
  .. code-block:: none
 
-    [fetch_surf_nki_enhanced] Dataset directory found: 
-    /home/runner/nilearn_data/nki_enhanced_surface
+    [fetch_surf_nki_enhanced] Dataset directory found: /home/runner/nilearn_data/nki_enhanced_surface
 
 
 

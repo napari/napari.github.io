@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../_static/documentation_options.js?v=597a518a"></script>
+    <script src="../../../_static/documentation_options.js?v=cf739f59"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -824,6 +824,7 @@ window.runMermaid = runMermaid;</script>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gc</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">suppress</span>
@@ -883,14 +884,28 @@ window.runMermaid = runMermaid;</script>
 
         <span class="n">leaked_objects_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Klass</span><span class="o">.</span><span class="n">_instances</span><span class="p">)</span>
 
+        <span class="n">graphviz_available</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s1">'dot'</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">or</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s1">'dot.exe'</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="p">)</span>
+
         <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
-        <span class="n">file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">Klass</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">-leak-backref-graph-</span><span class="si">{</span><span class="n">COUNTER</span><span class="si">}</span><span class="s1">.pdf'</span>
+        <span class="k">if</span> <span class="n">graphviz_available</span><span class="p">:</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">Klass</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">-leak-backref-graph-</span><span class="si">{</span><span class="n">COUNTER</span><span class="si">}</span><span class="s1">.pdf'</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
+            <span class="n">objgraph</span><span class="o">.</span><span class="n">show_backrefs</span><span class="p">(</span>
+                <span class="nb">list</span><span class="p">(</span><span class="n">Klass</span><span class="o">.</span><span class="n">_instances</span><span class="p">),</span>
+                <span class="n">max_depth</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="n">file_path_dot</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">Klass</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">-leak-backref-graph-</span><span class="si">{</span><span class="n">COUNTER</span><span class="si">}</span><span class="s1">.dot'</span>
         <span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
         <span class="n">objgraph</span><span class="o">.</span><span class="n">show_backrefs</span><span class="p">(</span>
             <span class="nb">list</span><span class="p">(</span><span class="n">Klass</span><span class="o">.</span><span class="n">_instances</span><span class="p">),</span>
             <span class="n">max_depth</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-            <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">),</span>
+            <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path_dot</span><span class="p">),</span>
         <span class="p">)</span>
 
         <span class="n">Klass</span><span class="o">.</span><span class="n">_instances</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>

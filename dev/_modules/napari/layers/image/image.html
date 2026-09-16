@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../../_static/documentation_options.js?v=a282da8a"></script>
+    <script src="../../../../_static/documentation_options.js?v=597a518a"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -850,6 +850,7 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.layer_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">calc_data_range</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerDataType</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._dtype</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_dtype_limits</span><span class="p">,</span> <span class="n">normalize_dtype</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.color</span><span class="w"> </span><span class="kn">import</span> <span class="n">rgb_to_luminance</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps</span><span class="w"> </span><span class="kn">import</span> <span class="n">ensure_colormap</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps.colormap_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">_coerce_contrast_limits</span>
 
@@ -1060,6 +1061,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        3D Depiction mode used by vispy. Must be one of our supported modes.</span>
 <span class="sd">    iso_threshold : float</span>
 <span class="sd">        Threshold for isosurface.</span>
+<span class="sd">        When in RGB, this threshold applies to the perceived luminance.</span>
 <span class="sd">    attenuation : float</span>
 <span class="sd">        Attenuation rate for attenuated maximum intensity projection.</span>
 <span class="sd">    plane : SlicingPlane or dict</span>
@@ -1481,50 +1483,63 @@ window.runMermaid = runMermaid;</script>
             <span class="k">finally</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_auto_contrast</span> <span class="o">=</span> <span class="n">prev</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_calculate_value_from_ray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_calculate_value_from_ray</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
         <span class="c1"># translucent is special: just return the first value, no matter what</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rendering</span> <span class="o">==</span> <span class="n">ImageRendering</span><span class="o">.</span><span class="n">TRANSLUCENT</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">values</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="c1"># iso is weird too: just return None always</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rendering</span> <span class="o">==</span> <span class="n">ImageRendering</span><span class="o">.</span><span class="n">ISO</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="c1"># if the whole ray is NaN, we should see nothing, so return None</span>
         <span class="c1"># this check saves us some warnings later as well, so better do it now</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">values</span><span class="p">)):</span>
             <span class="k">return</span> <span class="kc">None</span>
 
+        <span class="n">luminance</span> <span class="o">=</span> <span class="n">rgb_to_luminance</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span> <span class="k">else</span> <span class="n">values</span>
+
+        <span class="c1"># in isosurface we return the value at the hit surface;</span>
+        <span class="c1"># in non-rgb it's ~= iso_threshold. Return None if nothing was hit.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rendering</span> <span class="o">==</span> <span class="n">ImageRendering</span><span class="o">.</span><span class="n">ISO</span><span class="p">:</span>
+            <span class="n">hits</span> <span class="o">=</span> <span class="n">luminance</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iso_threshold</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">hits</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nanargmax</span><span class="p">(</span><span class="n">hits</span><span class="p">)]</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
         <span class="c1"># "summary" renderings; they do not represent a specific pixel, so we just</span>
         <span class="c1"># return the summary value. We should probably differentiate these somehow.</span>
         <span class="c1"># these are also probably not the same as how the gpu does it...</span>
+        <span class="c1"># TODO: this is "broken" cause same pixel gets multisampled, getting worse</span>
+        <span class="c1">#       when the sampling rate is high (and especially bad for additive).</span>
+        <span class="c1">#       But it looks like it's also similarly overdoing it in vispy vis too.</span>
+        <span class="c1">#       I don't know if there's a way to *not* do it...</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rendering</span> <span class="o">==</span> <span class="n">ImageRendering</span><span class="o">.</span><span class="n">AVERAGE</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rendering</span> <span class="o">==</span> <span class="n">ImageRendering</span><span class="o">.</span><span class="n">ADDITIVE</span><span class="p">:</span>
-            <span class="c1"># TODO: this is "broken" cause same pixel gets multisampled...</span>
-            <span class="c1">#       but it looks like it's also overdoing it in vispy vis too?</span>
-            <span class="c1">#       I don't know if there's a way to *not* do it...</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="c1"># all the following cases are returning the *actual* value of the image at the</span>
         <span class="c1"># "selected" pixel, whose position changes depending on the rendering mode.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rendering</span> <span class="o">==</span> <span class="n">ImageRendering</span><span class="o">.</span><span class="n">MIP</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nanargmax</span><span class="p">(</span><span class="n">luminance</span><span class="p">)]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rendering</span> <span class="o">==</span> <span class="n">ImageRendering</span><span class="o">.</span><span class="n">MINIP</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nanargmin</span><span class="p">(</span><span class="n">luminance</span><span class="p">)]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rendering</span> <span class="o">==</span> <span class="n">ImageRendering</span><span class="o">.</span><span class="n">ATTENUATED_MIP</span><span class="p">:</span>
             <span class="c1"># normalize values so attenuation applies from 0 to 1</span>
-            <span class="n">values_attenuated</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">values</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">attenuated</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">luminance</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
             <span class="c1"># approx, step size is actually calculated with int(lenght(ray) * 2)</span>
             <span class="n">step_size</span> <span class="o">=</span> <span class="mf">0.5</span>
             <span class="n">sumval</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="n">step_size</span>
-                <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">values_attenuated</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-                <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">values_attenuated</span><span class="p">)</span>
+                <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">attenuated</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+                <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">attenuated</span><span class="p">)</span>
             <span class="p">)</span>
             <span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">attenuation</span> <span class="o">*</span> <span class="p">(</span><span class="n">sumval</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-            <span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nanargmin</span><span class="p">(</span><span class="n">values_attenuated</span> <span class="o">*</span> <span class="n">scale</span><span class="p">)]</span>
+            <span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nanargmin</span><span class="p">(</span><span class="n">attenuated</span> <span class="o">*</span> <span class="n">scale</span><span class="p">)]</span>
 
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>  <span class="c1"># pragma: no cover</span>
             <span class="sa">f</span><span class="s1">'ray value calculation not implemented for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rendering</span><span class="si">}</span><span class="s1">'</span>

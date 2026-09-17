@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../_static/documentation_options.js?v=cf739f59"></script>
+    <script src="../../../_static/documentation_options.js?v=0035b808"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -983,7 +983,7 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="o">.</span><span class="n">__traceback__</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">fmt</span><span class="p">(</span><span class="n">exc_info</span><span class="p">,</span> <span class="n">as_html</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fmt</span><span class="p">(</span><span class="n">exc_info</span><span class="p">,</span> <span class="n">as_html</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [bad-argument-count, bad-argument-type, unexpected-keyword]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">as_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._tracebacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_tb_formatter</span>
@@ -994,7 +994,7 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="o">.</span><span class="n">__traceback__</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">fmt</span><span class="p">(</span><span class="n">exc_info</span><span class="p">,</span> <span class="n">as_html</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'NoColor'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fmt</span><span class="p">(</span><span class="n">exc_info</span><span class="p">,</span> <span class="n">as_html</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'NoColor'</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [bad-argument-count, bad-argument-type, unexpected-keyword]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._tracebacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_tb_formatter</span>
@@ -1005,7 +1005,7 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="o">.</span><span class="n">__traceback__</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">fmt</span><span class="p">(</span><span class="n">exc_info</span><span class="p">,</span> <span class="n">as_html</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">fmt</span><span class="p">(</span><span class="n">exc_info</span><span class="p">,</span> <span class="n">as_html</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [bad-argument-count, bad-argument-type, unexpected-keyword]</span></div>
 
 
 
@@ -1092,13 +1092,13 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        """</span>
         <span class="c1"># TODO: we might want to display the additional thread information</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_originals_thread_except_hooks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">excepthook</span><span class="p">)</span>
-        <span class="n">threading</span><span class="o">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">receive_thread_error</span>
+        <span class="n">threading</span><span class="o">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">receive_thread_error</span>  <span class="c1"># pyrefly: ignore [bad-assignment]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_originals_except_hooks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">excepthook</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_original_showwarnings_hooks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">warnings</span><span class="o">.</span><span class="n">showwarning</span><span class="p">)</span>
 
         <span class="n">sys</span><span class="o">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">receive_error</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">showwarning</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">receive_warning</span></div>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">showwarning</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">receive_warning</span>  <span class="c1"># pyrefly: ignore [bad-assignment]</span></div>
 
 
 <div class="viewcode-block" id="NotificationManager.restore_hooks">

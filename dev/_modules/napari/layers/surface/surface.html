@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../../_static/documentation_options.js?v=cf739f59"></script>
+    <script src="../../../../_static/documentation_options.js?v=0035b808"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1152,7 +1152,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="n">contrast_limits</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits_range</span> <span class="o">=</span> <span class="n">contrast_limits</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits_range</span> <span class="o">=</span> <span class="n">calc_data_range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vertex_values</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits_range</span> <span class="o">=</span> <span class="n">calc_data_range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vertex_values</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [bad-argument-type]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits_range</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="n">colormap</span>
@@ -1220,7 +1220,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_view_texcoords</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_calc_data_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'data'</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">calc_data_range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex_values</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">calc_data_range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex_values</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [bad-argument-type]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
@@ -1670,7 +1670,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">vertex_colors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">vertex_colors</span><span class="p">,</span>
             <span class="n">texcoords</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">texcoords</span><span class="p">,</span>
             <span class="n">data_slice</span><span class="o">=</span><span class="n">data_slice</span><span class="p">,</span>
-            <span class="n">projection_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">projection_mode</span><span class="p">,</span>
+            <span class="n">projection_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">projection_mode</span><span class="p">,</span>  <span class="c1"># pyrefly: ignore [bad-argument-type]</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_slice_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">_SurfaceSliceResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

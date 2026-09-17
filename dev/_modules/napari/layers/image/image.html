@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../../_static/documentation_options.js?v=cf739f59"></script>
+    <script src="../../../../_static/documentation_options.js?v=0035b808"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1178,13 +1178,13 @@ window.runMermaid = runMermaid;</script>
                 <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_data_range</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span> <span class="o">=</span> <span class="n">contrast_limits</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span>  <span class="c1"># pyrefly: ignore [bad-assignment]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">auto_contrast</span> <span class="o">=</span> <span class="n">auto_contrast</span>
 
         <span class="k">if</span> <span class="n">iso_threshold</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">cmin</span><span class="p">,</span> <span class="n">cmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits_range</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_iso_threshold</span> <span class="o">=</span> <span class="n">cmin</span> <span class="o">+</span> <span class="p">(</span><span class="n">cmax</span> <span class="o">-</span> <span class="n">cmin</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_iso_threshold</span> <span class="o">=</span> <span class="n">cmin</span> <span class="o">+</span> <span class="p">(</span><span class="n">cmax</span> <span class="o">-</span> <span class="n">cmin</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c1"># pyrefly: ignore [unsupported-operation]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_iso_threshold</span> <span class="o">=</span> <span class="n">iso_threshold</span>
 
@@ -1192,7 +1192,7 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">locked_data_level</span> <span class="o">=</span> <span class="n">locked_data_level</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">rendering</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rendering</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>  <span class="c1"># pyrefly: ignore [bad-override]</span>
 <span class="w">        </span><span class="sd">"""Return current rendering mode.</span>
 
 <span class="sd">        Selects a preset rendering mode in vispy that determines how</span>
@@ -1290,9 +1290,9 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">_histogram</span> <span class="o">=</span> <span class="n">HistogramModel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_histogram</span>
 
-    <span class="nd">@ScalarFieldBase</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">setter</span>  <span class="c1"># type: ignore[attr-defined]</span>
+    <span class="nd">@ScalarFieldBase</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LayerDataProtocol</span> <span class="o">|</span> <span class="n">MultiScaleData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ScalarFieldBase</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="n">ScalarFieldBase</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [not-callable]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_contrast</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span>
 
@@ -1409,10 +1409,10 @@ window.runMermaid = runMermaid;</script>
             <span class="p">)</span>
             <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span>
             <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">downsampled</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
-                <span class="n">low</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">downsampled</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">)</span>
-                <span class="n">high</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">high</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">downsampled</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+                <span class="n">low</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">downsampled</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [bad-specialization]</span>
+                <span class="n">high</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">high</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">downsampled</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [bad-specialization]</span>
             <span class="n">downsampled</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">downsampled</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span>
-            <span class="n">color_range</span> <span class="o">=</span> <span class="n">high</span> <span class="o">-</span> <span class="n">low</span>
+            <span class="n">color_range</span> <span class="o">=</span> <span class="n">high</span> <span class="o">-</span> <span class="n">low</span>  <span class="c1"># pyrefly: ignore [unsupported-operation]</span>
             <span class="k">if</span> <span class="n">color_range</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">downsampled</span> <span class="o">=</span> <span class="p">(</span><span class="n">downsampled</span> <span class="o">-</span> <span class="n">low</span><span class="p">)</span> <span class="o">/</span> <span class="n">color_range</span>
             <span class="n">downsampled</span> <span class="o">=</span> <span class="n">downsampled</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span>
@@ -1430,7 +1430,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        """</span>
         <span class="n">input_data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">'data'</span><span class="p">:</span>
-            <span class="n">input_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+            <span class="n">input_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># pyrefly: ignore [bad-assignment]</span>
         <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">'slice'</span><span class="p">:</span>
             <span class="n">input_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">raw</span>  <span class="c1"># ugh</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1460,20 +1460,21 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        image : array</span>
 <span class="sd">            Displayed array.</span>
 <span class="sd">        """</span>
-        <span class="n">fixed_contrast_info</span> <span class="o">=</span> <span class="n">_coerce_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">)</span>
+        <span class="n">fixed_contrast_info</span> <span class="o">=</span> <span class="n">_coerce_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [bad-argument-type]</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span>
-            <span class="n">fixed_contrast_info</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span>
+            <span class="n">fixed_contrast_info</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">,</span>  <span class="c1"># pyrefly: ignore [bad-argument-type]</span>
         <span class="p">):</span>
             <span class="k">return</span> <span class="n">raw</span>
 
         <span class="k">return</span> <span class="n">fixed_contrast_info</span><span class="o">.</span><span class="n">coerce_data</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
 
-    <span class="nd">@IntensityVisualizationMixin</span><span class="o">.</span><span class="n">contrast_limits</span><span class="o">.</span><span class="n">setter</span>  <span class="c1"># type: ignore [attr-defined]</span>
+    <span class="nd">@IntensityVisualizationMixin</span><span class="o">.</span><span class="n">contrast_limits</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">IntensityVisualizationMixin</span><span class="o">.</span><span class="n">contrast_limits</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="p">)</span>  <span class="c1"># type: ignore [attr-defined]</span>
+        <span class="n">IntensityVisualizationMixin</span><span class="o">.</span><span class="n">contrast_limits</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [not-callable]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span>
-            <span class="n">_coerce_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">)</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">,</span>
+            <span class="n">_coerce_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">)</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">,</span>  <span class="c1"># pyrefly: ignore [bad-argument-type]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">,</span>  <span class="c1"># pyrefly: ignore [bad-argument-type]</span>
         <span class="p">):</span>
             <span class="c1"># we use the private attribute here to avoid triggering the setter again</span>
             <span class="n">prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_auto_contrast</span>
@@ -1528,8 +1529,8 @@ window.runMermaid = runMermaid;</script>
             <span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nanargmin</span><span class="p">(</span><span class="n">luminance</span><span class="p">)]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rendering</span> <span class="o">==</span> <span class="n">ImageRendering</span><span class="o">.</span><span class="n">ATTENUATED_MIP</span><span class="p">:</span>
             <span class="c1"># normalize values so attenuation applies from 0 to 1</span>
-            <span class="n">attenuated</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">luminance</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">attenuated</span> <span class="o">=</span> <span class="p">(</span>  <span class="c1"># pyrefly: ignore [unsupported-operation]</span>
+                <span class="n">luminance</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># pyrefly: ignore [unsupported-operation]</span>
             <span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
             <span class="c1"># approx, step size is actually calculated with int(lenght(ray) * 2)</span>
             <span class="n">step_size</span> <span class="o">=</span> <span class="mf">0.5</span>

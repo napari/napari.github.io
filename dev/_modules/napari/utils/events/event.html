@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../../_static/documentation_options.js?v=cf739f59"></script>
+    <script src="../../../../_static/documentation_options.js?v=0035b808"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1017,7 +1017,7 @@ window.runMermaid = runMermaid;</script>
 <span class="w">        </span><span class="sd">"""Shorter string representation"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
 
-    <span class="c1"># mypy fix for dynamic attribute access</span>
+    <span class="c1"># pyrefly fix for dynamic attribute access</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
 
@@ -1824,7 +1824,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_emitters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">EventEmitter</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># whether the sub-emitters have been connected to the group:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_emitters_connected</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">**</span><span class="n">emitters</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">**</span><span class="n">emitters</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EventEmitter</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
@@ -1843,7 +1843,7 @@ window.runMermaid = runMermaid;</script>
 <span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Alias for EmitterGroup.add(name=emitter)</span>
 <span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">emitter</span><span class="p">})</span>  <span class="c1"># type: ignore</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">emitter</span><span class="p">})</span>
 
 <div class="viewcode-block" id="EmitterGroup.add">
 <a class="viewcode-back" href="../../../../api/napari.utils.events.EmitterGroup.html#napari.utils.events.EmitterGroup.add">[docs]</a>
@@ -1886,11 +1886,11 @@ window.runMermaid = runMermaid;</script>
             <span class="k">if</span> <span class="n">emitter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">emitter</span> <span class="o">=</span> <span class="n">Event</span>
 
-            <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">emitter</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">emitter</span><span class="p">,</span> <span class="n">Event</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
+            <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">emitter</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">emitter</span><span class="p">,</span> <span class="n">Event</span><span class="p">):</span>
                 <span class="n">emitter</span> <span class="o">=</span> <span class="n">EventEmitter</span><span class="p">(</span>
                     <span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">,</span>
                     <span class="n">type_name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-                    <span class="n">event_class</span><span class="o">=</span><span class="n">emitter</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
+                    <span class="n">event_class</span><span class="o">=</span><span class="n">emitter</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">emitter</span><span class="p">,</span> <span class="n">EventEmitter</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>

@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../../_static/documentation_options.js?v=cf739f59"></script>
+    <script src="../../../../_static/documentation_options.js?v=0035b808"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1155,7 +1155,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_view_alphas</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>  <span class="c1"># pyrefly: ignore [bad-override-param-name]</span>
 <span class="w">        </span><span class="sd">"""(N, 2, D) array: start point and projections of vectors."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
 
@@ -1225,7 +1225,7 @@ window.runMermaid = runMermaid;</script>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">edge_color_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span><span class="o">.</span><span class="n">name</span>
                 <span class="n">property_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="n">edge_color_name</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># pyrefly: ignore [bad-assignment]</span>
                     <span class="s1">'name'</span><span class="p">:</span> <span class="n">edge_color_name</span><span class="p">,</span>
                     <span class="s1">'values'</span><span class="p">:</span> <span class="n">property_values</span><span class="p">,</span>
                     <span class="s1">'current_value'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_defaults</span><span class="p">[</span><span class="n">edge_color_name</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
@@ -1450,7 +1450,7 @@ window.runMermaid = runMermaid;</script>
             <span class="k">if</span> <span class="n">color_property</span> <span class="o">==</span> <span class="s1">''</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
                     <span class="n">color_property</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">))</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># pyrefly: ignore [bad-assignment]</span>
                         <span class="s1">'name'</span><span class="p">:</span> <span class="n">color_property</span><span class="p">,</span>
                         <span class="s1">'values'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="n">color_property</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
                         <span class="s1">'current_value'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_defaults</span><span class="p">[</span><span class="n">color_property</span><span class="p">][</span>
@@ -1490,7 +1490,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@edge_color_cycle</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">edge_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_color_cycle</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">categorical_colormap</span> <span class="o">=</span> <span class="n">edge_color_cycle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">categorical_colormap</span> <span class="o">=</span> <span class="n">edge_color_cycle</span>  <span class="c1"># pyrefly: ignore [bad-assignment]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">edge_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Colormap</span><span class="p">:</span>
@@ -1505,14 +1505,14 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@edge_colormap</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">edge_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colormap</span><span class="p">:</span> <span class="n">ValidColormapArg</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">continuous_colormap</span> <span class="o">=</span> <span class="n">colormap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">continuous_colormap</span> <span class="o">=</span> <span class="n">colormap</span>  <span class="c1"># pyrefly: ignore [bad-assignment]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">edge_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">"""None, (float, float): contrast limits for mapping</span>
 <span class="sd">        the edge_color colormap property to 0 and 1</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">contrast_limits</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">contrast_limits</span>  <span class="c1"># pyrefly: ignore [bad-return]</span>
 
     <span class="nd">@edge_contrast_limits</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">edge_contrast_limits</span><span class="p">(</span>
@@ -1668,7 +1668,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">slice_input</span><span class="o">=</span><span class="n">slice_input</span><span class="p">,</span>
             <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
             <span class="n">data_slice</span><span class="o">=</span><span class="n">data_slice</span><span class="p">,</span>
-            <span class="n">projection_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">projection_mode</span><span class="p">,</span>
+            <span class="n">projection_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">projection_mode</span><span class="p">,</span>  <span class="c1"># pyrefly: ignore [bad-argument-type]</span>
             <span class="n">length</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
         <span class="p">)</span>
 

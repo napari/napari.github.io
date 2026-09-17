@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../../_static/documentation_options.js?v=cf739f59"></script>
+    <script src="../../../../_static/documentation_options.js?v=0035b808"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1141,9 +1141,9 @@ window.runMermaid = runMermaid;</script>
 
     <span class="n">_modeclass</span> <span class="o">=</span> <span class="n">Mode</span>
 
-    <span class="n">_drag_modes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span>
+    <span class="n">_drag_modes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span>  <span class="c1"># pyrefly: ignore [bad-override]</span>
         <span class="nb">dict</span><span class="p">[</span><span class="n">Mode</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Labels</span><span class="p">,</span> <span class="n">Event</span><span class="p">],</span> <span class="n">Generator</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]]</span>
-    <span class="p">]</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># type: ignore[assignment]</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">transform_with_box</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PICK</span><span class="p">:</span> <span class="n">pick</span><span class="p">,</span>
@@ -1155,9 +1155,9 @@ window.runMermaid = runMermaid;</script>
 
     <span class="n">brush_size_on_mouse_move</span> <span class="o">=</span> <span class="n">BrushSizeOnMouseMove</span><span class="p">(</span><span class="n">min_brush_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-    <span class="n">_move_modes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span>
+    <span class="n">_move_modes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span>  <span class="c1"># pyrefly: ignore [bad-override]</span>
         <span class="nb">dict</span><span class="p">[</span><span class="n">StringEnum</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Labels</span><span class="p">,</span> <span class="n">Event</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span>
-    <span class="p">]</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># type: ignore[assignment]</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">highlight_box_handles</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PICK</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
@@ -1167,7 +1167,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">Mode</span><span class="o">.</span><span class="n">POLYGON</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>  <span class="c1"># the overlay handles mouse events in this mode</span>
     <span class="p">}</span>
 
-    <span class="n">_cursor_modes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="n">Mode</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># type: ignore[assignment]</span>
+    <span class="n">_cursor_modes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="n">Mode</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># pyrefly: ignore [bad-override]</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="s1">'standard'</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="s1">'standard'</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PICK</span><span class="p">:</span> <span class="s1">'cross'</span><span class="p">,</span>
@@ -1323,7 +1323,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reset_editable</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">rendering</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rendering</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pyrefly: ignore [bad-override]</span>
 <span class="w">        </span><span class="sd">"""Return current rendering mode.</span>
 
 <span class="sd">        Selects a preset rendering mode in vispy that determines how</span>
@@ -1474,10 +1474,10 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">selected_label</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">extent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="nd">@ScalarFieldBase</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">setter</span>  <span class="c1"># type: ignore[attr-defined]</span>
+    <span class="nd">@ScalarFieldBase</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LayerDataProtocol</span> <span class="o">|</span> <span class="n">MultiScaleData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_int_labels</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">ScalarFieldBase</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_int_labels</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [bad-assignment]</span>
+        <span class="n">ScalarFieldBase</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [not-callable]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">features</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -1559,12 +1559,12 @@ window.runMermaid = runMermaid;</script>
         <span class="k">for</span> <span class="n">data_level</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
             <span class="c1"># normalize_dtype turns e.g. tensorstore or torch dtypes into</span>
             <span class="c1"># numpy dtypes</span>
-            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">normalize_dtype</span><span class="p">(</span><span class="n">data_level</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">normalize_dtype</span><span class="p">(</span><span class="n">data_level</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">):</span>  <span class="c1"># pyrefly: ignore [missing-attribute]</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s1">'Only integer types are supported for Labels layers, but data contains </span><span class="si">{</span><span class="n">data_level</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s1">.'</span>
+                    <span class="sa">f</span><span class="s1">'Only integer types are supported for Labels layers, but data contains </span><span class="si">{</span><span class="n">data_level</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s1">.'</span>  <span class="c1"># pyrefly: ignore [missing-attribute]</span>
                 <span class="p">)</span>
-            <span class="k">if</span> <span class="n">data_level</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>
-                <span class="n">int_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_level</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">data_level</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1"># pyrefly: ignore [missing-attribute]</span>
+                <span class="n">int_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_level</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">))</span>  <span class="c1"># pyrefly: ignore [missing-attribute]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">int_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_level</span><span class="p">)</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">int_data</span>
@@ -1606,7 +1606,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">dtype_lims</span> <span class="o">=</span> <span class="n">get_dtype_limits</span><span class="p">(</span><span class="n">layer_dtype</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">dtype_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">label</span> <span class="ow">or</span> <span class="n">dtype_lims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">label</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">WrongSelectedLabelError</span><span class="p">(</span>
-                <span class="n">dtype</span><span class="o">=</span><span class="n">layer_dtype</span><span class="p">,</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">layer_dtype</span><span class="p">,</span>  <span class="c1"># pyrefly: ignore [bad-argument-type]</span>
                 <span class="n">value</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
                 <span class="n">lower_bound</span><span class="o">=</span><span class="n">dtype_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                 <span class="n">upper_bound</span><span class="o">=</span><span class="n">dtype_lims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
@@ -1707,9 +1707,9 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@mode</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
         <span class="c1"># See https://github.com/python/mypy/issues/16426 for type ignore reason</span>
-        <span class="n">Layer</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="n">Layer</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [not-callable]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_mode_setter_helper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_mode_setter_helper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>  <span class="c1"># pyrefly: ignore [bad-override-param-name]</span>
         <span class="n">mode</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_mode_setter_helper</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">mode</span>
@@ -1968,7 +1968,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_replay_masked_atom</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span> <span class="n">undoing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
                 <span class="k">continue</span>
             <span class="n">indices</span><span class="p">,</span> <span class="n">prev_values</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">atom</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_values</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_values</span>  <span class="c1"># pyrefly: ignore [unsupported-operation]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_block_history</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
@@ -2042,7 +2042,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_replay_masked_atom</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span> <span class="n">undoing</span><span class="p">)</span>
                 <span class="k">continue</span>
             <span class="n">prev_indices</span><span class="p">,</span> <span class="n">prev_values</span><span class="p">,</span> <span class="n">next_values</span> <span class="o">=</span> <span class="n">atom</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">prev_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_values</span> <span class="k">if</span> <span class="n">undoing</span> <span class="k">else</span> <span class="n">next_values</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">prev_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_values</span> <span class="k">if</span> <span class="n">undoing</span> <span class="k">else</span> <span class="n">next_values</span>  <span class="c1"># pyrefly: ignore [unsupported-operation]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
@@ -2058,11 +2058,11 @@ window.runMermaid = runMermaid;</script>
         <span class="n">values</span> <span class="o">=</span> <span class="n">atom</span><span class="o">.</span><span class="n">old_values</span> <span class="k">if</span> <span class="n">undoing</span> <span class="k">else</span> <span class="n">atom</span><span class="o">.</span><span class="n">new_value</span>
         <span class="k">if</span> <span class="n">atom</span><span class="o">.</span><span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># The whole bounding box changed: assign directly.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">slice_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">slice_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>  <span class="c1"># pyrefly: ignore [unsupported-operation]</span>
             <span class="k">return</span>
         <span class="n">region</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">slice_key</span><span class="p">])</span>
         <span class="n">region</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">slice_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">region</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">slice_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">region</span>  <span class="c1"># pyrefly: ignore [unsupported-operation]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">undo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_history</span><span class="p">(</span>
@@ -2556,7 +2556,7 @@ window.runMermaid = runMermaid;</script>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
         <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">dist_sq</span> <span class="o">&lt;=</span> <span class="n">radius</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">return</span> <span class="n">dist_sq</span> <span class="o">&lt;=</span> <span class="n">radius</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># pyrefly: ignore [bad-return]</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_compute_mask_bbox</span><span class="p">(</span><span class="n">mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
@@ -2710,7 +2710,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># _apply_mask_to_data already wrote through and this assignment is a</span>
         <span class="c1"># no-op; for copy-returning backends (zarr, tensorstore, dask, ...)</span>
         <span class="c1"># this is the actual write-back.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">slice_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">region_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">slice_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">region_data</span>  <span class="c1"># pyrefly: ignore [unsupported-operation]</span>
 
         <span class="c1"># Update caches (raw and view) for non-shared memory backends</span>
         <span class="c1"># This handles mapping the N-D painted region to the currently displayed slice</span>
@@ -3009,7 +3009,7 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
         <span class="c1"># update the labels image</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>  <span class="c1"># pyrefly: ignore [unsupported-operation]</span>
 
         <span class="n">pt_not_disp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_pt_not_disp</span><span class="p">()</span>
         <span class="n">displayed_indices</span> <span class="o">=</span> <span class="n">index_in_slice</span><span class="p">(</span>

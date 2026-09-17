@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../_static/documentation_options.js?v=cf739f59"></script>
+    <script src="../../../_static/documentation_options.js?v=0035b808"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1032,8 +1032,8 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span> <span class="o">=</span> <span class="n">QtWelcomeWidget</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">native</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span> <span class="n">tips</span><span class="o">=</span><span class="n">tips</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">urls_drag_entered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_drag_status</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">urls_dropped</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropEvent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">urls_drag_entered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_drag_status</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [missing-attribute]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">urls_dropped</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropEvent</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [missing-attribute]</span>
 
         <span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">native</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
@@ -1042,7 +1042,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">setOrientation</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">Vertical</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">main_widget</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ready</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_slice_ready</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ready</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_slice_ready</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [bad-argument-type]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_active_change</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">inserted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_depth</span><span class="p">)</span>
@@ -1086,14 +1086,14 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="QtViewer.showEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.showEvent">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">showEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QShowEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">showEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QShowEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pyrefly: ignore [bad-override-param-name]</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">showEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_welcome_screen</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="QtViewer.hideEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.hideEvent">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">hideEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QHideEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hideEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QHideEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pyrefly: ignore [bad-override-param-name]</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">hideEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
 
 
@@ -1431,7 +1431,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">console</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">console</span><span class="p">:</span> <span class="n">QtConsole</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_console</span> <span class="o">=</span> <span class="n">console</span>
         <span class="k">if</span> <span class="n">console</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dockConsole</span><span class="o">.</span><span class="n">setWidget</span><span class="p">(</span><span class="n">console</span><span class="p">)</span>  <span class="c1"># type: ignore[no-untyped-call]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dockConsole</span><span class="o">.</span><span class="n">setWidget</span><span class="p">(</span><span class="n">console</span><span class="p">)</span>
             <span class="n">console</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dockConsole</span><span class="p">)</span>
 
     <span class="nd">@ensure_main_thread</span>
@@ -1449,7 +1449,7 @@ window.runMermaid = runMermaid;</script>
             <span class="k">if</span> <span class="n">layer</span> <span class="o">:=</span> <span class="n">weak_layer</span><span class="p">():</span>
                 <span class="c1"># Update the layer slice state to temporarily support behavior</span>
                 <span class="c1"># that depends on it.</span>
-                <span class="n">layer</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_update_slice_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
+                <span class="n">layer</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_update_slice_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [missing-attribute]</span>
                 <span class="c1"># Update the layer's loaded state before everything else,</span>
                 <span class="c1"># because they may rely on its updated value.</span>
                 <span class="n">layer</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_update_loaded_slice_id</span><span class="p">(</span>
@@ -2018,10 +2018,10 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewerButtons</span><span class="o">.</span><span class="n">consoleButton</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span>
             <span class="s1">'expanded'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dockConsole</span><span class="o">.</span><span class="n">isVisible</span><span class="p">()</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewerButtons</span><span class="o">.</span><span class="n">consoleButton</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">unpolish</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewerButtons</span><span class="o">.</span><span class="n">consoleButton</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">unpolish</span><span class="p">(</span>  <span class="c1"># pyrefly: ignore [missing-attribute]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewerButtons</span><span class="o">.</span><span class="n">consoleButton</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewerButtons</span><span class="o">.</span><span class="n">consoleButton</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">polish</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewerButtons</span><span class="o">.</span><span class="n">consoleButton</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">polish</span><span class="p">(</span>  <span class="c1"># pyrefly: ignore [missing-attribute]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">viewerButtons</span><span class="o">.</span><span class="n">consoleButton</span>
         <span class="p">)</span></div>
 
@@ -2044,7 +2044,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="QtViewer.keyPressEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.keyPressEvent">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QKeyEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QKeyEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pyrefly: ignore [bad-override-param-name]</span>
 <span class="w">        </span><span class="sd">"""Called whenever a key is pressed.</span>
 
 <span class="sd">        Parameters</span>
@@ -2062,7 +2062,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="QtViewer.keyReleaseEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.keyReleaseEvent">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">keyReleaseEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QKeyEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keyReleaseEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QKeyEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pyrefly: ignore [bad-override-param-name]</span>
 <span class="w">        </span><span class="sd">"""Called whenever a key is released.</span>
 
 <span class="sd">        Parameters</span>
@@ -2080,7 +2080,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="QtViewer.dragEnterEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.dragEnterEvent">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">dragEnterEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QDragEnterEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dragEnterEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QDragEnterEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pyrefly: ignore [bad-override-param-name]</span>
 <span class="w">        </span><span class="sd">"""Ignore event if not dragging &amp; dropping a file or URL to open.</span>
 
 <span class="sd">        Using event.ignore() here allows the event to pass through the</span>
@@ -2150,7 +2150,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="QtViewer.dropEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.dropEvent">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">dropEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QDropEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dropEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QDropEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pyrefly: ignore [bad-override-param-name]</span>
 <span class="w">        </span><span class="sd">"""Add local files and web URLS with drag and drop.</span>
 
 <span class="sd">        For each file, attempt to open with existing associated reader</span>
@@ -2203,7 +2203,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="QtViewer.closeEvent">
 <a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.closeEvent">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QCloseEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QCloseEvent</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pyrefly: ignore [bad-override-param-name]</span>
 <span class="w">        </span><span class="sd">"""Cleanup and close.</span>
 
 <span class="sd">        Parameters</span>
@@ -2219,7 +2219,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># the AnimationThread before close, otherwise it will cause a segFault</span>
         <span class="c1"># or Abort trap. (calling stop() when no animation is occurring is also</span>
         <span class="c1"># not a problem)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>  <span class="c1"># pyrefly: ignore [missing-argument]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_console</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_console</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>

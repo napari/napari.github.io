@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../../../_static/documentation_options.js?v=cf739f59"></script>
+    <script src="../../../../../_static/documentation_options.js?v=0035b808"></script>
     <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -869,8 +869,6 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_activate_on_insert</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="c1"># bound/unbound methods are ambiguous for mypy so we need to ignore</span>
-        <span class="c1"># https://mypy.readthedocs.io/en/stable/error_code_list.html?highlight=method-assign#check-that-assignment-target-is-not-a-method-method-assign</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">_pre_add_hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preselect_hook</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_preselect_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_T</span><span class="p">:</span>
@@ -916,7 +914,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">new</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="nb">tuple</span><span class="p">(</span><span class="n">root</span><span class="p">),</span> <span class="n">_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">_idx</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
             <span class="n">do_add</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">new</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">do_add</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">new</span><span class="p">])</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">new</span><span class="p">])</span>  <span class="c1"># pyrefly: ignore [bad-index]</span></div>
 
 
 <div class="viewcode-block" id="SelectableEventedList.move_selected">

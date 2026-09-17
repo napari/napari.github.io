@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../../_static/documentation_options.js?v=cf739f59"></script>
+    <script src="../../../../_static/documentation_options.js?v=0035b808"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1354,7 +1354,7 @@ window.runMermaid = runMermaid;</script>
     <span class="p">}</span>
     <span class="n">events</span><span class="p">:</span> <span class="n">EmitterGroup</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>  <span class="c1"># type: ignore[no-untyped-def]</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">data</span><span class="p">,</span>
         <span class="n">ndim</span><span class="p">,</span>
@@ -1434,7 +1434,9 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="n">translate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">translate</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ndim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_initial_affine</span> <span class="o">=</span> <span class="n">coerce_affine</span><span class="p">(</span>
-            <span class="n">affine</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'physical2world'</span>
+            <span class="n">affine</span><span class="p">,</span>  <span class="c1"># pyrefly: ignore [bad-argument-type]</span>
+            <span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s1">'physical2world'</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">:</span> <span class="n">TransformChain</span><span class="p">[</span><span class="n">Affine</span><span class="p">]</span> <span class="o">=</span> <span class="n">TransformChain</span><span class="p">(</span>
             <span class="p">[</span>
@@ -1462,7 +1464,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_properties</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s1">''</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">experimental_clipping_planes</span> <span class="o">=</span> <span class="n">experimental_clipping_planes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">experimental_clipping_planes</span> <span class="o">=</span> <span class="n">experimental_clipping_planes</span>  <span class="c1"># pyrefly: ignore [bad-argument-type]</span>
 
         <span class="c1"># circular import</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.overlays.bounding_box</span><span class="w"> </span><span class="kn">import</span> <span class="n">BoundingBoxOverlay</span>
@@ -1561,8 +1563,8 @@ window.runMermaid = runMermaid;</script>
         <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="p">(</span><span class="n">mode_in</span><span class="p">)</span>
         <span class="c1"># Sub-classes can have their own Mode enum, so need to get members</span>
         <span class="c1"># from the specific mode class set on this layer.</span>
-        <span class="n">PAN_ZOOM</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span>  <span class="c1"># type: ignore[attr-defined]</span>
-        <span class="n">TRANSFORM</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">TRANSFORM</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="n">PAN_ZOOM</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span>  <span class="c1"># pyrefly: ignore [missing-attribute]</span>
+        <span class="n">TRANSFORM</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">TRANSFORM</span>  <span class="c1"># pyrefly: ignore [missing-attribute]</span>
         <span class="k">assert</span> <span class="n">mode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">editable</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
@@ -1600,7 +1602,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">update_transform_box_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visible</span><span class="p">):</span>
         <span class="k">if</span> <span class="s1">'transform_box'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">:</span>
-            <span class="n">TRANSFORM</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">TRANSFORM</span>  <span class="c1"># type: ignore[attr-defined]</span>
+            <span class="n">TRANSFORM</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">TRANSFORM</span>  <span class="c1"># pyrefly: ignore [missing-attribute]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">'transform_box'</span><span class="p">]</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="n">TRANSFORM</span> <span class="ow">and</span> <span class="n">visible</span>
             <span class="p">)</span>
@@ -1786,7 +1788,7 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visible_mode</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_visible_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span>  <span class="c1"># type: ignore[attr-defined]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span>  <span class="c1"># pyrefly: ignore [missing-attribute]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">editable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -1839,8 +1841,8 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@axis_labels</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">axis_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_labels</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2physical'</span><span class="p">]</span><span class="o">.</span><span class="n">axis_labels</span>
-        <span class="c1"># mypy bug https://github.com/python/mypy/issues/3004</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2physical'</span><span class="p">]</span><span class="o">.</span><span class="n">axis_labels</span> <span class="o">=</span> <span class="n">axis_labels</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="c1"># See https://github.com/python/mypy/issues/3004</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2physical'</span><span class="p">]</span><span class="o">.</span><span class="n">axis_labels</span> <span class="o">=</span> <span class="n">axis_labels</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2physical'</span><span class="p">]</span><span class="o">.</span><span class="n">axis_labels</span> <span class="o">!=</span> <span class="n">prev</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">axis_labels</span><span class="p">()</span>
 
@@ -1857,8 +1859,8 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@units</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">pint</span><span class="o">.</span><span class="n">Unit</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span>
-        <span class="c1"># mypy bug https://github.com/python/mypy/issues/3004</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2physical'</span><span class="p">]</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">units</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="c1"># See https://github.com/python/mypy/issues/3004</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2physical'</span><span class="p">]</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">units</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="o">!=</span> <span class="n">prev</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">extent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -2252,7 +2254,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">bounding_box</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BoundingBoxOverlay</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">'bounding_box'</span><span class="p">]</span>  <span class="c1"># type: ignore[return-value]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">'bounding_box'</span><span class="p">]</span>  <span class="c1"># pyrefly: ignore [bad-return]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">name_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Overlay</span><span class="p">:</span>
@@ -2406,7 +2408,7 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># used in Points and Shapes.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="s1">'pan_zoom'</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="k">return</span> <span class="n">value</span></div>
+        <span class="k">return</span> <span class="n">value</span>  <span class="c1"># pyrefly: ignore [bad-return]</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_value_3d</span><span class="p">(</span>

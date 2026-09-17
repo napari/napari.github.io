@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../../../_static/documentation_options.js?v=cf739f59"></script>
+    <script src="../../../../../_static/documentation_options.js?v=0035b808"></script>
     <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1000,7 +1000,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">dict_schema</span><span class="p">:</span> <span class="n">DictSchema</span> <span class="o">|</span> <span class="n">TypedDictSchema</span>
         <span class="k">if</span> <span class="n">args</span><span class="p">:</span>
             <span class="n">item_schema</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">generate_schema</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="n">mutableset_t_schema</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">generate_schema</span><span class="p">(</span><span class="n">MutableSet</span><span class="p">[</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>  <span class="c1"># type: ignore</span>
+            <span class="n">mutableset_t_schema</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">generate_schema</span><span class="p">(</span><span class="n">MutableSet</span><span class="p">[</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
             <span class="n">current_schema</span> <span class="o">=</span> <span class="n">core_schema</span><span class="o">.</span><span class="n">union_schema</span><span class="p">(</span>
                 <span class="p">[</span><span class="n">item_schema</span><span class="p">,</span> <span class="n">core_schema</span><span class="o">.</span><span class="n">none_schema</span><span class="p">()]</span>
             <span class="p">)</span>
@@ -1063,7 +1063,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">obj</span><span class="o">.</span><span class="n">_current_</span> <span class="o">=</span> <span class="n">current</span>
         <span class="k">return</span> <span class="n">obj</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_json_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>  <span class="c1"># type: ignore[override]</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_json_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>  <span class="c1"># pyrefly: ignore [bad-override]</span>
 <span class="w">        </span><span class="sd">"""Return an object that can be used by json.dumps."""</span>
         <span class="c1"># we don't serialize active, as it's gleaned from the selection.</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">'selection'</span><span class="p">:</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_json_encode</span><span class="p">(),</span> <span class="s1">'_current'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current</span><span class="p">}</span></div>

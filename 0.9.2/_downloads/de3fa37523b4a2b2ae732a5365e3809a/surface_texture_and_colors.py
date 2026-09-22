@@ -1,0 +1,82 @@
+"""
+Surface with texture and vertex_colors
+======================================
+
+Display a 3D surface with both texture and color maps.
+
+This example demonstrates how surfaces may be colored by:
+    * setting `vertex_values` as the 3rd element of the `data` tuple,
+      which colors the surface with the selected `colormap`
+    * setting `vertex_colors`, which replaces/overrides any color from
+      `vertex_values`, resulting in colormap-based controls such as contrast limits and
+      gamma no longer affecting the rendered surface
+    * setting both `texture` and `texcoords`, which blends the value from
+      a texture (image) with the underlying color from `vertex_values` or
+      `vertex_colors`. Blending is achieved by multiplying the texture color by
+      the underlying color - an underlying value of "white" will result in the
+      unaltered texture color.
+
+.. tags:: visualization-nD
+"""
+
+import numpy as np
+from vispy.io import imread, load_data_file, read_mesh
+
+import napari
+from napari.layers import Surface
+
+# load the model and texture
+mesh_path = load_data_file('spot/spot.obj.gz')
+vertices, faces, _normals, texcoords = read_mesh(mesh_path)
+n = len(vertices)
+texture_path = load_data_file('spot/spot.png')
+texture = imread(texture_path)
+
+vertices *= 1000  # play nicer with guessed dims step
+
+flat_spot = Surface(
+    (vertices, faces),
+    translate=(1000, 0, 0),
+    texture=texture,
+    texcoords=texcoords,
+    shading='flat',
+    name='texture only',
+)
+
+np.random.seed(0)
+plasma_spot = Surface(
+    (vertices, faces, np.random.random((3, 3, n))),
+    texture=texture,
+    texcoords=texcoords,
+    colormap='plasma',
+    shading='smooth',
+    name='vertex_values and texture',
+)
+
+rainbow_spot = Surface(
+    (vertices, faces),
+    translate=(-1000, 0, 0),
+    texture=texture,
+    texcoords=texcoords,
+    # Direct vertex colors override colormap-based coloring.
+    # the vertices are _roughly_ in [-1, 1] for this model and RGB values just
+    # get clipped to [0, 1], adding 0.5 brightens it up a little :)
+    vertex_colors=vertices / 1000 + 0.5,
+    shading='none',
+    name='vertex_colors and texture',
+)
+
+# create the viewer and window
+viewer = napari.Viewer(ndisplay=3)
+viewer.add_layer(flat_spot)
+viewer.add_layer(plasma_spot)
+viewer.add_layer(rainbow_spot)
+
+viewer.scene.camera.angles = (10, 50, 180)
+viewer.fit_to_view()
+# to show slicing through mesh in spatial dims, set thickness
+viewer.dims.thickness_step = (1, 1, 100, 100, 100)
+
+
+if __name__ == '__main__':
+    napari.run()

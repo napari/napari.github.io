@@ -1,0 +1,252 @@
+/* ── Buttons for homepage and gallery ───────────────────────────────────── */
+
+.button-primary,
+.button-alt,
+.napari-gallery-downloads .sphx-glr-download a {
+  background-image: none !important;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* makes homepage button take up width of column */
+.button-primary {
+  display: block;
+}
+
+/* Allow border override to show through on example buttons */
+.napari-gallery-downloads .sphx-glr-download a {
+  border: 1px solid transparent;
+  display: inline-block;
+  padding: 0.45rem 0.8rem;
+}
+
+/* force sphinx-gallery download code to inherit text color */
+.napari-gallery-downloads .sphx-glr-download a code.download {
+  color: inherit !important;
+}
+
+/* horizontally align and reduce lower margin of container */
+.napari-gallery-downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0 0 0.35rem;
+}
+
+/* remove spacing around download buttons */
+.napari-gallery-downloads .sphx-glr-download {
+  margin: 0;
+}
+
+/* Remove the sphinx-gallery downloads note and buttons */
+.sphx-glr-download-link-note,
+.sphx-glr-download-jupyter,
+.sphx-glr-download-python,
+.sphx-glr-download-zip {
+  display: none;
+}
+
+html[data-theme="light"] .button-primary,
+html[data-theme="light"] .napari-gallery-downloads .sphx-glr-download a {
+  background-color: var(--napari-primary-blue) !important;
+  border-color: var(--napari-primary-blue) !important;
+  color: var(--napari-color-text-base) !important;
+}
+
+html[data-theme="dark"] .button-primary,
+html[data-theme="dark"] .napari-gallery-downloads .sphx-glr-download a {
+  background-color: var(--napari-purple) !important;
+  border-color: var(--napari-purple) !important;
+  color: var(--napari-color-text-base) !important;
+}
+
+html[data-theme="light"] .button-primary:hover,
+html[data-theme="light"] .napari-gallery-downloads .sphx-glr-download a:hover {
+  background-color: color-mix(in srgb, var(--napari-primary-blue), transparent 25%) !important;
+  text-decoration: underline;
+}
+
+html[data-theme="dark"] .button-primary:hover,
+html[data-theme="dark"] .napari-gallery-downloads .sphx-glr-download a:hover {
+  background-color: color-mix(in srgb, var(--napari-purple), transparent 25%) !important;
+  text-decoration: underline;
+}
+
+html[data-theme="light"] .button-alt {
+  background-color: var(--pst-color-background) !important;
+  border-color: var(--napari-primary-blue) !important;
+  color: var(--napari-color-text-base) !important;
+}
+
+html[data-theme="dark"] .button-alt {
+  background-color: var(--pst-color-background) !important;
+  border-color: var(--napari-purple) !important;
+  color: var(--napari-color-text-base) !important;
+}
+
+html[data-theme="light"] .button-alt:hover {
+  background-color: var(--pst-color-background) !important;
+  border-color: var(--napari-primary-blue) !important;
+  color: var(--napari-color-text-base) !important;
+  text-decoration: underline;
+}
+
+html[data-theme="dark"] .button-alt:hover {
+  background-color: var(--pst-color-background) !important;
+  border-color: var(--napari-purple) !important;
+  color: var(--napari-color-text-base) !important;
+  text-decoration: underline;
+}
+
+/* Version warning banner color */
+#bd-header-version-warning {
+  background-color: color-mix(in oklab, var(--pst-color-secondary-bg), var(--pst-color-target) 15%);
+}
+
+#bd-header-version-warning .pst-button-link-to-stable-version {
+  background-color: var(--pst-color-secondary-bg);
+  border-color: var(--pst-color-secondary-bg);
+  color: var(--napari-color-text-base);
+  font-weight: 700;
+}
+
+#bd-header-version-warning .pst-button-link-to-stable-version:hover {
+  background-color: var(--pst-color-secondary-bg);
+  border-color: var(--pst-color-secondary-bg);
+  color: var(--napari-color-text-base);
+  font-weight: 700;
+}
+
+/* ── Homepage quicklinks (icon columns) ──────────────────────────────── */
+
+.homepage-quicklinks {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.75rem 0;
+  justify-content: center;
+  margin: 1rem 0 1.5rem;
+  padding: 1rem 0;
+}
+
+html[data-theme="light"] .homepage-quicklinks {
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+html[data-theme="dark"] .homepage-quicklinks {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.homepage-quicklinks a {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  font-weight: 500;
+  gap: 0.5rem;
+  padding: 0.25rem 2rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+html[data-theme="light"] .homepage-quicklinks a {
+  border-right: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+html[data-theme="dark"] .homepage-quicklinks a {
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.homepage-quicklinks a:last-child {
+  border-right: none !important;
+}
+
+.homepage-quicklinks a:hover {
+  text-decoration: underline;
+}
+
+.homepage-quicklinks i {
+  color: var(--pst-color-primary);
+  font-size: 4rem;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .homepage-quicklinks {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem 0;
+  }
+
+  .homepage-quicklinks a {
+    padding: 0.5rem 1.5rem;
+  }
+
+  .homepage-quicklinks a:nth-child(2n) {
+    border-right: none;
+  }
+}
+
+/* ── Homepage featured example ─────────────────────────────────────── */
+
+.homepage-featured-example {
+  display: grid;
+  align-items: center;
+  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+  margin: 1.5rem 0 2rem;
+}
+
+.homepage-featured-example__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.homepage-featured-example__title {
+  margin-top: 0;
+}
+
+.homepage-featured-example__title a {
+  text-decoration: none;
+}
+
+.homepage-featured-example__title a:hover {
+  text-decoration: underline;
+}
+
+.homepage-video,
+.homepage-featured-example__media {
+  display: block;
+}
+
+.homepage-video video,
+.homepage-featured-example__media img {
+  border-radius: 4px;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+  display: block;
+  width: 100%;
+}
+
+.homepage-featured-example__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .homepage-featured-example {
+    grid-template-columns: 1fr;
+  }
+
+  .homepage-featured-example__media {
+    order: -1;
+  }
+}
+
+html[data-theme="dark"] img#homepage-featured-example-image {
+  background-color: var(--pst-color-background) !important;
+}

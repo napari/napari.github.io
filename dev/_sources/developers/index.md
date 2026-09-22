@@ -19,6 +19,7 @@ Resources for contributors
 - [Contributing guide](napari-contributing)
   - [Development installation](dev-installation)
   - [Testing](napari-testing)
+  - [Type checking](napari-typing)
   - [Performance](performance)
     - [Profiling](napari-profiling)
     - [Benchmarks](napari-benchmarks)

@@ -792,6 +792,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/ai.html">AI use policy and guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/dev_install.html">Setting up a development installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/testing.html">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/typing.html">Type checking</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../contributing/performance/index.html">Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/performance/profiling.html">Profiling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/performance/benchmarks.html">Benchmarks</a></li>
@@ -1023,17 +1024,17 @@ window.runMermaid = runMermaid;</script>
 <section id="source-code-directory-layout-related-to-modules-inside-napari">
 <h2>Source code directory layout (related to modules inside <code class="docutils literal notranslate"><span class="pre">napari</span></code>)<a class="headerlink" href="#source-code-directory-layout-related-to-modules-inside-napari" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>napari/
+├─_qt/
+│ ├─qt_viewer.py
+│ ├─qt_main_window.py
+│ └─widgets/
+│   └─qt_viewer_buttons.py
+├─components/
+│ ├─viewer_model.py
+│ └─_viewer_key_bindings.py
 ├─utils/
 │ └─notifications.py
-├─_qt/
-│ ├─widgets/
-│ │ └─qt_viewer_buttons.py
-│ ├─qt_main_window.py
-│ └─qt_viewer.py
-├─viewer.py
-└─components/
-  ├─viewer_model.py
-  └─_viewer_key_bindings.py
+└─viewer.py
 </pre></div>
 </div>
 </section>

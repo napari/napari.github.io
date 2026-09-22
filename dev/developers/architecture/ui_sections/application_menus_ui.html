@@ -792,6 +792,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/ai.html">AI use policy and guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/dev_install.html">Setting up a development installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/testing.html">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/typing.html">Type checking</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../contributing/performance/index.html">Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/performance/profiling.html">Profiling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/performance/benchmarks.html">Benchmarks</a></li>
@@ -1124,38 +1125,38 @@ window.runMermaid = runMermaid;</script>
 <h2>Source code directory layout (related to modules inside <code class="docutils literal notranslate"><span class="pre">napari</span></code>)<a class="headerlink" href="#source-code-directory-layout-related-to-modules-inside-napari" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>napari/
 ├─_qt/
+│ ├─_qapp_model/
+│ │ ├─qactions/
+│ │ │ ├─_layerlist_context.py
+│ │ │ ├─_file.py
+│ │ │ ├─_debug.py
+│ │ │ ├─_window.py
+│ │ │ ├─_view.py
+│ │ │ ├─_plugins.py
+│ │ │ ├─_layers_actions.py
+│ │ │ ├─_toggle_action.py
+│ │ │ ├─__init__.py
+│ │ │ └─_help.py
+│ │ └─injection/
+│ │   ├─_qproviders.py
+│ │   └─_qprocessors.py
+│ ├─qthreading.py
+│ ├─qt_viewer.py
 │ ├─dialogs/
 │ │ ├─screenshot_dialog.py
 │ │ ├─preferences_dialog.py
-│ │ ├─qt_reader_dialog.py
+│ │ ├─confirm_close_dialog.py
 │ │ ├─qt_about.py
 │ │ ├─qt_modal.py
-│ │ └─confirm_close_dialog.py
+│ │ └─qt_reader_dialog.py
 │ ├─__init__.py
-│ ├─widgets/
-│ │ ├─qt_viewer_tour.py
-│ │ ├─qt_command_palette.py
-│ │ ├─qt_viewer_buttons.py
-│ │ ├─qt_logger.py
-│ │ └─qt_tips.py
 │ ├─qt_main_window.py
-│ ├─qt_viewer.py
-│ ├─qthreading.py
-│ └─_qapp_model/
-│   ├─qactions/
-│   │ ├─_file.py
-│   │ ├─_layers_actions.py
-│   │ ├─_plugins.py
-│   │ ├─__init__.py
-│   │ ├─_help.py
-│   │ ├─_view.py
-│   │ ├─_window.py
-│   │ ├─_debug.py
-│   │ ├─_toggle_action.py
-│   │ └─_layerlist_context.py
-│   └─injection/
-│     ├─_qproviders.py
-│     └─_qprocessors.py
+│ └─widgets/
+│   ├─qt_logger.py
+│   ├─qt_command_palette.py
+│   ├─qt_tips.py
+│   ├─qt_viewer_tour.py
+│   └─qt_viewer_buttons.py
 └─viewer.py
 </pre></div>
 </div>

@@ -68,16 +68,16 @@ graph LR
 ```
 napari/
 ├─_qt/
-│ ├─threads/
-│ │ └─status_checker.py
 │ ├─dialogs/
 │ │ └─qt_activity_dialog.py
 │ ├─__init__.py
+│ ├─widgets/
+│ │ ├─qt_viewer_tour.py
+│ │ ├─qt_command_palette.py
+│ │ ├─qt_progress_bar.py
+│ │ └─qt_viewer_status_bar.py
 │ ├─qt_main_window.py
-│ └─widgets/
-│   ├─qt_progress_bar.py
-│   ├─qt_command_palette.py
-│   ├─qt_viewer_status_bar.py
-│   └─qt_viewer_tour.py
+│ └─threads/
+│   └─status_checker.py
 └─viewer.py
 ```

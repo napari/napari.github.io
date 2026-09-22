@@ -58,7 +58,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../_static/documentation_options.js?v=558b3fda"></script>
+    <script src="../_static/documentation_options.js?v=18b2be5a"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -678,6 +678,7 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../release/index.html">Release Notes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_9_2.html">napari 0.9.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release/release_0_9_1.html">napari 0.9.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release/release_0_9_0.html">napari 0.9.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release/release_0_8_0.html">napari 0.8.0</a></li>
@@ -896,6 +897,8 @@ by the changes. Threading is used to smoothly animate the waves.</p>
 
 
 <span class="c1"># set up viewer with grid-mode enabled</span>
+<span class="c1"># check if one exists to circumvent the forced napari.run() teardown at the end of this script</span>
+<span class="n">existing_viewer</span> <span class="o">=</span> <a href="../api/napari.html#napari.current_viewer" title="napari.current_viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">current_viewer</span></a><span class="p">()</span>
 <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">()</span>
 <a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span></a> <span class="o">=</span> <span class="kc">True</span>
 
@@ -962,21 +965,34 @@ by the changes. Threading is used to smoothly animate the waves.</p>
     <span class="c1"># keep track of each wave in a dictionary by id, this way we can modify/remove</span>
     <span class="c1"># existing waves or add new ones</span>
     <span class="n">wave_args</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">new_params</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
         <a href="https://docs.python.org/3/library/time.html#time.sleep" title="time.sleep" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">sleep</span></a><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <a href="https://docs.python.org/3/builtins/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">FPS</span></a><span class="p">)</span>
         <span class="c1"># see https://napari.org/stable/guides/threading.html#full-two-way-communication</span>
-        <span class="c1"># this receives new_params from thread.send() and yields {} for the `yielded` callback</span>
+        <span class="c1"># this receives new_params from thread.send() and yields the current</span>
+        <span class="c1"># wave_args for the `yielded` callback (one yield per frame)</span>
         <span class="n">new_params</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">wave_args</span>
         <span class="k">if</span> <span class="n">new_params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># note that these come from thread.send() in moving_wave()!</span>
             <span class="n">wave_id</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span> <span class="o">=</span> <span class="n">new_params</span>
             <span class="n">wave_args</span><span class="p">[</span><span class="n">wave_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span>
-        <span class="k">yield</span> <span class="n">wave_args</span>
 
 
 <span class="c1"># start the thread responsible for updating the viewer</span>
 <span class="n">thread</span> <span class="o">=</span> <span class="n">update_viewer</span><span class="p">()</span>
+
+<span class="c1"># wait until the worker has yielded once to ensure the viewer is ready to receive updates</span>
+<a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">worker_primed</span></a> <span class="o">=</span> <span class="kc">False</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_on_first_yield</span><span class="p">(</span><span class="n">_value</span><span class="p">):</span>
+    <span class="k">global</span> <a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">worker_primed</span></a>
+    <a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">worker_primed</span></a> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">thread</span><span class="o">.</span><span class="n">yielded</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">_on_first_yield</span><span class="p">)</span>
+
+
+<span class="n">thread</span><span class="o">.</span><span class="n">yielded</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_on_first_yield</span><span class="p">)</span>
+<span class="k">while</span> <span class="ow">not</span> <a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">worker_primed</span></a><span class="p">:</span>
+    <span class="n">QApplication</span><span class="o">.</span><span class="n">processEvents</span><span class="p">()</span>
 
 
 <span class="nd">@magic_factory</span><span class="p">(</span>
@@ -1007,17 +1023,20 @@ by the changes. Threading is used to smoothly animate the waves.</p>
 
 <span class="c1"># add the widget to the window and run it once</span>
 <a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel.window" title="napari.components.ViewerModel.window" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-attribute"><span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span></a><span class="p">(</span><a href="https://pyapp-kit.github.io/magicgui/api/widgets/FunctionGui/#magicgui.widgets.FunctionGui" title="magicgui.widgets.FunctionGui" class="sphx-glr-backref-module-magicgui-widgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">wdg</span></a><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="s1">'bottom'</span><span class="p">)</span>
+
 <a href="https://pyapp-kit.github.io/magicgui/api/widgets/FunctionGui/#magicgui.widgets.FunctionGui" title="magicgui.widgets.FunctionGui" class="sphx-glr-backref-module-magicgui-widgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">wdg</span></a><span class="p">()</span>
 
 <span class="c1"># wait for the layers to be added before running the viewer</span>
 <span class="n">wait_for_layers</span><span class="p">(</span><a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="p">,</span> <span class="p">[</span><span class="s1">'wave 0'</span><span class="p">])</span>
 <a href="../api/napari.Viewer.html#napari.Viewer.fit_to_view" title="napari.Viewer.fit_to_view" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">fit_to_view</span></a><span class="p">()</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+<span class="c1"># Only tear the animation thread down when this script is the main script and</span>
+<span class="c1"># owns the napari event loop. Drag and drop would otherwise result in the</span>
+<span class="c1"># thread being torn down while the viewer is running.</span>
+<span class="k">if</span> <span class="n">existing_viewer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
-
-<span class="n">thread</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-<a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">FINISHED</span></a> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">thread</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+    <a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">FINISHED</span></a> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-fourier-transform-playground-py">

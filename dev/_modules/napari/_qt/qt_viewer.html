@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../_static/documentation_options.js?v=558b3fda"></script>
+    <script src="../../../_static/documentation_options.js?v=18b2be5a"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1027,6 +1027,9 @@ window.runMermaid = runMermaid;</script>
             <span class="n">key_map_handler</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_map_handler</span><span class="p">,</span>
             <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
             <span class="n">autoswap</span><span class="o">=</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">autoswap_buffers</span><span class="p">,</span>  <span class="c1"># see #5734</span>
+            <span class="n">config</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">'samples'</span><span class="p">:</span> <span class="mi">4</span> <span class="k">if</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">advanced</span><span class="o">.</span><span class="n">multisampling</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="p">},</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span> <span class="o">=</span> <span class="n">QtWelcomeWidget</span><span class="p">(</span>

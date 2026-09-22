@@ -1,43 +1,16 @@
-(napari-release)=
+(napari-release-guide)=
 
 # Release guide
 
-This guide documents `napari`'s release process as of 0.6.4.
+This page describes the release manager's workflow and the step-by-step
+mechanics for executing a `napari` release.
+For the release policy — versioning, cadence, milestone ownership, highlights,
+and the release manager's responsibilities — see the
+[release policy](napari-release).
 Most required tools mentioned here are in https://github.com/napari/napari-release-tools.
 
 ```{important}
 The first step in managing a release is to create a new Issue in napari/napari with the [`release` template](https://github.com/napari/napari/tree/main/.github/ISSUE_TEMPLATE/release.md).
-```
-
-## EffVer: (Intended) Effort Versioning
-
-As of 0.6.5, napari has officially adopted [EffVer](https://effver.org) for versioning, from the previous semantic versioning.
-While in pre-1.0 state, the current convention is `0.MACRO.MESO` and once we release v1.0.0 will henceforth be in `MACRO.MESO.MICRO` versioning.
-This is similar to previous Semantic Versioning schema of `MAJOR.MINOR.BUGFIX`, but allows features and bugfixes to live harmoniously in any version.
-Instead, the version number implies to users the amount of effort required to adopt the newest version from significant effort (`MACRO`) to no expected effort (`MICRO`).
-Our current policy permits deprecations in `MACRO` and `MESO` releases only.
-
-## Timeline
-
-Currently, we are releasing a macro version every six to twelve months.
-We plan meso napari version releases every 1-2 months.
-We will ship bug fix releases as needed.
-
-Prior to macro and meso releases, we will have a release testing cycle with
-alpha prereleases and release candidates. All will be made available to the
-community for testing. The length of time between these prereleases will
-depend on the size of the release and feedback received. A conservative estimate
-is one week between each prerelease.
-
-```{important}
-While the latest prerelease (alpha or release candidate) can be installed with `--pre`,
-this results in *all* dependencies being installed as prereleases. This has
-resulted in other dependencies breaking napari, so instead we recommend promoting
-installation of prereleases by specifying the version explicitly, e.g.:
-
-`python -m pip install "napari[all]>=0.6.2a0"`
-
-`uv pip install "napari[all]>=0.6.2a0"`
 ```
 
 ## Release management
@@ -261,6 +234,15 @@ The release candidate can then be tested with
 
 ```bash
 python -m pip install "napari[all]>=X.Y.Zrc0"
+```
+
+```{important}
+While the latest prerelease (alpha or release candidate) can be installed with `--pre`,
+this results in *all* dependencies being installed as prereleases. This has
+resulted in other dependencies breaking napari, so instead we recommend promoting
+installation of prereleases by specifying the version explicitly, e.g.:
+
+`python -m pip install "napari[all]>=0.9.1a0"`
 ```
 
 It is recommended that the release candidate is tested in a virtual environment in order to isolate dependencies.

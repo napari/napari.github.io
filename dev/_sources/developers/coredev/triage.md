@@ -72,6 +72,13 @@ close a pull request on their own when it is clearly not going to be merged,
 for example a change to deprecated functionality or a fix for a bug that can
 no longer be reproduced. When in doubt, ask a core team member.
 
+Milestones and labels have a direct effect on the release cycle. If you add a
+milestone to a pull request, you take responsibility for driving it toward a
+mergeable state and for keeping the release manager informed of its status; if
+you add the `highlight` label, please include the motivation, a draft highlight
+note, and any required images or videos. See the [release policy](napari-release)
+for details.
+
 ## What to focus on
 
 Your fresh eyes are most valuable on *recently arrived* issues and pull

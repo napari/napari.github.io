@@ -155,6 +155,33 @@ While we collectively "own" any patches (and bugs!) that become part
 of the code base, you are vouching for changes you merge. Please take
 that responsibility seriously.
 
+## Release responsibilities
+
+`napari` ships on a monthly cadence; see the [release policy](napari-release) for the
+full process. As a core team member, you are expected to:
+
+- **Own the milestones you set.** The person who adds a milestone to a pull
+  request is responsible for driving it to a mergeable state, either by working
+  with the PR author to review and approve, or by pushing changes themselves on
+  their own PRs or if the original author is unresponsive or unable to continue
+  working on the PR.
+- **Communicate with the release manager.** If you own open milestoned PRs you
+  must regularly communicate their status to the release manager after the first
+  alpha has been released, and work with them to get the PR merged.
+- **Justify highlights.** If you add the `highlight` label to a pull request,
+  provide the motivation plus a draft highlight note and any required images or
+  videos, so the release manager does not have to re-review already-merged PRs.
+- **Respect the release timeline.** Features and enhancements must be ready
+  before the first release candidate; documentation, bug fixes, and maintenance
+  may merge during the rc phase. A feature that misses a release ships a month
+  later — it should not be a reason to delay a release.
+- **Be aware of your PR's dependencies.** Sometimes your PR requires auxiliary
+  changes in other repos, e.g. napari-plugin-manager, napari-metadata, etc.,
+  before napari can be released. Make a conscious effort when close to release to
+  identify such dependencies and communicate them on the PR, and explicitly to
+  the release manager. Account for these in your estimates of how long it will
+  take to get the PR/feature fully ready for release.
+
 ## Documentation and website
 
 For details on how the documentation and website are built, see
@@ -175,7 +202,8 @@ As a core member, you should be familiar with the following napari guides:
 - Our [contributor guide](napari-contributing).
 - Our [benchmarking guide](napari-benchmarks).
 - Our [triage guide](napari-triage).
-- Our [release guide](release).
+- Our [release policy](napari-release).
+- Our [release guide](napari-release-guide) (release mechanics).
 - Our [maintenance guide](maintenance).
 - Our [packaging guide](napari-packaging).
 

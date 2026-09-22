@@ -33,7 +33,8 @@ Resources for core team members, including information for onboarding new core t
 
 - [Core team member guide](core-dev-guide)
 - [Maintenance](napari-maintenance)
-- [Release guide](napari-release)
+- [Release policy](napari-release)
+- [Release guide](napari-release-guide)
 - [Deploying documentation](docs-deployment)
 - [Packaging](napari-packaging)
 ```

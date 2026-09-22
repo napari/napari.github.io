@@ -13,10 +13,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/stable/developers/coredev/release.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="This guide documents napari ’s release process as of 0.6.4. Most required tools mentioned here are in napari/napari-release-tools. EffVer: (Intended) Effort Versioning: As of 0.6.5, napari has officially adopted EffVer for versioning, from the previous semantic versioning. While in pre-1.0 state,..." />
+<meta property="og:description" content="This page describes the release manager’s workflow and the step-by-step mechanics for executing a napari release. For the release policy — versioning, cadence, milestone ownership, highlights, and the release manager’s responsibilities — see the release policy. Most required tools mentioned here ..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="3D segmented tribolium embryo in the napari viewer" />
-<meta name="description" content="This guide documents napari ’s release process as of 0.6.4. Most required tools mentioned here are in napari/napari-release-tools. EffVer: (Intended) Effort Versioning: As of 0.6.5, napari has officially adopted EffVer for versioning, from the previous semantic versioning. While in pre-1.0 state,..." />
+<meta name="description" content="This page describes the release manager’s workflow and the step-by-step mechanics for executing a napari release. For the release policy — versioning, cadence, milestone ownership, highlights, and the release manager’s responsibilities — see the release policy. Most required tools mentioned here ..." />
 <meta name="twitter:card" content="summary_large_image" />
 
     <title>Release guide &#8212; napari</title>
@@ -58,7 +58,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../_static/documentation_options.js?v=18b2be5a"></script>
+    <script src="../../_static/documentation_options.js?v=6743e49a"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -70,7 +70,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.21.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.2a1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -80,10 +80,10 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Packaging" href="packaging.html" />
-    <link rel="prev" title="Triage" href="triage.html" />
+    <link rel="prev" title="Release policy" href="release_policy.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="dev" />
+  <meta name="docsearch:version" content="0.9.2" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -468,7 +468,10 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="core_dev_guide.html">Core team member guide</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="maintenance.html">Maintenance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="triage.html">Triage</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Release guide</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="release_policy.html">Release policy</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Release guide</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="packaging.html">Packaging</a></li>
 </ul>
 </details></li>
@@ -567,6 +570,9 @@
     
     <li class="breadcrumb-item"><a href="core_dev_guide.html" class="nav-link">Core team member guide</a></li>
     
+    
+    <li class="breadcrumb-item"><a href="release_policy.html" class="nav-link">Release policy</a></li>
+    
     <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Release guide</span></li>
   </ul>
 </nav>
@@ -585,41 +591,17 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="release-guide">
-<span id="napari-release"></span><h1>Release guide<a class="headerlink" href="#release-guide" title="Link to this heading">#</a></h1>
-<p>This guide documents <code class="docutils literal notranslate"><span class="pre">napari</span></code>’s release process as of 0.6.4.
+<span id="napari-release-guide"></span><h1>Release guide<a class="headerlink" href="#release-guide" title="Link to this heading">#</a></h1>
+<p>This page describes the release manager’s workflow and the step-by-step
+mechanics for executing a <code class="docutils literal notranslate"><span class="pre">napari</span></code> release.
+For the release policy — versioning, cadence, milestone ownership, highlights,
+and the release manager’s responsibilities — see the
+<a class="reference internal" href="release_policy.html#napari-release"><span class="std std-ref">release policy</span></a>.
 Most required tools mentioned here are in <a class="github reference external" href="https://github.com/napari/napari-release-tools">napari/napari-release-tools</a>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>The first step in managing a release is to create a new Issue in napari/napari with the <a class="reference external" href="https://github.com/napari/napari/tree/main/.github/ISSUE_TEMPLATE/release.md"><code class="docutils literal notranslate"><span class="pre">release</span></code> template</a>.</p>
 </div>
-<section id="effver-intended-effort-versioning">
-<h2>EffVer: (Intended) Effort Versioning<a class="headerlink" href="#effver-intended-effort-versioning" title="Link to this heading">#</a></h2>
-<p>As of 0.6.5, napari has officially adopted <a class="reference external" href="https://effver.org">EffVer</a> for versioning, from the previous semantic versioning.
-While in pre-1.0 state, the current convention is <code class="docutils literal notranslate"><span class="pre">0.MACRO.MESO</span></code> and once we release v1.0.0 will henceforth be in <code class="docutils literal notranslate"><span class="pre">MACRO.MESO.MICRO</span></code> versioning.
-This is similar to previous Semantic Versioning schema of <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR.BUGFIX</span></code>, but allows features and bugfixes to live harmoniously in any version.
-Instead, the version number implies to users the amount of effort required to adopt the newest version from significant effort (<code class="docutils literal notranslate"><span class="pre">MACRO</span></code>) to no expected effort (<code class="docutils literal notranslate"><span class="pre">MICRO</span></code>).
-Our current policy permits deprecations in <code class="docutils literal notranslate"><span class="pre">MACRO</span></code> and <code class="docutils literal notranslate"><span class="pre">MESO</span></code> releases only.</p>
-</section>
-<section id="timeline">
-<h2>Timeline<a class="headerlink" href="#timeline" title="Link to this heading">#</a></h2>
-<p>Currently, we are releasing a macro version every six to twelve months.
-We plan meso napari version releases every 1-2 months.
-We will ship bug fix releases as needed.</p>
-<p>Prior to macro and meso releases, we will have a release testing cycle with
-alpha prereleases and release candidates. All will be made available to the
-community for testing. The length of time between these prereleases will
-depend on the size of the release and feedback received. A conservative estimate
-is one week between each prerelease.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>While the latest prerelease (alpha or release candidate) can be installed with <code class="docutils literal notranslate"><span class="pre">--pre</span></code>,
-this results in <em>all</em> dependencies being installed as prereleases. This has
-resulted in other dependencies breaking napari, so instead we recommend promoting
-installation of prereleases by specifying the version explicitly, e.g.:</p>
-<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;napari[all]&gt;=0.6.2a0&quot;</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;napari[all]&gt;=0.6.2a0&quot;</span></code></p>
-</div>
-</section>
 <section id="release-management">
 <h2>Release management<a class="headerlink" href="#release-management" title="Link to this heading">#</a></h2>
 <p>The release will be coordinated by a release manager whose responsibilities include the following.</p>
@@ -824,6 +806,14 @@ You can trigger this by pushing the new tag to <code class="docutils literal not
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"napari[all]&gt;=X.Y.Zrc0"</span>
 </pre></div>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>While the latest prerelease (alpha or release candidate) can be installed with <code class="docutils literal notranslate"><span class="pre">--pre</span></code>,
+this results in <em>all</em> dependencies being installed as prereleases. This has
+resulted in other dependencies breaking napari, so instead we recommend promoting
+installation of prereleases by specifying the version explicitly, e.g.:</p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;napari[all]&gt;=0.9.1a0&quot;</span></code></p>
+</div>
 <p>It is recommended that the release candidate is tested in a virtual environment in order to isolate dependencies.</p>
 <p>If the release candidate is not what you want, make your changes and repeat the process from the beginning but
 incrementing the number after <code class="docutils literal notranslate"><span class="pre">rc</span></code> on tag (e.g. <code class="docutils literal notranslate"><span class="pre">vX.Y.Zrc2</span></code>).</p>
@@ -936,12 +926,12 @@ The release manager should coordinate with the maintainers to ensure that the bu
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="triage.html"
+       href="release_policy.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Triage</p>
+        <p class="prev-next-title">Release policy</p>
       </div>
     </a>
     <a class="right-next"
@@ -972,8 +962,6 @@ The release manager should coordinate with the maintainers to ensure that the bu
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#effver-intended-effort-versioning">EffVer: (Intended) Effort Versioning</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#timeline">Timeline</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#release-management">Release management</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-preparing-for-the-release">Step 1: Preparing for the release</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-generating-release-notes">Step 2: Generating release notes</a></li>

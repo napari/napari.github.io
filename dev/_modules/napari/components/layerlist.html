@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../_static/documentation_options.js?v=e4c38236"></script>
+    <script src="../../../_static/documentation_options.js?v=742bb542"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1289,6 +1289,15 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Converted scale.</span>
 <span class="sd">        """</span>
         <span class="n">clipped_target_units</span> <span class="o">=</span> <span class="n">to_units</span><span class="p">[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">from_units</span><span class="p">)</span> <span class="p">:]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">matching_units</span> <span class="o">=</span> <span class="n">from_units</span> <span class="o">==</span> <span class="n">clipped_target_units</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="c1"># Units from separate registries can still be converted.</span>
+            <span class="n">matching_units</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">matching_units</span><span class="p">:</span>
+            <span class="c1"># Copy, don't `return scale`: callers own the result, and `scale`</span>
+            <span class="c1"># may be a view of a layer's cached extent arrays.</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="p">(</span><span class="n">s</span> <span class="o">*</span> <span class="n">u</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">cu</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>

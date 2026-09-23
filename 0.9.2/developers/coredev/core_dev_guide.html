@@ -58,7 +58,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../_static/documentation_options.js?v=6743e49a"></script>
+    <script src="../../_static/documentation_options.js?v=c5a2a244"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -70,7 +70,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.21.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.2a1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.2rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -433,6 +433,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../contributing/ai.html">AI use policy and guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/dev_install.html">Setting up a development installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/testing.html">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/typing.html">Type checking</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../contributing/performance/index.html">Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../contributing/performance/profiling.html">Profiling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../contributing/performance/benchmarks.html">Benchmarks</a></li>
@@ -468,7 +469,10 @@
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Core team member guide</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="maintenance.html">Maintenance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="triage.html">Triage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release.html">Release guide</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="release_policy.html">Release policy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="release.html">Release guide</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="packaging.html">Packaging</a></li>
 </ul>
 </details></li>
@@ -718,6 +722,34 @@ of the code base, you are vouching for changes you merge. Please take
 that responsibility seriously.</p>
 </section>
 </section>
+<section id="release-responsibilities">
+<h2>Release responsibilities<a class="headerlink" href="#release-responsibilities" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">napari</span></code> ships on a monthly cadence; see the <a class="reference internal" href="release_policy.html#napari-release"><span class="std std-ref">release policy</span></a> for the
+full process. As a core team member, you are expected to:</p>
+<ul class="simple">
+<li><p><strong>Own the milestones you set.</strong> The person who adds a milestone to a pull
+request is responsible for driving it to a mergeable state, either by working
+with the PR author to review and approve, or by pushing changes themselves on
+their own PRs or if the original author is unresponsive or unable to continue
+working on the PR.</p></li>
+<li><p><strong>Communicate with the release manager.</strong> If you own open milestoned PRs you
+must regularly communicate their status to the release manager after the first
+alpha has been released, and work with them to get the PR merged.</p></li>
+<li><p><strong>Justify highlights.</strong> If you add the <code class="docutils literal notranslate"><span class="pre">highlight</span></code> label to a pull request,
+provide the motivation plus a draft highlight note and any required images or
+videos, so the release manager does not have to re-review already-merged PRs.</p></li>
+<li><p><strong>Respect the release timeline.</strong> Features and enhancements must be ready
+before the first release candidate; documentation, bug fixes, and maintenance
+may merge during the rc phase. A feature that misses a release ships a month
+later — it should not be a reason to delay a release.</p></li>
+<li><p><strong>Be aware of your PR’s dependencies.</strong> Sometimes your PR requires auxiliary
+changes in other repos, e.g. napari-plugin-manager, napari-metadata, etc.,
+before napari can be released. Make a conscious effort when close to release to
+identify such dependencies and communicate them on the PR, and explicitly to
+the release manager. Account for these in your estimates of how long it will
+take to get the PR/feature fully ready for release.</p></li>
+</ul>
+</section>
 <section id="documentation-and-website">
 <h2>Documentation and website<a class="headerlink" href="#documentation-and-website" title="Link to this heading">#</a></h2>
 <p>For details on how the documentation and website are built, see
@@ -740,7 +772,8 @@ that responsibility seriously.</p>
 <li><p>Our <a class="reference internal" href="../contributing/index.html#napari-contributing"><span class="std std-ref">contributor guide</span></a>.</p></li>
 <li><p>Our <a class="reference internal" href="../contributing/performance/benchmarks.html#napari-benchmarks"><span class="std std-ref">benchmarking guide</span></a>.</p></li>
 <li><p>Our <a class="reference internal" href="triage.html#napari-triage"><span class="std std-ref">triage guide</span></a>.</p></li>
-<li><p>Our <a class="reference internal" href="release.html"><span class="doc std std-doc">release guide</span></a>.</p></li>
+<li><p>Our <a class="reference internal" href="release_policy.html#napari-release"><span class="std std-ref">release policy</span></a>.</p></li>
+<li><p>Our <a class="reference internal" href="release.html#napari-release-guide"><span class="std std-ref">release guide</span></a> (release mechanics).</p></li>
 <li><p>Our <a class="reference internal" href="maintenance.html"><span class="doc std std-doc">maintenance guide</span></a>.</p></li>
 <li><p>Our <a class="reference internal" href="packaging.html#napari-packaging"><span class="std std-ref">packaging guide</span></a>.</p></li>
 </ul>
@@ -881,6 +914,7 @@ advance!</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-only-changes-you-understand">Merge only changes you understand</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#release-responsibilities">Release responsibilities</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-and-website">Documentation and website</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-resources">Further resources</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#community-guides">Community guides</a></li>

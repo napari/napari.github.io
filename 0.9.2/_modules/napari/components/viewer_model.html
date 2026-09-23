@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../_static/documentation_options.js?v=6743e49a"></script>
+    <script src="../../../_static/documentation_options.js?v=c5a2a244"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -417,7 +417,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.21.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.2a1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9.2rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -845,7 +845,6 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlparse</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">app_model.expressions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Context</span>
 
 <span class="c1"># This cannot be condition to TYPE_CHECKING or the stubgen fails</span>
 <span class="c1"># with undefined Context.</span>
@@ -1010,8 +1009,6 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        A tooltip showing extra information on the cursor</span>
 <span class="sd">    window : napari._qt.qt_main_window.Window</span>
 <span class="sd">        Parent window.</span>
-<span class="sd">    _ctx: Mapping</span>
-<span class="sd">        Viewer object context mapping.</span>
 <span class="sd">    _layer_slicer: napari.components._layer_slicer._Layer_Slicer</span>
 <span class="sd">        A layer slicer object controlling the creation of a slice</span>
 <span class="sd">    """</span>
@@ -1030,7 +1027,6 @@ window.runMermaid = runMermaid;</script>
     <span class="n">tooltip</span><span class="p">:</span> <span class="n">Tooltip</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Tooltip</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">_current_theme</span><span class="p">)</span>
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'napari'</span>
-    <span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">()</span>
     <span class="c1"># To check if mouse is over canvas to avoid race conditions between</span>
     <span class="c1"># different events systems</span>
     <span class="n">mouse_over_canvas</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1045,11 +1041,6 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'napari'</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(),</span> <span class="n">axis_labels</span><span class="o">=</span><span class="p">()</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># max_depth=0 means don't look for parent contexts.</span>
-
-        <span class="c1"># FIXME: just like the LayerList, this object should ideally be created</span>
-        <span class="c1"># elsewhere.  The app should know about the ViewerModel, but not vice versa.</span>
-        <span class="c1"># self._ctx = create_context(self, max_depth=0)</span>
         <span class="c1"># allow extra attributes during model initialization, useful for mixins</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model_config</span><span class="p">[</span><span class="s1">'extra'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'allow'</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>

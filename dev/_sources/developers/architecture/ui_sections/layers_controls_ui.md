@@ -562,6 +562,7 @@ graph LR
 	click napari._qt.layer_controls.widgets.qt_projection_mode_control "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_projection_mode_control.py" _blank
 	napari._qt.layer_controls.widgets.qt_text_visibility(napari._qt.layer_controls.widgets.qt_text_visibility)
 	napari._qt.layer_controls.widgets.qt_text_visibility --> napari._qt.layer_controls.widgets.qt_widget_controls_base
+	napari._qt.layer_controls.widgets.qt_text_visibility --> napari.layers
 	click napari._qt.layer_controls.widgets.qt_text_visibility "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_text_visibility.py" _blank
 	napari._qt.layer_controls.widgets.qt_widget_controls_base(napari._qt.layer_controls.widgets.qt_widget_controls_base)
 	click napari._qt.layer_controls.widgets.qt_widget_controls_base "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/qt_widget_controls_base.py" _blank

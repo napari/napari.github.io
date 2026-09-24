@@ -56,7 +56,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../_static/documentation_options.js?v=36b33467"></script>
+    <script src="../_static/documentation_options.js?v=a73a769b"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -823,8 +823,8 @@ ndisplay is 2 or 3.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.ViewerModel.enums_as_values" title="napari.components.ViewerModel.enums_as_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enums_as_values</span></code></a>([as_values])</p></td>
 <td><p>Temporarily override how enums are retrieved.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.ViewerModel.fit_to_view" title="napari.components.ViewerModel.fit_to_view"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_to_view</span></code></a>(*[, margin])</p></td>
-<td><p>Fit the current data view to the canvas.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.ViewerModel.fit_to_view" title="napari.components.ViewerModel.fit_to_view"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_to_view</span></code></a>(*[, layers, margin])</p></td>
+<td><p>Fit the layers content to the whole canvas.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_orm</span></code>(obj)</p></td>
 <td><p></p></td>
@@ -883,7 +883,7 @@ ndisplay is 2 or 3.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.ViewerModel.reset" title="napari.components.ViewerModel.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>()</p></td>
 <td><p>Reset the state of the model to default values.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.ViewerModel.reset_view" title="napari.components.ViewerModel.reset_view"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_view</span></code></a>(*[, margin, reset_camera_angle])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.components.ViewerModel.reset_view" title="napari.components.ViewerModel.reset_view"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_view</span></code></a>(*[, layers, margin, ...])</p></td>
 <td><p>Reset the camera and fit the current layers to the canvas.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">schema</span></code>([by_alias, ref_template])</p></td>
@@ -1751,14 +1751,19 @@ by default <cite>True</cite></p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.fit_to_view">
-<span class="sig-name descname"><span class="pre">fit_to_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/napari/components/viewer_model.html#ViewerModel.fit_to_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.ViewerModel.fit_to_view" title="Link to this definition">#</a></dt>
-<dd><p>Fit the current data view to the canvas.</p>
+<span class="sig-name descname"><span class="pre">fit_to_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">layers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.base.base.Layer"><span class="pre">Layer</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/napari/components/viewer_model.html#ViewerModel.fit_to_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.ViewerModel.fit_to_view" title="Link to this definition">#</a></dt>
+<dd><p>Fit the layers content to the whole canvas.</p>
 <p>Adjusts the camera zoom and centers the view so that all visible layers
-are within the canvas.</p>
+(or the given ones) are within the canvas.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>margin</strong> (<em>float in</em><em> [</em><em>0</em><em>, </em><em>1</em><em>)</em>) – Margin as fraction of the canvas, showing blank space around the
-data. Default is 0.05 (5% of the canvas).</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>layers</strong> (<em>sequence</em><em> of </em><a class="reference internal" href="napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.Layer"><em>Layer</em></a><em>, </em><em>optional</em>) – If given, only consider the extent of the given layers when
+fitting to the view. Otherwise, all layers in viewer.layers are
+used.</p></li>
+<li><p><strong>margin</strong> (<em>float in</em><em> [</em><em>0</em><em>, </em><em>1</em><em>)</em>) – Margin as fraction of the canvas, showing blank space around the
+data. Default is 0.05 (5% of the canvas).</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -2141,14 +2146,17 @@ not match the sample data loader.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.reset_view">
-<span class="sig-name descname"><span class="pre">reset_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset_camera_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/napari/components/viewer_model.html#ViewerModel.reset_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.ViewerModel.reset_view" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reset_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">layers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.base.base.Layer"><span class="pre">Layer</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset_camera_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/napari/components/viewer_model.html#ViewerModel.reset_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.ViewerModel.reset_view" title="Link to this definition">#</a></dt>
 <dd><p>Reset the camera and fit the current layers to the canvas.</p>
 <p>Resets the angles of the camera, adjust the camera zoom,
-and centers the view so that all layers are visible,
+and centers the view so that all layers (or the given ones) are visible,
 accounting for the current grid mode and margin.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>layers</strong> (<em>sequence</em><em> of </em><a class="reference internal" href="napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.Layer"><em>Layer</em></a><em>, </em><em>optional</em>) – If given, only consider the extent of the given layers when
+resetting the view. Otherwise, all layers in viewer.layers are
+used.</p></li>
 <li><p><strong>margin</strong> (<em>float in</em><em> [</em><em>0</em><em>, </em><em>1</em><em>)</em>) – Margin as fraction of the canvas, showing blank space around the
 data. Default is 0.05 (5% of the canvas).</p></li>
 <li><p><strong>reset_camera_angle</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to reset the camera angles to (0, 0, 0) before fitting

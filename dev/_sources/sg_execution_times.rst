@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**05:05.427** total execution time for 115 files **from all galleries**:
+**05:17.767** total execution time for 115 files **from all galleries**:
 
 .. container::
 
@@ -33,347 +33,347 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_surface_multi_texture.py` (``../../napari/examples/surface_multi_texture.py``)
-     - 00:26.190
+     - 00:27.494
      - 0.0
    * - :ref:`sphx_glr_gallery_3D_vectors_through_time.py` (``../../napari/examples/3D_vectors_through_time.py``)
-     - 00:19.073
+     - 00:24.641
      - 0.0
    * - :ref:`sphx_glr_gallery_cell_tracking.py` (``../../napari/examples/cell_tracking.py``)
-     - 00:13.627
+     - 00:14.526
      - 0.0
    * - :ref:`sphx_glr_gallery_layer_bounding_box.py` (``../../napari/examples/layer_bounding_box.py``)
-     - 00:11.984
+     - 00:12.130
      - 0.0
    * - :ref:`sphx_glr_gallery_glasbey-colormap.py` (``../../napari/examples/glasbey-colormap.py``)
-     - 00:09.179
+     - 00:09.373
      - 0.0
    * - :ref:`sphx_glr_gallery_heart_masks_points.py` (``../../napari/examples/heart_masks_points.py``)
-     - 00:06.431
-     - 0.0
-   * - :ref:`sphx_glr_gallery_add_multiscale_image.py` (``../../napari/examples/add_multiscale_image.py``)
-     - 00:04.365
-     - 0.0
-   * - :ref:`sphx_glr_gallery_nD_vectors.py` (``../../napari/examples/nD_vectors.py``)
-     - 00:04.341
-     - 0.0
-   * - :ref:`sphx_glr_gallery_colorbar_tiling.py` (``../../napari/examples/colorbar_tiling.py``)
-     - 00:04.332
-     - 0.0
-   * - :ref:`sphx_glr_gallery_labels3d.py` (``../../napari/examples/labels3d.py``)
-     - 00:04.234
+     - 00:08.948
      - 0.0
    * - :ref:`sphx_glr_gallery_latlon-data-with-map.py` (``../../napari/examples/latlon-data-with-map.py``)
-     - 00:04.212
+     - 00:05.798
+     - 0.0
+   * - :ref:`sphx_glr_gallery_colorbar_tiling.py` (``../../napari/examples/colorbar_tiling.py``)
+     - 00:04.422
+     - 0.0
+   * - :ref:`sphx_glr_gallery_add_multiscale_image.py` (``../../napari/examples/add_multiscale_image.py``)
+     - 00:04.388
+     - 0.0
+   * - :ref:`sphx_glr_gallery_labels3d.py` (``../../napari/examples/labels3d.py``)
+     - 00:04.333
+     - 0.0
+   * - :ref:`sphx_glr_gallery_nD_vectors.py` (``../../napari/examples/nD_vectors.py``)
+     - 00:04.205
      - 0.0
    * - :ref:`sphx_glr_gallery_screenshot_and_export_figure.py` (``../../napari/examples/screenshot_and_export_figure.py``)
-     - 00:04.196
-     - 0.0
-   * - :ref:`sphx_glr_gallery_vortex.py` (``../../napari/examples/vortex.py``)
-     - 00:04.100
-     - 0.0
-   * - :ref:`sphx_glr_gallery_bbox_annotator.py` (``../../napari/examples/bbox_annotator.py``)
-     - 00:04.086
+     - 00:04.153
      - 0.0
    * - :ref:`sphx_glr_gallery_nD_points.py` (``../../napari/examples/nD_points.py``)
-     - 00:04.057
+     - 00:04.152
      - 0.0
-   * - :ref:`sphx_glr_gallery_swap_dims.py` (``../../napari/examples/swap_dims.py``)
-     - 00:03.960
+   * - :ref:`sphx_glr_gallery_bbox_annotator.py` (``../../napari/examples/bbox_annotator.py``)
+     - 00:04.038
      - 0.0
    * - :ref:`sphx_glr_gallery_nD_image.py` (``../../napari/examples/nD_image.py``)
+     - 00:03.872
+     - 0.0
+   * - :ref:`sphx_glr_gallery_swap_dims.py` (``../../napari/examples/swap_dims.py``)
+     - 00:03.796
+     - 0.0
+   * - :ref:`sphx_glr_gallery_vortex.py` (``../../napari/examples/vortex.py``)
      - 00:03.784
      - 0.0
    * - :ref:`sphx_glr_gallery_stereo_viewer_widget.py` (``../../napari/examples/stereo_viewer_widget.py``)
-     - 00:03.735
+     - 00:03.736
      - 0.0
    * - :ref:`sphx_glr_gallery_multiple_viewer_widget.py` (``../../napari/examples/multiple_viewer_widget.py``)
-     - 00:03.689
+     - 00:03.683
      - 0.0
    * - :ref:`sphx_glr_gallery_export_rois.py` (``../../napari/examples/export_rois.py``)
-     - 00:03.395
-     - 0.0
-   * - :ref:`sphx_glr_gallery_to_screenshot.py` (``../../napari/examples/to_screenshot.py``)
-     - 00:03.242
-     - 0.0
-   * - :ref:`sphx_glr_gallery_nD_multiscale_image.py` (``../../napari/examples/nD_multiscale_image.py``)
-     - 00:03.089
+     - 00:03.482
      - 0.0
    * - :ref:`sphx_glr_gallery_xarray-latlon-timeseries.py` (``../../napari/examples/xarray-latlon-timeseries.py``)
-     - 00:03.061
+     - 00:03.269
      - 0.0
-   * - :ref:`sphx_glr_gallery_nD_shapes.py` (``../../napari/examples/nD_shapes.py``)
-     - 00:03.059
-     - 0.0
-   * - :ref:`sphx_glr_gallery_surface_timeseries.py` (``../../napari/examples/surface_timeseries.py``)
-     - 00:03.015
+   * - :ref:`sphx_glr_gallery_to_screenshot.py` (``../../napari/examples/to_screenshot.py``)
+     - 00:03.189
      - 0.0
    * - :ref:`sphx_glr_gallery_surface_texture_and_colors.py` (``../../napari/examples/surface_texture_and_colors.py``)
-     - 00:02.916
+     - 00:03.141
+     - 0.0
+   * - :ref:`sphx_glr_gallery_nD_multiscale_image.py` (``../../napari/examples/nD_multiscale_image.py``)
+     - 00:03.092
+     - 0.0
+   * - :ref:`sphx_glr_gallery_nD_shapes.py` (``../../napari/examples/nD_shapes.py``)
+     - 00:03.040
+     - 0.0
+   * - :ref:`sphx_glr_gallery_surface_timeseries.py` (``../../napari/examples/surface_timeseries.py``)
+     - 00:02.984
      - 0.0
    * - :ref:`sphx_glr_gallery_3D_image_plane_rendering.py` (``../../napari/examples/3D_image_plane_rendering.py``)
-     - 00:02.913
+     - 00:02.854
      - 0.0
    * - :ref:`sphx_glr_gallery_add_points_on_nD_shapes.py` (``../../napari/examples/add_points_on_nD_shapes.py``)
-     - 00:02.902
+     - 00:02.834
      - 0.0
    * - :ref:`sphx_glr_gallery_nD_shapes_with_text.py` (``../../napari/examples/nD_shapes_with_text.py``)
-     - 00:02.773
+     - 00:02.743
      - 0.0
    * - :ref:`sphx_glr_gallery_nD_multiscale_image_non_uniform.py` (``../../napari/examples/nD_multiscale_image_non_uniform.py``)
-     - 00:02.721
+     - 00:02.694
      - 0.0
    * - :ref:`sphx_glr_gallery_tracks_3d.py` (``../../napari/examples/tracks_3d.py``)
-     - 00:02.718
-     - 0.0
-   * - :ref:`sphx_glr_gallery_tracks_3d_with_graph.py` (``../../napari/examples/tracks_3d_with_graph.py``)
-     - 00:02.606
-     - 0.0
-   * - :ref:`sphx_glr_gallery_add_labels_with_features.py` (``../../napari/examples/add_labels_with_features.py``)
-     - 00:02.568
+     - 00:02.657
      - 0.0
    * - :ref:`sphx_glr_gallery_export_figure.py` (``../../napari/examples/export_figure.py``)
-     - 00:02.566
+     - 00:02.602
      - 0.0
-   * - :ref:`sphx_glr_gallery_fourier_transform_playground.py` (``../../napari/examples/fourier_transform_playground.py``)
-     - 00:02.533
-     - 0.0
-   * - :ref:`sphx_glr_gallery_nD_labels.py` (``../../napari/examples/nD_labels.py``)
-     - 00:02.509
+   * - :ref:`sphx_glr_gallery_tracks_3d_with_graph.py` (``../../napari/examples/tracks_3d_with_graph.py``)
+     - 00:02.592
      - 0.0
    * - :ref:`sphx_glr_gallery_paint-nd.py` (``../../napari/examples/paint-nd.py``)
-     - 00:02.488
+     - 00:02.557
      - 0.0
-   * - :ref:`sphx_glr_gallery_theme_sample.py` (``../../napari/examples/theme_sample.py``)
-     - 00:02.465
-     - 0.0
-   * - :ref:`sphx_glr_gallery_tracks_2d.py` (``../../napari/examples/tracks_2d.py``)
-     - 00:02.462
+   * - :ref:`sphx_glr_gallery_fourier_transform_playground.py` (``../../napari/examples/fourier_transform_playground.py``)
+     - 00:02.549
      - 0.0
    * - :ref:`sphx_glr_gallery_dask_nD_image.py` (``../../napari/examples/dask_nD_image.py``)
-     - 00:02.434
+     - 00:02.518
+     - 0.0
+   * - :ref:`sphx_glr_gallery_nD_labels.py` (``../../napari/examples/nD_labels.py``)
+     - 00:02.514
+     - 0.0
+   * - :ref:`sphx_glr_gallery_add_labels_with_features.py` (``../../napari/examples/add_labels_with_features.py``)
+     - 00:02.474
+     - 0.0
+   * - :ref:`sphx_glr_gallery_theme_sample.py` (``../../napari/examples/theme_sample.py``)
+     - 00:02.441
      - 0.0
    * - :ref:`sphx_glr_gallery_nD_points_with_features.py` (``../../napari/examples/nD_points_with_features.py``)
-     - 00:02.419
+     - 00:02.425
      - 0.0
    * - :ref:`sphx_glr_gallery_surface_normals_wireframe.py` (``../../napari/examples/surface_normals_wireframe.py``)
-     - 00:02.419
+     - 00:02.425
      - 0.0
    * - :ref:`sphx_glr_gallery_update_console.py` (``../../napari/examples/update_console.py``)
-     - 00:02.407
+     - 00:02.412
      - 0.0
-   * - :ref:`sphx_glr_gallery_viewer_fps_label.py` (``../../napari/examples/viewer_fps_label.py``)
-     - 00:02.362
+   * - :ref:`sphx_glr_gallery_tracks_2d.py` (``../../napari/examples/tracks_2d.py``)
+     - 00:02.404
      - 0.0
    * - :ref:`sphx_glr_gallery_nD_vectors_image.py` (``../../napari/examples/nD_vectors_image.py``)
-     - 00:02.344
+     - 00:02.373
      - 0.0
-   * - :ref:`sphx_glr_gallery_magic_parameter_sweep.py` (``../../napari/examples/magic_parameter_sweep.py``)
-     - 00:02.286
-     - 0.0
-   * - :ref:`sphx_glr_gallery_magic_image_arithmetic.py` (``../../napari/examples/magic_image_arithmetic.py``)
-     - 00:02.256
+   * - :ref:`sphx_glr_gallery_viewer_fps_label.py` (``../../napari/examples/viewer_fps_label.py``)
+     - 00:02.356
      - 0.0
    * - :ref:`sphx_glr_gallery_image_points_3d.py` (``../../napari/examples/image_points_3d.py``)
-     - 00:02.224
+     - 00:02.281
+     - 0.0
+   * - :ref:`sphx_glr_gallery_magic_parameter_sweep.py` (``../../napari/examples/magic_parameter_sweep.py``)
+     - 00:02.268
+     - 0.0
+   * - :ref:`sphx_glr_gallery_magic_image_arithmetic.py` (``../../napari/examples/magic_image_arithmetic.py``)
+     - 00:02.227
      - 0.0
    * - :ref:`sphx_glr_gallery_connect_points_with_vectors.py` (``../../napari/examples/connect_points_with_vectors.py``)
-     - 00:02.212
+     - 00:02.215
      - 0.0
    * - :ref:`sphx_glr_gallery_without_gui_qt.py` (``../../napari/examples/without_gui_qt.py``)
-     - 00:02.180
+     - 00:02.182
      - 0.0
    * - :ref:`sphx_glr_gallery_nD_surface.py` (``../../napari/examples/nD_surface.py``)
-     - 00:02.135
-     - 0.0
-   * - :ref:`sphx_glr_gallery_scale_bar.py` (``../../napari/examples/scale_bar.py``)
-     - 00:01.985
+     - 00:02.147
      - 0.0
    * - :ref:`sphx_glr_gallery_units_impact_rendering.py` (``../../napari/examples/units_impact_rendering.py``)
-     - 00:01.983
+     - 00:02.011
      - 0.0
    * - :ref:`sphx_glr_gallery_magic_viewer.py` (``../../napari/examples/magic_viewer.py``)
-     - 00:01.975
+     - 00:01.979
      - 0.0
-   * - :ref:`sphx_glr_gallery_add_points_3d.py` (``../../napari/examples/add_points_3d.py``)
-     - 00:01.966
+   * - :ref:`sphx_glr_gallery_scale_bar.py` (``../../napari/examples/scale_bar.py``)
+     - 00:01.971
      - 0.0
    * - :ref:`sphx_glr_gallery_points-over-time.py` (``../../napari/examples/points-over-time.py``)
-     - 00:01.951
+     - 00:01.969
      - 0.0
-   * - :ref:`sphx_glr_gallery_dynamic-projections-dask.py` (``../../napari/examples/dynamic-projections-dask.py``)
-     - 00:01.866
-     - 0.0
-   * - :ref:`sphx_glr_gallery_imshow.py` (``../../napari/examples/imshow.py``)
-     - 00:01.860
-     - 0.0
-   * - :ref:`sphx_glr_gallery_new_theme.py` (``../../napari/examples/new_theme.py``)
-     - 00:01.858
-     - 0.0
-   * - :ref:`sphx_glr_gallery_affine_coffee_cup.py` (``../../napari/examples/affine_coffee_cup.py``)
-     - 00:01.842
+   * - :ref:`sphx_glr_gallery_add_points_3d.py` (``../../napari/examples/add_points_3d.py``)
+     - 00:01.915
      - 0.0
    * - :ref:`sphx_glr_gallery_3D_paths.py` (``../../napari/examples/3D_paths.py``)
-     - 00:01.841
+     - 00:01.903
+     - 0.0
+   * - :ref:`sphx_glr_gallery_dynamic-projections-dask.py` (``../../napari/examples/dynamic-projections-dask.py``)
+     - 00:01.857
+     - 0.0
+   * - :ref:`sphx_glr_gallery_new_theme.py` (``../../napari/examples/new_theme.py``)
+     - 00:01.820
+     - 0.0
+   * - :ref:`sphx_glr_gallery_imshow.py` (``../../napari/examples/imshow.py``)
+     - 00:01.802
      - 0.0
    * - :ref:`sphx_glr_gallery_grid_mode.py` (``../../napari/examples/grid_mode.py``)
-     - 00:01.722
+     - 00:01.799
      - 0.0
-   * - :ref:`sphx_glr_gallery_layer_text_scaling.py` (``../../napari/examples/layer_text_scaling.py``)
-     - 00:01.712
+   * - :ref:`sphx_glr_gallery_affine_coffee_cup.py` (``../../napari/examples/affine_coffee_cup.py``)
+     - 00:01.799
      - 0.0
    * - :ref:`sphx_glr_gallery_layers.py` (``../../napari/examples/layers.py``)
-     - 00:01.683
+     - 00:01.705
+     - 0.0
+   * - :ref:`sphx_glr_gallery_layer_text_scaling.py` (``../../napari/examples/layer_text_scaling.py``)
+     - 00:01.701
      - 0.0
    * - :ref:`sphx_glr_gallery_image_depth.py` (``../../napari/examples/image_depth.py``)
-     - 00:01.635
+     - 00:01.675
      - 0.0
    * - :ref:`sphx_glr_gallery_features_table_widget.py` (``../../napari/examples/features_table_widget.py``)
-     - 00:01.561
-     - 0.0
-   * - :ref:`sphx_glr_gallery_cursor_ray.py` (``../../napari/examples/cursor_ray.py``)
-     - 00:01.560
+     - 00:01.585
      - 0.0
    * - :ref:`sphx_glr_gallery_shapes_to_labels.py` (``../../napari/examples/shapes_to_labels.py``)
-     - 00:01.557
+     - 00:01.584
      - 0.0
    * - :ref:`sphx_glr_gallery_image_border.py` (``../../napari/examples/image_border.py``)
-     - 00:01.516
+     - 00:01.556
+     - 0.0
+   * - :ref:`sphx_glr_gallery_cursor_ray.py` (``../../napari/examples/cursor_ray.py``)
+     - 00:01.555
      - 0.0
    * - :ref:`sphx_glr_gallery_add_points.py` (``../../napari/examples/add_points.py``)
-     - 00:01.475
+     - 00:01.470
      - 0.0
    * - :ref:`sphx_glr_gallery_image_custom_kernel.py` (``../../napari/examples/image_custom_kernel.py``)
-     - 00:01.423
+     - 00:01.439
      - 0.0
    * - :ref:`sphx_glr_gallery_concentric-spheres.py` (``../../napari/examples/concentric-spheres.py``)
-     - 00:01.406
+     - 00:01.390
      - 0.0
    * - :ref:`sphx_glr_gallery_mixed-dimensions-labels.py` (``../../napari/examples/mixed-dimensions-labels.py``)
-     - 00:01.386
+     - 00:01.369
      - 0.0
    * - :ref:`sphx_glr_gallery_cursor_position.py` (``../../napari/examples/cursor_position.py``)
-     - 00:01.345
+     - 00:01.363
      - 0.0
    * - :ref:`sphx_glr_gallery_affine_transforms.py` (``../../napari/examples/affine_transforms.py``)
-     - 00:01.345
-     - 0.0
-   * - :ref:`sphx_glr_gallery_anisotropic_scale.py` (``../../napari/examples/anisotropic_scale.py``)
-     - 00:01.313
+     - 00:01.341
      - 0.0
    * - :ref:`sphx_glr_gallery_labels-2d.py` (``../../napari/examples/labels-2d.py``)
-     - 00:01.305
+     - 00:01.319
      - 0.0
-   * - :ref:`sphx_glr_gallery_annotate_segmentation_with_text.py` (``../../napari/examples/annotate_segmentation_with_text.py``)
-     - 00:01.289
+   * - :ref:`sphx_glr_gallery_anisotropic_scale.py` (``../../napari/examples/anisotropic_scale.py``)
+     - 00:01.314
      - 0.0
    * - :ref:`sphx_glr_gallery_add_multiscale_volume.py` (``../../napari/examples/add_multiscale_volume.py``)
-     - 00:01.287
+     - 00:01.303
      - 0.0
-   * - :ref:`sphx_glr_gallery_add_points_with_multicolor_text.py` (``../../napari/examples/add_points_with_multicolor_text.py``)
-     - 00:01.267
+   * - :ref:`sphx_glr_gallery_annotate_segmentation_with_text.py` (``../../napari/examples/annotate_segmentation_with_text.py``)
+     - 00:01.273
      - 0.0
    * - :ref:`sphx_glr_gallery_interactive_move_rectangle_3d.py` (``../../napari/examples/interactive_move_rectangle_3d.py``)
-     - 00:01.264
-     - 0.0
-   * - :ref:`sphx_glr_gallery_set_colormaps.py` (``../../napari/examples/set_colormaps.py``)
-     - 00:01.240
-     - 0.0
-   * - :ref:`sphx_glr_gallery_add_shapes.py` (``../../napari/examples/add_shapes.py``)
-     - 00:01.235
-     - 0.0
-   * - :ref:`sphx_glr_gallery_spherical_points.py` (``../../napari/examples/spherical_points.py``)
-     - 00:01.224
-     - 0.0
-   * - :ref:`sphx_glr_gallery_pass_colormaps.py` (``../../napari/examples/pass_colormaps.py``)
-     - 00:01.223
+     - 00:01.267
      - 0.0
    * - :ref:`sphx_glr_gallery_mouse_drag_image_warping.py` (``../../napari/examples/mouse_drag_image_warping.py``)
-     - 00:01.190
+     - 00:01.263
      - 0.0
-   * - :ref:`sphx_glr_gallery_minimum_blending.py` (``../../napari/examples/minimum_blending.py``)
-     - 00:01.149
+   * - :ref:`sphx_glr_gallery_add_points_with_multicolor_text.py` (``../../napari/examples/add_points_with_multicolor_text.py``)
+     - 00:01.260
      - 0.0
-   * - :ref:`sphx_glr_gallery_mouse_drag_callback.py` (``../../napari/examples/mouse_drag_callback.py``)
-     - 00:01.147
+   * - :ref:`sphx_glr_gallery_set_colormaps.py` (``../../napari/examples/set_colormaps.py``)
+     - 00:01.239
      - 0.0
-   * - :ref:`sphx_glr_gallery_add_shapes_with_text.py` (``../../napari/examples/add_shapes_with_text.py``)
-     - 00:01.141
+   * - :ref:`sphx_glr_gallery_add_shapes.py` (``../../napari/examples/add_shapes.py``)
+     - 00:01.236
+     - 0.0
+   * - :ref:`sphx_glr_gallery_pass_colormaps.py` (``../../napari/examples/pass_colormaps.py``)
+     - 00:01.217
+     - 0.0
+   * - :ref:`sphx_glr_gallery_spherical_points.py` (``../../napari/examples/spherical_points.py``)
+     - 00:01.208
      - 0.0
    * - :ref:`sphx_glr_gallery_interaction_box_image.py` (``../../napari/examples/interaction_box_image.py``)
-     - 00:01.136
+     - 00:01.184
+     - 0.0
+   * - :ref:`sphx_glr_gallery_mouse_drag_callback.py` (``../../napari/examples/mouse_drag_callback.py``)
+     - 00:01.155
+     - 0.0
+   * - :ref:`sphx_glr_gallery_add_shapes_with_text.py` (``../../napari/examples/add_shapes_with_text.py``)
+     - 00:01.135
+     - 0.0
+   * - :ref:`sphx_glr_gallery_minimum_blending.py` (``../../napari/examples/minimum_blending.py``)
+     - 00:01.125
      - 0.0
    * - :ref:`sphx_glr_gallery_drag_and_drop_python_code.py` (``../../napari/examples/drag_and_drop_python_code.py``)
-     - 00:01.132
-     - 0.0
-   * - :ref:`sphx_glr_gallery_linked_layers.py` (``../../napari/examples/linked_layers.py``)
-     - 00:01.115
+     - 00:01.123
      - 0.0
    * - :ref:`sphx_glr_gallery_set_theme.py` (``../../napari/examples/set_theme.py``)
-     - 00:01.075
+     - 00:01.097
      - 0.0
-   * - :ref:`sphx_glr_gallery_show_points_based_on_feature.py` (``../../napari/examples/show_points_based_on_feature.py``)
-     - 00:01.070
-     - 0.0
-   * - :ref:`sphx_glr_gallery_add_points_with_text.py` (``../../napari/examples/add_points_with_text.py``)
-     - 00:01.064
-     - 0.0
-   * - :ref:`sphx_glr_gallery_annotate-2d.py` (``../../napari/examples/annotate-2d.py``)
-     - 00:01.041
-     - 0.0
-   * - :ref:`sphx_glr_gallery_add_3D_image.py` (``../../napari/examples/add_3D_image.py``)
-     - 00:01.027
-     - 0.0
-   * - :ref:`sphx_glr_gallery_add_shapes_with_features.py` (``../../napari/examples/add_shapes_with_features.py``)
-     - 00:01.020
-     - 0.0
-   * - :ref:`sphx_glr_gallery_point_cloud.py` (``../../napari/examples/point_cloud.py``)
-     - 00:01.018
+   * - :ref:`sphx_glr_gallery_linked_layers.py` (``../../napari/examples/linked_layers.py``)
+     - 00:01.096
      - 0.0
    * - :ref:`sphx_glr_gallery_boids_simulation.py` (``../../napari/examples/boids_simulation.py``)
-     - 00:01.016
+     - 00:01.078
+     - 0.0
+   * - :ref:`sphx_glr_gallery_show_points_based_on_feature.py` (``../../napari/examples/show_points_based_on_feature.py``)
+     - 00:01.056
+     - 0.0
+   * - :ref:`sphx_glr_gallery_annotate-2d.py` (``../../napari/examples/annotate-2d.py``)
+     - 00:01.043
+     - 0.0
+   * - :ref:`sphx_glr_gallery_add_shapes_with_features.py` (``../../napari/examples/add_shapes_with_features.py``)
+     - 00:01.039
+     - 0.0
+   * - :ref:`sphx_glr_gallery_point_cloud.py` (``../../napari/examples/point_cloud.py``)
+     - 00:01.037
+     - 0.0
+   * - :ref:`sphx_glr_gallery_add_3D_image.py` (``../../napari/examples/add_3D_image.py``)
+     - 00:01.031
+     - 0.0
+   * - :ref:`sphx_glr_gallery_add_points_with_text.py` (``../../napari/examples/add_points_with_text.py``)
+     - 00:01.011
      - 0.0
    * - :ref:`sphx_glr_gallery_add_points_with_features.py` (``../../napari/examples/add_points_with_features.py``)
-     - 00:01.013
-     - 0.0
-   * - :ref:`sphx_glr_gallery_add_labels.py` (``../../napari/examples/add_labels.py``)
-     - 00:00.956
+     - 00:01.009
      - 0.0
    * - :ref:`sphx_glr_gallery_add_vectors.py` (``../../napari/examples/add_vectors.py``)
-     - 00:00.936
+     - 00:00.942
      - 0.0
    * - :ref:`sphx_glr_gallery_interactive_scripting.py` (``../../napari/examples/interactive_scripting.py``)
-     - 00:00.894
+     - 00:00.930
+     - 0.0
+   * - :ref:`sphx_glr_gallery_add_labels.py` (``../../napari/examples/add_labels.py``)
+     - 00:00.895
      - 0.0
    * - :ref:`sphx_glr_gallery_add_vectors_color_by_angle.py` (``../../napari/examples/add_vectors_color_by_angle.py``)
      - 00:00.881
      - 0.0
-   * - :ref:`sphx_glr_gallery_add_vectors_image.py` (``../../napari/examples/add_vectors_image.py``)
-     - 00:00.851
-     - 0.0
-   * - :ref:`sphx_glr_gallery_custom_key_bindings.py` (``../../napari/examples/custom_key_bindings.py``)
-     - 00:00.849
-     - 0.0
-   * - :ref:`sphx_glr_gallery_action_manager.py` (``../../napari/examples/action_manager.py``)
-     - 00:00.843
+   * - :ref:`sphx_glr_gallery_get_current_viewer.py` (``../../napari/examples/get_current_viewer.py``)
+     - 00:00.854
      - 0.0
    * - :ref:`sphx_glr_gallery_add_surface_2D.py` (``../../napari/examples/add_surface_2D.py``)
-     - 00:00.821
+     - 00:00.840
+     - 0.0
+   * - :ref:`sphx_glr_gallery_add_vectors_image.py` (``../../napari/examples/add_vectors_image.py``)
+     - 00:00.835
      - 0.0
    * - :ref:`sphx_glr_gallery_custom_mouse_functions.py` (``../../napari/examples/custom_mouse_functions.py``)
-     - 00:00.820
+     - 00:00.831
      - 0.0
-   * - :ref:`sphx_glr_gallery_get_current_viewer.py` (``../../napari/examples/get_current_viewer.py``)
-     - 00:00.818
+   * - :ref:`sphx_glr_gallery_action_manager.py` (``../../napari/examples/action_manager.py``)
+     - 00:00.830
      - 0.0
-   * - :ref:`sphx_glr_gallery_add_image.py` (``../../napari/examples/add_image.py``)
-     - 00:00.782
+   * - :ref:`sphx_glr_gallery_custom_key_bindings.py` (``../../napari/examples/custom_key_bindings.py``)
+     - 00:00.800
      - 0.0
    * - :ref:`sphx_glr_gallery_add_grayscale_image.py` (``../../napari/examples/add_grayscale_image.py``)
-     - 00:00.775
+     - 00:00.779
+     - 0.0
+   * - :ref:`sphx_glr_gallery_add_image.py` (``../../napari/examples/add_image.py``)
+     - 00:00.777
      - 0.0
    * - :ref:`sphx_glr_gallery_add_image_transformed.py` (``../../napari/examples/add_image_transformed.py``)
-     - 00:00.756
+     - 00:00.755
      - 0.0
    * - :ref:`sphx_glr_gallery_inherit_viewer_style.py` (``../../napari/examples/inherit_viewer_style.py``)
-     - 00:00.734
+     - 00:00.730
      - 0.0

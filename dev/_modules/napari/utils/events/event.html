@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../../_static/documentation_options.js?v=0337fc3b"></script>
+    <script src="../../../../_static/documentation_options.js?v=f9781dbb"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1711,9 +1711,9 @@ window.runMermaid = runMermaid;</script>
 
 
 
-<div class="viewcode-block" id="RenamedEmitter">
-<a class="viewcode-back" href="../../../../api/napari.utils.events.RenamedEmitter.html#napari.utils.events.RenamedEmitter">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">RenamedEmitter</span><span class="p">(</span><span class="n">WarningEmitter</span><span class="p">):</span>
+<div class="viewcode-block" id="RenamedWarningEmitter">
+<a class="viewcode-back" href="../../../../api/napari.utils.events.RenamedWarningEmitter.html#napari.utils.events.RenamedWarningEmitter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RenamedWarningEmitter</span><span class="p">(</span><span class="n">WarningEmitter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Warning emitter to be used when an attribute was renamed or moved to a composition object.</span>
 <span class="sd">    It will connect to the new event once the callback is connected to the old one.</span>
@@ -1741,8 +1741,8 @@ window.runMermaid = runMermaid;</script>
         <span class="n">new_emitter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">new_emitter</span>
 
-<div class="viewcode-block" id="RenamedEmitter.connect">
-<a class="viewcode-back" href="../../../../api/napari.utils.events.RenamedEmitter.html#napari.utils.events.RenamedEmitter.connect">[docs]</a>
+<div class="viewcode-block" id="RenamedWarningEmitter.connect">
+<a class="viewcode-back" href="../../../../api/napari.utils.events.RenamedWarningEmitter.html#napari.utils.events.RenamedWarningEmitter.connect">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connected</span><span class="p">:</span>
             <span class="n">new_emitter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_new_emitter</span><span class="p">()</span>
@@ -1751,8 +1751,8 @@ window.runMermaid = runMermaid;</script>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="RenamedEmitter.disconnect">
-<a class="viewcode-back" href="../../../../api/napari.utils.events.RenamedEmitter.html#napari.utils.events.RenamedEmitter.disconnect">[docs]</a>
+<div class="viewcode-block" id="RenamedWarningEmitter.disconnect">
+<a class="viewcode-back" href="../../../../api/napari.utils.events.RenamedWarningEmitter.html#napari.utils.events.RenamedWarningEmitter.disconnect">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callback</span> <span class="o">|</span> <span class="n">CallbackRef</span> <span class="o">|</span> <span class="nb">object</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">):</span>

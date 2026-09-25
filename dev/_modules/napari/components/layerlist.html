@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../../_static/documentation_options.js?v=0337fc3b"></script>
+    <script src="../../../_static/documentation_options.js?v=f9781dbb"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1011,6 +1011,10 @@ window.runMermaid = runMermaid;</script>
         <span class="n">item</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">)</span>
         <span class="n">item</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_extent_augmented</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">)</span>
         <span class="n">item</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">locked</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_refresh_selection_ctx_keys</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="s1">'locked_data_level'</span><span class="p">):</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">locked_data_level</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_selection_ctx_keys</span>
+            <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unlink_layers</span><span class="p">([</span><span class="n">item</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">()</span>
 
@@ -1096,6 +1100,10 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">_trigger_check_ndim_and_maybe_clean_units</span>
         <span class="p">)</span>
         <span class="n">new_layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">locked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_refresh_selection_ctx_keys</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">new_layer</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="s1">'locked_data_level'</span><span class="p">):</span>
+            <span class="n">new_layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">locked_data_level</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_selection_ctx_keys</span>
+            <span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">new_layer</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_ndim_and_maybe_clean_units</span><span class="p">(</span><span class="n">new_layer</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span></div>
 

@@ -24,7 +24,7 @@
       EventedModel
       EventedSet
       NestableEventedList
-      RenamedEmitter
+      RenamedWarningEmitter
       SelectableEventedList
       Selection
       SupportsEvents

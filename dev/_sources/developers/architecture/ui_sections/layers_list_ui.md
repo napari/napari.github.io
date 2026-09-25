@@ -181,51 +181,51 @@ graph LR
 ### Source code directory layout (related to modules inside `napari`)
 ```
 napari/
-├─layers/
-│ ├─vectors/
-│ │ └─__init__.py
-│ ├─image/
-│ │ └─__init__.py
-│ ├─__init__.py
-│ ├─points/
-│ │ └─__init__.py
-│ ├─utils/
-│ │ ├─__init__.py
-│ │ ├─layer_utils.py
-│ │ └─_link_layers.py
-│ ├─surface/
-│ │ └─__init__.py
-│ ├─base/
-│ │ └─__init__.py
-│ ├─labels/
-│ │ └─__init__.py
-│ ├─shapes/
-│ │ └─__init__.py
-│ └─tracks/
-│   └─__init__.py
 ├─_qt/
-│ ├─qt_main_window.py
-│ ├─qt_resources/
+│ ├─_qapp_model/
+│ │ ├─qactions/
+│ │ │ ├─_layerlist_context.py
+│ │ │ └─__init__.py
+│ │ ├─_menus.py
+│ │ ├─injection/
+│ │ │ ├─_qproviders.py
+│ │ │ └─_qprocessors.py
 │ │ └─__init__.py
 │ ├─qt_viewer.py
 │ ├─containers/
+│ │ ├─qt_layer_list.py
+│ │ ├─qt_layer_model.py
 │ │ ├─qt_list_model.py
-│ │ ├─_factory.py
 │ │ ├─_base_item_model.py
 │ │ ├─_base_item_view.py
-│ │ ├─qt_layer_model.py
-│ │ ├─qt_layer_list.py
+│ │ ├─_factory.py
 │ │ ├─qt_list_view.py
 │ │ └─_layer_delegate.py
-│ └─_qapp_model/
-│   ├─__init__.py
-│   ├─qactions/
-│   │ ├─__init__.py
-│   │ └─_layerlist_context.py
-│   ├─_menus.py
-│   └─injection/
-│     ├─_qproviders.py
-│     └─_qprocessors.py
-└─components/
-  └─layerlist.py
+│ ├─qt_resources/
+│ │ └─__init__.py
+│ └─qt_main_window.py
+├─components/
+│ └─layerlist.py
+└─layers/
+  ├─base/
+  │ └─__init__.py
+  ├─surface/
+  │ └─__init__.py
+  ├─tracks/
+  │ └─__init__.py
+  ├─labels/
+  │ └─__init__.py
+  ├─utils/
+  │ ├─_link_layers.py
+  │ ├─layer_utils.py
+  │ └─__init__.py
+  ├─image/
+  │ └─__init__.py
+  ├─points/
+  │ └─__init__.py
+  ├─shapes/
+  │ └─__init__.py
+  ├─__init__.py
+  └─vectors/
+    └─__init__.py
 ```

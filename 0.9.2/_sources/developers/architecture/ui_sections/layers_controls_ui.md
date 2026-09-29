@@ -316,6 +316,7 @@ graph LR
 	napari._qt.layer_controls.qt_layer_controls_container --> napari._qt.layer_controls.dynamic.qt_dynamic_layer_controls
 	napari._qt.layer_controls.qt_layer_controls_container --> napari._qt.layer_controls.qt_image_controls
 	napari._qt.layer_controls.qt_layer_controls_container --> napari._qt.layer_controls.qt_labels_controls
+	napari._qt.layer_controls.qt_layer_controls_container --> napari._qt.layer_controls.qt_layer_controls_base
 	napari._qt.layer_controls.qt_layer_controls_container --> napari._qt.layer_controls.qt_points_controls
 	napari._qt.layer_controls.qt_layer_controls_container --> napari._qt.layer_controls.qt_shapes_controls
 	napari._qt.layer_controls.qt_layer_controls_container --> napari._qt.layer_controls.qt_surface_controls
